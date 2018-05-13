@@ -1,0 +1,6 @@
+book_filename: "RESL"
+chapter_name: "Chapter "
+repo: https://github.com/teazrq/RESL
+output_dir: docs
+clean: [packages.bib, bookdown.bbl]
+new_session: yes

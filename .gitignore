@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+_*/*.*
+_*/*.*
+**/rsconnect/
+.DS_Store
+**/*.min.map
+revdep
