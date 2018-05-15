@@ -7,9 +7,9 @@ bookdown::gitbook:
       before: |
         <li><a href="./">Statistical Learning with R</a></li>
       after: |
-        <li><a href="https://github.com/teazrq/slwr" target="blank">&copy; 2018 Ruoqing Zhu</a></li>
+        <li><a href="https://github.com/teazrq/SLWR" target="blank">&copy; 2018 Ruoqing Zhu</a></li>
     download: [pdf]
-    edit: https://github.com/teazrq/slwr/edit/master/%s
+    edit: https://github.com/teazrq/SLWR/edit/master/%s
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex

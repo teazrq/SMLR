@@ -1,4 +1,4 @@
-Package: r4sl
+Package: SLWR
 Title: R for Statistical Learning
 Version: 0.0.1
 Authors@R: c(person("Ruoqing", "Zhu" , "rqzhu@illinois.edu", c("aut", "cre")))
