@@ -26,7 +26,7 @@ We will briefly cover some basic R calculations and operations.
 Try type-in the following commands into your R console and start to explore yourself. Most of them are self-explanatory. Lines with a `#` in the front are comments, which will not be executed. Lines with `##` in the front are outputs. 
 
 ```{r, collapse=TRUE}
-  # Basic mathematical operations
+# Basic mathematical operations
   1 + 3
   3*5
   3^5
@@ -41,31 +41,37 @@ Try type-in the following commands into your R console and start to explore your
 Data objects can be a complicated topic for people who never used R before. Most common data objects are `vector`, `matrix`, `list`, and `data.frame'. Operations on vectors are matrices are faily intuitive.
 
 ```{r, collapse=TRUE}
-  # creating a vector
+# creating a vector
   c(1,2,3,4)
-  # creating matrix from a vector
+# creating matrix from a vector
   matrix(c(1,2,3,4), 2, 2)
   x = c(1,1,1,0,0,0); y = c(1,0,1,0,1,0)
   cbind(x,y)
-  # matrix multiplication using '%*%'
+# matrix multiplication using '%*%'
   matrix(c(1,2,3,4), 2, 2) %*% t(cbind(x,y))
 ```  
 
 Simple mathematical operations on vectors and matrices are usually element-wise. You can easliy extract certain elements of them by using the `[]` operator, like a `C` programming reference style. 
 
 ```{r, collapse=TRUE}  
-  # some simple operations 
+# some simple operations 
   x[3]
   x[2:5]
   cbind(x,y)[1:2, ]
   (x + y)^2
   length(x)
   dim(cbind(x,y))
-  # A warning will be issued when R detects something wrong. Results may still be produced.
+# A warning will be issued when R detects something wrong. Results may still be produced.
   x + c(1,2,3,4)
 ```
 
-`list()` simply creates a list of objects (of any type).  
+`list()` simply creates a list of objects (of any type). However, some operators cannot be directly applied to a list in a similar way as to vectors or matrices. Model fitting results in R are usually stored as a list. 
+
+```{r, collapse=TRUE}  
+# creating a list
+  x = list(c(1,2), "hello", matrix(c(1,2,3,4), 2, 2))
+  x[[1]]
+```
 
 
 
