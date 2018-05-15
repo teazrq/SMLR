@@ -1,9 +1,9 @@
 Package: r4sl
 Title: R for Statistical Learning
 Version: 0.0.1
-Authors@R: c(person("David", "Dalpiaz" , "dalpiaz2@illinois.edu", c("aut", "cre")))
+Authors@R: c(person("Ruoqing", "Zhu" , "rqzhu@illinois.edu", c("aut", "cre")))
 Depends: R (>= 3.3.0)
-URL: https://github.com/daviddalpiaz/r4sl
+URL: https://github.com/teazrq/SLWR
 Imports: 
   bookdown, 
   rmarkdown,
