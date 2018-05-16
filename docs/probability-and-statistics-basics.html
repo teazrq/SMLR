@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Statistical Learning with R</title>
+  <meta name="description" content="Statistical Learning with R">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Statistical Learning with R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://teazrq.github.io/SLWR/" />
+  
+  
+  <meta name="github-repo" content="teazrq/SLWR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Statistical Learning with R" />
+  
+  
+  
+
+<meta name="author" content="Ruoqing Zhu">
+
+
+<meta name="date" content="2018-05-16">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="prev" href="introducing-r-rstudio-and-r-markdown.html">
+<link rel="next" href="modeling-basics-in-r.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Statistical Learning with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#target-audience"><i class="fa fa-check"></i>Target Audience</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#whats-covered"><i class="fa fa-check"></i>What’s Covered?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
+</ul></li>
+<li class="part"><span><b>I Basics Knowledge</b></span></li>
+<li class="chapter" data-level="1" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html"><i class="fa fa-check"></i><b>1</b> Introducing R, RStudio and R Markdown</a><ul>
+<li class="chapter" data-level="1.1" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#resources-and-guides"><i class="fa fa-check"></i><b>1.1</b> Resources and Guides</a></li>
+<li class="chapter" data-level="1.2" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#demonstrating-examples"><i class="fa fa-check"></i><b>1.2</b> Demonstrating Examples</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#basic-mathematical-operations"><i class="fa fa-check"></i><b>1.2.1</b> Basic Mathematical Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section"><i class="fa fa-check"></i><b>1.3</b> [1] 4</a></li>
+<li class="chapter" data-level="1.4" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-1"><i class="fa fa-check"></i><b>1.4</b> [1] 15</a></li>
+<li class="chapter" data-level="1.5" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-2"><i class="fa fa-check"></i><b>1.5</b> [1] 243</a></li>
+<li class="chapter" data-level="1.6" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-3"><i class="fa fa-check"></i><b>1.6</b> [1] 7.389056</a></li>
+<li class="chapter" data-level="1.7" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-4"><i class="fa fa-check"></i><b>1.7</b> [1] 1.098612</a></li>
+<li class="chapter" data-level="1.8" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-5"><i class="fa fa-check"></i><b>1.8</b> [1] 1.584963</a></li>
+<li class="chapter" data-level="1.9" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-6"><i class="fa fa-check"></i><b>1.9</b> [1] 120</a><ul>
+<li class="chapter" data-level="1.9.1" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#data-objects"><i class="fa fa-check"></i><b>1.9.1</b> Data Objects</a></li>
+</ul></li>
+<li class="chapter" data-level="1.10" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-7"><i class="fa fa-check"></i><b>1.10</b> [1] 1 2 3 4</a></li>
+<li class="chapter" data-level="1.11" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#a-b-c"><i class="fa fa-check"></i><b>1.11</b> [1] “a” “b” “c”</a></li>
+<li class="chapter" data-level="1.12" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-8"><i class="fa fa-check"></i><b>1.12</b> [,1] [,2]</a></li>
+<li class="chapter" data-level="1.13" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-9"><i class="fa fa-check"></i><b>1.13</b> [1,] 1 3</a></li>
+<li class="chapter" data-level="1.14" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-10"><i class="fa fa-check"></i><b>1.14</b> [2,] 2 4</a></li>
+<li class="chapter" data-level="1.15" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#x-y"><i class="fa fa-check"></i><b>1.15</b> x y</a></li>
+<li class="chapter" data-level="1.16" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-11"><i class="fa fa-check"></i><b>1.16</b> [1,] 1 1</a></li>
+<li class="chapter" data-level="1.17" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-12"><i class="fa fa-check"></i><b>1.17</b> [2,] 1 0</a></li>
+<li class="chapter" data-level="1.18" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-13"><i class="fa fa-check"></i><b>1.18</b> [3,] 1 1</a></li>
+<li class="chapter" data-level="1.19" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-14"><i class="fa fa-check"></i><b>1.19</b> [4,] 0 0</a></li>
+<li class="chapter" data-level="1.20" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-15"><i class="fa fa-check"></i><b>1.20</b> [5,] 0 1</a></li>
+<li class="chapter" data-level="1.21" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-16"><i class="fa fa-check"></i><b>1.21</b> [6,] 0 0</a></li>
+<li class="chapter" data-level="1.22" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-17"><i class="fa fa-check"></i><b>1.22</b> [,1] [,2] [,3] [,4] [,5] [,6]</a></li>
+<li class="chapter" data-level="1.23" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-18"><i class="fa fa-check"></i><b>1.23</b> [1,] 4 1 4 0 3 0</a></li>
+<li class="chapter" data-level="1.24" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-19"><i class="fa fa-check"></i><b>1.24</b> [2,] 6 2 6 0 4 0</a></li>
+<li class="chapter" data-level="1.25" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-20"><i class="fa fa-check"></i><b>1.25</b> [1] 1</a></li>
+<li class="chapter" data-level="1.26" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-21"><i class="fa fa-check"></i><b>1.26</b> [1] 1 1 0 0</a></li>
+<li class="chapter" data-level="1.27" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#x-y-1"><i class="fa fa-check"></i><b>1.27</b> x y</a></li>
+<li class="chapter" data-level="1.28" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-22"><i class="fa fa-check"></i><b>1.28</b> [1,] 1 1</a></li>
+<li class="chapter" data-level="1.29" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-23"><i class="fa fa-check"></i><b>1.29</b> [2,] 1 0</a></li>
+<li class="chapter" data-level="1.30" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-24"><i class="fa fa-check"></i><b>1.30</b> [1] 4 1 4 0 1 0</a></li>
+<li class="chapter" data-level="1.31" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-25"><i class="fa fa-check"></i><b>1.31</b> [1] 6</a></li>
+<li class="chapter" data-level="1.32" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-26"><i class="fa fa-check"></i><b>1.32</b> [1] 6 2</a></li>
+<li class="chapter" data-level="1.33" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#warning-in-x-c1-2-3-4-longer-object-length-is-not-a-multiple-of-shorter-object-length"><i class="fa fa-check"></i><b>1.33</b> Warning in x + c(1, 2, 3, 4): longer object length is not a multiple of shorter object length</a></li>
+<li class="chapter" data-level="1.34" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-27"><i class="fa fa-check"></i><b>1.34</b> [1] 2 3 4 4 1 2</a></li>
+<li class="chapter" data-level="1.35" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-28"><i class="fa fa-check"></i><b>1.35</b> [1] 1 2</a></li>
+<li class="chapter" data-level="1.36" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#sepal.length-sepal.width-petal.length-petal.width-species"><i class="fa fa-check"></i><b>1.36</b> Sepal.Length Sepal.Width Petal.Length Petal.Width Species</a></li>
+<li class="chapter" data-level="1.37" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#setosa"><i class="fa fa-check"></i><b>1.37</b> 1 5.1 3.5 1.4 0.2 setosa</a></li>
+<li class="chapter" data-level="1.38" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#setosa-1"><i class="fa fa-check"></i><b>1.38</b> 2 4.9 3.0 1.4 0.2 setosa</a></li>
+<li class="chapter" data-level="1.39" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#setosa-2"><i class="fa fa-check"></i><b>1.39</b> 3 4.7 3.2 1.3 0.2 setosa</a></li>
+<li class="chapter" data-level="1.40" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#setosa-versicolor-virginica"><i class="fa fa-check"></i><b>1.40</b> [1] setosa versicolor virginica</a></li>
+<li class="chapter" data-level="1.41" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#levels-setosa-versicolor-virginica"><i class="fa fa-check"></i><b>1.41</b> Levels: setosa versicolor virginica</a></li>
+<li class="chapter" data-level="1.42" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#sepal.length-sepal.width-petal.length-petal.width-species-1"><i class="fa fa-check"></i><b>1.42</b> Sepal.Length Sepal.Width Petal.Length Petal.Width Species</a></li>
+<li class="chapter" data-level="1.43" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#min.-4.300-min.-2.000-min.-1.000-min.-0.100-setosa-50"><i class="fa fa-check"></i><b>1.43</b> Min. :4.300 Min. :2.000 Min. :1.000 Min. :0.100 setosa :50</a></li>
+<li class="chapter" data-level="1.44" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#st-qu.5.100-1st-qu.2.800-1st-qu.1.600-1st-qu.0.300-versicolor50"><i class="fa fa-check"></i><b>1.44</b> 1st Qu.:5.100 1st Qu.:2.800 1st Qu.:1.600 1st Qu.:0.300 versicolor:50</a></li>
+<li class="chapter" data-level="1.45" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#median-5.800-median-3.000-median-4.350-median-1.300-virginica-50"><i class="fa fa-check"></i><b>1.45</b> Median :5.800 Median :3.000 Median :4.350 Median :1.300 virginica :50</a></li>
+<li class="chapter" data-level="1.46" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#mean-5.843-mean-3.057-mean-3.758-mean-1.199"><i class="fa fa-check"></i><b>1.46</b> Mean :5.843 Mean :3.057 Mean :3.758 Mean :1.199</a></li>
+<li class="chapter" data-level="1.47" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#rd-qu.6.400-3rd-qu.3.300-3rd-qu.5.100-3rd-qu.1.800"><i class="fa fa-check"></i><b>1.47</b> 3rd Qu.:6.400 3rd Qu.:3.300 3rd Qu.:5.100 3rd Qu.:1.800</a></li>
+<li class="chapter" data-level="1.48" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#max.-7.900-max.-4.400-max.-6.900-max.-2.500"><i class="fa fa-check"></i><b>1.48</b> Max. :7.900 Max. :4.400 Max. :6.900 Max. :2.500</a></li>
+<li class="chapter" data-level="1.49" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-29"><i class="fa fa-check"></i><b>1.49</b> [1] 1 1 1 1 0 1 1 1 0 0</a></li>
+<li class="chapter" data-level="1.50" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-30"><i class="fa fa-check"></i><b>1.50</b> [1] 0.06678539 -0.80091836 1.18583231 -0.10993149</a></li>
+<li class="chapter" data-level="1.51" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-31"><i class="fa fa-check"></i><b>1.51</b> [1] -0.2529076 1.3672866 -0.6712572 4.1905616</a></li>
+<li class="chapter" data-level="1.52" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-32"><i class="fa fa-check"></i><b>1.52</b> [1] -0.2529076 1.3672866 -0.6712572 4.1905616</a></li>
+<li class="chapter" data-level="1.53" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-33"><i class="fa fa-check"></i><b>1.53</b> [1] 118.4815</a></li>
+<li class="chapter" data-level="1.54" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-34"><i class="fa fa-check"></i><b>1.54</b> [1] 1.184815</a></li>
+<li class="chapter" data-level="1.55" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-35"><i class="fa fa-check"></i><b>1.55</b> [1] 3.142351</a></li>
+<li class="chapter" data-level="1.56" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-36"><i class="fa fa-check"></i><b>1.56</b> [1] 1.148906</a></li>
+<li class="chapter" data-level="1.57" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-37"><i class="fa fa-check"></i><b>1.57</b> 25% 50% 75%</a></li>
+<li class="chapter" data-level="1.58" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-38"><i class="fa fa-check"></i><b>1.58</b> 0.0115149 1.1489063 2.2746083</a></li>
+<li class="chapter" data-level="1.59" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-39"><i class="fa fa-check"></i><b>1.59</b> [1] -0.04261199</a></li>
+<li class="chapter" data-level="1.60" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#x"><i class="fa fa-check"></i><b>1.60</b> x</a></li>
+<li class="chapter" data-level="1.61" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-40"><i class="fa fa-check"></i><b>1.61</b> 0 1</a></li>
+<li class="chapter" data-level="1.62" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-41"><i class="fa fa-check"></i><b>1.62</b> 248 752</a></li>
+<li class="chapter" data-level="1.63" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#y"><i class="fa fa-check"></i><b>1.63</b> y</a></li>
+<li class="chapter" data-level="1.64" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#x-0-1-2-3"><i class="fa fa-check"></i><b>1.64</b> x 0 1 2 3</a></li>
+<li class="chapter" data-level="1.65" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-42"><i class="fa fa-check"></i><b>1.65</b> 0 128 79 34 7</a></li>
+<li class="chapter" data-level="1.66" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-43"><i class="fa fa-check"></i><b>1.66</b> 1 342 267 125 18</a></li>
+<li class="chapter" data-level="1.67" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#gender-group-age"><i class="fa fa-check"></i><b>1.67</b> Gender Group Age</a></li>
+<li class="chapter" data-level="1.68" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#female-physician-58.97484"><i class="fa fa-check"></i><b>1.68</b> 1 female physician 58.97484</a></li>
+<li class="chapter" data-level="1.69" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#female-physician-63.45826"><i class="fa fa-check"></i><b>1.69</b> 2 female physician 63.45826</a></li>
+<li class="chapter" data-level="1.70" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#female-patient-58.74506"><i class="fa fa-check"></i><b>1.70</b> 3 female patient 58.74506</a></li>
+<li class="chapter" data-level="1.71" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#gender-group-age-1"><i class="fa fa-check"></i><b>1.71</b> Gender Group Age</a></li>
+<li class="chapter" data-level="1.72" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#male-248-patient-470-min.-18.03"><i class="fa fa-check"></i><b>1.72</b> male :248 patient :470 Min. :18.03</a></li>
+<li class="chapter" data-level="1.73" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#female752-physician-346-1st-qu.29.07"><i class="fa fa-check"></i><b>1.73</b> female:752 physician :346 1st Qu.:29.07</a></li>
+<li class="chapter" data-level="1.74" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#engineer-159-median-40.51"><i class="fa fa-check"></i><b>1.74</b> engineer :159 Median :40.51</a></li>
+<li class="chapter" data-level="1.75" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#statistician-25-mean-41.02"><i class="fa fa-check"></i><b>1.75</b> statistician: 25 Mean :41.02</a></li>
+<li class="chapter" data-level="1.76" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#rd-qu.53.43"><i class="fa fa-check"></i><b>1.76</b> 3rd Qu.:53.43</a></li>
+<li class="chapter" data-level="1.77" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#max.-64.99"><i class="fa fa-check"></i><b>1.77</b> Max. :64.99</a></li>
+<li class="chapter" data-level="1.78" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#group"><i class="fa fa-check"></i><b>1.78</b> Group</a></li>
+<li class="chapter" data-level="1.79" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#gender-patient-physician-engineer-statistician"><i class="fa fa-check"></i><b>1.79</b> Gender patient physician engineer statistician</a></li>
+<li class="chapter" data-level="1.80" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#male-128-79-34-7"><i class="fa fa-check"></i><b>1.80</b> male 128 79 34 7</a></li>
+<li class="chapter" data-level="1.81" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#female-342-267-125-18"><i class="fa fa-check"></i><b>1.81</b> female 342 267 125 18</a></li>
+<li class="chapter" data-level="1.82" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-44"><i class="fa fa-check"></i><b>1.82</b> </a></li>
+<li class="chapter" data-level="1.83" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#fishers-exact-test-for-count-data"><i class="fa fa-check"></i><b>1.83</b> Fisher’s Exact Test for Count Data</a></li>
+<li class="chapter" data-level="1.84" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-45"><i class="fa fa-check"></i><b>1.84</b> </a></li>
+<li class="chapter" data-level="1.85" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#data-tabledata-12"><i class="fa fa-check"></i><b>1.85</b> data: table(data[, 1:2])</a></li>
+<li class="chapter" data-level="1.86" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#p-value-0.3361"><i class="fa fa-check"></i><b>1.86</b> p-value = 0.3361</a></li>
+<li class="chapter" data-level="1.87" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#alternative-hypothesis-two.sided"><i class="fa fa-check"></i><b>1.87</b> alternative hypothesis: two.sided</a></li>
+<li class="chapter" data-level="1.88" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-46"><i class="fa fa-check"></i><b>1.88</b> </a></li>
+<li class="chapter" data-level="1.89" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#pearsons-chi-squared-test"><i class="fa fa-check"></i><b>1.89</b> Pearson’s Chi-squared test</a></li>
+<li class="chapter" data-level="1.90" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-47"><i class="fa fa-check"></i><b>1.90</b> </a></li>
+<li class="chapter" data-level="1.91" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#data-tabledata-12-1"><i class="fa fa-check"></i><b>1.91</b> data: table(data[, 1:2])</a></li>
+<li class="chapter" data-level="1.92" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#x-squared-3.3437-df-3-p-value-0.3416"><i class="fa fa-check"></i><b>1.92</b> X-squared = 3.3437, df = 3, p-value = 0.3416</a></li>
+<li class="chapter" data-level="1.93" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-48"><i class="fa fa-check"></i><b>1.93</b> [1] 0.5810874</a></li>
+<li class="chapter" data-level="1.94" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-49"><i class="fa fa-check"></i><b>1.94</b> </a></li>
+<li class="chapter" data-level="1.95" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#pearsons-product-moment-correlation"><i class="fa fa-check"></i><b>1.95</b> Pearson’s product-moment correlation</a></li>
+<li class="chapter" data-level="1.96" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-50"><i class="fa fa-check"></i><b>1.96</b> </a></li>
+<li class="chapter" data-level="1.97" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#data-y-and-z"><i class="fa fa-check"></i><b>1.97</b> data: y and z</a></li>
+<li class="chapter" data-level="1.98" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#t-3.7782-df-28-p-value-0.0007592"><i class="fa fa-check"></i><b>1.98</b> t = 3.7782, df = 28, p-value = 0.0007592</a></li>
+<li class="chapter" data-level="1.99" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#alternative-hypothesis-true-correlation-is-not-equal-to-0"><i class="fa fa-check"></i><b>1.99</b> alternative hypothesis: true correlation is not equal to 0</a></li>
+<li class="chapter" data-level="1.100" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#percent-confidence-interval"><i class="fa fa-check"></i><b>1.100</b> 95 percent confidence interval:</a></li>
+<li class="chapter" data-level="1.101" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-51"><i class="fa fa-check"></i><b>1.101</b> 0.2792861 0.7784002</a></li>
+<li class="chapter" data-level="1.102" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#sample-estimates"><i class="fa fa-check"></i><b>1.102</b> sample estimates:</a></li>
+<li class="chapter" data-level="1.103" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#cor"><i class="fa fa-check"></i><b>1.103</b> cor</a></li>
+<li class="chapter" data-level="1.104" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-52"><i class="fa fa-check"></i><b>1.104</b> 0.5810874</a></li>
+<li class="chapter" data-level="1.105" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-53"><i class="fa fa-check"></i><b>1.105</b> </a></li>
+<li class="chapter" data-level="1.106" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#call"><i class="fa fa-check"></i><b>1.106</b> Call:</a></li>
+<li class="chapter" data-level="1.107" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#lmformula-y-x"><i class="fa fa-check"></i><b>1.107</b> lm(formula = y ~ x)</a></li>
+<li class="chapter" data-level="1.108" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-54"><i class="fa fa-check"></i><b>1.108</b> </a></li>
+<li class="chapter" data-level="1.109" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#residuals"><i class="fa fa-check"></i><b>1.109</b> Residuals:</a></li>
+<li class="chapter" data-level="1.110" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#min-1q-median-3q-max"><i class="fa fa-check"></i><b>1.110</b> Min 1Q Median 3Q Max</a></li>
+<li class="chapter" data-level="1.111" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-55"><i class="fa fa-check"></i><b>1.111</b> -3.0404 -1.0099 -0.4594 1.1506 3.7069</a></li>
+<li class="chapter" data-level="1.112" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#section-56"><i class="fa fa-check"></i><b>1.112</b> </a></li>
+<li class="chapter" data-level="1.113" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#coefficients"><i class="fa fa-check"></i><b>1.113</b> Coefficients:</a></li>
+<li class="chapter" data-level="1.114" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#estimate-std.-error-t-value-prt"><i class="fa fa-check"></i><b>1.114</b> Estimate Std. Error t value Pr(&gt;|t|)</a></li>
+<li class="chapter" data-level="1.115" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#intercept-0.2586-0.2964-0.873-0.39032"><i class="fa fa-check"></i><b>1.115</b> (Intercept) 0.2586 0.2964 0.873 0.39032</a></li>
+<li class="chapter" data-level="1.116" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#x-1.0838-0.3249-3.336-0.00241-signif.-codes-0-0.001-0.01-0.05-.-0.1-1-residual-standard-error-1.617-on-28-degrees-of-freedom-multiple-r-squared-0.2844-adjusted-r-squared-0.2588-f-statistic-11.13-on-1-and-28-df-p-value-0.00241-1-2-3-4-1--0.5324135-1.022266-0.54818061-0.32146101-2-0.4287820--1.612594--1.79219165--0.07651307-3--0.5563969--1.335632-0.03372782--1.62713529"><i class="fa fa-check"></i><b>1.116</b> x 1.0838 0.3249 3.336 0.00241 ** ## — ## Signif. codes: 0 ‘<em><strong>’ 0.001 ’</strong>’ 0.01 ’</em>’ 0.05 ‘.’ 0.1 ‘’ 1 ## ## Residual standard error: 1.617 on 28 degrees of freedom ## Multiple R-squared: 0.2844, Adjusted R-squared: 0.2588 ## F-statistic: 11.13 on 1 and 28 DF, p-value: 0.00241 ## [,1] [,2] [,3] [,4] ## [1,] -0.5324135 1.022266 0.54818061 0.32146101 ## [2,] 0.4287820 -1.612594 -1.79219165 -0.07651307 ## [3,] -0.5563969 -1.335632 0.03372782 -1.62713529</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="probability-and-statistics-basics.html"><a href="probability-and-statistics-basics.html"><i class="fa fa-check"></i><b>2</b> Probability and Statistics Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="probability-and-statistics-basics.html"><a href="probability-and-statistics-basics.html#random-number-generation"><i class="fa fa-check"></i><b>2.1</b> Random number generation</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html"><i class="fa fa-check"></i><b>3</b> Modeling Basics in <code>R</code></a><ul>
+<li class="chapter" data-level="3.1" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#visualization-for-regression"><i class="fa fa-check"></i><b>3.1</b> Visualization for Regression</a></li>
+<li class="chapter" data-level="3.2" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#sec:lm"><i class="fa fa-check"></i><b>3.2</b> The <code>lm()</code> Function</a></li>
+<li class="chapter" data-level="3.3" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#hypothesis-testing"><i class="fa fa-check"></i><b>3.3</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="3.4" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#prediction"><i class="fa fa-check"></i><b>3.4</b> Prediction</a></li>
+<li class="chapter" data-level="3.5" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#unusual-observations"><i class="fa fa-check"></i><b>3.5</b> Unusual Observations</a></li>
+<li class="chapter" data-level="3.6" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#adding-complexity"><i class="fa fa-check"></i><b>3.6</b> Adding Complexity</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#interactions"><i class="fa fa-check"></i><b>3.6.1</b> Interactions</a></li>
+<li class="chapter" data-level="3.6.2" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#polynomials"><i class="fa fa-check"></i><b>3.6.2</b> Polynomials</a></li>
+<li class="chapter" data-level="3.6.3" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#transformations"><i class="fa fa-check"></i><b>3.6.3</b> Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#rmarkdown"><i class="fa fa-check"></i><b>3.7</b> <code>rmarkdown</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html"><i class="fa fa-check"></i><b>4</b> Optimizations in `R’</a><ul>
+<li class="chapter" data-level="4.1" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#a-tibble-200-x-4"><i class="fa fa-check"></i><b>4.1</b> # A tibble: 200 x 4</a></li>
+<li class="chapter" data-level="4.2" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#tv-radio-newspaper-sales"><i class="fa fa-check"></i><b>4.2</b> TV Radio Newspaper Sales</a></li>
+<li class="chapter" data-level="4.3" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#section-57"><i class="fa fa-check"></i><b>4.3</b> <dbl> <dbl> <dbl> <dbl></a></li>
+<li class="chapter" data-level="4.4" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#section-58"><i class="fa fa-check"></i><b>4.4</b> 1 230. 37.8 69.2 22.1</a></li>
+<li class="chapter" data-level="4.5" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#section-59"><i class="fa fa-check"></i><b>4.5</b> 2 44.5 39.3 45.1 10.4</a></li>
+<li class="chapter" data-level="4.6" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#section-60"><i class="fa fa-check"></i><b>4.6</b> 3 17.2 45.9 69.3 9.3</a></li>
+<li class="chapter" data-level="4.7" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#section-61"><i class="fa fa-check"></i><b>4.7</b> 4 152. 41.3 58.5 18.5</a></li>
+<li class="chapter" data-level="4.8" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#section-62"><i class="fa fa-check"></i><b>4.8</b> 5 181. 10.8 58.4 12.9</a></li>
+<li class="chapter" data-level="4.9" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#section-63"><i class="fa fa-check"></i><b>4.9</b> 6 8.7 48.9 75 7.2</a></li>
+<li class="chapter" data-level="4.10" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#section-64"><i class="fa fa-check"></i><b>4.10</b> 7 57.5 32.8 23.5 11.8</a></li>
+<li class="chapter" data-level="4.11" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#section-65"><i class="fa fa-check"></i><b>4.11</b> 8 120. 19.6 11.6 13.2</a></li>
+<li class="chapter" data-level="4.12" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#section-66"><i class="fa fa-check"></i><b>4.12</b> 9 8.6 2.1 1 4.8</a></li>
+<li class="chapter" data-level="4.13" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#section-67"><i class="fa fa-check"></i><b>4.13</b> 10 200. 2.6 21.2 10.6</a></li>
+<li class="chapter" data-level="4.14" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#with-190-more-rows"><i class="fa fa-check"></i><b>4.14</b> # … with 190 more rows</a></li>
+<li class="chapter" data-level="4.15" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#a-simple-optimization-problem"><i class="fa fa-check"></i><b>4.15</b> A simple optimization problem</a></li>
+</ul></li>
+<li class="part"><span><b>II Regression</b></span></li>
+<li class="chapter" data-level="5" data-path="regression-overview.html"><a href="regression-overview.html"><i class="fa fa-check"></i><b>5</b> Overview</a><ul>
+<li class="chapter" data-level="5.1" data-path="regression-overview.html"><a href="regression-overview.html#load-packages"><i class="fa fa-check"></i><b>5.1</b> load packages</a></li>
+<li class="chapter" data-level="5.2" data-path="regression-overview.html"><a href="regression-overview.html#signal"><i class="fa fa-check"></i><b>5.2</b> signal</a></li>
+<li class="chapter" data-level="5.3" data-path="regression-overview.html"><a href="regression-overview.html#define-data-generating-processs"><i class="fa fa-check"></i><b>5.3</b> define data generating processs</a></li>
+<li class="chapter" data-level="5.4" data-path="regression-overview.html"><a href="regression-overview.html#simualte-training-data"><i class="fa fa-check"></i><b>5.4</b> simualte training data</a></li>
+<li class="chapter" data-level="5.5" data-path="regression-overview.html"><a href="regression-overview.html#simulate-testing-data"><i class="fa fa-check"></i><b>5.5</b> simulate testing data</a></li>
+<li class="chapter" data-level="5.6" data-path="regression-overview.html"><a href="regression-overview.html#create-grid-for-plotting"><i class="fa fa-check"></i><b>5.6</b> create grid for plotting</a></li>
+<li class="chapter" data-level="5.7" data-path="regression-overview.html"><a href="regression-overview.html#tree-models"><i class="fa fa-check"></i><b>5.7</b> tree models</a></li>
+<li class="chapter" data-level="5.8" data-path="regression-overview.html"><a href="regression-overview.html#knn-models"><i class="fa fa-check"></i><b>5.8</b> knn models</a></li>
+<li class="chapter" data-level="5.9" data-path="regression-overview.html"><a href="regression-overview.html#polynomial-models"><i class="fa fa-check"></i><b>5.9</b> polynomial models</a></li>
+<li class="chapter" data-level="5.10" data-path="regression-overview.html"><a href="regression-overview.html#tree-models-1"><i class="fa fa-check"></i><b>5.10</b> tree models</a></li>
+<li class="chapter" data-level="5.11" data-path="regression-overview.html"><a href="regression-overview.html#knn-models-1"><i class="fa fa-check"></i><b>5.11</b> knn models</a></li>
+<li class="chapter" data-level="5.12" data-path="regression-overview.html"><a href="regression-overview.html#polynomial-models-1"><i class="fa fa-check"></i><b>5.12</b> polynomial models</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/teazrq/SLWR" target="blank">&copy; 2018 Ruoqing Zhu</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Learning with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="probability-and-statistics-basics" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Probability and Statistics Basics</h1>
+<div id="random-number-generation" class="section level2">
+<h2><span class="header-section-number">2.1</span> Random number generation</h2>
+<p>Random number generation is important for statistical simulation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># generate 10 Bernoulli random variables as a vector</span>
+    <span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)
+##  [1] 0 1 1 1 1 0 1 1 0 0
+    <span class="co"># 2 random normally distributed variables</span>
+    <span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">4</span>, <span class="dt">mean =</span> <span class="dv">1</span>, <span class="dt">sd =</span> <span class="dv">2</span>)
+## [1]  3.3512328  3.0792936  2.9422593 -0.9837519</code></pre></div>
+<p> If we need to replicate the results, we can set random seed</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># after setting the seed, the two runs will generate exactly the same &quot;random&quot; numbers</span>
+    <span class="kw">set.seed</span>(<span class="dv">1</span>)
+    <span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">4</span>, <span class="dt">mean =</span> <span class="dv">1</span>, <span class="dt">sd =</span> <span class="dv">2</span>)
+## [1] -0.2529076  1.3672866 -0.6712572  4.1905616
+    <span class="kw">set.seed</span>(<span class="dv">1</span>)
+    <span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">4</span>, <span class="dt">mean =</span> <span class="dv">1</span>, <span class="dt">sd =</span> <span class="dv">2</span>)
+## [1] -0.2529076  1.3672866 -0.6712572  4.1905616</code></pre></div>
+<p> Statistical functions that provides a summary of the data</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    x =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">100</span>, <span class="dt">mean =</span> <span class="dv">1</span>, <span class="dt">sd =</span> <span class="dv">2</span>)
+    y =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">100</span>, <span class="dt">mean =</span> <span class="dv">2</span>, <span class="dt">sd =</span> <span class="dv">1</span>)
+    <span class="kw">sum</span>(x)
+## [1] 118.4815
+    <span class="kw">mean</span>(x)
+## [1] 1.184815
+    <span class="kw">var</span>(x)
+## [1] 3.142351
+    <span class="kw">median</span>(x)
+## [1] 1.148906
+    <span class="kw">quantile</span>(x, <span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>))
+##       25%       50%       75% 
+## 0.0115149 1.1489063 2.2746083
+    <span class="kw">cor</span>(x, y)
+## [1] -0.04261199</code></pre></div>
+<p> For discrete data, we usually use the table function</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">set.seed</span>(<span class="dv">1</span>); n =<span class="st"> </span><span class="dv">1000</span>
+    x =<span class="st"> </span><span class="kw">rbinom</span>(n, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.75</span>)
+    y =<span class="st"> </span><span class="kw">rbinom</span>(n, <span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.4</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>))
+    <span class="kw">table</span>(x)
+## x
+##   0   1 
+## 248 752
+    <span class="kw">table</span>(x, y)
+##    y
+## x     0   1   2   3
+##   0 128  79  34   7
+##   1 342 267 125  18</code></pre></div>
+<p>For a mixture of discrete and continuous data (multiple variables), we often use a data.frame</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># data.frame is a special data structure that can store both factor and numeric variables</span>
+    z =<span class="st"> </span><span class="kw">runif</span>(n, <span class="dt">min =</span> <span class="dv">18</span>, <span class="dt">max =</span> <span class="dv">65</span>)
+    data =<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;Gender&quot;</span> =<span class="st"> </span><span class="kw">as.factor</span>(x), <span class="st">&quot;Group&quot;</span> =<span class="st"> </span><span class="kw">as.factor</span>(y), <span class="st">&quot;Age&quot;</span> =<span class="st"> </span>z)
+    <span class="kw">levels</span>(data<span class="op">$</span>Gender) =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>)
+    <span class="kw">levels</span>(data<span class="op">$</span>Group) =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;patient&quot;</span>, <span class="st">&quot;physician&quot;</span>, <span class="st">&quot;engineer&quot;</span>, <span class="st">&quot;statistician&quot;</span>)
+    
+    <span class="co"># a peek at the top 3 entries of the data</span>
+    <span class="kw">head</span>(data, <span class="dv">3</span>)
+##   Gender     Group      Age
+## 1 female physician 58.97484
+## 2 female physician 63.45826
+## 3 female   patient 58.74506
+    
+    <span class="co"># a brief summary</span>
+    <span class="kw">summary</span>(data)
+##     Gender             Group          Age       
+##  male  :248   patient     :470   Min.   :18.03  
+##  female:752   physician   :346   1st Qu.:29.07  
+##               engineer    :159   Median :40.51  
+##               statistician: 25   Mean   :41.02  
+##                                  3rd Qu.:53.43  
+##                                  Max.   :64.99
+    
+    <span class="co"># generate a 2 by 2 table that summarizes Gender and Group</span>
+    <span class="kw">table</span>(data[, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])
+##         Group
+## Gender   patient physician engineer statistician
+##   male       128        79       34            7
+##   female     342       267      125           18</code></pre></div>
+
+<p>Fisher Exact Test and Chi-square test are tests of independence between two nominal variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># the test p-value is not significant</span>
+    <span class="co"># recall that we generated the two variables independently.</span>
+    <span class="kw">fisher.test</span>(<span class="kw">table</span>(data[, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]))
+## 
+##  Fisher&#39;s Exact Test for Count Data
+## 
+## data:  table(data[, 1:2])
+## p-value = 0.3361
+## alternative hypothesis: two.sided
+
+    <span class="co"># chi-square test</span>
+    <span class="kw">chisq.test</span>(<span class="kw">table</span>(data[, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]))
+## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  table(data[, 1:2])
+## X-squared = 3.3437, df = 3, p-value = 0.3416</code></pre></div>
+<p>For continuous variables, we can calculate and test Pearson’s correlation, Spearman’s rho or Kendall’ tau</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">set.seed</span>(<span class="dv">1</span>); n =<span class="st"> </span><span class="dv">30</span>
+    x =<span class="st"> </span><span class="kw">rnorm</span>(n)
+    y =<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">sd =</span> <span class="dv">2</span>)
+    z =<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">sd =</span> <span class="dv">2</span>)
+    
+    <span class="co"># one can specify method = &quot;kendall&quot; or &quot;spearman&quot; to perform other correlations or tests</span>
+    <span class="kw">cor</span>(y, z)
+## [1] 0.5810874
+    <span class="kw">cor.test</span>(y, z)
+## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  y and z
+## t = 3.7782, df = 28, p-value = 0.0007592
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.2792861 0.7784002
+## sample estimates:
+##       cor 
+## 0.5810874</code></pre></div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introducing-r-rstudio-and-r-markdown.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="modeling-basics-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/teazrq/SLWR/edit/master/1.2-stat-prob-basics.Rmd",
+"text": "Edit"
+},
+"download": ["RESL.pdf"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

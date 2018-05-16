@@ -1,10 +1,12 @@
 Package: SLWR
-Title: R for Statistical Learning
-Version: 0.0.1
+Title: Statistical Learning with R
+Version: 0.1.0
 Authors@R: c(person("Ruoqing", "Zhu" , "rqzhu@illinois.edu", c("aut", "cre")))
 Depends: R (>= 3.3.0)
 URL: https://github.com/teazrq/SLWR
 Imports: 
+  caret,
+  readr,
   bookdown, 
   rmarkdown,
   knitr,

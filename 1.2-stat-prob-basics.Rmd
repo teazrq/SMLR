@@ -1,3 +1,135 @@
+# Basics of Probability and Statistics
+
+## Random number generation 
+
+Random number generation is important for statistical simulation. R provides random number generators for many commonly used distributions, such as binomial (`rbinom`), normal (`rnorm`), t (`rt`) etc. The syntax is usually a letter "r" followed by the name of the distribution. 
+
+```{r, collapse=TRUE}
+    # generate 10 independent Bernoulli random variables as a vector
+    rbinom(n=10, size = 1, prob = 0.5)
+    # 4 independent random standard normal variables
+    rnorm(n=4)
+```
+
+Setting the seed before generating random numbers will allow us to replicate the results when necessary. 
+```{r, collapse=TRUE}
+    # after setting the seed, the two runs will generate exactly the same "random" numbers
+    set.seed(1)
+    rnorm(n=4, mean = 1, sd = 2)
+    set.seed(1)
+    rnorm(n=4, mean = 1, sd = 2)
+```
+
+Statistical functions that provides a summary of the data
+```{r, collapse=TRUE}
+    x = rnorm(n=100, mean = 1, sd = 2)
+    y = rnorm(n=100, mean = 2, sd = 1)
+    sum(x)
+    mean(x)
+    var(x)
+    median(x)
+    quantile(x, c(0.25, 0.5, 0.75))
+    cor(x, y)
+```
+\vspace{12pt}
+For discrete data, we usually use the table function
+```{r, collapse=TRUE}
+    set.seed(1); n = 1000
+    x = rbinom(n, size = 1, prob = 0.75)
+    y = rbinom(n, size = 3, prob = c(0.4, 0.3, 0.2, 0.1))
+    table(x)
+    table(x, y)
+```
+For a mixture of discrete and continuous data (multiple variables), we often use a data.frame
+```{r, collapse = TRUE}
+    # data.frame is a special data structure that can store both factor and numeric variables
+    z = runif(n, min = 18, max = 65)
+    data = data.frame("Gender" = as.factor(x), "Group" = as.factor(y), "Age" = z)
+    levels(data$Gender) = c("male", "female")
+    levels(data$Group) = c("patient", "physician", "engineer", "statistician")
+    
+    # a peek at the top 3 entries of the data
+    head(data, 3)
+    
+    # a brief summary
+    summary(data)
+    
+    # generate a 2 by 2 table that summarizes Gender and Group
+    table(data[, 1:2])
+```
+
+\section{4. Simple Statistical Tests}
+
+Fisher Exact Test and Chi-square test are tests of independence between two nominal variables.
+
+```{r, collapse=TRUE}
+    # the test p-value is not significant
+    # recall that we generated the two variables independently.
+    fisher.test(table(data[, 1:2]))
+
+    # chi-square test
+    chisq.test(table(data[, 1:2]))
+```
+
+For continuous variables, we can calculate and test Pearson's correlation, Spearman's rho or Kendall' tau
+```{r, collapse=TRUE}
+    set.seed(1); n = 30
+    x = rnorm(n)
+    y = x + rnorm(n, sd = 2)
+    z = x + rnorm(n, sd = 2)
+    
+    # one can specify method = "kendall" or "spearman" to perform other correlations or tests
+    cor(y, z)
+    cor.test(y, z)
+```
+
+
+
+
+
+\section{5. Regression Models}
+
+A simple linear regression assumes the underlying model $Y = \beta X + \epsilon$. With observed data, we can estimate the regression coefficients:
+```{r, collapse=TRUE}
+    # the lm() function is the most commonly used
+    fit = lm(y~x)
+    summary(fit)
+```
+
+\section{6. Data Visualization}
+A graphical view usually helps understand the data better. There are a variety of ways to customize your plot, such as color and shape.
+
+```{r, out.width='.49\\linewidth', fig.width = 3, fig.width = 6, fig.show='hold',fig.align='center'}
+    plot(x, y, xlab = "x", ylab = "y", main = "A plot", col = "darkorange", pch = 19)
+    abline(a = fit$coefficients[1], b = fit$coefficients[2], 
+           col = "deepskyblue", lty = 2, lwd = 2)
+    legend("topleft", c("observed points", "fitted line"), lty = c(NA, 2), 
+           pch = c(19, NA), col = c("darkorange", "deepskyblue"))
+```
+
+\section{7. Other Things}
+
+\subsection{7.1 Read-in and Save Data}
+R can read-in data from many different sources such as \texttt{.txt}, \texttt{.csv}, etc. For example, \texttt{read.csv()} can be used to import \texttt{.csv} files. The first argument should be specified as the path to the data file, or just the name of the file if the current working directory is the same as the data file. R objects, especially matrices, can be saved into these standard files. Use functions such as \texttt{write.table()} and \texttt{write.csv} to perform this. We can also save any object into \texttt{.RData} file, which can be loaded later on. To do this try functions \texttt{save.image()} and \texttt{save()}.
+
+\subsection{7.2 R Packages}
+One of the most important features of R is its massive collection of packages. A package is like an add-on that can be downloaded and installed and perform additional function and analysis. 
+```{r, collapse=TRUE}
+    # The MASS package can be used to generate multivariate normal distribution 
+    library(MASS)
+    P = 4; N = 200
+    V <- 0.5^abs(outer(1:P, 1:P, "-"))
+    X = as.matrix(mvrnorm(N, mu=rep(0,P), Sigma=V))
+    head(X, 3)
+```
+
+
+
+
+
+
+
+
 # Modeling Basics in `R`
 
 **TODO:** Instead of specifically considering regression, change the focus of this chapter to modeling, with regression as an example.
@@ -46,7 +178,7 @@ featurePlot(x = Advertising[ , c("TV", "Radio", "Newspaper")], y = Advertising$S
 We see that there is a clear increase in `Sales` as `Radio` or `TV` are increased. The relationship between `Sales` and `Newspaper` is less clear. How all of the predictors work together is also unclear, as there is some obvious correlation between `Radio` and `TV`. To investigate further, we will need to model the data.
 
 
-## The `lm()` Function
+## The `lm()` Function {#sec:lm}
 
 The following code fits an additive **linear model** with `Sales` as the response and each remaining variable as a predictor. Note, by not using `attach()` and instead specifying the `data = ` argument, we are able to specify this model without using each of the variable names directly.
 

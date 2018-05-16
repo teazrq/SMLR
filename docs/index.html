@@ -11,10 +11,10 @@
 
   <meta property="og:title" content="Statistical Learning with R" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="http://teazrq.github.io/slwr/" />
+  <meta property="og:url" content="http://teazrq.github.io/SLWR/" />
   
   
-  <meta name="github-repo" content="teazrq/slwr" />
+  <meta name="github-repo" content="teazrq/SLWR" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Statistical Learning with R" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Ruoqing Zhu">
 
 
-<meta name="date" content="2018-05-14">
+<meta name="date" content="2018-05-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
-<link rel="next" href="introducing-r-rstudio-and-r-markdown.html">
+<link rel="next" href="r-rstudio-and-r-markdown.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,69 +50,41 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -138,33 +110,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
 </ul></li>
 <li class="part"><span><b>I Basics Knowledge</b></span></li>
-<li class="chapter" data-level="1" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html"><i class="fa fa-check"></i><b>1</b> Introducing R, RStudio and R Markdown</a><ul>
-<li class="chapter" data-level="1.1" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#resources-and-guides"><i class="fa fa-check"></i><b>1.1</b> Resources and Guides</a></li>
-<li class="chapter" data-level="1.2" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#demonstrating-examples"><i class="fa fa-check"></i><b>1.2</b> Demonstrating Examples</a><ul>
-<li class="chapter" data-level="1.2.1" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#basic-mathematical-operations"><i class="fa fa-check"></i><b>1.2.1</b> Basic Mathematical Operations</a></li>
-<li class="chapter" data-level="1.2.2" data-path="introducing-r-rstudio-and-r-markdown.html"><a href="introducing-r-rstudio-and-r-markdown.html#data-objects"><i class="fa fa-check"></i><b>1.2.2</b> Data Objects</a></li>
+<li class="chapter" data-level="1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html"><i class="fa fa-check"></i><b>1</b> R, RStudio and R Markdown</a><ul>
+<li class="chapter" data-level="1.1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#resources-and-guides"><i class="fa fa-check"></i><b>1.1</b> Resources and Guides</a></li>
+<li class="chapter" data-level="1.2" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#basic-mathematical-operations"><i class="fa fa-check"></i><b>1.2</b> Basic Mathematical Operations</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#data-objects"><i class="fa fa-check"></i><b>1.2.1</b> Data Objects</a></li>
 </ul></li>
+<li class="chapter" data-level="1.3" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#read-in-data-from-other-sources"><i class="fa fa-check"></i><b>1.3</b> Read-in Data from Other Sources</a></li>
+<li class="chapter" data-level="1.4" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#using-packages"><i class="fa fa-check"></i><b>1.4</b> Using Packages</a></li>
+<li class="chapter" data-level="1.5" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#using-r-markdown"><i class="fa fa-check"></i><b>1.5</b> Using R Markdown</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html"><i class="fa fa-check"></i><b>2</b> Modeling Basics in <code>R</code></a><ul>
-<li class="chapter" data-level="2.1" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#visualization-for-regression"><i class="fa fa-check"></i><b>2.1</b> Visualization for Regression</a></li>
-<li class="chapter" data-level="2.2" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#the-lm-function"><i class="fa fa-check"></i><b>2.2</b> The <code>lm()</code> Function</a></li>
-<li class="chapter" data-level="2.3" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#hypothesis-testing"><i class="fa fa-check"></i><b>2.3</b> Hypothesis Testing</a></li>
-<li class="chapter" data-level="2.4" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#prediction"><i class="fa fa-check"></i><b>2.4</b> Prediction</a></li>
-<li class="chapter" data-level="2.5" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#unusual-observations"><i class="fa fa-check"></i><b>2.5</b> Unusual Observations</a></li>
-<li class="chapter" data-level="2.6" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#adding-complexity"><i class="fa fa-check"></i><b>2.6</b> Adding Complexity</a><ul>
-<li class="chapter" data-level="2.6.1" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#interactions"><i class="fa fa-check"></i><b>2.6.1</b> Interactions</a></li>
-<li class="chapter" data-level="2.6.2" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#polynomials"><i class="fa fa-check"></i><b>2.6.2</b> Polynomials</a></li>
-<li class="chapter" data-level="2.6.3" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#transformations"><i class="fa fa-check"></i><b>2.6.3</b> Transformations</a></li>
+<li class="chapter" data-level="2" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html"><i class="fa fa-check"></i><b>2</b> Basics of Probability and Statistics</a><ul>
+<li class="chapter" data-level="2.1" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#random-number-generation"><i class="fa fa-check"></i><b>2.1</b> Random number generation</a></li>
 </ul></li>
-<li class="chapter" data-level="2.7" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#rmarkdown"><i class="fa fa-check"></i><b>2.7</b> <code>rmarkdown</code></a></li>
+<li class="chapter" data-level="3" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html"><i class="fa fa-check"></i><b>3</b> Modeling Basics in <code>R</code></a><ul>
+<li class="chapter" data-level="3.1" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#visualization-for-regression"><i class="fa fa-check"></i><b>3.1</b> Visualization for Regression</a></li>
+<li class="chapter" data-level="3.2" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#sec:lm"><i class="fa fa-check"></i><b>3.2</b> The <code>lm()</code> Function</a></li>
+<li class="chapter" data-level="3.3" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#hypothesis-testing"><i class="fa fa-check"></i><b>3.3</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="3.4" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#prediction"><i class="fa fa-check"></i><b>3.4</b> Prediction</a></li>
+<li class="chapter" data-level="3.5" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#unusual-observations"><i class="fa fa-check"></i><b>3.5</b> Unusual Observations</a></li>
+<li class="chapter" data-level="3.6" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#adding-complexity"><i class="fa fa-check"></i><b>3.6</b> Adding Complexity</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#interactions"><i class="fa fa-check"></i><b>3.6.1</b> Interactions</a></li>
+<li class="chapter" data-level="3.6.2" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#polynomials"><i class="fa fa-check"></i><b>3.6.2</b> Polynomials</a></li>
+<li class="chapter" data-level="3.6.3" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#transformations"><i class="fa fa-check"></i><b>3.6.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html"><i class="fa fa-check"></i><b>3</b> Optimizations in `R’</a><ul>
-<li class="chapter" data-level="3.1" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#a-simple-optimization-problem"><i class="fa fa-check"></i><b>3.1</b> A simple optimization problem</a></li>
+<li class="chapter" data-level="3.7" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#rmarkdown"><i class="fa fa-check"></i><b>3.7</b> <code>rmarkdown</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html"><i class="fa fa-check"></i><b>4</b> Optimizations in `R’</a><ul>
+<li class="chapter" data-level="4.1" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#a-simple-optimization-problem"><i class="fa fa-check"></i><b>4.1</b> A simple optimization problem</a></li>
 </ul></li>
 <li class="part"><span><b>II Regression</b></span></li>
-<li class="chapter" data-level="4" data-path="regression-overview.html"><a href="regression-overview.html"><i class="fa fa-check"></i><b>4</b> Overview</a></li>
+<li class="chapter" data-level="5" data-path="regression-overview.html"><a href="regression-overview.html"><i class="fa fa-check"></i><b>5</b> Overview</a></li>
 <li class="divider"></li>
-<li><a href="https://github.com/teazrq/slwr" target="blank">&copy; 2018 Ruoqing Zhu</a></li>
+<li><a href="https://github.com/teazrq/SLWR" target="blank">&copy; 2018 Ruoqing Zhu</a></li>
 
 </ul>
 
@@ -186,11 +163,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Statistical Learning with R</h1>
 <h4 class="author"><em><a href="https://sites.google.com/site/teazrq/">Ruoqing Zhu</a></em></h4>
-<h4 class="date"><em>2018-05-14</em></h4>
+<h4 class="date"><em>2018-05-16</em></h4>
 </div>
 <div id="preface" class="section level1 unnumbered">
 <h1>Preface</h1>
-<p>Welcome to Statistical Learning with R! I started this project during the summer of 2018 when I was preparing for the Stat 432 course. This course was taught by our former faculty member <a href="https://daviddalpiaz.com/teaching.html">Dr. David Dalpiaz</a>, who is currently at The Ohio State University. David introduced to me this awesome way of publishing website on GitHub, which is very efficient approach for developing courses. Since I was also teaching Stat 542 (Statistical Learning) during the previous two years, I figured it could be beneficial to integrate what I have to this <a href="https://daviddalpiaz.github.io/r4sl/">existing book</a> by David, and use it as the R material for both courses. As you can tell, I am not being very creative on the name, so `SLWR’ it is. You can find the source file of this book on my <a href="https://teazrq.github.io/slwr/">GitHub</a>.</p>
+<p>Welcome to Statistical Learning with R! I started this project during the summer of 2018 when I was preparing for the Stat 432 course. This course was taught by our former faculty member <a href="https://daviddalpiaz.com/teaching.html">Dr. David Dalpiaz</a>, who is currently at The Ohio State University. David introduced to me this awesome way of publishing website on GitHub, which is very efficient approach for developing courses. Since I was also teaching Stat 542 (Statistical Learning) during the previous two years, I figured it could be beneficial to integrate what I have to this <a href="https://daviddalpiaz.github.io/r4sl/">existing book</a> by David, and use it as the R material for both courses. As you can tell, I am not being very creative on the name, so `SLWR’ it is. You can find the source file of this book on my <a href="https://teazrq.github.io/SLWR/">GitHub</a>.</p>
 <div id="target-audience" class="section level2 unnumbered">
 <h2>Target Audience</h2>
 <p>This book is targeted at advanced undergraduate to MS students in Statistics who have some or no prior statistical learning experience. Previous experience with both basic mathematics (mainly linear algebra), statistical modeling (such as linear regressions) and R are assumed.</p>
@@ -215,17 +192,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Appendix</li>
 </ol>
 <p>The goal of this book is to introduce not only how to run some of the popular statistical learning models in R, but also touches some basic algorithms and programming techniques for solving some of these models. For each section, the difficulty may gradually increase from an undergraduate level to a graduate level.</p>
-<p>It will be served as a supplement to <a href="http://www-bcf.usc.edu/~gareth/ISL/">An Introduction to Statistical Learning</a> for <a href="https://go.illinois.edu/stat432">STAT 432 - Basics of Statistical Learning</a> and <a href="https://web.stanford.edu/~hastie/ElemStatLearn/">The Elements of
-Statistical Learning: Data Mining, Inference, and Prediction</a> for <a href="https://go.illinois.edu/stat542">STAT 542 - Statistical Learning</a> at the <a href="http://illinois.edu/">University of Illinois at Urbana-Champaign</a>.</p>
-<p><strong>This book is under active development</strong> as I am teaching Stat 432 during Fall 2018. Hence, you may encounter errors ranging from typos, to broken code, to poorly explained topics. If you do, please let me know! Simply send an email and I will make the changes as soon as possible (<code>rqzhu AT illinois DOT edu</code>). Or, if you know <code>R Markdown</code> and are familiar with GitHub, <a href="https://github.com/teazrq/resl">make a pull request and fix an issue yourself!</a>. These contributions will be acknowledged.</p>
+<p>It will be served as a supplement to <a href="http://www-bcf.usc.edu/~gareth/ISL/">An Introduction to Statistical Learning</a> <span class="citation">(James et al. <a href="#ref-james2013introduction">2013</a>)</span> for <a href="https://go.illinois.edu/stat432">STAT 432 - Basics of Statistical Learning</a> and <a href="https://web.stanford.edu/~hastie/ElemStatLearn/">The Elements of Statistical Learning: Data Mining, Inference, and Prediction</a> <span class="citation">(Hastie, Tibshirani, and Friedman <a href="#ref-hastie2001elements">2001</a>)</span> for <a href="https://go.illinois.edu/stat542">STAT 542 - Statistical Learning</a> at the <a href="http://illinois.edu/">University of Illinois at Urbana-Champaign</a>.</p>
+<p><strong>This book is under active development</strong> as I am teaching STAT 432 during Fall 2018. Hence, you may encounter errors ranging from typos, to broken code, to poorly explained topics. If you do, please let me know! Simply send an email and I will make the changes as soon as possible (<code>rqzhu AT illinois DOT edu</code>). Or, if you know <code>R Markdown</code> and are familiar with GitHub, <a href="https://github.com/teazrq/SLWR">make a pull request and fix an issue yourself!</a>. These contributions will be acknowledged.</p>
 </div>
 <div id="acknowledgements" class="section level2 unnumbered">
 <h2>Acknowledgements</h2>
-<p>The initial contents are derived from Dr. David Dalpiaz’s book. My Stat 542 course materials are also inspired by Dr. Feng Liang and Dr. John Marden who developed earlier versions of this course. And I also incorporated many online resources, such as</p>
+<p>The initial contents are derived from Dr. David Dalpiaz’s book. My STAT 542 course materials are also inspired by Dr. Feng Liang and Dr. John Marden who developed earlier versions of this course. And I also incorporated many online resources, such as</p>
 <ul>
 <li><a href="https://bookdown.org/yihui/bookdown/">bookdown: Authoring Books and Technical Documents with R Markdown</a></li>
-<li><a href="http://r4ds.had.co.nz/">R Programming for Data Science</a>
-and others through Google search.</li>
+<li><a href="http://r4ds.had.co.nz/">R Programming for Data Science</a> and others through Google search.</li>
 </ul>
 </div>
 <div id="license" class="section level2 unnumbered">
@@ -240,13 +215,22 @@ and others through Google search.</li>
 
 
 
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-james2013introduction">
+<p>James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 112. Springer.</p>
+</div>
+<div id="ref-hastie2001elements">
+<p>Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2001. <em>The Elements of Statistical Learning</em>. Vol. 1. Springer series in statistics New York.</p>
+</div>
+</div>
             </section>
 
           </div>
         </div>
       </div>
 
-<a href="introducing-r-rstudio-and-r-markdown.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="r-rstudio-and-r-markdown.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -276,7 +260,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/teazrq/slwr/edit/master/index.Rmd",
+"link": "https://github.com/teazrq/SLWR/edit/master/index.Rmd",
 "text": "Edit"
 },
 "download": ["RESL.pdf"],
@@ -292,7 +276,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "true";
+    var src = "";
     if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

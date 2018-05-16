@@ -1,6 +1,15 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 # (PART) Basics Knowledge {-}
 
-# Introducing R, RStudio and R Markdown
+```{r set-options, echo=FALSE, cache=FALSE}
+options(width = 1000)
+```
+
+# R, RStudio and R Markdown
 
 R is a free-to-use software that is very popular in statistical computing. You can download R from its [official website](https://www.r-project.org/). Another software that makes using R easier is RStudio, which is available at [here](https://www.rstudio.com/). You can find many on-line guides that help you to set-up these two software, for example, this [\color{blue} YouTube video](https://www.youtube.com/watch?v=cX532N_XLIs&t=19s/). R Markdown is a build-in feature of RStudio. It works like an integration of LaTex and programming playground that complies source code into nice-looking PDF, html, or MS Word files. This book is created using an extension of R Markdown, developed by [Yihui Xie](https://bookdown.org/yihui/bookdown/). 
 
@@ -17,190 +26,115 @@ There are many online resources for how to use R, RStudio, and R Markdown. For e
 
 It is worth to mention that once you become a developer of R packages using `C/C++` (add-on of R for performing specific tasks), and you also happen to use Windows like I do, you have to install this [Rtools](https://cran.r-project.org/bin/windows/Rtools/) that contains compilers. This is also needed if you want to mannually install any R package using a "source" (`.tar.gz` files) instead of using the so-called "binaries" (`.zip` files). 
 
-## Demonstrating Examples
+## Basic Mathematical Operations
 
-We will briefly cover some basic R calculations and operations. 
+We will briefly cover some basic R calculations and operations. If you want to see more information about a particular function or operator in R, the easiest way is to get the reference document. Put a question mark in front of a function name:
 
-### Basic Mathematical Operations
+```{r, collapse=TRUE, eval=FALSE}
+    # In a default R console window, this will open up a web browser.
+    # In RStudio, this will be displaed at the ‘Help’ window at the bottom-right penal. 
+    ?log2
+    ?matrix
+```
 
 Try type-in the following commands into your R console and start to explore yourself. Most of them are self-explanatory. Lines with a `#` in the front are comments, which will not be executed. Lines with `##` in the front are outputs. 
 
 ```{r, collapse=TRUE}
-# Basic mathematical operations
-  1 + 3
-  3*5
-  3^5
-  exp(2)
-  log(3)
-  log2(3)
-  factorial(5)
+    # Basic mathematical operations
+    1 + 3
+    3*5
+    3^5
+    exp(2)
+    log(3)
+    log2(3)
+    factorial(5)
 ```
 
 ### Data Objects
 
-Data objects can be a complicated topic for people who never used R before. Most common data objects are `vector`, `matrix`, `list`, and `data.frame'. Operations on vectors are matrices are faily intuitive.
+Data objects can be a complicated topic for people who never used R before. Most common data objects are `vector`, `matrix`, `list`, and `data.frame`. Operations on vectors are matrices are fairly intuitive.
 
 ```{r, collapse=TRUE}
-# creating a vector
-  c(1,2,3,4)
-# creating matrix from a vector
-  matrix(c(1,2,3,4), 2, 2)
-  x = c(1,1,1,0,0,0); y = c(1,0,1,0,1,0)
-  cbind(x,y)
-# matrix multiplication using '%*%'
-  matrix(c(1,2,3,4), 2, 2) %*% t(cbind(x,y))
+    # creating a vector
+    c(1,2,3,4)
+    c("a", "b", "c")
+    # creating matrix from a vector
+    matrix(c(1,2,3,4), 2, 2)
+    x = c(1,1,1,0,0,0); y = c(1,0,1,0,1,0)
+    cbind(x,y)
+    # matrix multiplication using '%*%'
+    matrix(c(1,2,3,4), 2, 2) %*% t(cbind(x,y))
 ```  
 
 Simple mathematical operations on vectors and matrices are usually element-wise. You can easliy extract certain elements of them by using the `[]` operator, like a `C` programming reference style. 
 
 ```{r, collapse=TRUE}  
-# some simple operations 
-  x[3]
-  x[2:5]
-  cbind(x,y)[1:2, ]
-  (x + y)^2
-  length(x)
-  dim(cbind(x,y))
-# A warning will be issued when R detects something wrong. Results may still be produced.
-  x + c(1,2,3,4)
+    # some simple operations 
+    x[3]
+    x[2:5]
+    cbind(x,y)[1:2, ]
+    (x + y)^2
+    length(x)
+    dim(cbind(x,y))
+    # A warning will be issued when R detects something wrong. Results may still be produced.
+    x + c(1,2,3,4)
 ```
 
-`list()` simply creates a list of objects (of any type). However, some operators cannot be directly applied to a list in a similar way as to vectors or matrices. Model fitting results in R are usually stored as a list. 
+`list()` simply creates a list of objects (of any type). However, some operators cannot be directly applied to a list in a similar way as to vectors or matrices. Model fitting results in R are usually stored as a list (for example, the `lm()` function used in Section \@ref(sec:lm).
 
 ```{r, collapse=TRUE}  
-# creating a list
-  x = list(c(1,2), "hello", matrix(c(1,2,3,4), 2, 2))
-  x[[1]]
+    # creating a list
+    x = list(c(1,2), "hello", matrix(c(1,2,3,4), 2, 2))
+    x[[1]]
 ```
 
+`data.frame()` creates a list of vectors of equal length, and display them as a matrix-like object where each vector is a column of the matrix. It is mainly used for storing data. For example the famous iris data. The first four columns are numerical variables, while the last column is a categorical variable with three levels: `setosa`, `versicolor`, and `virginica`.
 
-
-\section{3. Random Number Generations and Descriptive Statistics}
-
-Random number generation is important for statistical simulation. 
-```{r, collapse=TRUE}
-    # generate 10 Bernoulli random variables as a vector
-    rbinom(n=10, size = 1, prob = 0.5)
-    # 2 random normally distributed variables
-    rnorm(n=4, mean = 1, sd = 2)
-
-```
-\vspace{12pt}
-If we need to replicate the results, we can set random seed
-```{r, collapse=TRUE}
-    # after setting the seed, the two runs will generate exactly the same "random" numbers
-    set.seed(1)
-    rnorm(n=4, mean = 1, sd = 2)
-    set.seed(1)
-    rnorm(n=4, mean = 1, sd = 2)
-```
-\vspace{12pt}
-Statistical functions that provides a summary of the data
-```{r, collapse=TRUE}
-    x = rnorm(n=100, mean = 1, sd = 2)
-    y = rnorm(n=100, mean = 2, sd = 1)
-    sum(x)
-    mean(x)
-    var(x)
-    median(x)
-    quantile(x, c(0.25, 0.5, 0.75))
-    cor(x, y)
-```
-\vspace{12pt}
-For discrete data, we usually use the table function
-```{r, collapse=TRUE}
-    set.seed(1); n = 1000
-    x = rbinom(n, size = 1, prob = 0.75)
-    y = rbinom(n, size = 3, prob = c(0.4, 0.3, 0.2, 0.1))
-    table(x)
-    table(x, y)
-```
-For a mixture of discrete and continuous data (multiple variables), we often use a data.frame
-```{r, collapse = TRUE}
-    # data.frame is a special data structure that can store both factor and numeric variables
-    z = runif(n, min = 18, max = 65)
-    data = data.frame("Gender" = as.factor(x), "Group" = as.factor(y), "Age" = z)
-    levels(data$Gender) = c("male", "female")
-    levels(data$Group) = c("patient", "physician", "engineer", "statistician")
-    
-    # a peek at the top 3 entries of the data
-    head(data, 3)
-    
-    # a brief summary
-    summary(data)
-    
-    # generate a 2 by 2 table that summarizes Gender and Group
-    table(data[, 1:2])
+```{r, collapse=TRUE}  
+    # the head function peeks the first severl rows of the dataset 
+    head(iris, n = 3)
+    # data frame can be called by each individual column
+    iris$Species[c(1, 51, 101)]
+    # the summary function can be used to view all variables
+    summary(iris)
 ```
 
-\section{4. Simple Statistical Tests}
+## Read-in Data from Other Sources
 
-Fisher Exact Test and Chi-square test are tests of independence between two nominal variables.
-
-```{r, collapse=TRUE}
-    # the test p-value is not significant
-    # recall that we generated the two variables independently.
-    fisher.test(table(data[, 1:2]))
-
-    # chi-square test
-    chisq.test(table(data[, 1:2]))
+Data can be imported from a varity of sources. More commonly, dataset can be stored in `.txt`, `.csv` or other file formats. 
+```{r, collapse=TRUE}  
+    # read-in data
+    birthrate = read.csv("data/birthrate.csv")
+    head(birthrate)
+    # to see how many observations (rows) and variables (columns) in a dataset
+    dim(birthrate)
 ```
 
-For continuous variables, we can calculate and test Pearson's correlation, Spearman's rho or Kendall' tau
-```{r, collapse=TRUE}
-    set.seed(1); n = 30
-    x = rnorm(n)
-    y = x + rnorm(n, sd = 2)
-    z = x + rnorm(n, sd = 2)
-    
-    # one can specify method = "kendall" or "spearman" to perform other correlations or tests
-    cor(y, z)
-    cor.test(y, z)
-```
+## Using Packages
 
-\section{5. Regression Models}
+Packages are written and contributed to R by individuals. They provide additional features (functions or data) that serves particular need. The package `ElemStatLearn` is created for the text book [@hastie2001elements] and contains may popular datasets. A package needs to be installed and loaded to your local computer. 
 
-A simple linear regression assumes the underlying model $Y = \beta X + \epsilon$. With observed data, we can estimate the regression coefficients:
-```{r, collapse=TRUE}
-    # the lm() function is the most commonly used
-    fit = lm(y~x)
-    summary(fit)
-```
-
-\section{6. Data Visualization}
-A graphical view usually helps understand the data better. There are a variety of ways to customize your plot, such as color and shape.
-
-```{r, out.width='.49\\linewidth', fig.width = 3, fig.width = 6, fig.show='hold',fig.align='center'}
-    plot(x, y, xlab = "x", ylab = "y", main = "A plot", col = "darkorange", pch = 19)
-    abline(a = fit$coefficients[1], b = fit$coefficients[2], 
-           col = "deepskyblue", lty = 2, lwd = 2)
-    legend("topleft", c("observed points", "fitted line"), lty = c(NA, 2), 
-           pch = c(19, NA), col = c("darkorange", "deepskyblue"))
-```
-
-\section{7. Other Things}
-
-\subsection{7.1 Read-in and Save Data}
-R can read-in data from many different sources such as \texttt{.txt}, \texttt{.csv}, etc. For example, \texttt{read.csv()} can be used to import \texttt{.csv} files. The first argument should be specified as the path to the data file, or just the name of the file if the current working directory is the same as the data file. R objects, especially matrices, can be saved into these standard files. Use functions such as \texttt{write.table()} and \texttt{write.csv} to perform this. We can also save any object into \texttt{.RData} file, which can be loaded later on. To do this try functions \texttt{save.image()} and \texttt{save()}.
-
-\subsection{7.2 R Packages}
-One of the most important features of R is its massive collection of packages. A package is like an add-on that can be downloaded and installed and perform additional function and analysis. 
-```{r, collapse=TRUE}
-    # The MASS package can be used to generate multivariate normal distribution 
-    library(MASS)
-    P = 4; N = 200
-    V <- 0.5^abs(outer(1:P, 1:P, "-"))
-    X = as.matrix(mvrnorm(N, mu=rep(0,P), Sigma=V))
-    head(X, 3)
-```
-
-\subsection{7.3 Get Helps}
-To get reference about a particular function, one can put a question mark in front of a function name to see details: 
 ```{r, collapse=TRUE, eval=FALSE}
-    # This will open up the web browser for the on-line document 
-    ?mvrnorm
-    ?save.image
+    # install packages
+    install.packages("ElemStatLearn")
+    # load package
+    library(ElemStatLearn)
 ```
+
+```{r, echo=FALSE}
+    library(ElemStatLearn)
+```
+
+```{r, collapse=TRUE}  
+    # load a dataset from the package 
+    data(SAheart)
+    head(SAheart)
+```
+
+## Using R Markdown
+
+R Markdown is a simple way of creating documents that contains both text (including mathematical equations) and R code chunks. Authors create a `.Rmd` file, which will be fed to [knitr](https://yihui.name/knitr/) to generate the document. 
+
 
 
 
