@@ -138,7 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
 </ul></li>
 <li class="part"><span><b>I Basics Knowledge</b></span></li>
-<li class="chapter" data-level="1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html"><i class="fa fa-check"></i><b>1</b> R, RStudio and R Markdown</a><ul>
+<li class="chapter" data-level="1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html"><i class="fa fa-check"></i><b>1</b> R, RStudio, and R Markdown</a><ul>
 <li class="chapter" data-level="1.1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#resources-and-guides"><i class="fa fa-check"></i><b>1.1</b> Resources and Guides</a></li>
 <li class="chapter" data-level="1.2" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#basic-mathematical-operations"><i class="fa fa-check"></i><b>1.2</b> Basic Mathematical Operations</a><ul>
 <li class="chapter" data-level="1.2.1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#data-objects"><i class="fa fa-check"></i><b>1.2.1</b> Data Objects</a></li>
@@ -198,10 +198,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Random number generation is important for statistical simulation. R provides random number generators for many commonly used distributions, such as binomial (<code>rbinom</code>), normal (<code>rnorm</code>), t (<code>rt</code>) etc. The syntax is usually a letter “r” followed by the name of the distribution.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">    <span class="co"># generate 10 independent Bernoulli random variables as a vector</span></a>
 <a class="sourceLine" id="cb11-2" data-line-number="2">    <span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3">##  [1] 0 1 0 1 0 0 0 0 0 1</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">##  [1] 1 0 0 0 1 1 1 0 1 0</a>
 <a class="sourceLine" id="cb11-4" data-line-number="4">    <span class="co"># 4 independent random standard normal variables</span></a>
 <a class="sourceLine" id="cb11-5" data-line-number="5">    <span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb11-6" data-line-number="6">## [1] -0.60629004  0.01484334 -0.70251385  1.57949807</a></code></pre></div>
+<a class="sourceLine" id="cb11-6" data-line-number="6">## [1] 1.45180010 0.02590435 0.91152393 0.26830454</a></code></pre></div>
 <p>Setting the seed before generating random numbers will allow us to replicate the results when necessary.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">    <span class="co"># after setting the seed, the two runs will generate exactly the same &quot;random&quot; numbers</span></a>
 <a class="sourceLine" id="cb12-2" data-line-number="2">    <span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
@@ -210,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb12-5" data-line-number="5">    <span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb12-6" data-line-number="6">    <span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">4</span>, <span class="dt">mean =</span> <span class="dv">1</span>, <span class="dt">sd =</span> <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb12-7" data-line-number="7">## [1] -0.2529076  1.3672866 -0.6712572  4.1905616</a></code></pre></div>
-<p>Some more complicated distributions require additional package. For example, the <code>MASS</code> package can be used to generate multivariate normal distribution. One needs to specify a covariance matrix.</p>
+<p>Some more complicated distributions require additional packages. For example, the <code>MASS</code> package can be used to generate the multivariate normal distribution. One needs to specify a covariance matrix.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">    <span class="kw">library</span>(MASS)</a>
 <a class="sourceLine" id="cb13-2" data-line-number="2">    P =<span class="st"> </span><span class="dv">4</span></a>
 <a class="sourceLine" id="cb13-3" data-line-number="3">    V &lt;-<span class="st"> </span><span class="fl">0.5</span><span class="op">^</span><span class="kw">abs</span>(<span class="kw">outer</span>(<span class="dv">1</span><span class="op">:</span>P, <span class="dv">1</span><span class="op">:</span>P, <span class="st">&quot;-&quot;</span>))</a>
@@ -222,7 +222,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="summary-statistics-and-data-visualization" class="section level2">
 <h2><span class="header-section-number">2.2</span> Summary Statistics and Data Visualization</h2>
-<p>Statistical functions that provides a summary of the data</p>
+<p>Statistical functions that provide a summary of the data</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">    x =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">100</span>, <span class="dt">mean =</span> <span class="dv">1</span>, <span class="dt">sd =</span> <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2">    y =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">100</span>, <span class="dt">mean =</span> <span class="dv">2</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb14-3" data-line-number="3">    <span class="kw">sum</span>(x)</a>
@@ -280,12 +280,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb17-3" data-line-number="3">    <span class="kw">plot</span>(birthrate, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Birth Rate&quot;</span>,</a>
 <a class="sourceLine" id="cb17-4" data-line-number="4">         <span class="dt">main =</span> <span class="st">&quot;U.S. birth rate (1917 - 2003, per 10000)&quot;</span>)</a></code></pre></div>
 <p><img src="1.2-stat-prob-basics_files/figure-html/unnamed-chunk-7-1.png" width="576" /></p>
-<p>Correlations and correlation plots can be used to summarize more varaibles. However, becareful that factors may not be supported by this feature and could cause errors.</p>
+<p>Correlations and correlation plots can be used to summarize more variables. However, be careful that factors may not be supported by this feature and could cause errors.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">    <span class="co"># load the package with loading message suppressed</span></a>
 <a class="sourceLine" id="cb18-2" data-line-number="2">    <span class="kw">suppressMessages</span>(<span class="kw">library</span>(PerformanceAnalytics))</a>
 <a class="sourceLine" id="cb18-3" data-line-number="3">    <span class="kw">chart.Correlation</span>(SAheart[, <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)], <span class="dt">histogram=</span><span class="ot">TRUE</span>, <span class="dt">pch=</span><span class="st">&quot;+&quot;</span>)</a></code></pre></div>
 <p><img src="1.2-stat-prob-basics_files/figure-html/unnamed-chunk-8-1.png" width="480" /></p>
-<p>3-dimentional plots are also alternative ways to visualize data. We demonstrate an example using the <code>plot3D</code> package and the <code>scatter3D</code> function. The package <code>rgl</code> can allow for interactive plot with rotating and zooming.</p>
+<p>3-dimensional plots are also alternative ways to visualize data. We demonstrate an example using the <code>plot3D</code> package and the <code>scatter3D</code> function. The package <code>rgl</code> can allow for an interactive plot with rotating and zooming.</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">    <span class="kw">library</span>(plot3D)</a>
 <a class="sourceLine" id="cb19-2" data-line-number="2">    <span class="kw">scatter3D</span>(SAheart<span class="op">$</span>ldl, SAheart<span class="op">$</span>age, <span class="kw">log</span>(<span class="dv">1</span><span class="op">+</span>SAheart<span class="op">$</span>tobacco), </a>
 <a class="sourceLine" id="cb19-3" data-line-number="3">              <span class="dt">xlab =</span> <span class="st">&quot;LDL&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Age&quot;</span>, <span class="dt">zlab =</span> <span class="st">&quot;Tobacco&quot;</span>,</a>

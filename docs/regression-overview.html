@@ -138,7 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
 </ul></li>
 <li class="part"><span><b>I Basics Knowledge</b></span></li>
-<li class="chapter" data-level="1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html"><i class="fa fa-check"></i><b>1</b> R, RStudio and R Markdown</a><ul>
+<li class="chapter" data-level="1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html"><i class="fa fa-check"></i><b>1</b> R, RStudio, and R Markdown</a><ul>
 <li class="chapter" data-level="1.1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#resources-and-guides"><i class="fa fa-check"></i><b>1.1</b> Resources and Guides</a></li>
 <li class="chapter" data-level="1.2" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#basic-mathematical-operations"><i class="fa fa-check"></i><b>1.2</b> Basic Mathematical Operations</a><ul>
 <li class="chapter" data-level="1.2.1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#data-objects"><i class="fa fa-check"></i><b>1.2.1</b> Data Objects</a></li>
@@ -236,123 +236,123 @@ Y = f(\bf{x}) + \epsilon
 \]</span>
 - TODO: RSS vs <span class="math inline">\(R^2\)</span> vs RMSE</p>
 <p><strong>Code for Plotting from Class</strong></p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1">## load packages</a>
-<a class="sourceLine" id="cb81-2" data-line-number="2"><span class="kw">library</span>(rpart)</a>
-<a class="sourceLine" id="cb81-3" data-line-number="3"><span class="kw">library</span>(FNN)</a></code></pre></div>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="co"># simulate data</span></a>
-<a class="sourceLine" id="cb82-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb82-3" data-line-number="3">## signal</a>
-<a class="sourceLine" id="cb82-4" data-line-number="4">f =<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb82-5" data-line-number="5">  x <span class="op">^</span><span class="st"> </span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb82-6" data-line-number="6">}</a>
-<a class="sourceLine" id="cb82-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb82-8" data-line-number="8">## define data generating processs</a>
-<a class="sourceLine" id="cb82-9" data-line-number="9">get_sim_data =<span class="st"> </span><span class="cf">function</span>(f, <span class="dt">sample_size =</span> <span class="dv">50</span>) {</a>
-<a class="sourceLine" id="cb82-10" data-line-number="10">  x =<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n =</span> sample_size, <span class="dt">min =</span> <span class="dv">-1</span>, <span class="dt">max =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb82-11" data-line-number="11">  y =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> sample_size, <span class="dt">mean =</span> <span class="kw">f</span>(x), <span class="dt">sd =</span> <span class="fl">0.15</span>)</a>
-<a class="sourceLine" id="cb82-12" data-line-number="12">  <span class="kw">data.frame</span>(x, y)</a>
-<a class="sourceLine" id="cb82-13" data-line-number="13">}</a>
-<a class="sourceLine" id="cb82-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb82-15" data-line-number="15">## simualte training data</a>
-<a class="sourceLine" id="cb82-16" data-line-number="16"><span class="kw">set.seed</span>(<span class="dv">42</span>)</a>
-<a class="sourceLine" id="cb82-17" data-line-number="17">sim_trn_data =<span class="st"> </span><span class="kw">get_sim_data</span>(<span class="dt">f =</span> f)</a>
-<a class="sourceLine" id="cb82-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb82-19" data-line-number="19">## simulate testing data</a>
-<a class="sourceLine" id="cb82-20" data-line-number="20"><span class="kw">set.seed</span>(<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb82-21" data-line-number="21">sim_tst_data =<span class="st"> </span><span class="kw">get_sim_data</span>(<span class="dt">f =</span> f)</a>
-<a class="sourceLine" id="cb82-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb82-23" data-line-number="23">## create grid for plotting</a>
-<a class="sourceLine" id="cb82-24" data-line-number="24">x_grid =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">0.001</span>))</a></code></pre></div>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1"><span class="co"># fit models</span></a>
-<a class="sourceLine" id="cb83-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb83-3" data-line-number="3">## tree models</a>
-<a class="sourceLine" id="cb83-4" data-line-number="4">tree_fit_l =<span class="st"> </span><span class="kw">rpart</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, </a>
-<a class="sourceLine" id="cb83-5" data-line-number="5">                   <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">cp =</span> <span class="fl">0.500</span>, <span class="dt">minsplit =</span> <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb83-6" data-line-number="6">tree_fit_m =<span class="st"> </span><span class="kw">rpart</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, </a>
-<a class="sourceLine" id="cb83-7" data-line-number="7">                   <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">cp =</span> <span class="fl">0.015</span>, <span class="dt">minsplit =</span> <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb83-8" data-line-number="8">tree_fit_h =<span class="st"> </span><span class="kw">rpart</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, </a>
-<a class="sourceLine" id="cb83-9" data-line-number="9">                   <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">cp =</span> <span class="fl">0.000</span>, <span class="dt">minsplit =</span> <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb83-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb83-11" data-line-number="11">## knn models</a>
-<a class="sourceLine" id="cb83-12" data-line-number="12">knn_fit_l =<span class="st"> </span><span class="kw">knn.reg</span>(<span class="dt">train =</span> sim_trn_data[<span class="st">&quot;x&quot;</span>], <span class="dt">y =</span> sim_trn_data<span class="op">$</span>y, </a>
-<a class="sourceLine" id="cb83-13" data-line-number="13">                    <span class="dt">test =</span> x_grid, <span class="dt">k =</span> <span class="dv">40</span>)</a>
-<a class="sourceLine" id="cb83-14" data-line-number="14">knn_fit_m =<span class="st"> </span><span class="kw">knn.reg</span>(<span class="dt">train =</span> sim_trn_data[<span class="st">&quot;x&quot;</span>], <span class="dt">y =</span> sim_trn_data<span class="op">$</span>y, </a>
-<a class="sourceLine" id="cb83-15" data-line-number="15">                    <span class="dt">test =</span> x_grid, <span class="dt">k =</span> <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb83-16" data-line-number="16">knn_fit_h =<span class="st"> </span><span class="kw">knn.reg</span>(<span class="dt">train =</span> sim_trn_data[<span class="st">&quot;x&quot;</span>], <span class="dt">y =</span> sim_trn_data<span class="op">$</span>y, </a>
-<a class="sourceLine" id="cb83-17" data-line-number="17">                    <span class="dt">test =</span> x_grid, <span class="dt">k =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb83-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb83-19" data-line-number="19">## polynomial models</a>
-<a class="sourceLine" id="cb83-20" data-line-number="20">poly_fit_l =<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x,  <span class="dv">1</span>), <span class="dt">data =</span> sim_trn_data)</a>
-<a class="sourceLine" id="cb83-21" data-line-number="21">poly_fit_m =<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x,  <span class="dv">3</span>), <span class="dt">data =</span> sim_trn_data)</a>
-<a class="sourceLine" id="cb83-22" data-line-number="22">poly_fit_h =<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x, <span class="dv">22</span>), <span class="dt">data =</span> sim_trn_data)</a></code></pre></div>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="co"># get predictions</span></a>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1">## load packages</a>
+<a class="sourceLine" id="cb83-2" data-line-number="2"><span class="kw">library</span>(rpart)</a>
+<a class="sourceLine" id="cb83-3" data-line-number="3"><span class="kw">library</span>(FNN)</a></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="co"># simulate data</span></a>
 <a class="sourceLine" id="cb84-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb84-3" data-line-number="3">## tree models</a>
-<a class="sourceLine" id="cb84-4" data-line-number="4">tree_fit_l_pred =<span class="st"> </span><span class="kw">predict</span>(tree_fit_l, <span class="dt">newdata =</span> x_grid)</a>
-<a class="sourceLine" id="cb84-5" data-line-number="5">tree_fit_m_pred =<span class="st"> </span><span class="kw">predict</span>(tree_fit_m, <span class="dt">newdata =</span> x_grid)</a>
-<a class="sourceLine" id="cb84-6" data-line-number="6">tree_fit_h_pred =<span class="st"> </span><span class="kw">predict</span>(tree_fit_h, <span class="dt">newdata =</span> x_grid)</a>
+<a class="sourceLine" id="cb84-3" data-line-number="3">## signal</a>
+<a class="sourceLine" id="cb84-4" data-line-number="4">f =<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb84-5" data-line-number="5">  x <span class="op">^</span><span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb84-6" data-line-number="6">}</a>
 <a class="sourceLine" id="cb84-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb84-8" data-line-number="8">## knn models</a>
-<a class="sourceLine" id="cb84-9" data-line-number="9">knn_fit_l_pred =<span class="st"> </span>knn_fit_l<span class="op">$</span>pred</a>
-<a class="sourceLine" id="cb84-10" data-line-number="10">knn_fit_m_pred =<span class="st"> </span>knn_fit_m<span class="op">$</span>pred</a>
-<a class="sourceLine" id="cb84-11" data-line-number="11">knn_fit_h_pred =<span class="st"> </span>knn_fit_h<span class="op">$</span>pred</a>
-<a class="sourceLine" id="cb84-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb84-13" data-line-number="13">## polynomial models</a>
-<a class="sourceLine" id="cb84-14" data-line-number="14">poly_fit_l_pred =<span class="st"> </span><span class="kw">predict</span>(poly_fit_l, <span class="dt">newdata =</span> x_grid)</a>
-<a class="sourceLine" id="cb84-15" data-line-number="15">poly_fit_m_pred =<span class="st"> </span><span class="kw">predict</span>(poly_fit_m, <span class="dt">newdata =</span> x_grid)</a>
-<a class="sourceLine" id="cb84-16" data-line-number="16">poly_fit_h_pred =<span class="st"> </span><span class="kw">predict</span>(poly_fit_h, <span class="dt">newdata =</span> x_grid)</a></code></pre></div>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="co"># plot fitted trees</span></a>
+<a class="sourceLine" id="cb84-8" data-line-number="8">## define data generating processs</a>
+<a class="sourceLine" id="cb84-9" data-line-number="9">get_sim_data =<span class="st"> </span><span class="cf">function</span>(f, <span class="dt">sample_size =</span> <span class="dv">50</span>) {</a>
+<a class="sourceLine" id="cb84-10" data-line-number="10">  x =<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n =</span> sample_size, <span class="dt">min =</span> <span class="dv">-1</span>, <span class="dt">max =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb84-11" data-line-number="11">  y =<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> sample_size, <span class="dt">mean =</span> <span class="kw">f</span>(x), <span class="dt">sd =</span> <span class="fl">0.15</span>)</a>
+<a class="sourceLine" id="cb84-12" data-line-number="12">  <span class="kw">data.frame</span>(x, y)</a>
+<a class="sourceLine" id="cb84-13" data-line-number="13">}</a>
+<a class="sourceLine" id="cb84-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb84-15" data-line-number="15">## simualte training data</a>
+<a class="sourceLine" id="cb84-16" data-line-number="16"><span class="kw">set.seed</span>(<span class="dv">42</span>)</a>
+<a class="sourceLine" id="cb84-17" data-line-number="17">sim_trn_data =<span class="st"> </span><span class="kw">get_sim_data</span>(<span class="dt">f =</span> f)</a>
+<a class="sourceLine" id="cb84-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb84-19" data-line-number="19">## simulate testing data</a>
+<a class="sourceLine" id="cb84-20" data-line-number="20"><span class="kw">set.seed</span>(<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb84-21" data-line-number="21">sim_tst_data =<span class="st"> </span><span class="kw">get_sim_data</span>(<span class="dt">f =</span> f)</a>
+<a class="sourceLine" id="cb84-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb84-23" data-line-number="23">## create grid for plotting</a>
+<a class="sourceLine" id="cb84-24" data-line-number="24">x_grid =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">0.001</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="co"># fit models</span></a>
 <a class="sourceLine" id="cb85-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb85-3" data-line-number="3"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb85-4" data-line-number="4"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, <span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">20</span>, </a>
-<a class="sourceLine" id="cb85-5" data-line-number="5">     <span class="dt">main =</span> <span class="st">&quot;Tree Model, cp = 0.5&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb85-6" data-line-number="6"><span class="kw">grid</span>()</a>
-<a class="sourceLine" id="cb85-7" data-line-number="7"><span class="kw">lines</span>(x_grid<span class="op">$</span>x, tree_fit_l_pred, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb85-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb85-9" data-line-number="9"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, <span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">20</span>,</a>
-<a class="sourceLine" id="cb85-10" data-line-number="10">     <span class="dt">main =</span> <span class="st">&quot;Tree Model, cp = 0.015&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb85-11" data-line-number="11"><span class="kw">grid</span>()</a>
-<a class="sourceLine" id="cb85-12" data-line-number="12"><span class="kw">lines</span>(x_grid<span class="op">$</span>x, tree_fit_m_pred, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb85-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb85-14" data-line-number="14"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, <span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">20</span>, </a>
-<a class="sourceLine" id="cb85-15" data-line-number="15">     <span class="dt">main =</span> <span class="st">&quot;Tree Model, cp = 0.0&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb85-16" data-line-number="16"><span class="kw">grid</span>()</a>
-<a class="sourceLine" id="cb85-17" data-line-number="17"><span class="kw">lines</span>(x_grid<span class="op">$</span>x, tree_fit_h_pred, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a></code></pre></div>
-<p><img src="2.1-regression_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="co"># plot fitted KNN</span></a>
+<a class="sourceLine" id="cb85-3" data-line-number="3">## tree models</a>
+<a class="sourceLine" id="cb85-4" data-line-number="4">tree_fit_l =<span class="st"> </span><span class="kw">rpart</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, </a>
+<a class="sourceLine" id="cb85-5" data-line-number="5">                   <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">cp =</span> <span class="fl">0.500</span>, <span class="dt">minsplit =</span> <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb85-6" data-line-number="6">tree_fit_m =<span class="st"> </span><span class="kw">rpart</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, </a>
+<a class="sourceLine" id="cb85-7" data-line-number="7">                   <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">cp =</span> <span class="fl">0.015</span>, <span class="dt">minsplit =</span> <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb85-8" data-line-number="8">tree_fit_h =<span class="st"> </span><span class="kw">rpart</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, </a>
+<a class="sourceLine" id="cb85-9" data-line-number="9">                   <span class="dt">control =</span> <span class="kw">rpart.control</span>(<span class="dt">cp =</span> <span class="fl">0.000</span>, <span class="dt">minsplit =</span> <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb85-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb85-11" data-line-number="11">## knn models</a>
+<a class="sourceLine" id="cb85-12" data-line-number="12">knn_fit_l =<span class="st"> </span><span class="kw">knn.reg</span>(<span class="dt">train =</span> sim_trn_data[<span class="st">&quot;x&quot;</span>], <span class="dt">y =</span> sim_trn_data<span class="op">$</span>y, </a>
+<a class="sourceLine" id="cb85-13" data-line-number="13">                    <span class="dt">test =</span> x_grid, <span class="dt">k =</span> <span class="dv">40</span>)</a>
+<a class="sourceLine" id="cb85-14" data-line-number="14">knn_fit_m =<span class="st"> </span><span class="kw">knn.reg</span>(<span class="dt">train =</span> sim_trn_data[<span class="st">&quot;x&quot;</span>], <span class="dt">y =</span> sim_trn_data<span class="op">$</span>y, </a>
+<a class="sourceLine" id="cb85-15" data-line-number="15">                    <span class="dt">test =</span> x_grid, <span class="dt">k =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb85-16" data-line-number="16">knn_fit_h =<span class="st"> </span><span class="kw">knn.reg</span>(<span class="dt">train =</span> sim_trn_data[<span class="st">&quot;x&quot;</span>], <span class="dt">y =</span> sim_trn_data<span class="op">$</span>y, </a>
+<a class="sourceLine" id="cb85-17" data-line-number="17">                    <span class="dt">test =</span> x_grid, <span class="dt">k =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb85-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb85-19" data-line-number="19">## polynomial models</a>
+<a class="sourceLine" id="cb85-20" data-line-number="20">poly_fit_l =<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x,  <span class="dv">1</span>), <span class="dt">data =</span> sim_trn_data)</a>
+<a class="sourceLine" id="cb85-21" data-line-number="21">poly_fit_m =<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x,  <span class="dv">3</span>), <span class="dt">data =</span> sim_trn_data)</a>
+<a class="sourceLine" id="cb85-22" data-line-number="22">poly_fit_h =<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x, <span class="dv">22</span>), <span class="dt">data =</span> sim_trn_data)</a></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="co"># get predictions</span></a>
 <a class="sourceLine" id="cb86-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb86-3" data-line-number="3"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb86-4" data-line-number="4"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, <span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">20</span>, </a>
-<a class="sourceLine" id="cb86-5" data-line-number="5">     <span class="dt">main =</span> <span class="st">&quot;KNN, k = 40&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb86-6" data-line-number="6"><span class="kw">grid</span>()</a>
-<a class="sourceLine" id="cb86-7" data-line-number="7"><span class="kw">lines</span>(x_grid<span class="op">$</span>x, knn_fit_l_pred, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb86-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb86-9" data-line-number="9"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, <span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">20</span>,</a>
-<a class="sourceLine" id="cb86-10" data-line-number="10">     <span class="dt">main =</span> <span class="st">&quot;KNN, k = 5&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb86-11" data-line-number="11"><span class="kw">grid</span>()</a>
-<a class="sourceLine" id="cb86-12" data-line-number="12"><span class="kw">lines</span>(x_grid<span class="op">$</span>x, knn_fit_m_pred, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb86-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb86-14" data-line-number="14"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, <span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">20</span>, </a>
-<a class="sourceLine" id="cb86-15" data-line-number="15">     <span class="dt">main =</span> <span class="st">&quot;KNN, k = 1&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb86-16" data-line-number="16"><span class="kw">grid</span>()</a>
-<a class="sourceLine" id="cb86-17" data-line-number="17"><span class="kw">lines</span>(x_grid<span class="op">$</span>x, knn_fit_h_pred, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb86-3" data-line-number="3">## tree models</a>
+<a class="sourceLine" id="cb86-4" data-line-number="4">tree_fit_l_pred =<span class="st"> </span><span class="kw">predict</span>(tree_fit_l, <span class="dt">newdata =</span> x_grid)</a>
+<a class="sourceLine" id="cb86-5" data-line-number="5">tree_fit_m_pred =<span class="st"> </span><span class="kw">predict</span>(tree_fit_m, <span class="dt">newdata =</span> x_grid)</a>
+<a class="sourceLine" id="cb86-6" data-line-number="6">tree_fit_h_pred =<span class="st"> </span><span class="kw">predict</span>(tree_fit_h, <span class="dt">newdata =</span> x_grid)</a>
+<a class="sourceLine" id="cb86-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb86-8" data-line-number="8">## knn models</a>
+<a class="sourceLine" id="cb86-9" data-line-number="9">knn_fit_l_pred =<span class="st"> </span>knn_fit_l<span class="op">$</span>pred</a>
+<a class="sourceLine" id="cb86-10" data-line-number="10">knn_fit_m_pred =<span class="st"> </span>knn_fit_m<span class="op">$</span>pred</a>
+<a class="sourceLine" id="cb86-11" data-line-number="11">knn_fit_h_pred =<span class="st"> </span>knn_fit_h<span class="op">$</span>pred</a>
+<a class="sourceLine" id="cb86-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb86-13" data-line-number="13">## polynomial models</a>
+<a class="sourceLine" id="cb86-14" data-line-number="14">poly_fit_l_pred =<span class="st"> </span><span class="kw">predict</span>(poly_fit_l, <span class="dt">newdata =</span> x_grid)</a>
+<a class="sourceLine" id="cb86-15" data-line-number="15">poly_fit_m_pred =<span class="st"> </span><span class="kw">predict</span>(poly_fit_m, <span class="dt">newdata =</span> x_grid)</a>
+<a class="sourceLine" id="cb86-16" data-line-number="16">poly_fit_h_pred =<span class="st"> </span><span class="kw">predict</span>(poly_fit_h, <span class="dt">newdata =</span> x_grid)</a></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="co"># plot fitted trees</span></a>
+<a class="sourceLine" id="cb87-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb87-3" data-line-number="3"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb87-4" data-line-number="4"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, <span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">20</span>, </a>
+<a class="sourceLine" id="cb87-5" data-line-number="5">     <span class="dt">main =</span> <span class="st">&quot;Tree Model, cp = 0.5&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb87-6" data-line-number="6"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb87-7" data-line-number="7"><span class="kw">lines</span>(x_grid<span class="op">$</span>x, tree_fit_l_pred, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb87-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb87-9" data-line-number="9"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, <span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">20</span>,</a>
+<a class="sourceLine" id="cb87-10" data-line-number="10">     <span class="dt">main =</span> <span class="st">&quot;Tree Model, cp = 0.015&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb87-11" data-line-number="11"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb87-12" data-line-number="12"><span class="kw">lines</span>(x_grid<span class="op">$</span>x, tree_fit_m_pred, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb87-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb87-14" data-line-number="14"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, <span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">20</span>, </a>
+<a class="sourceLine" id="cb87-15" data-line-number="15">     <span class="dt">main =</span> <span class="st">&quot;Tree Model, cp = 0.0&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb87-16" data-line-number="16"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb87-17" data-line-number="17"><span class="kw">lines</span>(x_grid<span class="op">$</span>x, tree_fit_h_pred, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a></code></pre></div>
+<p><img src="2.1-regression_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="co"># plot fitted KNN</span></a>
+<a class="sourceLine" id="cb88-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb88-3" data-line-number="3"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb88-4" data-line-number="4"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, <span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">20</span>, </a>
+<a class="sourceLine" id="cb88-5" data-line-number="5">     <span class="dt">main =</span> <span class="st">&quot;KNN, k = 40&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb88-6" data-line-number="6"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb88-7" data-line-number="7"><span class="kw">lines</span>(x_grid<span class="op">$</span>x, knn_fit_l_pred, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb88-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb88-9" data-line-number="9"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, <span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">20</span>,</a>
+<a class="sourceLine" id="cb88-10" data-line-number="10">     <span class="dt">main =</span> <span class="st">&quot;KNN, k = 5&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb88-11" data-line-number="11"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb88-12" data-line-number="12"><span class="kw">lines</span>(x_grid<span class="op">$</span>x, knn_fit_m_pred, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb88-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb88-14" data-line-number="14"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, <span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">20</span>, </a>
+<a class="sourceLine" id="cb88-15" data-line-number="15">     <span class="dt">main =</span> <span class="st">&quot;KNN, k = 1&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb88-16" data-line-number="16"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb88-17" data-line-number="17"><span class="kw">lines</span>(x_grid<span class="op">$</span>x, knn_fit_h_pred, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a></code></pre></div>
 <p><img src="2.1-regression_files/figure-html/unnamed-chunk-6-1.png" width="960" /></p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="co"># plot fitted polynomials</span></a>
-<a class="sourceLine" id="cb87-2" data-line-number="2"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb87-3" data-line-number="3"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, <span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">20</span>, </a>
-<a class="sourceLine" id="cb87-4" data-line-number="4">     <span class="dt">main =</span> <span class="st">&quot;Polynomial Model, degree = 1&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb87-5" data-line-number="5"><span class="kw">grid</span>()</a>
-<a class="sourceLine" id="cb87-6" data-line-number="6"><span class="kw">lines</span>(x_grid<span class="op">$</span>x, poly_fit_l_pred, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb87-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb87-8" data-line-number="8"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, <span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">20</span>,</a>
-<a class="sourceLine" id="cb87-9" data-line-number="9">     <span class="dt">main =</span> <span class="st">&quot;Polynomial Model, degree = 3&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb87-10" data-line-number="10"><span class="kw">grid</span>()</a>
-<a class="sourceLine" id="cb87-11" data-line-number="11"><span class="kw">lines</span>(x_grid<span class="op">$</span>x, poly_fit_m_pred, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb87-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb87-13" data-line-number="13"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, <span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">20</span>, </a>
-<a class="sourceLine" id="cb87-14" data-line-number="14">     <span class="dt">main =</span> <span class="st">&quot;Polynomial Model, degree = 22&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb87-15" data-line-number="15"><span class="kw">grid</span>()</a>
-<a class="sourceLine" id="cb87-16" data-line-number="16"><span class="kw">lines</span>(x_grid<span class="op">$</span>x, poly_fit_h_pred, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1"><span class="co"># plot fitted polynomials</span></a>
+<a class="sourceLine" id="cb89-2" data-line-number="2"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb89-3" data-line-number="3"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, <span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">20</span>, </a>
+<a class="sourceLine" id="cb89-4" data-line-number="4">     <span class="dt">main =</span> <span class="st">&quot;Polynomial Model, degree = 1&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb89-5" data-line-number="5"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb89-6" data-line-number="6"><span class="kw">lines</span>(x_grid<span class="op">$</span>x, poly_fit_l_pred, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb89-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb89-8" data-line-number="8"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, <span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">20</span>,</a>
+<a class="sourceLine" id="cb89-9" data-line-number="9">     <span class="dt">main =</span> <span class="st">&quot;Polynomial Model, degree = 3&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb89-10" data-line-number="10"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb89-11" data-line-number="11"><span class="kw">lines</span>(x_grid<span class="op">$</span>x, poly_fit_m_pred, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb89-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb89-13" data-line-number="13"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> sim_trn_data, <span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">20</span>, </a>
+<a class="sourceLine" id="cb89-14" data-line-number="14">     <span class="dt">main =</span> <span class="st">&quot;Polynomial Model, degree = 22&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb89-15" data-line-number="15"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb89-16" data-line-number="16"><span class="kw">lines</span>(x_grid<span class="op">$</span>x, poly_fit_h_pred, <span class="dt">col =</span> <span class="st">&quot;darkgrey&quot;</span>,  <span class="dt">lwd =</span> <span class="dv">2</span>)</a></code></pre></div>
 <p><img src="2.1-regression_files/figure-html/unnamed-chunk-7-1.png" width="960" /></p>
 <!-- ## Regression Notation -->
 <!-- - $\mathbf{X}$ = $n \times p$ data matrix -->
