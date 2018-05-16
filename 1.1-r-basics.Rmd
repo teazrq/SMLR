@@ -110,6 +110,18 @@ Data can be imported from a varity of sources. More commonly, dataset can be sto
     dim(birthrate)
 ```
 
+R data can also be saved into other formats. The more efficient way, assuming that you are going to load these file back to R in the future, is to save them as `.RData` file. Usually for large dataset, this reduces the time spend on reading-in the data. 
+```{r, collapse=TRUE, eval = FALSE}  
+    # saving a object to .RData file
+    save(birthrate, file = "mydata.RData")
+    # you can specify multiple objects too
+    save(birthrate, iris, file = "mydata.RData")
+    # load the data again
+    load("mydata.RData")
+    # save data to .csv file
+    write.csv(birthrate, file = "mydata.csv")
+```
+
 ## Using Packages
 
 Packages are written and contributed to R by individuals. They provide additional features (functions or data) that serves particular need. The package `ElemStatLearn` is created for the text book [@hastie2001elements] and contains may popular datasets. A package needs to be installed and loaded to your local computer. 
@@ -133,14 +145,10 @@ Packages are written and contributed to R by individuals. They provide additiona
 
 ## Using R Markdown
 
-R Markdown is a simple way of creating documents that contains both text (including mathematical equations) and R code chunks. Authors create a `.Rmd` file, which will be fed to [knitr](https://yihui.name/knitr/) to generate the document. 
+R Markdown is a simple way of creating documents that contains both text (including mathematical equations) and R code chunks. Authors create a `.Rmd` file, which will be fed to [knitr](https://yihui.name/knitr/) to generate the document. Fortunately, RStudio already intergrated everything together and all you need is to open up a `.Rmd` file with RStudio and click a button ![](images/knit.png). 
 
+A sample file is prepared [here](tutorial/sample.Rmd). 
 
+## Explore Yourself
 
-
-
-
-
-
-
-
+There is no guide that can exhaust all information. I found the best learning approach is to perform specific task and google your way to the success. Oftentimes, Stack Overflow is my best friend, especially when I am developing new packages. Also, read the reference manual carefully if you use a particular package or function. A reference manual (for packages on CRAN) can always be found at [https://cran.r-project.org/web/packages/package_name](https://cran.r-project.org/web/packages/package_name). 
