@@ -9,22 +9,22 @@ output:
 options(width = 1000)
 ```
 
-# R, RStudio and R Markdown
+# R, RStudio, and R Markdown
 
-R is a free-to-use software that is very popular in statistical computing. You can download R from its [official website](https://www.r-project.org/). Another software that makes using R easier is RStudio, which is available at [here](https://www.rstudio.com/). You can find many on-line guides that help you to set-up these two software, for example, this [\color{blue} YouTube video](https://www.youtube.com/watch?v=cX532N_XLIs&t=19s/). R Markdown is a build-in feature of RStudio. It works like an integration of LaTex and programming playground that complies source code into nice-looking PDF, html, or MS Word files. This book is created using an extension of R Markdown, developed by [Yihui Xie](https://bookdown.org/yihui/bookdown/). 
+R is a free-to-use software that is very popular in statistical computing. You can download R from its [official website](https://www.r-project.org/). Another software that makes using R easier is RStudio, which is available at [here](https://www.rstudio.com/). You can find many online guides that help you to set-up these two software, for example, this [\color{blue} YouTube video](https://www.youtube.com/watch?v=cX532N_XLIs&t=19s/). R Markdown is a built-in feature of RStudio. It works like an integration of LaTex and programming playground that compiles source code into nice-looking PDF, HTML, or MS Word files. This book is created using an extension of R Markdown, developed by [Yihui Xie](https://bookdown.org/yihui/bookdown/). 
 
 ## Resources and Guides
 
-There are many online resources for how to use R, RStudio, and R Markdown. For example, David Dalpiaz's other online book [Applied Statistics with R](http://daviddalpiaz.github.io/appliedstats/) contains an introduction to using them. There are also other online documentations such as 
+There are many online resources for how to use R, RStudio, and R Markdown. For example, David Dalpiaz's other online book [Applied Statistics with R](http://daviddalpiaz.github.io/appliedstats/) contains an introduction to using them. There are also other online documentation such as 
 
 * [Install R and RStudio](https://www.youtube.com/watch?v=cX532N_XLIs&t=19s/)
 * [R tutorial](http://www.r-tutor.com/r-introduction)
-* [Data in R Playlist (video)](https://www.youtube.com/playlist?list=PLBgxzZMu3GpPojVSoriMTWQCUno_3hjNi)
-* [R and RStudio Playlist (video)](https://www.youtube.com/playlist?list=PLBgxzZMu3GpMjYhX7jLm5B9gEV7AOOJ5w)
+* [Data in R Play-list (video)](https://www.youtube.com/playlist?list=PLBgxzZMu3GpPojVSoriMTWQCUno_3hjNi)
+* [R and RStudio Play-list (video)](https://www.youtube.com/playlist?list=PLBgxzZMu3GpMjYhX7jLm5B9gEV7AOOJ5w)
 * [R Markdown Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
-* [R Markdown Playlist (video)](https://www.youtube.com/playlist?list=PLBgxzZMu3GpNgd07DwmS-2odHtMO6MWGH)
+* [R Markdown Play-list (video)](https://www.youtube.com/playlist?list=PLBgxzZMu3GpNgd07DwmS-2odHtMO6MWGH)
 
-It is worth to mention that once you become a developer of R packages using `C/C++` (add-on of R for performing specific tasks), and you also happen to use Windows like I do, you have to install this [Rtools](https://cran.r-project.org/bin/windows/Rtools/) that contains compilers. This is also needed if you want to mannually install any R package using a "source" (`.tar.gz` files) instead of using the so-called "binaries" (`.zip` files). 
+It is worth to mention that once you become a developer of R packages using `C/C++` (add-on of R for performing specific tasks), and you also happen to use Windows like I do, you have to install this [Rtools](https://cran.r-project.org/bin/windows/Rtools/) that contains compilers. This is also needed if you want to manually install any R package using a "source" (`.tar.gz` files) instead of using the so-called "binaries" (`.zip` files). 
 
 ## Basic Mathematical Operations
 
@@ -32,7 +32,7 @@ We will briefly cover some basic R calculations and operations. If you want to s
 
 ```{r, collapse=TRUE, eval=FALSE}
     # In a default R console window, this will open up a web browser.
-    # In RStudio, this will be displaed at the ‘Help’ window at the bottom-right penal. 
+    # In RStudio, this will be displayed at the ‘Help’ window at the bottom-right penal. 
     ?log2
     ?matrix
 ```
@@ -66,7 +66,7 @@ Data objects can be a complicated topic for people who never used R before. Most
     matrix(c(1,2,3,4), 2, 2) %*% t(cbind(x,y))
 ```  
 
-Simple mathematical operations on vectors and matrices are usually element-wise. You can easliy extract certain elements of them by using the `[]` operator, like a `C` programming reference style. 
+Simple mathematical operations on vectors and matrices are usually element-wise. You can easily extract certain elements of them by using the `[]` operator, like a `C` programming reference style. 
 
 ```{r, collapse=TRUE}  
     # some simple operations 
@@ -91,7 +91,7 @@ Simple mathematical operations on vectors and matrices are usually element-wise.
 `data.frame()` creates a list of vectors of equal length, and display them as a matrix-like object where each vector is a column of the matrix. It is mainly used for storing data. For example the famous iris data. The first four columns are numerical variables, while the last column is a categorical variable with three levels: `setosa`, `versicolor`, and `virginica`.
 
 ```{r, collapse=TRUE}  
-    # the head function peeks the first severl rows of the dataset 
+    # the head function peeks the first several rows of the dataset 
     head(iris, n = 3)
     # data frame can be called by each individual column
     iris$Species[c(1, 51, 101)]
@@ -101,7 +101,7 @@ Simple mathematical operations on vectors and matrices are usually element-wise.
 
 ## Read-in Data from Other Sources
 
-Data can be imported from a varity of sources. More commonly, dataset can be stored in `.txt`, `.csv` or other file formats. 
+Data can be imported from a variety of sources. More commonly, a dataset can be stored in `.txt`, `.csv` or other file formats. 
 ```{r, collapse=TRUE}  
     # read-in data
     birthrate = read.csv("data/birthrate.csv")
@@ -110,7 +110,7 @@ Data can be imported from a varity of sources. More commonly, dataset can be sto
     dim(birthrate)
 ```
 
-R data can also be saved into other formats. The more efficient way, assuming that you are going to load these file back to R in the future, is to save them as `.RData` file. Usually for large dataset, this reduces the time spend on reading-in the data. 
+R data can also be saved into other formats. The more efficient way, assuming that you are going to load these file back to R in the future, is to save them as `.RData` file. Usually, for a large dataset, this reduces the time spend on reading in the data. 
 ```{r, collapse=TRUE, eval = FALSE}  
     # saving a object to .RData file
     save(birthrate, file = "mydata.RData")
@@ -124,7 +124,7 @@ R data can also be saved into other formats. The more efficient way, assuming th
 
 ## Using Packages
 
-Packages are written and contributed to R by individuals. They provide additional features (functions or data) that serves particular need. The package `ElemStatLearn` is created for the text book [@hastie2001elements] and contains may popular datasets. A package needs to be installed and loaded to your local computer. 
+Packages are written and contributed to R by individuals. They provide additional features (functions or data) that serve particular needs. The package `ElemStatLearn` is created for the textbook [@hastie2001elements] and contains may popular datasets. A package needs to be installed and loaded to your local computer. 
 
 ```{r, collapse=TRUE, eval=FALSE}
     # install packages
@@ -145,10 +145,10 @@ Packages are written and contributed to R by individuals. They provide additiona
 
 ## Using R Markdown
 
-R Markdown is a simple way of creating documents that contains both text (including mathematical equations) and R code chunks. Authors create a `.Rmd` file, which will be fed to [knitr](https://yihui.name/knitr/) to generate the document. Fortunately, RStudio already intergrated everything together and all you need is to open up a `.Rmd` file with RStudio and click a button ![](images/knit.png). 
+R Markdown is a simple way of creating documents that contain both text (including mathematical equations) and R code chunks. Authors create a `.Rmd` file, which will be fed to [knitr](https://yihui.name/knitr/) to generate the document. Fortunately, RStudio already integrated everything together and all you need is to open up a `.Rmd` file with RStudio and click a button ![](images/knit.png). 
 
 A sample file is prepared [here](tutorial/sample.Rmd). 
 
 ## Explore Yourself
 
-There is no guide that can exhaust all information. I found the best learning approach is to perform specific task and google your way to the success. Oftentimes, Stack Overflow is my best friend, especially when I am developing new packages. Also, read the reference manual carefully if you use a particular package or function. A reference manual (for packages on CRAN) can always be found at [https://cran.r-project.org/web/packages/package_name](https://cran.r-project.org/web/packages/package_name). 
+There is no guide that can exhaust all information. I found the best learning approach is to perform a specific task and google your way to the success. Oftentimes, Stack Overflow is my best friend, especially when I am developing new packages. Also, read the reference manual carefully if you use a particular package or function. A reference manual (for packages on CRAN) can always be found at [https://cran.r-project.org/web/packages/package_name](https://cran.r-project.org/web/packages/package_name). 

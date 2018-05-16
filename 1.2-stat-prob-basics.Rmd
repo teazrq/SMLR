@@ -20,7 +20,7 @@ Setting the seed before generating random numbers will allow us to replicate the
     rnorm(n=4, mean = 1, sd = 2)
 ```
 
-Some more complicated distributions require additional package. For example, the `MASS` package can be used to generate multivariate normal distribution. One needs to specify a covariance matrix. 
+Some more complicated distributions require additional packages. For example, the `MASS` package can be used to generate the multivariate normal distribution. One needs to specify a covariance matrix. 
 ```{r, collapse=TRUE}
     library(MASS)
     P = 4
@@ -30,7 +30,7 @@ Some more complicated distributions require additional package. For example, the
 
 ## Summary Statistics and Data Visualization
 
-Statistical functions that provides a summary of the data
+Statistical functions that provide a summary of the data
 ```{r, collapse=TRUE}
     x = rnorm(n=100, mean = 1, sd = 2)
     y = rnorm(n=100, mean = 2, sd = 1)
@@ -70,14 +70,14 @@ For continuous variables, data visualization can be very helpful. There are many
          main = "U.S. birth rate (1917 - 2003, per 10000)")
 ```
 
-Correlations and correlation plots can be used to summarize more varaibles. However, becareful that factors may not be supported by this feature and could cause errors. 
+Correlations and correlation plots can be used to summarize more variables. However, be careful that factors may not be supported by this feature and could cause errors. 
 ```{r, collapse=TRUE, fig.width=5, fig.height=5}
     # load the package with loading message suppressed
     suppressMessages(library(PerformanceAnalytics))
     chart.Correlation(SAheart[, c(1:3)], histogram=TRUE, pch="+")
 ```
 
-3-dimentional plots are also alternative ways to visualize data. We demonstrate an example using the `plot3D` package and the `scatter3D` function. The package `rgl` can allow for interactive plot with rotating and zooming. 
+3-dimensional plots are also alternative ways to visualize data. We demonstrate an example using the `plot3D` package and the `scatter3D` function. The package `rgl` can allow for an interactive plot with rotating and zooming. 
 
 ```{r, collapse=TRUE, fig.width=6, fig.height=6}
     library(plot3D)
@@ -87,3 +87,4 @@ Correlations and correlation plots can be used to summarize more varaibles. Howe
               col = ifelse(SAheart$chd == 1, "darkorange", "deepskyblue"),
               colkey = FALSE)
 ```
+
