@@ -12,11 +12,16 @@ A simple linear regression assumes the underlying model $$Y = \beta_0 + {\boldsy
     library(MASS)
     data(Boston)
     # Fit a linear regression using all variables
-    fit = lm(medv~., data = Boston)
+    fit = lm(medv ~ ., data = Boston)
     summary(fit)
 ```
 
+The output can be overwhelming for beginers. However, by specifying the model with `medv ~ .`, we are using all varaibles except `medv` as the predictors. And by default, an intercept term is also included. Instead, we could specify particular variables as predictors. For example
 
+```{r}
+    fit = lm(medv ~ rm + ptratio, data = Boston)
+    summary(fit)
+```
 
 
 
