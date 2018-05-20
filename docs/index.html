@@ -25,7 +25,7 @@
 <meta name="author" content="Ruoqing Zhu">
 
 
-<meta name="date" content="2018-05-16">
+<meta name="date" content="2018-05-20">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -153,18 +153,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#summary-statistics-and-data-visualization"><i class="fa fa-check"></i><b>2.2</b> Summary Statistics and Data Visualization</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html"><i class="fa fa-check"></i><b>3</b> Modeling Basics in <code>R</code></a><ul>
-<li class="chapter" data-level="3.1" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#multiple-linear-regression"><i class="fa fa-check"></i><b>3.1</b> Multiple Linear Regression</a></li>
-<li class="chapter" data-level="3.2" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#visualization-for-regression"><i class="fa fa-check"></i><b>3.2</b> Visualization for Regression</a></li>
-<li class="chapter" data-level="3.3" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#sec:lm"><i class="fa fa-check"></i><b>3.3</b> The <code>lm()</code> Function</a></li>
-<li class="chapter" data-level="3.4" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#hypothesis-testing"><i class="fa fa-check"></i><b>3.4</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="3.1" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#fitting-linear-regression"><i class="fa fa-check"></i><b>3.1</b> Fitting Linear Regression</a></li>
+<li class="chapter" data-level="3.2" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#model-diagnostics"><i class="fa fa-check"></i><b>3.2</b> Model Diagnostics</a></li>
+<li class="chapter" data-level="3.3" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#variable-transformations-and-interactions"><i class="fa fa-check"></i><b>3.3</b> Variable Transformations and Interactions</a></li>
+<li class="chapter" data-level="3.4" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#model-selection"><i class="fa fa-check"></i><b>3.4</b> Model Selection</a></li>
 <li class="chapter" data-level="3.5" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#prediction"><i class="fa fa-check"></i><b>3.5</b> Prediction</a></li>
-<li class="chapter" data-level="3.6" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#unusual-observations"><i class="fa fa-check"></i><b>3.6</b> Unusual Observations</a></li>
-<li class="chapter" data-level="3.7" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#adding-complexity"><i class="fa fa-check"></i><b>3.7</b> Adding Complexity</a><ul>
-<li class="chapter" data-level="3.7.1" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#interactions"><i class="fa fa-check"></i><b>3.7.1</b> Interactions</a></li>
-<li class="chapter" data-level="3.7.2" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#polynomials"><i class="fa fa-check"></i><b>3.7.2</b> Polynomials</a></li>
-<li class="chapter" data-level="3.7.3" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#transformations"><i class="fa fa-check"></i><b>3.7.3</b> Transformations</a></li>
-</ul></li>
-<li class="chapter" data-level="3.8" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#rmarkdown"><i class="fa fa-check"></i><b>3.8</b> <code>rmarkdown</code></a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html"><i class="fa fa-check"></i><b>4</b> Optimizations in `R’</a><ul>
 <li class="chapter" data-level="4.1" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#a-simple-optimization-problem"><i class="fa fa-check"></i><b>4.1</b> A simple optimization problem</a></li>
@@ -194,7 +187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Statistical Learning with R</h1>
 <h4 class="author"><em><a href="https://sites.google.com/site/teazrq/">Ruoqing Zhu</a></em></h4>
-<h4 class="date"><em>2018-05-16</em></h4>
+<h4 class="date"><em>2018-05-20</em></h4>
 </div>
 <div id="preface" class="section level1 unnumbered">
 <h1>Preface</h1>
@@ -208,13 +201,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>I currently plan to include the following topics:</p>
 <ol style="list-style-type: decimal">
 <li>Basics Knowledge</li>
-</ol>
-<ul>
-<li>Statistics and Probability</li>
-<li>Using R, RStudio, and R Markdown</li>
-<li>Optimization Preliminaries</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
 <li>Linear and Penalized Linear Regressions</li>
 <li>Unsupervised Learning</li>
 <li>Classification</li>

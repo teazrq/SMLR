@@ -32,9 +32,6 @@ This book is targeted at advanced undergraduate to MS students in Statistics who
 I currently plan to include the following topics:
 
 1. Basics Knowledge
-  + Statistics and Probability
-  + Using R, RStudio, and R Markdown
-  + Optimization Preliminaries
 2. Linear and Penalized Linear Regressions
 3. Unsupervised Learning
 4. Classification

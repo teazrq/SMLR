@@ -1,7 +1,7 @@
 --- 
 title: "Statistical Learning with R"
 author: "[Ruoqing Zhu](https://sites.google.com/site/teazrq/)"
-date: "2018-05-16"
+date: "2018-05-20"
 github-repo: teazrq/SLWR
 url: 'http\://teazrq.github.io/SLWR/'
 knit: "bookdown::render_book"
@@ -30,9 +30,6 @@ This book is targeted at advanced undergraduate to MS students in Statistics who
 I currently plan to include the following topics:
 
 1. Basics Knowledge
-  + Statistics and Probability
-  + Using R, RStudio, and R Markdown
-  + Optimization Preliminaries
 2. Linear and Penalized Linear Regressions
 3. Unsupervised Learning
 4. Classification
