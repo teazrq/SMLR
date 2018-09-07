@@ -11,10 +11,10 @@
 
   <meta property="og:title" content="Statistical Learning with R" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="http://teazrq.github.io/SLWR/" />
+  <meta property="og:url" content="http://teazrq.github.io/SLRL/" />
   
   
-  <meta name="github-repo" content="teazrq/SLWR" />
+  <meta name="github-repo" content="teazrq/SLRL" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Statistical Learning with R" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Ruoqing Zhu">
 
 
-<meta name="date" content="2018-05-20">
+<meta name="date" content="2018-09-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -191,10 +191,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Random number generation is important for statistical simulation. R provides random number generators for many commonly used distributions, such as binomial (<code>rbinom</code>), normal (<code>rnorm</code>), t (<code>rt</code>) etc. The syntax is usually a letter “r” followed by the name of the distribution.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">    <span class="co"># generate 10 independent Bernoulli random variables as a vector</span></a>
 <a class="sourceLine" id="cb11-2" data-line-number="2">    <span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3">##  [1] 0 0 1 1 1 1 1 1 0 1</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">##  [1] 1 0 1 0 1 1 1 0 0 0</a>
 <a class="sourceLine" id="cb11-4" data-line-number="4">    <span class="co"># 4 independent random standard normal variables</span></a>
 <a class="sourceLine" id="cb11-5" data-line-number="5">    <span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb11-6" data-line-number="6">## [1]  1.2775909  0.8700949 -0.9483576 -0.5745307</a></code></pre></div>
+<a class="sourceLine" id="cb11-6" data-line-number="6">## [1] -0.3894331  0.5683866  1.3121476  2.6499437</a></code></pre></div>
 <p>Setting the seed before generating random numbers will allow us to replicate the results when necessary.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">    <span class="co"># after setting the seed, the two runs will generate exactly the same &quot;random&quot; numbers</span></a>
 <a class="sourceLine" id="cb12-2" data-line-number="2">    <span class="kw">set.seed</span>(<span class="dv">1</span>)</a>

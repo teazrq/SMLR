@@ -11,10 +11,10 @@
 
   <meta property="og:title" content="Statistical Learning with R" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="http://teazrq.github.io/SLWR/" />
+  <meta property="og:url" content="http://teazrq.github.io/SLRL/" />
   
   
-  <meta name="github-repo" content="teazrq/SLWR" />
+  <meta name="github-repo" content="teazrq/SLRL" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Statistical Learning with R" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Ruoqing Zhu">
 
 
-<meta name="date" content="2018-05-20">
+<meta name="date" content="2018-09-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -194,18 +194,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>After loading data into <code>R</code>, our first step should <strong>always</strong> be to inspect the data. We will start by simply printing some observations in order to understand the basic structure of the data.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">Advertising</a></code></pre></div>
 <pre><code>## # A tibble: 200 x 4
-##        TV Radio Newspaper Sales
-##     &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
-##  1 230.   37.8      69.2  22.1 
-##  2  44.5  39.3      45.1  10.4 
-##  3  17.2  45.9      69.3   9.30
-##  4 152.   41.3      58.5  18.5 
-##  5 181.   10.8      58.4  12.9 
-##  6   8.70 48.9      75.0   7.20
-##  7  57.5  32.8      23.5  11.8 
-##  8 120.   19.6      11.6  13.2 
-##  9   8.60  2.10      1.00  4.80
-## 10 200.    2.60     21.2  10.6 
+##       TV Radio Newspaper Sales
+##    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+##  1 230.   37.8      69.2  22.1
+##  2  44.5  39.3      45.1  10.4
+##  3  17.2  45.9      69.3   9.3
+##  4 152.   41.3      58.5  18.5
+##  5 181.   10.8      58.4  12.9
+##  6   8.7  48.9      75     7.2
+##  7  57.5  32.8      23.5  11.8
+##  8 120.   19.6      11.6  13.2
+##  9   8.6   2.1       1     4.8
+## 10 200.    2.6      21.2  10.6
 ## # ... with 190 more rows</code></pre>
 <p>Because the data was read using <code>read_csv()</code>, <code>Advertising</code> is a tibble. We see that there are a total of 200 observations and 4 variables, each of which is numeric. (Specifically double-precision vectors, but more importantly they are numbers.) For the purpose of this analysis, <code>Sales</code> will be the <strong>response variable</strong>. That is, we seek to understand the relationship between <code>Sales</code>, and the <strong>predictor variables</strong>: <code>TV</code>, <code>Radio</code>, and <code>Newspaper</code>.</p>
 <div id="a-simple-optimization-problem" class="section level2">
