@@ -1,3 +1,3 @@
-# `SLWR`
+# `SLRL`
 
-This text is based on the [book](https://daviddalpiaz.github.io/r4sl/) by David Dalpiaz for STAT 432 (Basics of Statistical Learning) with additional materials from STAT 542 (Statistical Learning) being integrated. It mainly focuses on providing `R` examples of Statistical Machine Learning models and introducing optimization approaches for solving some popular machine learning models.
+I am teaching STAT 542 (Statistical Learning) and STAT 432 (Basics of Statistical Learning) at UIUC, and I found it necessary to share all the R code with students in a convenient way. This repository is intended to integrate all these materials together, for both courses. Using RStudio Cloud, we can directly link this repository for students. My materials mainly focuses on providing `R` examples of Statistical Machine Learning models and introducing optimization approaches to solve some of them. Eventually, I would like to build it towards a book like [this one](https://daviddalpiaz.github.io/r4sl/) by David Dalpiaz, who taught a previous version of STAT 432.
