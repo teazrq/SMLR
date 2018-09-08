@@ -3,13 +3,14 @@ output:
   html_document: default
   pdf_document: default
 ---
+
 # (PART) Basics Knowledge {-}
 
 ```{r set-options, echo=FALSE, cache=FALSE}
 options(width = 1000)
 ```
 
-# R, RStudio, and R Markdown
+# R and RStudio
 
 R is a free-to-use software that is very popular in statistical computing. You can download R from its [official website](https://www.r-project.org/). Another software that makes using R easier is RStudio, which is available at [here](https://www.rstudio.com/). You can find many online guides that help you to set-up these two software, for example, this [\color{blue} YouTube video](https://www.youtube.com/watch?v=cX532N_XLIs&t=19s/). R Markdown is a built-in feature of RStudio. It works like an integration of LaTex and programming playground that compiles source code into nice-looking PDF, HTML, or MS Word files. This book is created using an extension of R Markdown, developed by [Yihui Xie](https://bookdown.org/yihui/bookdown/). 
 
@@ -142,12 +143,6 @@ Packages are written and contributed to R by individuals. They provide additiona
     data(SAheart)
     head(SAheart)
 ```
-
-## Using R Markdown
-
-R Markdown is a simple way of creating documents that contain both text (including mathematical equations) and R code chunks. Authors create a `.Rmd` file, which will be fed to [knitr](https://yihui.name/knitr/) to generate the document. Fortunately, RStudio already integrated everything together and all you need is to open up a `.Rmd` file with RStudio and click a button ![](images/knit.png). 
-
-A sample file is prepared [here](tutorial/sample.Rmd). 
 
 ## Explore Yourself
 

@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-
-<link rel="next" href="r-and-rstudio.html">
+<link rel="prev" href="index.html">
+<link rel="next" href="rmarkdown-basics.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -192,59 +192,171 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Statistical Learning with R</h1>
-<h4 class="author"><em><a href="https://sites.google.com/site/teazrq/">Ruoqing Zhu</a></em></h4>
-<h4 class="date"><em>2018-09-07</em></h4>
-</div>
-<div id="preface" class="section level1 unnumbered">
-<h1>Preface</h1>
-<p>Welcome to Statistical Learning with R! I started this project during the summer of 2018 when I was preparing for the Stat 432 course. This course was taught by our former faculty member <a href="https://daviddalpiaz.com/teaching.html">Dr. David Dalpiaz</a>, who is currently at The Ohio State University. David introduced to me this awesome way of publishing website on GitHub, which is a very efficient approach for developing courses. Since I was also teaching Stat 542 (Statistical Learning) during the previous two years, I figured it could be beneficial to integrate what I have to this <a href="https://daviddalpiaz.github.io/r4sl/">existing book</a> by David and use it as the R material for both courses. As you can tell, I am not being very creative on the name, so `SLWR’ it is. You can find the source file of this book on my <a href="https://teazrq.github.io/SLWR/">GitHub</a>.</p>
-<div id="target-audience" class="section level2 unnumbered">
-<h2>Target Audience</h2>
-<p>This book is targeted at advanced undergraduate to MS students in Statistics who have some or no prior statistical learning experience. Previous experience with both basic mathematics (mainly linear algebra), statistical modeling (such as linear regressions) and R are assumed.</p>
-</div>
-<div id="whats-covered" class="section level2 unnumbered">
-<h2>What’s Covered?</h2>
-<p>I currently plan to include the following topics:</p>
-<ol style="list-style-type: decimal">
-<li>Basics Knowledge</li>
-<li>Linear and Penalized Linear Regressions</li>
-<li>Unsupervised Learning</li>
-<li>Classification</li>
-<li>Non-parametric Statistical Models</li>
-<li>Machine Learning Models</li>
-<li>Appendix</li>
-</ol>
-<p>The goal of this book is to introduce not only how to run some of the popular statistical learning models in R, but also touches some basic algorithms and programming techniques for solving some of these models. For each section, the difficulty may gradually increase from an undergraduate level to a graduate level.</p>
-<p>It will be served as a supplement to <a href="http://www-bcf.usc.edu/~gareth/ISL/">An Introduction to Statistical Learning</a> <span class="citation">(James et al. <a href="#ref-james2013introduction">2013</a>)</span> for <a href="https://go.illinois.edu/stat432">STAT 432 - Basics of Statistical Learning</a> and <a href="https://web.stanford.edu/~hastie/ElemStatLearn/">The Elements of Statistical Learning: Data Mining, Inference, and Prediction</a> <span class="citation">(Hastie, Tibshirani, and Friedman <a href="#ref-hastie2001elements">2001</a>)</span> for <a href="https://go.illinois.edu/stat542">STAT 542 - Statistical Learning</a> at the <a href="http://illinois.edu/">University of Illinois at Urbana-Champaign</a>.</p>
-<p><strong>This book is under active development</strong> as I am teaching STAT 432 during Fall 2018. Hence, you may encounter errors ranging from typos to broken code, to poorly explained topics. If you do, please let me know! Simply send an email and I will make the changes as soon as possible (<code>rqzhu AT illinois DOT edu</code>). Or, if you know <code>R Markdown</code> and are familiar with GitHub, <a href="https://github.com/teazrq/SLWR">make a pull request and fix an issue yourself!</a>. These contributions will be acknowledged.</p>
-</div>
-<div id="acknowledgements" class="section level2 unnumbered">
-<h2>Acknowledgements</h2>
-<p>The initial contents are derived from Dr. David Dalpiaz’s book. My STAT 542 course materials are also inspired by Dr. Feng Liang and Dr. John Marden who developed earlier versions of this course. And I also incorporated many online resources, such as</p>
+<div id="r-and-rstudio" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> R and RStudio</h1>
+<p>R is a free-to-use software that is very popular in statistical computing. You can download R from its <a href="https://www.r-project.org/">official website</a>. Another software that makes using R easier is RStudio, which is available at <a href="https://www.rstudio.com/">here</a>. You can find many online guides that help you to set-up these two software, for example, this <a href="https://www.youtube.com/watch?v=cX532N_XLIs&amp;t=19s/"> YouTube video</a>. R Markdown is a built-in feature of RStudio. It works like an integration of LaTex and programming playground that compiles source code into nice-looking PDF, HTML, or MS Word files. This book is created using an extension of R Markdown, developed by <a href="https://bookdown.org/yihui/bookdown/">Yihui Xie</a>.</p>
+<div id="resources-and-guides" class="section level2">
+<h2><span class="header-section-number">1.1</span> Resources and Guides</h2>
+<p>There are many online resources for how to use R, RStudio, and R Markdown. For example, David Dalpiaz’s other online book <a href="http://daviddalpiaz.github.io/appliedstats/">Applied Statistics with R</a> contains an introduction to using them. There are also other online documentation such as</p>
 <ul>
-<li><a href="https://bookdown.org/yihui/bookdown/">bookdown: Authoring Books and Technical Documents with R Markdown</a></li>
-<li><a href="http://r4ds.had.co.nz/">R Programming for Data Science</a> and others through Google search.</li>
+<li><a href="https://www.youtube.com/watch?v=cX532N_XLIs&amp;t=19s/">Install R and RStudio</a></li>
+<li><a href="http://www.r-tutor.com/r-introduction">R tutorial</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLBgxzZMu3GpPojVSoriMTWQCUno_3hjNi">Data in R Play-list (video)</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLBgxzZMu3GpMjYhX7jLm5B9gEV7AOOJ5w">R and RStudio Play-list (video)</a></li>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">R Markdown Cheat Sheet</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLBgxzZMu3GpNgd07DwmS-2odHtMO6MWGH">R Markdown Play-list (video)</a></li>
 </ul>
+<p>It is worth to mention that once you become a developer of R packages using <code>C/C++</code> (add-on of R for performing specific tasks), and you also happen to use Windows like I do, you have to install this <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a> that contains compilers. This is also needed if you want to manually install any R package using a “source” (<code>.tar.gz</code> files) instead of using the so-called “binaries” (<code>.zip</code> files).</p>
 </div>
-<div id="license" class="section level2 unnumbered">
-<h2>License</h2>
-<div class="figure">
-<img src="images/cc.png" alt="This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License." />
-<p class="caption">This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
+<div id="basic-mathematical-operations" class="section level2">
+<h2><span class="header-section-number">1.2</span> Basic Mathematical Operations</h2>
+<p>We will briefly cover some basic R calculations and operations. If you want to see more information about a particular function or operator in R, the easiest way is to get the reference document. Put a question mark in front of a function name:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># In a default R console window, this will open up a web browser.</span>
+    <span class="co"># In RStudio, this will be displayed at the ‘Help’ window at the bottom-right penal. </span>
+    ?log2
+    ?matrix</code></pre></div>
+<p>Try type-in the following commands into your R console and start to explore yourself. Most of them are self-explanatory. Lines with a <code>#</code> in the front are comments, which will not be executed. Lines with <code>##</code> in the front are outputs.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># Basic mathematical operations</span>
+    <span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span>
+## [1] 4
+    <span class="dv">3</span><span class="op">*</span><span class="dv">5</span>
+## [1] 15
+    <span class="dv">3</span><span class="op">^</span><span class="dv">5</span>
+## [1] 243
+    <span class="kw">exp</span>(<span class="dv">2</span>)
+## [1] 7.389056
+    <span class="kw">log</span>(<span class="dv">3</span>)
+## [1] 1.098612
+    <span class="kw">log2</span>(<span class="dv">3</span>)
+## [1] 1.584963
+    <span class="kw">factorial</span>(<span class="dv">5</span>)
+## [1] 120</code></pre></div>
+<div id="data-objects" class="section level3">
+<h3><span class="header-section-number">1.2.1</span> Data Objects</h3>
+<p>Data objects can be a complicated topic for people who never used R before. Most common data objects are <code>vector</code>, <code>matrix</code>, <code>list</code>, and <code>data.frame</code>. Operations on vectors are matrices are fairly intuitive.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># creating a vector</span>
+    <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)
+## [1] 1 2 3 4
+    <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)
+## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;
+    <span class="co"># creating matrix from a vector</span>
+    <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="dv">2</span>, <span class="dv">2</span>)
+##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4
+    x =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>); y =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)
+    <span class="kw">cbind</span>(x,y)
+##      x y
+## [1,] 1 1
+## [2,] 1 0
+## [3,] 1 1
+## [4,] 0 0
+## [5,] 0 1
+## [6,] 0 0
+    <span class="co"># matrix multiplication using &#39;%*%&#39;</span>
+    <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="dv">2</span>, <span class="dv">2</span>) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(<span class="kw">cbind</span>(x,y))
+##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]    4    1    4    0    3    0
+## [2,]    6    2    6    0    4    0</code></pre></div>
+<p>Simple mathematical operations on vectors and matrices are usually element-wise. You can easily extract certain elements of them by using the <code>[]</code> operator, like a <code>C</code> programming reference style.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># some simple operations </span>
+    x[<span class="dv">3</span>]
+## [1] 1
+    x[<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>]
+## [1] 1 1 0 0
+    <span class="kw">cbind</span>(x,y)[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, ]
+##      x y
+## [1,] 1 1
+## [2,] 1 0
+    (x <span class="op">+</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>
+## [1] 4 1 4 0 1 0
+    <span class="kw">length</span>(x)
+## [1] 6
+    <span class="kw">dim</span>(<span class="kw">cbind</span>(x,y))
+## [1] 6 2
+    <span class="co"># A warning will be issued when R detects something wrong. Results may still be produced.</span>
+    x <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)
+## Warning in x + c(1, 2, 3, 4): longer object length is not a multiple of shorter object length
+## [1] 2 3 4 4 1 2</code></pre></div>
+<p><code>list()</code> simply creates a list of objects (of any type). However, some operators cannot be directly applied to a list in a similar way as to vectors or matrices. Model fitting results in R are usually stored as a list (for example, the <code>lm()</code> function used in Section <a href="#sec:lm"><strong>??</strong></a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># creating a list</span>
+    x =<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="st">&quot;hello&quot;</span>, <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="dv">2</span>, <span class="dv">2</span>))
+    x[[<span class="dv">1</span>]]
+## [1] 1 2</code></pre></div>
+<p><code>data.frame()</code> creates a list of vectors of equal length, and display them as a matrix-like object where each vector is a column of the matrix. It is mainly used for storing data. For example the famous iris data. The first four columns are numerical variables, while the last column is a categorical variable with three levels: <code>setosa</code>, <code>versicolor</code>, and <code>virginica</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># the head function peeks the first several rows of the dataset </span>
+    <span class="kw">head</span>(iris, <span class="dt">n =</span> <span class="dv">3</span>)
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+    <span class="co"># data frame can be called by each individual column</span>
+    iris<span class="op">$</span>Species[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">51</span>, <span class="dv">101</span>)]
+## [1] setosa     versicolor virginica 
+## Levels: setosa versicolor virginica
+    <span class="co"># the summary function can be used to view all variables</span>
+    <span class="kw">summary</span>(iris)
+##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width          Species  
+##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100   setosa    :50  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300   versicolor:50  
+##  Median :5.800   Median :3.000   Median :4.350   Median :1.300   virginica :50  
+##  Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199                  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800                  
+##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500</code></pre></div>
 </div>
+</div>
+<div id="read-in-data-from-other-sources" class="section level2">
+<h2><span class="header-section-number">1.3</span> Read-in Data from Other Sources</h2>
+<p>Data can be imported from a variety of sources. More commonly, a dataset can be stored in <code>.txt</code>, <code>.csv</code> or other file formats.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># read-in data</span>
+    birthrate =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/birthrate.csv&quot;</span>)
+    <span class="kw">head</span>(birthrate)
+##   Year Birthrate
+## 1 1917     183.1
+## 2 1918     183.9
+## 3 1919     163.1
+## 4 1920     179.5
+## 5 1921     181.4
+## 6 1922     173.4
+    <span class="co"># to see how many observations (rows) and variables (columns) in a dataset</span>
+    <span class="kw">dim</span>(birthrate)
+## [1] 87  2</code></pre></div>
+<p>R data can also be saved into other formats. The more efficient way, assuming that you are going to load these file back to R in the future, is to save them as <code>.RData</code> file. Usually, for a large dataset, this reduces the time spend on reading in the data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># saving a object to .RData file</span>
+    <span class="kw">save</span>(birthrate, <span class="dt">file =</span> <span class="st">&quot;mydata.RData&quot;</span>)
+    <span class="co"># you can specify multiple objects too</span>
+    <span class="kw">save</span>(birthrate, iris, <span class="dt">file =</span> <span class="st">&quot;mydata.RData&quot;</span>)
+    <span class="co"># load the data again</span>
+    <span class="kw">load</span>(<span class="st">&quot;mydata.RData&quot;</span>)
+    <span class="co"># save data to .csv file</span>
+    <span class="kw">write.csv</span>(birthrate, <span class="dt">file =</span> <span class="st">&quot;mydata.csv&quot;</span>)</code></pre></div>
+</div>
+<div id="using-packages" class="section level2">
+<h2><span class="header-section-number">1.4</span> Using Packages</h2>
+<p>Packages are written and contributed to R by individuals. They provide additional features (functions or data) that serve particular needs. The package <code>ElemStatLearn</code> is created for the textbook <span class="citation">(Hastie, Tibshirani, and Friedman <a href="#ref-hastie2001elements">2001</a>)</span> and contains may popular datasets. A package needs to be installed and loaded to your local computer.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># install packages</span>
+    <span class="kw">install.packages</span>(<span class="st">&quot;ElemStatLearn&quot;</span>)
+    <span class="co"># load package</span>
+    <span class="kw">library</span>(ElemStatLearn)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># load a dataset from the package </span>
+    <span class="kw">data</span>(SAheart)
+    <span class="kw">head</span>(SAheart)
+##   sbp tobacco  ldl adiposity famhist typea obesity alcohol age chd
+## 1 160   12.00 5.73     23.11 Present    49   25.30   97.20  52   1
+## 2 144    0.01 4.41     28.61  Absent    55   28.87    2.06  63   1
+## 3 118    0.08 3.48     32.28 Present    52   29.14    3.81  46   0
+## 4 170    7.50 6.41     38.03 Present    51   31.99   24.26  58   1
+## 5 134   13.60 3.50     27.78 Present    60   25.99   57.34  49   1
+## 6 132    6.20 6.47     36.21 Present    62   30.77   14.14  45   0</code></pre></div>
+</div>
+<div id="explore-yourself" class="section level2">
+<h2><span class="header-section-number">1.5</span> Explore Yourself</h2>
+<p>There is no guide that can exhaust all information. I found the best learning approach is to perform a specific task and google your way to the success. Oftentimes, Stack Overflow is my best friend, especially when I am developing new packages. Also, read the reference manual carefully if you use a particular package or function. A reference manual (for packages on CRAN) can always be found at <a href="https://cran.r-project.org/web/packages/package_name" class="uri">https://cran.r-project.org/web/packages/package_name</a>.</p>
 
 </div>
 </div>
-
-
-
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-james2013introduction">
-<p>James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 112. Springer.</p>
-</div>
 <div id="ref-hastie2001elements">
 <p>Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2001. <em>The Elements of Statistical Learning</em>. Vol. 1. Springer series in statistics New York.</p>
 </div>
@@ -254,8 +366,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-
-<a href="r-and-rstudio.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="rmarkdown-basics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -285,7 +397,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/teazrq/SLWR/edit/master/index.Rmd",
+"link": "https://github.com/teazrq/SLWR/edit/master/1.1-r-basics.Rmd",
 "text": "Edit"
 },
 "download": ["RESL.pdf"],
