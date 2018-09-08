@@ -19,7 +19,7 @@ description: ""
 
 # Preface {-}
 
-Welcome to Statistical Learning with R! I started this project during the summer of 2018 when I was preparing for the Stat 432 course. This course was taught by our former faculty member [Dr. David Dalpiaz](https://daviddalpiaz.com/teaching.html), who is currently at The Ohio State University. David introduced to me this awesome way of publishing website on GitHub, which is a very efficient approach for developing courses. Since I was also teaching Stat 542 (Statistical Learning) during the previous two years, I figured it could be beneficial to integrate what I have to this [existing book](https://daviddalpiaz.github.io/r4sl/) by David and use it as the R material for both courses. As you can tell, I am not being very creative on the name, so `SLWR' it is. You can find the source file of this book on my [GitHub](https://teazrq.github.io/SLWR/).
+Welcome to Statistical Learning with R! I started this project during the summer of 2018 when I was preparing for the Stat 432 course. This course was taught by our former faculty member [Dr. David Dalpiaz](https://daviddalpiaz.com/teaching.html), who is currently at The Ohio State University. David introduced to me this awesome way of publishing website on GitHub, which is a very efficient approach for developing courses. Since I was also teaching Stat 542 (Statistical Learning) during the previous two years, I figured it could be beneficial to integrate what I have to this [existing book](https://daviddalpiaz.github.io/r4sl/) by David and use it as the R material for both courses. As you can tell, I am not being very creative on the name, so `SLWR' it is. You can find the source file of this book on my [GitHub](https://teazrq.github.io/SLRL/).
 
 ## Target Audience {-}
 

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Statistical Learning with R</title>
+  <meta name="description" content="Statistical Learning with R">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Statistical Learning with R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://teazrq.github.io/SLRL/" />
+  
+  
+  <meta name="github-repo" content="teazrq/SLRL" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Statistical Learning with R" />
+  
+  
+  
+
+<meta name="author" content="Ruoqing Zhu">
+
+
+<meta name="date" content="2018-09-07">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="prev" href="basics-of-probability-and-statistics.html">
+<link rel="next" href="optimizations-in-r.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Statistical Learning with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#target-audience"><i class="fa fa-check"></i>Target Audience</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#whats-covered"><i class="fa fa-check"></i>What’s Covered?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
+</ul></li>
+<li class="part"><span><b>I Basics Knowledge</b></span></li>
+<li class="chapter" data-level="1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html"><i class="fa fa-check"></i><b>1</b> R, RStudio, and R Markdown</a><ul>
+<li class="chapter" data-level="1.1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#resources-and-guides"><i class="fa fa-check"></i><b>1.1</b> Resources and Guides</a></li>
+<li class="chapter" data-level="1.2" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#basic-mathematical-operations"><i class="fa fa-check"></i><b>1.2</b> Basic Mathematical Operations</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#data-objects"><i class="fa fa-check"></i><b>1.2.1</b> Data Objects</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#read-in-data-from-other-sources"><i class="fa fa-check"></i><b>1.3</b> Read-in Data from Other Sources</a></li>
+<li class="chapter" data-level="1.4" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#using-packages"><i class="fa fa-check"></i><b>1.4</b> Using Packages</a></li>
+<li class="chapter" data-level="1.5" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#using-r-markdown"><i class="fa fa-check"></i><b>1.5</b> Using R Markdown</a></li>
+<li class="chapter" data-level="1.6" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#explore-yourself"><i class="fa fa-check"></i><b>1.6</b> Explore Yourself</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html"><i class="fa fa-check"></i><b>2</b> Basics of Probability and Statistics</a><ul>
+<li class="chapter" data-level="2.1" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#random-number-generation"><i class="fa fa-check"></i><b>2.1</b> Random Number Generation</a></li>
+<li class="chapter" data-level="2.2" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#summary-statistics-and-data-visualization"><i class="fa fa-check"></i><b>2.2</b> Summary Statistics and Data Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html"><i class="fa fa-check"></i><b>3</b> Modeling Basics in <code>R</code></a><ul>
+<li class="chapter" data-level="3.1" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#fitting-linear-regression"><i class="fa fa-check"></i><b>3.1</b> Fitting Linear Regression</a></li>
+<li class="chapter" data-level="3.2" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#model-diagnostics"><i class="fa fa-check"></i><b>3.2</b> Model Diagnostics</a></li>
+<li class="chapter" data-level="3.3" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#variable-transformations-and-interactions"><i class="fa fa-check"></i><b>3.3</b> Variable Transformations and Interactions</a></li>
+<li class="chapter" data-level="3.4" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#model-selection"><i class="fa fa-check"></i><b>3.4</b> Model Selection</a></li>
+<li class="chapter" data-level="3.5" data-path="modeling-basics-in-r.html"><a href="modeling-basics-in-r.html#prediction"><i class="fa fa-check"></i><b>3.5</b> Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html"><i class="fa fa-check"></i><b>4</b> Optimizations in `R’</a><ul>
+<li class="chapter" data-level="4.1" data-path="optimizations-in-r.html"><a href="optimizations-in-r.html#a-simple-optimization-problem"><i class="fa fa-check"></i><b>4.1</b> A simple optimization problem</a></li>
+</ul></li>
+<li class="part"><span><b>II Regression</b></span></li>
+<li class="chapter" data-level="5" data-path="regression-overview.html"><a href="regression-overview.html"><i class="fa fa-check"></i><b>5</b> Overview</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/teazrq/SLWR" target="blank">&copy; 2018 Ruoqing Zhu</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Learning with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modeling-basics-in-r" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Modeling Basics in <code>R</code></h1>
+<div id="fitting-linear-regression" class="section level2">
+<h2><span class="header-section-number">3.1</span> Fitting Linear Regression</h2>
+<p>A simple linear regression assumes the underlying model <span class="math display">\[Y = \beta_0 + {\boldsymbol\beta}^\text{T} X + \epsilon,\]</span> where <span class="math inline">\(\beta_0\)</span> is an intercept and <span class="math inline">\(\boldsymbol\beta\)</span> is a vector of coefficients corresponds to each covariate. With observed data, we can estimate the regression coefficients. Let’s use a classical dataset, the Boston Housing data <span class="citation">(Harrison Jr and Rubinfeld <a href="#ref-harrison1978hedonic">1978</a>)</span> from the <code>MASS</code> package. The goal of this dataset is to model the median house value (<code>medv</code>) using other predictors.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">    <span class="kw">library</span>(MASS)</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">    <span class="kw">data</span>(Boston)</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">    <span class="co"># Fit a linear regression using all variables</span></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">    fit =<span class="st"> </span><span class="kw">lm</span>(medv <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Boston)</a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">    <span class="kw">summary</span>(fit)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = medv ~ ., data = Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -15.595  -2.730  -0.518   1.777  26.199 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  3.646e+01  5.103e+00   7.144 3.28e-12 ***
+## crim        -1.080e-01  3.286e-02  -3.287 0.001087 ** 
+## zn           4.642e-02  1.373e-02   3.382 0.000778 ***
+## indus        2.056e-02  6.150e-02   0.334 0.738288    
+## chas         2.687e+00  8.616e-01   3.118 0.001925 ** 
+## nox         -1.777e+01  3.820e+00  -4.651 4.25e-06 ***
+## rm           3.810e+00  4.179e-01   9.116  &lt; 2e-16 ***
+## age          6.922e-04  1.321e-02   0.052 0.958229    
+## dis         -1.476e+00  1.995e-01  -7.398 6.01e-13 ***
+## rad          3.060e-01  6.635e-02   4.613 5.07e-06 ***
+## tax         -1.233e-02  3.760e-03  -3.280 0.001112 ** 
+## ptratio     -9.527e-01  1.308e-01  -7.283 1.31e-12 ***
+## black        9.312e-03  2.686e-03   3.467 0.000573 ***
+## lstat       -5.248e-01  5.072e-02 -10.347  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.745 on 492 degrees of freedom
+## Multiple R-squared:  0.7406, Adjusted R-squared:  0.7338 
+## F-statistic: 108.1 on 13 and 492 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>The output can be overwhelming for beginners. Here, by specifying the model with <code>medv ~ .</code>, we are using all variables in this data as predictors, except <code>medv</code> itself. And by default, an intercept term is also included. However, we could also specify particular variables as predictors. For example, if per capita crime rate by town (<code>crim</code>), the average number of rooms (<code>rm</code>) are used to predict the price, and the weighted mean of distances to five Boston employment centres (<code>dis</code>), along with an intercept term, we specify the following</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">    fit =<span class="st"> </span><span class="kw">lm</span>(medv <span class="op">~</span><span class="st"> </span>crim <span class="op">+</span><span class="st"> </span>rm <span class="op">+</span><span class="st"> </span>dis, <span class="dt">data =</span> Boston)</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2">    <span class="kw">summary</span>(fit)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = medv ~ crim + rm + dis, data = Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -21.247  -2.930  -0.572   2.390  39.072 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -29.45838    2.60010 -11.330  &lt; 2e-16 ***
+## crim         -0.25405    0.03532  -7.193 2.32e-12 ***
+## rm            8.34257    0.40870  20.413  &lt; 2e-16 ***
+## dis           0.12627    0.14382   0.878     0.38    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.238 on 502 degrees of freedom
+## Multiple R-squared:  0.5427, Adjusted R-squared:  0.5399 
+## F-statistic: 198.6 on 3 and 502 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>To read the output from a linear model, we usually pay attention to several key information, such as the coefficient and the p-value for each variable, and the overall model fitting F statistic and its p-value, which is almost 0 in this case.</p>
+</div>
+<div id="model-diagnostics" class="section level2">
+<h2><span class="header-section-number">3.2</span> Model Diagnostics</h2>
+<p>To further evaluate this model fitting, we may plot the residuals (for assessing the normality) and the Cook’s distance for identifying potential influence observations.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">    <span class="co"># setup the parameters for plotting 4 figures together, in a 2 by 2 structure</span></a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">    <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb24-3" data-line-number="3">    <span class="kw">plot</span>(fit)</a></code></pre></div>
+<p><img src="1.3-modeling-basics_files/figure-html/unnamed-chunk-4-1.png" width="768" /></p>
+<p>R also provides several functions for obtaining metrics related to unusual observations that may help this process.</p>
+<ul>
+<li><code>resid()</code> provides the residual for each observation</li>
+<li><code>hatvalues()</code> gives the leverage of each observation</li>
+<li><code>rstudent()</code> give the studentized residual for each observation</li>
+<li><code>cooks.distance()</code> calculates the influence of each observation</li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">resid</span>(fit), <span class="dt">n =</span> <span class="dv">10</span>)</a></code></pre></div>
+<pre><code>##         1         2         3         4         5         6         7 
+## -1.908839 -3.129506  3.596769  3.719837  5.286113  3.757775  1.523165 
+##         8         9        10 
+##  4.353400 -1.732947 -2.519590</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">hatvalues</span>(fit), <span class="dt">n =</span> <span class="dv">10</span>)</a></code></pre></div>
+<pre><code>##           1           2           3           4           5           6 
+## 0.002547887 0.002692042 0.005408817 0.005604599 0.006415502 0.004272416 
+##           7           8           9          10 
+## 0.004088718 0.004346169 0.007117245 0.006403949</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">rstudent</span>(fit), <span class="dt">n =</span> <span class="dv">10</span>)</a></code></pre></div>
+<pre><code>##          1          2          3          4          5          6 
+## -0.3061026 -0.5019650  0.5777474  0.5975886  0.8498652  0.6032833 
+##          7          8          9         10 
+##  0.2444363  0.6990195 -0.2785307 -0.4048546</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">cooks.distance</span>(fit), <span class="dt">n =</span> <span class="dv">10</span>)</a></code></pre></div>
+<pre><code>##            1            2            3            4            5 
+## 5.994417e-05 1.702892e-04 4.544127e-04 5.038330e-04 1.166558e-03 
+##            6            7            8            9           10 
+## 3.909005e-04 6.144012e-05 5.337764e-04 1.392832e-04 2.645454e-04</code></pre>
+</div>
+<div id="variable-transformations-and-interactions" class="section level2">
+<h2><span class="header-section-number">3.3</span> Variable Transformations and Interactions</h2>
+<p>It appears that the residuals are not normally distributed because the QQ plot deviates from the diagonal line quite a lot. Sometimes variable transformations can be used to deal with this issue, but that may not fix it completely. Plotting can be useful for detecting ill-distributed variables and suggest potential transformations. For example, we may use the correlation plot to visualize them</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">    <span class="kw">library</span>(PerformanceAnalytics)</a>
+<a class="sourceLine" id="cb33-2" data-line-number="2">    <span class="kw">chart.Correlation</span>(Boston[, <span class="kw">c</span>(<span class="st">&quot;medv&quot;</span>, <span class="st">&quot;crim&quot;</span>, <span class="st">&quot;rm&quot;</span>, <span class="st">&quot;dis&quot;</span>)], <span class="dt">histogram=</span><span class="ot">TRUE</span>, <span class="dt">pch=</span><span class="st">&quot;+&quot;</span>)</a></code></pre></div>
+<p><img src="1.3-modeling-basics_files/figure-html/unnamed-chunk-6-1.png" width="576" /></p>
+<p>It looks like both <code>crim</code> and <code>dis</code> have heavy tail on the right hand side and could benefit from a log or a power transformation. variable transformations can be easily specified within the <code>lm()</code> function.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">    fit =<span class="st"> </span><span class="kw">lm</span>(medv <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(crim) <span class="op">+</span><span class="st"> </span>rm <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(dis<span class="op">^</span><span class="fl">0.5</span>), <span class="dt">data =</span> Boston)</a>
+<a class="sourceLine" id="cb34-2" data-line-number="2">    <span class="kw">summary</span>(fit)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = medv ~ log(crim) + rm + I(dis^0.5), data = Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -18.767  -3.506  -0.589   2.501  40.035 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -25.1474     2.8674  -8.770  &lt; 2e-16 ***
+## log(crim)    -1.5033     0.1864  -8.067 5.36e-15 ***
+## rm            8.0520     0.4096  19.656  &lt; 2e-16 ***
+## I(dis^0.5)   -2.1805     0.7644  -2.853  0.00451 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.155 on 502 degrees of freedom
+## Multiple R-squared:  0.5548, Adjusted R-squared:  0.5521 
+## F-statistic: 208.5 on 3 and 502 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Another approach is to consider polynomial transformations of the outcome variable, known as the Box-Cox transformation.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">    <span class="co"># explore the Box-Cox transformation</span></a>
+<a class="sourceLine" id="cb36-2" data-line-number="2">    trans =<span class="st"> </span><span class="kw">boxcox</span>(medv <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(crim) <span class="op">+</span><span class="st"> </span>rm <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(dis<span class="op">^</span><span class="fl">0.5</span>), <span class="dt">data =</span> Boston)</a></code></pre></div>
+<p><img src="1.3-modeling-basics_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">    <span class="co"># obtain the best power for performing the polynomial</span></a>
+<a class="sourceLine" id="cb37-2" data-line-number="2">    trans<span class="op">$</span>x[<span class="kw">which.max</span>(trans<span class="op">$</span>y)]</a></code></pre></div>
+<pre><code>## [1] 0.2626263</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">    <span class="co"># refit the model</span></a>
+<a class="sourceLine" id="cb39-2" data-line-number="2">    fit =<span class="st"> </span><span class="kw">lm</span>(<span class="kw">I</span>(medv<span class="op">^</span><span class="fl">0.2626263</span>) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(crim) <span class="op">+</span><span class="st"> </span>rm <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(dis<span class="op">^</span><span class="fl">0.5</span>), <span class="dt">data =</span> Boston)</a></code></pre></div>
+<p>One can again reevaluate the model fitting results and repeat the process if necessary. However, keep in mind that this is could be a tedious process that may not end with a satisfactory solution.</p>
+<p>To further improve the model fitting we may also consider iterations and higher order terms such as</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">    fit =<span class="st"> </span><span class="kw">lm</span>(medv <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(crim) <span class="op">+</span><span class="st"> </span>rm <span class="op">+</span><span class="st"> </span>rm<span class="op">*</span><span class="kw">log</span>(crim) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(rm<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="st">             </span><span class="kw">I</span>(dis<span class="op">^</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">as.factor</span>(chas)<span class="op">*</span>rm, <span class="dt">data =</span> Boston)</a>
+<a class="sourceLine" id="cb40-3" data-line-number="3">    <span class="kw">summary</span>(fit)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = medv ~ log(crim) + rm + rm * log(crim) + I(rm^2) + 
+##     I(dis^0.5) + as.factor(chas) * rm, data = Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -26.476  -2.917  -0.486   2.414  35.630 
+## 
+## Coefficients:
+##                     Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)          72.0986    12.4270   5.802 1.17e-08 ***
+## log(crim)             3.2224     1.1677   2.760   0.0060 ** 
+## rm                  -23.0419     3.9298  -5.863 8.27e-09 ***
+## I(rm^2)               2.3857     0.3072   7.766 4.66e-14 ***
+## I(dis^0.5)           -1.0768     0.6729  -1.600   0.1102    
+## as.factor(chas)1     14.6814     7.4142   1.980   0.0482 *  
+## log(crim):rm         -0.7620     0.1845  -4.129 4.27e-05 ***
+## rm:as.factor(chas)1  -1.6178     1.1357  -1.424   0.1549    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.321 on 498 degrees of freedom
+## Multiple R-squared:  0.6699, Adjusted R-squared:  0.6653 
+## F-statistic: 144.4 on 7 and 498 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="model-selection" class="section level2">
+<h2><span class="header-section-number">3.4</span> Model Selection</h2>
+<p>Suppose we have two candidate nested models, and we want to test if adding a set of new variables is significant in terms of predicting the outcome, this is essentially an F test. We can utilize the <code>anova()</code> function:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">    fit =<span class="st"> </span><span class="kw">lm</span>(medv <span class="op">~</span><span class="st"> </span>crim <span class="op">+</span><span class="st"> </span>rm <span class="op">+</span><span class="st"> </span>dis, <span class="dt">data =</span> Boston)</a>
+<a class="sourceLine" id="cb42-2" data-line-number="2">    fit2 =<span class="st"> </span><span class="kw">lm</span>(medv <span class="op">~</span><span class="st"> </span>crim <span class="op">+</span><span class="st"> </span>rm <span class="op">+</span><span class="st"> </span>dis <span class="op">+</span><span class="st"> </span>chas <span class="op">+</span><span class="st"> </span>nox, <span class="dt">data =</span> Boston)</a>
+<a class="sourceLine" id="cb42-3" data-line-number="3">    <span class="kw">anova</span>(fit, fit2)</a></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: medv ~ crim + rm + dis
+## Model 2: medv ~ crim + rm + dis + chas + nox
+##   Res.Df   RSS Df Sum of Sq      F    Pr(&gt;F)    
+## 1    502 19536                                  
+## 2    500 17457  2    2079.2 29.776 6.057e-13 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>It appears that adding the two additional variables <code>chas</code> and <code>nox</code> is significant. Selecting variables/models is a central topic in statistics. We could consider some classical tools such as the Akaike information criterion <span class="citation">(Akaike <a href="#ref-akaike1998information">1998</a>)</span> or the Bayesian information criterion <span class="citation">(Schwarz and others <a href="#ref-schwarz1978estimating">1978</a>)</span>. Incorporating the stepwise selection algorithm, we may find the best AIC model:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">    <span class="co"># fit a full model that contains all variables</span></a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">    full.model =<span class="st"> </span><span class="kw">lm</span>(medv <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Boston)</a>
+<a class="sourceLine" id="cb44-3" data-line-number="3">    <span class="co"># select the best AIC model by stepwise regression</span></a>
+<a class="sourceLine" id="cb44-4" data-line-number="4">    stepAIC =<span class="st"> </span><span class="kw">step</span>(full.model, <span class="dt">trace=</span><span class="dv">0</span>, <span class="dt">direction=</span><span class="st">&quot;both&quot;</span>)</a>
+<a class="sourceLine" id="cb44-5" data-line-number="5">    <span class="co"># the best set of variables being selected</span></a>
+<a class="sourceLine" id="cb44-6" data-line-number="6">    <span class="kw">attr</span>(stepAIC<span class="op">$</span>terms, <span class="st">&quot;term.labels&quot;</span>)</a></code></pre></div>
+<pre><code>##  [1] &quot;crim&quot;    &quot;zn&quot;      &quot;chas&quot;    &quot;nox&quot;     &quot;rm&quot;      &quot;dis&quot;     &quot;rad&quot;    
+##  [8] &quot;tax&quot;     &quot;ptratio&quot; &quot;black&quot;   &quot;lstat&quot;</code></pre>
+</div>
+<div id="prediction" class="section level2">
+<h2><span class="header-section-number">3.5</span> Prediction</h2>
+<p>The <code>predict()</code> function is an extremely versatile function, for, prediction. When used on the result of a model fit using <code>lm()</code> it will, by default, return predictions for each of the data points used to fit the model.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">    <span class="co"># the fitted value from a model fitting</span></a>
+<a class="sourceLine" id="cb46-2" data-line-number="2">    yhat1 =<span class="st"> </span>fit<span class="op">$</span>fitted.values</a>
+<a class="sourceLine" id="cb46-3" data-line-number="3">    <span class="co"># predict on a set of testing data</span></a>
+<a class="sourceLine" id="cb46-4" data-line-number="4">    yhat2 =<span class="st"> </span><span class="kw">predict</span>(fit)</a>
+<a class="sourceLine" id="cb46-5" data-line-number="5">    <span class="co"># they are the same</span></a>
+<a class="sourceLine" id="cb46-6" data-line-number="6">    <span class="kw">all</span>(yhat1 <span class="op">==</span><span class="st"> </span>yhat2)</a></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>We could also specify new data, which should be a data frame or tibble with the same column names as the predictors.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">    new_obs =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">crim =</span> <span class="fl">0.3</span>, <span class="dt">rm =</span> <span class="dv">6</span>, <span class="dt">dis =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb48-2" data-line-number="2">    <span class="kw">predict</span>(fit, <span class="dt">newdata =</span> new_obs)</a></code></pre></div>
+<pre><code>##        1 
+## 21.15216</code></pre>
+<p>We can also obtain the confidence interval for the mean response value of this new observation</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">    <span class="kw">predict</span>(fit, <span class="dt">newdata =</span> new_obs, <span class="dt">interval =</span> <span class="st">&quot;confidence&quot;</span>)</a></code></pre></div>
+<pre><code>##        fit      lwr     upr
+## 1 21.15216 20.44473 21.8596</code></pre>
+<p>Lastly, we can alter the level using the <code>level</code> argument. Here we report a prediction interval instead of a confidence interval.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">    <span class="kw">predict</span>(fit, <span class="dt">newdata =</span> new_obs, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>, <span class="dt">level =</span> <span class="fl">0.99</span>)</a></code></pre></div>
+<pre><code>##        fit      lwr      upr
+## 1 21.15216 4.995294 37.30903</code></pre>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-harrison1978hedonic">
+<p>Harrison Jr, David, and Daniel L Rubinfeld. 1978. “Hedonic Housing Prices and the Demand for Clean Air.” <em>Journal of Environmental Economics and Management</em> 5 (1). Elsevier: 81–102.</p>
+</div>
+<div id="ref-akaike1998information">
+<p>Akaike, Hirotogu. 1998. “Information Theory and an Extension of the Maximum Likelihood Principle.” In <em>Selected Papers of Hirotugu Akaike</em>, 199–213. Springer.</p>
+</div>
+<div id="ref-schwarz1978estimating">
+<p>Schwarz, Gideon, and others. 1978. “Estimating the Dimension of a Model.” <em>The Annals of Statistics</em> 6 (2). Institute of Mathematical Statistics: 461–64.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="basics-of-probability-and-statistics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="optimizations-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/teazrq/SLWR/edit/master/1.3-modeling-basics.Rmd",
+"text": "Edit"
+},
+"download": ["RESL.pdf"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
