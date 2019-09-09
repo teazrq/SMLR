@@ -71,7 +71,7 @@ When using RMarkdown, any time you *knit* your document to its final form, say `
 
 ```{r load_data, message = FALSE, warning = FALSE}
 library(readr)
-example_data = read_table("https://onlinecourses.science.psu.edu/stat501/sites/onlinecourses.science.psu.edu.stat501/files/data/skincancer/index.txt")
+example_data = read_table("data/skincancer.txt")
 ```
 
 The above loads the online file. In many cases, you will load a file that is locally stored in your own computer. In that case, you can either specify the full file path, or simply use, for example `read_csv("filename.csv")` if that file is stored at your **working directory**. The  **working directory** will usually be the directory that contains your `.Rmd` file. You are recommended to reference data in this manner. Note that we use the newer `read_csv()` from the `readr` package instead of the default `read.csv()`.

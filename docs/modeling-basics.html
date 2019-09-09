@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Statistical Learning with R</title>
-  <meta name="description" content="Statistical Learning with R">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Modeling Basics | Statistical Learning with R</title>
+  <meta name="description" content="Chapter 4 Modeling Basics | Statistical Learning with R" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Statistical Learning with R" />
+  <meta property="og:title" content="Chapter 4 Modeling Basics | Statistical Learning with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://teazrq.github.io/SLRL/" />
   
@@ -17,25 +16,26 @@
   <meta name="github-repo" content="teazrq/SLRL" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Statistical Learning with R" />
+  <meta name="twitter:title" content="Chapter 4 Modeling Basics | Statistical Learning with R" />
   
   
   
 
-<meta name="author" content="Ruoqing Zhu">
+<meta name="author" content="Ruoqing Zhu" />
 
 
-<meta name="date" content="2018-09-07">
+<meta name="date" content="2019-09-09" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-<link rel="prev" href="basics-of-probability-and-statistics.html">
-<link rel="next" href="optimization.html">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="prev" href="basics-of-probability-and-statistics.html"/>
+<link rel="next" href="optimization.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -149,16 +149,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.4" data-path="modeling-basics.html"><a href="modeling-basics.html#model-selection"><i class="fa fa-check"></i><b>4.4</b> Model Selection</a></li>
 <li class="chapter" data-level="4.5" data-path="modeling-basics.html"><a href="modeling-basics.html#prediction"><i class="fa fa-check"></i><b>4.5</b> Prediction</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>5</b> Optimization</a><ul>
-<li class="chapter" data-level="5.1" data-path="optimization.html"><a href="optimization.html#a-simple-optimization-problem"><i class="fa fa-check"></i><b>5.1</b> A simple optimization problem</a></li>
-</ul></li>
+<li class="chapter" data-level="5" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>5</b> Optimization</a></li>
 <li class="part"><span><b>II Unsupervised Learning</b></span></li>
-<li class="chapter" data-level="6" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>6</b> k-means clustering</a><ul>
+<li class="chapter" data-level="6" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>6</b> K-means Clustering</a><ul>
 <li class="chapter" data-level="6.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#basic-concepts"><i class="fa fa-check"></i><b>6.1</b> Basic Concepts</a></li>
 <li class="chapter" data-level="6.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#example-1-iris-data"><i class="fa fa-check"></i><b>6.2</b> Example 1: <code>iris</code> data</a></li>
 <li class="chapter" data-level="6.3" data-path="k-means-clustering.html"><a href="k-means-clustering.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>6.3</b> Example 2: clustering of image pixels</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>7</b> Hierarchical clustering</a><ul>
+<li class="chapter" data-level="7" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>7</b> Hierarchical Clustering</a><ul>
 <li class="chapter" data-level="7.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>7.1</b> Basic Concepts</a></li>
 <li class="chapter" data-level="7.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>7.2</b> Example 1: <code>iris</code> data</a></li>
 <li class="chapter" data-level="7.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>7.3</b> Example 2: RNA Expression Data</a></li>
@@ -414,11 +412,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-harrison1978hedonic">
-<p>Harrison Jr, David, and Daniel L Rubinfeld. 1978. “Hedonic Housing Prices and the Demand for Clean Air.” <em>Journal of Environmental Economics and Management</em> 5 (1). Elsevier: 81–102.</p>
-</div>
 <div id="ref-akaike1998information">
 <p>Akaike, Hirotogu. 1998. “Information Theory and an Extension of the Maximum Likelihood Principle.” In <em>Selected Papers of Hirotugu Akaike</em>, 199–213. Springer.</p>
+</div>
+<div id="ref-harrison1978hedonic">
+<p>Harrison Jr, David, and Daniel L Rubinfeld. 1978. “Hedonic Housing Prices and the Demand for Clean Air.” <em>Journal of Environmental Economics and Management</em> 5 (1). Elsevier: 81–102.</p>
 </div>
 <div id="ref-schwarz1978estimating">
 <p>Schwarz, Gideon, and others. 1978. “Estimating the Dimension of a Model.” <em>The Annals of Statistics</em> 6 (2). Institute of Mathematical Statistics: 461–64.</p>
@@ -450,7 +448,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -462,6 +460,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/teazrq/SLWR/edit/master/1.4-modeling-basics.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["RESL.pdf"],
 "toc": {
@@ -477,9 +479,10 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

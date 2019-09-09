@@ -1,7 +1,7 @@
 --- 
 title: "Statistical Learning with R"
 author: "[Ruoqing Zhu](https://sites.google.com/site/teazrq/)"
-date: "2018-09-07"
+date: "2019-09-09"
 github-repo: teazrq/SLRL
 url: 'http\://teazrq.github.io/SLRL/'
 knit: "bookdown::render_book"

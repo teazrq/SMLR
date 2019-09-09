@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Statistical Learning with R</title>
-  <meta name="description" content="Statistical Learning with R">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Hierarchical Clustering | Statistical Learning with R</title>
+  <meta name="description" content="Chapter 7 Hierarchical Clustering | Statistical Learning with R" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Statistical Learning with R" />
+  <meta property="og:title" content="Chapter 7 Hierarchical Clustering | Statistical Learning with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://teazrq.github.io/SLRL/" />
   
@@ -17,25 +16,26 @@
   <meta name="github-repo" content="teazrq/SLRL" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Statistical Learning with R" />
+  <meta name="twitter:title" content="Chapter 7 Hierarchical Clustering | Statistical Learning with R" />
   
   
   
 
-<meta name="author" content="Ruoqing Zhu">
+<meta name="author" content="Ruoqing Zhu" />
 
 
-<meta name="date" content="2018-09-07">
+<meta name="date" content="2019-09-09" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-<link rel="prev" href="k-means-clustering.html">
-<link rel="next" href="principle-component-analysis.html">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="prev" href="k-means-clustering.html"/>
+<link rel="next" href="principle-component-analysis.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -112,271 +112,49 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="part"><span><b>I Basics Knowledge</b></span></li>
 <li class="chapter" data-level="1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> R and RStudio</a><ul>
 <li class="chapter" data-level="1.1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#resources-and-guides"><i class="fa fa-check"></i><b>1.1</b> Resources and Guides</a></li>
-<li class="chapter" data-level="1.2" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#basic-mathematical-operations"><i class="fa fa-check"></i><b>1.2</b> Basic Mathematical Operations</a></li>
-<li class="chapter" data-level="1.3" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section"><i class="fa fa-check"></i><b>1.3</b> <a href="modeling-basics.html#section-93">1</a> 4</a></li>
-<li class="chapter" data-level="1.4" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-1"><i class="fa fa-check"></i><b>1.4</b> <a href="modeling-basics.html#section-93">1</a> 15</a></li>
-<li class="chapter" data-level="1.5" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-2"><i class="fa fa-check"></i><b>1.5</b> <a href="modeling-basics.html#section-93">1</a> 243</a></li>
-<li class="chapter" data-level="1.6" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-3"><i class="fa fa-check"></i><b>1.6</b> <a href="modeling-basics.html#section-93">1</a> 7.389056</a></li>
-<li class="chapter" data-level="1.7" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-4"><i class="fa fa-check"></i><b>1.7</b> <a href="modeling-basics.html#section-93">1</a> 1.098612</a></li>
-<li class="chapter" data-level="1.8" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-5"><i class="fa fa-check"></i><b>1.8</b> <a href="modeling-basics.html#section-93">1</a> 1.584963</a></li>
-<li class="chapter" data-level="1.9" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-6"><i class="fa fa-check"></i><b>1.9</b> <a href="modeling-basics.html#section-93">1</a> 120</a><ul>
-<li class="chapter" data-level="1.9.1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#data-objects"><i class="fa fa-check"></i><b>1.9.1</b> Data Objects</a></li>
+<li class="chapter" data-level="1.2" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#basic-mathematical-operations"><i class="fa fa-check"></i><b>1.2</b> Basic Mathematical Operations</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#data-objects"><i class="fa fa-check"></i><b>1.2.1</b> Data Objects</a></li>
 </ul></li>
-<li class="chapter" data-level="1.10" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-7"><i class="fa fa-check"></i><b>1.10</b> <a href="modeling-basics.html#section-93">1</a> 1 2 3 4</a></li>
-<li class="chapter" data-level="1.11" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#a-b-c"><i class="fa fa-check"></i><b>1.11</b> <a href="modeling-basics.html#section-93">1</a> “a” “b” “c”</a></li>
-<li class="chapter" data-level="1.12" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-8"><i class="fa fa-check"></i><b>1.12</b> [,1] [,2]</a></li>
-<li class="chapter" data-level="1.13" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-9"><i class="fa fa-check"></i><b>1.13</b> [1,] 1 3</a></li>
-<li class="chapter" data-level="1.14" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-10"><i class="fa fa-check"></i><b>1.14</b> [2,] 2 4</a></li>
-<li class="chapter" data-level="1.15" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#x-y"><i class="fa fa-check"></i><b>1.15</b> x y</a></li>
-<li class="chapter" data-level="1.16" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-11"><i class="fa fa-check"></i><b>1.16</b> [1,] 1 1</a></li>
-<li class="chapter" data-level="1.17" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-12"><i class="fa fa-check"></i><b>1.17</b> [2,] 1 0</a></li>
-<li class="chapter" data-level="1.18" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-13"><i class="fa fa-check"></i><b>1.18</b> [3,] 1 1</a></li>
-<li class="chapter" data-level="1.19" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-14"><i class="fa fa-check"></i><b>1.19</b> [4,] 0 0</a></li>
-<li class="chapter" data-level="1.20" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-15"><i class="fa fa-check"></i><b>1.20</b> [5,] 0 1</a></li>
-<li class="chapter" data-level="1.21" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-16"><i class="fa fa-check"></i><b>1.21</b> [6,] 0 0</a></li>
-<li class="chapter" data-level="1.22" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-17"><i class="fa fa-check"></i><b>1.22</b> [,1] [,2] [,3] [,4] [,5] [,6]</a></li>
-<li class="chapter" data-level="1.23" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-18"><i class="fa fa-check"></i><b>1.23</b> [1,] 4 1 4 0 3 0</a></li>
-<li class="chapter" data-level="1.24" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-19"><i class="fa fa-check"></i><b>1.24</b> [2,] 6 2 6 0 4 0</a></li>
-<li class="chapter" data-level="1.25" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-20"><i class="fa fa-check"></i><b>1.25</b> <a href="modeling-basics.html#section-93">1</a> 1</a></li>
-<li class="chapter" data-level="1.26" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-21"><i class="fa fa-check"></i><b>1.26</b> <a href="modeling-basics.html#section-93">1</a> 1 1 0 0</a></li>
-<li class="chapter" data-level="1.27" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#x-y-1"><i class="fa fa-check"></i><b>1.27</b> x y</a></li>
-<li class="chapter" data-level="1.28" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-22"><i class="fa fa-check"></i><b>1.28</b> [1,] 1 1</a></li>
-<li class="chapter" data-level="1.29" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-23"><i class="fa fa-check"></i><b>1.29</b> [2,] 1 0</a></li>
-<li class="chapter" data-level="1.30" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-24"><i class="fa fa-check"></i><b>1.30</b> <a href="modeling-basics.html#section-93">1</a> 4 1 4 0 1 0</a></li>
-<li class="chapter" data-level="1.31" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-25"><i class="fa fa-check"></i><b>1.31</b> <a href="modeling-basics.html#section-93">1</a> 6</a></li>
-<li class="chapter" data-level="1.32" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-26"><i class="fa fa-check"></i><b>1.32</b> <a href="modeling-basics.html#section-93">1</a> 6 2</a></li>
-<li class="chapter" data-level="1.33" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#warning-in-x-c1-2-3-4-longer-object-length-is-not-a-multiple-of-shorter-object-length"><i class="fa fa-check"></i><b>1.33</b> Warning in x + c(1, 2, 3, 4): longer object length is not a multiple of shorter object length</a></li>
-<li class="chapter" data-level="1.34" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-27"><i class="fa fa-check"></i><b>1.34</b> <a href="modeling-basics.html#section-93">1</a> 2 3 4 4 1 2</a></li>
-<li class="chapter" data-level="1.35" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-28"><i class="fa fa-check"></i><b>1.35</b> <a href="modeling-basics.html#section-93">1</a> 1 2</a></li>
-<li class="chapter" data-level="1.36" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#sepal.length-sepal.width-petal.length-petal.width-species"><i class="fa fa-check"></i><b>1.36</b> Sepal.Length Sepal.Width Petal.Length Petal.Width Species</a></li>
-<li class="chapter" data-level="1.37" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#setosa"><i class="fa fa-check"></i><b>1.37</b> 1 5.1 3.5 1.4 0.2 setosa</a></li>
-<li class="chapter" data-level="1.38" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#setosa-1"><i class="fa fa-check"></i><b>1.38</b> 2 4.9 3.0 1.4 0.2 setosa</a></li>
-<li class="chapter" data-level="1.39" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#setosa-2"><i class="fa fa-check"></i><b>1.39</b> 3 4.7 3.2 1.3 0.2 setosa</a></li>
-<li class="chapter" data-level="1.40" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#setosa-versicolor-virginica"><i class="fa fa-check"></i><b>1.40</b> <a href="modeling-basics.html#section-93">1</a> setosa versicolor virginica</a></li>
-<li class="chapter" data-level="1.41" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#levels-setosa-versicolor-virginica"><i class="fa fa-check"></i><b>1.41</b> Levels: setosa versicolor virginica</a></li>
-<li class="chapter" data-level="1.42" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#sepal.length-sepal.width-petal.length-petal.width-species-1"><i class="fa fa-check"></i><b>1.42</b> Sepal.Length Sepal.Width Petal.Length Petal.Width Species</a></li>
-<li class="chapter" data-level="1.43" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#min.-4.300-min.-2.000-min.-1.000-min.-0.100-setosa-50"><i class="fa fa-check"></i><b>1.43</b> Min. :4.300 Min. :2.000 Min. :1.000 Min. :0.100 setosa :50</a></li>
-<li class="chapter" data-level="1.44" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#st-qu.5.100-1st-qu.2.800-1st-qu.1.600-1st-qu.0.300-versicolor50"><i class="fa fa-check"></i><b>1.44</b> 1st Qu.:5.100 1st Qu.:2.800 1st Qu.:1.600 1st Qu.:0.300 versicolor:50</a></li>
-<li class="chapter" data-level="1.45" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#median-5.800-median-3.000-median-4.350-median-1.300-virginica-50"><i class="fa fa-check"></i><b>1.45</b> Median :5.800 Median :3.000 Median :4.350 Median :1.300 virginica :50</a></li>
-<li class="chapter" data-level="1.46" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#mean-5.843-mean-3.057-mean-3.758-mean-1.199"><i class="fa fa-check"></i><b>1.46</b> Mean :5.843 Mean :3.057 Mean :3.758 Mean :1.199</a></li>
-<li class="chapter" data-level="1.47" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#rd-qu.6.400-3rd-qu.3.300-3rd-qu.5.100-3rd-qu.1.800"><i class="fa fa-check"></i><b>1.47</b> 3rd Qu.:6.400 3rd Qu.:3.300 3rd Qu.:5.100 3rd Qu.:1.800</a></li>
-<li class="chapter" data-level="1.48" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#max.-7.900-max.-4.400-max.-6.900-max.-2.500"><i class="fa fa-check"></i><b>1.48</b> Max. :7.900 Max. :4.400 Max. :6.900 Max. :2.500</a></li>
-<li class="chapter" data-level="1.49" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#read-in-data-from-other-sources"><i class="fa fa-check"></i><b>1.49</b> Read-in Data from Other Sources</a></li>
-<li class="chapter" data-level="1.50" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#year-birthrate"><i class="fa fa-check"></i><b>1.50</b> Year Birthrate</a></li>
-<li class="chapter" data-level="1.51" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-29"><i class="fa fa-check"></i><b>1.51</b> 1 1917 183.1</a></li>
-<li class="chapter" data-level="1.52" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-30"><i class="fa fa-check"></i><b>1.52</b> 2 1918 183.9</a></li>
-<li class="chapter" data-level="1.53" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-31"><i class="fa fa-check"></i><b>1.53</b> 3 1919 163.1</a></li>
-<li class="chapter" data-level="1.54" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-32"><i class="fa fa-check"></i><b>1.54</b> 4 1920 179.5</a></li>
-<li class="chapter" data-level="1.55" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-33"><i class="fa fa-check"></i><b>1.55</b> 5 1921 181.4</a></li>
-<li class="chapter" data-level="1.56" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-34"><i class="fa fa-check"></i><b>1.56</b> 6 1922 173.4</a></li>
-<li class="chapter" data-level="1.57" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#section-35"><i class="fa fa-check"></i><b>1.57</b> <a href="modeling-basics.html#section-93">1</a> 87 2</a></li>
-<li class="chapter" data-level="1.58" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#using-packages"><i class="fa fa-check"></i><b>1.58</b> Using Packages</a></li>
-<li class="chapter" data-level="1.59" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#sbp-tobacco-ldl-adiposity-famhist-typea-obesity-alcohol-age-chd"><i class="fa fa-check"></i><b>1.59</b> sbp tobacco ldl adiposity famhist typea obesity alcohol age chd</a></li>
-<li class="chapter" data-level="1.60" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#present-49-25.30-97.20-52-1"><i class="fa fa-check"></i><b>1.60</b> 1 160 12.00 5.73 23.11 Present 49 25.30 97.20 52 1</a></li>
-<li class="chapter" data-level="1.61" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#absent-55-28.87-2.06-63-1"><i class="fa fa-check"></i><b>1.61</b> 2 144 0.01 4.41 28.61 Absent 55 28.87 2.06 63 1</a></li>
-<li class="chapter" data-level="1.62" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#present-52-29.14-3.81-46-0"><i class="fa fa-check"></i><b>1.62</b> 3 118 0.08 3.48 32.28 Present 52 29.14 3.81 46 0</a></li>
-<li class="chapter" data-level="1.63" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#present-51-31.99-24.26-58-1"><i class="fa fa-check"></i><b>1.63</b> 4 170 7.50 6.41 38.03 Present 51 31.99 24.26 58 1</a></li>
-<li class="chapter" data-level="1.64" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#present-60-25.99-57.34-49-1"><i class="fa fa-check"></i><b>1.64</b> 5 134 13.60 3.50 27.78 Present 60 25.99 57.34 49 1</a></li>
-<li class="chapter" data-level="1.65" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#present-62-30.77-14.14-45-0"><i class="fa fa-check"></i><b>1.65</b> 6 132 6.20 6.47 36.21 Present 62 30.77 14.14 45 0</a></li>
-<li class="chapter" data-level="1.66" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#explore-yourself"><i class="fa fa-check"></i><b>1.66</b> Explore Yourself</a></li>
+<li class="chapter" data-level="1.3" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#read-in-data-from-other-sources"><i class="fa fa-check"></i><b>1.3</b> Read-in Data from Other Sources</a></li>
+<li class="chapter" data-level="1.4" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#using-packages"><i class="fa fa-check"></i><b>1.4</b> Using Packages</a></li>
+<li class="chapter" data-level="1.5" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#explore-yourself"><i class="fa fa-check"></i><b>1.5</b> Explore Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html"><i class="fa fa-check"></i><b>2</b> RMarkdown Basics</a><ul>
 <li class="chapter" data-level="2.1" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#acknowledgement"><i class="fa fa-check"></i><b>2.1</b> Acknowledgement</a></li>
 <li class="chapter" data-level="2.2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#getting-started"><i class="fa fa-check"></i><b>2.2</b> Getting Started</a></li>
 <li class="chapter" data-level="2.3" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#adding-r"><i class="fa fa-check"></i><b>2.3</b> Adding <code>R</code></a><ul>
 <li class="chapter" data-level="2.3.1" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#r-chunks"><i class="fa fa-check"></i><b>2.3.1</b> <code>R</code> Chunks</a></li>
+<li class="chapter" data-level="2.3.2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#inline-r"><i class="fa fa-check"></i><b>2.3.2</b> Inline <code>R</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#section-36"><i class="fa fa-check"></i><b>2.4</b> <a href="modeling-basics.html#section-93">1</a> 8.8547922 -0.8234909 3.8156421 5.1643130 4.0213416 1.4693774</a></li>
-<li class="chapter" data-level="2.5" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#section-37"><i class="fa fa-check"></i><b>2.5</b> [7] 9.5576100 1.5267048 12.0921186 1.6864295</a></li>
-<li class="chapter" data-level="2.6" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#section-38"><i class="fa fa-check"></i><b>2.6</b> <a href="modeling-basics.html#section-93">1</a> 4.177244</a><ul>
-<li class="chapter" data-level="2.6.1" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#inline-r"><i class="fa fa-check"></i><b>2.6.1</b> Inline <code>R</code></a></li>
+<li class="chapter" data-level="2.4" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#importing-data"><i class="fa fa-check"></i><b>2.4</b> Importing Data</a></li>
+<li class="chapter" data-level="2.5" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#working-directory"><i class="fa fa-check"></i><b>2.5</b> Working Directory</a></li>
+<li class="chapter" data-level="2.6" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#packages"><i class="fa fa-check"></i><b>2.6</b> Packages</a></li>
+<li class="chapter" data-level="2.7" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#plotting"><i class="fa fa-check"></i><b>2.7</b> Plotting</a></li>
+<li class="chapter" data-level="2.8" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#chunk-options"><i class="fa fa-check"></i><b>2.8</b> Chunk Options</a></li>
+<li class="chapter" data-level="2.9" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#adding-math-with-latex"><i class="fa fa-check"></i><b>2.9</b> Adding Math with LaTeX</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#displaystyle-latex"><i class="fa fa-check"></i><b>2.9.1</b> Displaystyle LaTeX</a></li>
+<li class="chapter" data-level="2.9.2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#inline-latex"><i class="fa fa-check"></i><b>2.9.2</b> Inline LaTex</a></li>
 </ul></li>
-<li class="chapter" data-level="2.7" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#importing-data"><i class="fa fa-check"></i><b>2.7</b> Importing Data</a></li>
-<li class="chapter" data-level="2.8" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#working-directory"><i class="fa fa-check"></i><b>2.8</b> Working Directory</a></li>
-<li class="chapter" data-level="2.9" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#packages"><i class="fa fa-check"></i><b>2.9</b> Packages</a></li>
-<li class="chapter" data-level="2.10" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#plotting"><i class="fa fa-check"></i><b>2.10</b> Plotting</a></li>
-<li class="chapter" data-level="2.11" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#chunk-options"><i class="fa fa-check"></i><b>2.11</b> Chunk Options</a></li>
-<li class="chapter" data-level="2.12" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#hello-world"><i class="fa fa-check"></i><b>2.12</b> <a href="modeling-basics.html#section-93">1</a> “Hello World!”</a></li>
-<li class="chapter" data-level="2.13" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#section-39"><i class="fa fa-check"></i><b>2.13</b> </a></li>
-<li class="chapter" data-level="2.14" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#call"><i class="fa fa-check"></i><b>2.14</b> Call:</a></li>
-<li class="chapter" data-level="2.15" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#lmformula-y-x"><i class="fa fa-check"></i><b>2.15</b> lm(formula = y ~ x)</a></li>
-<li class="chapter" data-level="2.16" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#section-40"><i class="fa fa-check"></i><b>2.16</b> </a></li>
-<li class="chapter" data-level="2.17" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#residuals"><i class="fa fa-check"></i><b>2.17</b> Residuals:</a></li>
-<li class="chapter" data-level="2.18" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#min-1q-median-3q-max"><i class="fa fa-check"></i><b>2.18</b> Min 1Q Median 3Q Max</a></li>
-<li class="chapter" data-level="2.19" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#e-16--1.157e-16-4.273e-17-2.153e-16-4.167e-16"><i class="fa fa-check"></i><b>2.19</b> -5.661e-16 -1.157e-16 4.273e-17 2.153e-16 4.167e-16</a></li>
-<li class="chapter" data-level="2.20" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#section-41"><i class="fa fa-check"></i><b>2.20</b> </a></li>
-<li class="chapter" data-level="2.21" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#coefficients"><i class="fa fa-check"></i><b>2.21</b> Coefficients:</a></li>
-<li class="chapter" data-level="2.22" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#estimate-std.-error-t-value-prt"><i class="fa fa-check"></i><b>2.22</b> Estimate Std. Error t value Pr(&gt;|t|)</a></li>
-<li class="chapter" data-level="2.23" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#intercept-1.123e-15-2.458e-16-4.571e00-0.00182"><i class="fa fa-check"></i><b>2.23</b> (Intercept) 1.123e-15 2.458e-16 4.571e+00 0.00182 **</a></li>
-<li class="chapter" data-level="2.24" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#x-1.000e00-3.961e-17-2.525e16-2e-16-signif.-codes-0-0.001-0.01-0.05-.-0.1-1-residual-standard-error-3.598e-16-on-8-degrees-of-freedom-multiple-r-squared-1-adjusted-r-squared-1-f-statistic-6.374e32-on-1-and-8-df-p-value-2.2e-16-adding-math-with-latex-displaystyle-latex-inline-latex-output-options-try-it"><i class="fa fa-check"></i><b>2.24</b> x 1.000e+00 3.961e-17 2.525e+16 &lt; 2e-16 *** ## — ## Signif. codes: 0 ‘<em><strong>’ 0.001 ’</strong>’ 0.01 ’</em>’ 0.05 ‘.’ 0.1 ‘’ 1 ## ## Residual standard error: 3.598e-16 on 8 degrees of freedom ## Multiple R-squared: 1, Adjusted R-squared: 1 ## F-statistic: 6.374e+32 on 1 and 8 DF, p-value: &lt; 2.2e-16 ## Adding Math with LaTeX ### Displaystyle LaTeX ### Inline LaTex ## Output Options ## Try It!</a></li>
+<li class="chapter" data-level="2.10" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#output-options"><i class="fa fa-check"></i><b>2.10</b> Output Options</a></li>
+<li class="chapter" data-level="2.11" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#try-it"><i class="fa fa-check"></i><b>2.11</b> Try It!</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html"><i class="fa fa-check"></i><b>3</b> Basics of Probability and Statistics</a><ul>
 <li class="chapter" data-level="3.1" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#random-number-generation"><i class="fa fa-check"></i><b>3.1</b> Random Number Generation</a></li>
-<li class="chapter" data-level="3.2" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-42"><i class="fa fa-check"></i><b>3.2</b> <a href="modeling-basics.html#section-93">1</a> 0 1 1 1 0 0 1 1 1 1</a></li>
-<li class="chapter" data-level="3.3" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-43"><i class="fa fa-check"></i><b>3.3</b> <a href="modeling-basics.html#section-93">1</a> 1.0965421 -1.0708139 -1.2199381 -0.3518751</a></li>
-<li class="chapter" data-level="3.4" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-44"><i class="fa fa-check"></i><b>3.4</b> <a href="modeling-basics.html#section-93">1</a> -0.2529076 1.3672866 -0.6712572 4.1905616</a></li>
-<li class="chapter" data-level="3.5" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-45"><i class="fa fa-check"></i><b>3.5</b> <a href="modeling-basics.html#section-93">1</a> -0.2529076 1.3672866 -0.6712572 4.1905616</a></li>
-<li class="chapter" data-level="3.6" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-46"><i class="fa fa-check"></i><b>3.6</b> [,1] [,2] [,3] [,4]</a></li>
-<li class="chapter" data-level="3.7" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-47"><i class="fa fa-check"></i><b>3.7</b> [1,] 2.3075926 0.6273378 2.875879 3.515928</a></li>
-<li class="chapter" data-level="3.8" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-48"><i class="fa fa-check"></i><b>3.8</b> [2,] 1.8215099 3.1535552 2.918031 4.528882</a></li>
-<li class="chapter" data-level="3.9" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-49"><i class="fa fa-check"></i><b>3.9</b> [3,] 0.2549359 1.6922485 2.920198 3.623822</a></li>
-<li class="chapter" data-level="3.10" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#summary-statistics-and-data-visualization"><i class="fa fa-check"></i><b>3.10</b> Summary Statistics and Data Visualization</a></li>
-<li class="chapter" data-level="3.11" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-50"><i class="fa fa-check"></i><b>3.11</b> <a href="modeling-basics.html#section-93">1</a> 123.9597</a></li>
-<li class="chapter" data-level="3.12" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-51"><i class="fa fa-check"></i><b>3.12</b> <a href="modeling-basics.html#section-93">1</a> 1.239597</a></li>
-<li class="chapter" data-level="3.13" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-52"><i class="fa fa-check"></i><b>3.13</b> <a href="modeling-basics.html#section-93">1</a> 3.12596</a></li>
-<li class="chapter" data-level="3.14" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-53"><i class="fa fa-check"></i><b>3.14</b> <a href="modeling-basics.html#section-93">1</a> 1.116457</a></li>
-<li class="chapter" data-level="3.15" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-54"><i class="fa fa-check"></i><b>3.15</b> 25% 50% 75%</a></li>
-<li class="chapter" data-level="3.16" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-55"><i class="fa fa-check"></i><b>3.16</b> 0.0115149 1.1164572 2.3955519</a></li>
-<li class="chapter" data-level="3.17" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-56"><i class="fa fa-check"></i><b>3.17</b> <a href="modeling-basics.html#section-93">1</a> 0.05988467</a></li>
-<li class="chapter" data-level="3.18" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-57"><i class="fa fa-check"></i><b>3.18</b> </a></li>
-<li class="chapter" data-level="3.19" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#absent-present"><i class="fa fa-check"></i><b>3.19</b> Absent Present</a></li>
-<li class="chapter" data-level="3.20" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-58"><i class="fa fa-check"></i><b>3.20</b> 270 192</a></li>
-<li class="chapter" data-level="3.21" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#chd"><i class="fa fa-check"></i><b>3.21</b> chd</a></li>
-<li class="chapter" data-level="3.22" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#famhist-0-1"><i class="fa fa-check"></i><b>3.22</b> famhist 0 1</a></li>
-<li class="chapter" data-level="3.23" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#absent-206-64"><i class="fa fa-check"></i><b>3.23</b> Absent 206 64</a></li>
-<li class="chapter" data-level="3.24" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#present-96-96"><i class="fa fa-check"></i><b>3.24</b> Present 96 96</a></li>
-<li class="chapter" data-level="3.25" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-59"><i class="fa fa-check"></i><b>3.25</b> </a></li>
-<li class="chapter" data-level="3.26" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#fishers-exact-test-for-count-data"><i class="fa fa-check"></i><b>3.26</b> Fisher’s Exact Test for Count Data</a></li>
-<li class="chapter" data-level="3.27" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-60"><i class="fa fa-check"></i><b>3.27</b> </a></li>
-<li class="chapter" data-level="3.28" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#data-tablesaheart-cfamhist-chd"><i class="fa fa-check"></i><b>3.28</b> data: table(SAheart[, c(“famhist”, “chd”)])</a></li>
-<li class="chapter" data-level="3.29" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#p-value-6.658e-09"><i class="fa fa-check"></i><b>3.29</b> p-value = 6.658e-09</a></li>
-<li class="chapter" data-level="3.30" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#alternative-hypothesis-true-odds-ratio-is-not-equal-to-1"><i class="fa fa-check"></i><b>3.30</b> alternative hypothesis: true odds ratio is not equal to 1</a></li>
-<li class="chapter" data-level="3.31" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#percent-confidence-interval"><i class="fa fa-check"></i><b>3.31</b> 95 percent confidence interval:</a></li>
-<li class="chapter" data-level="3.32" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-61"><i class="fa fa-check"></i><b>3.32</b> 2.119573 4.891341</a></li>
-<li class="chapter" data-level="3.33" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#sample-estimates"><i class="fa fa-check"></i><b>3.33</b> sample estimates:</a></li>
-<li class="chapter" data-level="3.34" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#odds-ratio"><i class="fa fa-check"></i><b>3.34</b> odds ratio</a></li>
-<li class="chapter" data-level="3.35" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-62"><i class="fa fa-check"></i><b>3.35</b> 3.209996</a></li>
-<li class="chapter" data-level="3.36" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-63"><i class="fa fa-check"></i><b>3.36</b> </a></li>
-<li class="chapter" data-level="3.37" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#pearsons-chi-squared-test-with-yates-continuity-correction"><i class="fa fa-check"></i><b>3.37</b> Pearson’s Chi-squared test with Yates’ continuity correction</a></li>
-<li class="chapter" data-level="3.38" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#section-64"><i class="fa fa-check"></i><b>3.38</b> </a></li>
-<li class="chapter" data-level="3.39" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#data-tablesaheart-cfamhist-chd-1"><i class="fa fa-check"></i><b>3.39</b> data: table(SAheart[, c(“famhist”, “chd”)])</a></li>
-<li class="chapter" data-level="3.40" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#x-squared-33.123-df-1-p-value-8.653e-09"><i class="fa fa-check"></i><b>3.40</b> X-squared = 33.123, df = 1, p-value = 8.653e-09</a></li>
+<li class="chapter" data-level="3.2" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#summary-statistics-and-data-visualization"><i class="fa fa-check"></i><b>3.2</b> Summary Statistics and Data Visualization</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="modeling-basics.html"><a href="modeling-basics.html"><i class="fa fa-check"></i><b>4</b> Modeling Basics</a><ul>
 <li class="chapter" data-level="4.1" data-path="modeling-basics.html"><a href="modeling-basics.html#fitting-linear-regression"><i class="fa fa-check"></i><b>4.1</b> Fitting Linear Regression</a></li>
-<li class="chapter" data-level="4.2" data-path="modeling-basics.html"><a href="modeling-basics.html#section-65"><i class="fa fa-check"></i><b>4.2</b> </a></li>
-<li class="chapter" data-level="4.3" data-path="modeling-basics.html"><a href="modeling-basics.html#call-1"><i class="fa fa-check"></i><b>4.3</b> Call:</a></li>
-<li class="chapter" data-level="4.4" data-path="modeling-basics.html"><a href="modeling-basics.html#lmformula-medv-.-data-boston"><i class="fa fa-check"></i><b>4.4</b> lm(formula = medv ~ ., data = Boston)</a></li>
-<li class="chapter" data-level="4.5" data-path="modeling-basics.html"><a href="modeling-basics.html#section-66"><i class="fa fa-check"></i><b>4.5</b> </a></li>
-<li class="chapter" data-level="4.6" data-path="modeling-basics.html"><a href="modeling-basics.html#residuals-1"><i class="fa fa-check"></i><b>4.6</b> Residuals:</a></li>
-<li class="chapter" data-level="4.7" data-path="modeling-basics.html"><a href="modeling-basics.html#min-1q-median-3q-max-1"><i class="fa fa-check"></i><b>4.7</b> Min 1Q Median 3Q Max</a></li>
-<li class="chapter" data-level="4.8" data-path="modeling-basics.html"><a href="modeling-basics.html#section-67"><i class="fa fa-check"></i><b>4.8</b> -15.595 -2.730 -0.518 1.777 26.199</a></li>
-<li class="chapter" data-level="4.9" data-path="modeling-basics.html"><a href="modeling-basics.html#section-68"><i class="fa fa-check"></i><b>4.9</b> </a></li>
-<li class="chapter" data-level="4.10" data-path="modeling-basics.html"><a href="modeling-basics.html#coefficients-1"><i class="fa fa-check"></i><b>4.10</b> Coefficients:</a></li>
-<li class="chapter" data-level="4.11" data-path="modeling-basics.html"><a href="modeling-basics.html#estimate-std.-error-t-value-prt-1"><i class="fa fa-check"></i><b>4.11</b> Estimate Std. Error t value Pr(&gt;|t|)</a></li>
-<li><a href="modeling-basics.html#intercept-3.646e01-5.103e00-7.144-3.28e-12-crim--1.080e-01-3.286e-02--3.287-0.001087-zn-4.642e-02-1.373e-02-3.382-0.000778-indus-2.056e-02-6.150e-02-0.334-0.738288-chas-2.687e00-8.616e-01-3.118-0.001925"><span class="toc-section-number">4.12</span> (Intercept) 3.646e+01 5.103e+00 7.144 3.28e-12 <em><strong> ## crim -1.080e-01 3.286e-02 -3.287 0.001087 </strong> ## zn 4.642e-02 1.373e-02 3.382 0.000778 </em><strong> ## indus 2.056e-02 6.150e-02 0.334 0.738288<br />
-## chas 2.687e+00 8.616e-01 3.118 0.001925 </strong></a></li>
-<li class="chapter" data-level="4.13" data-path="modeling-basics.html"><a href="modeling-basics.html#nox--1.777e01-3.820e00--4.651-4.25e-06-rm-3.810e00-4.179e-01-9.116-2e-16"><i class="fa fa-check"></i><b>4.13</b> nox -1.777e+01 3.820e+00 -4.651 4.25e-06 <strong><em> ## rm 3.810e+00 4.179e-01 9.116 &lt; 2e-16 </em></strong></a></li>
-<li class="chapter" data-level="4.14" data-path="modeling-basics.html"><a href="modeling-basics.html#age-6.922e-04-1.321e-02-0.052-0.958229"><i class="fa fa-check"></i><b>4.14</b> age 6.922e-04 1.321e-02 0.052 0.958229</a></li>
-<li class="chapter" data-level="4.15" data-path="modeling-basics.html"><a href="modeling-basics.html#dis--1.476e00-1.995e-01--7.398-6.01e-13-rad-3.060e-01-6.635e-02-4.613-5.07e-06"><i class="fa fa-check"></i><b>4.15</b> dis -1.476e+00 1.995e-01 -7.398 6.01e-13 <strong><em> ## rad 3.060e-01 6.635e-02 4.613 5.07e-06 </em></strong></a></li>
-<li class="chapter" data-level="4.16" data-path="modeling-basics.html"><a href="modeling-basics.html#tax--1.233e-02-3.760e-03--3.280-0.001112"><i class="fa fa-check"></i><b>4.16</b> tax -1.233e-02 3.760e-03 -3.280 0.001112 **</a></li>
-<li class="chapter" data-level="4.17" data-path="modeling-basics.html"><a href="modeling-basics.html#ptratio--9.527e-01-1.308e-01--7.283-1.31e-12-black-9.312e-03-2.686e-03-3.467-0.000573"><i class="fa fa-check"></i><b>4.17</b> ptratio -9.527e-01 1.308e-01 -7.283 1.31e-12 <strong><em> ## black 9.312e-03 2.686e-03 3.467 0.000573 </em></strong></a></li>
-<li><a href="modeling-basics.html#lstat--5.248e-01-5.072e-02--10.347-2e-16-signif.-codes-0-0.001-0.01-0.05-.-0.1-1-residual-standard-error-4.745-on-492-degrees-of-freedom-multiple-r-squared-0.7406-adjusted-r-squared-0.7338-f-statistic-108.1-on-13-and-492-df-p-value-2.2e-16-call-lmformula-medv-crim-rm-dis-data-boston-residuals-min-1q-median-3q-max--21.247--2.930--0.572-2.390-39.072-coefficients-estimate-std.-error-t-value-prt-intercept--29.45838-2.60010--11.330-2e-16"><span class="toc-section-number">4.18</span> lstat -5.248e-01 5.072e-02 -10.347 &lt; 2e-16 <strong><em> ## — ## Signif. codes: 0 ‘<em><strong>’ 0.001 ’</strong>’ 0.01 ’</em>’ 0.05 ‘.’ 0.1 ‘’ 1 ## ## Residual standard error: 4.745 on 492 degrees of freedom ## Multiple R-squared: 0.7406, Adjusted R-squared: 0.7338 ## F-statistic: 108.1 on 13 and 492 DF, p-value: &lt; 2.2e-16 ## ## Call: ## lm(formula = medv ~ crim + rm + dis, data = Boston) ## ## Residuals: ## Min 1Q Median 3Q Max ## -21.247 -2.930 -0.572 2.390 39.072 ## ## Coefficients: ## Estimate Std. Error t value Pr(&gt;|t|)<br />
-## (Intercept) -29.45838 2.60010 -11.330 &lt; 2e-16 </em></strong></a></li>
-<li class="chapter" data-level="4.19" data-path="modeling-basics.html"><a href="modeling-basics.html#crim--0.25405-0.03532--7.193-2.32e-12-rm-8.34257-0.40870-20.413-2e-16"><i class="fa fa-check"></i><b>4.19</b> crim -0.25405 0.03532 -7.193 2.32e-12 <strong><em> ## rm 8.34257 0.40870 20.413 &lt; 2e-16 </em></strong></a></li>
-<li class="chapter" data-level="4.20" data-path="modeling-basics.html"><a href="modeling-basics.html#dis-0.12627-0.14382-0.878-0.38"><i class="fa fa-check"></i><b>4.20</b> dis 0.12627 0.14382 0.878 0.38</a></li>
-<li class="chapter" data-level="4.21" data-path="modeling-basics.html"><a href="modeling-basics.html#section-69"><i class="fa fa-check"></i><b>4.21</b> —</a></li>
-<li class="chapter" data-level="4.22" data-path="modeling-basics.html"><a href="modeling-basics.html#signif.-codes-0-0.001-0.01-0.05-.-0.1-1"><i class="fa fa-check"></i><b>4.22</b> Signif. codes: 0 ‘<em><strong>’ 0.001 ’</strong>’ 0.01 ’</em>’ 0.05 ‘.’ 0.1 ‘’ 1</a></li>
-<li class="chapter" data-level="4.23" data-path="modeling-basics.html"><a href="modeling-basics.html#section-70"><i class="fa fa-check"></i><b>4.23</b> </a></li>
-<li class="chapter" data-level="4.24" data-path="modeling-basics.html"><a href="modeling-basics.html#residual-standard-error-6.238-on-502-degrees-of-freedom"><i class="fa fa-check"></i><b>4.24</b> Residual standard error: 6.238 on 502 degrees of freedom</a></li>
-<li class="chapter" data-level="4.25" data-path="modeling-basics.html"><a href="modeling-basics.html#multiple-r-squared-0.5427-adjusted-r-squared-0.5399"><i class="fa fa-check"></i><b>4.25</b> Multiple R-squared: 0.5427, Adjusted R-squared: 0.5399</a></li>
-<li class="chapter" data-level="4.26" data-path="modeling-basics.html"><a href="modeling-basics.html#f-statistic-198.6-on-3-and-502-df-p-value-2.2e-16"><i class="fa fa-check"></i><b>4.26</b> F-statistic: 198.6 on 3 and 502 DF, p-value: &lt; 2.2e-16</a></li>
-<li class="chapter" data-level="4.27" data-path="modeling-basics.html"><a href="modeling-basics.html#model-diagnostics"><i class="fa fa-check"></i><b>4.27</b> Model Diagnostics</a></li>
-<li class="chapter" data-level="4.28" data-path="modeling-basics.html"><a href="modeling-basics.html#section-71"><i class="fa fa-check"></i><b>4.28</b> 1 2 3 4 5 6 7</a></li>
-<li class="chapter" data-level="4.29" data-path="modeling-basics.html"><a href="modeling-basics.html#section-72"><i class="fa fa-check"></i><b>4.29</b> -1.908839 -3.129506 3.596769 3.719837 5.286113 3.757775 1.523165</a></li>
-<li class="chapter" data-level="4.30" data-path="modeling-basics.html"><a href="modeling-basics.html#section-73"><i class="fa fa-check"></i><b>4.30</b> 8 9 10</a></li>
-<li class="chapter" data-level="4.31" data-path="modeling-basics.html"><a href="modeling-basics.html#section-74"><i class="fa fa-check"></i><b>4.31</b> 4.353400 -1.732947 -2.519590</a></li>
-<li class="chapter" data-level="4.32" data-path="modeling-basics.html"><a href="modeling-basics.html#section-75"><i class="fa fa-check"></i><b>4.32</b> 1 2 3 4 5 6</a></li>
-<li class="chapter" data-level="4.33" data-path="modeling-basics.html"><a href="modeling-basics.html#section-76"><i class="fa fa-check"></i><b>4.33</b> 0.002547887 0.002692042 0.005408817 0.005604599 0.006415502 0.004272416</a></li>
-<li class="chapter" data-level="4.34" data-path="modeling-basics.html"><a href="modeling-basics.html#section-77"><i class="fa fa-check"></i><b>4.34</b> 7 8 9 10</a></li>
-<li class="chapter" data-level="4.35" data-path="modeling-basics.html"><a href="modeling-basics.html#section-78"><i class="fa fa-check"></i><b>4.35</b> 0.004088718 0.004346169 0.007117245 0.006403949</a></li>
-<li class="chapter" data-level="4.36" data-path="modeling-basics.html"><a href="modeling-basics.html#section-79"><i class="fa fa-check"></i><b>4.36</b> 1 2 3 4 5 6</a></li>
-<li class="chapter" data-level="4.37" data-path="modeling-basics.html"><a href="modeling-basics.html#section-80"><i class="fa fa-check"></i><b>4.37</b> -0.3061026 -0.5019650 0.5777474 0.5975886 0.8498652 0.6032833</a></li>
-<li class="chapter" data-level="4.38" data-path="modeling-basics.html"><a href="modeling-basics.html#section-81"><i class="fa fa-check"></i><b>4.38</b> 7 8 9 10</a></li>
-<li class="chapter" data-level="4.39" data-path="modeling-basics.html"><a href="modeling-basics.html#section-82"><i class="fa fa-check"></i><b>4.39</b> 0.2444363 0.6990195 -0.2785307 -0.4048546</a></li>
-<li class="chapter" data-level="4.40" data-path="modeling-basics.html"><a href="modeling-basics.html#section-83"><i class="fa fa-check"></i><b>4.40</b> 1 2 3 4 5</a></li>
-<li class="chapter" data-level="4.41" data-path="modeling-basics.html"><a href="modeling-basics.html#e-05-1.702892e-04-4.544127e-04-5.038330e-04-1.166558e-03"><i class="fa fa-check"></i><b>4.41</b> 5.994417e-05 1.702892e-04 4.544127e-04 5.038330e-04 1.166558e-03</a></li>
-<li class="chapter" data-level="4.42" data-path="modeling-basics.html"><a href="modeling-basics.html#section-84"><i class="fa fa-check"></i><b>4.42</b> 6 7 8 9 10</a></li>
-<li class="chapter" data-level="4.43" data-path="modeling-basics.html"><a href="modeling-basics.html#e-04-6.144012e-05-5.337764e-04-1.392832e-04-2.645454e-04"><i class="fa fa-check"></i><b>4.43</b> 3.909005e-04 6.144012e-05 5.337764e-04 1.392832e-04 2.645454e-04</a></li>
-<li class="chapter" data-level="4.44" data-path="modeling-basics.html"><a href="modeling-basics.html#variable-transformations-and-interactions"><i class="fa fa-check"></i><b>4.44</b> Variable Transformations and Interactions</a></li>
-<li class="chapter" data-level="4.45" data-path="modeling-basics.html"><a href="modeling-basics.html#section-85"><i class="fa fa-check"></i><b>4.45</b> </a></li>
-<li class="chapter" data-level="4.46" data-path="modeling-basics.html"><a href="modeling-basics.html#call-2"><i class="fa fa-check"></i><b>4.46</b> Call:</a></li>
-<li class="chapter" data-level="4.47" data-path="modeling-basics.html"><a href="modeling-basics.html#lmformula-medv-logcrim-rm-idis0.5-data-boston"><i class="fa fa-check"></i><b>4.47</b> lm(formula = medv ~ log(crim) + rm + I(dis^0.5), data = Boston)</a></li>
-<li class="chapter" data-level="4.48" data-path="modeling-basics.html"><a href="modeling-basics.html#section-86"><i class="fa fa-check"></i><b>4.48</b> </a></li>
-<li class="chapter" data-level="4.49" data-path="modeling-basics.html"><a href="modeling-basics.html#residuals-2"><i class="fa fa-check"></i><b>4.49</b> Residuals:</a></li>
-<li class="chapter" data-level="4.50" data-path="modeling-basics.html"><a href="modeling-basics.html#min-1q-median-3q-max-2"><i class="fa fa-check"></i><b>4.50</b> Min 1Q Median 3Q Max</a></li>
-<li class="chapter" data-level="4.51" data-path="modeling-basics.html"><a href="modeling-basics.html#section-87"><i class="fa fa-check"></i><b>4.51</b> -18.767 -3.506 -0.589 2.501 40.035</a></li>
-<li class="chapter" data-level="4.52" data-path="modeling-basics.html"><a href="modeling-basics.html#section-88"><i class="fa fa-check"></i><b>4.52</b> </a></li>
-<li class="chapter" data-level="4.53" data-path="modeling-basics.html"><a href="modeling-basics.html#coefficients-2"><i class="fa fa-check"></i><b>4.53</b> Coefficients:</a></li>
-<li class="chapter" data-level="4.54" data-path="modeling-basics.html"><a href="modeling-basics.html#estimate-std.-error-t-value-prt-2"><i class="fa fa-check"></i><b>4.54</b> Estimate Std. Error t value Pr(&gt;|t|)</a></li>
-<li class="chapter" data-level="4.55" data-path="modeling-basics.html"><a href="modeling-basics.html#intercept--25.1474-2.8674--8.770-2e-16-logcrim--1.5033-0.1864--8.067-5.36e-15"><i class="fa fa-check"></i><b>4.55</b> (Intercept) -25.1474 2.8674 -8.770 &lt; 2e-16 <strong><em> ## log(crim) -1.5033 0.1864 -8.067 5.36e-15 </em></strong></a></li>
-<li class="chapter" data-level="4.56" data-path="modeling-basics.html"><a href="modeling-basics.html#rm-8.0520-0.4096-19.656-2e-16-idis0.5--2.1805-0.7644--2.853-0.00451-signif.-codes-0-0.001-0.01-0.05-.-0.1-1-residual-standard-error-6.155-on-502-degrees-of-freedom-multiple-r-squared-0.5548-adjusted-r-squared-0.5521-f-statistic-208.5-on-3-and-502-df-p-value-2.2e-16-1-0.2626263-call-lmformula-medv-logcrim-rm-rm-logcrim-irm2"><i class="fa fa-check"></i><b>4.56</b> rm 8.0520 0.4096 19.656 &lt; 2e-16 <em><strong> ## I(dis^0.5) -2.1805 0.7644 -2.853 0.00451 </strong> ## — ## Signif. codes: 0 ‘<em><strong>’ 0.001 ’</strong>’ 0.01 ’</em>’ 0.05 ‘.’ 0.1 ‘’ 1 ## ## Residual standard error: 6.155 on 502 degrees of freedom ## Multiple R-squared: 0.5548, Adjusted R-squared: 0.5521 ## F-statistic: 208.5 on 3 and 502 DF, p-value: &lt; 2.2e-16 ## <a href="modeling-basics.html#section-93">1</a> 0.2626263 ## ## Call: ## lm(formula = medv ~ log(crim) + rm + rm </em> log(crim) + I(rm^2) +</a></li>
-<li class="chapter" data-level="4.57" data-path="modeling-basics.html"><a href="modeling-basics.html#idis0.5-as.factorchas-rm-data-boston"><i class="fa fa-check"></i><b>4.57</b> I(dis^0.5) + as.factor(chas) * rm, data = Boston)</a></li>
-<li class="chapter" data-level="4.58" data-path="modeling-basics.html"><a href="modeling-basics.html#section-89"><i class="fa fa-check"></i><b>4.58</b> </a></li>
-<li class="chapter" data-level="4.59" data-path="modeling-basics.html"><a href="modeling-basics.html#residuals-3"><i class="fa fa-check"></i><b>4.59</b> Residuals:</a></li>
-<li class="chapter" data-level="4.60" data-path="modeling-basics.html"><a href="modeling-basics.html#min-1q-median-3q-max-3"><i class="fa fa-check"></i><b>4.60</b> Min 1Q Median 3Q Max</a></li>
-<li class="chapter" data-level="4.61" data-path="modeling-basics.html"><a href="modeling-basics.html#section-90"><i class="fa fa-check"></i><b>4.61</b> -26.476 -2.917 -0.486 2.414 35.630</a></li>
-<li class="chapter" data-level="4.62" data-path="modeling-basics.html"><a href="modeling-basics.html#section-91"><i class="fa fa-check"></i><b>4.62</b> </a></li>
-<li class="chapter" data-level="4.63" data-path="modeling-basics.html"><a href="modeling-basics.html#coefficients-3"><i class="fa fa-check"></i><b>4.63</b> Coefficients:</a></li>
-<li class="chapter" data-level="4.64" data-path="modeling-basics.html"><a href="modeling-basics.html#estimate-std.-error-t-value-prt-3"><i class="fa fa-check"></i><b>4.64</b> Estimate Std. Error t value Pr(&gt;|t|)</a></li>
-<li><a href="modeling-basics.html#intercept-72.0986-12.4270-5.802-1.17e-08-logcrim-3.2224-1.1677-2.760-0.0060-rm--23.0419-3.9298--5.863-8.27e-09-irm2-2.3857-0.3072-7.766-4.66e-14-idis0.5--1.0768-0.6729--1.600-0.1102-as.factorchas1-14.6814-7.4142-1.980-0.0482"><span class="toc-section-number">4.65</span> (Intercept) 72.0986 12.4270 5.802 1.17e-08 <em><strong> ## log(crim) 3.2224 1.1677 2.760 0.0060 </strong> ## rm -23.0419 3.9298 -5.863 8.27e-09 </em><strong> ## I(rm^2) 2.3857 0.3072 7.766 4.66e-14 </strong><em> ## I(dis^0.5) -1.0768 0.6729 -1.600 0.1102<br />
-## as.factor(chas)1 14.6814 7.4142 1.980 0.0482 </em></a></li>
-<li><a href="modeling-basics.html#logcrimrm--0.7620-0.1845--4.129-4.27e-05-rmas.factorchas1--1.6178-1.1357--1.424-0.1549-signif.-codes-0-0.001-0.01-0.05-.-0.1-1-residual-standard-error-5.321-on-498-degrees-of-freedom-multiple-r-squared-0.6699-adjusted-r-squared-0.6653-f-statistic-144.4-on-7-and-498-df-p-value-2.2e-16-model-selection-analysis-of-variance-table-model-1-medv-crim-rm-dis-model-2-medv-crim-rm-dis-chas-nox-res.df-rss-df-sum-of-sq-f-prf-1-502-19536-2-500-17457-2-2079.2-29.776-6.057e-13"><span class="toc-section-number">4.66</span> log(crim):rm -0.7620 0.1845 -4.129 4.27e-05 <strong><em> ## rm:as.factor(chas)1 -1.6178 1.1357 -1.424 0.1549<br />
-## — ## Signif. codes: 0 ‘<em><strong>’ 0.001 ’</strong>’ 0.01 ’</em>’ 0.05 ‘.’ 0.1 ‘’ 1 ## ## Residual standard error: 5.321 on 498 degrees of freedom ## Multiple R-squared: 0.6699, Adjusted R-squared: 0.6653 ## F-statistic: 144.4 on 7 and 498 DF, p-value: &lt; 2.2e-16 ## Model Selection ## Analysis of Variance Table ## ## Model 1: medv ~ crim + rm + dis ## Model 2: medv ~ crim + rm + dis + chas + nox ## Res.Df RSS Df Sum of Sq F Pr(&gt;F)<br />
-## 1 502 19536<br />
-## 2 500 17457 2 2079.2 29.776 6.057e-13 </em></strong></a></li>
-<li class="chapter" data-level="4.67" data-path="modeling-basics.html"><a href="modeling-basics.html#section-92"><i class="fa fa-check"></i><b>4.67</b> —</a></li>
-<li class="chapter" data-level="4.68" data-path="modeling-basics.html"><a href="modeling-basics.html#signif.-codes-0-0.001-0.01-0.05-.-0.1-1-1"><i class="fa fa-check"></i><b>4.68</b> Signif. codes: 0 ‘<em><strong>’ 0.001 ’</strong>’ 0.01 ’</em>’ 0.05 ‘.’ 0.1 ‘’ 1</a></li>
-<li class="chapter" data-level="4.69" data-path="modeling-basics.html"><a href="modeling-basics.html#crim-zn-chas-nox-rm-dis-rad"><i class="fa fa-check"></i><b>4.69</b> <a href="modeling-basics.html#section-93">1</a> “crim” “zn” “chas” “nox” “rm” “dis” “rad”</a></li>
-<li class="chapter" data-level="4.70" data-path="modeling-basics.html"><a href="modeling-basics.html#tax-ptratio-black-lstat"><i class="fa fa-check"></i><b>4.70</b> [8] “tax” “ptratio” “black” “lstat”</a></li>
-<li class="chapter" data-level="4.71" data-path="modeling-basics.html"><a href="modeling-basics.html#prediction"><i class="fa fa-check"></i><b>4.71</b> Prediction</a></li>
-<li class="chapter" data-level="4.72" data-path="modeling-basics.html"><a href="modeling-basics.html#false"><i class="fa fa-check"></i><b>4.72</b> <a href="modeling-basics.html#section-93">1</a> FALSE</a></li>
-<li class="chapter" data-level="4.73" data-path="modeling-basics.html"><a href="modeling-basics.html#section-93"><i class="fa fa-check"></i><b>4.73</b> 1</a></li>
-<li class="chapter" data-level="4.74" data-path="modeling-basics.html"><a href="modeling-basics.html#section-94"><i class="fa fa-check"></i><b>4.74</b> 21.15216</a></li>
-<li class="chapter" data-level="4.75" data-path="modeling-basics.html"><a href="modeling-basics.html#fit-lwr-upr"><i class="fa fa-check"></i><b>4.75</b> fit lwr upr</a></li>
-<li class="chapter" data-level="4.76" data-path="modeling-basics.html"><a href="modeling-basics.html#section-95"><i class="fa fa-check"></i><b>4.76</b> 1 21.15216 20.44473 21.8596</a></li>
-<li class="chapter" data-level="4.77" data-path="modeling-basics.html"><a href="modeling-basics.html#fit-lwr-upr-1"><i class="fa fa-check"></i><b>4.77</b> fit lwr upr</a></li>
-<li class="chapter" data-level="4.78" data-path="modeling-basics.html"><a href="modeling-basics.html#section-96"><i class="fa fa-check"></i><b>4.78</b> 1 21.15216 4.995294 37.30903</a></li>
+<li class="chapter" data-level="4.2" data-path="modeling-basics.html"><a href="modeling-basics.html#model-diagnostics"><i class="fa fa-check"></i><b>4.2</b> Model Diagnostics</a></li>
+<li class="chapter" data-level="4.3" data-path="modeling-basics.html"><a href="modeling-basics.html#variable-transformations-and-interactions"><i class="fa fa-check"></i><b>4.3</b> Variable Transformations and Interactions</a></li>
+<li class="chapter" data-level="4.4" data-path="modeling-basics.html"><a href="modeling-basics.html#model-selection"><i class="fa fa-check"></i><b>4.4</b> Model Selection</a></li>
+<li class="chapter" data-level="4.5" data-path="modeling-basics.html"><a href="modeling-basics.html#prediction"><i class="fa fa-check"></i><b>4.5</b> Prediction</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>5</b> Optimization</a><ul>
-<li class="chapter" data-level="5.1" data-path="optimization.html"><a href="optimization.html#a-tibble-200-x-4"><i class="fa fa-check"></i><b>5.1</b> # A tibble: 200 x 4</a></li>
-<li class="chapter" data-level="5.2" data-path="optimization.html"><a href="optimization.html#tv-radio-newspaper-sales"><i class="fa fa-check"></i><b>5.2</b> TV Radio Newspaper Sales</a></li>
-<li class="chapter" data-level="5.3" data-path="optimization.html"><a href="optimization.html#section-97"><i class="fa fa-check"></i><b>5.3</b> <dbl> <dbl> <dbl> <dbl></a></li>
-<li class="chapter" data-level="5.4" data-path="optimization.html"><a href="optimization.html#section-98"><i class="fa fa-check"></i><b>5.4</b> 1 230. 37.8 69.2 22.1</a></li>
-<li class="chapter" data-level="5.5" data-path="optimization.html"><a href="optimization.html#section-99"><i class="fa fa-check"></i><b>5.5</b> 2 44.5 39.3 45.1 10.4</a></li>
-<li class="chapter" data-level="5.6" data-path="optimization.html"><a href="optimization.html#section-100"><i class="fa fa-check"></i><b>5.6</b> 3 17.2 45.9 69.3 9.3</a></li>
-<li class="chapter" data-level="5.7" data-path="optimization.html"><a href="optimization.html#section-101"><i class="fa fa-check"></i><b>5.7</b> 4 152. 41.3 58.5 18.5</a></li>
-<li class="chapter" data-level="5.8" data-path="optimization.html"><a href="optimization.html#section-102"><i class="fa fa-check"></i><b>5.8</b> 5 181. 10.8 58.4 12.9</a></li>
-<li class="chapter" data-level="5.9" data-path="optimization.html"><a href="optimization.html#section-103"><i class="fa fa-check"></i><b>5.9</b> 6 8.7 48.9 75 7.2</a></li>
-<li class="chapter" data-level="5.10" data-path="optimization.html"><a href="optimization.html#section-104"><i class="fa fa-check"></i><b>5.10</b> 7 57.5 32.8 23.5 11.8</a></li>
-<li class="chapter" data-level="5.11" data-path="optimization.html"><a href="optimization.html#section-105"><i class="fa fa-check"></i><b>5.11</b> 8 120. 19.6 11.6 13.2</a></li>
-<li class="chapter" data-level="5.12" data-path="optimization.html"><a href="optimization.html#section-106"><i class="fa fa-check"></i><b>5.12</b> 9 8.6 2.1 1 4.8</a></li>
-<li class="chapter" data-level="5.13" data-path="optimization.html"><a href="optimization.html#section-107"><i class="fa fa-check"></i><b>5.13</b> 10 200. 2.6 21.2 10.6</a></li>
-<li class="chapter" data-level="5.14" data-path="optimization.html"><a href="optimization.html#with-190-more-rows"><i class="fa fa-check"></i><b>5.14</b> # … with 190 more rows</a></li>
-<li class="chapter" data-level="5.15" data-path="optimization.html"><a href="optimization.html#a-simple-optimization-problem"><i class="fa fa-check"></i><b>5.15</b> A simple optimization problem</a></li>
-</ul></li>
+<li class="chapter" data-level="5" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>5</b> Optimization</a></li>
 <li class="part"><span><b>II Unsupervised Learning</b></span></li>
-<li class="chapter" data-level="6" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>6</b> k-means clustering</a><ul>
+<li class="chapter" data-level="6" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>6</b> K-means Clustering</a><ul>
 <li class="chapter" data-level="6.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#basic-concepts"><i class="fa fa-check"></i><b>6.1</b> Basic Concepts</a></li>
-<li class="chapter" data-level="6.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#section-108"><i class="fa fa-check"></i><b>6.2</b> <a href="modeling-basics.html#section-93">1</a> 899.3916</a></li>
-<li class="chapter" data-level="6.3" data-path="k-means-clustering.html"><a href="k-means-clustering.html#section-109"><i class="fa fa-check"></i><b>6.3</b> <a href="modeling-basics.html#section-93">1</a> 883.8241</a></li>
-<li class="chapter" data-level="6.4" data-path="k-means-clustering.html"><a href="k-means-clustering.html#example-1-iris-data"><i class="fa fa-check"></i><b>6.4</b> Example 1: <code>iris</code> data</a></li>
-<li class="chapter" data-level="6.5" data-path="k-means-clustering.html"><a href="k-means-clustering.html#sepal.length-sepal.width-petal.length-petal.width-species-2"><i class="fa fa-check"></i><b>6.5</b> Sepal.Length Sepal.Width Petal.Length Petal.Width Species</a></li>
-<li class="chapter" data-level="6.6" data-path="k-means-clustering.html"><a href="k-means-clustering.html#setosa-3"><i class="fa fa-check"></i><b>6.6</b> 1 5.1 3.5 1.4 0.2 setosa</a></li>
-<li class="chapter" data-level="6.7" data-path="k-means-clustering.html"><a href="k-means-clustering.html#setosa-4"><i class="fa fa-check"></i><b>6.7</b> 2 4.9 3.0 1.4 0.2 setosa</a></li>
-<li class="chapter" data-level="6.8" data-path="k-means-clustering.html"><a href="k-means-clustering.html#setosa-5"><i class="fa fa-check"></i><b>6.8</b> 3 4.7 3.2 1.3 0.2 setosa</a></li>
-<li class="chapter" data-level="6.9" data-path="k-means-clustering.html"><a href="k-means-clustering.html#setosa-6"><i class="fa fa-check"></i><b>6.9</b> 4 4.6 3.1 1.5 0.2 setosa</a></li>
-<li class="chapter" data-level="6.10" data-path="k-means-clustering.html"><a href="k-means-clustering.html#setosa-7"><i class="fa fa-check"></i><b>6.10</b> 5 5.0 3.6 1.4 0.2 setosa</a></li>
-<li class="chapter" data-level="6.11" data-path="k-means-clustering.html"><a href="k-means-clustering.html#setosa-8"><i class="fa fa-check"></i><b>6.11</b> 6 5.4 3.9 1.7 0.4 setosa</a></li>
-<li class="chapter" data-level="6.12" data-path="k-means-clustering.html"><a href="k-means-clustering.html#petal.length-petal.width"><i class="fa fa-check"></i><b>6.12</b> Petal.Length Petal.Width</a></li>
-<li class="chapter" data-level="6.13" data-path="k-means-clustering.html"><a href="k-means-clustering.html#section-110"><i class="fa fa-check"></i><b>6.13</b> 1 5.595833 2.037500</a></li>
-<li class="chapter" data-level="6.14" data-path="k-means-clustering.html"><a href="k-means-clustering.html#section-111"><i class="fa fa-check"></i><b>6.14</b> 2 4.269231 1.342308</a></li>
-<li class="chapter" data-level="6.15" data-path="k-means-clustering.html"><a href="k-means-clustering.html#section-112"><i class="fa fa-check"></i><b>6.15</b> 3 1.462000 0.246000</a></li>
-<li class="chapter" data-level="6.16" data-path="k-means-clustering.html"><a href="k-means-clustering.html#section-113"><i class="fa fa-check"></i><b>6.16</b> <a href="modeling-basics.html#section-93">1</a> 16.29167 13.05769 2.02200</a></li>
-<li class="chapter" data-level="6.17" data-path="k-means-clustering.html"><a href="k-means-clustering.html#section-114"><i class="fa fa-check"></i><b>6.17</b> <a href="modeling-basics.html#section-93">1</a> 519.524</a></li>
-<li class="chapter" data-level="6.18" data-path="k-means-clustering.html"><a href="k-means-clustering.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>6.18</b> Example 2: clustering of image pixels</a></li>
-<li class="chapter" data-level="6.19" data-path="k-means-clustering.html"><a href="k-means-clustering.html#section-115"><i class="fa fa-check"></i><b>6.19</b> <a href="modeling-basics.html#section-93">1</a> 500 400 3</a></li>
-<li class="chapter" data-level="6.20" data-path="k-means-clustering.html"><a href="k-means-clustering.html#section-116"><i class="fa fa-check"></i><b>6.20</b> <a href="modeling-basics.html#section-93">1</a> 200000 3</a></li>
+<li class="chapter" data-level="6.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#example-1-iris-data"><i class="fa fa-check"></i><b>6.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="6.3" data-path="k-means-clustering.html"><a href="k-means-clustering.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>6.3</b> Example 2: clustering of image pixels</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>7</b> Hierarchical Clustering</a><ul>
 <li class="chapter" data-level="7.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>7.1</b> Basic Concepts</a></li>
@@ -384,50 +162,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>7.3</b> Example 2: RNA Expression Data</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html"><i class="fa fa-check"></i><b>8</b> Principle Component Analysis</a><ul>
-<li class="chapter" data-level="8.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>8.1</b> Basic Concepts</a></li>
-<li class="chapter" data-level="8.2" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#comp.1-comp.2"><i class="fa fa-check"></i><b>8.2</b> Comp.1 Comp.2</a></li>
-<li class="chapter" data-level="8.3" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#section-117"><i class="fa fa-check"></i><b>8.3</b> 1.185000 0.238292</a></li>
-<li class="chapter" data-level="8.4" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#comp.1-comp.2-1"><i class="fa fa-check"></i><b>8.4</b> Comp.1 Comp.2</a></li>
-<li class="chapter" data-level="8.5" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#section-118"><i class="fa fa-check"></i><b>8.5</b> [1,] -0.02619076 0.03715597</a></li>
-<li class="chapter" data-level="8.6" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#section-119"><i class="fa fa-check"></i><b>8.6</b> [2,] 0.58773679 -0.10796453</a></li>
-<li class="chapter" data-level="8.7" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#section-120"><i class="fa fa-check"></i><b>8.7</b> [3,] -0.10116274 0.22052881</a></li>
-<li class="chapter" data-level="8.8" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#section-121"><i class="fa fa-check"></i><b>8.8</b> [4,] -0.92927231 -0.38445030</a></li>
-<li class="chapter" data-level="8.9" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#section-122"><i class="fa fa-check"></i><b>8.9</b> [5,] -0.48991774 -0.16755262</a></li>
-<li class="chapter" data-level="8.10" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#section-123"><i class="fa fa-check"></i><b>8.10</b> [6,] 0.62557804 -0.22859175</a></li>
-<li class="chapter" data-level="8.11" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#comp.1-comp.2-2"><i class="fa fa-check"></i><b>8.11</b> Comp.1 Comp.2</a></li>
-<li class="chapter" data-level="8.12" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#section-124"><i class="fa fa-check"></i><b>8.12</b> [1,] -0.02619076 0.03715597</a></li>
-<li class="chapter" data-level="8.13" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#section-125"><i class="fa fa-check"></i><b>8.13</b> [2,] 0.58773679 -0.10796453</a></li>
-<li class="chapter" data-level="8.14" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#section-126"><i class="fa fa-check"></i><b>8.14</b> [3,] -0.10116274 0.22052881</a></li>
-<li class="chapter" data-level="8.15" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#section-127"><i class="fa fa-check"></i><b>8.15</b> [4,] -0.92927231 -0.38445030</a></li>
-<li class="chapter" data-level="8.16" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#section-128"><i class="fa fa-check"></i><b>8.16</b> [5,] -0.48991774 -0.16755262</a></li>
-<li class="chapter" data-level="8.17" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#section-129"><i class="fa fa-check"></i><b>8.17</b> [6,] 0.62557804 -0.22859175</a><ul>
-<li class="chapter" data-level="8.17.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>8.17.1</b> Note: Scaling</a></li>
+<li class="chapter" data-level="8.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>8.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>8.1.1</b> Note: Scaling</a></li>
 </ul></li>
-<li class="chapter" data-level="8.18" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>8.18</b> Example 1: <code>iris</code> Data</a></li>
-<li class="chapter" data-level="8.19" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#pc1-pc2-pc3-pc4"><i class="fa fa-check"></i><b>8.19</b> PC1 PC2 PC3 PC4</a></li>
-<li class="chapter" data-level="8.20" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#sepal.length-0.36138659--0.65658877-0.58202985-0.3154872"><i class="fa fa-check"></i><b>8.20</b> Sepal.Length 0.36138659 -0.65658877 0.58202985 0.3154872</a></li>
-<li class="chapter" data-level="8.21" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#sepal.width--0.08452251--0.73016143--0.59791083--0.3197231"><i class="fa fa-check"></i><b>8.21</b> Sepal.Width -0.08452251 -0.73016143 -0.59791083 -0.3197231</a></li>
-<li class="chapter" data-level="8.22" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#petal.length-0.85667061-0.17337266--0.07623608--0.4798390"><i class="fa fa-check"></i><b>8.22</b> Petal.Length 0.85667061 0.17337266 -0.07623608 -0.4798390</a></li>
-<li class="chapter" data-level="8.23" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#petal.width-0.35828920-0.07548102--0.54583143-0.7536574"><i class="fa fa-check"></i><b>8.23</b> Petal.Width 0.35828920 0.07548102 -0.54583143 0.7536574</a></li>
-<li class="chapter" data-level="8.24" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>8.24</b> Example 2: Handwritten Digits</a></li>
-<li class="chapter" data-level="8.25" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#section-130"><i class="fa fa-check"></i><b>8.25</b> <a href="modeling-basics.html#section-93">1</a> 7291 257</a></li>
-<li class="chapter" data-level="8.26" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#section-131"><i class="fa fa-check"></i><b>8.26</b> <a href="modeling-basics.html#section-93">1</a> 2199 256</a></li>
+<li class="chapter" data-level="8.2" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>8.2</b> Example 1: <code>iris</code> Data</a></li>
+<li class="chapter" data-level="8.3" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>8.3</b> Example 2: Handwritten Digits</a></li>
 </ul></li>
 <li class="part"><span><b>III Regression</b></span></li>
-<li class="chapter" data-level="9" data-path="regression-overview.html"><a href="regression-overview.html"><i class="fa fa-check"></i><b>9</b> Overview</a><ul>
-<li class="chapter" data-level="9.1" data-path="regression-overview.html"><a href="regression-overview.html#load-packages"><i class="fa fa-check"></i><b>9.1</b> load packages</a></li>
-<li class="chapter" data-level="9.2" data-path="regression-overview.html"><a href="regression-overview.html#signal"><i class="fa fa-check"></i><b>9.2</b> signal</a></li>
-<li class="chapter" data-level="9.3" data-path="regression-overview.html"><a href="regression-overview.html#define-data-generating-processs"><i class="fa fa-check"></i><b>9.3</b> define data generating processs</a></li>
-<li class="chapter" data-level="9.4" data-path="regression-overview.html"><a href="regression-overview.html#simualte-training-data"><i class="fa fa-check"></i><b>9.4</b> simualte training data</a></li>
-<li class="chapter" data-level="9.5" data-path="regression-overview.html"><a href="regression-overview.html#simulate-testing-data"><i class="fa fa-check"></i><b>9.5</b> simulate testing data</a></li>
-<li class="chapter" data-level="9.6" data-path="regression-overview.html"><a href="regression-overview.html#create-grid-for-plotting"><i class="fa fa-check"></i><b>9.6</b> create grid for plotting</a></li>
-<li class="chapter" data-level="9.7" data-path="regression-overview.html"><a href="regression-overview.html#tree-models"><i class="fa fa-check"></i><b>9.7</b> tree models</a></li>
-<li class="chapter" data-level="9.8" data-path="regression-overview.html"><a href="regression-overview.html#knn-models"><i class="fa fa-check"></i><b>9.8</b> knn models</a></li>
-<li class="chapter" data-level="9.9" data-path="regression-overview.html"><a href="regression-overview.html#polynomial-models"><i class="fa fa-check"></i><b>9.9</b> polynomial models</a></li>
-<li class="chapter" data-level="9.10" data-path="regression-overview.html"><a href="regression-overview.html#tree-models-1"><i class="fa fa-check"></i><b>9.10</b> tree models</a></li>
-<li class="chapter" data-level="9.11" data-path="regression-overview.html"><a href="regression-overview.html#knn-models-1"><i class="fa fa-check"></i><b>9.11</b> knn models</a></li>
-<li class="chapter" data-level="9.12" data-path="regression-overview.html"><a href="regression-overview.html#polynomial-models-1"><i class="fa fa-check"></i><b>9.12</b> polynomial models</a></li>
-</ul></li>
+<li class="chapter" data-level="9" data-path="regression-overview.html"><a href="regression-overview.html"><i class="fa fa-check"></i><b>9</b> Overview</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SLWR" target="blank">&copy; 2018 Ruoqing Zhu</a></li>
 
@@ -555,7 +297,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -567,6 +309,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/teazrq/SLWR/edit/master/2.2-hclust.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["RESL.pdf"],
 "toc": {
@@ -582,9 +328,10 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

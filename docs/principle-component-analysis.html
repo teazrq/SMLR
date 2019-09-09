@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Statistical Learning with R</title>
-  <meta name="description" content="Statistical Learning with R">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Principle Component Analysis | Statistical Learning with R</title>
+  <meta name="description" content="Chapter 8 Principle Component Analysis | Statistical Learning with R" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Statistical Learning with R" />
+  <meta property="og:title" content="Chapter 8 Principle Component Analysis | Statistical Learning with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://teazrq.github.io/SLRL/" />
   
@@ -17,25 +16,26 @@
   <meta name="github-repo" content="teazrq/SLRL" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Statistical Learning with R" />
+  <meta name="twitter:title" content="Chapter 8 Principle Component Analysis | Statistical Learning with R" />
   
   
   
 
-<meta name="author" content="Ruoqing Zhu">
+<meta name="author" content="Ruoqing Zhu" />
 
 
-<meta name="date" content="2018-09-07">
+<meta name="date" content="2019-09-09" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-<link rel="prev" href="hierarchical-clustering.html">
-<link rel="next" href="regression-overview.html">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="prev" href="hierarchical-clustering.html"/>
+<link rel="next" href="regression-overview.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -149,16 +149,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.4" data-path="modeling-basics.html"><a href="modeling-basics.html#model-selection"><i class="fa fa-check"></i><b>4.4</b> Model Selection</a></li>
 <li class="chapter" data-level="4.5" data-path="modeling-basics.html"><a href="modeling-basics.html#prediction"><i class="fa fa-check"></i><b>4.5</b> Prediction</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>5</b> Optimization</a><ul>
-<li class="chapter" data-level="5.1" data-path="optimization.html"><a href="optimization.html#a-simple-optimization-problem"><i class="fa fa-check"></i><b>5.1</b> A simple optimization problem</a></li>
-</ul></li>
+<li class="chapter" data-level="5" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>5</b> Optimization</a></li>
 <li class="part"><span><b>II Unsupervised Learning</b></span></li>
-<li class="chapter" data-level="6" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>6</b> k-means clustering</a><ul>
+<li class="chapter" data-level="6" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>6</b> K-means Clustering</a><ul>
 <li class="chapter" data-level="6.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#basic-concepts"><i class="fa fa-check"></i><b>6.1</b> Basic Concepts</a></li>
 <li class="chapter" data-level="6.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#example-1-iris-data"><i class="fa fa-check"></i><b>6.2</b> Example 1: <code>iris</code> data</a></li>
 <li class="chapter" data-level="6.3" data-path="k-means-clustering.html"><a href="k-means-clustering.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>6.3</b> Example 2: clustering of image pixels</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>7</b> Hierarchical clustering</a><ul>
+<li class="chapter" data-level="7" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>7</b> Hierarchical Clustering</a><ul>
 <li class="chapter" data-level="7.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>7.1</b> Basic Concepts</a></li>
 <li class="chapter" data-level="7.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>7.2</b> Example 1: <code>iris</code> data</a></li>
 <li class="chapter" data-level="7.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>7.3</b> Example 2: RNA Expression Data</a></li>
@@ -235,29 +233,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-2-1.png" width="480" /></p>
 <p>We can then take the residuals (after projecting onto this line), and find the largest variance direction of the residuals</p>
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-3-1.png" width="480" /></p>
-<pre><code>##   Comp.1   Comp.2 
-## 1.185000 0.238292</code></pre>
+<pre><code>##    Comp.1    Comp.2 
+## 1.1648967 0.2274221</code></pre>
 <p>We usually visualize the data in these two directions instead of the original covariates. Note that the coordinates on the PC’s can be obtained using either the <code>scores</code> in the fitted object of <code>princomp</code>, or simply multiply the original data matrix by the loadings.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    pcafit &lt;-<span class="st"> </span><span class="kw">princomp</span>(x)
 
     <span class="co"># the new coordinates on PC&#39;s</span>
     <span class="kw">head</span>(pcafit<span class="op">$</span>scores)</code></pre></div>
-<pre><code>##           Comp.1      Comp.2
-## [1,] -0.02619076  0.03715597
-## [2,]  0.58773679 -0.10796453
-## [3,] -0.10116274  0.22052881
-## [4,] -0.92927231 -0.38445030
-## [5,] -0.48991774 -0.16755262
-## [6,]  0.62557804 -0.22859175</code></pre>
+<pre><code>##          Comp.1      Comp.2
+## [1,] -0.3277569  0.02028922
+## [2,] -2.6787397 -0.17797288
+## [3,]  0.3638739  0.02107160
+## [4,] -0.3741278 -0.15935442
+## [5,] -0.4738269 -0.06945660
+## [6,]  1.0116895 -0.00997124</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># direct calculation based on projection </span>
     <span class="kw">head</span>(x <span class="op">%*%</span><span class="st"> </span>pcafit<span class="op">$</span>loadings)</code></pre></div>
-<pre><code>##           Comp.1      Comp.2
-## [1,] -0.02619076  0.03715597
-## [2,]  0.58773679 -0.10796453
-## [3,] -0.10116274  0.22052881
-## [4,] -0.92927231 -0.38445030
-## [5,] -0.48991774 -0.16755262
-## [6,]  0.62557804 -0.22859175</code></pre>
+<pre><code>##          Comp.1      Comp.2
+## [1,] -0.3277569  0.02028922
+## [2,] -2.6787397 -0.17797288
+## [3,]  0.3638739  0.02107160
+## [4,] -0.3741278 -0.15935442
+## [5,] -0.4738269 -0.06945660
+## [6,]  1.0116895 -0.00997124</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># visualize the data on the PCs</span>
     <span class="co"># Note that the both axies are scaled </span>
     <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>, <span class="fl">4.2</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>))
@@ -366,7 +364,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -378,6 +376,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/teazrq/SLWR/edit/master/2.3-pca.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["RESL.pdf"],
 "toc": {
@@ -393,9 +395,10 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
