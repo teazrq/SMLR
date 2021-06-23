@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Principle Component Analysis | Statistical Learning with R</title>
   <meta name="description" content="Chapter 8 Principle Component Analysis | Statistical Learning with R" />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Principle Component Analysis | Statistical Learning with R" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Ruoqing Zhu" />
 
 
-<meta name="date" content="2019-09-09" />
+<meta name="date" content="2021-06-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link rel="prev" href="hierarchical-clustering.html"/>
-<link rel="next" href="regression-overview.html"/>
+<link rel="next" href="linear-regression-and-model-selection.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -40,6 +40,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -47,45 +48,78 @@
 
 
 
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -168,8 +202,42 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.2" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>8.2</b> Example 1: <code>iris</code> Data</a></li>
 <li class="chapter" data-level="8.3" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>8.3</b> Example 2: Handwritten Digits</a></li>
 </ul></li>
-<li class="part"><span><b>III Regression</b></span></li>
-<li class="chapter" data-level="9" data-path="regression-overview.html"><a href="regression-overview.html"><i class="fa fa-check"></i><b>9</b> Overview</a></li>
+<li class="part"><span><b>III Linear and Penalized Linear Regressions</b></span></li>
+<li class="chapter" data-level="9" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html"><i class="fa fa-check"></i><b>9</b> Linear Regression and Model Selection</a><ul>
+<li class="chapter" data-level="9.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#basic-concepts-3"><i class="fa fa-check"></i><b>9.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#linear-regression-as-an-optimization"><i class="fa fa-check"></i><b>9.1.1</b> Linear regression as an optimization</a></li>
+<li class="chapter" data-level="9.1.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#linear-regression-as-projections"><i class="fa fa-check"></i><b>9.1.2</b> Linear regression as projections</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-criteria-and-algorithm"><i class="fa fa-check"></i><b>9.2</b> Model Selection Criteria and Algorithm</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#example-diabetes-dataset"><i class="fa fa-check"></i><b>9.2.1</b> Example: <code>diabetes</code> dataset</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ridge-regression.html"><a href="ridge-regression.html"><i class="fa fa-check"></i><b>10</b> Ridge Regression</a><ul>
+<li class="chapter" data-level="10.1" data-path="ridge-regression.html"><a href="ridge-regression.html#basic-concepts-4"><i class="fa fa-check"></i><b>10.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="ridge-regression.html"><a href="ridge-regression.html#correlated-variables-and-convexity"><i class="fa fa-check"></i><b>10.1.1</b> Correlated Variables and Convexity</a></li>
+<li class="chapter" data-level="10.1.2" data-path="ridge-regression.html"><a href="ridge-regression.html#example-1-the-prostate-cancer-data"><i class="fa fa-check"></i><b>10.1.2</b> Example 1: The Prostate Cancer Data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="lasso-regression.html"><a href="lasso-regression.html"><i class="fa fa-check"></i><b>11</b> Lasso Regression</a><ul>
+<li class="chapter" data-level="11.1" data-path="lasso-regression.html"><a href="lasso-regression.html#basic-concepts-5"><i class="fa fa-check"></i><b>11.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="lasso-regression.html"><a href="lasso-regression.html#variable-selection-property"><i class="fa fa-check"></i><b>11.1.1</b> Variable Selection Property</a></li>
+<li class="chapter" data-level="11.1.2" data-path="lasso-regression.html"><a href="lasso-regression.html#example-1-the-prostate-cancer-data-1"><i class="fa fa-check"></i><b>11.1.2</b> Example 1: The Prostate Cancer Data</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Nonlinear and Nonparametric Models</b></span></li>
+<li class="chapter" data-level="12" data-path="splines.html"><a href="splines.html"><i class="fa fa-check"></i><b>12</b> Splines</a><ul>
+<li class="chapter" data-level="12.1" data-path="splines.html"><a href="splines.html#basic-concepts-6"><i class="fa fa-check"></i><b>12.1</b> Basic Concepts</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="smoothing-splines.html"><a href="smoothing-splines.html"><i class="fa fa-check"></i><b>13</b> Smoothing Splines</a><ul>
+<li class="chapter" data-level="13.1" data-path="smoothing-splines.html"><a href="smoothing-splines.html#basic-concepts-7"><i class="fa fa-check"></i><b>13.1</b> Basic Concepts</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="kernel-regression.html"><a href="kernel-regression.html"><i class="fa fa-check"></i><b>14</b> Kernel Regression</a><ul>
+<li class="chapter" data-level="14.1" data-path="kernel-regression.html"><a href="kernel-regression.html#basic-concepts-8"><i class="fa fa-check"></i><b>14.1</b> Basic Concepts</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="kernel-density-estimation.html"><a href="kernel-density-estimation.html"><i class="fa fa-check"></i><b>15</b> Kernel Density Estimation</a><ul>
+<li class="chapter" data-level="15.1" data-path="kernel-density-estimation.html"><a href="kernel-density-estimation.html#basic-concepts-9"><i class="fa fa-check"></i><b>15.1</b> Basic Concepts</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>16</b> References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SLWR" target="blank">&copy; 2018 Ruoqing Zhu</a></li>
 
@@ -195,73 +263,70 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="basic-concepts-2" class="section level2">
 <h2><span class="header-section-number">8.1</span> Basic Concepts</h2>
 <p>The goal of PCA is to find a direction of data that displays the largest variance. A nice demonstration of this search of direction is provided at this <a href="https://www.r-bloggers.com/principal-component-analysis-in-r/">r-bloggers</a>:</p>
-<div class="figure">
-<img src="images/PCA.gif" />
-
-</div>
+<p><img src="images/PCA.gif" /></p>
 <p>Suppose we have a data matrix with <span class="math inline">\(n\)</span> observations and <span class="math inline">\(p\)</span> variables. Principle Component Analysis (PCA) is always done by centering the variables, i.e., subtract column means from each column of the <span class="math inline">\(n \times p\)</span> data matrix.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))
-    
-    <span class="co"># generate some random data from a 2-dimensional normal distribution. </span>
-    <span class="kw">library</span>(MASS)
-    n =<span class="st"> </span><span class="dv">1000</span>
-    Sigma =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="op">-</span><span class="fl">0.65</span>, <span class="op">-</span><span class="fl">0.65</span>, <span class="dv">1</span>), <span class="dv">2</span>, <span class="dv">2</span>)
-    x =<span class="st"> </span><span class="kw">mvrnorm</span>(n, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), Sigma)
-
-    <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="fl">0.3</span>))
-    <span class="kw">plot</span>(x, <span class="dt">main =</span> <span class="st">&quot;Before Centering&quot;</span>, 
-         <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="dt">ylim=</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> <span class="fl">0.5</span>)
-    <span class="kw">abline</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)
-    <span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)
-    
-    <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="fl">0.3</span>))
-    x =<span class="st"> </span><span class="kw">scale</span>(x, <span class="dt">scale =</span> <span class="ot">FALSE</span>)
-    <span class="kw">plot</span>(x, <span class="dt">main =</span> <span class="st">&quot;After Centering&quot;</span>, 
-         <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="dt">ylim=</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> <span class="fl">0.5</span>)
-    <span class="kw">abline</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)
-    <span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)    </code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="principle-component-analysis.html#cb107-1"></a>    <span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb107-2"><a href="principle-component-analysis.html#cb107-2"></a>    </span>
+<span id="cb107-3"><a href="principle-component-analysis.html#cb107-3"></a>    <span class="co"># generate some random data from a 2-dimensional normal distribution. </span></span>
+<span id="cb107-4"><a href="principle-component-analysis.html#cb107-4"></a>    <span class="kw">library</span>(MASS)</span>
+<span id="cb107-5"><a href="principle-component-analysis.html#cb107-5"></a>    n =<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb107-6"><a href="principle-component-analysis.html#cb107-6"></a>    Sigma =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">-0.65</span>, <span class="fl">-0.65</span>, <span class="dv">1</span>), <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb107-7"><a href="principle-component-analysis.html#cb107-7"></a>    x =<span class="st"> </span><span class="kw">mvrnorm</span>(n, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), Sigma)</span>
+<span id="cb107-8"><a href="principle-component-analysis.html#cb107-8"></a></span>
+<span id="cb107-9"><a href="principle-component-analysis.html#cb107-9"></a>    <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="fl">0.3</span>))</span>
+<span id="cb107-10"><a href="principle-component-analysis.html#cb107-10"></a>    <span class="kw">plot</span>(x, <span class="dt">main =</span> <span class="st">&quot;Before Centering&quot;</span>, </span>
+<span id="cb107-11"><a href="principle-component-analysis.html#cb107-11"></a>         <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="dt">ylim=</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb107-12"><a href="principle-component-analysis.html#cb107-12"></a>    <span class="kw">abline</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb107-13"><a href="principle-component-analysis.html#cb107-13"></a>    <span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb107-14"><a href="principle-component-analysis.html#cb107-14"></a>    </span>
+<span id="cb107-15"><a href="principle-component-analysis.html#cb107-15"></a>    <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="fl">0.3</span>))</span>
+<span id="cb107-16"><a href="principle-component-analysis.html#cb107-16"></a>    x =<span class="st"> </span><span class="kw">scale</span>(x, <span class="dt">scale =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb107-17"><a href="principle-component-analysis.html#cb107-17"></a>    <span class="kw">plot</span>(x, <span class="dt">main =</span> <span class="st">&quot;After Centering&quot;</span>, </span>
+<span id="cb107-18"><a href="principle-component-analysis.html#cb107-18"></a>         <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="dt">ylim=</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb107-19"><a href="principle-component-analysis.html#cb107-19"></a>    <span class="kw">abline</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb107-20"><a href="principle-component-analysis.html#cb107-20"></a>    <span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)    </span></code></pre></div>
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-1-1.png" width="528" /></p>
 <p>For our two-dimensional case, we are trying to find a line (direction) on this plain, such that if all points are projected onto this line, their coordinates have the largest variance, compared with any other line.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>))
-    <span class="kw">plot</span>(x, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>), <span class="dt">ylim=</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>), <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> <span class="fl">0.5</span>)
-    <span class="kw">abline</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)
-    <span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)
-
-    <span class="co"># using pca </span>
-    pc1 =<span class="st"> </span><span class="kw">princomp</span>(x)<span class="op">$</span>loadings[,<span class="dv">1</span>]
-    <span class="kw">abline</span>(<span class="dt">a =</span> <span class="dv">0</span>, <span class="dt">b =</span> pc1[<span class="dv">2</span>]<span class="op">/</span>pc1[<span class="dv">1</span>], <span class="dt">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="dt">lwd =</span> <span class="dv">4</span>)</code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="principle-component-analysis.html#cb108-1"></a>    <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>))</span>
+<span id="cb108-2"><a href="principle-component-analysis.html#cb108-2"></a>    <span class="kw">plot</span>(x, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>), <span class="dt">ylim=</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>), <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb108-3"><a href="principle-component-analysis.html#cb108-3"></a>    <span class="kw">abline</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb108-4"><a href="principle-component-analysis.html#cb108-4"></a>    <span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb108-5"><a href="principle-component-analysis.html#cb108-5"></a></span>
+<span id="cb108-6"><a href="principle-component-analysis.html#cb108-6"></a>    <span class="co"># using pca </span></span>
+<span id="cb108-7"><a href="principle-component-analysis.html#cb108-7"></a>    pc1 =<span class="st"> </span><span class="kw">princomp</span>(x)<span class="op">$</span>loadings[,<span class="dv">1</span>]</span>
+<span id="cb108-8"><a href="principle-component-analysis.html#cb108-8"></a>    <span class="kw">abline</span>(<span class="dt">a =</span> <span class="dv">0</span>, <span class="dt">b =</span> pc1[<span class="dv">2</span>]<span class="op">/</span>pc1[<span class="dv">1</span>], <span class="dt">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="dt">lwd =</span> <span class="dv">4</span>)</span></code></pre></div>
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-2-1.png" width="480" /></p>
 <p>We can then take the residuals (after projecting onto this line), and find the largest variance direction of the residuals</p>
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-3-1.png" width="480" /></p>
 <pre><code>##    Comp.1    Comp.2 
-## 1.1648967 0.2274221</code></pre>
+## 1.2151280 0.2348692</code></pre>
 <p>We usually visualize the data in these two directions instead of the original covariates. Note that the coordinates on the PC’s can be obtained using either the <code>scores</code> in the fitted object of <code>princomp</code>, or simply multiply the original data matrix by the loadings.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    pcafit &lt;-<span class="st"> </span><span class="kw">princomp</span>(x)
-
-    <span class="co"># the new coordinates on PC&#39;s</span>
-    <span class="kw">head</span>(pcafit<span class="op">$</span>scores)</code></pre></div>
-<pre><code>##          Comp.1      Comp.2
-## [1,] -0.3277569  0.02028922
-## [2,] -2.6787397 -0.17797288
-## [3,]  0.3638739  0.02107160
-## [4,] -0.3741278 -0.15935442
-## [5,] -0.4738269 -0.06945660
-## [6,]  1.0116895 -0.00997124</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># direct calculation based on projection </span>
-    <span class="kw">head</span>(x <span class="op">%*%</span><span class="st"> </span>pcafit<span class="op">$</span>loadings)</code></pre></div>
-<pre><code>##          Comp.1      Comp.2
-## [1,] -0.3277569  0.02028922
-## [2,] -2.6787397 -0.17797288
-## [3,]  0.3638739  0.02107160
-## [4,] -0.3741278 -0.15935442
-## [5,] -0.4738269 -0.06945660
-## [6,]  1.0116895 -0.00997124</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># visualize the data on the PCs</span>
-    <span class="co"># Note that the both axies are scaled </span>
-    <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>, <span class="fl">4.2</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>))
-    <span class="kw">plot</span>(pcafit<span class="op">$</span>scores[,<span class="dv">1</span>], pcafit<span class="op">$</span>scores[,<span class="dv">2</span>], <span class="dt">xlab =</span> <span class="st">&quot;First PC&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Second PC&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex.lab =</span> <span class="fl">1.5</span>)
-    <span class="kw">abline</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="dt">lwd =</span> <span class="dv">4</span>)
-    <span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="dt">lwd =</span> <span class="dv">4</span>)</code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="principle-component-analysis.html#cb110-1"></a>    pcafit &lt;-<span class="st"> </span><span class="kw">princomp</span>(x)</span>
+<span id="cb110-2"><a href="principle-component-analysis.html#cb110-2"></a></span>
+<span id="cb110-3"><a href="principle-component-analysis.html#cb110-3"></a>    <span class="co"># the new coordinates on PC&#39;s</span></span>
+<span id="cb110-4"><a href="principle-component-analysis.html#cb110-4"></a>    <span class="kw">head</span>(pcafit<span class="op">$</span>scores)</span></code></pre></div>
+<pre><code>##           Comp.1      Comp.2
+## [1,] -0.01434101  0.21350868
+## [2,]  0.62899684 -0.51439210
+## [3,] -0.29229969 -0.06649302
+## [4,]  0.87280600  0.22098440
+## [5,] -0.75355573 -0.22465367
+## [6,] -2.90820693  0.15821305</code></pre>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="principle-component-analysis.html#cb112-1"></a>    <span class="co"># direct calculation based on projection </span></span>
+<span id="cb112-2"><a href="principle-component-analysis.html#cb112-2"></a>    <span class="kw">head</span>(x <span class="op">%*%</span><span class="st"> </span>pcafit<span class="op">$</span>loadings)</span></code></pre></div>
+<pre><code>##           Comp.1      Comp.2
+## [1,] -0.01434101  0.21350868
+## [2,]  0.62899684 -0.51439210
+## [3,] -0.29229969 -0.06649302
+## [4,]  0.87280600  0.22098440
+## [5,] -0.75355573 -0.22465367
+## [6,] -2.90820693  0.15821305</code></pre>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="principle-component-analysis.html#cb114-1"></a>    <span class="co"># visualize the data on the PCs</span></span>
+<span id="cb114-2"><a href="principle-component-analysis.html#cb114-2"></a>    <span class="co"># Note that the both axies are scaled </span></span>
+<span id="cb114-3"><a href="principle-component-analysis.html#cb114-3"></a>    <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>, <span class="fl">4.2</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>))</span>
+<span id="cb114-4"><a href="principle-component-analysis.html#cb114-4"></a>    <span class="kw">plot</span>(pcafit<span class="op">$</span>scores[,<span class="dv">1</span>], pcafit<span class="op">$</span>scores[,<span class="dv">2</span>], <span class="dt">xlab =</span> <span class="st">&quot;First PC&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Second PC&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex.lab =</span> <span class="fl">1.5</span>)</span>
+<span id="cb114-5"><a href="principle-component-analysis.html#cb114-5"></a>    <span class="kw">abline</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="dt">lwd =</span> <span class="dv">4</span>)</span>
+<span id="cb114-6"><a href="principle-component-analysis.html#cb114-6"></a>    <span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="dt">lwd =</span> <span class="dv">4</span>)</span></code></pre></div>
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-4-1.png" width="480" /></p>
 <p>Note that there are many different functions in <code>R</code> that performs PCA. <code>princomp</code> and <code>prcomp</code> are the most popular ones.</p>
 <div id="note-scaling" class="section level3">
@@ -272,65 +337,65 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="example-1-iris-data-2" class="section level2">
 <h2><span class="header-section-number">8.2</span> Example 1: <code>iris</code> Data</h2>
 <p>We use the <code>iris</code> data again. All four variables are considered in this analysis. We plot the first and second PC directions.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    iris_pc &lt;-<span class="st"> </span><span class="kw">prcomp</span>(iris[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>])
-    <span class="kw">library</span>(ggplot2)
-    <span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(iris_pc<span class="op">$</span>x), <span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2)) <span class="op">+</span><span class="st"> </span>
-<span class="st">        </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="kw">c</span>(<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>)[iris<span class="op">$</span>Species], <span class="dt">size =</span> <span class="dv">3</span>)</code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="principle-component-analysis.html#cb115-1"></a>    iris_pc &lt;-<span class="st"> </span><span class="kw">prcomp</span>(iris[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>])</span>
+<span id="cb115-2"><a href="principle-component-analysis.html#cb115-2"></a>    <span class="kw">library</span>(ggplot2)</span>
+<span id="cb115-3"><a href="principle-component-analysis.html#cb115-3"></a>    <span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(iris_pc<span class="op">$</span>x), <span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb115-4"><a href="principle-component-analysis.html#cb115-4"></a><span class="st">        </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="kw">c</span>(<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>)[iris<span class="op">$</span>Species], <span class="dt">size =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-5-1.png" width="576" /></p>
 <p>One may be interested in plotting all pair-wise direction to see if lower PC’s provide useful information.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">pairs</span>(iris_pc<span class="op">$</span>x, <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>)[iris<span class="op">$</span>Species], <span class="dt">pch =</span> <span class="dv">19</span>)</code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="principle-component-analysis.html#cb116-1"></a>    <span class="kw">pairs</span>(iris_pc<span class="op">$</span>x, <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>)[iris<span class="op">$</span>Species], <span class="dt">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>However, usually, the lower PC’s are less informative. This can also be speculated from the eigenvalue plot, which shows how influential each PC is.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">plot</span>(iris_pc, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">main =</span> <span class="st">&quot;Iris PCA eigen-values&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="principle-component-analysis.html#cb117-1"></a>    <span class="kw">plot</span>(iris_pc, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">main =</span> <span class="st">&quot;Iris PCA eigen-values&quot;</span>)</span></code></pre></div>
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-7-1.png" width="480" /></p>
 <p>Feature contributions to the PC can be accessed through the magnitude of the loadings. This table shows that <code>Petal.Length</code> is the most influential variable on the first PC, with loading <span class="math inline">\(\approx 0.8567\)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    iris_pc<span class="op">$</span>rotation</code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="principle-component-analysis.html#cb118-1"></a>    iris_pc<span class="op">$</span>rotation</span></code></pre></div>
 <pre><code>##                      PC1         PC2         PC3        PC4
 ## Sepal.Length  0.36138659 -0.65658877  0.58202985  0.3154872
 ## Sepal.Width  -0.08452251 -0.73016143 -0.59791083 -0.3197231
 ## Petal.Length  0.85667061  0.17337266 -0.07623608 -0.4798390
 ## Petal.Width   0.35828920  0.07548102 -0.54583143  0.7536574</code></pre>
 <p>We can further visualize this on a plot. This can be helpful when the number of variables is large.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    features =<span class="st"> </span><span class="kw">row.names</span>(iris_pc<span class="op">$</span>rotation)
-    <span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(iris_pc<span class="op">$</span>rotation), <span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2, <span class="dt">label=</span>features,<span class="dt">color=</span>features)) <span class="op">+</span><span class="st"> </span>
-<span class="st">        </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_text</span>(<span class="dt">size=</span><span class="dv">3</span>)</code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="principle-component-analysis.html#cb120-1"></a>    features =<span class="st"> </span><span class="kw">row.names</span>(iris_pc<span class="op">$</span>rotation)</span>
+<span id="cb120-2"><a href="principle-component-analysis.html#cb120-2"></a>    <span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(iris_pc<span class="op">$</span>rotation), <span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2, <span class="dt">label=</span>features,<span class="dt">color=</span>features)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb120-3"><a href="principle-component-analysis.html#cb120-3"></a><span class="st">        </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_text</span>(<span class="dt">size=</span><span class="dv">3</span>)</span></code></pre></div>
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-9-1.png" width="576" /></p>
 </div>
 <div id="example-2-handwritten-digits" class="section level2">
 <h2><span class="header-section-number">8.3</span> Example 2: Handwritten Digits</h2>
 <p>The handwritten zip code digits data contains 7291 training data and 2007 testing data. Each image is a <span class="math inline">\(16 \times 16\)</span>-pixel gray-scale image. Hence they are converted to a vector of 256 variables.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">library</span>(ElemStatLearn)
-    <span class="co"># Handwritten Digit Recognition Data</span>
-    <span class="co"># the first column is the true digit</span>
-    <span class="kw">dim</span>(zip.train)</code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="principle-component-analysis.html#cb121-1"></a>    <span class="kw">library</span>(ElemStatLearn)</span>
+<span id="cb121-2"><a href="principle-component-analysis.html#cb121-2"></a>    <span class="co"># Handwritten Digit Recognition Data</span></span>
+<span id="cb121-3"><a href="principle-component-analysis.html#cb121-3"></a>    <span class="co"># the first column is the true digit</span></span>
+<span id="cb121-4"><a href="principle-component-analysis.html#cb121-4"></a>    <span class="kw">dim</span>(zip.train)</span></code></pre></div>
 <pre><code>## [1] 7291  257</code></pre>
 <p>Here is a sample of some images:</p>
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-11-1.png" width="576" /></p>
 <p>Let’s do a simpler task, using just three letters: 1, 4 and 8.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    zip.sub =<span class="st"> </span>zip.train[zip.train[,<span class="dv">1</span>] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">8</span>), <span class="op">-</span><span class="dv">1</span>]
-    zip.sub.truth =<span class="st"> </span><span class="kw">as.factor</span>(zip.train[zip.train[,<span class="dv">1</span>] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">8</span>), <span class="dv">1</span>])
-    <span class="kw">dim</span>(zip.sub)</code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="principle-component-analysis.html#cb123-1"></a>    zip.sub =<span class="st"> </span>zip.train[zip.train[,<span class="dv">1</span>] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">8</span>), <span class="dv">-1</span>]</span>
+<span id="cb123-2"><a href="principle-component-analysis.html#cb123-2"></a>    zip.sub.truth =<span class="st"> </span><span class="kw">as.factor</span>(zip.train[zip.train[,<span class="dv">1</span>] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">8</span>), <span class="dv">1</span>])</span>
+<span id="cb123-3"><a href="principle-component-analysis.html#cb123-3"></a>    <span class="kw">dim</span>(zip.sub)</span></code></pre></div>
 <pre><code>## [1] 2199  256</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    zip_pc =<span class="st"> </span><span class="kw">prcomp</span>(zip.sub)
-    <span class="kw">plot</span>(zip_pc, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">main =</span> <span class="st">&quot;Digits 1, 4, and 8 PCA eigen-values&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="principle-component-analysis.html#cb125-1"></a>    zip_pc =<span class="st"> </span><span class="kw">prcomp</span>(zip.sub)</span>
+<span id="cb125-2"><a href="principle-component-analysis.html#cb125-2"></a>    <span class="kw">plot</span>(zip_pc, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">main =</span> <span class="st">&quot;Digits 1, 4, and 8 PCA eigen-values&quot;</span>)</span></code></pre></div>
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-12-1.png" width="576" /></p>
 <p>The eigenvalue results suggest that the first two principal components are much more influential than the rest. A pair-wise PC plot of the first four PC’s may further confirm that speculation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">pairs</span>(zip_pc<span class="op">$</span>x[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>)[zip.sub.truth], <span class="dt">pch =</span> <span class="dv">19</span>)</code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="principle-component-analysis.html#cb126-1"></a>    <span class="kw">pairs</span>(zip_pc<span class="op">$</span>x[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>)[zip.sub.truth], <span class="dt">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-13-1.png" width="768" /></p>
 <p>Let’s look at the first two PCs more closely. Even without knowing the true class (no colors) we can still vaguely see 3 clusters.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">library</span>(ggplot2)
-    <span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(zip_pc<span class="op">$</span>x), <span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2)) <span class="op">+</span><span class="st"> </span>
-<span class="st">        </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="principle-component-analysis.html#cb127-1"></a>    <span class="kw">library</span>(ggplot2)</span>
+<span id="cb127-2"><a href="principle-component-analysis.html#cb127-2"></a>    <span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(zip_pc<span class="op">$</span>x), <span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb127-3"><a href="principle-component-analysis.html#cb127-3"></a><span class="st">        </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-14-1.png" width="480" /></p>
 <p>Finally, let’s briefly look at the results of PCA for all 10 different digits. Of course, more PC’s are needed for this task. You can also plot other PC’s to get more information.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">library</span>(colorspace)
-
-    zip_pc &lt;-<span class="st"> </span><span class="kw">prcomp</span>(zip.train)
-
-    <span class="kw">plot</span>(zip_pc, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">main =</span> <span class="st">&quot;All Digits PCA eigen-values&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="principle-component-analysis.html#cb128-1"></a>    <span class="kw">library</span>(colorspace)</span>
+<span id="cb128-2"><a href="principle-component-analysis.html#cb128-2"></a></span>
+<span id="cb128-3"><a href="principle-component-analysis.html#cb128-3"></a>    zip_pc &lt;-<span class="st"> </span><span class="kw">prcomp</span>(zip.train)</span>
+<span id="cb128-4"><a href="principle-component-analysis.html#cb128-4"></a></span>
+<span id="cb128-5"><a href="principle-component-analysis.html#cb128-5"></a>    <span class="kw">plot</span>(zip_pc, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">main =</span> <span class="st">&quot;All Digits PCA eigen-values&quot;</span>)</span></code></pre></div>
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-15-1.png" width="480" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="kw">prcomp</span>(zip.train)<span class="op">$</span>x), <span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2)) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="kw">rainbow_hcl</span>(<span class="dv">10</span>)[zip.train[,<span class="dv">1</span>]<span class="op">+</span><span class="dv">1</span>], <span class="dt">size =</span> <span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="principle-component-analysis.html#cb129-1"></a>    <span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="kw">prcomp</span>(zip.train)<span class="op">$</span>x), <span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb129-2"><a href="principle-component-analysis.html#cb129-2"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="kw">rainbow_hcl</span>(<span class="dv">10</span>)[zip.train[,<span class="dv">1</span>]<span class="op">+</span><span class="dv">1</span>], <span class="dt">size =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-15-2.png" width="480" /></p>
 
 </div>
@@ -344,16 +409,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </div>
       </div>
 <a href="hierarchical-clustering.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="regression-overview.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="linear-regression-and-model-selection.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -361,12 +428,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -378,6 +445,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -394,7 +465,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))

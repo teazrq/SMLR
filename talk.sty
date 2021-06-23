@@ -1,0 +1,261 @@
+%-----------------------------------------------------------------%
+% This file contains some notations I use
+% for teaching and talk slides
+% Ruoqing Zhu, UIUC, Sep 25, 2019
+%-----------------------------------------------------------------%
+
+\usepackage{amsthm}
+\usepackage{amsmath, amssymb, amscd, mathrsfs}
+\usepackage{calrsfs}
+\usepackage{bm}
+\usepackage{color}
+
+\DeclareMathAlphabet{\mathbbm}{U}{bbm}{m}{n}% from bbm.sty
+\DeclareMathAlphabet{\pazocal}{OMS}{zplm}{m}{n}
+
+
+
+\definecolor{deepskyblue}{HTML}{00BFFF}
+\definecolor{darkorange}{HTML}{FF8C00}
+\definecolor{myred}{rgb}{0.75, 0, 0.3}
+
+% UIUC colors
+
+\definecolor{PrimeOrange}{HTML}{E84A27}
+\definecolor{PrimeBlue}{HTML}{13294B}
+
+\definecolor{AltOrange}{HTML}{E87722}
+\definecolor{AltBlue}{HTML}{606EB2}
+
+
+\colorlet{myblue}{LightBlue}
+\colorlet{myorange}{LightOrange}
+\colorlet{mycolor}{AltOrange}
+
+\newcommand{\alertr}[1]{\textcolor{myred}{#1}}
+\newcommand{\alertb}[1]{\textcolor{deepskyblue}{#1}}
+\newcommand{\Rref}[1]{\,\textcolor{AltBlue}{\textup{\textrm{#1}}}\,}
+
+\usepackage{url}
+\usepackage{hyperref}
+
+\hypersetup{colorlinks, linkcolor=, urlcolor=AltBlue, citecolor=AltBlue}
+
+\usepackage[backend=bibtex,style=authoryear, maxbibnames=9,maxcitenames=2, uniquelist=false]{biblatex}
+
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage{array}
+
+% special characters
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{accents}
+\newlength{\dhatheight}
+\newcommand{\doublehat}[1]{%
+    \settoheight{\dhatheight}{\ensuremath{\widehat{#1}}}%
+    \addtolength{\dhatheight}{-0.35ex}%
+    \widehat{\vphantom{\rule{1pt}{\dhatheight}}%
+    \smash{\widehat{#1}}}}
+
+\usepackage{palatino}
+
+\usepackage{algorithmic}
+\usepackage[linesnumbered, ruled, vlined]{algorithm2e}
+
+% put captions of algorithem table on top
+\makeatletter
+\renewcommand{\@algocf@capt@plain}{above}% formerly {bottom}
+\makeatother
+
+\usepackage{setspace}
+
+\usepackage{multimedia}
+\usepackage{wasysym}
+\usepackage{fancybox}
+\usepackage{units}
+\usepackage{ifthen}
+\usepackage{tikz}
+\usetikzlibrary{fit,positioning,arrows,automata}
+
+\usepackage{datetime}
+\newdateformat{monthyeardate}{\monthname[\THEMONTH], \THEYEAR}
+
+% my own stuff
+
+\makeatletter
+\newcommand{\pushright}[1]{\ifmeasuring@#1\else\omit\hfill$\displaystyle#1$\fi\ignorespaces}
+\newcommand{\pushleft}[1]{\ifmeasuring@#1\else\omit$\displaystyle#1$\hfill\fi\ignorespaces}
+\makeatother
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\def\beq#1\eeq{\begin{equation}#1\end{equation}}
+\def\baa#1\eaa{\begin{eqnarray}#1\end{eqnarray}}
+\def\bal#1\eal{\begin{align}#1\end{align}}
+\def\ball#1\eall{\begin{align*} #1 \end{align*}}
+
+
+\newcommand{\ul}{\underline}
+\newcommand{\nn}{\nonumber}
+\newcommand{\no}{\noindent}
+\newcommand{\nc}{\nonumber\\}
+\newcommand{\pn}{\par\noindent}
+\newcommand{\pp}{\hspace*{\parindent}}
+\newcommand{\mc}{\mathcal}
+\newcommand{\mb}{\mathbb}
+
+\def\d{{\mathrm{d}}}
+\def\P{{\mathrm{P}}}
+
+\def\balpha{{\boldsymbol{\alpha}}}
+\def\bbeta{{\boldsymbol{\beta}}}
+\def\btheta{{\boldsymbol{\theta}}}
+\def\bgamma{{\boldsymbol{\gamma}}}
+
+
+\newcommand{\T}{{\text T}}
+% all math notations
+
+\def\bA{{\bf A}}
+\def\bB{{\bf B}}
+\def\bC{{\bf C}}
+\def\bD{{\bf D}}
+\def\bE{{\bf E}}
+\def\bF{{\bf F}}
+\def\bG{{\bf G}}
+\def\bH{{\bf H}}
+\def\bI{{\bf I}}
+\def\bJ{{\bf J}}
+\def\bK{{\bf K}}
+\def\bL{{\bf L}}
+\def\bM{{\bf M}}
+\def\bN{{\bf N}}
+\def\bO{{\bf O}}
+\def\bP{{\bf P}}
+\def\bQ{{\bf Q}}
+\def\bR{{\bf R}}
+\def\bS{{\bf S}}
+\def\bT{{\bf T}}
+\def\bU{{\bf U}}
+\def\bV{{\bf V}}
+\def\bW{{\bf W}}
+\def\bX{{\bf X}}
+\def\bY{{\bf Y}}
+\def\bZ{{\bf Z}}
+
+\def\ba{{\bf a}}
+\def\bb{{\bf b}}
+\def\bc{{\bf c}}
+\def\bd{{\bf d}}
+\def\be{{\bf e}}
+%\def\bf{{\bf f}}
+\def\bg{{\bf g}}
+\def\bh{{\bf h}}
+\def\bi{{\bf i}}
+\def\bj{{\bf j}}
+\def\bk{{\bf k}}
+\def\bl{{\bf l}}
+\def\bm{{\bf m}}
+\def\bn{{\bf n}}
+\def\bo{{\bf o}}
+\def\bp{{\bf p}}
+\def\bq{{\bf q}}
+\def\br{{\bf r}}
+\def\bs{{\bf s}}
+\def\bt{{\bf t}}
+\def\bu{{\bf u}}
+\def\bv{{\bf v}}
+\def\bw{{\bf w}}
+\def\bx{{\bf x}}
+\def\by{{\bf y}}
+\def\bz{{\bf z}}
+
+
+
+\def\cA{{\pazocal A}}
+\def\cB{{\pazocal B}}
+\def\cC{{\pazocal C}}
+\def\cD{{\pazocal D}}
+\def\cE{{\pazocal E}}
+\def\cF{{\pazocal F}}
+\def\cG{{\pazocal G}}
+\def\cH{{\pazocal H}}
+\def\cI{{\pazocal I}}
+\def\cJ{{\pazocal J}}
+\def\cK{{\pazocal K}}
+\def\cL{{\pazocal L}}
+\def\cM{{\pazocal M}}
+\def\cN{{\pazocal N}}
+\def\cO{{\pazocal O}}
+\def\cP{{\pazocal P}}
+\def\cQ{{\pazocal Q}}
+\def\cR{{\pazocal R}}
+\def\cS{{\pazocal S}}
+\def\cT{{\pazocal T}}
+\def\cU{{\pazocal U}}
+\def\cV{{\pazocal V}}
+\def\cW{{\pazocal W}}
+\def\cX{{\pazocal X}}
+\def\cY{{\pazocal Y}}
+\def\cZ{{\pazocal Z}}
+
+\def\ccA{{\cal A}}
+\def\ccB{{\cal B}}
+\def\ccC{{\cal C}}
+\def\ccD{{\cal D}}
+\def\ccE{{\cal E}}
+\def\ccF{{\cal F}}
+\def\ccG{{\cal G}}
+\def\ccH{{\cal H}}
+\def\ccJ{{\cal I}}
+\def\ccK{{\cal J}}
+\def\ccL{{\cal K}}
+\def\ccI{{\cal L}}
+\def\ccM{{\cal M}}
+\def\ccN{{\cal N}}
+\def\ccO{{\cal O}}
+\def\ccP{{\cal P}}
+\def\ccQ{{\cal Q}}
+\def\ccR{{\cal R}}
+\def\ccS{{\cal S}}
+\def\ccT{{\cal T}}
+\def\ccU{{\cal U}}
+\def\ccV{{\cal V}}
+\def\ccW{{\cal W}}
+\def\ccX{{\cal X}}
+\def\ccY{{\cal Y}}
+\def\ccZ{{\cal Z}}
+
+
+\newcommand{\One}[1]{\bm{1}_{\{#1\}}}
+\def\mOne{{\mathbbm{1}}}
+\newcommand{\bmOne}[1]{\mathbbm{1}_{\{#1\}}}
+
+\newcommand{\Rom}[1]{\text{\uppercase\expandafter{\romannumeral #1\relax}}}
+
+\newcommand{\KM}[1]{{\scriptscriptstyle K\!M}}
+\newcommand{\NA}[1]{{\scriptscriptstyle N\!A}}
+
+\def\Node{{\pazocal A}}
+\def\Noder{{\pazocal R}}
+\def\tX{\widetilde{X}}
+\def\VI{\text{VI}}
+\def\T{\text{T}}
+\def\hVI{\widehat{\text{VI}}}
+\def\Cov{\text{Cov}}
+\def\E{\text{E}}
+\def\pr{\text{pr}}
+
+\def\hLambda{{\widehat{\Lambda}}}
+\def\hlambda{{\widehat{\lambda}}}
+\def\bLambda{{\overline{\Lambda}}}
+
+
+\newcommand{\indep}{\perp\!\!\!\perp}

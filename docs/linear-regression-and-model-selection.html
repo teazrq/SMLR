@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 Linear Regression and Model Selection | Statistical Learning with R</title>
+  <meta name="description" content="Chapter 9 Linear Regression and Model Selection | Statistical Learning with R" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 Linear Regression and Model Selection | Statistical Learning with R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://teazrq.github.io/SLRL/" />
+  
+  
+  <meta name="github-repo" content="teazrq/SLRL" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 Linear Regression and Model Selection | Statistical Learning with R" />
+  
+  
+  
+
+<meta name="author" content="Ruoqing Zhu" />
+
+
+<meta name="date" content="2021-06-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="prev" href="principle-component-analysis.html"/>
+<link rel="next" href="ridge-regression.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Statistical Learning with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#target-audience"><i class="fa fa-check"></i>Target Audience</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#whats-covered"><i class="fa fa-check"></i>What’s Covered?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
+</ul></li>
+<li class="part"><span><b>I Basics Knowledge</b></span></li>
+<li class="chapter" data-level="1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> R and RStudio</a><ul>
+<li class="chapter" data-level="1.1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#resources-and-guides"><i class="fa fa-check"></i><b>1.1</b> Resources and Guides</a></li>
+<li class="chapter" data-level="1.2" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#basic-mathematical-operations"><i class="fa fa-check"></i><b>1.2</b> Basic Mathematical Operations</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#data-objects"><i class="fa fa-check"></i><b>1.2.1</b> Data Objects</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#read-in-data-from-other-sources"><i class="fa fa-check"></i><b>1.3</b> Read-in Data from Other Sources</a></li>
+<li class="chapter" data-level="1.4" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#using-packages"><i class="fa fa-check"></i><b>1.4</b> Using Packages</a></li>
+<li class="chapter" data-level="1.5" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#explore-yourself"><i class="fa fa-check"></i><b>1.5</b> Explore Yourself</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html"><i class="fa fa-check"></i><b>2</b> RMarkdown Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#acknowledgement"><i class="fa fa-check"></i><b>2.1</b> Acknowledgement</a></li>
+<li class="chapter" data-level="2.2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#getting-started"><i class="fa fa-check"></i><b>2.2</b> Getting Started</a></li>
+<li class="chapter" data-level="2.3" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#adding-r"><i class="fa fa-check"></i><b>2.3</b> Adding <code>R</code></a><ul>
+<li class="chapter" data-level="2.3.1" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#r-chunks"><i class="fa fa-check"></i><b>2.3.1</b> <code>R</code> Chunks</a></li>
+<li class="chapter" data-level="2.3.2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#inline-r"><i class="fa fa-check"></i><b>2.3.2</b> Inline <code>R</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#importing-data"><i class="fa fa-check"></i><b>2.4</b> Importing Data</a></li>
+<li class="chapter" data-level="2.5" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#working-directory"><i class="fa fa-check"></i><b>2.5</b> Working Directory</a></li>
+<li class="chapter" data-level="2.6" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#packages"><i class="fa fa-check"></i><b>2.6</b> Packages</a></li>
+<li class="chapter" data-level="2.7" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#plotting"><i class="fa fa-check"></i><b>2.7</b> Plotting</a></li>
+<li class="chapter" data-level="2.8" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#chunk-options"><i class="fa fa-check"></i><b>2.8</b> Chunk Options</a></li>
+<li class="chapter" data-level="2.9" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#adding-math-with-latex"><i class="fa fa-check"></i><b>2.9</b> Adding Math with LaTeX</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#displaystyle-latex"><i class="fa fa-check"></i><b>2.9.1</b> Displaystyle LaTeX</a></li>
+<li class="chapter" data-level="2.9.2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#inline-latex"><i class="fa fa-check"></i><b>2.9.2</b> Inline LaTex</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#output-options"><i class="fa fa-check"></i><b>2.10</b> Output Options</a></li>
+<li class="chapter" data-level="2.11" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#try-it"><i class="fa fa-check"></i><b>2.11</b> Try It!</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html"><i class="fa fa-check"></i><b>3</b> Basics of Probability and Statistics</a><ul>
+<li class="chapter" data-level="3.1" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#random-number-generation"><i class="fa fa-check"></i><b>3.1</b> Random Number Generation</a></li>
+<li class="chapter" data-level="3.2" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#summary-statistics-and-data-visualization"><i class="fa fa-check"></i><b>3.2</b> Summary Statistics and Data Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="modeling-basics.html"><a href="modeling-basics.html"><i class="fa fa-check"></i><b>4</b> Modeling Basics</a><ul>
+<li class="chapter" data-level="4.1" data-path="modeling-basics.html"><a href="modeling-basics.html#fitting-linear-regression"><i class="fa fa-check"></i><b>4.1</b> Fitting Linear Regression</a></li>
+<li class="chapter" data-level="4.2" data-path="modeling-basics.html"><a href="modeling-basics.html#model-diagnostics"><i class="fa fa-check"></i><b>4.2</b> Model Diagnostics</a></li>
+<li class="chapter" data-level="4.3" data-path="modeling-basics.html"><a href="modeling-basics.html#variable-transformations-and-interactions"><i class="fa fa-check"></i><b>4.3</b> Variable Transformations and Interactions</a></li>
+<li class="chapter" data-level="4.4" data-path="modeling-basics.html"><a href="modeling-basics.html#model-selection"><i class="fa fa-check"></i><b>4.4</b> Model Selection</a></li>
+<li class="chapter" data-level="4.5" data-path="modeling-basics.html"><a href="modeling-basics.html#prediction"><i class="fa fa-check"></i><b>4.5</b> Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>5</b> Optimization</a></li>
+<li class="part"><span><b>II Unsupervised Learning</b></span></li>
+<li class="chapter" data-level="6" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>6</b> K-means Clustering</a><ul>
+<li class="chapter" data-level="6.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#basic-concepts"><i class="fa fa-check"></i><b>6.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="6.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#example-1-iris-data"><i class="fa fa-check"></i><b>6.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="6.3" data-path="k-means-clustering.html"><a href="k-means-clustering.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>6.3</b> Example 2: clustering of image pixels</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>7</b> Hierarchical Clustering</a><ul>
+<li class="chapter" data-level="7.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>7.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="7.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>7.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="7.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>7.3</b> Example 2: RNA Expression Data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html"><i class="fa fa-check"></i><b>8</b> Principle Component Analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>8.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>8.1.1</b> Note: Scaling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>8.2</b> Example 1: <code>iris</code> Data</a></li>
+<li class="chapter" data-level="8.3" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>8.3</b> Example 2: Handwritten Digits</a></li>
+</ul></li>
+<li class="part"><span><b>III Linear and Penalized Linear Regressions</b></span></li>
+<li class="chapter" data-level="9" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html"><i class="fa fa-check"></i><b>9</b> Linear Regression and Model Selection</a><ul>
+<li class="chapter" data-level="9.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#basic-concepts-3"><i class="fa fa-check"></i><b>9.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#linear-regression-as-an-optimization"><i class="fa fa-check"></i><b>9.1.1</b> Linear regression as an optimization</a></li>
+<li class="chapter" data-level="9.1.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#linear-regression-as-projections"><i class="fa fa-check"></i><b>9.1.2</b> Linear regression as projections</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-criteria-and-algorithm"><i class="fa fa-check"></i><b>9.2</b> Model Selection Criteria and Algorithm</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#example-diabetes-dataset"><i class="fa fa-check"></i><b>9.2.1</b> Example: <code>diabetes</code> dataset</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ridge-regression.html"><a href="ridge-regression.html"><i class="fa fa-check"></i><b>10</b> Ridge Regression</a><ul>
+<li class="chapter" data-level="10.1" data-path="ridge-regression.html"><a href="ridge-regression.html#basic-concepts-4"><i class="fa fa-check"></i><b>10.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="ridge-regression.html"><a href="ridge-regression.html#correlated-variables-and-convexity"><i class="fa fa-check"></i><b>10.1.1</b> Correlated Variables and Convexity</a></li>
+<li class="chapter" data-level="10.1.2" data-path="ridge-regression.html"><a href="ridge-regression.html#example-1-the-prostate-cancer-data"><i class="fa fa-check"></i><b>10.1.2</b> Example 1: The Prostate Cancer Data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="lasso-regression.html"><a href="lasso-regression.html"><i class="fa fa-check"></i><b>11</b> Lasso Regression</a><ul>
+<li class="chapter" data-level="11.1" data-path="lasso-regression.html"><a href="lasso-regression.html#basic-concepts-5"><i class="fa fa-check"></i><b>11.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="lasso-regression.html"><a href="lasso-regression.html#variable-selection-property"><i class="fa fa-check"></i><b>11.1.1</b> Variable Selection Property</a></li>
+<li class="chapter" data-level="11.1.2" data-path="lasso-regression.html"><a href="lasso-regression.html#example-1-the-prostate-cancer-data-1"><i class="fa fa-check"></i><b>11.1.2</b> Example 1: The Prostate Cancer Data</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Nonlinear and Nonparametric Models</b></span></li>
+<li class="chapter" data-level="12" data-path="splines.html"><a href="splines.html"><i class="fa fa-check"></i><b>12</b> Splines</a><ul>
+<li class="chapter" data-level="12.1" data-path="splines.html"><a href="splines.html#basic-concepts-6"><i class="fa fa-check"></i><b>12.1</b> Basic Concepts</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="smoothing-splines.html"><a href="smoothing-splines.html"><i class="fa fa-check"></i><b>13</b> Smoothing Splines</a><ul>
+<li class="chapter" data-level="13.1" data-path="smoothing-splines.html"><a href="smoothing-splines.html#basic-concepts-7"><i class="fa fa-check"></i><b>13.1</b> Basic Concepts</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="kernel-regression.html"><a href="kernel-regression.html"><i class="fa fa-check"></i><b>14</b> Kernel Regression</a><ul>
+<li class="chapter" data-level="14.1" data-path="kernel-regression.html"><a href="kernel-regression.html#basic-concepts-8"><i class="fa fa-check"></i><b>14.1</b> Basic Concepts</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="kernel-density-estimation.html"><a href="kernel-density-estimation.html"><i class="fa fa-check"></i><b>15</b> Kernel Density Estimation</a><ul>
+<li class="chapter" data-level="15.1" data-path="kernel-density-estimation.html"><a href="kernel-density-estimation.html#basic-concepts-9"><i class="fa fa-check"></i><b>15.1</b> Basic Concepts</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>16</b> References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/teazrq/SLWR" target="blank">&copy; 2018 Ruoqing Zhu</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Learning with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="linear-regression-and-model-selection" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Linear Regression and Model Selection</h1>
+<div id="basic-concepts-3" class="section level2">
+<h2><span class="header-section-number">9.1</span> Basic Concepts</h2>
+<p>Suppose we collect a set of observations with design matrix <span class="math inline">\(\mathbf{X}\)</span> and outcome <span class="math inline">\(\mathbf{y}\)</span>, linear regression estimate the coefficients through</p>
+<p><span class="math display">\[ \widehat{\boldsymbol \beta} = \underset{\boldsymbol \beta}{\arg\min} \big( \mathbf y - \mathbf{X} \boldsymbol \beta \big)^\text{T} \big( \mathbf y - \mathbf{X} \boldsymbol \beta \big) \]</span>
+This can be viewed as either a covex optimization problem or projections on the <span class="math inline">\(n\)</span> dimentional vector space.</p>
+<div id="linear-regression-as-an-optimization" class="section level3">
+<h3><span class="header-section-number">9.1.1</span> Linear regression as an optimization</h3>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="linear-regression-and-model-selection.html#cb130-1"></a>    <span class="co"># generate data for a simple linear regression </span></span>
+<span id="cb130-2"><a href="linear-regression-and-model-selection.html#cb130-2"></a>    <span class="kw">set.seed</span>(<span class="dv">20</span>)</span>
+<span id="cb130-3"><a href="linear-regression-and-model-selection.html#cb130-3"></a>    n =<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb130-4"><a href="linear-regression-and-model-selection.html#cb130-4"></a>    x &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>, <span class="kw">rnorm</span>(n))</span>
+<span id="cb130-5"><a href="linear-regression-and-model-selection.html#cb130-5"></a>    y &lt;-<span class="st"> </span>x <span class="op">%*%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n)</span>
+<span id="cb130-6"><a href="linear-regression-and-model-selection.html#cb130-6"></a>    </span>
+<span id="cb130-7"><a href="linear-regression-and-model-selection.html#cb130-7"></a>    <span class="co"># calculate the residual sum of squares for a grid of beta values</span></span>
+<span id="cb130-8"><a href="linear-regression-and-model-selection.html#cb130-8"></a>    rss &lt;-<span class="st"> </span><span class="cf">function</span>(b, x, y) <span class="kw">sum</span>((y <span class="op">-</span><span class="st"> </span>x <span class="op">%*%</span><span class="st"> </span>b)<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb130-9"><a href="linear-regression-and-model-selection.html#cb130-9"></a>    b1 &lt;-<span class="st"> </span>b2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dt">length=</span> <span class="dv">20</span>)</span>
+<span id="cb130-10"><a href="linear-regression-and-model-selection.html#cb130-10"></a>    z =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">apply</span>(<span class="kw">expand.grid</span>(b1, b2), <span class="dv">1</span>, rss, x, y), <span class="dv">20</span>, <span class="dv">20</span>)</span>
+<span id="cb130-11"><a href="linear-regression-and-model-selection.html#cb130-11"></a>    </span>
+<span id="cb130-12"><a href="linear-regression-and-model-selection.html#cb130-12"></a>    <span class="co"># 3d plot for RSS</span></span>
+<span id="cb130-13"><a href="linear-regression-and-model-selection.html#cb130-13"></a>    <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
+<span id="cb130-14"><a href="linear-regression-and-model-selection.html#cb130-14"></a>    <span class="kw">persp</span>(b1, b2, z, <span class="dt">xlab =</span> <span class="st">&quot;beta 1&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;beta 2&quot;</span>, <span class="dt">zlab =</span> <span class="st">&quot;RSS&quot;</span>,</span>
+<span id="cb130-15"><a href="linear-regression-and-model-selection.html#cb130-15"></a>          <span class="dt">main=</span><span class="st">&quot;Residual Sum of Squares&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;springgreen&quot;</span>, <span class="dt">shade =</span> <span class="fl">0.6</span>,</span>
+<span id="cb130-16"><a href="linear-regression-and-model-selection.html#cb130-16"></a>          <span class="dt">theta =</span> <span class="dv">30</span>, <span class="dt">phi =</span> <span class="dv">5</span>)</span></code></pre></div>
+<p><img src="3.1-linear_files/figure-html/unnamed-chunk-1-1.png" width="480" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="linear-regression-and-model-selection.html#cb131-1"></a>    <span class="co"># The solution can be solved by any optimization algorithm </span></span>
+<span id="cb131-2"><a href="linear-regression-and-model-selection.html#cb131-2"></a>    <span class="kw">optim</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), rss, <span class="dt">x =</span> x, <span class="dt">y =</span> y)<span class="op">$</span>par</span></code></pre></div>
+<pre><code>## [1] 1.088813 0.679870</code></pre>
+</div>
+<div id="linear-regression-as-projections" class="section level3">
+<h3><span class="header-section-number">9.1.2</span> Linear regression as projections</h3>
+<p>Another view is through projections in vector space. Consider each column of <span class="math inline">\(\mathbf{X}\)</span> as a vector, and project <span class="math inline">\(\mathbf{y}\)</span> onto the column space of <span class="math inline">\(\mathbf{X}\)</span>. The project is</p>
+<p><span class="math display">\[ \widehat{\mathbf{y}} = \mathbf{X} (\mathbf{X}^\text{T} \mathbf{X})^{-1}\mathbf{X}^\text{T} \mathbf{y} \doteq {\mathbf{H}} \mathbf{y}, \]</span>
+where <span class="math inline">\(\mathbf{H}\)</span> is a projection matrix. And the residuals are simply</p>
+<p><span class="math display">\[ \widehat{\mathbf{e}} = \mathbf{y} - \widehat{\mathbf{y}} = (\mathbf{I} - \mathbf{H}) \mathbf{y} \]</span>
+When the number of variables is large, inverting <span class="math inline">\(\mathbf{X}^\text{T} \mathbf{X}\)</span> is expansive. The <code>R</code> function <code>lm()</code> does not calculate the inverse directly. Instead, QR decomposition can be used. You can try a larger <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span> to see a significant difference. This is only for demonstration. They are not required for our course.</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="linear-regression-and-model-selection.html#cb133-1"></a>    <span class="co"># generate 100 observations with 3 variables</span></span>
+<span id="cb133-2"><a href="linear-regression-and-model-selection.html#cb133-2"></a>    <span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb133-3"><a href="linear-regression-and-model-selection.html#cb133-3"></a>    n =<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb133-4"><a href="linear-regression-and-model-selection.html#cb133-4"></a>    p =<span class="st"> </span><span class="dv">500</span></span>
+<span id="cb133-5"><a href="linear-regression-and-model-selection.html#cb133-5"></a>    x =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n<span class="op">*</span>p), n, p)</span>
+<span id="cb133-6"><a href="linear-regression-and-model-selection.html#cb133-6"></a>    X =<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>, x) <span class="co"># the design matrix, including 1 as the first column</span></span>
+<span id="cb133-7"><a href="linear-regression-and-model-selection.html#cb133-7"></a>    </span>
+<span id="cb133-8"><a href="linear-regression-and-model-selection.html#cb133-8"></a>    <span class="co"># define the true beta, the first entry is the intercept</span></span>
+<span id="cb133-9"><a href="linear-regression-and-model-selection.html#cb133-9"></a>    b =<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>, <span class="kw">rep</span>(<span class="dv">0</span>, p<span class="dv">-2</span>))) </span>
+<span id="cb133-10"><a href="linear-regression-and-model-selection.html#cb133-10"></a>    </span>
+<span id="cb133-11"><a href="linear-regression-and-model-selection.html#cb133-11"></a>    <span class="co"># generate training y with Gaussian errors</span></span>
+<span id="cb133-12"><a href="linear-regression-and-model-selection.html#cb133-12"></a>    y =<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span>b <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n)</span>
+<span id="cb133-13"><a href="linear-regression-and-model-selection.html#cb133-13"></a>    </span>
+<span id="cb133-14"><a href="linear-regression-and-model-selection.html#cb133-14"></a>    <span class="co"># fit a linear regression model </span></span>
+<span id="cb133-15"><a href="linear-regression-and-model-selection.html#cb133-15"></a>    lm.fit =<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x)</span>
+<span id="cb133-16"><a href="linear-regression-and-model-selection.html#cb133-16"></a>    </span>
+<span id="cb133-17"><a href="linear-regression-and-model-selection.html#cb133-17"></a>    <span class="co"># look at the coefficients beta hat</span></span>
+<span id="cb133-18"><a href="linear-regression-and-model-selection.html#cb133-18"></a>    <span class="kw">head</span>(lm.fit<span class="op">$</span>coef)</span></code></pre></div>
+<pre><code>##  (Intercept)           x1           x2           x3           x4           x5 
+##  1.016479750  1.026143517  0.496792668 -0.017272409  0.005193304  0.034639107</code></pre>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="linear-regression-and-model-selection.html#cb135-1"></a>    <span class="co"># using normal equations by inverting the X&#39;X matrix: b = (X&#39;X)^-1 X&#39;y </span></span>
+<span id="cb135-2"><a href="linear-regression-and-model-selection.html#cb135-2"></a>    <span class="co"># however, this is very slow</span></span>
+<span id="cb135-3"><a href="linear-regression-and-model-selection.html#cb135-3"></a>    <span class="co"># check ?solve</span></span>
+<span id="cb135-4"><a href="linear-regression-and-model-selection.html#cb135-4"></a>    <span class="kw">system.time</span>({beta_hat =<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>y})</span></code></pre></div>
+<pre><code>##    user  system elapsed 
+##    0.31    0.00    0.32</code></pre>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="linear-regression-and-model-selection.html#cb137-1"></a>    <span class="kw">head</span>(beta_hat)</span></code></pre></div>
+<pre><code>##              [,1]
+## [1,]  1.016479750
+## [2,]  1.026143517
+## [3,]  0.496792668
+## [4,] -0.017272409
+## [5,]  0.005193304
+## [6,]  0.034639107</code></pre>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="linear-regression-and-model-selection.html#cb139-1"></a>    <span class="co"># you can avoid the inversion by specifying the linear equation system X&#39;X b = X&#39;y </span></span>
+<span id="cb139-2"><a href="linear-regression-and-model-selection.html#cb139-2"></a>    <span class="kw">system.time</span>({beta_hat =<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X, <span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>y)})    </span></code></pre></div>
+<pre><code>##    user  system elapsed 
+##    0.14    0.00    0.14</code></pre>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="linear-regression-and-model-selection.html#cb141-1"></a>    <span class="co"># A better approach is to use QR decomposition or the Cholesky decomposition </span></span>
+<span id="cb141-2"><a href="linear-regression-and-model-selection.html#cb141-2"></a>    <span class="co"># The following codes are not necessarily efficient, they are only for demonstration purpose</span></span>
+<span id="cb141-3"><a href="linear-regression-and-model-selection.html#cb141-3"></a>    </span>
+<span id="cb141-4"><a href="linear-regression-and-model-selection.html#cb141-4"></a>    <span class="co"># QR decomposition</span></span>
+<span id="cb141-5"><a href="linear-regression-and-model-selection.html#cb141-5"></a>    <span class="co"># direct calling the qr.coef function</span></span>
+<span id="cb141-6"><a href="linear-regression-and-model-selection.html#cb141-6"></a>    <span class="kw">system.time</span>({beta_hat =<span class="st"> </span><span class="kw">qr.coef</span>(<span class="kw">qr</span>(X), y)})</span></code></pre></div>
+<pre><code>##    user  system elapsed 
+##    0.12    0.00    0.13</code></pre>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="linear-regression-and-model-selection.html#cb143-1"></a>    <span class="co"># or </span></span>
+<span id="cb143-2"><a href="linear-regression-and-model-selection.html#cb143-2"></a>    <span class="kw">system.time</span>({beta_hat =<span class="st"> </span><span class="kw">qr.solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X, <span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>y)})</span></code></pre></div>
+<pre><code>##    user  system elapsed 
+##    0.16    0.00    0.16</code></pre>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="linear-regression-and-model-selection.html#cb145-1"></a>    <span class="co"># if you want to see what Q and R are</span></span>
+<span id="cb145-2"><a href="linear-regression-and-model-selection.html#cb145-2"></a>    QR =<span class="st"> </span><span class="kw">qr</span>(X)</span>
+<span id="cb145-3"><a href="linear-regression-and-model-selection.html#cb145-3"></a>    Q =<span class="st"> </span><span class="kw">qr.Q</span>(QR)</span>
+<span id="cb145-4"><a href="linear-regression-and-model-selection.html#cb145-4"></a>    R =<span class="st"> </span><span class="kw">qr.R</span>(QR)</span>
+<span id="cb145-5"><a href="linear-regression-and-model-selection.html#cb145-5"></a>    </span>
+<span id="cb145-6"><a href="linear-regression-and-model-selection.html#cb145-6"></a>    <span class="co"># get inverse of R, you can check R %*% R_inv yourself</span></span>
+<span id="cb145-7"><a href="linear-regression-and-model-selection.html#cb145-7"></a>    <span class="co"># the backsolve/forwardsolve functions can be used to solve AX = b for upper/lower triangular matrix A </span></span>
+<span id="cb145-8"><a href="linear-regression-and-model-selection.html#cb145-8"></a>    <span class="co"># ?backsolve</span></span>
+<span id="cb145-9"><a href="linear-regression-and-model-selection.html#cb145-9"></a>    R_inv =<span class="st"> </span><span class="kw">backsolve</span>(R, <span class="kw">diag</span>(p<span class="op">+</span><span class="dv">1</span>), <span class="dt">upper.tri =</span> <span class="ot">TRUE</span>, <span class="dt">transpose =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb145-10"><a href="linear-regression-and-model-selection.html#cb145-10"></a>    beta_hat =<span class="st"> </span>R_inv <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(Q) <span class="op">%*%</span><span class="st"> </span>y</span>
+<span id="cb145-11"><a href="linear-regression-and-model-selection.html#cb145-11"></a>    </span>
+<span id="cb145-12"><a href="linear-regression-and-model-selection.html#cb145-12"></a>    <span class="co"># Cholesky Decomposition </span></span>
+<span id="cb145-13"><a href="linear-regression-and-model-selection.html#cb145-13"></a>    </span>
+<span id="cb145-14"><a href="linear-regression-and-model-selection.html#cb145-14"></a>    <span class="co"># the chol function gives upper triangular matrix</span></span>
+<span id="cb145-15"><a href="linear-regression-and-model-selection.html#cb145-15"></a>    <span class="co"># crossprod(X) = X&#39;X</span></span>
+<span id="cb145-16"><a href="linear-regression-and-model-selection.html#cb145-16"></a>    <span class="kw">system.time</span>({</span>
+<span id="cb145-17"><a href="linear-regression-and-model-selection.html#cb145-17"></a>    R =<span class="st"> </span><span class="kw">chol</span>(<span class="kw">crossprod</span>(X))</span>
+<span id="cb145-18"><a href="linear-regression-and-model-selection.html#cb145-18"></a>    w =<span class="st"> </span><span class="kw">backsolve</span>(R, <span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>y, <span class="dt">upper.tri =</span> <span class="ot">TRUE</span>, <span class="dt">transpose =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb145-19"><a href="linear-regression-and-model-selection.html#cb145-19"></a>    beta_hat =<span class="st"> </span><span class="kw">backsolve</span>(R, w, <span class="dt">upper.tri =</span> <span class="ot">TRUE</span>, <span class="dt">transpose =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb145-20"><a href="linear-regression-and-model-selection.html#cb145-20"></a>    })</span></code></pre></div>
+<pre><code>##    user  system elapsed 
+##    0.13    0.00    0.12</code></pre>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="linear-regression-and-model-selection.html#cb147-1"></a>    <span class="co"># or equivalently </span></span>
+<span id="cb147-2"><a href="linear-regression-and-model-selection.html#cb147-2"></a>    R =<span class="st"> </span><span class="kw">t</span>(<span class="kw">chol</span>(<span class="kw">crossprod</span>(X)))</span>
+<span id="cb147-3"><a href="linear-regression-and-model-selection.html#cb147-3"></a>    w =<span class="st"> </span><span class="kw">forwardsolve</span>(R, <span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>y, <span class="dt">upper.tri =</span> <span class="ot">FALSE</span>, <span class="dt">transpose =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb147-4"><a href="linear-regression-and-model-selection.html#cb147-4"></a>    beta_hat =<span class="st"> </span><span class="kw">forwardsolve</span>(R, w, <span class="dt">upper.tri =</span> <span class="ot">FALSE</span>, <span class="dt">transpose =</span> <span class="ot">TRUE</span>) <span class="co"># the transpose = TRUE means that we are solving for R&#39;b = w instead of Rb = w </span></span></code></pre></div>
+</div>
+</div>
+<div id="model-selection-criteria-and-algorithm" class="section level2">
+<h2><span class="header-section-number">9.2</span> Model Selection Criteria and Algorithm</h2>
+<div id="example-diabetes-dataset" class="section level3">
+<h3><span class="header-section-number">9.2.1</span> Example: <code>diabetes</code> dataset</h3>
+<p>We use the <code>diabetes</code> dataset from the <code>lars</code> package as a demonstration of model selection.</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="linear-regression-and-model-selection.html#cb148-1"></a>    <span class="kw">library</span>(lars)</span>
+<span id="cb148-2"><a href="linear-regression-and-model-selection.html#cb148-2"></a>    <span class="kw">data</span>(diabetes)</span>
+<span id="cb148-3"><a href="linear-regression-and-model-selection.html#cb148-3"></a>    diab =<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cbind</span>(diabetes<span class="op">$</span>x, <span class="st">&quot;Y&quot;</span> =<span class="st"> </span>diabetes<span class="op">$</span>y))</span>
+<span id="cb148-4"><a href="linear-regression-and-model-selection.html#cb148-4"></a>    </span>
+<span id="cb148-5"><a href="linear-regression-and-model-selection.html#cb148-5"></a>    <span class="co"># A Brief Description of the Diabetes Data (Efron et al, 2004):</span></span>
+<span id="cb148-6"><a href="linear-regression-and-model-selection.html#cb148-6"></a>    <span class="co"># Ten baseline variables: age, sex, body mass index, average blood pressure, and six blood serum</span></span>
+<span id="cb148-7"><a href="linear-regression-and-model-selection.html#cb148-7"></a>    <span class="co"># measurements were obtained for each of n = 442 diabetes patients, as well as</span></span>
+<span id="cb148-8"><a href="linear-regression-and-model-selection.html#cb148-8"></a>    <span class="co"># the response of interest, a quantitative measure of disease progression one year after baseline </span></span>
+<span id="cb148-9"><a href="linear-regression-and-model-selection.html#cb148-9"></a>    </span>
+<span id="cb148-10"><a href="linear-regression-and-model-selection.html#cb148-10"></a>    lmfit=<span class="kw">lm</span>(Y<span class="op">~</span>., <span class="dt">data=</span>diab)</span>
+<span id="cb148-11"><a href="linear-regression-and-model-selection.html#cb148-11"></a>    </span>
+<span id="cb148-12"><a href="linear-regression-and-model-selection.html#cb148-12"></a>    <span class="co"># When we use normal distribution likelihood for the errors, there are 12 parameters</span></span>
+<span id="cb148-13"><a href="linear-regression-and-model-selection.html#cb148-13"></a>    <span class="co"># The function AIC() directly calculates the AIC score from a lm() fitted model </span></span>
+<span id="cb148-14"><a href="linear-regression-and-model-selection.html#cb148-14"></a>    n =<span class="st"> </span><span class="kw">nrow</span>(diab)</span>
+<span id="cb148-15"><a href="linear-regression-and-model-selection.html#cb148-15"></a>    p =<span class="st"> </span><span class="dv">11</span></span>
+<span id="cb148-16"><a href="linear-regression-and-model-selection.html#cb148-16"></a></span>
+<span id="cb148-17"><a href="linear-regression-and-model-selection.html#cb148-17"></a>    <span class="co"># ?AIC</span></span>
+<span id="cb148-18"><a href="linear-regression-and-model-selection.html#cb148-18"></a>    <span class="kw">AIC</span>(lmfit) <span class="co"># a build-in function for calculating AIC using -2log likelihood</span></span></code></pre></div>
+<pre><code>## [1] 4795.985</code></pre>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="linear-regression-and-model-selection.html#cb150-1"></a>    n<span class="op">*</span><span class="kw">log</span>(<span class="kw">sum</span>(<span class="kw">residuals</span>(lmfit)<span class="op">^</span><span class="dv">2</span><span class="op">/</span>n)) <span class="op">+</span><span class="st"> </span>n <span class="op">+</span><span class="st"> </span>n<span class="op">*</span><span class="kw">log</span>(<span class="dv">2</span><span class="op">*</span>pi) <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>p</span></code></pre></div>
+<pre><code>## [1] 4795.985</code></pre>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="linear-regression-and-model-selection.html#cb152-1"></a>    <span class="co"># In many standard R packages, the AIC is calculated by removing some constants from the likelihood </span></span>
+<span id="cb152-2"><a href="linear-regression-and-model-selection.html#cb152-2"></a>    <span class="co"># We will use this value as the default</span></span>
+<span id="cb152-3"><a href="linear-regression-and-model-selection.html#cb152-3"></a>    ?extractAIC</span>
+<span id="cb152-4"><a href="linear-regression-and-model-selection.html#cb152-4"></a>    <span class="kw">extractAIC</span>(lmfit) <span class="co"># AIC for the full model</span></span></code></pre></div>
+<pre><code>## [1]   11.000 3539.643</code></pre>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="linear-regression-and-model-selection.html#cb154-1"></a>    RSS =<span class="st"> </span><span class="kw">sum</span>(<span class="kw">residuals</span>(lmfit)<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb154-2"><a href="linear-regression-and-model-selection.html#cb154-2"></a>    n<span class="op">*</span><span class="kw">log</span>(RSS<span class="op">/</span>n) <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>p</span></code></pre></div>
+<pre><code>## [1] 3539.643</code></pre>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="linear-regression-and-model-selection.html#cb156-1"></a>    <span class="co"># so the BIC for the full model is </span></span>
+<span id="cb156-2"><a href="linear-regression-and-model-selection.html#cb156-2"></a>    <span class="kw">extractAIC</span>(lmfit, <span class="dt">k =</span> <span class="kw">log</span>(n))</span></code></pre></div>
+<pre><code>## [1]   11.000 3584.648</code></pre>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="linear-regression-and-model-selection.html#cb158-1"></a>    n<span class="op">*</span><span class="kw">log</span>(RSS<span class="op">/</span>n) <span class="op">+</span><span class="st"> </span><span class="kw">log</span>(n)<span class="op">*</span>p</span></code></pre></div>
+<pre><code>## [1] 3584.648</code></pre>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="linear-regression-and-model-selection.html#cb160-1"></a>    <span class="co"># if we want to calculate Cp, use the formula</span></span>
+<span id="cb160-2"><a href="linear-regression-and-model-selection.html#cb160-2"></a>    RSS <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>p<span class="op">*</span><span class="kw">summary</span>(lmfit)<span class="op">$</span>sigma<span class="op">^</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 1328502</code></pre>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="linear-regression-and-model-selection.html#cb162-1"></a>    <span class="co"># however, the scale of this is usually very large, we may consider the following version</span></span>
+<span id="cb162-2"><a href="linear-regression-and-model-selection.html#cb162-2"></a>    RSS<span class="op">/</span><span class="kw">summary</span>(lmfit)<span class="op">$</span>sigma<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>p <span class="op">-</span><span class="st"> </span>n</span></code></pre></div>
+<pre><code>## [1] 11</code></pre>
+<p>The <code>step()</code> function can be used to select the best model based on specified model selection criteria.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="linear-regression-and-model-selection.html#cb164-1"></a>    <span class="co"># Model selection: stepwise algorithm </span></span>
+<span id="cb164-2"><a href="linear-regression-and-model-selection.html#cb164-2"></a>    <span class="co"># ?step</span></span>
+<span id="cb164-3"><a href="linear-regression-and-model-selection.html#cb164-3"></a>    </span>
+<span id="cb164-4"><a href="linear-regression-and-model-selection.html#cb164-4"></a>    <span class="co"># this function shows every step during the model selection </span></span>
+<span id="cb164-5"><a href="linear-regression-and-model-selection.html#cb164-5"></a>    <span class="kw">step</span>(lmfit, <span class="dt">direction=</span><span class="st">&quot;both&quot;</span>, <span class="dt">k =</span> <span class="dv">2</span>)    <span class="co"># k = 2 (AIC) is default; </span></span></code></pre></div>
+<pre><code>## Start:  AIC=3539.64
+## Y ~ age + sex + bmi + map + tc + ldl + hdl + tch + ltg + glu
+## 
+##        Df Sum of Sq     RSS    AIC
+## - age   1        82 1264066 3537.7
+## - hdl   1       663 1264646 3537.9
+## - glu   1      3080 1267064 3538.7
+## - tch   1      3526 1267509 3538.9
+## &lt;none&gt;              1263983 3539.6
+## - ldl   1      5799 1269782 3539.7
+## - tc    1     10600 1274583 3541.3
+## - sex   1     45000 1308983 3553.1
+## - ltg   1     56015 1319998 3556.8
+## - map   1     72103 1336086 3562.2
+## - bmi   1    179028 1443011 3596.2
+## 
+## Step:  AIC=3537.67
+## Y ~ sex + bmi + map + tc + ldl + hdl + tch + ltg + glu
+## 
+##        Df Sum of Sq     RSS    AIC
+## - hdl   1       646 1264712 3535.9
+## - glu   1      3001 1267067 3536.7
+## - tch   1      3543 1267608 3536.9
+## &lt;none&gt;              1264066 3537.7
+## - ldl   1      5751 1269817 3537.7
+## - tc    1     10569 1274635 3539.4
+## + age   1        82 1263983 3539.6
+## - sex   1     45831 1309896 3551.4
+## - ltg   1     55963 1320029 3554.8
+## - map   1     73850 1337915 3560.8
+## - bmi   1    179079 1443144 3594.2
+## 
+## Step:  AIC=3535.9
+## Y ~ sex + bmi + map + tc + ldl + tch + ltg + glu
+## 
+##        Df Sum of Sq     RSS    AIC
+## - glu   1      3093 1267805 3535.0
+## - tch   1      3247 1267959 3535.0
+## &lt;none&gt;              1264712 3535.9
+## - ldl   1      7505 1272217 3536.5
+## + hdl   1       646 1264066 3537.7
+## + age   1        66 1264646 3537.9
+## - tc    1     26840 1291552 3543.2
+## - sex   1     46382 1311094 3549.8
+## - map   1     73536 1338248 3558.9
+## - ltg   1     97509 1362221 3566.7
+## - bmi   1    178537 1443249 3592.3
+## 
+## Step:  AIC=3534.98
+## Y ~ sex + bmi + map + tc + ldl + tch + ltg
+## 
+##        Df Sum of Sq     RSS    AIC
+## - tch   1      3686 1271491 3534.3
+## &lt;none&gt;              1267805 3535.0
+## - ldl   1      7472 1275277 3535.6
+## + glu   1      3093 1264712 3535.9
+## + hdl   1       738 1267067 3536.7
+## + age   1         0 1267805 3537.0
+## - tc    1     26378 1294183 3542.1
+## - sex   1     44686 1312491 3548.3
+## - map   1     82154 1349959 3560.7
+## - ltg   1    102520 1370325 3567.3
+## - bmi   1    189970 1457775 3594.7
+## 
+## Step:  AIC=3534.26
+## Y ~ sex + bmi + map + tc + ldl + ltg
+## 
+##        Df Sum of Sq     RSS    AIC
+## &lt;none&gt;              1271491 3534.3
+## + tch   1      3686 1267805 3535.0
+## + glu   1      3532 1267959 3535.0
+## + hdl   1       395 1271097 3536.1
+## + age   1        11 1271480 3536.3
+## - ldl   1     39378 1310869 3545.7
+## - sex   1     41858 1313349 3546.6
+## - tc    1     65237 1336728 3554.4
+## - map   1     79627 1351119 3559.1
+## - bmi   1    190586 1462077 3594.0
+## - ltg   1    294094 1565585 3624.2</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Y ~ sex + bmi + map + tc + ldl + ltg, data = diab)
+## 
+## Coefficients:
+## (Intercept)          sex          bmi          map           tc          ldl          ltg  
+##       152.1       -226.5        529.9        327.2       -757.9        538.6        804.2</code></pre>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="linear-regression-and-model-selection.html#cb167-1"></a>    <span class="kw">step</span>(lmfit, <span class="dt">direction=</span><span class="st">&quot;backward&quot;</span>, <span class="dt">trace=</span><span class="dv">0</span>) <span class="co"># trace=0 will not print intermediate results</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Y ~ sex + bmi + map + tc + ldl + ltg, data = diab)
+## 
+## Coefficients:
+## (Intercept)          sex          bmi          map           tc          ldl          ltg  
+##       152.1       -226.5        529.9        327.2       -757.9        538.6        804.2</code></pre>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="linear-regression-and-model-selection.html#cb169-1"></a>    <span class="kw">step</span>(<span class="kw">lm</span>(Y<span class="op">~</span><span class="dv">1</span>, <span class="dt">data=</span>diab), <span class="dt">scope=</span><span class="kw">list</span>(<span class="dt">upper=</span>lmfit, <span class="dt">lower=</span><span class="op">~</span><span class="dv">1</span>), <span class="dt">direction=</span><span class="st">&quot;forward&quot;</span>, <span class="dt">trace=</span><span class="dv">0</span>)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Y ~ bmi + ltg + map + tc + sex + ldl, data = diab)
+## 
+## Coefficients:
+## (Intercept)          bmi          ltg          map           tc          sex          ldl  
+##       152.1        529.9        804.2        327.2       -757.9       -226.5        538.6</code></pre>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="linear-regression-and-model-selection.html#cb171-1"></a>    <span class="kw">step</span>(lmfit, <span class="dt">direction=</span><span class="st">&quot;both&quot;</span>, <span class="dt">k=</span><span class="kw">log</span>(n), <span class="dt">trace=</span><span class="dv">0</span>)  <span class="co"># BIC (the default value for k=2, which corresponds to AIC)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Y ~ sex + bmi + map + tc + ldl + ltg, data = diab)
+## 
+## Coefficients:
+## (Intercept)          sex          bmi          map           tc          ldl          ltg  
+##       152.1       -226.5        529.9        327.2       -757.9        538.6        804.2</code></pre>
+<p>The <code>leaps</code> package will calculate the best model of each model size. Then we can add the penalties to the model fitting result and conclude the best model.</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="linear-regression-and-model-selection.html#cb173-1"></a>    <span class="co">##########################################################################</span></span>
+<span id="cb173-2"><a href="linear-regression-and-model-selection.html#cb173-2"></a>    <span class="co"># Best subset model selection (Cp, AIC, and BIC): leaps </span></span>
+<span id="cb173-3"><a href="linear-regression-and-model-selection.html#cb173-3"></a>    <span class="co">##########################################################################</span></span>
+<span id="cb173-4"><a href="linear-regression-and-model-selection.html#cb173-4"></a>    <span class="kw">library</span>(leaps)</span>
+<span id="cb173-5"><a href="linear-regression-and-model-selection.html#cb173-5"></a>    </span>
+<span id="cb173-6"><a href="linear-regression-and-model-selection.html#cb173-6"></a>    <span class="co"># performs an exhaustive search over models, and gives back the best model </span></span>
+<span id="cb173-7"><a href="linear-regression-and-model-selection.html#cb173-7"></a>    <span class="co"># (with low RSS) of each size.</span></span>
+<span id="cb173-8"><a href="linear-regression-and-model-selection.html#cb173-8"></a>    <span class="co"># the default maximum model size is nvmax=8</span></span>
+<span id="cb173-9"><a href="linear-regression-and-model-selection.html#cb173-9"></a>    </span>
+<span id="cb173-10"><a href="linear-regression-and-model-selection.html#cb173-10"></a>    RSSleaps=<span class="kw">regsubsets</span>(<span class="kw">as.matrix</span>(diab[,<span class="op">-</span><span class="dv">11</span>]),diab[,<span class="dv">11</span>])</span>
+<span id="cb173-11"><a href="linear-regression-and-model-selection.html#cb173-11"></a>    <span class="kw">summary</span>(RSSleaps, <span class="dt">matrix=</span>T)</span></code></pre></div>
+<pre><code>## Subset selection object
+## 10 Variables  (and intercept)
+##     Forced in Forced out
+## age     FALSE      FALSE
+## sex     FALSE      FALSE
+## bmi     FALSE      FALSE
+## map     FALSE      FALSE
+## tc      FALSE      FALSE
+## ldl     FALSE      FALSE
+## hdl     FALSE      FALSE
+## tch     FALSE      FALSE
+## ltg     FALSE      FALSE
+## glu     FALSE      FALSE
+## 1 subsets of each size up to 8
+## Selection Algorithm: exhaustive
+##          age sex bmi map tc  ldl hdl tch ltg glu
+## 1  ( 1 ) &quot; &quot; &quot; &quot; &quot;*&quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot;
+## 2  ( 1 ) &quot; &quot; &quot; &quot; &quot;*&quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot;*&quot; &quot; &quot;
+## 3  ( 1 ) &quot; &quot; &quot; &quot; &quot;*&quot; &quot;*&quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot;*&quot; &quot; &quot;
+## 4  ( 1 ) &quot; &quot; &quot; &quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot;*&quot; &quot; &quot;
+## 5  ( 1 ) &quot; &quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot; &quot; &quot; &quot; &quot;*&quot; &quot; &quot; &quot;*&quot; &quot; &quot;
+## 6  ( 1 ) &quot; &quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot; &quot; &quot; &quot; &quot;*&quot; &quot; &quot;
+## 7  ( 1 ) &quot; &quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot; &quot; &quot;*&quot; &quot;*&quot; &quot; &quot;
+## 8  ( 1 ) &quot; &quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot; &quot; &quot;*&quot; &quot;*&quot; &quot;*&quot;</code></pre>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="linear-regression-and-model-selection.html#cb175-1"></a>    RSSleaps=<span class="kw">regsubsets</span>(<span class="kw">as.matrix</span>(diab[,<span class="op">-</span><span class="dv">11</span>]),diab[,<span class="dv">11</span>], <span class="dt">nvmax=</span><span class="dv">10</span>)</span>
+<span id="cb175-2"><a href="linear-regression-and-model-selection.html#cb175-2"></a>    <span class="kw">summary</span>(RSSleaps,<span class="dt">matrix=</span>T)</span></code></pre></div>
+<pre><code>## Subset selection object
+## 10 Variables  (and intercept)
+##     Forced in Forced out
+## age     FALSE      FALSE
+## sex     FALSE      FALSE
+## bmi     FALSE      FALSE
+## map     FALSE      FALSE
+## tc      FALSE      FALSE
+## ldl     FALSE      FALSE
+## hdl     FALSE      FALSE
+## tch     FALSE      FALSE
+## ltg     FALSE      FALSE
+## glu     FALSE      FALSE
+## 1 subsets of each size up to 10
+## Selection Algorithm: exhaustive
+##           age sex bmi map tc  ldl hdl tch ltg glu
+## 1  ( 1 )  &quot; &quot; &quot; &quot; &quot;*&quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot;
+## 2  ( 1 )  &quot; &quot; &quot; &quot; &quot;*&quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot;*&quot; &quot; &quot;
+## 3  ( 1 )  &quot; &quot; &quot; &quot; &quot;*&quot; &quot;*&quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot;*&quot; &quot; &quot;
+## 4  ( 1 )  &quot; &quot; &quot; &quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot;*&quot; &quot; &quot;
+## 5  ( 1 )  &quot; &quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot; &quot; &quot; &quot; &quot;*&quot; &quot; &quot; &quot;*&quot; &quot; &quot;
+## 6  ( 1 )  &quot; &quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot; &quot; &quot; &quot; &quot;*&quot; &quot; &quot;
+## 7  ( 1 )  &quot; &quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot; &quot; &quot;*&quot; &quot;*&quot; &quot; &quot;
+## 8  ( 1 )  &quot; &quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot; &quot; &quot;*&quot; &quot;*&quot; &quot;*&quot;
+## 9  ( 1 )  &quot; &quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot;
+## 10  ( 1 ) &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot; &quot;*&quot;</code></pre>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="linear-regression-and-model-selection.html#cb177-1"></a>    sumleaps=<span class="kw">summary</span>(RSSleaps,<span class="dt">matrix=</span>T)</span>
+<span id="cb177-2"><a href="linear-regression-and-model-selection.html#cb177-2"></a>    <span class="kw">names</span>(sumleaps)  <span class="co"># components returned by summary(RSSleaps)</span></span></code></pre></div>
+<pre><code>## [1] &quot;which&quot;  &quot;rsq&quot;    &quot;rss&quot;    &quot;adjr2&quot;  &quot;cp&quot;     &quot;bic&quot;    &quot;outmat&quot; &quot;obj&quot;</code></pre>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="linear-regression-and-model-selection.html#cb179-1"></a>    sumleaps<span class="op">$</span>which</span></code></pre></div>
+<pre><code>##    (Intercept)   age   sex  bmi   map    tc   ldl   hdl   tch   ltg   glu
+## 1         TRUE FALSE FALSE TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## 2         TRUE FALSE FALSE TRUE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
+## 3         TRUE FALSE FALSE TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE
+## 4         TRUE FALSE FALSE TRUE  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE
+## 5         TRUE FALSE  TRUE TRUE  TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE
+## 6         TRUE FALSE  TRUE TRUE  TRUE  TRUE  TRUE FALSE FALSE  TRUE FALSE
+## 7         TRUE FALSE  TRUE TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE
+## 8         TRUE FALSE  TRUE TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE
+## 9         TRUE FALSE  TRUE TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## 10        TRUE  TRUE  TRUE TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="linear-regression-and-model-selection.html#cb181-1"></a>    msize=<span class="kw">apply</span>(sumleaps<span class="op">$</span>which,<span class="dv">1</span>,sum)</span>
+<span id="cb181-2"><a href="linear-regression-and-model-selection.html#cb181-2"></a>    n=<span class="kw">dim</span>(diab)[<span class="dv">1</span>]</span>
+<span id="cb181-3"><a href="linear-regression-and-model-selection.html#cb181-3"></a>    p=<span class="kw">dim</span>(diab)[<span class="dv">2</span>]</span>
+<span id="cb181-4"><a href="linear-regression-and-model-selection.html#cb181-4"></a>    Cp =<span class="st"> </span>sumleaps<span class="op">$</span>rss<span class="op">/</span>(<span class="kw">summary</span>(lmfit)<span class="op">$</span>sigma<span class="op">^</span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>msize <span class="op">-</span><span class="st"> </span>n;</span>
+<span id="cb181-5"><a href="linear-regression-and-model-selection.html#cb181-5"></a>    AIC =<span class="st"> </span>n<span class="op">*</span><span class="kw">log</span>(sumleaps<span class="op">$</span>rss<span class="op">/</span>n) <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>msize;</span>
+<span id="cb181-6"><a href="linear-regression-and-model-selection.html#cb181-6"></a>    BIC =<span class="st"> </span>n<span class="op">*</span><span class="kw">log</span>(sumleaps<span class="op">$</span>rss<span class="op">/</span>n) <span class="op">+</span><span class="st"> </span>msize<span class="op">*</span><span class="kw">log</span>(n);</span>
+<span id="cb181-7"><a href="linear-regression-and-model-selection.html#cb181-7"></a>    </span>
+<span id="cb181-8"><a href="linear-regression-and-model-selection.html#cb181-8"></a>    <span class="kw">cbind</span>(Cp, sumleaps<span class="op">$</span>cp)</span></code></pre></div>
+<pre><code>##            Cp           
+## 1  148.352561 148.352561
+## 2   47.072229  47.072229
+## 3   30.663634  30.663634
+## 4   21.998461  21.998461
+## 5    9.148045   9.148045
+## 6    5.560162   5.560162
+## 7    6.303221   6.303221
+## 8    7.248522   7.248522
+## 9    9.028080   9.028080
+## 10  11.000000  11.000000</code></pre>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="linear-regression-and-model-selection.html#cb183-1"></a>    <span class="kw">cbind</span>(BIC, sumleaps<span class="op">$</span>bic)  <span class="co"># It seems regsubsets uses a formula for BIC different from the one we used. </span></span></code></pre></div>
+<pre><code>##         BIC          
+## 1  3665.879 -174.1108
+## 2  3586.331 -253.6592
+## 3  3575.249 -264.7407
+## 4  3571.077 -268.9126
+## 5  3562.469 -277.5210
+## 6  3562.900 -277.0899
+## 7  3567.708 -272.2819
+## 8  3572.720 -267.2702
+## 9  3578.585 -261.4049
+## 10 3584.648 -255.3424</code></pre>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="linear-regression-and-model-selection.html#cb185-1"></a>    BIC<span class="op">-</span>sumleaps<span class="op">$</span>bic  <span class="co"># But the two just differ by a constant, so won&#39;t affect the model selection result. </span></span></code></pre></div>
+<pre><code>##       1       2       3       4       5       6       7       8       9      10 
+## 3839.99 3839.99 3839.99 3839.99 3839.99 3839.99 3839.99 3839.99 3839.99 3839.99</code></pre>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="linear-regression-and-model-selection.html#cb187-1"></a>    n<span class="op">*</span><span class="kw">log</span>(<span class="kw">sum</span>((diab[,<span class="dv">11</span>] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(diab[,<span class="dv">11</span>]))<span class="op">^</span><span class="dv">2</span><span class="op">/</span>n)) <span class="co"># the difference is the score of an intercept model</span></span></code></pre></div>
+<pre><code>## [1] 3839.99</code></pre>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="linear-regression-and-model-selection.html#cb189-1"></a>    <span class="co"># Rescale Cp, AIC, BIC to (0,1).</span></span>
+<span id="cb189-2"><a href="linear-regression-and-model-selection.html#cb189-2"></a>    inrange &lt;-<span class="st"> </span><span class="cf">function</span>(x) { (x <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(x)) <span class="op">/</span><span class="st"> </span>(<span class="kw">max</span>(x) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(x)) }</span>
+<span id="cb189-3"><a href="linear-regression-and-model-selection.html#cb189-3"></a>    </span>
+<span id="cb189-4"><a href="linear-regression-and-model-selection.html#cb189-4"></a>    Cp =<span class="st"> </span>sumleaps<span class="op">$</span>cp; Cp =<span class="st"> </span><span class="kw">inrange</span>(Cp);</span>
+<span id="cb189-5"><a href="linear-regression-and-model-selection.html#cb189-5"></a>    BIC =<span class="st"> </span>sumleaps<span class="op">$</span>bic; BIC =<span class="st"> </span><span class="kw">inrange</span>(BIC);</span>
+<span id="cb189-6"><a href="linear-regression-and-model-selection.html#cb189-6"></a>    AIC =<span class="st"> </span>n<span class="op">*</span><span class="kw">log</span>(sumleaps<span class="op">$</span>rss<span class="op">/</span>n) <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>msize; AIC =<span class="st"> </span><span class="kw">inrange</span>(AIC);</span>
+<span id="cb189-7"><a href="linear-regression-and-model-selection.html#cb189-7"></a>    </span>
+<span id="cb189-8"><a href="linear-regression-and-model-selection.html#cb189-8"></a>    <span class="kw">plot</span>(<span class="kw">range</span>(msize), <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="dt">type=</span><span class="st">&quot;n&quot;</span>, </span>
+<span id="cb189-9"><a href="linear-regression-and-model-selection.html#cb189-9"></a>         <span class="dt">xlab=</span><span class="st">&quot;Model Size (with Intercept)&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Model Selection Criteria&quot;</span>)</span>
+<span id="cb189-10"><a href="linear-regression-and-model-selection.html#cb189-10"></a>    <span class="kw">points</span>(msize, Cp, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</span>
+<span id="cb189-11"><a href="linear-regression-and-model-selection.html#cb189-11"></a>    <span class="kw">points</span>(msize, AIC, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</span>
+<span id="cb189-12"><a href="linear-regression-and-model-selection.html#cb189-12"></a>    <span class="kw">points</span>(msize, BIC, <span class="dt">col=</span><span class="st">&quot;black&quot;</span>, <span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</span>
+<span id="cb189-13"><a href="linear-regression-and-model-selection.html#cb189-13"></a>    <span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="dt">lty=</span><span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;black&quot;</span>), <span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;Cp&quot;</span>, <span class="st">&quot;AIC&quot;</span>, <span class="st">&quot;BIC&quot;</span>))</span></code></pre></div>
+<p><img src="3.1-linear_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="principle-component-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ridge-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/teazrq/SLWR/edit/master/3.1-linear.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["RESL.pdf"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

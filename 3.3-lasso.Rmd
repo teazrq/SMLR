@@ -1,8 +1,3 @@
----
-title: Linear Regression with Lasso
-author: Ruoqing Zhu
-abstract: This is the supplementary `R` file for Lasso regression in the lecture note "Penalized".
----
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -10,6 +5,8 @@ knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(fig.align='center')
 options(width = 1000)
 ```
+
+# Lasso Regression
 
 \newcommand{\bbeta}[0]{{\boldsymbol\beta}}
 \newcommand{\bX}[0]{\mathbf X}

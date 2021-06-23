@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 K-means Clustering | Statistical Learning with R</title>
   <meta name="description" content="Chapter 6 K-means Clustering | Statistical Learning with R" />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 K-means Clustering | Statistical Learning with R" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Ruoqing Zhu" />
 
 
-<meta name="date" content="2019-09-09" />
+<meta name="date" content="2021-06-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -40,6 +40,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -47,45 +48,78 @@
 
 
 
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -168,8 +202,42 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.2" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>8.2</b> Example 1: <code>iris</code> Data</a></li>
 <li class="chapter" data-level="8.3" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>8.3</b> Example 2: Handwritten Digits</a></li>
 </ul></li>
-<li class="part"><span><b>III Regression</b></span></li>
-<li class="chapter" data-level="9" data-path="regression-overview.html"><a href="regression-overview.html"><i class="fa fa-check"></i><b>9</b> Overview</a></li>
+<li class="part"><span><b>III Linear and Penalized Linear Regressions</b></span></li>
+<li class="chapter" data-level="9" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html"><i class="fa fa-check"></i><b>9</b> Linear Regression and Model Selection</a><ul>
+<li class="chapter" data-level="9.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#basic-concepts-3"><i class="fa fa-check"></i><b>9.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#linear-regression-as-an-optimization"><i class="fa fa-check"></i><b>9.1.1</b> Linear regression as an optimization</a></li>
+<li class="chapter" data-level="9.1.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#linear-regression-as-projections"><i class="fa fa-check"></i><b>9.1.2</b> Linear regression as projections</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-criteria-and-algorithm"><i class="fa fa-check"></i><b>9.2</b> Model Selection Criteria and Algorithm</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#example-diabetes-dataset"><i class="fa fa-check"></i><b>9.2.1</b> Example: <code>diabetes</code> dataset</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ridge-regression.html"><a href="ridge-regression.html"><i class="fa fa-check"></i><b>10</b> Ridge Regression</a><ul>
+<li class="chapter" data-level="10.1" data-path="ridge-regression.html"><a href="ridge-regression.html#basic-concepts-4"><i class="fa fa-check"></i><b>10.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="ridge-regression.html"><a href="ridge-regression.html#correlated-variables-and-convexity"><i class="fa fa-check"></i><b>10.1.1</b> Correlated Variables and Convexity</a></li>
+<li class="chapter" data-level="10.1.2" data-path="ridge-regression.html"><a href="ridge-regression.html#example-1-the-prostate-cancer-data"><i class="fa fa-check"></i><b>10.1.2</b> Example 1: The Prostate Cancer Data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="lasso-regression.html"><a href="lasso-regression.html"><i class="fa fa-check"></i><b>11</b> Lasso Regression</a><ul>
+<li class="chapter" data-level="11.1" data-path="lasso-regression.html"><a href="lasso-regression.html#basic-concepts-5"><i class="fa fa-check"></i><b>11.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="lasso-regression.html"><a href="lasso-regression.html#variable-selection-property"><i class="fa fa-check"></i><b>11.1.1</b> Variable Selection Property</a></li>
+<li class="chapter" data-level="11.1.2" data-path="lasso-regression.html"><a href="lasso-regression.html#example-1-the-prostate-cancer-data-1"><i class="fa fa-check"></i><b>11.1.2</b> Example 1: The Prostate Cancer Data</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Nonlinear and Nonparametric Models</b></span></li>
+<li class="chapter" data-level="12" data-path="splines.html"><a href="splines.html"><i class="fa fa-check"></i><b>12</b> Splines</a><ul>
+<li class="chapter" data-level="12.1" data-path="splines.html"><a href="splines.html#basic-concepts-6"><i class="fa fa-check"></i><b>12.1</b> Basic Concepts</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="smoothing-splines.html"><a href="smoothing-splines.html"><i class="fa fa-check"></i><b>13</b> Smoothing Splines</a><ul>
+<li class="chapter" data-level="13.1" data-path="smoothing-splines.html"><a href="smoothing-splines.html#basic-concepts-7"><i class="fa fa-check"></i><b>13.1</b> Basic Concepts</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="kernel-regression.html"><a href="kernel-regression.html"><i class="fa fa-check"></i><b>14</b> Kernel Regression</a><ul>
+<li class="chapter" data-level="14.1" data-path="kernel-regression.html"><a href="kernel-regression.html#basic-concepts-8"><i class="fa fa-check"></i><b>14.1</b> Basic Concepts</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="kernel-density-estimation.html"><a href="kernel-density-estimation.html"><i class="fa fa-check"></i><b>15</b> Kernel Density Estimation</a><ul>
+<li class="chapter" data-level="15.1" data-path="kernel-density-estimation.html"><a href="kernel-density-estimation.html#basic-concepts-9"><i class="fa fa-check"></i><b>15.1</b> Basic Concepts</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>16</b> References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SLWR" target="blank">&copy; 2018 Ruoqing Zhu</a></li>
 
@@ -195,29 +263,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="basic-concepts" class="section level2">
 <h2><span class="header-section-number">6.1</span> Basic Concepts</h2>
 <p>The <span class="math inline">\(k\)</span>-means clustering algorithm attemps to solve the following optimization problem:</p>
-<p><span class="math display">\[ \underset{C, \, \{m_k\}_{k=1}^K}\min \sum_{k=1}^K \sum_{C(i) = k} \lVert x_i - m_k \rVert^2, \]</span> where <span class="math inline">\(C(\cdot): \{1, \ldots, n\} \rightarrow \{1, \ldots, K\}\)</span> is a cluster assignment function, and <span class="math inline">\(m_k\)</span>’s are the cluster means. To solve this problem, <span class="math inline">\(k\)</span>-means uses an iterative approach that updates <span class="math inline">\(C(\cdot)\)</span> and <span class="math inline">\(m_k\)</span>’s alternatively. Suppose we have a set of six observations.</p>
+<p><span class="math display">\[ \underset{C, \, \{m_k\}_{k=1}^K}\min \sum_{k=1}^K \sum_{C(i) = k} \lVert x_i - m_k \rVert^2, \]</span>
+where <span class="math inline">\(C(\cdot): \{1, \ldots, n\} \rightarrow \{1, \ldots, K\}\)</span> is a cluster assignment function, and <span class="math inline">\(m_k\)</span>’s are the cluster means. To solve this problem, <span class="math inline">\(k\)</span>-means uses an iterative approach that updates <span class="math inline">\(C(\cdot)\)</span> and <span class="math inline">\(m_k\)</span>’s alternatively. Suppose we have a set of six observations.</p>
 <p><img src="2.1-kmeans_files/figure-html/unnamed-chunk-1-1.png" width="288" /></p>
 <p>We first randomly assign them into two clusters (initiate a random <span class="math inline">\(C\)</span> function). Based on this cluster assignment, we can calculate the corresponding cluster mean <span class="math inline">\(m_k\)</span>’s.</p>
 <p><img src="2.1-kmeans_files/figure-html/unnamed-chunk-2-1.png" width="528" /></p>
 <p>Then we will assign each observation to the closest cluster mean. In this example, only the blue point on the top will be moved to a new cluster. Then the cluster means can then be recalculated.</p>
 <p><img src="2.1-kmeans_files/figure-html/unnamed-chunk-3-1.png" width="528" /></p>
 <p>When there is nothing to move anymore, the algorithm stops. Keep in mind that we started with a random cluster assignment, and this objective function is not convex. Hence we may obtain different results if started with different values. The solution is to try different starting points and use the best final results. This can be tuned using the <code>nstart</code> parameter in the <code>kmeans()</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># some random data</span>
-    <span class="kw">set.seed</span>(<span class="dv">1</span>)
-    mat =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">1000</span>), <span class="dv">50</span>, <span class="dv">20</span>)
-    
-    <span class="co"># if we use only one starting point</span>
-    <span class="kw">kmeans</span>(mat, <span class="dt">centers =</span> <span class="dv">3</span>, <span class="dt">nstart =</span> <span class="dv">1</span>)<span class="op">$</span>tot.withinss</code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="k-means-clustering.html#cb68-1"></a>    <span class="co"># some random data</span></span>
+<span id="cb68-2"><a href="k-means-clustering.html#cb68-2"></a>    <span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb68-3"><a href="k-means-clustering.html#cb68-3"></a>    mat =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">1000</span>), <span class="dv">50</span>, <span class="dv">20</span>)</span>
+<span id="cb68-4"><a href="k-means-clustering.html#cb68-4"></a>    </span>
+<span id="cb68-5"><a href="k-means-clustering.html#cb68-5"></a>    <span class="co"># if we use only one starting point</span></span>
+<span id="cb68-6"><a href="k-means-clustering.html#cb68-6"></a>    <span class="kw">kmeans</span>(mat, <span class="dt">centers =</span> <span class="dv">3</span>, <span class="dt">nstart =</span> <span class="dv">1</span>)<span class="op">$</span>tot.withinss</span></code></pre></div>
 <pre><code>## [1] 885.8913</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># if we use multiple starting point and pick the best one</span>
-    <span class="kw">kmeans</span>(mat, <span class="dt">centers =</span> <span class="dv">3</span>, <span class="dt">nstart =</span> <span class="dv">100</span>)<span class="op">$</span>tot.withinss</code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="k-means-clustering.html#cb70-1"></a>    <span class="co"># if we use multiple starting point and pick the best one</span></span>
+<span id="cb70-2"><a href="k-means-clustering.html#cb70-2"></a>    <span class="kw">kmeans</span>(mat, <span class="dt">centers =</span> <span class="dv">3</span>, <span class="dt">nstart =</span> <span class="dv">100</span>)<span class="op">$</span>tot.withinss</span></code></pre></div>
 <pre><code>## [1] 883.8241</code></pre>
 </div>
 <div id="example-1-iris-data" class="section level2">
 <h2><span class="header-section-number">6.2</span> Example 1: <code>iris</code> data</h2>
 <p>We use the classical <code>iris</code> data as an example. This dataset contains three different classes, but the goal here is to learn the clusters without knowing the class labels.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># plot the original data using two varaibles</span>
-    <span class="kw">head</span>(iris)</code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="k-means-clustering.html#cb72-1"></a>    <span class="co"># plot the original data using two varaibles</span></span>
+<span id="cb72-2"><a href="k-means-clustering.html#cb72-2"></a>    <span class="kw">head</span>(iris)</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
 ## 2          4.9         3.0          1.4         0.2  setosa
@@ -225,93 +294,93 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 4          4.6         3.1          1.5         0.2  setosa
 ## 5          5.0         3.6          1.4         0.2  setosa
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">library</span>(ggplot2)
-    <span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(Petal.Length, Petal.Width, <span class="dt">color =</span> Species)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="k-means-clustering.html#cb74-1"></a>    <span class="kw">library</span>(ggplot2)</span>
+<span id="cb74-2"><a href="k-means-clustering.html#cb74-2"></a>    <span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(Petal.Length, Petal.Width, <span class="dt">color =</span> Species)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="2.1-kmeans_files/figure-html/unnamed-chunk-5-1.png" width="50%" /></p>
 <p>The last two variables in the <code>iris</code> data carry more information on separating the three classes. Hence we will only use the <code>Petal.Length</code> and <code>Petal.Width</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">library</span>(colorspace)
-    <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>), <span class="dt">xpd =</span> <span class="ot">TRUE</span>)
-    MASS<span class="op">::</span><span class="kw">parcoord</span>(iris[, <span class="op">-</span><span class="dv">5</span>], <span class="dt">col =</span> <span class="kw">rainbow_hcl</span>(<span class="dv">3</span>)[iris<span class="op">$</span>Species], 
-                   <span class="dt">var.label =</span> <span class="ot">TRUE</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)
-    <span class="kw">legend</span>(<span class="dt">x =</span> <span class="fl">1.2</span>, <span class="dt">y =</span> <span class="fl">1.3</span>, <span class="dt">cex =</span> <span class="dv">1</span>,
-       <span class="dt">legend =</span> <span class="kw">as.character</span>(<span class="kw">levels</span>(iris<span class="op">$</span>Species)),
-        <span class="dt">fill =</span> <span class="kw">rainbow_hcl</span>(<span class="dv">3</span>), <span class="dt">horiz =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="k-means-clustering.html#cb75-1"></a>    <span class="kw">library</span>(colorspace)</span>
+<span id="cb75-2"><a href="k-means-clustering.html#cb75-2"></a>    <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>), <span class="dt">xpd =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb75-3"><a href="k-means-clustering.html#cb75-3"></a>    MASS<span class="op">::</span><span class="kw">parcoord</span>(iris[, <span class="dv">-5</span>], <span class="dt">col =</span> <span class="kw">rainbow_hcl</span>(<span class="dv">3</span>)[iris<span class="op">$</span>Species], </span>
+<span id="cb75-4"><a href="k-means-clustering.html#cb75-4"></a>                   <span class="dt">var.label =</span> <span class="ot">TRUE</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb75-5"><a href="k-means-clustering.html#cb75-5"></a>    <span class="kw">legend</span>(<span class="dt">x =</span> <span class="fl">1.2</span>, <span class="dt">y =</span> <span class="fl">1.3</span>, <span class="dt">cex =</span> <span class="dv">1</span>,</span>
+<span id="cb75-6"><a href="k-means-clustering.html#cb75-6"></a>       <span class="dt">legend =</span> <span class="kw">as.character</span>(<span class="kw">levels</span>(iris<span class="op">$</span>Species)),</span>
+<span id="cb75-7"><a href="k-means-clustering.html#cb75-7"></a>        <span class="dt">fill =</span> <span class="kw">rainbow_hcl</span>(<span class="dv">3</span>), <span class="dt">horiz =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p><img src="2.1-kmeans_files/figure-html/unnamed-chunk-6-1.png" width="55%" /></p>
 <p>Let’s perfrom the <span class="math inline">\(k\)</span>-means clustering</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">set.seed</span>(<span class="dv">1</span>)
-
-    <span class="co"># k mean clustering</span>
-    iris.kmean &lt;-<span class="st"> </span><span class="kw">kmeans</span>(iris[, <span class="dv">3</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">centers =</span> <span class="dv">3</span>, <span class="dt">nstart =</span> <span class="dv">20</span>)
-    
-    <span class="co"># the center of each class</span>
-    iris.kmean<span class="op">$</span>centers</code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="k-means-clustering.html#cb76-1"></a>    <span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb76-2"><a href="k-means-clustering.html#cb76-2"></a></span>
+<span id="cb76-3"><a href="k-means-clustering.html#cb76-3"></a>    <span class="co"># k mean clustering</span></span>
+<span id="cb76-4"><a href="k-means-clustering.html#cb76-4"></a>    iris.kmean &lt;-<span class="st"> </span><span class="kw">kmeans</span>(iris[, <span class="dv">3</span><span class="op">:</span><span class="dv">4</span>], <span class="dt">centers =</span> <span class="dv">3</span>, <span class="dt">nstart =</span> <span class="dv">20</span>)</span>
+<span id="cb76-5"><a href="k-means-clustering.html#cb76-5"></a>    </span>
+<span id="cb76-6"><a href="k-means-clustering.html#cb76-6"></a>    <span class="co"># the center of each class</span></span>
+<span id="cb76-7"><a href="k-means-clustering.html#cb76-7"></a>    iris.kmean<span class="op">$</span>centers</span></code></pre></div>
 <pre><code>##   Petal.Length Petal.Width
 ## 1     1.462000    0.246000
 ## 2     5.595833    2.037500
 ## 3     4.269231    1.342308</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># the within cluster variation </span>
-    iris.kmean<span class="op">$</span>withinss</code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="k-means-clustering.html#cb78-1"></a>    <span class="co"># the within cluster variation </span></span>
+<span id="cb78-2"><a href="k-means-clustering.html#cb78-2"></a>    iris.kmean<span class="op">$</span>withinss</span></code></pre></div>
 <pre><code>## [1]  2.02200 16.29167 13.05769</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># the between cluster variation </span>
-    iris.kmean<span class="op">$</span>betweenss</code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="k-means-clustering.html#cb80-1"></a>    <span class="co"># the between cluster variation </span></span>
+<span id="cb80-2"><a href="k-means-clustering.html#cb80-2"></a>    iris.kmean<span class="op">$</span>betweenss</span></code></pre></div>
 <pre><code>## [1] 519.524</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># plot the fitted clusters vs. the truth</span>
-    iris.kmean<span class="op">$</span>cluster &lt;-<span class="st"> </span><span class="kw">as.factor</span>(iris.kmean<span class="op">$</span>cluster)
-    
-    <span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(Petal.Length, Petal.Width, <span class="dt">color =</span> Species)) <span class="op">+</span><span class="st"> </span><span class="co"># true cluster</span>
-<span class="st">            </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>, <span class="dt">size =</span> <span class="fl">3.5</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">            </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>, <span class="st">&#39;blue&#39;</span>)) <span class="op">+</span>
-<span class="st">            </span><span class="kw">geom_point</span>(<span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;red&quot;</span>)[iris.kmean<span class="op">$</span>cluster]) <span class="co"># fitted cluster </span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="k-means-clustering.html#cb82-1"></a>    <span class="co"># plot the fitted clusters vs. the truth</span></span>
+<span id="cb82-2"><a href="k-means-clustering.html#cb82-2"></a>    iris.kmean<span class="op">$</span>cluster &lt;-<span class="st"> </span><span class="kw">as.factor</span>(iris.kmean<span class="op">$</span>cluster)</span>
+<span id="cb82-3"><a href="k-means-clustering.html#cb82-3"></a>    </span>
+<span id="cb82-4"><a href="k-means-clustering.html#cb82-4"></a>    <span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(Petal.Length, Petal.Width, <span class="dt">color =</span> Species)) <span class="op">+</span><span class="st"> </span><span class="co"># true cluster</span></span>
+<span id="cb82-5"><a href="k-means-clustering.html#cb82-5"></a><span class="st">            </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>, <span class="dt">size =</span> <span class="fl">3.5</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb82-6"><a href="k-means-clustering.html#cb82-6"></a><span class="st">            </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>, <span class="st">&#39;blue&#39;</span>)) <span class="op">+</span></span>
+<span id="cb82-7"><a href="k-means-clustering.html#cb82-7"></a><span class="st">            </span><span class="kw">geom_point</span>(<span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;red&quot;</span>)[iris.kmean<span class="op">$</span>cluster]) <span class="co"># fitted cluster </span></span></code></pre></div>
 <p><img src="2.1-kmeans_files/figure-html/unnamed-chunk-7-1.png" width="50%" /></p>
 </div>
 <div id="example-2-clustering-of-image-pixels" class="section level2">
 <h2><span class="header-section-number">6.3</span> Example 2: clustering of image pixels</h2>
 <p>Let’s first load and plot an image of Leo.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">library</span>(jpeg)
-    img&lt;-<span class="kw">readJPEG</span>(<span class="st">&quot;images/leo.jpg&quot;</span>)
-    
-    <span class="co"># generate a blank image</span>
-    <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">rep</span>(<span class="fl">0.2</span>, <span class="dv">4</span>))
-    <span class="kw">plot</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">400</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">500</span>), <span class="dt">xaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="dt">yaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="dt">bty =</span> <span class="st">&#39;n&#39;</span>, <span class="dt">pch =</span> <span class="st">&#39;&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;&#39;</span>, <span class="dt">xlab =</span> <span class="st">&#39;&#39;</span>)
-
-    <span class="kw">rasterImage</span>(img, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">500</span>)</code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="k-means-clustering.html#cb83-1"></a>    <span class="kw">library</span>(jpeg)</span>
+<span id="cb83-2"><a href="k-means-clustering.html#cb83-2"></a>    img&lt;-<span class="kw">readJPEG</span>(<span class="st">&quot;images/leo.jpg&quot;</span>)</span>
+<span id="cb83-3"><a href="k-means-clustering.html#cb83-3"></a>    </span>
+<span id="cb83-4"><a href="k-means-clustering.html#cb83-4"></a>    <span class="co"># generate a blank image</span></span>
+<span id="cb83-5"><a href="k-means-clustering.html#cb83-5"></a>    <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">rep</span>(<span class="fl">0.2</span>, <span class="dv">4</span>))</span>
+<span id="cb83-6"><a href="k-means-clustering.html#cb83-6"></a>    <span class="kw">plot</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">400</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">500</span>), <span class="dt">xaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="dt">yaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="dt">bty =</span> <span class="st">&#39;n&#39;</span>, <span class="dt">pch =</span> <span class="st">&#39;&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;&#39;</span>, <span class="dt">xlab =</span> <span class="st">&#39;&#39;</span>)</span>
+<span id="cb83-7"><a href="k-means-clustering.html#cb83-7"></a></span>
+<span id="cb83-8"><a href="k-means-clustering.html#cb83-8"></a>    <span class="kw">rasterImage</span>(img, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">500</span>)</span></code></pre></div>
 <p><img src="2.1-kmeans_files/figure-html/unnamed-chunk-8-1.png" width="288" /></p>
 <p>For a <code>jpg</code> file, each pixel is stored as a vector with 3 elements — representing red, green and blue intensities. However, by the way, that this objective <code>img</code> being constructed, it is stored as a 3d array. The first two dimensions are the height and width of the figure. We need to vectorize them and treat each pixel as an observation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">dim</span>(img)</code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="k-means-clustering.html#cb84-1"></a>    <span class="kw">dim</span>(img)</span></code></pre></div>
 <pre><code>## [1] 500 400   3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># this apply function applies vecterization to each layer (r/g/b) of the image. </span>
-    img_expand =<span class="st"> </span><span class="kw">apply</span>(img, <span class="dv">3</span>, c)
-
-    <span class="co"># and now we have the desired data matrix</span>
-    <span class="kw">dim</span>(img_expand)</code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="k-means-clustering.html#cb86-1"></a>    <span class="co"># this apply function applies vecterization to each layer (r/g/b) of the image. </span></span>
+<span id="cb86-2"><a href="k-means-clustering.html#cb86-2"></a>    img_expand =<span class="st"> </span><span class="kw">apply</span>(img, <span class="dv">3</span>, c)</span>
+<span id="cb86-3"><a href="k-means-clustering.html#cb86-3"></a></span>
+<span id="cb86-4"><a href="k-means-clustering.html#cb86-4"></a>    <span class="co"># and now we have the desired data matrix</span></span>
+<span id="cb86-5"><a href="k-means-clustering.html#cb86-5"></a>    <span class="kw">dim</span>(img_expand)</span></code></pre></div>
 <pre><code>## [1] 200000      3</code></pre>
 <p>Before performing the <span class="math inline">\(k\)</span>-mean clustering, let’s have a quick peek at the data in a 3d view. Since there are too many observations, we randomly sample a few.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    <span class="kw">library</span>(scatterplot3d)
-    <span class="kw">set.seed</span>(<span class="dv">1</span>)
-    sub_pixels =<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(img_expand), <span class="dv">1000</span>)
-    sub_img_expand =<span class="st"> </span>img_expand[sub_pixels, ]
-    
-    <span class="kw">scatterplot3d</span>(sub_img_expand, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">xlab =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;green&quot;</span>, <span class="dt">zlab =</span> <span class="st">&quot;blue&quot;</span>, 
-                  <span class="dt">color =</span> <span class="kw">rgb</span>(sub_img_expand[,<span class="dv">1</span>], sub_img_expand[,<span class="dv">2</span>], sub_img_expand[,<span class="dv">3</span>]))</code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="k-means-clustering.html#cb88-1"></a>    <span class="kw">library</span>(scatterplot3d)</span>
+<span id="cb88-2"><a href="k-means-clustering.html#cb88-2"></a>    <span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb88-3"><a href="k-means-clustering.html#cb88-3"></a>    sub_pixels =<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(img_expand), <span class="dv">1000</span>)</span>
+<span id="cb88-4"><a href="k-means-clustering.html#cb88-4"></a>    sub_img_expand =<span class="st"> </span>img_expand[sub_pixels, ]</span>
+<span id="cb88-5"><a href="k-means-clustering.html#cb88-5"></a>    </span>
+<span id="cb88-6"><a href="k-means-clustering.html#cb88-6"></a>    <span class="kw">scatterplot3d</span>(sub_img_expand, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">xlab =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;green&quot;</span>, <span class="dt">zlab =</span> <span class="st">&quot;blue&quot;</span>, </span>
+<span id="cb88-7"><a href="k-means-clustering.html#cb88-7"></a>                  <span class="dt">color =</span> <span class="kw">rgb</span>(sub_img_expand[,<span class="dv">1</span>], sub_img_expand[,<span class="dv">2</span>], sub_img_expand[,<span class="dv">3</span>]))</span></code></pre></div>
 <p><img src="2.1-kmeans_files/figure-html/unnamed-chunk-10-1.png" width="480" /></p>
 <p>The next step is to perform the <span class="math inline">\(k\)</span>-mean and obtain the cluster label. For example, let’s try 5 clusters.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">    kmeanfit &lt;-<span class="st"> </span><span class="kw">kmeans</span>(img_expand, <span class="dv">5</span>)
-
-    <span class="co"># to produce the new graph, we simply replicate the cluster mean for all observations in the same cluster</span>
-    new_img_expand =<span class="st"> </span>kmeanfit<span class="op">$</span>centers[kmeanfit<span class="op">$</span>cluster, ]
-    
-    <span class="co"># now we need to convert this back to the array that can be plotted as an image. </span>
-    <span class="co"># this is a lazy way to do it, but get the job done</span>
-    new_img =<span class="st"> </span>img
-    new_img[, , <span class="dv">1</span>] =<span class="st"> </span><span class="kw">matrix</span>(new_img_expand[,<span class="dv">1</span>], <span class="dv">500</span>, <span class="dv">400</span>)
-    new_img[, , <span class="dv">2</span>] =<span class="st"> </span><span class="kw">matrix</span>(new_img_expand[,<span class="dv">2</span>], <span class="dv">500</span>, <span class="dv">400</span>)
-    new_img[, , <span class="dv">3</span>] =<span class="st"> </span><span class="kw">matrix</span>(new_img_expand[,<span class="dv">3</span>], <span class="dv">500</span>, <span class="dv">400</span>)
-
-    <span class="co"># plot the new image</span>
-    <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">rep</span>(<span class="fl">0.2</span>, <span class="dv">4</span>))
-    <span class="kw">plot</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">400</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">500</span>), <span class="dt">xaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="dt">yaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="dt">bty =</span> <span class="st">&#39;n&#39;</span>, <span class="dt">pch =</span> <span class="st">&#39;&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;&#39;</span>, <span class="dt">xlab =</span> <span class="st">&#39;&#39;</span>)
-
-    <span class="kw">rasterImage</span>(new_img, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">500</span>)</code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="k-means-clustering.html#cb89-1"></a>    kmeanfit &lt;-<span class="st"> </span><span class="kw">kmeans</span>(img_expand, <span class="dv">5</span>)</span>
+<span id="cb89-2"><a href="k-means-clustering.html#cb89-2"></a></span>
+<span id="cb89-3"><a href="k-means-clustering.html#cb89-3"></a>    <span class="co"># to produce the new graph, we simply replicate the cluster mean for all observations in the same cluster</span></span>
+<span id="cb89-4"><a href="k-means-clustering.html#cb89-4"></a>    new_img_expand =<span class="st"> </span>kmeanfit<span class="op">$</span>centers[kmeanfit<span class="op">$</span>cluster, ]</span>
+<span id="cb89-5"><a href="k-means-clustering.html#cb89-5"></a>    </span>
+<span id="cb89-6"><a href="k-means-clustering.html#cb89-6"></a>    <span class="co"># now we need to convert this back to the array that can be plotted as an image. </span></span>
+<span id="cb89-7"><a href="k-means-clustering.html#cb89-7"></a>    <span class="co"># this is a lazy way to do it, but get the job done</span></span>
+<span id="cb89-8"><a href="k-means-clustering.html#cb89-8"></a>    new_img =<span class="st"> </span>img</span>
+<span id="cb89-9"><a href="k-means-clustering.html#cb89-9"></a>    new_img[, , <span class="dv">1</span>] =<span class="st"> </span><span class="kw">matrix</span>(new_img_expand[,<span class="dv">1</span>], <span class="dv">500</span>, <span class="dv">400</span>)</span>
+<span id="cb89-10"><a href="k-means-clustering.html#cb89-10"></a>    new_img[, , <span class="dv">2</span>] =<span class="st"> </span><span class="kw">matrix</span>(new_img_expand[,<span class="dv">2</span>], <span class="dv">500</span>, <span class="dv">400</span>)</span>
+<span id="cb89-11"><a href="k-means-clustering.html#cb89-11"></a>    new_img[, , <span class="dv">3</span>] =<span class="st"> </span><span class="kw">matrix</span>(new_img_expand[,<span class="dv">3</span>], <span class="dv">500</span>, <span class="dv">400</span>)</span>
+<span id="cb89-12"><a href="k-means-clustering.html#cb89-12"></a></span>
+<span id="cb89-13"><a href="k-means-clustering.html#cb89-13"></a>    <span class="co"># plot the new image</span></span>
+<span id="cb89-14"><a href="k-means-clustering.html#cb89-14"></a>    <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">rep</span>(<span class="fl">0.2</span>, <span class="dv">4</span>))</span>
+<span id="cb89-15"><a href="k-means-clustering.html#cb89-15"></a>    <span class="kw">plot</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">400</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">500</span>), <span class="dt">xaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="dt">yaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="dt">bty =</span> <span class="st">&#39;n&#39;</span>, <span class="dt">pch =</span> <span class="st">&#39;&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;&#39;</span>, <span class="dt">xlab =</span> <span class="st">&#39;&#39;</span>)</span>
+<span id="cb89-16"><a href="k-means-clustering.html#cb89-16"></a></span>
+<span id="cb89-17"><a href="k-means-clustering.html#cb89-17"></a>    <span class="kw">rasterImage</span>(new_img, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">500</span>)</span></code></pre></div>
 <p><img src="2.1-kmeans_files/figure-html/unnamed-chunk-11-1.png" width="288" /></p>
 <p>With this technique, we can easily reproduce results with different <span class="math inline">\(k\)</span> values. Apparently, as <span class="math inline">\(k\)</span> increases, we get better resolution. <span class="math inline">\(k = 30\)</span> seems to recover the original image fairly well.</p>
 <pre><code>## Warning: did not converge in 10 iterations</code></pre>
@@ -330,11 +399,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -342,12 +413,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -359,6 +430,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -375,7 +450,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))

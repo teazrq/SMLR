@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 12 Splines | Statistical Learning with R</title>
+  <meta name="description" content="Chapter 12 Splines | Statistical Learning with R" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 12 Splines | Statistical Learning with R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://teazrq.github.io/SLRL/" />
+  
+  
+  <meta name="github-repo" content="teazrq/SLRL" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 12 Splines | Statistical Learning with R" />
+  
+  
+  
+
+<meta name="author" content="Ruoqing Zhu" />
+
+
+<meta name="date" content="2021-06-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="prev" href="lasso-regression.html"/>
+<link rel="next" href="smoothing-splines.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Statistical Learning with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#target-audience"><i class="fa fa-check"></i>Target Audience</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#whats-covered"><i class="fa fa-check"></i>What’s Covered?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
+</ul></li>
+<li class="part"><span><b>I Basics Knowledge</b></span></li>
+<li class="chapter" data-level="1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> R and RStudio</a><ul>
+<li class="chapter" data-level="1.1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#resources-and-guides"><i class="fa fa-check"></i><b>1.1</b> Resources and Guides</a></li>
+<li class="chapter" data-level="1.2" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#basic-mathematical-operations"><i class="fa fa-check"></i><b>1.2</b> Basic Mathematical Operations</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#data-objects"><i class="fa fa-check"></i><b>1.2.1</b> Data Objects</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#read-in-data-from-other-sources"><i class="fa fa-check"></i><b>1.3</b> Read-in Data from Other Sources</a></li>
+<li class="chapter" data-level="1.4" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#using-packages"><i class="fa fa-check"></i><b>1.4</b> Using Packages</a></li>
+<li class="chapter" data-level="1.5" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#explore-yourself"><i class="fa fa-check"></i><b>1.5</b> Explore Yourself</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html"><i class="fa fa-check"></i><b>2</b> RMarkdown Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#acknowledgement"><i class="fa fa-check"></i><b>2.1</b> Acknowledgement</a></li>
+<li class="chapter" data-level="2.2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#getting-started"><i class="fa fa-check"></i><b>2.2</b> Getting Started</a></li>
+<li class="chapter" data-level="2.3" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#adding-r"><i class="fa fa-check"></i><b>2.3</b> Adding <code>R</code></a><ul>
+<li class="chapter" data-level="2.3.1" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#r-chunks"><i class="fa fa-check"></i><b>2.3.1</b> <code>R</code> Chunks</a></li>
+<li class="chapter" data-level="2.3.2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#inline-r"><i class="fa fa-check"></i><b>2.3.2</b> Inline <code>R</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#importing-data"><i class="fa fa-check"></i><b>2.4</b> Importing Data</a></li>
+<li class="chapter" data-level="2.5" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#working-directory"><i class="fa fa-check"></i><b>2.5</b> Working Directory</a></li>
+<li class="chapter" data-level="2.6" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#packages"><i class="fa fa-check"></i><b>2.6</b> Packages</a></li>
+<li class="chapter" data-level="2.7" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#plotting"><i class="fa fa-check"></i><b>2.7</b> Plotting</a></li>
+<li class="chapter" data-level="2.8" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#chunk-options"><i class="fa fa-check"></i><b>2.8</b> Chunk Options</a></li>
+<li class="chapter" data-level="2.9" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#adding-math-with-latex"><i class="fa fa-check"></i><b>2.9</b> Adding Math with LaTeX</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#displaystyle-latex"><i class="fa fa-check"></i><b>2.9.1</b> Displaystyle LaTeX</a></li>
+<li class="chapter" data-level="2.9.2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#inline-latex"><i class="fa fa-check"></i><b>2.9.2</b> Inline LaTex</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#output-options"><i class="fa fa-check"></i><b>2.10</b> Output Options</a></li>
+<li class="chapter" data-level="2.11" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#try-it"><i class="fa fa-check"></i><b>2.11</b> Try It!</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html"><i class="fa fa-check"></i><b>3</b> Basics of Probability and Statistics</a><ul>
+<li class="chapter" data-level="3.1" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#random-number-generation"><i class="fa fa-check"></i><b>3.1</b> Random Number Generation</a></li>
+<li class="chapter" data-level="3.2" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#summary-statistics-and-data-visualization"><i class="fa fa-check"></i><b>3.2</b> Summary Statistics and Data Visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="modeling-basics.html"><a href="modeling-basics.html"><i class="fa fa-check"></i><b>4</b> Modeling Basics</a><ul>
+<li class="chapter" data-level="4.1" data-path="modeling-basics.html"><a href="modeling-basics.html#fitting-linear-regression"><i class="fa fa-check"></i><b>4.1</b> Fitting Linear Regression</a></li>
+<li class="chapter" data-level="4.2" data-path="modeling-basics.html"><a href="modeling-basics.html#model-diagnostics"><i class="fa fa-check"></i><b>4.2</b> Model Diagnostics</a></li>
+<li class="chapter" data-level="4.3" data-path="modeling-basics.html"><a href="modeling-basics.html#variable-transformations-and-interactions"><i class="fa fa-check"></i><b>4.3</b> Variable Transformations and Interactions</a></li>
+<li class="chapter" data-level="4.4" data-path="modeling-basics.html"><a href="modeling-basics.html#model-selection"><i class="fa fa-check"></i><b>4.4</b> Model Selection</a></li>
+<li class="chapter" data-level="4.5" data-path="modeling-basics.html"><a href="modeling-basics.html#prediction"><i class="fa fa-check"></i><b>4.5</b> Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>5</b> Optimization</a></li>
+<li class="part"><span><b>II Unsupervised Learning</b></span></li>
+<li class="chapter" data-level="6" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>6</b> K-means Clustering</a><ul>
+<li class="chapter" data-level="6.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#basic-concepts"><i class="fa fa-check"></i><b>6.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="6.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#example-1-iris-data"><i class="fa fa-check"></i><b>6.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="6.3" data-path="k-means-clustering.html"><a href="k-means-clustering.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>6.3</b> Example 2: clustering of image pixels</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>7</b> Hierarchical Clustering</a><ul>
+<li class="chapter" data-level="7.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>7.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="7.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>7.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="7.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>7.3</b> Example 2: RNA Expression Data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html"><i class="fa fa-check"></i><b>8</b> Principle Component Analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>8.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>8.1.1</b> Note: Scaling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>8.2</b> Example 1: <code>iris</code> Data</a></li>
+<li class="chapter" data-level="8.3" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>8.3</b> Example 2: Handwritten Digits</a></li>
+</ul></li>
+<li class="part"><span><b>III Linear and Penalized Linear Regressions</b></span></li>
+<li class="chapter" data-level="9" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html"><i class="fa fa-check"></i><b>9</b> Linear Regression and Model Selection</a><ul>
+<li class="chapter" data-level="9.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#basic-concepts-3"><i class="fa fa-check"></i><b>9.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#linear-regression-as-an-optimization"><i class="fa fa-check"></i><b>9.1.1</b> Linear regression as an optimization</a></li>
+<li class="chapter" data-level="9.1.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#linear-regression-as-projections"><i class="fa fa-check"></i><b>9.1.2</b> Linear regression as projections</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-criteria-and-algorithm"><i class="fa fa-check"></i><b>9.2</b> Model Selection Criteria and Algorithm</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#example-diabetes-dataset"><i class="fa fa-check"></i><b>9.2.1</b> Example: <code>diabetes</code> dataset</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ridge-regression.html"><a href="ridge-regression.html"><i class="fa fa-check"></i><b>10</b> Ridge Regression</a><ul>
+<li class="chapter" data-level="10.1" data-path="ridge-regression.html"><a href="ridge-regression.html#basic-concepts-4"><i class="fa fa-check"></i><b>10.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="ridge-regression.html"><a href="ridge-regression.html#correlated-variables-and-convexity"><i class="fa fa-check"></i><b>10.1.1</b> Correlated Variables and Convexity</a></li>
+<li class="chapter" data-level="10.1.2" data-path="ridge-regression.html"><a href="ridge-regression.html#example-1-the-prostate-cancer-data"><i class="fa fa-check"></i><b>10.1.2</b> Example 1: The Prostate Cancer Data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="lasso-regression.html"><a href="lasso-regression.html"><i class="fa fa-check"></i><b>11</b> Lasso Regression</a><ul>
+<li class="chapter" data-level="11.1" data-path="lasso-regression.html"><a href="lasso-regression.html#basic-concepts-5"><i class="fa fa-check"></i><b>11.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="lasso-regression.html"><a href="lasso-regression.html#variable-selection-property"><i class="fa fa-check"></i><b>11.1.1</b> Variable Selection Property</a></li>
+<li class="chapter" data-level="11.1.2" data-path="lasso-regression.html"><a href="lasso-regression.html#example-1-the-prostate-cancer-data-1"><i class="fa fa-check"></i><b>11.1.2</b> Example 1: The Prostate Cancer Data</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Nonlinear and Nonparametric Models</b></span></li>
+<li class="chapter" data-level="12" data-path="splines.html"><a href="splines.html"><i class="fa fa-check"></i><b>12</b> Splines</a><ul>
+<li class="chapter" data-level="12.1" data-path="splines.html"><a href="splines.html#basic-concepts-6"><i class="fa fa-check"></i><b>12.1</b> Basic Concepts</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="smoothing-splines.html"><a href="smoothing-splines.html"><i class="fa fa-check"></i><b>13</b> Smoothing Splines</a><ul>
+<li class="chapter" data-level="13.1" data-path="smoothing-splines.html"><a href="smoothing-splines.html#basic-concepts-7"><i class="fa fa-check"></i><b>13.1</b> Basic Concepts</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="kernel-regression.html"><a href="kernel-regression.html"><i class="fa fa-check"></i><b>14</b> Kernel Regression</a><ul>
+<li class="chapter" data-level="14.1" data-path="kernel-regression.html"><a href="kernel-regression.html#basic-concepts-8"><i class="fa fa-check"></i><b>14.1</b> Basic Concepts</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="kernel-density-estimation.html"><a href="kernel-density-estimation.html"><i class="fa fa-check"></i><b>15</b> Kernel Density Estimation</a><ul>
+<li class="chapter" data-level="15.1" data-path="kernel-density-estimation.html"><a href="kernel-density-estimation.html#basic-concepts-9"><i class="fa fa-check"></i><b>15.1</b> Basic Concepts</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>16</b> References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/teazrq/SLWR" target="blank">&copy; 2018 Ruoqing Zhu</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Learning with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="splines" class="section level1">
+<h1><span class="header-section-number">Chapter 12</span> Splines</h1>
+<p>What?</p>
+<div id="basic-concepts-6" class="section level2">
+<h2><span class="header-section-number">12.1</span> Basic Concepts</h2>
+
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="lasso-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="smoothing-splines.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/teazrq/SLWR/edit/master/4.1-spline.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["RESL.pdf"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

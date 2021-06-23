@@ -1,0 +1,16 @@
+# (PART) Nonlinear and Nonparametric Models {-}
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(fig.align='center')
+options(width = 1000)
+```
+
+\usepackage{talk}
+
+# Splines
+
+What?
+
+## Basic Concepts

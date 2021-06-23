@@ -1,8 +1,4 @@
----
-title: Linear Regression and Model Selection
-author: Ruoqing Zhu
-abstract: This is the supplementary `R` file for linear regression in the lecture note "LinearReg".
----
+# (PART) Linear and Penalized Linear Regressions {-}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -10,6 +6,8 @@ knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(fig.align='center')
 options(width = 1000)
 ```
+
+# Linear Regression and Model Selection
 
 ## Basic Concepts
 
