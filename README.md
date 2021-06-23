@@ -1,3 +1,1 @@
-# `SLRL` Statistical Learning R Lab
-
-I am teaching STAT 542 (Statistical Learning) and STAT 432 (Basics of Statistical Learning) at UIUC, and I found it necessary to share all the R code with students in a convenient way. This repository is intended to integrate all these materials together, for both courses. Using RStudio Cloud, we can directly link this repository for students. My materials mainly focus on providing `R` examples of Statistical Machine Learning models and introducing optimization approaches to solve some of them. Eventually, I would like to build it towards a book like [this one](https://daviddalpiaz.github.io/r4sl/) by David Dalpiaz, who taught a previous version of STAT 432.
+# `SMLR` Statistical Learning and Machine Learning with R
