@@ -10,10 +10,10 @@
 
   <meta property="og:title" content="Chapter 8 Principle Component Analysis | Statistical Learning with R" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="http://teazrq.github.io/SLRL/" />
+  <meta property="og:url" content="http://teazrq.github.io/SLWR/" />
   
   
-  <meta name="github-repo" content="teazrq/SLRL" />
+  <meta name="github-repo" content="teazrq/SLWR" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 8 Principle Component Analysis | Statistical Learning with R" />
@@ -298,29 +298,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-2-1.png" width="480" /></p>
 <p>We can then take the residuals (after projecting onto this line), and find the largest variance direction of the residuals</p>
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-3-1.png" width="480" /></p>
-<pre><code>##    Comp.1    Comp.2 
-## 1.2151280 0.2348692</code></pre>
+<pre><code>##   Comp.1   Comp.2 
+## 1.229467 0.231331</code></pre>
 <p>We usually visualize the data in these two directions instead of the original covariates. Note that the coordinates on the PC’s can be obtained using either the <code>scores</code> in the fitted object of <code>princomp</code>, or simply multiply the original data matrix by the loadings.</p>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="principle-component-analysis.html#cb110-1"></a>    pcafit &lt;-<span class="st"> </span><span class="kw">princomp</span>(x)</span>
 <span id="cb110-2"><a href="principle-component-analysis.html#cb110-2"></a></span>
 <span id="cb110-3"><a href="principle-component-analysis.html#cb110-3"></a>    <span class="co"># the new coordinates on PC&#39;s</span></span>
 <span id="cb110-4"><a href="principle-component-analysis.html#cb110-4"></a>    <span class="kw">head</span>(pcafit<span class="op">$</span>scores)</span></code></pre></div>
-<pre><code>##           Comp.1      Comp.2
-## [1,] -0.01434101  0.21350868
-## [2,]  0.62899684 -0.51439210
-## [3,] -0.29229969 -0.06649302
-## [4,]  0.87280600  0.22098440
-## [5,] -0.75355573 -0.22465367
-## [6,] -2.90820693  0.15821305</code></pre>
+<pre><code>##         Comp.1      Comp.2
+## [1,] -1.995039 -0.06854579
+## [2,] -1.543402  0.04949967
+## [3,]  1.878666 -0.06335902
+## [4,] -1.210582  0.04343165
+## [5,] -1.713080 -0.23451209
+## [6,] -1.806531 -0.24214826</code></pre>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="principle-component-analysis.html#cb112-1"></a>    <span class="co"># direct calculation based on projection </span></span>
 <span id="cb112-2"><a href="principle-component-analysis.html#cb112-2"></a>    <span class="kw">head</span>(x <span class="op">%*%</span><span class="st"> </span>pcafit<span class="op">$</span>loadings)</span></code></pre></div>
-<pre><code>##           Comp.1      Comp.2
-## [1,] -0.01434101  0.21350868
-## [2,]  0.62899684 -0.51439210
-## [3,] -0.29229969 -0.06649302
-## [4,]  0.87280600  0.22098440
-## [5,] -0.75355573 -0.22465367
-## [6,] -2.90820693  0.15821305</code></pre>
+<pre><code>##         Comp.1      Comp.2
+## [1,] -1.995039 -0.06854579
+## [2,] -1.543402  0.04949967
+## [3,]  1.878666 -0.06335902
+## [4,] -1.210582  0.04343165
+## [5,] -1.713080 -0.23451209
+## [6,] -1.806531 -0.24214826</code></pre>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="principle-component-analysis.html#cb114-1"></a>    <span class="co"># visualize the data on the PCs</span></span>
 <span id="cb114-2"><a href="principle-component-analysis.html#cb114-2"></a>    <span class="co"># Note that the both axies are scaled </span></span>
 <span id="cb114-3"><a href="principle-component-analysis.html#cb114-3"></a>    <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>, <span class="fl">4.2</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>))</span>

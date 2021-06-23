@@ -10,10 +10,10 @@
 
   <meta property="og:title" content="Chapter 3 Basics of Probability and Statistics | Statistical Learning with R" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="http://teazrq.github.io/SLRL/" />
+  <meta property="og:url" content="http://teazrq.github.io/SLWR/" />
   
   
-  <meta name="github-repo" content="teazrq/SLRL" />
+  <meta name="github-repo" content="teazrq/SLWR" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 3 Basics of Probability and Statistics | Statistical Learning with R" />
@@ -265,10 +265,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Random number generation is important for statistical simulation. R provides random number generators for many commonly used distributions, such as binomial (<code>rbinom</code>), normal (<code>rnorm</code>), t (<code>rt</code>) etc. The syntax is usually a letter “r” followed by the name of the distribution.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="basics-of-probability-and-statistics.html#cb25-1"></a>    <span class="co"># generate 10 independent Bernoulli random variables as a vector</span></span>
 <span id="cb25-2"><a href="basics-of-probability-and-statistics.html#cb25-2"></a>    <span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</span>
-<span id="cb25-3"><a href="basics-of-probability-and-statistics.html#cb25-3"></a><span class="co">##  [1] 1 1 1 0 1 1 1 0 1 0</span></span>
+<span id="cb25-3"><a href="basics-of-probability-and-statistics.html#cb25-3"></a><span class="co">##  [1] 1 1 0 0 1 0 1 1 0 1</span></span>
 <span id="cb25-4"><a href="basics-of-probability-and-statistics.html#cb25-4"></a>    <span class="co"># 4 independent random standard normal variables</span></span>
 <span id="cb25-5"><a href="basics-of-probability-and-statistics.html#cb25-5"></a>    <span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">4</span>)</span>
-<span id="cb25-6"><a href="basics-of-probability-and-statistics.html#cb25-6"></a><span class="co">## [1]  0.06927116 -0.21617874 -1.69964766 -0.85785491</span></span></code></pre></div>
+<span id="cb25-6"><a href="basics-of-probability-and-statistics.html#cb25-6"></a><span class="co">## [1]  0.02298444 -2.25420395  1.29295247  0.62322148</span></span></code></pre></div>
 <p>Setting the seed before generating random numbers will allow us to replicate the results when necessary.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="basics-of-probability-and-statistics.html#cb26-1"></a>    <span class="co"># after setting the seed, the two runs will generate exactly the same &quot;random&quot; numbers</span></span>
 <span id="cb26-2"><a href="basics-of-probability-and-statistics.html#cb26-2"></a>    <span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
