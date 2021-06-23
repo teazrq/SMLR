@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 14 Smoothing Splines | Statistical Learning and Machine Learning with R</title>
-  <meta name="description" content="Chapter 14 Smoothing Splines | Statistical Learning and Machine Learning with R" />
+  <title>Chapter 13 Smoothing Splines | Statistical Learning and Machine Learning with R</title>
+  <meta name="description" content="Chapter 13 Smoothing Splines | Statistical Learning and Machine Learning with R" />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 14 Smoothing Splines | Statistical Learning and Machine Learning with R" />
+  <meta property="og:title" content="Chapter 13 Smoothing Splines | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://teazrq.github.io/SMLR/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 14 Smoothing Splines | Statistical Learning and Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 13 Smoothing Splines | Statistical Learning and Machine Learning with R" />
   
   
   
@@ -144,100 +144,99 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
 </ul></li>
 <li class="part"><span><b>I Basics Knowledge</b></span></li>
-<li class="chapter" data-level="1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html"><i class="fa fa-check"></i><b>1</b> R, RStudio and R Markdown</a></li>
-<li class="chapter" data-level="2" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>2</b> R Basics</a><ul>
-<li class="chapter" data-level="2.1" data-path="r-basics.html"><a href="r-basics.html#resources-and-guides"><i class="fa fa-check"></i><b>2.1</b> Resources and Guides</a></li>
-<li class="chapter" data-level="2.2" data-path="r-basics.html"><a href="r-basics.html#basic-mathematical-operations"><i class="fa fa-check"></i><b>2.2</b> Basic Mathematical Operations</a></li>
-<li class="chapter" data-level="2.3" data-path="r-basics.html"><a href="r-basics.html#data-objects"><i class="fa fa-check"></i><b>2.3</b> Data Objects</a></li>
-<li class="chapter" data-level="2.4" data-path="r-basics.html"><a href="r-basics.html#read-in-data-from-other-sources"><i class="fa fa-check"></i><b>2.4</b> Read-in Data from Other Sources</a></li>
-<li class="chapter" data-level="2.5" data-path="r-basics.html"><a href="r-basics.html#using-packages"><i class="fa fa-check"></i><b>2.5</b> Using Packages</a></li>
-<li class="chapter" data-level="2.6" data-path="r-basics.html"><a href="r-basics.html#explore-yourself"><i class="fa fa-check"></i><b>2.6</b> Explore Yourself</a></li>
+<li class="chapter" data-level="1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html"><i class="fa fa-check"></i><b>1</b> R, RStudio and R Markdown</a><ul>
+<li class="chapter" data-level="1.1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#resources-and-guides"><i class="fa fa-check"></i><b>1.1</b> Resources and Guides</a></li>
+<li class="chapter" data-level="1.2" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#basic-mathematical-operations"><i class="fa fa-check"></i><b>1.2</b> Basic Mathematical Operations</a></li>
+<li class="chapter" data-level="1.3" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#data-objects"><i class="fa fa-check"></i><b>1.3</b> Data Objects</a></li>
+<li class="chapter" data-level="1.4" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#read-in-data-from-other-sources"><i class="fa fa-check"></i><b>1.4</b> Read-in Data from Other Sources</a></li>
+<li class="chapter" data-level="1.5" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#using-packages"><i class="fa fa-check"></i><b>1.5</b> Using Packages</a></li>
+<li class="chapter" data-level="1.6" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#explore-yourself"><i class="fa fa-check"></i><b>1.6</b> Explore Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html"><i class="fa fa-check"></i><b>3</b> RMarkdown Basics</a><ul>
-<li class="chapter" data-level="3.1" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#acknowledgement"><i class="fa fa-check"></i><b>3.1</b> Acknowledgement</a></li>
-<li class="chapter" data-level="3.2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#getting-started"><i class="fa fa-check"></i><b>3.2</b> Getting Started</a></li>
-<li class="chapter" data-level="3.3" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#adding-r"><i class="fa fa-check"></i><b>3.3</b> Adding <code>R</code></a><ul>
-<li class="chapter" data-level="3.3.1" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#r-chunks"><i class="fa fa-check"></i><b>3.3.1</b> <code>R</code> Chunks</a></li>
-<li class="chapter" data-level="3.3.2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#inline-r"><i class="fa fa-check"></i><b>3.3.2</b> Inline <code>R</code></a></li>
+<li class="chapter" data-level="2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html"><i class="fa fa-check"></i><b>2</b> RMarkdown Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#acknowledgement"><i class="fa fa-check"></i><b>2.1</b> Acknowledgement</a></li>
+<li class="chapter" data-level="2.2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#getting-started"><i class="fa fa-check"></i><b>2.2</b> Getting Started</a></li>
+<li class="chapter" data-level="2.3" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#adding-r"><i class="fa fa-check"></i><b>2.3</b> Adding <code>R</code></a><ul>
+<li class="chapter" data-level="2.3.1" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#r-chunks"><i class="fa fa-check"></i><b>2.3.1</b> <code>R</code> Chunks</a></li>
+<li class="chapter" data-level="2.3.2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#inline-r"><i class="fa fa-check"></i><b>2.3.2</b> Inline <code>R</code></a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#importing-data"><i class="fa fa-check"></i><b>3.4</b> Importing Data</a></li>
-<li class="chapter" data-level="3.5" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#working-directory"><i class="fa fa-check"></i><b>3.5</b> Working Directory</a></li>
-<li class="chapter" data-level="3.6" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#packages"><i class="fa fa-check"></i><b>3.6</b> Packages</a></li>
-<li class="chapter" data-level="3.7" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#plotting"><i class="fa fa-check"></i><b>3.7</b> Plotting</a></li>
-<li class="chapter" data-level="3.8" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#chunk-options"><i class="fa fa-check"></i><b>3.8</b> Chunk Options</a></li>
-<li class="chapter" data-level="3.9" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#adding-math-with-latex"><i class="fa fa-check"></i><b>3.9</b> Adding Math with LaTeX</a><ul>
-<li class="chapter" data-level="3.9.1" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#displaystyle-latex"><i class="fa fa-check"></i><b>3.9.1</b> Displaystyle LaTeX</a></li>
-<li class="chapter" data-level="3.9.2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#inline-latex"><i class="fa fa-check"></i><b>3.9.2</b> Inline LaTex</a></li>
+<li class="chapter" data-level="2.4" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#importing-data"><i class="fa fa-check"></i><b>2.4</b> Importing Data</a></li>
+<li class="chapter" data-level="2.5" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#working-directory"><i class="fa fa-check"></i><b>2.5</b> Working Directory</a></li>
+<li class="chapter" data-level="2.6" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#packages"><i class="fa fa-check"></i><b>2.6</b> Packages</a></li>
+<li class="chapter" data-level="2.7" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#plotting"><i class="fa fa-check"></i><b>2.7</b> Plotting</a></li>
+<li class="chapter" data-level="2.8" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#chunk-options"><i class="fa fa-check"></i><b>2.8</b> Chunk Options</a></li>
+<li class="chapter" data-level="2.9" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#adding-math-with-latex"><i class="fa fa-check"></i><b>2.9</b> Adding Math with LaTeX</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#displaystyle-latex"><i class="fa fa-check"></i><b>2.9.1</b> Displaystyle LaTeX</a></li>
+<li class="chapter" data-level="2.9.2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#inline-latex"><i class="fa fa-check"></i><b>2.9.2</b> Inline LaTex</a></li>
 </ul></li>
-<li class="chapter" data-level="3.10" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#output-options"><i class="fa fa-check"></i><b>3.10</b> Output Options</a></li>
-<li class="chapter" data-level="3.11" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#try-it"><i class="fa fa-check"></i><b>3.11</b> Try It!</a></li>
+<li class="chapter" data-level="2.10" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#output-options"><i class="fa fa-check"></i><b>2.10</b> Output Options</a></li>
+<li class="chapter" data-level="2.11" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#try-it"><i class="fa fa-check"></i><b>2.11</b> Try It!</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html"><i class="fa fa-check"></i><b>4</b> Basics of Probability and Statistics</a><ul>
-<li class="chapter" data-level="4.1" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#random-number-generation"><i class="fa fa-check"></i><b>4.1</b> Random Number Generation</a></li>
-<li class="chapter" data-level="4.2" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#summary-statistics-and-data-visualization"><i class="fa fa-check"></i><b>4.2</b> Summary Statistics and Data Visualization</a></li>
+<li class="chapter" data-level="3" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html"><i class="fa fa-check"></i><b>3</b> Basics of Probability and Statistics</a><ul>
+<li class="chapter" data-level="3.1" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#random-number-generation"><i class="fa fa-check"></i><b>3.1</b> Random Number Generation</a></li>
+<li class="chapter" data-level="3.2" data-path="basics-of-probability-and-statistics.html"><a href="basics-of-probability-and-statistics.html#summary-statistics-and-data-visualization"><i class="fa fa-check"></i><b>3.2</b> Summary Statistics and Data Visualization</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="modeling-basics.html"><a href="modeling-basics.html"><i class="fa fa-check"></i><b>5</b> Modeling Basics</a><ul>
-<li class="chapter" data-level="5.1" data-path="modeling-basics.html"><a href="modeling-basics.html#fitting-linear-regression"><i class="fa fa-check"></i><b>5.1</b> Fitting Linear Regression</a></li>
-<li class="chapter" data-level="5.2" data-path="modeling-basics.html"><a href="modeling-basics.html#model-diagnostics"><i class="fa fa-check"></i><b>5.2</b> Model Diagnostics</a></li>
-<li class="chapter" data-level="5.3" data-path="modeling-basics.html"><a href="modeling-basics.html#variable-transformations-and-interactions"><i class="fa fa-check"></i><b>5.3</b> Variable Transformations and Interactions</a></li>
-<li class="chapter" data-level="5.4" data-path="modeling-basics.html"><a href="modeling-basics.html#model-selection"><i class="fa fa-check"></i><b>5.4</b> Model Selection</a></li>
-<li class="chapter" data-level="5.5" data-path="modeling-basics.html"><a href="modeling-basics.html#prediction"><i class="fa fa-check"></i><b>5.5</b> Prediction</a></li>
+<li class="chapter" data-level="4" data-path="modeling-basics.html"><a href="modeling-basics.html"><i class="fa fa-check"></i><b>4</b> Modeling Basics</a><ul>
+<li class="chapter" data-level="4.1" data-path="modeling-basics.html"><a href="modeling-basics.html#fitting-linear-regression"><i class="fa fa-check"></i><b>4.1</b> Fitting Linear Regression</a></li>
+<li class="chapter" data-level="4.2" data-path="modeling-basics.html"><a href="modeling-basics.html#model-diagnostics"><i class="fa fa-check"></i><b>4.2</b> Model Diagnostics</a></li>
+<li class="chapter" data-level="4.3" data-path="modeling-basics.html"><a href="modeling-basics.html#variable-transformations-and-interactions"><i class="fa fa-check"></i><b>4.3</b> Variable Transformations and Interactions</a></li>
+<li class="chapter" data-level="4.4" data-path="modeling-basics.html"><a href="modeling-basics.html#model-selection"><i class="fa fa-check"></i><b>4.4</b> Model Selection</a></li>
+<li class="chapter" data-level="4.5" data-path="modeling-basics.html"><a href="modeling-basics.html#prediction"><i class="fa fa-check"></i><b>4.5</b> Prediction</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>6</b> Optimization</a></li>
+<li class="chapter" data-level="5" data-path="optimization.html"><a href="optimization.html"><i class="fa fa-check"></i><b>5</b> Optimization</a></li>
 <li class="part"><span><b>II Unsupervised Learning</b></span></li>
-<li class="chapter" data-level="7" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>7</b> K-means Clustering</a><ul>
-<li class="chapter" data-level="7.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#basic-concepts"><i class="fa fa-check"></i><b>7.1</b> Basic Concepts</a></li>
-<li class="chapter" data-level="7.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#example-1-iris-data"><i class="fa fa-check"></i><b>7.2</b> Example 1: <code>iris</code> data</a></li>
-<li class="chapter" data-level="7.3" data-path="k-means-clustering.html"><a href="k-means-clustering.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>7.3</b> Example 2: clustering of image pixels</a></li>
+<li class="chapter" data-level="6" data-path="k-means-clustering.html"><a href="k-means-clustering.html"><i class="fa fa-check"></i><b>6</b> K-means Clustering</a><ul>
+<li class="chapter" data-level="6.1" data-path="k-means-clustering.html"><a href="k-means-clustering.html#basic-concepts"><i class="fa fa-check"></i><b>6.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="6.2" data-path="k-means-clustering.html"><a href="k-means-clustering.html#example-1-iris-data"><i class="fa fa-check"></i><b>6.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="6.3" data-path="k-means-clustering.html"><a href="k-means-clustering.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>6.3</b> Example 2: clustering of image pixels</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>8</b> Hierarchical Clustering</a><ul>
-<li class="chapter" data-level="8.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>8.1</b> Basic Concepts</a></li>
-<li class="chapter" data-level="8.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>8.2</b> Example 1: <code>iris</code> data</a></li>
-<li class="chapter" data-level="8.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>8.3</b> Example 2: RNA Expression Data</a></li>
+<li class="chapter" data-level="7" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>7</b> Hierarchical Clustering</a><ul>
+<li class="chapter" data-level="7.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>7.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="7.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>7.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="7.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>7.3</b> Example 2: RNA Expression Data</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html"><i class="fa fa-check"></i><b>9</b> Principle Component Analysis</a><ul>
-<li class="chapter" data-level="9.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>9.1</b> Basic Concepts</a><ul>
-<li class="chapter" data-level="9.1.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>9.1.1</b> Note: Scaling</a></li>
+<li class="chapter" data-level="8" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html"><i class="fa fa-check"></i><b>8</b> Principle Component Analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>8.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>8.1.1</b> Note: Scaling</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>9.2</b> Example 1: <code>iris</code> Data</a></li>
-<li class="chapter" data-level="9.3" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>9.3</b> Example 2: Handwritten Digits</a></li>
+<li class="chapter" data-level="8.2" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>8.2</b> Example 1: <code>iris</code> Data</a></li>
+<li class="chapter" data-level="8.3" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>8.3</b> Example 2: Handwritten Digits</a></li>
 </ul></li>
 <li class="part"><span><b>III Linear and Penalized Linear Regressions</b></span></li>
-<li class="chapter" data-level="10" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html"><i class="fa fa-check"></i><b>10</b> Linear Regression and Model Selection</a><ul>
-<li class="chapter" data-level="10.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#basic-concepts-3"><i class="fa fa-check"></i><b>10.1</b> Basic Concepts</a><ul>
-<li class="chapter" data-level="10.1.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#linear-regression-as-an-optimization"><i class="fa fa-check"></i><b>10.1.1</b> Linear regression as an optimization</a></li>
-<li class="chapter" data-level="10.1.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#linear-regression-as-projections"><i class="fa fa-check"></i><b>10.1.2</b> Linear regression as projections</a></li>
+<li class="chapter" data-level="9" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html"><i class="fa fa-check"></i><b>9</b> Linear Regression and Model Selection</a><ul>
+<li class="chapter" data-level="9.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#basic-concepts-3"><i class="fa fa-check"></i><b>9.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#linear-regression-as-an-optimization"><i class="fa fa-check"></i><b>9.1.1</b> Linear regression as an optimization</a></li>
+<li class="chapter" data-level="9.1.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#linear-regression-as-projections"><i class="fa fa-check"></i><b>9.1.2</b> Linear regression as projections</a></li>
 </ul></li>
-<li class="chapter" data-level="10.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-criteria-and-algorithm"><i class="fa fa-check"></i><b>10.2</b> Model Selection Criteria and Algorithm</a><ul>
-<li class="chapter" data-level="10.2.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#example-diabetes-dataset"><i class="fa fa-check"></i><b>10.2.1</b> Example: <code>diabetes</code> dataset</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="ridge-regression.html"><a href="ridge-regression.html"><i class="fa fa-check"></i><b>11</b> Ridge Regression</a><ul>
-<li class="chapter" data-level="11.1" data-path="ridge-regression.html"><a href="ridge-regression.html#basic-concepts-4"><i class="fa fa-check"></i><b>11.1</b> Basic Concepts</a><ul>
-<li class="chapter" data-level="11.1.1" data-path="ridge-regression.html"><a href="ridge-regression.html#correlated-variables-and-convexity"><i class="fa fa-check"></i><b>11.1.1</b> Correlated Variables and Convexity</a></li>
-<li class="chapter" data-level="11.1.2" data-path="ridge-regression.html"><a href="ridge-regression.html#example-1-the-prostate-cancer-data"><i class="fa fa-check"></i><b>11.1.2</b> Example 1: The Prostate Cancer Data</a></li>
+<li class="chapter" data-level="9.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-criteria-and-algorithm"><i class="fa fa-check"></i><b>9.2</b> Model Selection Criteria and Algorithm</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#example-diabetes-dataset"><i class="fa fa-check"></i><b>9.2.1</b> Example: <code>diabetes</code> dataset</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="lasso-regression.html"><a href="lasso-regression.html"><i class="fa fa-check"></i><b>12</b> Lasso Regression</a><ul>
-<li class="chapter" data-level="12.1" data-path="lasso-regression.html"><a href="lasso-regression.html#basic-concepts-5"><i class="fa fa-check"></i><b>12.1</b> Basic Concepts</a><ul>
-<li class="chapter" data-level="12.1.1" data-path="lasso-regression.html"><a href="lasso-regression.html#variable-selection-property"><i class="fa fa-check"></i><b>12.1.1</b> Variable Selection Property</a></li>
-<li class="chapter" data-level="12.1.2" data-path="lasso-regression.html"><a href="lasso-regression.html#example-1-the-prostate-cancer-data-1"><i class="fa fa-check"></i><b>12.1.2</b> Example 1: The Prostate Cancer Data</a></li>
+<li class="chapter" data-level="10" data-path="ridge-regression.html"><a href="ridge-regression.html"><i class="fa fa-check"></i><b>10</b> Ridge Regression</a><ul>
+<li class="chapter" data-level="10.1" data-path="ridge-regression.html"><a href="ridge-regression.html#basic-concepts-4"><i class="fa fa-check"></i><b>10.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="ridge-regression.html"><a href="ridge-regression.html#correlated-variables-and-convexity"><i class="fa fa-check"></i><b>10.1.1</b> Correlated Variables and Convexity</a></li>
+<li class="chapter" data-level="10.1.2" data-path="ridge-regression.html"><a href="ridge-regression.html#example-1-the-prostate-cancer-data"><i class="fa fa-check"></i><b>10.1.2</b> Example 1: The Prostate Cancer Data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="lasso-regression.html"><a href="lasso-regression.html"><i class="fa fa-check"></i><b>11</b> Lasso Regression</a><ul>
+<li class="chapter" data-level="11.1" data-path="lasso-regression.html"><a href="lasso-regression.html#basic-concepts-5"><i class="fa fa-check"></i><b>11.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="lasso-regression.html"><a href="lasso-regression.html#variable-selection-property"><i class="fa fa-check"></i><b>11.1.1</b> Variable Selection Property</a></li>
+<li class="chapter" data-level="11.1.2" data-path="lasso-regression.html"><a href="lasso-regression.html#example-1-the-prostate-cancer-data-1"><i class="fa fa-check"></i><b>11.1.2</b> Example 1: The Prostate Cancer Data</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>IV Nonlinear and Nonparametric Models</b></span></li>
-<li class="chapter" data-level="13" data-path="splines.html"><a href="splines.html"><i class="fa fa-check"></i><b>13</b> Splines</a><ul>
-<li class="chapter" data-level="13.1" data-path="splines.html"><a href="splines.html#basic-concepts-6"><i class="fa fa-check"></i><b>13.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="12" data-path="splines.html"><a href="splines.html"><i class="fa fa-check"></i><b>12</b> Splines</a><ul>
+<li class="chapter" data-level="12.1" data-path="splines.html"><a href="splines.html#basic-concepts-6"><i class="fa fa-check"></i><b>12.1</b> Basic Concepts</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="smoothing-splines.html"><a href="smoothing-splines.html"><i class="fa fa-check"></i><b>14</b> Smoothing Splines</a><ul>
-<li class="chapter" data-level="14.1" data-path="smoothing-splines.html"><a href="smoothing-splines.html#basic-concepts-7"><i class="fa fa-check"></i><b>14.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="13" data-path="smoothing-splines.html"><a href="smoothing-splines.html"><i class="fa fa-check"></i><b>13</b> Smoothing Splines</a><ul>
+<li class="chapter" data-level="13.1" data-path="smoothing-splines.html"><a href="smoothing-splines.html#basic-concepts-7"><i class="fa fa-check"></i><b>13.1</b> Basic Concepts</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="kernel-regression.html"><a href="kernel-regression.html"><i class="fa fa-check"></i><b>15</b> Kernel Regression</a><ul>
-<li class="chapter" data-level="15.1" data-path="kernel-regression.html"><a href="kernel-regression.html#basic-concepts-8"><i class="fa fa-check"></i><b>15.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="14" data-path="kernel-regression.html"><a href="kernel-regression.html"><i class="fa fa-check"></i><b>14</b> Kernel Regression</a><ul>
+<li class="chapter" data-level="14.1" data-path="kernel-regression.html"><a href="kernel-regression.html#basic-concepts-8"><i class="fa fa-check"></i><b>14.1</b> Basic Concepts</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="kernel-density-estimation.html"><a href="kernel-density-estimation.html"><i class="fa fa-check"></i><b>16</b> Kernel Density Estimation</a><ul>
-<li class="chapter" data-level="16.1" data-path="kernel-density-estimation.html"><a href="kernel-density-estimation.html#basic-concepts-9"><i class="fa fa-check"></i><b>16.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="15" data-path="kernel-density-estimation.html"><a href="kernel-density-estimation.html"><i class="fa fa-check"></i><b>15</b> Kernel Density Estimation</a><ul>
+<li class="chapter" data-level="15.1" data-path="kernel-density-estimation.html"><a href="kernel-density-estimation.html#basic-concepts-9"><i class="fa fa-check"></i><b>15.1</b> Basic Concepts</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>17</b> References</a></li>
+<li class="chapter" data-level="16" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>16</b> References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2021 Ruoqing Zhu</a></li>
 
@@ -259,10 +258,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="smoothing-splines" class="section level1">
-<h1><span class="header-section-number">Chapter 14</span> Smoothing Splines</h1>
+<h1><span class="header-section-number">Chapter 13</span> Smoothing Splines</h1>
 <p>What?</p>
 <div id="basic-concepts-7" class="section level2">
-<h2><span class="header-section-number">14.1</span> Basic Concepts</h2>
+<h2><span class="header-section-number">13.1</span> Basic Concepts</h2>
 
 
 </div>

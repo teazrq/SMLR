@@ -1,5 +1,4 @@
 r-rstudio-and-r-markdown
-r-basics
 resources-and-guides
 basic-mathematical-operations
 data-objects
