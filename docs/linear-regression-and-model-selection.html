@@ -4,19 +4,19 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 9 Linear Regression and Model Selection | Statistical Learning with R</title>
-  <meta name="description" content="Chapter 9 Linear Regression and Model Selection | Statistical Learning with R" />
+  <title>Chapter 9 Linear Regression and Model Selection | Statistical Learning and Machine Learning with R</title>
+  <meta name="description" content="Chapter 9 Linear Regression and Model Selection | Statistical Learning and Machine Learning with R" />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 9 Linear Regression and Model Selection | Statistical Learning with R" />
+  <meta property="og:title" content="Chapter 9 Linear Regression and Model Selection | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="http://teazrq.github.io/SLWR/" />
+  <meta property="og:url" content="https://teazrq.github.io/SMLR/" />
   
   
-  <meta name="github-repo" content="teazrq/SLWR" />
+  <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 9 Linear Regression and Model Selection | Statistical Learning with R" />
+  <meta name="twitter:title" content="Chapter 9 Linear Regression and Model Selection | Statistical Learning and Machine Learning with R" />
   
   
   
@@ -134,7 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Statistical Learning with R</a></li>
+<li><a href="./">Statistical Learning and Machine Learning with R</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
@@ -239,7 +239,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="16" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>16</b> References</a></li>
 <li class="divider"></li>
-<li><a href="https://github.com/teazrq/SLWR" target="blank">&copy; 2018 Ruoqing Zhu</a></li>
+<li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2018 Ruoqing Zhu</a></li>
 
 </ul>
 
@@ -250,7 +250,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Learning with R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Learning and Machine Learning with R</a>
           </h1>
         </div>
 
@@ -320,7 +320,7 @@ When the number of variables is large, inverting <span class="math inline">\(\ma
 <span id="cb135-3"><a href="linear-regression-and-model-selection.html#cb135-3"></a>    <span class="co"># check ?solve</span></span>
 <span id="cb135-4"><a href="linear-regression-and-model-selection.html#cb135-4"></a>    <span class="kw">system.time</span>({beta_hat =<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>y})</span></code></pre></div>
 <pre><code>##    user  system elapsed 
-##    0.32    0.00    0.33</code></pre>
+##    0.33    0.00    0.32</code></pre>
 <div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="linear-regression-and-model-selection.html#cb137-1"></a>    <span class="kw">head</span>(beta_hat)</span></code></pre></div>
 <pre><code>##              [,1]
 ## [1,]  1.016479750
@@ -332,7 +332,7 @@ When the number of variables is large, inverting <span class="math inline">\(\ma
 <div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="linear-regression-and-model-selection.html#cb139-1"></a>    <span class="co"># you can avoid the inversion by specifying the linear equation system X&#39;X b = X&#39;y </span></span>
 <span id="cb139-2"><a href="linear-regression-and-model-selection.html#cb139-2"></a>    <span class="kw">system.time</span>({beta_hat =<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X, <span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>y)})    </span></code></pre></div>
 <pre><code>##    user  system elapsed 
-##    0.14    0.00    0.14</code></pre>
+##    0.15    0.00    0.14</code></pre>
 <div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="linear-regression-and-model-selection.html#cb141-1"></a>    <span class="co"># A better approach is to use QR decomposition or the Cholesky decomposition </span></span>
 <span id="cb141-2"><a href="linear-regression-and-model-selection.html#cb141-2"></a>    <span class="co"># The following codes are not necessarily efficient, they are only for demonstration purpose</span></span>
 <span id="cb141-3"><a href="linear-regression-and-model-selection.html#cb141-3"></a>    </span>
@@ -340,7 +340,7 @@ When the number of variables is large, inverting <span class="math inline">\(\ma
 <span id="cb141-5"><a href="linear-regression-and-model-selection.html#cb141-5"></a>    <span class="co"># direct calling the qr.coef function</span></span>
 <span id="cb141-6"><a href="linear-regression-and-model-selection.html#cb141-6"></a>    <span class="kw">system.time</span>({beta_hat =<span class="st"> </span><span class="kw">qr.coef</span>(<span class="kw">qr</span>(X), y)})</span></code></pre></div>
 <pre><code>##    user  system elapsed 
-##    0.13    0.00    0.12</code></pre>
+##    0.14    0.00    0.14</code></pre>
 <div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="linear-regression-and-model-selection.html#cb143-1"></a>    <span class="co"># or </span></span>
 <span id="cb143-2"><a href="linear-regression-and-model-selection.html#cb143-2"></a>    <span class="kw">system.time</span>({beta_hat =<span class="st"> </span><span class="kw">qr.solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X, <span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>y)})</span></code></pre></div>
 <pre><code>##    user  system elapsed 
@@ -366,7 +366,7 @@ When the number of variables is large, inverting <span class="math inline">\(\ma
 <span id="cb145-19"><a href="linear-regression-and-model-selection.html#cb145-19"></a>    beta_hat =<span class="st"> </span><span class="kw">backsolve</span>(R, w, <span class="dt">upper.tri =</span> <span class="ot">TRUE</span>, <span class="dt">transpose =</span> <span class="ot">FALSE</span>)</span>
 <span id="cb145-20"><a href="linear-regression-and-model-selection.html#cb145-20"></a>    })</span></code></pre></div>
 <pre><code>##    user  system elapsed 
-##    0.14    0.00    0.14</code></pre>
+##    0.11    0.00    0.11</code></pre>
 <div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="linear-regression-and-model-selection.html#cb147-1"></a>    <span class="co"># or equivalently </span></span>
 <span id="cb147-2"><a href="linear-regression-and-model-selection.html#cb147-2"></a>    R =<span class="st"> </span><span class="kw">t</span>(<span class="kw">chol</span>(<span class="kw">crossprod</span>(X)))</span>
 <span id="cb147-3"><a href="linear-regression-and-model-selection.html#cb147-3"></a>    w =<span class="st"> </span><span class="kw">forwardsolve</span>(R, <span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>y, <span class="dt">upper.tri =</span> <span class="ot">FALSE</span>, <span class="dt">transpose =</span> <span class="ot">FALSE</span>)</span>
@@ -705,7 +705,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/teazrq/SLWR/edit/master/3.1-linear.Rmd",
+"link": "https://github.com/teazrq/SMLR/edit/master/3.1-linear.Rmd",
 "text": "Edit"
 },
 "history": {

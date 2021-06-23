@@ -4,19 +4,19 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Basics of Probability and Statistics | Statistical Learning with R</title>
-  <meta name="description" content="Chapter 3 Basics of Probability and Statistics | Statistical Learning with R" />
+  <title>Chapter 3 Basics of Probability and Statistics | Statistical Learning and Machine Learning with R</title>
+  <meta name="description" content="Chapter 3 Basics of Probability and Statistics | Statistical Learning and Machine Learning with R" />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Basics of Probability and Statistics | Statistical Learning with R" />
+  <meta property="og:title" content="Chapter 3 Basics of Probability and Statistics | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="http://teazrq.github.io/SLWR/" />
+  <meta property="og:url" content="https://teazrq.github.io/SMLR/" />
   
   
-  <meta name="github-repo" content="teazrq/SLWR" />
+  <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Basics of Probability and Statistics | Statistical Learning with R" />
+  <meta name="twitter:title" content="Chapter 3 Basics of Probability and Statistics | Statistical Learning and Machine Learning with R" />
   
   
   
@@ -134,7 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Statistical Learning with R</a></li>
+<li><a href="./">Statistical Learning and Machine Learning with R</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
@@ -239,7 +239,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="16" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>16</b> References</a></li>
 <li class="divider"></li>
-<li><a href="https://github.com/teazrq/SLWR" target="blank">&copy; 2018 Ruoqing Zhu</a></li>
+<li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2018 Ruoqing Zhu</a></li>
 
 </ul>
 
@@ -250,7 +250,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Learning with R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Learning and Machine Learning with R</a>
           </h1>
         </div>
 
@@ -265,10 +265,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Random number generation is important for statistical simulation. R provides random number generators for many commonly used distributions, such as binomial (<code>rbinom</code>), normal (<code>rnorm</code>), t (<code>rt</code>) etc. The syntax is usually a letter “r” followed by the name of the distribution.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="basics-of-probability-and-statistics.html#cb25-1"></a>    <span class="co"># generate 10 independent Bernoulli random variables as a vector</span></span>
 <span id="cb25-2"><a href="basics-of-probability-and-statistics.html#cb25-2"></a>    <span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</span>
-<span id="cb25-3"><a href="basics-of-probability-and-statistics.html#cb25-3"></a><span class="co">##  [1] 1 1 0 0 1 0 1 1 0 1</span></span>
+<span id="cb25-3"><a href="basics-of-probability-and-statistics.html#cb25-3"></a><span class="co">##  [1] 0 1 0 1 0 0 1 0 1 0</span></span>
 <span id="cb25-4"><a href="basics-of-probability-and-statistics.html#cb25-4"></a>    <span class="co"># 4 independent random standard normal variables</span></span>
 <span id="cb25-5"><a href="basics-of-probability-and-statistics.html#cb25-5"></a>    <span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">4</span>)</span>
-<span id="cb25-6"><a href="basics-of-probability-and-statistics.html#cb25-6"></a><span class="co">## [1]  0.02298444 -2.25420395  1.29295247  0.62322148</span></span></code></pre></div>
+<span id="cb25-6"><a href="basics-of-probability-and-statistics.html#cb25-6"></a><span class="co">## [1]  0.4251591  1.7464123  0.1300348 -0.1223584</span></span></code></pre></div>
 <p>Setting the seed before generating random numbers will allow us to replicate the results when necessary.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="basics-of-probability-and-statistics.html#cb26-1"></a>    <span class="co"># after setting the seed, the two runs will generate exactly the same &quot;random&quot; numbers</span></span>
 <span id="cb26-2"><a href="basics-of-probability-and-statistics.html#cb26-2"></a>    <span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
@@ -401,7 +401,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/teazrq/SLWR/edit/master/1.3-stat-prob-basics.Rmd",
+"link": "https://github.com/teazrq/SMLR/edit/master/1.3-stat-prob-basics.Rmd",
 "text": "Edit"
 },
 "history": {
