@@ -1,4 +1,4 @@
-r-and-rstudio
+r-rstudio-and-r-markdown
 resources-and-guides
 basic-mathematical-operations
 data-objects

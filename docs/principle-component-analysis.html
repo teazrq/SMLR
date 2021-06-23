@@ -144,14 +144,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
 </ul></li>
 <li class="part"><span><b>I Basics Knowledge</b></span></li>
-<li class="chapter" data-level="1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> R and RStudio</a><ul>
-<li class="chapter" data-level="1.1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#resources-and-guides"><i class="fa fa-check"></i><b>1.1</b> Resources and Guides</a></li>
-<li class="chapter" data-level="1.2" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#basic-mathematical-operations"><i class="fa fa-check"></i><b>1.2</b> Basic Mathematical Operations</a><ul>
-<li class="chapter" data-level="1.2.1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#data-objects"><i class="fa fa-check"></i><b>1.2.1</b> Data Objects</a></li>
-</ul></li>
-<li class="chapter" data-level="1.3" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#read-in-data-from-other-sources"><i class="fa fa-check"></i><b>1.3</b> Read-in Data from Other Sources</a></li>
-<li class="chapter" data-level="1.4" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#using-packages"><i class="fa fa-check"></i><b>1.4</b> Using Packages</a></li>
-<li class="chapter" data-level="1.5" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#explore-yourself"><i class="fa fa-check"></i><b>1.5</b> Explore Yourself</a></li>
+<li class="chapter" data-level="1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html"><i class="fa fa-check"></i><b>1</b> R, RStudio and R Markdown</a><ul>
+<li class="chapter" data-level="1.1" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#resources-and-guides"><i class="fa fa-check"></i><b>1.1</b> Resources and Guides</a></li>
+<li class="chapter" data-level="1.2" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#basic-mathematical-operations"><i class="fa fa-check"></i><b>1.2</b> Basic Mathematical Operations</a></li>
+<li class="chapter" data-level="1.3" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#data-objects"><i class="fa fa-check"></i><b>1.3</b> Data Objects</a></li>
+<li class="chapter" data-level="1.4" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#read-in-data-from-other-sources"><i class="fa fa-check"></i><b>1.4</b> Read-in Data from Other Sources</a></li>
+<li class="chapter" data-level="1.5" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#using-packages"><i class="fa fa-check"></i><b>1.5</b> Using Packages</a></li>
+<li class="chapter" data-level="1.6" data-path="r-rstudio-and-r-markdown.html"><a href="r-rstudio-and-r-markdown.html#explore-yourself"><i class="fa fa-check"></i><b>1.6</b> Explore Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html"><i class="fa fa-check"></i><b>2</b> RMarkdown Basics</a><ul>
 <li class="chapter" data-level="2.1" data-path="rmarkdown-basics.html"><a href="rmarkdown-basics.html#acknowledgement"><i class="fa fa-check"></i><b>2.1</b> Acknowledgement</a></li>
@@ -299,28 +298,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We can then take the residuals (after projecting onto this line), and find the largest variance direction of the residuals</p>
 <p><img src="2.3-pca_files/figure-html/unnamed-chunk-3-1.png" width="480" /></p>
 <pre><code>##    Comp.1    Comp.2 
-## 1.1984320 0.2255889</code></pre>
+## 1.1966903 0.2303065</code></pre>
 <p>We usually visualize the data in these two directions instead of the original covariates. Note that the coordinates on the PC’s can be obtained using either the <code>scores</code> in the fitted object of <code>princomp</code>, or simply multiply the original data matrix by the loadings.</p>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="principle-component-analysis.html#cb110-1"></a>    pcafit &lt;-<span class="st"> </span><span class="kw">princomp</span>(x)</span>
 <span id="cb110-2"><a href="principle-component-analysis.html#cb110-2"></a></span>
 <span id="cb110-3"><a href="principle-component-analysis.html#cb110-3"></a>    <span class="co"># the new coordinates on PC&#39;s</span></span>
 <span id="cb110-4"><a href="principle-component-analysis.html#cb110-4"></a>    <span class="kw">head</span>(pcafit<span class="op">$</span>scores)</span></code></pre></div>
-<pre><code>##          Comp.1       Comp.2
-## [1,] -1.8541229  0.057610723
-## [2,]  0.3341182  0.103844260
-## [3,]  1.0728862 -0.175456472
-## [4,]  2.7118756  0.314581165
-## [5,] -1.0008442  0.118265750
-## [6,] -1.3585545  0.007768401</code></pre>
+<pre><code>##           Comp.1      Comp.2
+## [1,]  0.22154338 -0.13187302
+## [2,]  1.62659617 -0.25770264
+## [3,]  0.13514955  0.38700050
+## [4,] -0.03744889 -0.56271204
+## [5,] -0.28074275 -0.04518757
+## [6,]  0.25128205  0.51250725</code></pre>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="principle-component-analysis.html#cb112-1"></a>    <span class="co"># direct calculation based on projection </span></span>
 <span id="cb112-2"><a href="principle-component-analysis.html#cb112-2"></a>    <span class="kw">head</span>(x <span class="op">%*%</span><span class="st"> </span>pcafit<span class="op">$</span>loadings)</span></code></pre></div>
-<pre><code>##          Comp.1       Comp.2
-## [1,] -1.8541229  0.057610723
-## [2,]  0.3341182  0.103844260
-## [3,]  1.0728862 -0.175456472
-## [4,]  2.7118756  0.314581165
-## [5,] -1.0008442  0.118265750
-## [6,] -1.3585545  0.007768401</code></pre>
+<pre><code>##           Comp.1      Comp.2
+## [1,]  0.22154338 -0.13187302
+## [2,]  1.62659617 -0.25770264
+## [3,]  0.13514955  0.38700050
+## [4,] -0.03744889 -0.56271204
+## [5,] -0.28074275 -0.04518757
+## [6,]  0.25128205  0.51250725</code></pre>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="principle-component-analysis.html#cb114-1"></a>    <span class="co"># visualize the data on the PCs</span></span>
 <span id="cb114-2"><a href="principle-component-analysis.html#cb114-2"></a>    <span class="co"># Note that the both axies are scaled </span></span>
 <span id="cb114-3"><a href="principle-component-analysis.html#cb114-3"></a>    <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>, <span class="fl">4.2</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>))</span>

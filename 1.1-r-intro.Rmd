@@ -6,7 +6,9 @@ output:
 
 # (PART) Basics Knowledge {-}
 
-
+```{r set-options, echo=FALSE, cache=FALSE}
+options(width = 1000)
+```
 
 # R, RStudio and R Markdown
 
