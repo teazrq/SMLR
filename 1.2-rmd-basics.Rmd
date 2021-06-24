@@ -1,8 +1,26 @@
-# RMarkdown Basics
+# RMarkdown
 
-## Acknowledgement 
+R Markdown is a built-in feature of RStudio. It works like an integration of LaTex and programming playground that compiles source code into nice-looking HTML, PDF, or MS Word files. For example, this entire book is created using an extension of R Markdown, developed by [Yihui Xie](https://bookdown.org/yihui/bookdown/). With RStudio, you can install R Markdown from R console using the following code:
 
-This section was originally created by David Dalpiaz. The original file can be downloaded from his R4SL online text book. I made some slight modifications. This is by no means a comprehensive guide, and there are many other resources available online. 
+```{r eval = FALSE}
+  # Install R Markdown from CRAN
+  install.packages("rmarkdown")
+```
+
+This guild also involves generating PDF files and using latex. This requires installing [TinyTex](https://yihui.org/tinytex/) if you don't have LaTex already. 
+
+```{r eval = FALSE}
+  # Install TinyTex
+  install.packages("tinytex")
+```
+
+## Resources and Guides 
+
+
+* [R Markdown Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+* [R Markdown Play-list (video)](https://www.youtube.com/playlist?list=PLBgxzZMu3GpNgd07DwmS-2odHtMO6MWGH)
+
+
 
 ## Getting Started
 [RMarkdown](http://rmarkdown.rstudio.com/) at its core is a combination of [`R`](https://cran.r-project.org/) and [Markdown](https://daringfireball.net/projects/markdown/) used to generate reproducible reports for data analyses.
@@ -201,3 +219,7 @@ You can edit this yourself, or click the settings button at the top of the docum
 Be sure to play with this document! Change it. Break it. Fix it. The best way to learn RMarkdown (or really almost anything) is to try, fail, then find out what you did wrong.
 
 RStudio has provided a number of [beginner tutorials](http://rmarkdown.rstudio.com/lesson-1.html) which have been greatly improved recently and detail many of the specifics potentially not covered in this document. RMarkdown is continually improving, and this document covers only the very basics.
+
+## Acknowledgement 
+
+This section was originally created by David Dalpiaz. The original file can be downloaded from his R4SL online text book. I made some modifications based on problems and errors that I often see in my class. This is by no means a comprehensive guide, and there are many other resources available online. 

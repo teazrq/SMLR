@@ -67,3 +67,7 @@ basic-concepts-8
 kernel-density-estimation
 basic-concepts-9
 references
+r-and-rstudio
+rmarkdown
+r-basic
+linear-reg

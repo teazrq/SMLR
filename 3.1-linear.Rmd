@@ -40,7 +40,7 @@ This can be viewed as either a covex optimization problem or projections on the 
     optim(c(0, 0), rss, x = x, y = y)$par
 ```
 
-### Linear regression as projections
+### Linear regression as projections {#linear-reg}
 
 Another view is through projections in vector space. Consider each column of $\mathbf{X}$ as a vector, and project $\mathbf{y}$ onto the column space of $\mathbf{X}$. The project is 
 
