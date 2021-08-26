@@ -1,4 +1,19 @@
-
+\def\bX{\mathbf{X}}
+\def\bH{\mathbf{H}}
+\def\bI{\mathbf{I}}
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\br{\mathbf{r}}
+\def\bzero{\mathbf{0}}
+\def\bbeta{\boldsymbol \beta}
+\def\bepsilon{\boldsymbol \epsilon}
+\def\T{\text{T}}
+\def\Cov{\text{Cov}}
+\def\Var{\text{Var}}
+\def\E{\text{E}}
+\def\pr{\text{pr}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
 
 # Linear Regression
 
@@ -54,7 +69,7 @@ Assuming that $\bX$ is full rank, then $\bX^\T \bX$ is invertible. Then, we have
 $$
 \widehat{\bbeta} = (\bX^\T \bX)^{-1}\bX^\T \by
 $$
-Some additional concepts are frequently used. The fitted values $\widehat \by$ are essentially the prediction of the original $n$ training data points:
+Some additional concepts are frequently used. The fitted values $\widehat{\by}$ are essentially the prediction of the original $n$ training data points:
 
 $$ 
 \begin{align}
@@ -70,7 +85,7 @@ where $\bH$ is called the "hat" matrix. It is a projection matrix that projects 
 
 The residuals $\br$ can also be obtained using the hat matrix:
 
-$$ \br = \by - \widehat \by = (\bI - \bH) \by$$
+$$ \br = \by - \widehat{\by} = (\bI - \bH) \by$$
 From the properties of a projection matrix, we also know that $\br$ should be orthogonal to any vector from the column space of $\bX$. Hence, 
 
 $$\bX^\T \br = \mathbf{0}_{p \times 1}$$
@@ -78,11 +93,11 @@ $$\bX^\T \br = \mathbf{0}_{p \times 1}$$
 The residuals is also used to estimate the error variance:
 
 $$\widehat\sigma^2 = \frac{1}{n-p} \sum_{i=1}^n r_i^2 = \frac{\text{RSS}}{n-p}$$
-When the data are indeed generated from a linear model, and with suitable conditions on the design matrix and random errors $\bepsilon$, we can conclude that $\widehat \bbeta$ is an __unbiased__ estimator of $\bbeta$. Its variance-covariance matrix satisfies
+When the data are indeed generated from a linear model, and with suitable conditions on the design matrix and random errors $\bepsilon$, we can conclude that $\widehat{\bbeta}$ is an __unbiased__ estimator of $\bbeta$. Its variance-covariance matrix satisfies
 
 $$
 \begin{align}
-    \Var(\widehat \bbeta) &= \Var\big( (\bX^\T \bX)^{-1}\bX^\T \by \big) \nonumber \\
+    \Var(\widehat{\bbeta}) &= \Var\big( (\bX^\T \bX)^{-1}\bX^\T \by \big) \nonumber \\
     &= \Var\big( (\bX^\T \bX)^{-1}\bX^\T (\bX \bbeta + \bepsilon) \big) \nonumber \\
     &= \Var\big( (\bX^\T \bX)^{-1}\bX^\T \bepsilon) \big) \nonumber \\
     &= (\bX^\T \bX)^{-1}\bX^\T \bX (\bX^\T \bX)^{-1} \bI \sigma^2 \nonumber \\
