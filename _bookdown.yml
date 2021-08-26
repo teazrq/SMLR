@@ -1,28 +1,7 @@
 book_filename: "SMLR"
-chapter_name: "Chapter "
 repo: https://github.com/teazrq/SMLR
-output_dir: docs
 clean: [packages.bib, bookdown.bbl]
-new_session: yes
-rmd_files: ["index.Rmd",
-            "1.1-r-basics.Rmd",
-            "1.2-rmd-basics.Rmd",
-            "1.3-stat-prob-basics.Rmd",
-            "1.4-modeling-basics.Rmd",
-            "1.5-optimization-basics.Rmd",
-            
-            "2.1-kmeans.Rmd",
-            "2.2-hclust.Rmd",
-            "2.3-pca.Rmd",
-            
-            "3.1-linear.Rmd",
-            "3.2-ridge.Rmd",
-            "3.3-lasso.Rmd",
-            
-            "4.1-spline.Rmd",
-            "4.2-smoothing-spline.Rmd",
-            
-            "5.1-kernel-reg.Rmd",
-            "5.2-kernel-den.Rmd",
-            
-            "12.1-reference.Rmd"]
+delete_merged_file: true
+language:
+  ui:
+    chapter_name: "Chapter "

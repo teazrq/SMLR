@@ -1,6 +1,8 @@
 bookdown::gitbook:
   css: style.css
-  split_by: chapter
+  split_by: chapter+number 
+  includes: 
+    in_header: mathjax_header.html
   config:
     toc:
       collapse: section
@@ -8,12 +10,10 @@ bookdown::gitbook:
         <li><a href="./">Statistical Learning and Machine Learning with R</a></li>
       after: |
         <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2021 Ruoqing Zhu</a></li>
-    download: [pdf]
-    edit: https://github.com/teazrq/SMLR/edit/master/%s
+#    download: ["pdf", "epub"]
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex
-  dev: "cairo_pdf"
   latex_engine: xelatex
   citation_package: natbib
   pandoc_args: --chapters

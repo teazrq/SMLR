@@ -1,11 +1,11 @@
 --- 
 title: "Statistical Learning and Machine Learning with R"
 author: "[Ruoqing Zhu](https://sites.google.com/site/teazrq/)"
-date: "`r Sys.Date()`"
+date: "2021-08-26"
 github-repo: teazrq/SMLR
-site: bookdown::bookdown_site
 url: 'https://teazrq.github.io/SMLR/'
 knit: "bookdown::render_book"
+site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib]
 biblio-style: apalike
@@ -16,12 +16,7 @@ description: ""
 always_allow_html: true
 ---
 
-```{r global.options, include = FALSE}
-  options(bookdown.theorem.preamble = TRUE)
-  options(width = 1000)
-  knitr::opts_chunk$set(fig.align = "center")
-  knitr::opts_chunk$set(fig.dim = c(8, 6), out.width = "60%", fig.align = 'center')
-```
+
 
 # Preface {-}
 
