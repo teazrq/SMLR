@@ -13,7 +13,6 @@ favicon: "favicon.ico"
 link-citations: yes
 urlcolor: cyan
 description: ""
-always_allow_html: true
 ---
 
 ```{r global.options, include = FALSE}
