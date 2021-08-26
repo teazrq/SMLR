@@ -1,6 +1,6 @@
 --- 
 title: "Statistical Learning and Machine Learning with R"
-author: "[Ruoqing Zhu](https://sites.google.com/site/teazrq/)"
+author: "[Ruoqing Zhu, PhD](https://sites.google.com/site/teazrq/)"
 date: "`r Sys.Date()`"
 github-repo: teazrq/SMLR
 site: bookdown::bookdown_site
@@ -16,7 +16,6 @@ description: "A text book for STAT 542 and 432 at UIUC"
 ---
 
 ```{r global.options, include = FALSE}
-  options(bookdown.theorem.preamble = TRUE)
   options(width = 1000)
   knitr::opts_chunk$set(fig.align = "center")
   knitr::opts_chunk$set(fig.dim = c(8, 6), out.width = "60%", fig.align = 'center')
@@ -45,7 +44,7 @@ I currently plan to include the following topics:
 
 The goal of this book is to introduce not only how to run some of the popular statistical learning models in R, but also know the algorithms and programming techniques for solving these models. For each section, the difficulty will gradually increase from an undergraduate level to a graduate level. 
 
-It will be served as a supplement to [An Introduction to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/) [@james2013introduction] for [STAT 432 - Basics of Statistical Learning](https://go.illinois.edu/stat432) and [The Elements of 
+It will be served as a supplement to [An Introduction to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/) [@james2013introduction] for [STAT 432 - Basics of Statistical Learning](https://go.illinois.edu/stat432) and to [The Elements of 
 Statistical Learning: Data Mining, Inference, and Prediction](https://web.stanford.edu/~hastie/ElemStatLearn/) [@hastie2001elements] for [STAT 542 - Statistical Learning](https://go.illinois.edu/stat542) at the [University of Illinois at Urbana-Champaign](http://illinois.edu/).
 
 **This book is under active development**. Hence, you may encounter errors ranging from typos to broken code, to poorly explained topics. If you do, please let me know! Simply send an email and I will make the changes as soon as possible (`rqzhu AT illinois DOT edu`). Or, if you know `R Markdown` and are familiar with GitHub, [make a pull request and fix an issue yourself!](https://github.com/teazrq/SLWR). These contributions will be acknowledged. 

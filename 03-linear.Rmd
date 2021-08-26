@@ -15,6 +15,12 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
 
+```{r global.options, include = FALSE}
+  options(width = 1000)
+  knitr::opts_chunk$set(fig.align = "center")
+  knitr::opts_chunk$set(fig.dim = c(8, 6), out.width = "60%", fig.align = 'center')
+```
+
 # Linear Regression
 
 This chapter severs several purposes. First, we will review some basic knowledge of linear regression. This includes the concept of vector space, projection, which leads to estimating parameters of a linear regression. Most of these knowledge are covered in the prerequisite so you shouldn't find these concepts too difficult to understand. Secondly, we will mainly use the `lm()` function as an example to demonstrate some features of `R`. This includes extracting results, visualizations, handling categorical variables, prediction and model selection. These concepts will be useful for other models. 
@@ -108,13 +114,13 @@ All of the above mentioned results are already implemented in R through the `lm(
 
 ## Using the `lm()` Function
 
-Let's consider a simple regression model that uses `age` and `distance` to explain `price`. We will save the fitted object as `realestat.lmfit`
+Let's consider a simple regression that uses `age` and `distance` to model `price`. We will save the fitted object as `lm.fit`
 
 ```{r}
-    realestat.lmfit = lm(price ~ age + distance, data = realestate)
+    lm.fit = lm(price ~ age + distance, data = realestate)
 ```
 
-This example contains three major components:
+This syntax contains three components:
 
   * `data = ` specifies the dataset
   * The outcome variable should be on the left hand side of `~` 
@@ -123,11 +129,29 @@ This example contains three major components:
 To look at the detailed model fitting results, use the `summary()` function 
 
 ```{r}
-    summary(realestat.lmfit)
+    lm.summary = summary(lm.fit)
+    lm.summary
 ```
 
+This shows that both `age` and `distance` are highly significant for predicting the price. In fact, this fitted object (`lm.fit`) and the summary object (`lm.summary`) are both saved as a list. This is pretty common to handle an output object with many things involved. We may peek into this object to see what are provided using a `$` after the object. 
 
+<center>
+![](images/reactive.png){width=40%}
+</center>
 
+The `str()` function can also display all the items in a list. 
+
+```{r eval=FALSE}
+    str(lm.summary)
+```
+
+Usually, printing out the summary is sufficient. However, further details can be useful for other purposes. For example, if we interested in the residual vs. fits plot, we may use 
+
+```{r}
+    plot(lm.fit$fitted.values, lm.fit$residuals, 
+         xlab = "Fitted Values", ylab = "Residuals",
+         col = "darkorange", pch = 19, cex = 0.5)
+```
 
 This can be viewed as either a convex optimization problem or projections on the $n$ dimensional vector space. 
 
