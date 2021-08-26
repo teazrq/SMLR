@@ -26,8 +26,8 @@ try-it
 linear-regression
 example-real-estate-data
 notation-and-basic-properties
+using-the-lm-function
 linear-regression-as-an-optimization
 linear-reg
 model-selection-criteria-and-algorithm
 example-diabetes-dataset
-using-the-lm-function
