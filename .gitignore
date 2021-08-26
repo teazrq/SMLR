@@ -41,6 +41,8 @@ rsconnect/
 ### R.Bookdown Stack ###
 # R package: bookdown caching files
 /*_files/
+/*_book/
+/_bookdown_files/
 
 ### Windows ###
 # Windows thumbnail cache files
