@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 RMarkdown | Statistical Learning and Machine Learning with R</title>
+  <meta name="description" content="Chapter 2 RMarkdown | Statistical Learning and Machine Learning with R" />
+  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 RMarkdown | Statistical Learning and Machine Learning with R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://teazrq.github.io/SMLR/" />
+  
+  
+  <meta name="github-repo" content="teazrq/SMLR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 RMarkdown | Statistical Learning and Machine Learning with R" />
+  
+  
+  
+
+<meta name="author" content="Ruoqing Zhu" />
+
+
+<meta name="date" content="2021-08-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="prev" href="1-r-and-rstudio.html"/>
+<link rel="next" href="3-linear-regression.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.18/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<span class="math inline">
+  
+  \(\def\bX{\mathbf{X}}\)
+  \(\def\bH{\mathbf{H}}\)
+  \(\def\bI{\mathbf{I}}\)
+  \(\def\bx{\mathbf{x}}\)
+  \(\def\by{\mathbf{y}}\)
+  \(\def\br{\mathbf{r}}\)
+  
+  \(\def\bzero{\mathbf{0}}\)  
+  \(\def\bbeta{\boldsymbol \beta}\)
+  \(\def\bepsilon{\boldsymbol \epsilon}\)  
+  
+  \(\def\T{\text{T}}\)
+  \(\def\Cov{\text{Cov}}\)
+  \(\def\Var{\text{Var}}\)
+  \(\def\E{\text{E}}\)
+  \(\def\pr{\text{pr}}\)
+  
+  \(\DeclareMathOperator*{\argmin}{arg\,min}\)
+  \(\DeclareMathOperator*{\argmax}{arg\,max}\)
+
+</span>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Statistical Learning and Machine Learning with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#target-audience"><i class="fa fa-check"></i>Target Audience</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#whats-covered"><i class="fa fa-check"></i>What’s Covered?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
+</ul></li>
+<li class="part"><span><b>I Basics Knowledge</b></span></li>
+<li class="chapter" data-level="1" data-path="1-r-and-rstudio.html"><a href="1-r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> R and RStudio</a><ul>
+<li class="chapter" data-level="1.1" data-path="1-r-and-rstudio.html"><a href="1-r-and-rstudio.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> Installing R and RStudio</a></li>
+<li class="chapter" data-level="1.2" data-path="1-r-and-rstudio.html"><a href="1-r-and-rstudio.html#r-basic"><i class="fa fa-check"></i><b>1.2</b> Resources and Guides</a></li>
+<li class="chapter" data-level="1.3" data-path="1-r-and-rstudio.html"><a href="1-r-and-rstudio.html#basic-mathematical-operations"><i class="fa fa-check"></i><b>1.3</b> Basic Mathematical Operations</a></li>
+<li class="chapter" data-level="1.4" data-path="1-r-and-rstudio.html"><a href="1-r-and-rstudio.html#data-objects"><i class="fa fa-check"></i><b>1.4</b> Data Objects</a></li>
+<li class="chapter" data-level="1.5" data-path="1-r-and-rstudio.html"><a href="1-r-and-rstudio.html#readin-and-save-data"><i class="fa fa-check"></i><b>1.5</b> Readin and save data</a></li>
+<li class="chapter" data-level="1.6" data-path="1-r-and-rstudio.html"><a href="1-r-and-rstudio.html#using-and-defining-functions"><i class="fa fa-check"></i><b>1.6</b> Using and defining functions</a></li>
+<li class="chapter" data-level="1.7" data-path="1-r-and-rstudio.html"><a href="1-r-and-rstudio.html#distribution-and-random-numbers"><i class="fa fa-check"></i><b>1.7</b> Distribution and random numbers</a></li>
+<li class="chapter" data-level="1.8" data-path="1-r-and-rstudio.html"><a href="1-r-and-rstudio.html#using-packages-and-other-resources"><i class="fa fa-check"></i><b>1.8</b> Using packages and other resources</a></li>
+<li class="chapter" data-level="1.9" data-path="1-r-and-rstudio.html"><a href="1-r-and-rstudio.html#practice-questions"><i class="fa fa-check"></i><b>1.9</b> Practice questions</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-rmarkdown.html"><a href="2-rmarkdown.html"><i class="fa fa-check"></i><b>2</b> RMarkdown</a><ul>
+<li class="chapter" data-level="2.1" data-path="2-rmarkdown.html"><a href="2-rmarkdown.html#basics-and-resources"><i class="fa fa-check"></i><b>2.1</b> Basics and Resources</a></li>
+<li class="chapter" data-level="2.2" data-path="2-rmarkdown.html"><a href="2-rmarkdown.html#formatting-text"><i class="fa fa-check"></i><b>2.2</b> Formatting Text</a></li>
+<li class="chapter" data-level="2.3" data-path="2-rmarkdown.html"><a href="2-rmarkdown.html#adding-r-code"><i class="fa fa-check"></i><b>2.3</b> Adding <code>R</code> Code</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="2-rmarkdown.html"><a href="2-rmarkdown.html#r-chunks"><i class="fa fa-check"></i><b>2.3.1</b> <code>R</code> Chunks</a></li>
+<li class="chapter" data-level="2.3.2" data-path="2-rmarkdown.html"><a href="2-rmarkdown.html#inline-r"><i class="fa fa-check"></i><b>2.3.2</b> Inline <code>R</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="2-rmarkdown.html"><a href="2-rmarkdown.html#importing-data"><i class="fa fa-check"></i><b>2.4</b> Importing Data</a></li>
+<li class="chapter" data-level="2.5" data-path="2-rmarkdown.html"><a href="2-rmarkdown.html#working-directory"><i class="fa fa-check"></i><b>2.5</b> Working Directory</a></li>
+<li class="chapter" data-level="2.6" data-path="2-rmarkdown.html"><a href="2-rmarkdown.html#plotting"><i class="fa fa-check"></i><b>2.6</b> Plotting</a></li>
+<li class="chapter" data-level="2.7" data-path="2-rmarkdown.html"><a href="2-rmarkdown.html#chunk-options"><i class="fa fa-check"></i><b>2.7</b> Chunk Options</a></li>
+<li class="chapter" data-level="2.8" data-path="2-rmarkdown.html"><a href="2-rmarkdown.html#adding-math-with-latex"><i class="fa fa-check"></i><b>2.8</b> Adding Math with LaTeX</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="2-rmarkdown.html"><a href="2-rmarkdown.html#displaystyle-latex"><i class="fa fa-check"></i><b>2.8.1</b> Displaystyle LaTeX</a></li>
+<li class="chapter" data-level="2.8.2" data-path="2-rmarkdown.html"><a href="2-rmarkdown.html#inline-latex"><i class="fa fa-check"></i><b>2.8.2</b> Inline LaTex</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="2-rmarkdown.html"><a href="2-rmarkdown.html#output-options"><i class="fa fa-check"></i><b>2.9</b> Output Options</a></li>
+<li class="chapter" data-level="2.10" data-path="2-rmarkdown.html"><a href="2-rmarkdown.html#try-it"><i class="fa fa-check"></i><b>2.10</b> Try It!</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-linear-regression.html"><a href="3-linear-regression.html"><i class="fa fa-check"></i><b>3</b> Linear Regression</a><ul>
+<li class="chapter" data-level="3.1" data-path="3-linear-regression.html"><a href="3-linear-regression.html#example-real-estate-data"><i class="fa fa-check"></i><b>3.1</b> Example: real estate data</a></li>
+<li class="chapter" data-level="3.2" data-path="3-linear-regression.html"><a href="3-linear-regression.html#notation-and-basic-properties"><i class="fa fa-check"></i><b>3.2</b> Notation and Basic Properties</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="3-linear-regression.html"><a href="3-linear-regression.html#linear-regression-as-an-optimization"><i class="fa fa-check"></i><b>3.2.1</b> Linear regression as an optimization</a></li>
+<li class="chapter" data-level="3.2.2" data-path="3-linear-regression.html"><a href="3-linear-regression.html#linear-reg"><i class="fa fa-check"></i><b>3.2.2</b> Linear regression as projections</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="3-linear-regression.html"><a href="3-linear-regression.html#model-selection-criteria-and-algorithm"><i class="fa fa-check"></i><b>3.3</b> Model Selection Criteria and Algorithm</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="3-linear-regression.html"><a href="3-linear-regression.html#example-diabetes-dataset"><i class="fa fa-check"></i><b>3.3.1</b> Example: <code>diabetes</code> dataset</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2021 Ruoqing Zhu</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Learning and Machine Learning with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="rmarkdown" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> RMarkdown</h1>
+<div id="basics-and-resources" class="section level2">
+<h2><span class="header-section-number">2.1</span> Basics and Resources</h2>
+<p>R Markdown is a built-in feature of RStudio. It integrates plain text with chunks of R code in to a single file, which is extremely useful when constructing class notes or building a website. A <code>.rmd</code> file can be compiled into nice-looking <code>.html</code>, <code>.pdf</code>, and <code>.docx</code> file. For example, this entire guide is created using R Markdown. With RStudio, you can install R Markdown from R console using the following code. Note that this should be automatically done the first time you create and compile a <code>.rmd</code> file in RStudio.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="2-rmarkdown.html#cb73-1"></a>    <span class="co"># Install R Markdown from CRAN</span></span>
+<span id="cb73-2"><a href="2-rmarkdown.html#cb73-2"></a>    <span class="kw">install.packages</span>(<span class="st">&quot;rmarkdown&quot;</span>)</span></code></pre></div>
+<p>Again there are many online guides for R Markdown, and these may not be the best ones.</p>
+<ul>
+<li><a href="https://bookdown.org/yihui/rmarkdown/" target="_blank">R Markdown: The Definitive Guide</a></li>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf" target="_blank">R Markdown Cheat Sheet</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLBgxzZMu3GpNgd07DwmS-2odHtMO6MWGH" target="_blank">R Markdown Play-list (video)</a></li>
+</ul>
+<p>To get started, create an R Markdown template file by clicking <code>File</code> -&gt; <code>New File</code> -&gt; <code>R Markdown...</code></p>
+<center>
+<img src="images/Create.png" style="width:70.0%" />
+</center>
+<p>You can then <code>Knit</code> the template file and start to explore its features.</p>
+<center>
+<img src="images/knit.png" style="width:70.0%" />
+</center>
+<p>Please note that this guide is provided in the <code>.html</code> format. However, your homework report should be in <code>.pdf</code> format. This can be done by selecting the <code>Knit to PDF</code> option from the Knit button. Again there are many online guides, and these may not be the best ones.</p>
+<ul>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">R Markdown Cheat Sheet</a></li>
+<li><a href="https://www.youtube.com/playlist?list=PLBgxzZMu3GpNgd07DwmS-2odHtMO6MWGH">R Markdown Play-list (video)</a></li>
+</ul>
+</div>
+<div id="formatting-text" class="section level2">
+<h2><span class="header-section-number">2.2</span> Formatting Text</h2>
+<p>Formatting text is easy. Bold can be done using <code>**</code> or <code>__</code> before and after the text. Italics can be done using <code>*</code> or <code>_</code> before and after the text. For example, <strong>This is bold.</strong> <em>This is italics.</em> and <strong><em>this is bold italics</em></strong>. <code>This text appears as monospaced.</code></p>
+<ul>
+<li>Unordered list element 1.</li>
+<li>Unordered list element 2.</li>
+<li>Unordered list element 3.</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Ordered list element 1.</li>
+<li>Ordered list element 2.</li>
+<li>Ordered list element 3.</li>
+</ol>
+<p>We could mix lists and links. Note that a link can be constructed in the format <code>[display text](http link)</code>. If colors are desired, we can customize it using, for example, <code>[\textcolor{blue}{display text}](http link)</code>. But this only works in <code>.pdf</code> format. For <code>.html</code>, use <code>&lt;span style="color: red;"&gt;text&lt;/span&gt;</code>.</p>
+<ul>
+<li>A default link: <a href="http://rmarkdown.rstudio.com/" target="_blank">RMarkdown Documentation</a></li>
+<li>colored link 1: <a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf" target="_blank"></a> (Not shown because it only works in PDF)</li>
+<li>colored link 2: <a href="http://www.tablesgenerator.com/markdown_tables" target="_blank"><span style="color: red;">Table Generator</span></a> (only works in HTML)</li>
+</ul>
+<p>Tables are sometimes tricky using Markdown. See the above link for a helpful Markdown table generator. Note that you can also adjust the alignment by using a <code>:</code> sign.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">A</th>
+<th align="left">B</th>
+<th align="left">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="left">2</td>
+<td align="left">3</td>
+</tr>
+<tr class="even">
+<td align="center">Middle</td>
+<td align="left">Left</td>
+<td align="left">Right</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="adding-r-code" class="section level2">
+<h2><span class="header-section-number">2.3</span> Adding <code>R</code> Code</h2>
+<p>So far we have only used Markdown to create the text part. This is useful by itself, but the real power of RMarkdown comes when we add <code>R</code>. There are two ways we can do this. We can use <code>R</code> code chunks, or run <code>R</code> inline.</p>
+<div id="r-chunks" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> <code>R</code> Chunks</h3>
+<p>The following is an example of an <code>R</code> code chunk. Start the chunk with <code>```{r}</code> and end with <code>```</code>:</p>
+<p><code>```{r}</code></p>
+<p><span class="math inline">\(\quad\)</span> <code>set.seed(123)</code></p>
+<p><span class="math inline">\(\quad\)</span> <code>rnorm(5)</code></p>
+<p><code>```</code></p>
+<p>This generates five random observations from the standard normal distribution. We also set the seed so that the results can be later on replicated. The result looks like the following</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="2-rmarkdown.html#cb74-1"></a>    <span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb74-2"><a href="2-rmarkdown.html#cb74-2"></a>    <span class="kw">rnorm</span>(<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] -0.56047565 -0.23017749  1.55870831  0.07050839  0.12928774</code></pre>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="2-rmarkdown.html#cb76-1"></a>    <span class="co"># define function</span></span>
+<span id="cb76-2"><a href="2-rmarkdown.html#cb76-2"></a>    get_sd =<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">biased =</span> <span class="ot">FALSE</span>) {</span>
+<span id="cb76-3"><a href="2-rmarkdown.html#cb76-3"></a>      n =<span class="st"> </span><span class="kw">length</span>(x) <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">*</span><span class="st"> </span><span class="op">!</span>biased</span>
+<span id="cb76-4"><a href="2-rmarkdown.html#cb76-4"></a>      <span class="kw">sqrt</span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>n) <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>((x <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x)) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>))</span>
+<span id="cb76-5"><a href="2-rmarkdown.html#cb76-5"></a>    }</span>
+<span id="cb76-6"><a href="2-rmarkdown.html#cb76-6"></a>    </span>
+<span id="cb76-7"><a href="2-rmarkdown.html#cb76-7"></a>    <span class="co"># generate random sample data</span></span>
+<span id="cb76-8"><a href="2-rmarkdown.html#cb76-8"></a>    <span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb76-9"><a href="2-rmarkdown.html#cb76-9"></a>    (<span class="dt">test_sample =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">mean =</span> <span class="dv">2</span>, <span class="dt">sd =</span> <span class="dv">5</span>))</span></code></pre></div>
+<pre><code>##  [1]  8.8547922 -0.8234909  3.8156421  5.1643130  4.0213416  1.4693774  9.5576100  1.5267048 12.0921186  1.6864295</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="2-rmarkdown.html#cb78-1"></a>    <span class="co"># run function on generated data</span></span>
+<span id="cb78-2"><a href="2-rmarkdown.html#cb78-2"></a>    <span class="kw">get_sd</span>(test_sample)</span></code></pre></div>
+<pre><code>## [1] 4.177244</code></pre>
+<p>There is a lot going on here. In the <code>.Rmd</code> file, notice the syntax that creates and ends the chunk. Also note that <code>example_chunk</code> is the chunk name. Everything between the start and end syntax must be valid <code>R</code> code. Chunk names are not necessary, but can become useful as your documents grow in size.</p>
+<p>In this example, we define a function, generate some random data in a reproducible manner, displayed the data, then ran our function.</p>
+</div>
+<div id="inline-r" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Inline <code>R</code></h3>
+<p><code>R</code> can also be run in the middle of the exposition. For example, the mean of the data we generated is 4.7364838.</p>
+</div>
+</div>
+<div id="importing-data" class="section level2">
+<h2><span class="header-section-number">2.4</span> Importing Data</h2>
+<p>When using RMarkdown, any time you <em>knit</em> your document to its final form, say <code>.html</code>, a number of programs run in the background. Your current <code>R</code> environment seen in RStudio will be reset. Any objects you created while working interactively inside RStudio will be ignored. Essentially a new <code>R</code> session will be spawned in the background and the code in your document is run there from start to finish. For this reason, things such as importing data must be explicitly coded into your document.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="2-rmarkdown.html#cb80-1"></a>    <span class="kw">library</span>(readr)</span>
+<span id="cb80-2"><a href="2-rmarkdown.html#cb80-2"></a>    example_data =<span class="st"> </span><span class="kw">read_table</span>(<span class="st">&quot;data/skincancer.txt&quot;</span>)</span></code></pre></div>
+<p>The above loads the online file. In many cases, you will load a file that is locally stored in your own computer. In that case, you can either specify the full file path, or simply use, for example <code>read_csv("filename.csv")</code> if that file is stored at your <strong>working directory</strong>. The <strong>working directory</strong> will usually be the directory that contains your <code>.Rmd</code> file. You are recommended to reference data in this manner. Note that we use the newer <code>read_csv()</code> from the <code>readr</code> package instead of the default <code>read.csv()</code>.</p>
+</div>
+<div id="working-directory" class="section level2">
+<h2><span class="header-section-number">2.5</span> Working Directory</h2>
+<p>Whenever <code>R</code> code is run, there is always a current working directory. This allows for relative references to external files, in addition to absolute references. Since the working directory when knitting a file is always the directory that contains the <code>.Rmd</code> file, it can be helpful to set the working directory inside RStudio to match while working interactively.</p>
+<p>To do so, select <code>Session &gt; Set Working Directory &gt; To Source File Location</code> while editing a <code>.Rmd</code> file. This will set the working directory to the path that contains the <code>.Rmd</code>. You can also use <code>getwd()</code> and <code>setwd()</code> to manipulate your working directory programmatically. These should only be used interactively. Using them inside an RMarkdown document would likely result in lessened reproducibility.</p>
+<p><strong>As of recent RStudio updates, this practice is not always necessary when working interactively.</strong> If lines of code are being “Output Inline,” then the working directory is automatically the directory which contains the <code>.Rmd</code> file.</p>
+</div>
+<div id="plotting" class="section level2">
+<h2><span class="header-section-number">2.6</span> Plotting</h2>
+<p>The following generates a simple plot, which displays the skin cancer mortality. By default, the figure is aligned on the left, with size 3 by 5 inches.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="2-rmarkdown.html#cb81-1"></a>  <span class="kw">plot</span>(Mort <span class="op">~</span><span class="st"> </span>Lat, <span class="dt">data =</span> example_data)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-28-1.png" width="50%" style="display: block; margin: auto auto auto 0;" /></p>
+<p>In our R introduction, we used <code>ggplot2</code> to create a more interesting plot. You may also polish a plot with basic functions. Notice it is <em>huge</em> in the resulting document, since we have modified some <em>chunk options</em> (<code>fig.height = 6, fig.width = 8</code>) in the RMarkdown file to manipulate its size.</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="2-rmarkdown.html#cb82-1"></a>    <span class="kw">plot</span>(Mort <span class="op">~</span><span class="st"> </span>Lat, <span class="dt">data =</span> example_data,</span>
+<span id="cb82-2"><a href="2-rmarkdown.html#cb82-2"></a>         <span class="dt">xlab =</span> <span class="st">&quot;Latitude&quot;</span>,</span>
+<span id="cb82-3"><a href="2-rmarkdown.html#cb82-3"></a>         <span class="dt">ylab =</span> <span class="st">&quot;Skin Cancer Mortality Rate&quot;</span>,</span>
+<span id="cb82-4"><a href="2-rmarkdown.html#cb82-4"></a>         <span class="dt">main =</span> <span class="st">&quot;Skin Cancer Mortality vs. State Latitude&quot;</span>,</span>
+<span id="cb82-5"><a href="2-rmarkdown.html#cb82-5"></a>         <span class="dt">pch  =</span> <span class="dv">19</span>,</span>
+<span id="cb82-6"><a href="2-rmarkdown.html#cb82-6"></a>         <span class="dt">cex  =</span> <span class="fl">1.5</span>,</span>
+<span id="cb82-7"><a href="2-rmarkdown.html#cb82-7"></a>         <span class="dt">col  =</span> <span class="st">&quot;deepskyblue&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-29-1.png" width="50%" style="display: block; margin: auto auto auto 0;" /></p>
+<p>But you can also notice that the labels and the plots becomes disproportional when the figure size is set too small. This can be resolved using a scaling option such as <code>out.width = '60%</code>, but enlarge the original figure size. We also align the figure at the center using <code>fig.align = 'center'</code></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-30-1.png" width="60%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="chunk-options" class="section level2">
+<h2><span class="header-section-number">2.7</span> Chunk Options</h2>
+<p>We have already seen chunk options <code>fig.height</code>, <code>fig.width</code>, and <code>out.width</code> which modified the size of plots from a particular chunk. There are many <a href="http://yihui.name/knitr/options/">chunk options</a>, but we will discuss some others which are frequently used including; <code>eval</code>, <code>echo</code>, <code>message</code>, and <code>warning</code>. If you noticed, the plot above was displayed without showing the code.</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="2-rmarkdown.html#cb83-1"></a>    <span class="kw">install.packages</span>(<span class="st">&quot;rmarkdown&quot;</span>)</span>
+<span id="cb83-2"><a href="2-rmarkdown.html#cb83-2"></a>    ?log</span>
+<span id="cb83-3"><a href="2-rmarkdown.html#cb83-3"></a>    <span class="kw">View</span>(mpg)</span></code></pre></div>
+<p>Using <code>eval = FALSE</code> the above chunk displays the code, but it is not run. We’ve already discussed not wanting install code to run. The <code>?</code> code pulls up documentation of a function. This will spawn a browser window when knitting, or potentially crash during knitting. Similarly, using <code>View()</code> is an issue with RMarkdown. Inside RStudio, this would pull up a window which displays the data. However, when knitting, <code>R</code> runs in the background and RStudio is not modifying the <code>View()</code> function. This, on OSX especially, usually causes knitting to fail.</p>
+<pre><code>## [1] &quot;Hello World!&quot;</code></pre>
+<p>Above, we see output, but no code! This is done using <code>echo = FALSE</code>, which is often useful.</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="2-rmarkdown.html#cb85-1"></a>    x =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></span>
+<span id="cb85-2"><a href="2-rmarkdown.html#cb85-2"></a>    y =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></span>
+<span id="cb85-3"><a href="2-rmarkdown.html#cb85-3"></a>    <span class="kw">summary</span>(<span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Residuals:
+##        Min         1Q     Median         3Q        Max 
+## -5.661e-16 -1.157e-16  4.273e-17  2.153e-16  4.167e-16 
+## 
+## Coefficients:
+##              Estimate Std. Error   t value Pr(&gt;|t|)    
+## (Intercept) 1.123e-15  2.458e-16 4.571e+00  0.00182 ** 
+## x           1.000e+00  3.961e-17 2.525e+16  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.598e-16 on 8 degrees of freedom
+## Multiple R-squared:      1,  Adjusted R-squared:      1 
+## F-statistic: 6.374e+32 on 1 and 8 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>The above code produces a warning, for reasons we will discuss later. Sometimes, in final reports, it is nice to hide these, which we have done here. <code>message = FALSE</code> and <code>warning = FALSE</code> can be used to do so. Messages are often created when loading packages to give the user information about the effects of loading the package. These should be suppressed in final reports. Be careful about suppressing these messages and warnings too early in an analysis as you could potentially miss important information!</p>
+</div>
+<div id="adding-math-with-latex" class="section level2">
+<h2><span class="header-section-number">2.8</span> Adding Math with LaTeX</h2>
+<p>Another benefit of RMarkdown is the ability to add <a href="https://www.latex-project.org/about/">Latex for mathematics typesetting</a>. Like <code>R</code> code, there are two ways we can include Latex; displaystyle and inline.</p>
+<p>Note that use of LaTeX is somewhat dependent on the resulting file format. For example, it cannot be used at all with <code>.docx</code>. To use it with <code>.pdf</code> you must have LaTeX installed on your machine.</p>
+<p>With <code>.html</code> the LaTeX is not actually rendered during knitting, but actually rendered in your browser using MathJax.</p>
+<div id="displaystyle-latex" class="section level3">
+<h3><span class="header-section-number">2.8.1</span> Displaystyle LaTeX</h3>
+<p>Displaystyle is used for larger equations which appear centered on their own line. This is done by putting <code>$$</code> before and after the mathematical equation.</p>
+<p><span class="math display">\[
+\widehat \sigma = \sqrt{\frac{1}{n - 1}\sum_{i=1}^{n}(x_i - \bar{x})^2}
+\]</span></p>
+</div>
+<div id="inline-latex" class="section level3">
+<h3><span class="header-section-number">2.8.2</span> Inline LaTex</h3>
+<p>We could mix LaTeX commands in the middle of exposition, for example: <span class="math inline">\(t = 2\)</span>. We could actually mix <code>R</code> with Latex as well! For example: <span class="math inline">\(\bar{x} = 4.7364838\)</span>.</p>
+</div>
+</div>
+<div id="output-options" class="section level2">
+<h2><span class="header-section-number">2.9</span> Output Options</h2>
+<p>At the beginning of the document, there is a code which describes some metadata and settings of the document. The default code looks like</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="2-rmarkdown.html#cb87-1"></a>    title<span class="op">:</span><span class="st"> &quot;R Notebook&quot;</span></span>
+<span id="cb87-2"><a href="2-rmarkdown.html#cb87-2"></a>    output<span class="op">:</span><span class="st"> </span>html_notebook</span></code></pre></div>
+<p>You can easily add your name and date to it, and add a Table of Contents, using <code>toc: yes</code>. Note that the following code would specify the theme of an <code>html</code> file.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="2-rmarkdown.html#cb88-1"></a>    title<span class="op">:</span><span class="st"> &quot;My RMarkdown Template&quot;</span></span>
+<span id="cb88-2"><a href="2-rmarkdown.html#cb88-2"></a>    author<span class="op">:</span><span class="st"> &quot;Your Name&quot;</span></span>
+<span id="cb88-3"><a href="2-rmarkdown.html#cb88-3"></a>    date<span class="op">:</span><span class="st"> &quot;Aug 26, 2021&quot;</span></span>
+<span id="cb88-4"><a href="2-rmarkdown.html#cb88-4"></a>    output<span class="op">:</span></span>
+<span id="cb88-5"><a href="2-rmarkdown.html#cb88-5"></a><span class="st">      </span>html_document<span class="op">:</span><span class="st"> </span></span>
+<span id="cb88-6"><a href="2-rmarkdown.html#cb88-6"></a><span class="st">        </span>toc<span class="op">:</span><span class="st"> </span>yes</span></code></pre></div>
+<p>You can edit this yourself, or click the settings button at the top of the document and select <code>Output Options...</code>. Here you can explore other themes and syntax highlighting options, as well as many additional options. Using this method will automatically modify this information in the document.</p>
+</div>
+<div id="try-it" class="section level2">
+<h2><span class="header-section-number">2.10</span> Try It!</h2>
+<p>Be sure to play with this document! Change it. Break it. Fix it. The best way to learn RMarkdown (or really almost anything) is to try, fail, then find out what you did wrong.</p>
+<p>RStudio has provided a number of <a href="http://rmarkdown.rstudio.com/lesson-1.html">beginner tutorials</a> which have been greatly improved recently and detail many of the specifics potentially not covered in this document. RMarkdown is continually improving, and this document covers only the very basics.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="1-r-and-rstudio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="3-linear-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["SMLR.pdf", "SMLR.epub"],
+"search": {
+"engine": "lunr",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

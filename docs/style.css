@@ -1,0 +1,25 @@
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+
+p code {
+  white-space: inherit;
+}
+
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+
+pre code {
+  white-space: inherit;
+}
+
+body {
+  text-align: justify;
+}
+
+.level1 h1 {
+  border-bottom: 2px solid;
+}
