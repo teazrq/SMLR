@@ -12,7 +12,7 @@ biblio-style: apalike
 favicon: "favicon.ico"
 link-citations: yes
 urlcolor: cyan
-description: ""
+description: "A text book for STAT 542 and 432 at UIUC"
 ---
 
 ```{r global.options, include = FALSE}

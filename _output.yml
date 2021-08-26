@@ -1,6 +1,8 @@
 bookdown::gitbook:
   css: style.css
   split_by: chapter+number 
+  includes: 
+    in_header: mathjax_header.html
   config:
     toc:
       collapse: section

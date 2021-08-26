@@ -5,20 +5,20 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Linear Regression | Statistical Learning and Machine Learning with R</title>
-  <meta name="description" content="Chapter 3 Linear Regression | Statistical Learning and Machine Learning with R" />
+  <meta name="description" content="A text book for STAT 542 and 432 at UIUC" />
   <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Linear Regression | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://teazrq.github.io/SMLR/" />
   
-  
+  <meta property="og:description" content="A text book for STAT 542 and 432 at UIUC" />
   <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 3 Linear Regression | Statistical Learning and Machine Learning with R" />
   
-  
+  <meta name="twitter:description" content="A text book for STAT 542 and 432 at UIUC" />
   
 
 <meta name="author" content="Ruoqing Zhu" />
@@ -65,6 +65,24 @@
 <script src="libs/selectize-0.12.0/selectize.min.js"></script>
 <link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<span class="math inline">
+  \(\def\bX{\mathbf{X}}\)
+  \(\def\bH{\mathbf{H}}\)
+  \(\def\bI{\mathbf{I}}\)
+  \(\def\bx{\mathbf{x}}\)
+  \(\def\by{\mathbf{y}}\)
+  \(\def\br{\mathbf{r}}\)
+  \(\def\bzero{\mathbf{0}}\)  
+  \(\def\bbeta{\boldsymbol \beta}\)
+  \(\def\bepsilon{\boldsymbol \epsilon}\)  
+  \(\def\T{\text{T}}\)
+  \(\def\Cov{\text{Cov}}\)
+  \(\def\Var{\text{Var}}\)
+  \(\def\E{\text{E}}\)
+  \(\def\pr{\text{pr}}\)
+  \(\DeclareMathOperator*{\argmin}{arg\,min}\)
+  \(\DeclareMathOperator*{\argmax}{arg\,max}\)
+</span>
 
 
 <style type="text/css">
@@ -381,7 +399,7 @@ When the number of variables is large, inverting <span class="math inline">\(\ma
 <span id="cb100-3"><a href="3-linear-regression.html#cb100-3"></a>    <span class="co"># check ?solve</span></span>
 <span id="cb100-4"><a href="3-linear-regression.html#cb100-4"></a>    <span class="kw">system.time</span>({beta_hat =<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>y})</span></code></pre></div>
 <pre><code>##    user  system elapsed 
-##    0.31    0.00    0.31</code></pre>
+##    0.33    0.00    0.33</code></pre>
 <div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="3-linear-regression.html#cb102-1"></a>    <span class="kw">head</span>(beta_hat)</span></code></pre></div>
 <pre><code>##              [,1]
 ## [1,]  1.016479750
@@ -393,7 +411,7 @@ When the number of variables is large, inverting <span class="math inline">\(\ma
 <div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="3-linear-regression.html#cb104-1"></a>    <span class="co"># you can avoid the inversion by specifying the linear equation system X&#39;X b = X&#39;y </span></span>
 <span id="cb104-2"><a href="3-linear-regression.html#cb104-2"></a>    <span class="kw">system.time</span>({beta_hat =<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X, <span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>y)})    </span></code></pre></div>
 <pre><code>##    user  system elapsed 
-##    0.15    0.00    0.15</code></pre>
+##    0.15    0.00    0.14</code></pre>
 <div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="3-linear-regression.html#cb106-1"></a>    <span class="co"># A better approach is to use QR decomposition or the Cholesky decomposition </span></span>
 <span id="cb106-2"><a href="3-linear-regression.html#cb106-2"></a>    <span class="co"># The following codes are not necessarily efficient, they are only for demonstration purpose</span></span>
 <span id="cb106-3"><a href="3-linear-regression.html#cb106-3"></a>    </span>
