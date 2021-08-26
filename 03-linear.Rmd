@@ -90,6 +90,7 @@ $$
 \end{align}
 $$
 All of the above mentioned results are already implemented in R through the `lm()` function to fit a linear regression. 
+
 ## Using the `lm()` Function
 
 Let's consider a simple regression model that uses `age` and `distance` to explain `price`. We will save the fitted object as `realestat.lmfit`

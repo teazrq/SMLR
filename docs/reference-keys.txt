@@ -30,3 +30,4 @@ linear-regression-as-an-optimization
 linear-reg
 model-selection-criteria-and-algorithm
 example-diabetes-dataset
+using-the-lm-function
