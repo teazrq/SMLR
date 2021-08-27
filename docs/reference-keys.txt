@@ -36,3 +36,5 @@ mallows-cp
 optimization
 linear-regression-as-an-optimization
 linear-reg
+using-marrows-c_p
+using-aic-and-bic

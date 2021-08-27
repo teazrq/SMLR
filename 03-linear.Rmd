@@ -214,7 +214,7 @@ The idea of model selection is to apply some penalty on the number of parameters
 
 $$\text{Goodness-of-Fit} + \text{Complexity Penality}$$
 
-### Marrows' $C_p$
+### Using Marrows' $C_p$
 
 For example, the Marrows' $C_p$ criterion minimize the following quantity (a derivation is provided at Section \@ref(mallows-cp)): 
 
@@ -249,7 +249,7 @@ We can compare this with another sub-model, say, with just `age` and `glu`:
 
 Comparing this with the previous one, the sub-model is better. 
 
-### AIC and BIC
+### Using AIC and BIC
 
 Calculating the AIC and BIC criteria in `R` is a lot simpler, with the existing functions. The AIC score is given by 
 
