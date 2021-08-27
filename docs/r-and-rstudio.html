@@ -189,11 +189,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="linear-regression.html"><a href="linear-regression.html#example-real-estate-data"><i class="fa fa-check"></i><b>3.1</b> Example: real estate data</a></li>
 <li class="chapter" data-level="3.2" data-path="linear-regression.html"><a href="linear-regression.html#notation-and-basic-properties"><i class="fa fa-check"></i><b>3.2</b> Notation and Basic Properties</a></li>
 <li class="chapter" data-level="3.3" data-path="linear-regression.html"><a href="linear-regression.html#using-the-lm-function"><i class="fa fa-check"></i><b>3.3</b> Using the <code>lm()</code> Function</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="linear-regression.html"><a href="linear-regression.html#linear-regression-as-an-optimization"><i class="fa fa-check"></i><b>3.3.1</b> Linear regression as an optimization</a></li>
-<li class="chapter" data-level="3.3.2" data-path="linear-regression.html"><a href="linear-regression.html#linear-reg"><i class="fa fa-check"></i><b>3.3.2</b> Linear regression as projections</a></li>
+<li class="chapter" data-level="3.3.1" data-path="linear-regression.html"><a href="linear-regression.html#adding-covariates"><i class="fa fa-check"></i><b>3.3.1</b> Adding Covariates</a></li>
+<li class="chapter" data-level="3.3.2" data-path="linear-regression.html"><a href="linear-regression.html#categorical-variables"><i class="fa fa-check"></i><b>3.3.2</b> Categorical Variables</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="linear-regression.html"><a href="linear-regression.html#model-selection-criteria-and-algorithm"><i class="fa fa-check"></i><b>3.4</b> Model Selection Criteria and Algorithm</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="linear-regression.html"><a href="linear-regression.html#example-diabetes-dataset"><i class="fa fa-check"></i><b>3.4.1</b> Example: <code>diabetes</code> dataset</a></li>
+<li class="chapter" data-level="3.4" data-path="linear-regression.html"><a href="linear-regression.html#model-selection-criteria-and-algorithm"><i class="fa fa-check"></i><b>3.4</b> Model Selection Criteria and Algorithm</a></li>
+<li class="chapter" data-level="3.5" data-path="linear-regression.html"><a href="linear-regression.html#mallows-cp"><i class="fa fa-check"></i><b>3.5</b> Mallows’ <span class="math inline">\(C_p\)</span> Derivation</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="linear-regression.html"><a href="linear-regression.html#linear-regression-as-an-optimization"><i class="fa fa-check"></i><b>3.5.1</b> Linear regression as an optimization</a></li>
+<li class="chapter" data-level="3.5.2" data-path="linear-regression.html"><a href="linear-regression.html#linear-reg"><i class="fa fa-check"></i><b>3.5.2</b> Linear regression as projections</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -466,9 +468,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  0  1 
 ## 57 43</code></pre>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="r-and-rstudio.html#cb62-1"></a>    <span class="kw">hist</span>(y)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-15-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-16-1.png" width="60%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="r-and-rstudio.html#cb63-1"></a>    <span class="kw">boxplot</span>(y <span class="op">~</span><span class="st"> </span>x)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-15-2.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-16-2.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="using-packages-and-other-resources" class="section level2">
 <h2><span class="header-section-number">1.8</span> Using packages and other resources</h2>
@@ -484,7 +486,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb65-7"><a href="r-and-rstudio.html#cb65-7"></a>    <span class="co"># Species labels are used as color</span></span>
 <span id="cb65-8"><a href="r-and-rstudio.html#cb65-8"></a>    <span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(Sepal.Length, Sepal.Width, <span class="dt">colour =</span> Species)) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb65-9"><a href="r-and-rstudio.html#cb65-9"></a><span class="st">      </span><span class="kw">geom_point</span>()  </span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-17-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-18-1.png" width="60%" style="display: block; margin: auto;" /></p>
 <p>You may also noticed that in our previous examples, all tables only displayed the first several rows. One may be interested in looking at the entire dataset, however, it would take too much space to display the whole table. Here is a package that would allow you to display it in a compact window. It also provides searching and sorting tools. You can integrate this into your R Markdown reports.</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="r-and-rstudio.html#cb66-1"></a>    <span class="kw">library</span>(DT)</span>
 <span id="cb66-2"><a href="r-and-rstudio.html#cb66-2"></a>    <span class="kw">datatable</span>(iris, <span class="dt">filter =</span> <span class="st">&quot;top&quot;</span>, <span class="dt">rownames =</span> <span class="ot">FALSE</span>,</span>

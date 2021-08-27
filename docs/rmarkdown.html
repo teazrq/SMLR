@@ -189,11 +189,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="linear-regression.html"><a href="linear-regression.html#example-real-estate-data"><i class="fa fa-check"></i><b>3.1</b> Example: real estate data</a></li>
 <li class="chapter" data-level="3.2" data-path="linear-regression.html"><a href="linear-regression.html#notation-and-basic-properties"><i class="fa fa-check"></i><b>3.2</b> Notation and Basic Properties</a></li>
 <li class="chapter" data-level="3.3" data-path="linear-regression.html"><a href="linear-regression.html#using-the-lm-function"><i class="fa fa-check"></i><b>3.3</b> Using the <code>lm()</code> Function</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="linear-regression.html"><a href="linear-regression.html#linear-regression-as-an-optimization"><i class="fa fa-check"></i><b>3.3.1</b> Linear regression as an optimization</a></li>
-<li class="chapter" data-level="3.3.2" data-path="linear-regression.html"><a href="linear-regression.html#linear-reg"><i class="fa fa-check"></i><b>3.3.2</b> Linear regression as projections</a></li>
+<li class="chapter" data-level="3.3.1" data-path="linear-regression.html"><a href="linear-regression.html#adding-covariates"><i class="fa fa-check"></i><b>3.3.1</b> Adding Covariates</a></li>
+<li class="chapter" data-level="3.3.2" data-path="linear-regression.html"><a href="linear-regression.html#categorical-variables"><i class="fa fa-check"></i><b>3.3.2</b> Categorical Variables</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="linear-regression.html"><a href="linear-regression.html#model-selection-criteria-and-algorithm"><i class="fa fa-check"></i><b>3.4</b> Model Selection Criteria and Algorithm</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="linear-regression.html"><a href="linear-regression.html#example-diabetes-dataset"><i class="fa fa-check"></i><b>3.4.1</b> Example: <code>diabetes</code> dataset</a></li>
+<li class="chapter" data-level="3.4" data-path="linear-regression.html"><a href="linear-regression.html#model-selection-criteria-and-algorithm"><i class="fa fa-check"></i><b>3.4</b> Model Selection Criteria and Algorithm</a></li>
+<li class="chapter" data-level="3.5" data-path="linear-regression.html"><a href="linear-regression.html#mallows-cp"><i class="fa fa-check"></i><b>3.5</b> Mallows’ <span class="math inline">\(C_p\)</span> Derivation</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="linear-regression.html"><a href="linear-regression.html#linear-regression-as-an-optimization"><i class="fa fa-check"></i><b>3.5.1</b> Linear regression as an optimization</a></li>
+<li class="chapter" data-level="3.5.2" data-path="linear-regression.html"><a href="linear-regression.html#linear-reg"><i class="fa fa-check"></i><b>3.5.2</b> Linear regression as projections</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -336,7 +338,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.6</span> Plotting</h2>
 <p>The following generates a simple plot, which displays the skin cancer mortality. By default, the figure is aligned on the left, with size 3 by 5 inches.</p>
 <div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="rmarkdown.html#cb81-1"></a>  <span class="kw">plot</span>(Mort <span class="op">~</span><span class="st"> </span>Lat, <span class="dt">data =</span> example_data)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-28-1.png" width="50%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-29-1.png" width="50%" style="display: block; margin: auto auto auto 0;" /></p>
 <p>In our R introduction, we used <code>ggplot2</code> to create a more interesting plot. You may also polish a plot with basic functions. Notice it is <em>huge</em> in the resulting document, since we have modified some <em>chunk options</em> (<code>fig.height = 6, fig.width = 8</code>) in the RMarkdown file to manipulate its size.</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="rmarkdown.html#cb82-1"></a>    <span class="kw">plot</span>(Mort <span class="op">~</span><span class="st"> </span>Lat, <span class="dt">data =</span> example_data,</span>
 <span id="cb82-2"><a href="rmarkdown.html#cb82-2"></a>         <span class="dt">xlab =</span> <span class="st">&quot;Latitude&quot;</span>,</span>
@@ -345,9 +347,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb82-5"><a href="rmarkdown.html#cb82-5"></a>         <span class="dt">pch  =</span> <span class="dv">19</span>,</span>
 <span id="cb82-6"><a href="rmarkdown.html#cb82-6"></a>         <span class="dt">cex  =</span> <span class="fl">1.5</span>,</span>
 <span id="cb82-7"><a href="rmarkdown.html#cb82-7"></a>         <span class="dt">col  =</span> <span class="st">&quot;deepskyblue&quot;</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-29-1.png" width="50%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-30-1.png" width="50%" style="display: block; margin: auto auto auto 0;" /></p>
 <p>But you can also notice that the labels and the plots becomes disproportional when the figure size is set too small. This can be resolved using a scaling option such as <code>out.width = '60%</code>, but enlarge the original figure size. We also align the figure at the center using <code>fig.align = 'center'</code></p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-30-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-31-1.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="chunk-options" class="section level2">
 <h2><span class="header-section-number">2.7</span> Chunk Options</h2>

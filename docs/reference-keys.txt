@@ -27,7 +27,11 @@ linear-regression
 example-real-estate-data
 notation-and-basic-properties
 using-the-lm-function
+adding-covariates
+categorical-variables
+model-selection-criteria-and-algorithm
+mallows-cp
 linear-regression-as-an-optimization
 linear-reg
-model-selection-criteria-and-algorithm
-example-diabetes-dataset
+mallows-c_p-derivation-mallows-cp
+optimization

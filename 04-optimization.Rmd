@@ -1,0 +1,103 @@
+# Optimization 
+
+## Linear regression as an optimization
+
+```{r fig.width=5, fig.height=5}
+    # generate data for a simple linear regression 
+    set.seed(20)
+    n = 100
+    x <- cbind(1, rnorm(n))
+    y <- x %*% c(1, 0.5) + rnorm(n)
+    
+    # calculate the residual sum of squares for a grid of beta values
+    rss <- function(b, x, y) sum((y - x %*% b)^2)
+    b1 <- b2 <- seq(0, 2, length= 20)
+    z = matrix(apply(expand.grid(b1, b2), 1, rss, x, y), 20, 20)
+    
+    # 3d plot for RSS
+    par(mar = c(1,1,3,1))
+    persp(b1, b2, z, xlab = "beta 1", ylab = "beta 2", zlab = "RSS",
+          main="Residual Sum of Squares", col = "springgreen", shade = 0.6,
+          theta = 30, phi = 5)
+    
+    # The solution can be solved by any optimization algorithm 
+    optim(c(0, 0), rss, x = x, y = y)$par
+```
+
+
+
+## Linear regression as projections {#linear-reg}
+
+Another view is through projections in vector space. Consider each column of $\mathbf{X}$ as a vector, and project $\mathbf{y}$ onto the column space of $\mathbf{X}$. The project is 
+
+$$ \widehat{\mathbf{y}} = \mathbf{X} (\mathbf{X}^\text{T} \mathbf{X})^{-1}\mathbf{X}^\text{T} \mathbf{y} \doteq {\mathbf{H}} \mathbf{y}, $$
+where $\mathbf{H}$ is a projection matrix. And the residuals are simply 
+
+$$ \widehat{\mathbf{e}} = \mathbf{y} - \widehat{\mathbf{y}} = (\mathbf{I} - \mathbf{H}) \mathbf{y} $$
+When the number of variables is large, inverting $\mathbf{X}^\text{T} \mathbf{X}$ is expansive. The `R` function `lm()` does not calculate the inverse directly. Instead, QR decomposition can be used. You can try a larger $n$ and $p$ to see a significant difference. This is only for demonstration. They are not required for our course. 
+
+```{r}
+    # generate 100 observations with 3 variables
+    set.seed(1)
+    n = 1000
+    p = 500
+    x = matrix(rnorm(n*p), n, p)
+    X = cbind(1, x) # the design matrix, including 1 as the first column
+    
+    # define the true beta, the first entry is the intercept
+    b = as.matrix(c(1, 1, 0.5, rep(0, p-2))) 
+    
+    # generate training y with Gaussian errors
+    y = X %*% b + rnorm(n)
+    
+    # fit a linear regression model 
+    lm.fit = lm(y ~ x)
+    
+    # look at the coefficients beta hat
+    head(lm.fit$coef)
+    
+    # using normal equations by inverting the X'X matrix: b = (X'X)^-1 X'y 
+    # however, this is very slow
+    # check ?solve
+    system.time({beta_hat = solve(t(X) %*% X) %*% t(X) %*% y})
+    head(beta_hat)
+    
+    # you can avoid the inversion by specifying the linear equation system X'X b = X'y 
+    system.time({beta_hat = solve(t(X) %*% X, t(X) %*% y)})    
+    
+    # A better approach is to use QR decomposition or the Cholesky decomposition 
+    # The following codes are not necessarily efficient, they are only for demonstration purpose
+    
+    # QR decomposition
+    # direct calling the qr.coef function
+    system.time({beta_hat = qr.coef(qr(X), y)})
+    
+    # or 
+    system.time({beta_hat = qr.solve(t(X) %*% X, t(X) %*% y)})
+    
+    # if you want to see what Q and R are
+    QR = qr(X)
+    Q = qr.Q(QR)
+    R = qr.R(QR)
+    
+    # get inverse of R, you can check R %*% R_inv yourself
+    # the backsolve/forwardsolve functions can be used to solve AX = b for upper/lower triangular matrix A 
+    # ?backsolve
+    R_inv = backsolve(R, diag(p+1), upper.tri = TRUE, transpose = FALSE)
+    beta_hat = R_inv %*% t(Q) %*% y
+    
+    # Cholesky Decomposition 
+    
+    # the chol function gives upper triangular matrix
+    # crossprod(X) = X'X
+    system.time({
+    R = chol(crossprod(X))
+    w = backsolve(R, t(X) %*% y, upper.tri = TRUE, transpose = TRUE)
+    beta_hat = backsolve(R, w, upper.tri = TRUE, transpose = FALSE)
+    })
+    
+    # or equivalently 
+    R = t(chol(crossprod(X)))
+    w = forwardsolve(R, t(X) %*% y, upper.tri = FALSE, transpose = FALSE)
+    beta_hat = forwardsolve(R, w, upper.tri = FALSE, transpose = TRUE) # the transpose = TRUE means that we are solving for R'b = w instead of Rb = w 
+```
