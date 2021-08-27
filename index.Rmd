@@ -17,7 +17,7 @@ description: "A text book for STAT 542 and 432 at UIUC"
 
 ```{r global.options, include = FALSE}
   options(width = 1000)
-  knitr::opts_chunk$set(fig.align = "center")
+  knitr::opts_chunk$set(collapse = TRUE)
   knitr::opts_chunk$set(fig.dim = c(8, 6), out.width = "60%", fig.align = 'center')
 ```
 

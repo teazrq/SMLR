@@ -29,9 +29,10 @@ notation-and-basic-properties
 using-the-lm-function
 adding-covariates
 categorical-variables
-model-selection-criteria-and-algorithm
+model-selection-criteria
+marrows-c_p
+aic-and-bic
 mallows-cp
+optimization
 linear-regression-as-an-optimization
 linear-reg
-mallows-c_p-derivation-mallows-cp
-optimization

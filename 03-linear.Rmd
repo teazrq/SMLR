@@ -196,7 +196,7 @@ There are usually two types of categorical variables:
   
 The above example is treating `store.cat` as a nominal variable, and the `lm()` function is using dummy variables for each category. This should be our default approach to handle nominal variables. 
 
-## Model Selection Criteria and Algorithm
+## Model Selection Criteria
 
 We will use the `diabetes` dataset from the `lars` package as a demonstration of model selection. Ten baseline variables include age, sex, body mass index, average blood pressure, and six blood serum measurements. These measurements were obtained for each of n = 442 diabetes patients, as well as the outcome of interest, a quantitative measure of disease progression one year after baseline. More details are available in @efron2004least. Our goal is to select a linear model, preferably with a small number of variables, that can predict the outcome. To select the best model, commonly used strategies include Marrow's $C_p$, AIC (Akaike information criterion) and BIC (Bayesian information criterion). Further derivations will be provide at a later section. 
 
@@ -207,12 +207,14 @@ We will use the `diabetes` dataset from the `lars` package as a demonstration of
     diab = data.frame(cbind(diabetes$x, "Y" = diabetes$y))
 
     # fit linear regression with all covariates
-    lm.fit=lm(Y~., data=diab)
+    lm.fit = lm(Y~., data=diab)
 ```
 
 The idea of model selection is to apply some penalty on the number of parameters used in the model. In general, they are usually in the form of 
 
 $$\text{Goodness-of-Fit} + \text{Complexity Penality}$$
+
+### Marrows' $C_p$
 
 For example, the Marrows' $C_p$ criterion minimize the following quantity (a derivation is provided at Section \@ref(mallows-cp)): 
 
@@ -220,47 +222,76 @@ $$\text{RSS} + 2 p \widehat\sigma_{\text{full}}^2$$
 Note that the $\sigma_{\text{full}}^2$ refers to the residual variance estimation based on the full model, i.e., will all variables. Hence, this formula cannot be used when $p > n$ because you would not be able to obtain a valid estimation of $\sigma_{\text{full}}^2$. Nonetheless, we can calculate this quantity with the diabetes dataset
 
 ```{r}
+    # number of variables (including intercept)
     p = 11
-  
+    n = nrow(diab)
+      
     # obtain residual sum of squares
     RSS = sum(residuals(lm.fit)^2)
     
     # use the formula directly to calculate the Cp criterion 
     Cp = RSS + 2*p*summary(lm.fit)$sigma^2
+    Cp
 ```
 
+We can compare this with another sub-model, say, with just `age` and `glu`:
 
 ```{r}
-    lmfit=lm(Y~., data=diab)
+    lm.fit_sub = lm(Y~ age + glu, data=diab)
+  
+    # obtain residual sum of squares
+    RSS_sub = sum(residuals(lm.fit_sub)^2)
     
-    
-    # When we use normal distribution likelihood for the errors, there are 12 parameters
-    # The function AIC() directly calculates the AIC score from a lm() fitted model 
-    n = nrow(diab)
-    p = 11
+    # use the formula directly to calculate the Cp criterion 
+    Cp_sub = RSS + 2*3*summary(lm.fit)$sigma^2
+    Cp_sub
+```
 
+Comparing this with the previous one, the sub-model is better. 
+
+### AIC and BIC
+
+Calculating the AIC and BIC criteria in `R` is a lot simpler, with the existing functions. The AIC score is given by 
+
+$$-2 \text{Log-likelihood} + 2 p,$$
+while the BIC score is given by 
+
+$$-2 \text{Log-likelihood} + \log(n) p,$$
+
+The AIC score can be done using the `AIC()` function. We can match this result by writing out the normal density function and plug in the estimated parameters. Note that this requires one additional parameter, which is the variance. Hence the total number of parameters is 12. We can calculate this with our own code:
+
+```{r}
     # ?AIC
-    AIC(lmfit) # a build-in function for calculating AIC using -2log likelihood
-    n*log(sum(residuals(lmfit)^2/n)) + n + n*log(2*pi) + 2 + 2*p
+    # a build-in function for calculating AIC using -2log likelihood
+    AIC(lm.fit) 
 
-    # In many standard R packages, the AIC is calculated by removing some constants from the likelihood 
-    # We will use this value as the default
-    
+    # Match the result
+    n*log(RSS/n) + n + n*log(2*pi) + (2 + 2*p)
+```
+
+Alternatively, the `extractAIC()` function can calculate both AIC and BIC. However, note that the `n + n*log(2*pi)` part in the above code does not change regardless of how many parameters we use. Hence, this quantify does not affect the comparison between different models. Then we can safely remove this part and only focus on the essential ones. 
+
+```{r}
     # ?extractAIC
-    extractAIC(lmfit) # AIC for the full model
-    RSS = sum(residuals(lmfit)^2)
+    # AIC for the full model
+    extractAIC(lm.fit)
     n*log(RSS/n) + 2*p
 
-    # so the BIC for the full model is 
-    extractAIC(lmfit, k = log(n))
+    # BIC for the full model
+    extractAIC(lm.fit, k = log(n))
     n*log(RSS/n) + log(n)*p
-    
-    # if we want to calculate Cp, use the formula
-    RSS + 2*p*summary(lmfit)$sigma^2
-    
-    # however, the scale of this is usually very large, we may consider the following version
-    RSS/summary(lmfit)$sigma^2 + 2*p - n
 ```
+
+Now, we can compare AIC or BIC using of two different models and select whichever one that gives a smaller value. For example the AIC of the previous sub-model is 
+
+```{r}
+    # AIC for the sub-model
+    extractAIC(lm.fit_sub)
+```
+
+
+
+
 
 The `step()` function can be used to select the best model based on specified model selection criteria. 
 
@@ -269,12 +300,12 @@ The `step()` function can be used to select the best model based on specified mo
     # ?step
     
     # this function shows every step during the model selection 
-    step(lmfit, direction="both", k = 2)    # k = 2 (AIC) is default; 
+    step(lm.fit, direction="both", k = 2)    # k = 2 (AIC) is default; 
     
-    step(lmfit, direction="backward", trace=0) # trace=0 will not print intermediate results
-    step(lm(Y~1, data=diab), scope=list(upper=lmfit, lower=~1), direction="forward", trace=0)
+    step(lm.fit, direction="backward", trace=0) # trace=0 will not print intermediate results
+    step(lm(Y~1, data=diab), scope=list(upper=lm.fit, lower=~1), direction="forward", trace=0)
     
-    step(lmfit, direction="both", k=log(n), trace=0)  # BIC (the default value for k=2, which corresponds to AIC)
+    step(lm.fit, direction="both", k=log(n), trace=0)  # BIC (the default value for k=2, which corresponds to AIC)
 ```
 
 The `leaps` package will calculate the best model of each model size. Then we can add the penalties to the model fitting result and conclude the best model. 
@@ -302,7 +333,7 @@ The `leaps` package will calculate the best model of each model size. Then we ca
     msize=apply(sumleaps$which,1,sum)
     n=dim(diab)[1]
     p=dim(diab)[2]
-    Cp = sumleaps$rss/(summary(lmfit)$sigma^2) + 2*msize - n;
+    Cp = sumleaps$rss/(summary(lm.fit)$sigma^2) + 2*msize - n;
     AIC = n*log(sumleaps$rss/n) + 2*msize;
     BIC = n*log(sumleaps$rss/n) + msize*log(n);
     
