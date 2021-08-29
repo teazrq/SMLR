@@ -47,7 +47,7 @@ This [Real Estate data](https://archive.ics.uci.edu/ml/datasets/Real+estate+valu
 
 ## Notation and Basic Properties
 
-We usually denote the observed covariates data as the design matrix $\mathbf{X}$, with dimension $n \times p$. Hence in this case, the dimension of $\mathbf{X}$ is $414 \times 7$. The $j$th variable is simply the $j$th column of this matrix, which is denoted as $\mathbf{x}_j$. The outcome $\mathbf{y}$ (`price`) is a vector of length $414$. Please note that we usually use a "bold" symbol to represent a vector, while for a single element (scalar), such as the $j$th variable of subject $i$, we use $x_{ij}$. $\bX$
+We usually denote the observed covariates data as the design matrix $\mathbf{X}$, with dimension $n \times p$. Hence in this case, the dimension of $\mathbf{X}$ is $414 \times 7$. The $j$th variable is simply the $j$th column of this matrix, which is denoted as $\mathbf{x}_j$. The outcome $\mathbf{y}$ (`price`) is a vector of length $414$. Please note that we usually use a "bold" symbol to represent a vector, while for a single element (scalar), such as the $j$th variable of subject $i$, we use $x_{ij}$.
 
 A linear regression concerns modeling the relationship (in matrix form)
 

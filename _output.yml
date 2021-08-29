@@ -7,3 +7,7 @@ bookdown::gitbook:
         <li><a href="./">Statistical Learning and Machine Learning with R</a></li>
       after: |
         <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2021 Ruoqing Zhu</a></li>
+    fontsettings:
+        theme: sepia
+        family: serif
+        size: 2
