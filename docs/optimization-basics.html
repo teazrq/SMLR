@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Statistical Learning and Machine Learning with R</title>
+  <title>Chapter 5 Optimization Basics | Statistical Learning and Machine Learning with R</title>
   <meta name="description" content="A text book for STAT 542 and 432 at UIUC" />
   <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Statistical Learning and Machine Learning with R" />
+  <meta property="og:title" content="Chapter 5 Optimization Basics | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://teazrq.github.io/SMLR/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Statistical Learning and Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 5 Optimization Basics | Statistical Learning and Machine Learning with R" />
   
   <meta name="twitter:description" content="A text book for STAT 542 and 432 at UIUC" />
   
@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-
+<link rel="prev" href="numerical-simulation.html"/>
 
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -213,18 +213,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="optimization-basics" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Optimization Basics</h1>
+<div id="linear-regression-as-an-optimization" class="section level2">
+<h2><span class="header-section-number">5.1</span> Linear regression as an optimization</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="optimization-basics.html#cb1-1"></a>    <span class="co"># generate data for a simple linear regression </span></span>
+<span id="cb1-2"><a href="optimization-basics.html#cb1-2"></a>    <span class="kw">set.seed</span>(<span class="dv">20</span>)</span>
+<span id="cb1-3"><a href="optimization-basics.html#cb1-3"></a>    n =<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb1-4"><a href="optimization-basics.html#cb1-4"></a>    x &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>, <span class="kw">rnorm</span>(n))</span>
+<span id="cb1-5"><a href="optimization-basics.html#cb1-5"></a>    y &lt;-<span class="st"> </span>x <span class="op">%*%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n)</span>
+<span id="cb1-6"><a href="optimization-basics.html#cb1-6"></a>    </span>
+<span id="cb1-7"><a href="optimization-basics.html#cb1-7"></a>    <span class="co"># calculate the residual sum of squares for a grid of beta values</span></span>
+<span id="cb1-8"><a href="optimization-basics.html#cb1-8"></a>    rss &lt;-<span class="st"> </span><span class="cf">function</span>(b, x, y) <span class="kw">sum</span>((y <span class="op">-</span><span class="st"> </span>x <span class="op">%*%</span><span class="st"> </span>b)<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb1-9"><a href="optimization-basics.html#cb1-9"></a>    b1 &lt;-<span class="st"> </span>b2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dt">length=</span> <span class="dv">20</span>)</span>
+<span id="cb1-10"><a href="optimization-basics.html#cb1-10"></a>    z =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">apply</span>(<span class="kw">expand.grid</span>(b1, b2), <span class="dv">1</span>, rss, x, y), <span class="dv">20</span>, <span class="dv">20</span>)</span>
+<span id="cb1-11"><a href="optimization-basics.html#cb1-11"></a>    </span>
+<span id="cb1-12"><a href="optimization-basics.html#cb1-12"></a>    <span class="co"># 3d plot for RSS</span></span>
+<span id="cb1-13"><a href="optimization-basics.html#cb1-13"></a>    <span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
+<span id="cb1-14"><a href="optimization-basics.html#cb1-14"></a>    <span class="kw">persp</span>(b1, b2, z, <span class="dt">xlab =</span> <span class="st">&quot;beta 1&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;beta 2&quot;</span>, <span class="dt">zlab =</span> <span class="st">&quot;RSS&quot;</span>,</span>
+<span id="cb1-15"><a href="optimization-basics.html#cb1-15"></a>          <span class="dt">main=</span><span class="st">&quot;Residual Sum of Squares&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;springgreen&quot;</span>, <span class="dt">shade =</span> <span class="fl">0.6</span>,</span>
+<span id="cb1-16"><a href="optimization-basics.html#cb1-16"></a>          <span class="dt">theta =</span> <span class="dv">30</span>, <span class="dt">phi =</span> <span class="dv">5</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-1-1.png" width="480" /></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="optimization-basics.html#cb2-1"></a>    <span class="co"># The solution can be solved by any optimization algorithm </span></span>
+<span id="cb2-2"><a href="optimization-basics.html#cb2-2"></a>    <span class="kw">optim</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), rss, <span class="dt">x =</span> x, <span class="dt">y =</span> y)<span class="op">$</span>par</span></code></pre></div>
+<pre><code>## [1] 1.088813 0.679870</code></pre>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
+<a href="numerical-simulation.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

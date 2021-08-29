@@ -43,3 +43,5 @@ best-subset-selection
 best-subset-selection-with-leaps
 step-wise-regression-using-step
 linear-regression-and-model-selection
+numerical-simulation
+optimization-basics
