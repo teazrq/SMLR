@@ -19,9 +19,9 @@
   knitr::opts_chunk$set(fig.dim = c(8, 6), out.width = "60%", fig.align = 'center')
 ```
 
-# Linear Regression
+# Linear Regression and Model Selection
 
-This chapter severs several purposes. First, we will review some basic knowledge of linear regression. This includes the concept of vector space, projection, which leads to estimating parameters of a linear regression. Most of these knowledge are covered in the prerequisite so you shouldn't find these concepts too difficult to understand. Secondly, we will mainly use the `lm()` function as an example to demonstrate some features of `R`. This includes extracting results, visualizations, handling categorical variables, prediction and model selection. These concepts will be useful for other models. 
+This chapter severs several purposes. First, we will review some basic knowledge of linear regression. This includes the concept of vector space, projection, which leads to estimating parameters of a linear regression. Most of these knowledge are covered in the prerequisite so you shouldn't find these concepts too difficult to understand. Secondly, we will mainly use the `lm()` function as an example to demonstrate some features of `R`. This includes extracting results, visualizations, handling categorical variables, prediction and model selection. These concepts will be useful for other models. Finally, we will introduce several model selection criteria and  algorithms to perform model selection. 
 
 ## Example: real estate data 
 
@@ -258,6 +258,8 @@ while the BIC score is given by
 
 $$-2 \text{Log-likelihood} + \log(n) p,$$
 
+Interestingly, when assuming that the error distribution is Gaussian, the log-likelihood part is just a function of the RSS. In general, AIC performs similarly to $C_p$, while BIC tend to select a much smaller set due to the larger penalty. Theoretically, both AIC and $C_p$ are interested in the prediction error, regardless of whether the model is specified correctly, while BIC is interested in selecting the true set of variables, while assuming that the true model is being considered. 
+
 The AIC score can be done using the `AIC()` function. We can match this result by writing out the normal density function and plug in the estimated parameters. Note that this requires one additional parameter, which is the variance. Hence the total number of parameters is 12. We can calculate this with our own code:
 
 ```{r}
@@ -266,10 +268,10 @@ The AIC score can be done using the `AIC()` function. We can match this result b
     AIC(lm.fit) 
 
     # Match the result
-    n*log(RSS/n) + n + n*log(2*pi) + (2 + 2*p)
+    n*log(RSS/n) + n + n*log(2*pi) + 2 + 2*p
 ```
 
-Alternatively, the `extractAIC()` function can calculate both AIC and BIC. However, note that the `n + n*log(2*pi)` part in the above code does not change regardless of how many parameters we use. Hence, this quantify does not affect the comparison between different models. Then we can safely remove this part and only focus on the essential ones. 
+Alternatively, the `extractAIC()` function can calculate both AIC and BIC. However, note that the `n + n*log(2*pi) + 2` part in the above code does not change regardless of how many parameters we use. Hence, this quantify does not affect the comparison between different models. Then we can safely remove this part and only focus on the essential ones. 
 
 ```{r}
     # ?extractAIC
@@ -289,73 +291,109 @@ Now, we can compare AIC or BIC using of two different models and select whicheve
     extractAIC(lm.fit_sub)
 ```
 
+## Model Selection Algorithms
 
+In previous examples, we have to manually fit two models and calculate their respective selection criteria and compare them. This is a rather tedious process if we have many variables and a huge number of combinations to consider. To automatically compare different models and select the best one, there are two common computational approaches: best subset regression and step-wise regression. As their name suggest, the best subset selection will exhaust all possible combination of variables, while the step-wise regression would adjust the model by adding or subtracting one variable at a time to reach the best model. 
 
+### Best Subset Selection with `leaps`
 
-
-The `step()` function can be used to select the best model based on specified model selection criteria. 
-
-```{r}
-    # Model selection: stepwise algorithm 
-    # ?step
-    
-    # this function shows every step during the model selection 
-    step(lm.fit, direction="both", k = 2)    # k = 2 (AIC) is default; 
-    
-    step(lm.fit, direction="backward", trace=0) # trace=0 will not print intermediate results
-    step(lm(Y~1, data=diab), scope=list(upper=lm.fit, lower=~1), direction="forward", trace=0)
-    
-    step(lm.fit, direction="both", k=log(n), trace=0)  # BIC (the default value for k=2, which corresponds to AIC)
-```
-
-The `leaps` package will calculate the best model of each model size. Then we can add the penalties to the model fitting result and conclude the best model. 
+Since the penalty is only affected by the number of variables, we may first choose the best model with the smallest RSS for each model size, and then compare across these models by attaching the penalty terms of their corresponding sizes. The `leaps` package can be used to calculate the best model of each model size. It essentially performs an exhaustive search, however, still utilizing some tricks to skip some really bad models. Note that the `leaps` package uses the data matrix directly, instead of specifying a formula.  
 
 ```{r}
-    ##########################################################################
-    # Best subset model selection (Cp, AIC, and BIC): leaps 
-    ##########################################################################
     library(leaps)
     
-    # performs an exhaustive search over models, and gives back the best model 
-    # (with low RSS) of each size.
-    # the default maximum model size is nvmax=8
-    
-    RSSleaps=regsubsets(as.matrix(diab[,-11]),diab[,11])
+    # The package specifies the X matrix and outcome y vector
+    RSSleaps = regsubsets(x = as.matrix(diab[, -11]), y = diab[, 11])
     summary(RSSleaps, matrix=T)
-    
-    RSSleaps=regsubsets(as.matrix(diab[,-11]),diab[,11], nvmax=10)
-    summary(RSSleaps,matrix=T)
-    
-    sumleaps=summary(RSSleaps,matrix=T)
-    names(sumleaps)  # components returned by summary(RSSleaps)
-    
-    sumleaps$which
-    msize=apply(sumleaps$which,1,sum)
-    n=dim(diab)[1]
-    p=dim(diab)[2]
-    Cp = sumleaps$rss/(summary(lm.fit)$sigma^2) + 2*msize - n;
-    AIC = n*log(sumleaps$rss/n) + 2*msize;
-    BIC = n*log(sumleaps$rss/n) + msize*log(n);
-    
-    cbind(Cp, sumleaps$cp)
-    cbind(BIC, sumleaps$bic)  # It seems regsubsets uses a formula for BIC different from the one we used. 
-    BIC-sumleaps$bic  # But the two just differ by a constant, so won't affect the model selection result. 
-    n*log(sum((diab[,11] - mean(diab[,11]))^2/n)) # the difference is the score of an intercept model
-    
-    # Rescale Cp, AIC, BIC to (0,1).
-    inrange <- function(x) { (x - min(x)) / (max(x) - min(x)) }
-    
-    Cp = sumleaps$cp; Cp = inrange(Cp);
-    BIC = sumleaps$bic; BIC = inrange(BIC);
-    AIC = n*log(sumleaps$rss/n) + 2*msize; AIC = inrange(AIC);
-    
-    plot(range(msize), c(0, 1.1), type="n", 
-         xlab="Model Size (with Intercept)", ylab="Model Selection Criteria")
-    points(msize, Cp, col="red", type="b")
-    points(msize, AIC, col="blue", type="b")
-    points(msize, BIC, col="black", type="b")
-    legend("topright", lty=rep(1,3), col=c("red", "blue", "black"), legend=c("Cp", "AIC", "BIC"))
 ```
 
+The results is summarized in a matrix, with each row representing a model size. The `"*"` sign indicates that the variable is include in the model for the corresponding size. Hence, there should be only one of such in the first row, two in the second row, etc. 
+    
+By default, the algorithm would only consider models up to size 8. This is controlled by the argument `nvmax`. If we want to consider larger model sizes, then set this to a larger number. However, be careful that this many drastically increase the computational cost. 
+
+```{r}    
+    # Consider maximum of 10 variables
+    RSSleaps = regsubsets(x = as.matrix(diab[, -11]), y = diab[, 11], nvmax = 10)
+    summary(RSSleaps,matrix=T)
+    
+    # Obtain the matrix that indicates the variables
+    sumleaps = summary(RSSleaps, matrix = T)
+    
+    # This object includes the RSS results, which is needed to calculate the scores
+    sumleaps$rss
+    
+    # This matrix indicates whether a variable is in the best model(s)
+    sumleaps$which
+    
+    # The package automatically produces the Cp statistic
+    sumleaps$cp
+```
+
+We can calculate different model selection criteria with the best models of each size. The model fitting result already produces the $C_p$ and BIC results. Our calculation will match their $C_p$ statistics exactly. For the BIC, the difference is a constant regardless of the model size. Hence this different will not affect the model selection result.
+
+```{r}
+    modelsize=apply(sumleaps$which,1,sum)
+    
+    Cp = sumleaps$rss/(summary(lm.fit)$sigma^2) + 2*modelsize - n;
+    AIC = n*log(sumleaps$rss/n) + 2*modelsize;
+    BIC = n*log(sumleaps$rss/n) + modelsize*log(n);
+    
+    # Comparing the Cp scores 
+    cbind("Our Cp" = Cp, "leaps Cp" = sumleaps$cp) 
+    
+    # Comparing the BIC results. The difference is a constant, 
+    # which is the score of an intercept model
+    cbind("Our BIC" = BIC, "leaps BIC" = sumleaps$bic, 
+          "Difference" = BIC-sumleaps$bic, 
+          "Intercept Score" = n*log(sum((diab[,11] - mean(diab[,11]))^2/n)))
+```
+
+Finally, we may select the best model, using any of the criteria. The following code would produced a plot to visualize it. We can see that BIC selects 6 variables, while both AIC and $C_p$ selects 7. 
+
+```{r}
+    # Rescale Cp, AIC and BIC to (0,1).
+    inrange <- function(x) { (x - min(x)) / (max(x) - min(x)) }
+    
+    Cp = inrange(Cp)
+    BIC = inrange(BIC)
+    AIC = inrange(AIC)
+
+    plot(range(modelsize), c(0, 0.4), type="n", 
+         xlab="Model Size (with Intercept)", 
+         ylab="Model Selection Criteria", cex.lab = 1.5)
+
+    points(modelsize, Cp, col = "green4", type = "b", pch = 19)
+    points(modelsize, AIC, col = "orange", type = "b", pch = 19)
+    points(modelsize, BIC, col = "purple", type = "b", pch = 19)
+    legend("topright", legend=c("Cp", "AIC", "BIC"),
+           col=c("green4", "orange", "purple"), 
+           lty = rep(1, 3), pch = 19, cex = 1.7)
+```
+
+### Step-wise regression using `step()`
+
+The idea of step-wise regression is very simple: we start with a certain model (e.g. the intercept or the full mode), and add or subtract one variable at a time by making the best decision to improve the model selection score. The `step()` function implements this procedure. The following example starts with the full model and uses AIC as the selection criteria (default of the function). After removing several variables, the model ends up with six predictors.  
+
+```{r}
+    # k = 2 (AIC) is default; 
+    step(lm.fit, direction="both", k = 2)
+```
+
+We can also use different settings, such as which model to start with, which is the minimum/maximum model, and do we allow to adding/subtracting. 
+
+```{r}
+    # use BIC (k = log(n))instead of AIC
+    # trace = 0 will suppress the output of intermediate steps 
+    step(lm.fit, direction="both", k = log(n), trace=0)
+
+    # Start with an intercept model, and use forward selection (adding only)
+    step(lm(Y~1, data=diab), scope=list(upper=lm.fit, lower=~1), 
+         direction="forward", trace=0)
+```
+
+We can see that these results are slightly different from the best subset selection. So which is better? Of course the best subset selection is better because it considers all possible candidates, which step-wise regression may stuck at a sub-optimal model, while adding and subtracting any variable do not benefit further. Hence, the results of step-wise regression may be unstable. On the other hand, best subset selection not really feasible for high-dimensional problems because of the computational cost. 
 
 ##  Mallows' $C_p$ Derivation {#mallows-cp}
+
+
+

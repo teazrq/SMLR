@@ -38,3 +38,8 @@ linear-regression-as-an-optimization
 linear-reg
 using-marrows-c_p
 using-aic-and-bic
+model-selection-algorithms
+best-subset-selection
+best-subset-selection-with-leaps
+step-wise-regression-using-step
+linear-regression-and-model-selection
