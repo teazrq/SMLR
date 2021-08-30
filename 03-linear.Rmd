@@ -396,7 +396,7 @@ We can also use different settings, such as which model to start with, which is 
 
 We can see that these results are slightly different from the best subset selection. So which is better? Of course the best subset selection is better because it considers all possible candidates, which step-wise regression may stuck at a sub-optimal model, while adding and subtracting any variable do not benefit further. Hence, the results of step-wise regression may be unstable. On the other hand, best subset selection not really feasible for high-dimensional problems because of the computational cost. 
 
-##  Mallows' $C_p$ Derivation {#mallows-cp}
+## Derivation of Mallows' $C_p$ {#mallows-cp}
 
 Suppose we have a set of training data $\cD_n = \{x_i, \color{DodgerBlue}{y_i}\}_{i=1}^n$ and a set of testing data, with the same covariates $\cD_n^\ast = \{x_i, \color{OrangeRed}{y_i^\ast}\}_{i=1}^n$. Hence, this is an __in-sample prediction__ problem. However, the $\color{OrangeRed}{y_i^\ast}$s are newly observed. Assuming that the data are generated from a linear model, i.e., in vector form,
 
@@ -404,8 +404,8 @@ Suppose we have a set of training data $\cD_n = \{x_i, \color{DodgerBlue}{y_i}\}
 \def\rbe{\color{OrangeRed}{\be^\ast}}
 \def\rbbeta{\color{OrangeRed}{\widehat{\bbeta}}}
 
-\def\bby{\color{DodgerBlue}{\by^\ast}}
-\def\bbe{\color{DodgerBlue}{\be^\ast}}
+\def\bby{\color{DodgerBlue}{\by}}
+\def\bbe{\color{DodgerBlue}{\be}}
 \def\bbbeta{\color{DodgerBlue}{\widehat{\bbeta}}}
 
 
@@ -415,7 +415,7 @@ $$\rby = \bmu + \rbe = \bX \bbeta + \rbe,$$
 where the error terms are i.i.d with mean 0 and variance $\sigma^2$. We want to know what is the best model that predicts $\rby$. Let's look at the testing error first:
 
 \begin{align}
-\E[\color{OrangeRed}{\text{Test Err}}] =& ~\E \lVert \rby - \bX \bbbeta \rVert^2 \\
+\E[\color{OrangeRed}{\text{Testing Error}}] =& ~\E \lVert \rby - \bX \bbbeta \rVert^2 \\
 =& ~\E \lVert (\rby - \bX \bbeta) + (\bX \bbeta - \bX \bbbeta) \rVert^2 \\
 =& ~\E \lVert \rbe \rVert^2 + \E \lVert \bX (\bbbeta - \bbeta) \rVert^2 \\
 =& ~\color{OrangeRed}{n \sigma^2} + \E \big[ \Trace \big( (\bbbeta - \bbeta)^\T \bX^\T \bX (\bbbeta - \bbeta) \big) \big] \\
@@ -431,7 +431,7 @@ In the above, we used properties
 On the other hand, the training error is 
 
 \begin{align}
-\E[\color{DodgerBlue}{\text{Train Err}}] =& ~\E \lVert \by - \bby \rVert^2 \\
+\E[\color{DodgerBlue}{\text{Training Error}}] =& ~\E \lVert \by - \bby \rVert^2 \\
 =& ~\E \lVert (\bI - \bH)(\bX \bbeta + \bbe) \rVert^2 \\
 =& ~\E \lVert (\bI - \bH)\bbe \rVert^2 \\
 =& ~\E [\Trace(\bbe^\T(\bI - \bH)^\T (\bI - \bH) \bbe)]\\
@@ -445,3 +445,32 @@ In the above, we further used properties
   * $\bH \bX = \bX$
 
 If we contrast the two results above, the difference between the training and testing errors is $2 p \sigma^2$. Hence, if we can obtain a valid estimation of $\sigma^2$, then the training error plus $2 p \widehat{\sigma}^2$ is a good approximation of the testing error, which we want to minimize. And that is exactly what Mallows' $C_p$ does. 
+
+We can also generalize this result to the case when the underlying model is not a linear model. Assume that
+
+$$\bby = f(\bX) + \bbe = \bmu + \bbe,$$
+and
+$$\rby = f(\bX) + \rbe = \bmu + \rbe.$$
+In this case, a linear model would not estimate $\bmu$. Instead, it is only capable to produce the best linear approximation of $\bmu$ using the columns in $\bX$, which is $\bH\bmu$, the projection of $\bmu$ on the column space of $\bX$. In general, $\bH \bmu \neq \bmu$, and the remaining part $\bmu - \bH \bmu$ is called __bias__. This is a new concept that will appear frequently in this book. Selection variables will essentially trade between bias and variance of a model. The following derivation shows this phenomenon:
+
+\begin{align}
+\E[\color{OrangeRed}{\text{Testing Error}}] =& ~\E \lVert \rby - \bX \bbbeta \rVert^2 \\
+=& ~\E \lVert \rby - \bH \bby \rVert^2 \\
+=& ~\E \lVert (\rby - \bmu) + (\bmu - \bH \bmu) + (\bH \bmu - \bH \bby) \rVert^2 \\
+=& ~\E \lVert \rby - \bmu \rVert^2 + \E \lVert \bmu - \bH \bmu \rVert^2 + \E \lVert \bH \bmu - \bH \bby  \rVert^2 \\
+=& ~\E \lVert \rbe \rVert^2 + \E \lVert \bmu - \bH \bmu \rVert^2 + \E \lVert \bH \bbe  \rVert^2 \\
+=& ~\color{OrangeRed}{n \sigma^2} + \text{Bias}^2 + \color{DodgerBlue}{p \sigma^2},
+\end{align}
+
+while the training error is 
+
+\begin{align}
+\E[\color{DodgerBlue}{\text{Training Error}}] =& ~\E \lVert \bby - \bX \bbbeta \rVert^2 \\
+=& ~\E \lVert \bby - \bH \bby \rVert^2 \\
+=& ~\E \lVert (\bI - \bH)(\bmu + \bbe) \rVert^2 \\
+=& ~\E \lVert (\bI - \bH)\bmu \rVert^2 + \E \lVert (\bI - \bH)\bbe \rVert^2\\
+=& ~\text{Bias}^2 + \color{DodgerBlue}{(n - p) \sigma^2}.
+\end{align}
+
+We can notice again that the difference is $2p\sigma^2$. Note that this is regardless of whether the linear model is correct or not. 
+
