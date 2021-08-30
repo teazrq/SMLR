@@ -247,11 +247,11 @@ We can compare this with another sub-model, say, with just `age` and `glu`:
     RSS_sub = sum(residuals(lm.fit_sub)^2)
     
     # use the formula directly to calculate the Cp criterion 
-    Cp_sub = RSS + 2*3*summary(lm.fit)$sigma^2
+    Cp_sub = RSS_sub + 2*3*summary(lm.fit_sub)$sigma^2
     Cp_sub
 ```
 
-Comparing this with the previous one, the sub-model is better. 
+Comparing this with the previous one, the full model is better. 
 
 ### Using AIC and BIC
 
