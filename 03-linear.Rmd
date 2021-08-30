@@ -1,13 +1,17 @@
+\def\cD{\cal{D}}
 \def\bX{\mathbf{X}}
 \def\bH{\mathbf{H}}
 \def\bI{\mathbf{I}}
 \def\bx{\mathbf{x}}
 \def\by{\mathbf{y}}
 \def\br{\mathbf{r}}
+\def\be{\mathbf{e}}
 \def\bzero{\mathbf{0}}
 \def\bbeta{\boldsymbol \beta}
+\def\bmu{\boldsymbol \mu}
 \def\bepsilon{\boldsymbol \epsilon}
 \def\T{\text{T}}
+\def\Trace{\text{Trace}}
 \def\Cov{\text{Cov}}
 \def\Var{\text{Var}}
 \def\E{\text{E}}
@@ -170,7 +174,7 @@ If you choose to include all covariates presented in the data, then simply use `
 
 ### Categorical Variables
 
-The store variable has several different values. We can see that it has 11 different values. One strategy is to model this as a continuous variable. However, we may also consider to discretize it. For example, we may create a new variable, say `store.cat`, defined as follows
+The `store` variable has several different values. We can see that it has 11 different values. One strategy is to model this as a continuous variable. However, we may also consider to discretize it. For example, we may create a new variable, say `store.cat`, defined as follows
 
 ```{r}
   table(realestate$stores)
@@ -329,8 +333,7 @@ By default, the algorithm would only consider models up to size 8. This is contr
     sumleaps$cp
 ```
 
-We can calculate different model selection criteria with the best models of each size. The model fitting result already produces the $C_p$ and BIC results. Our calculation will match their $C_p$ statistics exactly. For the BIC, the difference is a constant regardless of the model size. Hence this different will not affect the model selection result.
-
+We can calculate different model selection criteria with the best models of each size. The model fitting result already produces the $C_p$ and BIC results. However, please note that both quantities are modified slightly. For the $C_p$ statistics, the quantity is divided by the estimated error variance, and also adjust for the sample size. For the BIC, the difference is a constant regardless of the model size. Hence these difference do will not affect the model selection result because the modification is the same regardless of the number of variables. 
 ```{r}
     modelsize=apply(sumleaps$which,1,sum)
     
@@ -395,5 +398,50 @@ We can see that these results are slightly different from the best subset select
 
 ##  Mallows' $C_p$ Derivation {#mallows-cp}
 
+Suppose we have a set of training data $\cD_n = \{x_i, \color{DodgerBlue}{y_i}\}_{i=1}^n$ and a set of testing data, with the same covariates $\cD_n^\ast = \{x_i, \color{OrangeRed}{y_i^\ast}\}_{i=1}^n$. Hence, this is an __in-sample prediction__ problem. However, the $\color{OrangeRed}{y_i^\ast}$s are newly observed. Assuming that the data are generated from a linear model, i.e., in vector form,
+
+\def\rby{\color{OrangeRed}{\by^\ast}}
+\def\rbe{\color{OrangeRed}{\be^\ast}}
+\def\rbbeta{\color{OrangeRed}{\widehat{\bbeta}}}
+
+\def\bby{\color{DodgerBlue}{\by^\ast}}
+\def\bbe{\color{DodgerBlue}{\be^\ast}}
+\def\bbbeta{\color{DodgerBlue}{\widehat{\bbeta}}}
 
 
+$$\bby = \bmu + \bbe = \bX \bbeta + \bbe,$$
+and
+$$\rby = \bmu + \rbe = \bX \bbeta + \rbe,$$
+where the error terms are i.i.d with mean 0 and variance $\sigma^2$. We want to know what is the best model that predicts $\rby$. Let's look at the testing error first:
+
+\begin{align}
+\E[\color{OrangeRed}{\text{Test Err}}] =& ~\E \lVert \rby - \bX \bbbeta \rVert^2 \\
+=& ~\E \lVert (\rby - \bX \bbeta) + (\bX \bbeta - \bX \bbbeta) \rVert^2 \\
+=& ~\E \lVert \rbe \rVert^2 + \E \lVert \bX (\bbbeta - \bbeta) \rVert^2 \\
+=& ~\color{OrangeRed}{n \sigma^2} + \E \big[ \Trace \big( (\bbbeta - \bbeta)^\T \bX^\T \bX (\bbbeta - \bbeta) \big) \big] \\
+=& ~\color{OrangeRed}{n \sigma^2} + \Trace\big(\bX^\T \bX \Cov(\bbbeta)\big) \\
+=& ~\color{OrangeRed}{n \sigma^2} + \color{DodgerBlue}{p \sigma^2}.
+\end{align}
+
+In the above, we used properties
+
+  * $\Trace(ABC) = \Trace(CBA)$
+  * $\E[\Trace(A)] = \Trace(\E[A])$
+
+On the other hand, the training error is 
+
+\begin{align}
+\E[\color{DodgerBlue}{\text{Train Err}}] =& ~\E \lVert \by - \bby \rVert^2 \\
+=& ~\E \lVert (\bI - \bH)(\bX \bbeta + \bbe) \rVert^2 \\
+=& ~\E \lVert (\bI - \bH)\bbe \rVert^2 \\
+=& ~\E [\Trace(\bbe^\T(\bI - \bH)^\T (\bI - \bH) \bbe)]\\
+=& ~\Trace((\bI - \bH)^\T (\bI - \bH) \Cov(\bbe)]\\
+=& ~\color{DodgerBlue}{(n - p) \sigma^2}.
+\end{align}
+
+In the above, we further used properties 
+
+  * $\bH$ and $\bI - \bH$ are projection matrices
+  * $\bH \bX = \bX$
+
+If we contrast the two results above, the difference between the training and testing errors is $2 p \sigma^2$. Hence, if we can obtain a valid estimation of $\sigma^2$, then the training error plus $2 p \widehat{\sigma}^2$ is a good approximation of the testing error, which we want to minimize. And that is exactly what Mallows' $C_p$ does. 
