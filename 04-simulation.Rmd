@@ -1,3 +1,0 @@
-# Numerical Simulation
-
-We will discuss simulation studies, prediction error, cross-validation 

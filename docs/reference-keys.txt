@@ -36,6 +36,9 @@ model-selection-algorithms
 best-subset-selection-with-leaps
 step-wise-regression-using-step
 mallows-cp
-numerical-simulation
 optimization-basics
+basic-concept
+global-vs.-local-optima
 linear-regression-as-an-optimization
+first-and-second-order-propoerties
+example-linear-regression-using-optim

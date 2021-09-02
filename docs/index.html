@@ -24,7 +24,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2021-08-29" />
+<meta name="date" content="2021-09-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -65,6 +65,10 @@
 <script src="libs/selectize-0.12.0/selectize.min.js"></script>
 <link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.9.4.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -200,11 +204,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#best-subset-selection-with-leaps"><i class="fa fa-check"></i><b>3.5.1</b> Best Subset Selection with <code>leaps</code></a></li>
 <li class="chapter" data-level="3.5.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#step-wise-regression-using-step"><i class="fa fa-check"></i><b>3.5.2</b> Step-wise regression using <code>step()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#mallows-cp"><i class="fa fa-check"></i><b>3.6</b> Mallows’ <span class="math inline">\(C_p\)</span> Derivation</a></li>
+<li class="chapter" data-level="3.6" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#mallows-cp"><i class="fa fa-check"></i><b>3.6</b> Derivation of Mallows’ <span class="math inline">\(C_p\)</span></a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="numerical-simulation.html"><a href="numerical-simulation.html"><i class="fa fa-check"></i><b>4</b> Numerical Simulation</a></li>
-<li class="chapter" data-level="5" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>5</b> Optimization Basics</a><ul>
-<li class="chapter" data-level="5.1" data-path="optimization-basics.html"><a href="optimization-basics.html#linear-regression-as-an-optimization"><i class="fa fa-check"></i><b>5.1</b> Linear regression as an optimization</a></li>
+<li class="chapter" data-level="4" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>4</b> Optimization Basics</a><ul>
+<li class="chapter" data-level="4.1" data-path="optimization-basics.html"><a href="optimization-basics.html#basic-concept"><i class="fa fa-check"></i><b>4.1</b> Basic Concept</a></li>
+<li class="chapter" data-level="4.2" data-path="optimization-basics.html"><a href="optimization-basics.html#global-vs.-local-optima"><i class="fa fa-check"></i><b>4.2</b> Global vs. Local Optima</a></li>
+<li class="chapter" data-level="4.3" data-path="optimization-basics.html"><a href="optimization-basics.html#linear-regression-as-an-optimization"><i class="fa fa-check"></i><b>4.3</b> Linear regression as an optimization</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2021 Ruoqing Zhu</a></li>
@@ -229,7 +234,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Statistical Learning and Machine Learning with R</h1>
 <p class="author"><em><a href="https://sites.google.com/site/teazrq/">Ruoqing Zhu, PhD</a></em></p>
-<p class="date"><em>2021-08-29</em></p>
+<p class="date"><em>2021-09-02</em></p>
 </div>
 <div id="preface" class="section level1 unnumbered">
 <h1>Preface</h1>

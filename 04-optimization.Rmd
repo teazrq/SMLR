@@ -1,0 +1,174 @@
+\def\cD{\cal{D}}
+\def\bA{\mathbf{A}}
+\def\bX{\mathbf{X}}
+\def\bH{\mathbf{H}}
+\def\bI{\mathbf{I}}
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\br{\mathbf{r}}
+\def\be{\mathbf{e}}
+\def\bzero{\mathbf{0}}
+\def\bbeta{\boldsymbol \beta}
+\def\bmu{\boldsymbol \mu}
+\def\bepsilon{\boldsymbol \epsilon}
+\def\T{\text{T}}
+\def\Trace{\text{Trace}}
+\def\Cov{\text{Cov}}
+\def\Var{\text{Var}}
+\def\E{\text{E}}
+\def\pr{\text{pr}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+# Optimization Basics
+
+Optimization is heavily involved in statistics and machine learning. Almost all methods introduced in this book can be viewed as some form of optimization. It would be good to have some prior knowledge of it so that later chapters can use these concepts without difficulties. Especially, one should be familiar with concepts such as constrains, gradient methods, and be able to implement them using existing R functions. Since optimization is such a broad topic, we refer readers to @boyd2004convex and @nocedal2006numerical for more further reading. 
+
+We will use a slightly different set of notations in this Chapter so that we are consistent with the literature. This means that for the most part, we will use $x$ as our parameter of interest and optimize a function $f(x)$. This is in contrast to optimizing $\theta$ in a statistical model $f_\theta(x)$ where $x$ is the observed data. However, in the example of linear regression, we may again switch back to the regular notation of $x^\text{T} \bbeta$. These transitions will only happen under clear context and should not create ambiguity.
+
+## Basic Concept
+
+We usually consider a convex optimization problem (non-convex problems are a bit too involving although we will also see some examples of that), meaning that we optimize (minimize) a convex function in a convex domain. A __*convex function*__ $f(\bx)$ maps some subset $C \in \mathbb{R}^p$ into $\mathbb{R}^p$, but enjoys the property that 
+
+$$ f(t \bx_1 + (1 - t) \bx_2) \leq t f(\bx_1) + ( 1- t) f(\bx_2), $$
+for all $t \in [0, 1]$ and any two points $\bx_1$, $\bx_2$ in the domain of $f$. 
+
+<center>
+![An example of convex function, [from wikipedia](https://en.wikipedia.org/wiki/Convex_function)](images/ConvexFunction.png){width=55%}
+</center>
+
+Note that if you have a concave function (the bowl faces downwards) then $-f(\bx)$ would be convex. Examples of convex functions:
+
+  * Univariate functions: $x^2$, $\exp(x)$, $-log(x)$ 
+  * Affine map: $a^\T \bx + b$ is both convex and concave
+  * A quadratic function $\frac{1}{2}\bx^\T \bA \bx + b^\T \bx + c$, if $\bA$ is positive semidefinite
+  * All $p$ norms are convex, following the Triangle inequality and properties of a norm.
+  * A sin function is neither convex or convave
+
+On the other hand, a __*convex set*__ $C$ means that if we have two points $x_1$ and $x_2$ in $C$, the line segment joining these two points has to lie within $C$, i.e., 
+
+$$\bx_1, \bx_2 \in C \quad \Longrightarrow \quad t \bx_1 + (1 - t) \bx_2 \in C,$$
+for all $t \in [0, 1]$.
+
+<center>
+![An example of convex set](images/ConvexSet.png){width=55%}
+</center>
+
+Examples of convex set include
+
+  * Real line: $\mathbb{R}$
+  * Norm ball: $\{ \bx: \lVert \bx \rVert \leq r \}$
+  * Hyperplane: $\{ \bx: a^\T \bx = b \}$
+
+Consider a simple optimization problem:
+
+$$ \text{minimize} \quad f(x_1, x_2) = x_1^2 + x_2^2$$
+
+Clearly, $f(x_1, x_2)$ is a convex function, and we know that the solution of this problem is $x_1 = x_2 = 0$. However, the problem might be a bit more complicated if we restrict that in a certain (convex) region, for example, 
+
+\begin{align}
+&\underset{x_1, x_2}{\text{minimize}} & \quad f(x_1, x_2) &= x_1^2 + x_2^2 \\
+&\text{subject to} & x_1 + x_2 &\leq -1 \\
+& & x_1 + x_2 &> -2
+\end{align}
+
+Here the convex set $C = \{x_1, x_2 \in \mathbb{R}: x_1 + x_2 \leq -1 \,\, \text{and} \,\, x_1 + x_2 > -2\}$. And our problem looks like the following, which attains it minimum at $(-0.5, -0.5)$.
+
+```{r message=FALSE, echo = FALSE}
+  library(plotly)
+
+  # generate the surface
+  x1 = seq(-1.5, 1, 0.01)
+  x2 = seq(-1.5, 1, 0.01)
+
+  y = matrix(NA, length(x1), length(x2))
+  
+  for (i in 1:length(x1))
+  for (j in 1:length(x2))
+      if (x1[i] + x2[j] < -1 & x1[i] + x2[j] > -2)
+          y[i, j] = x1[i]^2 + x2[j]^2
+  
+  # plot the surface
+  plot_ly(x = x1, y = x2) %>% 
+      layout(plot_bgcolor='rgb(254, 247, 234)') %>% 
+      layout(paper_bgcolor='transparent') %>% 
+      add_surface(z = y, 
+                  colorscale = 'Viridis') %>% 
+          layout(scene = list(xaxis = list(title = "X1"), 
+                              yaxis = list(title = "X2"),
+                              zaxis = list(title = expression(f(x1, x2)))))
+```
+
+In general, we will be dealing with a problem in the form of 
+
+\begin{align}
+&\underset{\bx}{\text{minimize}} & \quad f(\bx) \\
+&\text{subject to} & g_i(\bx) & \leq 0, \, i = 1,\ldots, m \\
+& & h_j(\bx) &= 0, \, j = 1,\ldots, k
+\end{align}
+
+where $g_i(\bx)$s are a set of inequality constrains, and $h_j(\bx)$s are equality constrains. There are established result showing what type of constrains would lead to a convex set, but let's assuming for now that we will be dealing a well behaved problem. We shall see in later chapters that many models such as, Lasso, Ridge and support vector machines can all be formulated into this form. 
+
+## Global vs. Local Optima
+
+Although we would like to deal with convex optimization problems, non-convex problems appears more and more frequently. For example, deep learning models are almost always non-convex except overly simplified ones. However, for convex optimization problems, a local minimum is also a global minimum, i.e., a $x^\ast$ such that for any $x$ in the feasible set, $f(x^\ast) \leq f(x)$. This can be achieved by a variety of descent algorithms, to be introduced. However, for non-convex problems, we may still be interested in a local minimum, which satisfies that for any $x$ in a **neighboring set of $x^\ast$**, $f(x^\ast) \leq f(x)$. The comparison of these two cases can be demonstrated in the following plots. Again, a descent algorithm can help us find a local minimum, except for some very special cases, such as a saddle point. However, we will not discuss these issues in this book. 
+
+```{r echo = FALSE, fig.dim = c(12, 5), out.width = "75%", fig.align = 'center'}
+  par(bg="transparent")
+  par(mfrow=c(1,2))
+  par(mar=c(2,2,2,2))
+  x = seq(-2, 2, 0.01)
+  plot(x, x^2, type = "l")
+  points(0, 0, col = "red", pch = 19, cex = 2)
+  x = seq(-4, 2, 0.01)
+  plot(x, x^4 + 2*x^3 - 5*x^2, type = "l")
+  points(-2.5, (-2.5)^4 + 2*(-2.5)^3 - 5 *(-2.5)^2, col = "red", pch = 19, cex = 2)
+  points(0, 0, col = "blue", pch = 19)
+  points(1, -2, col = "red", pch = 19)
+```
+
+## Example: Linear Regression using `optim()`
+
+Although completely not necessary, we may also view linear regression as an optimization problem. This is of course an unconstrained problem, meaning that $C \in \mathbb{R}^p$. Such problems can be solved using the `optim()` function. Also, let's temporarily switch back to the $\bbeta$ notation of parameters. Hence, if we observe a set of observations $\{\bx_i, y_i\}_{i = 1}^n$, our optimization problem is to minimize the objection function, i.e., residual sum of squares (RSS):
+
+\begin{align}
+\underset{\bbeta}{\text{minimize}} \quad f(\bbeta) = \frac{1}{n} \sum_i (y_i - \bx_i^\T \bbeta)^2 \\
+\end{align}
+
+We generate 200 random observations, and also write a function to calculate the RSS for any given $\bbeta$ values. The objective function looks like the following:
+
+```{r}
+    # generate data from a simple linear model 
+    set.seed(20)
+    n = 200
+    x <- cbind(1, rnorm(n))
+    y <- x %*% c(0.5, 1) + rnorm(n)
+    
+    # calculate the residual sum of squares for a grid of beta values
+    rss <- function(b, x, y) sum((y - x %*% b)^2)
+    b0 <- b1 <- seq(0, 2, length= 20)
+    z = matrix(apply(expand.grid(b0, b1), 1, rss, x, y), 20, 20)
+    
+    # 3d plot of RSS using `plotly`
+    library(plotly)
+    plot_ly(x = b0, y = b1) %>% 
+        layout(plot_bgcolor='rgb(254, 247, 234)') %>% 
+        layout(paper_bgcolor='transparent') %>% 
+        add_surface(z = z, 
+                    colorscale = 'Viridis') %>% 
+            layout(scene = list(xaxis = list(title = "beta1"), 
+                                yaxis = list(title = "beta0"),
+                                zaxis = list(title = "RSS")))
+```
+
+Now the question is how to solve this problem. The `optim()` function uses the following syntex: 
+
+```{r}
+    # The solution can be solved by any optimization algorithm 
+    lm.fit <- optim(par = c(0, 0), fn = rss, x = x, y = y)
+```
+
+  * The `par`
+
+## First and Second Order Propoerties
+
