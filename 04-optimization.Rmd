@@ -94,9 +94,12 @@ Here the convex set $C = \{x_1, x_2 \in \mathbb{R}: x_1 + x_2 \leq -1 \,\, \text
       layout(paper_bgcolor='transparent') %>% 
       add_surface(z = y, 
                   colorscale = 'Viridis') %>% 
-          layout(scene = list(xaxis = list(title = "X1"), 
-                              yaxis = list(title = "X2"),
-                              zaxis = list(title = expression(f(x1, x2)))))
+      layout(scene = list(xaxis = list(title = "X1"), 
+                          yaxis = list(title = "X2"),
+                          zaxis = list(title = expression(f(x1, x2))))) %>%
+      add_markers(data = data.frame("x" = -0.5, "y" = -0.5, "z" = 2*0.5^2), 
+              x = ~x, y = ~y, z = ~z, 
+              marker = list(size = 6, color = "red", symbol = 104))
 ```
 
 In general, we will be dealing with a problem in the form of 
@@ -117,14 +120,18 @@ Although we would like to deal with convex optimization problems, non-convex pro
   par(bg="transparent")
   par(mfrow=c(1,2))
   par(mar=c(2,2,2,2))
+  
+  # a convex case 
   x = seq(-2, 2, 0.01)
-  plot(x, x^2, type = "l")
-  points(0, 0, col = "red", pch = 19, cex = 2)
+  plot(x, x^2, type = "l", col = "deepskyblue", lwd = 1.5)
+  points(0, 0, col = "red", pch = 19, cex = 2.5)
+  
+  # non-convex case
   x = seq(-4, 2, 0.01)
-  plot(x, x^4 + 2*x^3 - 5*x^2, type = "l")
-  points(-2.5, (-2.5)^4 + 2*(-2.5)^3 - 5 *(-2.5)^2, col = "red", pch = 19, cex = 2)
-  points(0, 0, col = "blue", pch = 19)
-  points(1, -2, col = "red", pch = 19)
+  plot(x, x^4 + 2*x^3 - 5*x^2, type = "l", col = "deepskyblue", lwd = 1.5)
+  points(-2.5, (-2.5)^4 + 2*(-2.5)^3 - 5 *(-2.5)^2, col = "red", pch = 19, cex = 2.5)
+  points(0, 0, col = "darkorange", pch = 19, cex = 1.5)
+  points(1, -2, col = "red", pch = 19, cex = 1.5)
 ```
 
 ## Example: Linear Regression using `optim()`
@@ -145,30 +152,50 @@ We generate 200 random observations, and also write a function to calculate the 
     y <- x %*% c(0.5, 1) + rnorm(n)
     
     # calculate the residual sum of squares for a grid of beta values
-    rss <- function(b, x, y) sum((y - x %*% b)^2)
-    b0 <- b1 <- seq(0, 2, length= 20)
+    rss <- function(b, trainx, trainy) sum((trainy - trainx %*% b)^2)
+    b0 <- b1 <- seq(0, 2, length = 20)
     z = matrix(apply(expand.grid(b0, b1), 1, rss, x, y), 20, 20)
+    
+    bestpoint = data.frame("x" = 0.5, "y" = 1, "z" = rss(c(0.5, 1), x, y))
     
     # 3d plot of RSS using `plotly`
     library(plotly)
     plot_ly(x = b0, y = b1) %>% 
         layout(plot_bgcolor='rgb(254, 247, 234)') %>% 
         layout(paper_bgcolor='transparent') %>% 
-        add_surface(z = z, 
+        add_surface(z = t(z), 
                     colorscale = 'Viridis') %>% 
-            layout(scene = list(xaxis = list(title = "beta1"), 
-                                yaxis = list(title = "beta0"),
-                                zaxis = list(title = "RSS")))
+        layout(scene = list(xaxis = list(title = "beta0"), 
+               yaxis = list(title = "beta1"),
+               zaxis = list(title = "RSS"))) %>% 
+        add_markers(data = bestpoint, 
+                  x = ~x, y = ~y, z = ~z, 
+                  marker = list(size = 6, color = "red", symbol = 104))
 ```
 
-Now the question is how to solve this problem. The `optim()` function uses the following syntex: 
+Now the question is how to solve this problem. The `optim()` function uses the following syntax: 
 
 ```{r}
     # The solution can be solved by any optimization algorithm 
-    lm.fit <- optim(par = c(0, 0), fn = rss, x = x, y = y)
+    lm.optim <- optim(par = c(2, 2), fn = rss, trainx = x, trainy = y)
 ```
 
-  * The `par`
+  * The `par` argument specifies an initial value, in this case, $\beta_0 = \beta_1 = 2$
+  * The `fn` argument specifies the name of an `R` function that can calculate the objective function. Please note that the first argument in this function has be the parameter being optimized, i.e, $\bbeta$. Also, it must be a vector, not a matrix or other types. 
+  * The arguments `trainx = x`, `trainy = y` specifies any additional arguments that the objective function `fn`, i.e., `rss` needs. It behaves the same as if you are supplying this to `rss`.
+  
+```{r}
+    lm.optim
+```    
+
+The result shows that the estimated parameters (`$par`) are 0.453 and 0.924, with a functional value 203.562. The convergence code is 0, meaning that the algorithm converged. The parameter estimates are almost the same as `lm()`, with small numerical errors. 
+
+```{r}
+    # The solution form lm()
+    summary(lm(y ~ x - 1))$coefficients
+```
+
+What we will be introducing in the following are some basic approaches to solve such a numerical problem. 
 
 ## First and Second Order Propoerties
 
