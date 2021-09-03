@@ -112,9 +112,9 @@ In general, we will be dealing with a problem in the form of
 
 where $g_i(\bx)$s are a set of inequality constrains, and $h_j(\bx)$s are equality constrains. There are established result showing what type of constrains would lead to a convex set, but let's assuming for now that we will be dealing a well behaved problem. We shall see in later chapters that many models such as, Lasso, Ridge and support vector machines can all be formulated into this form. 
 
-## Global vs. Local Optima
+## Global vs. Local Optima {#global_local}
 
-Although we would like to deal with convex optimization problems, non-convex problems appears more and more frequently. For example, deep learning models are almost always non-convex except overly simplified ones. However, for convex optimization problems, a local minimum is also a global minimum, i.e., a $x^\ast$ such that for any $x$ in the feasible set, $f(x^\ast) \leq f(x)$. This can be achieved by a variety of descent algorithms, to be introduced. However, for non-convex problems, we may still be interested in a local minimum, which satisfies that for any $x$ in a **neighboring set of $x^\ast$**, $f(x^\ast) \leq f(x)$. The comparison of these two cases can be demonstrated in the following plots. Again, a descent algorithm can help us find a local minimum, except for some very special cases, such as a saddle point. However, we will not discuss these issues in this book. 
+Although we would like to deal with convex optimization problems, non-convex problems appears more and more frequently. For example, deep learning models are almost always non-convex except overly simplified ones. However, __for convex optimization problems, a local minimum is also a global minimum__, i.e., a $x^\ast$ such that for any $x$ in the feasible set, $f(x^\ast) \leq f(x)$. This can be achieved by a variety of descent algorithms, to be introduced. However, for non-convex problems, we may still be interested in a local minimum, which satisfies that for any $x$ in a **neighboring set of $x^\ast$**, $f(x^\ast) \leq f(x)$. The comparison of these two cases can be demonstrated in the following plots. Again, a descent algorithm can help us find a local minimum, except for some very special cases, such as a saddle point. However, we will not discuss these issues in this book. 
 
 ```{r echo = FALSE, fig.dim = c(12, 5), out.width = "75%", fig.align = 'center'}
   par(bg="transparent")
@@ -198,4 +198,22 @@ The result shows that the estimated parameters (`$par`) are 0.453 and 0.924, wit
 What we will be introducing in the following are some basic approaches to solve such a numerical problem. 
 
 ## First and Second Order Propoerties
+
+These properties are usually applied to unconstrained optimization problems. They are essentially just describing the landscape around a point $\bx^\ast$ such that it becomes the local optimizer. Since we generally concerns a convex problem, a local solution is also the global solution. However, these properties are still generally applied when solving a non-convex problem. Note that these statements are multi-dimensional. 
+
+__First-Order Necessary Conditions__: If $f$ is continuously differentiable in an open neighborhood of local minimum $\bx^\ast$, then $\nabla f(\bx^\ast) = \mathbf{0}$. 
+
+When we have a point $\bx^\ast$ with $\nabla f(\bx^\ast) = \mathbf{0}$, we call $\bx^\ast$ a __stationary point__. This is only a necessary condition, but not sufficient. Since example, $f(x) = x^3$ has zero derivative at $x = 0$, but this is not an optimizer. The figure in \@ref(global_local) also contains such a point. TO further strengthen this, we have 
+
+__Second-order Necessary Conditions__: If $f$ is twice continuously differentiable in an open neighborhood of local minimum $\bx^\ast$, then $\nabla f(\bx^\ast) = \mathbf{0}$ and $\nabla^2 f(\bx^\ast)$ is positive semi-definite. 
+
+This does rule out some cases, with a higher cost ($f$ needs to be twice continuously differentiable). But requiring positive semi-definite would not ensure everything. The same example $f(x) = x^3$ still satisfies this, but its not a local minimum. A positive definite $\nabla^2 f(\bx^\ast)$ would be sufficient:
+
+__Second-order Sufficient Conditions__: $f$ is twice continuously differentiable in an open neighborhood of $\bx^\ast$. If $\nabla f(\bx^\ast) = \mathbf{0}$ and $\nabla^2 f(\bx^\ast)$ is positive definite, then $\bx^\ast$ is a strict local minimizer of $f$. 
+
+
+
+
+
+
 

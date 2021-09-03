@@ -42,3 +42,4 @@ global-vs.-local-optima
 linear-regression-as-an-optimization
 first-and-second-order-propoerties
 example-linear-regression-using-optim
+global_local
