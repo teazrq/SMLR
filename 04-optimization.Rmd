@@ -195,7 +195,7 @@ The result shows that the estimated parameters (`$par`) are 0.453 and 0.924, wit
     summary(lm(y ~ x - 1))$coefficients
 ```
 
-What we will be introducing in the following are some basic approaches to solve such a numerical problem. 
+What we will be introducing in the following are some basic approaches to solve such a numerical problem. We will start with unconstrained problems, then introduce constrained problems. 
 
 ## First and Second Order Propoerties
 
@@ -209,9 +209,39 @@ __Second-order Necessary Conditions__: If $f$ is twice continuously differentiab
 
 This does rule out some cases, with a higher cost ($f$ needs to be twice continuously differentiable). But requiring positive semi-definite would not ensure everything. The same example $f(x) = x^3$ still satisfies this, but its not a local minimum. A positive definite $\nabla^2 f(\bx^\ast)$ would be sufficient:
 
-__Second-order Sufficient Conditions__: $f$ is twice continuously differentiable in an open neighborhood of $\bx^\ast$. If $\nabla f(\bx^\ast) = \mathbf{0}$ and $\nabla^2 f(\bx^\ast)$ is positive definite, then $\bx^\ast$ is a strict local minimizer of $f$. 
+__Second-order Sufficient Conditions__: $f$ is twice continuously differentiable in an open neighborhood of $\bx^\ast$. If $\nabla f(\bx^\ast) = \mathbf{0}$ and $\nabla^2 f(\bx^\ast)$ is positive definite, i.e.,
+$$
+\nabla^2 f(\bx) = \left(\frac{\partial^2 f(\bx)}{\partial x_i \partial x_j}\right) = \bH(\bx) \succeq 0
+$$
 
+then $\bx^\ast$ is a strict local minimizer of $f$. Here $\bH(\bx)$ is called the __Hessian matrix__, which will be frequently used in second-order methods. 
 
+## Algorithm 
+
+Most optimization algorithms follow the same idea: starting from a point $\bx^{(0)}$ (which is usually specified by the user) and move to a new point $\bx^{(1)}$ that improves the objective function value. Repeatedly performing this to get a sequence of points $\bx^{(0)}, \bx^{(1)}, \ldots$ until the certain stopping criterion is reached. 
+
+A __stopping criterion__ could be 
+
+  * Using the gradient of the objective function: $\lVert \nabla f(\bx^{(k)}) \rVert < \epsilon$
+  * Using the (relative) change of distance: $\lVert \bx^{(k)} - \bx^{(k-1)} \rVert / \lVert \bx^{(k-1)}\rVert< \epsilon$ or $\lVert \bx^{(k)} - \bx^{(k-1)} \rVert < \epsilon$
+  * Using the (relative) change of functional value: $| f(\bx^{(k)}) - f(\bx^{(k-1)})| < \epsilon$ or $| f(\bx^{(k)}) - f(\bx^{(k-1)})| / |f(\bx^{(k)})| < \epsilon$
+  * Stop at a pre-specified number of iterations.
+
+Most algorithms differ in terms of how to move from the current point $\bx^{(k)}$ to the next, better target point $\bx^{(k+1)}$. This may depend on the smoothness or structure of $f$, constrains on the domain, computational complexity, memory limitation, and many others. 
+
+## Second-order Methods 
+
+Now, let's discuss several specific methods. One of the oldest one is __Newton's method__. This is motivated form a quadratic approximation (essentially Taylor expansion) at a current point $\bx$, 
+
+$$f(\bx^\ast) \approx f(\bx) + \nabla f(\bx)^\T (\bx^\ast - \bx) + \frac{1}{2} (\bx^\ast - \bx)^\T \bH(\bx) (\bx^\ast - \bx)$$
+Our goal is to find a new stationary point $\bx^\ast$ such that $\nabla f(\bx^\ast) = 0$. By taking derivative of the above equation on both sides, with respect to $\bx^\ast$, we need 
+
+$$0 = \nabla f(\bx^\ast) = 0 + \nabla f(\bx) + (\bx^\ast - \bx)^\T \bH(\bx)$$
+which leads to 
+
+$$\bx^\ast = \bx -  \bH(\bx)^{-1} \nabla f(\bx).$$
+
+Hence, if we are currently at a point $\bx^{(k)}$, we need to calculate the gradient $\nabla f(\bx^{(k)})$ and Hessian $\bH(\bx)$ at this point, then move to the new point using $\bx^{(k+1)} = \bx^{(k)} -  \bH(\bx^{(k)})^{-1} \nabla f(\bx^{(k)})$. Some properties and things to concern regarding Newton's method:
 
 
 
