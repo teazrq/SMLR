@@ -44,5 +44,4 @@ first-and-second-order-propoerties
 algorithm
 second-order-methods
 newtons-method
-bfgs
 quasi-newton-methods
