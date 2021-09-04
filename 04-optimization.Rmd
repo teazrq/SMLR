@@ -7,6 +7,7 @@
 \def\by{\mathbf{y}}
 \def\br{\mathbf{r}}
 \def\be{\mathbf{e}}
+\def\bv{\mathbf{v}}
 \def\bzero{\mathbf{0}}
 \def\bbeta{\boldsymbol \beta}
 \def\bmu{\boldsymbol \mu}
@@ -231,6 +232,8 @@ Most algorithms differ in terms of how to move from the current point $\bx^{(k)}
 
 ## Second-order Methods 
 
+### Newton's Method
+
 Now, let's discuss several specific methods. One of the oldest one is __Newton's method__. This is motivated form a quadratic approximation (essentially Taylor expansion) at a current point $\bx$, 
 
 $$f(\bx^\ast) \approx f(\bx) + \nabla f(\bx)^\T (\bx^\ast - \bx) + \frac{1}{2} (\bx^\ast - \bx)^\T \bH(\bx) (\bx^\ast - \bx)$$
@@ -242,6 +245,19 @@ which leads to
 $$\bx^\ast = \bx -  \bH(\bx)^{-1} \nabla f(\bx).$$
 
 Hence, if we are currently at a point $\bx^{(k)}$, we need to calculate the gradient $\nabla f(\bx^{(k)})$ and Hessian $\bH(\bx)$ at this point, then move to the new point using $\bx^{(k+1)} = \bx^{(k)} -  \bH(\bx^{(k)})^{-1} \nabla f(\bx^{(k)})$. Some properties and things to concern regarding Newton's method:
+
+  * Newton's method is scale invariant, meaning that you do not need to worry about the step size. It is automatically taken care of by the Hessian matrix. However, in practice, the local approximation may not be accurate, which makes the new point $\bx^{(k+1)}$ behaves differently than what we expect. Hence, it might still be safe to introduce a smaller step size $\delta \in (0, 1)$ and move with  
+  $$\bx^{(k+1)} = \bx^{(k)} -  \delta \, \bH(\bx^{(k)})^{-1} \nabla f(\bx^{(k)})$$
+  * There are also alternatives to take care of the step size. For example, __line search__ is frequently used, which will try to find the optimal $\delta$ that minimizes the function
+  $$f(\bx^{(k)} + \delta \bv)$$
+  where the direction $\bv$ in this case is $\bv = \bH(\bx^{(k)})^{-1} \nabla f(\bx^{(k)})$. It is also popular to use __backtracking line search__, which reduces the computational cost. The idea is to start with a large $\delta$ and gradually reduces it by a certain porportion if the new point doesn't significantly improves, i.e., 
+  $$f(\bx^{(k)} + \delta \bv) > f(\bx^{(k)}) + \frac{1}{2} \delta \nabla f(\bx^{(k)})^\T \bv$$
+  * When you do not have the explicit formula of Hessian and even the gradient, you may numerically approximate them using the definition. For example, we could use 
+  $$ \frac{f(\bx^{(k)} + \epsilon) - f(\bx^{(k)})}{\epsilon} $$
+  with $\epsilon$ small enough, e.g., 10^{-5}. However, this is very costly for the Hessian matrix if the number of variables is large. 
+  
+### Quasi-Newton Methods
+
 
 
 
