@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Statistical Learning and Machine Learning with R</title>
+  <title>Chapter 5 Lagrangian Multiplier | Statistical Learning and Machine Learning with R</title>
   <meta name="description" content="A textbook for STAT 542 and 432 at UIUC" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Statistical Learning and Machine Learning with R" />
+  <meta property="og:title" content="Chapter 5 Lagrangian Multiplier | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://teazrq.github.io/SMLR/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Statistical Learning and Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 5 Lagrangian Multiplier | Statistical Learning and Machine Learning with R" />
   
   <meta name="twitter:description" content="A textbook for STAT 542 and 432 at UIUC" />
   
@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-
+<link rel="prev" href="optimization-basics.html"/>
 
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -253,8 +253,8 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="4.9.1" data-path="optimization-basics.html"><a href="optimization-basics.html#mini-batch-stocastic-gradient-descent"><i class="fa fa-check"></i><b>4.9.1</b> Mini-batch Stocastic Gradient Descent</a></li>
 </ul></li>
-<li class="chapter" data-level="4.10" data-path="optimization-basics.html"><a href="optimization-basics.html#lagrangian-multiplier-for-constrained-problems"><i class="fa fa-check"></i><b>4.10</b> Lagrangian Multiplier for Constrained Problems</a></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="lagrangian-multiplier.html"><a href="lagrangian-multiplier.html"><i class="fa fa-check"></i><b>5</b> Lagrangian Multiplier</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2021 Ruoqing Zhu</a></li>
 
@@ -275,18 +275,59 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="lagrangian-multiplier" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Lagrangian Multiplier</h1>
+<p>Constrained optimization problems appear very frequently. Both Lasso and Ridge regressions can be viewed as constrained problems, while SVM is another example, which will be introduced later on. Let’s investigate this using a toy example. Suppose we have an optimization problem</p>
+<p><span class="math display">\[\text{minimize} \quad f(x, y) = x^2 + y^2\]</span>
+<span class="math display">\[\text{subj. to} \quad g(x, y) = xy - 4 = 0\]</span></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="lagrangian-multiplier.html#cb15-1" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.05</span>)</span>
+<span id="cb15-2"><a href="lagrangian-multiplier.html#cb15-2" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.05</span>)</span>
+<span id="cb15-3"><a href="lagrangian-multiplier.html#cb15-3" aria-hidden="true" tabindex="-1"></a>    mygrid <span class="ot">&lt;-</span> <span class="fu">data.matrix</span>(<span class="fu">expand.grid</span>(x, y))</span>
+<span id="cb15-4"><a href="lagrangian-multiplier.html#cb15-4" aria-hidden="true" tabindex="-1"></a>    f <span class="ot">&lt;-</span> <span class="fu">matrix</span>(mygrid[,<span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> mygrid[,<span class="dv">2</span>]<span class="sc">^</span><span class="dv">2</span>, <span class="fu">length</span>(x), <span class="fu">length</span>(y))</span>
+<span id="cb15-5"><a href="lagrangian-multiplier.html#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="lagrangian-multiplier.html#cb15-6" aria-hidden="true" tabindex="-1"></a>    f2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(mygrid[,<span class="dv">1</span>]<span class="sc">*</span>mygrid[,<span class="dv">2</span>], <span class="fu">length</span>(x), <span class="fu">length</span>(y))</span>
+<span id="cb15-7"><a href="lagrangian-multiplier.html#cb15-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-8"><a href="lagrangian-multiplier.html#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot the contour</span></span>
+<span id="cb15-9"><a href="lagrangian-multiplier.html#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">contour</span>(x, y, f, <span class="at">levels =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">16</span>))</span>
+<span id="cb15-10"><a href="lagrangian-multiplier.html#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">contour</span>(x, y, f2, <span class="at">levels =</span> <span class="dv">4</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb15-11"><a href="lagrangian-multiplier.html#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">box</span>()</span>
+<span id="cb15-12"><a href="lagrangian-multiplier.html#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="lagrangian-multiplier.html#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="fl">0.01</span>), <span class="dv">4</span><span class="sc">-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="fl">0.01</span>), <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;orange&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)    </span>
+<span id="cb15-14"><a href="lagrangian-multiplier.html#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb15-15"><a href="lagrangian-multiplier.html#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-13-1.png" width="55%" /></p>
+<p>The problem itself is very simple. We know that the optimizer is the red dot. But an interesting point of view is to look at the level curves of the objective function. As it is growing (expanding), there is one point (the red dot) at which level curve barely touches the constrain curve (blue line). This should be the optimizer. But this also implies that the tangent line (orange line) of this leveling curve must coincide with the tangent line of the constraint. Noticing that the tangent line can be obtained by taking the derivative of the function, this observation implies that gradients of the two functions (the objective function and the constraint function) must be a multiple of the other. Hence,</p>
+<p><span class="math display">\[ 
+\begin{align}
+&amp; \bigtriangledown f = \lambda \bigtriangledown g \\
+\\
+\Longrightarrow \qquad &amp;  \begin{cases}
+    2x = \lambda y &amp; \text{by taking derivative w.r.t.} \,\, x\\
+    2y = \lambda x &amp; \text{by taking derivative w.r.t.} \,\, y\\
+    xy - 4 = 0 &amp; \text{the constraint itself}
+  \end{cases}
+\end{align}
+\]</span>
+The three equations put together is very easy to solve. We have <span class="math inline">\(x = y = 0\)</span> or <span class="math inline">\(\lambda = \pm 2\)</span> based on the first two equations. The first one is not feasible based on the constraint. The second solution leads to two feasible solutions: <span class="math inline">\(x = y = 2\)</span> or <span class="math inline">\(x = y = -2\)</span>. Hence, we now know that there are two solutions.</p>
+<p>Now, looking back at the equation <span class="math inline">\(\bigtriangledown f = \lambda \bigtriangledown g\)</span>, this is simply the derivative of the <strong>Lagrangian function</strong> defined as</p>
+<p><span class="math display">\[{\cal L}(x, y, \lambda) = f(x, y) - \lambda g(x, y),\]</span>
+while solving for the solution of the constrained problem becomes finding the stationary point of the Lagrangian. Be aware that in some cases, the solution you found can be maximizers instead of minimizers. Hence, its necessary to compare all of them and see which one is smaller.</p>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Boyd, Stephen, and Lieven Vandenberghe. 2004. <em>Convex Optimization</em>. Cambridge university press.
+</div>
+<div class="csl-entry">
+Nocedal, Jorge, and Stephen Wright. 2006. <em>Numerical Optimization</em>. Springer Science &amp; Business Media.
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
+<a href="optimization-basics.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

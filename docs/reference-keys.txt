@@ -45,3 +45,13 @@ algorithm
 second-order-methods
 newtons-method
 quasi-newton-methods
+first-order-methods
+gradient-descent
+example-linear-regression
+gradient-descent-example-linear-regression
+coordinate-descent
+coordinate-descent-example-linear-regression
+stocastic-gradient-descent
+mini-batch-stocastic-gradient-descent
+lagrangian-multiplier
+lagrangian-multiplier-for-constrained-problems

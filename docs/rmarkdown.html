@@ -53,22 +53,6 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.19/datatables.js"></script>
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
-<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
-<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
-<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
-<script src="libs/selectize-0.12.0/selectize.min.js"></script>
-<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.9.4.1/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -136,28 +120,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -275,8 +237,8 @@ div.csl-indent {
 <div id="basics-and-resources" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Basics and Resources</h2>
 <p>R Markdown is a built-in feature of RStudio. It integrates plain text with chunks of R code in to a single file, which is extremely useful when constructing class notes or building a website. A <code>.rmd</code> file can be compiled into nice-looking <code>.html</code>, <code>.pdf</code>, and <code>.docx</code> file. For example, this entire guide is created using R Markdown. With RStudio, you can install R Markdown from R console using the following code. Note that this should be automatically done the first time you create and compile a <code>.rmd</code> file in RStudio.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="rmarkdown.html#cb24-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Install R Markdown from CRAN</span></span>
-<span id="cb24-2"><a href="rmarkdown.html#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">&quot;rmarkdown&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="rmarkdown.html#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Install R Markdown from CRAN</span></span>
+<span id="cb1-2"><a href="rmarkdown.html#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">&quot;rmarkdown&quot;</span>)</span></code></pre></div>
 <p>Again there are many online guides for R Markdown, and these may not be the best ones.</p>
 <ul>
 <li><a href="https://bookdown.org/yihui/rmarkdown/" target="_blank">R Markdown: The Definitive Guide</a></li>
@@ -350,23 +312,23 @@ div.csl-indent {
 <p><span class="math inline">\(\quad\)</span> <code>rnorm(5)</code></p>
 <p><code>```</code></p>
 <p>This generates five random observations from the standard normal distribution. We also set the seed so that the results can be later on replicated. The result looks like the following</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="rmarkdown.html#cb25-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb25-2"><a href="rmarkdown.html#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rnorm</span>(<span class="dv">5</span>)</span>
-<span id="cb25-3"><a href="rmarkdown.html#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -0.56047565 -0.23017749  1.55870831  0.07050839  0.12928774</span></span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="rmarkdown.html#cb26-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># define function</span></span>
-<span id="cb26-2"><a href="rmarkdown.html#cb26-2" aria-hidden="true" tabindex="-1"></a>    get_sd <span class="ot">=</span> <span class="cf">function</span>(x, <span class="at">biased =</span> <span class="cn">FALSE</span>) {</span>
-<span id="cb26-3"><a href="rmarkdown.html#cb26-3" aria-hidden="true" tabindex="-1"></a>      n <span class="ot">=</span> <span class="fu">length</span>(x) <span class="sc">-</span> <span class="dv">1</span> <span class="sc">*</span> <span class="sc">!</span>biased</span>
-<span id="cb26-4"><a href="rmarkdown.html#cb26-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sqrt</span>((<span class="dv">1</span> <span class="sc">/</span> n) <span class="sc">*</span> <span class="fu">sum</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x)) <span class="sc">^</span> <span class="dv">2</span>))</span>
-<span id="cb26-5"><a href="rmarkdown.html#cb26-5" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb26-6"><a href="rmarkdown.html#cb26-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb26-7"><a href="rmarkdown.html#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate random sample data</span></span>
-<span id="cb26-8"><a href="rmarkdown.html#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb26-9"><a href="rmarkdown.html#cb26-9" aria-hidden="true" tabindex="-1"></a>    (<span class="at">test_sample =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">5</span>))</span>
-<span id="cb26-10"><a href="rmarkdown.html#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  8.8547922 -0.8234909  3.8156421  5.1643130  4.0213416  1.4693774  9.5576100  1.5267048 12.0921186  1.6864295</span></span>
-<span id="cb26-11"><a href="rmarkdown.html#cb26-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb26-12"><a href="rmarkdown.html#cb26-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># run function on generated data</span></span>
-<span id="cb26-13"><a href="rmarkdown.html#cb26-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_sd</span>(test_sample)</span>
-<span id="cb26-14"><a href="rmarkdown.html#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 4.177244</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="rmarkdown.html#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2-2"><a href="rmarkdown.html#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rnorm</span>(<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] -0.56047565 -0.23017749  1.55870831  0.07050839  0.12928774</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="rmarkdown.html#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># define function</span></span>
+<span id="cb4-2"><a href="rmarkdown.html#cb4-2" aria-hidden="true" tabindex="-1"></a>    get_sd <span class="ot">=</span> <span class="cf">function</span>(x, <span class="at">biased =</span> <span class="cn">FALSE</span>) {</span>
+<span id="cb4-3"><a href="rmarkdown.html#cb4-3" aria-hidden="true" tabindex="-1"></a>      n <span class="ot">=</span> <span class="fu">length</span>(x) <span class="sc">-</span> <span class="dv">1</span> <span class="sc">*</span> <span class="sc">!</span>biased</span>
+<span id="cb4-4"><a href="rmarkdown.html#cb4-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">sqrt</span>((<span class="dv">1</span> <span class="sc">/</span> n) <span class="sc">*</span> <span class="fu">sum</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x)) <span class="sc">^</span> <span class="dv">2</span>))</span>
+<span id="cb4-5"><a href="rmarkdown.html#cb4-5" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-6"><a href="rmarkdown.html#cb4-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-7"><a href="rmarkdown.html#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate random sample data</span></span>
+<span id="cb4-8"><a href="rmarkdown.html#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb4-9"><a href="rmarkdown.html#cb4-9" aria-hidden="true" tabindex="-1"></a>    (<span class="at">test_sample =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">5</span>))</span></code></pre></div>
+<pre><code>##  [1]  8.8547922 -0.8234909  3.8156421  5.1643130  4.0213416  1.4693774
+##  [7]  9.5576100  1.5267048 12.0921186  1.6864295</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="rmarkdown.html#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># run function on generated data</span></span>
+<span id="cb6-2"><a href="rmarkdown.html#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_sd</span>(test_sample)</span></code></pre></div>
+<pre><code>## [1] 4.177244</code></pre>
 <p>There is a lot going on here. In the <code>.Rmd</code> file, notice the syntax that creates and ends the chunk. Also note that <code>example_chunk</code> is the chunk name. Everything between the start and end syntax must be valid <code>R</code> code. Chunk names are not necessary, but can become useful as your documents grow in size.</p>
 <p>In this example, we define a function, generate some random data in a reproducible manner, displayed the data, then ran our function.</p>
 </div>
@@ -378,8 +340,8 @@ div.csl-indent {
 <div id="importing-data" class="section level2" number="2.4">
 <h2><span class="header-section-number">2.4</span> Importing Data</h2>
 <p>When using RMarkdown, any time you <em>knit</em> your document to its final form, say <code>.html</code>, a number of programs run in the background. Your current <code>R</code> environment seen in RStudio will be reset. Any objects you created while working interactively inside RStudio will be ignored. Essentially a new <code>R</code> session will be spawned in the background and the code in your document is run there from start to finish. For this reason, things such as importing data must be explicitly coded into your document.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="rmarkdown.html#cb27-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(readr)</span>
-<span id="cb27-2"><a href="rmarkdown.html#cb27-2" aria-hidden="true" tabindex="-1"></a>    example_data <span class="ot">=</span> <span class="fu">read_table</span>(<span class="st">&quot;data/skincancer.txt&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="rmarkdown.html#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(readr)</span>
+<span id="cb8-2"><a href="rmarkdown.html#cb8-2" aria-hidden="true" tabindex="-1"></a>    example_data <span class="ot">=</span> <span class="fu">read_table</span>(<span class="st">&quot;data/skincancer.txt&quot;</span>)</span></code></pre></div>
 <p>The above loads the online file. In many cases, you will load a file that is locally stored in your own computer. In that case, you can either specify the full file path, or simply use, for example <code>read_csv("filename.csv")</code> if that file is stored at your <strong>working directory</strong>. The <strong>working directory</strong> will usually be the directory that contains your <code>.Rmd</code> file. You are recommended to reference data in this manner. Note that we use the newer <code>read_csv()</code> from the <code>readr</code> package instead of the default <code>read.csv()</code>.</p>
 </div>
 <div id="working-directory" class="section level2" number="2.5">
@@ -391,50 +353,50 @@ div.csl-indent {
 <div id="plotting" class="section level2" number="2.6">
 <h2><span class="header-section-number">2.6</span> Plotting</h2>
 <p>The following generates a simple plot, which displays the skin cancer mortality. By default, the figure is aligned on the left, with size 3 by 5 inches.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="rmarkdown.html#cb28-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(Mort <span class="sc">~</span> Lat, <span class="at">data =</span> example_data)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-28-1.png" width="50%" style="display: block; margin: auto auto auto 0;" /></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="rmarkdown.html#cb9-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(Mort <span class="sc">~</span> Lat, <span class="at">data =</span> example_data)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-5-1.png" width="50%" style="display: block; margin: auto auto auto 0;" /></p>
 <p>In our R introduction, we used <code>ggplot2</code> to create a more interesting plot. You may also polish a plot with basic functions. Notice it is <em>huge</em> in the resulting document, since we have modified some <em>chunk options</em> (<code>fig.height = 6, fig.width = 8</code>) in the RMarkdown file to manipulate its size.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="rmarkdown.html#cb29-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(Mort <span class="sc">~</span> Lat, <span class="at">data =</span> example_data,</span>
-<span id="cb29-2"><a href="rmarkdown.html#cb29-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="st">&quot;Latitude&quot;</span>,</span>
-<span id="cb29-3"><a href="rmarkdown.html#cb29-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">ylab =</span> <span class="st">&quot;Skin Cancer Mortality Rate&quot;</span>,</span>
-<span id="cb29-4"><a href="rmarkdown.html#cb29-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="st">&quot;Skin Cancer Mortality vs. State Latitude&quot;</span>,</span>
-<span id="cb29-5"><a href="rmarkdown.html#cb29-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">pch  =</span> <span class="dv">19</span>,</span>
-<span id="cb29-6"><a href="rmarkdown.html#cb29-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">cex  =</span> <span class="fl">1.5</span>,</span>
-<span id="cb29-7"><a href="rmarkdown.html#cb29-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">col  =</span> <span class="st">&quot;deepskyblue&quot;</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-29-1.png" width="50%" style="display: block; margin: auto auto auto 0;" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="rmarkdown.html#cb10-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(Mort <span class="sc">~</span> Lat, <span class="at">data =</span> example_data,</span>
+<span id="cb10-2"><a href="rmarkdown.html#cb10-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="st">&quot;Latitude&quot;</span>,</span>
+<span id="cb10-3"><a href="rmarkdown.html#cb10-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">ylab =</span> <span class="st">&quot;Skin Cancer Mortality Rate&quot;</span>,</span>
+<span id="cb10-4"><a href="rmarkdown.html#cb10-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="st">&quot;Skin Cancer Mortality vs. State Latitude&quot;</span>,</span>
+<span id="cb10-5"><a href="rmarkdown.html#cb10-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">pch  =</span> <span class="dv">19</span>,</span>
+<span id="cb10-6"><a href="rmarkdown.html#cb10-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">cex  =</span> <span class="fl">1.5</span>,</span>
+<span id="cb10-7"><a href="rmarkdown.html#cb10-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">col  =</span> <span class="st">&quot;deepskyblue&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-6-1.png" width="50%" style="display: block; margin: auto auto auto 0;" /></p>
 <p>But you can also notice that the labels and the plots becomes disproportional when the figure size is set too small. This can be resolved using a scaling option such as <code>out.width = '60%</code>, but enlarge the original figure size. We also align the figure at the center using <code>fig.align = 'center'</code></p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-30-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-7-1.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="chunk-options" class="section level2" number="2.7">
 <h2><span class="header-section-number">2.7</span> Chunk Options</h2>
 <p>We have already seen chunk options <code>fig.height</code>, <code>fig.width</code>, and <code>out.width</code> which modified the size of plots from a particular chunk. There are many <a href="http://yihui.name/knitr/options/">chunk options</a>, but we will discuss some others which are frequently used including; <code>eval</code>, <code>echo</code>, <code>message</code>, and <code>warning</code>. If you noticed, the plot above was displayed without showing the code.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="rmarkdown.html#cb30-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">&quot;rmarkdown&quot;</span>)</span>
-<span id="cb30-2"><a href="rmarkdown.html#cb30-2" aria-hidden="true" tabindex="-1"></a>    ?log</span>
-<span id="cb30-3"><a href="rmarkdown.html#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">View</span>(mpg)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="rmarkdown.html#cb11-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">&quot;rmarkdown&quot;</span>)</span>
+<span id="cb11-2"><a href="rmarkdown.html#cb11-2" aria-hidden="true" tabindex="-1"></a>    ?log</span>
+<span id="cb11-3"><a href="rmarkdown.html#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">View</span>(mpg)</span></code></pre></div>
 <p>Using <code>eval = FALSE</code> the above chunk displays the code, but it is not run. We’ve already discussed not wanting install code to run. The <code>?</code> code pulls up documentation of a function. This will spawn a browser window when knitting, or potentially crash during knitting. Similarly, using <code>View()</code> is an issue with RMarkdown. Inside RStudio, this would pull up a window which displays the data. However, when knitting, <code>R</code> runs in the background and RStudio is not modifying the <code>View()</code> function. This, on OSX especially, usually causes knitting to fail.</p>
 <pre><code>## [1] &quot;Hello World!&quot;</code></pre>
 <p>Above, we see output, but no code! This is done using <code>echo = FALSE</code>, which is often useful.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="rmarkdown.html#cb32-1" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb32-2"><a href="rmarkdown.html#cb32-2" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb32-3"><a href="rmarkdown.html#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
-<span id="cb32-4"><a href="rmarkdown.html#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb32-5"><a href="rmarkdown.html#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb32-6"><a href="rmarkdown.html#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="do">## lm(formula = y ~ x)</span></span>
-<span id="cb32-7"><a href="rmarkdown.html#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb32-8"><a href="rmarkdown.html#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Residuals:</span></span>
-<span id="cb32-9"><a href="rmarkdown.html#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="do">##        Min         1Q     Median         3Q        Max </span></span>
-<span id="cb32-10"><a href="rmarkdown.html#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="do">## -5.661e-16 -1.157e-16  4.273e-17  2.153e-16  4.167e-16 </span></span>
-<span id="cb32-11"><a href="rmarkdown.html#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb32-12"><a href="rmarkdown.html#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb32-13"><a href="rmarkdown.html#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="do">##              Estimate Std. Error   t value Pr(&gt;|t|)    </span></span>
-<span id="cb32-14"><a href="rmarkdown.html#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept) 1.123e-15  2.458e-16 4.571e+00  0.00182 ** </span></span>
-<span id="cb32-15"><a href="rmarkdown.html#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="do">## x           1.000e+00  3.961e-17 2.525e+16  &lt; 2e-16 ***</span></span>
-<span id="cb32-16"><a href="rmarkdown.html#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb32-17"><a href="rmarkdown.html#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb32-18"><a href="rmarkdown.html#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb32-19"><a href="rmarkdown.html#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Residual standard error: 3.598e-16 on 8 degrees of freedom</span></span>
-<span id="cb32-20"><a href="rmarkdown.html#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Multiple R-squared:      1,  Adjusted R-squared:      1 </span></span>
-<span id="cb32-21"><a href="rmarkdown.html#cb32-21" aria-hidden="true" tabindex="-1"></a><span class="do">## F-statistic: 6.374e+32 on 1 and 8 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="rmarkdown.html#cb13-1" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb13-2"><a href="rmarkdown.html#cb13-2" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb13-3"><a href="rmarkdown.html#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Residuals:
+##        Min         1Q     Median         3Q        Max 
+## -5.661e-16 -1.157e-16  4.273e-17  2.153e-16  4.167e-16 
+## 
+## Coefficients:
+##              Estimate Std. Error   t value Pr(&gt;|t|)    
+## (Intercept) 1.123e-15  2.458e-16 4.571e+00  0.00182 ** 
+## x           1.000e+00  3.961e-17 2.525e+16  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.598e-16 on 8 degrees of freedom
+## Multiple R-squared:      1,  Adjusted R-squared:      1 
+## F-statistic: 6.374e+32 on 1 and 8 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>The above code produces a warning, for reasons we will discuss later. Sometimes, in final reports, it is nice to hide these, which we have done here. <code>message = FALSE</code> and <code>warning = FALSE</code> can be used to do so. Messages are often created when loading packages to give the user information about the effects of loading the package. These should be suppressed in final reports. Be careful about suppressing these messages and warnings too early in an analysis as you could potentially miss important information!</p>
 </div>
 <div id="adding-math-with-latex" class="section level2" number="2.8">
@@ -457,15 +419,15 @@ div.csl-indent {
 <div id="output-options" class="section level2" number="2.9">
 <h2><span class="header-section-number">2.9</span> Output Options</h2>
 <p>At the beginning of the document, there is a code which describes some metadata and settings of the document. The default code looks like</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="rmarkdown.html#cb33-1" aria-hidden="true" tabindex="-1"></a>    title<span class="sc">:</span> <span class="st">&quot;R Notebook&quot;</span></span>
-<span id="cb33-2"><a href="rmarkdown.html#cb33-2" aria-hidden="true" tabindex="-1"></a>    output<span class="sc">:</span> html_notebook</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="rmarkdown.html#cb15-1" aria-hidden="true" tabindex="-1"></a>    title<span class="sc">:</span> <span class="st">&quot;R Notebook&quot;</span></span>
+<span id="cb15-2"><a href="rmarkdown.html#cb15-2" aria-hidden="true" tabindex="-1"></a>    output<span class="sc">:</span> html_notebook</span></code></pre></div>
 <p>You can easily add your name and date to it, and add a Table of Contents, using <code>toc: yes</code>. Note that the following code would specify the theme of an <code>html</code> file.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="rmarkdown.html#cb34-1" aria-hidden="true" tabindex="-1"></a>    title<span class="sc">:</span> <span class="st">&quot;My RMarkdown Template&quot;</span></span>
-<span id="cb34-2"><a href="rmarkdown.html#cb34-2" aria-hidden="true" tabindex="-1"></a>    author<span class="sc">:</span> <span class="st">&quot;Your Name&quot;</span></span>
-<span id="cb34-3"><a href="rmarkdown.html#cb34-3" aria-hidden="true" tabindex="-1"></a>    date<span class="sc">:</span> <span class="st">&quot;Aug 26, 2021&quot;</span></span>
-<span id="cb34-4"><a href="rmarkdown.html#cb34-4" aria-hidden="true" tabindex="-1"></a>    output<span class="sc">:</span></span>
-<span id="cb34-5"><a href="rmarkdown.html#cb34-5" aria-hidden="true" tabindex="-1"></a>      html_document<span class="sc">:</span> </span>
-<span id="cb34-6"><a href="rmarkdown.html#cb34-6" aria-hidden="true" tabindex="-1"></a>        toc<span class="sc">:</span> yes</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="rmarkdown.html#cb16-1" aria-hidden="true" tabindex="-1"></a>    title<span class="sc">:</span> <span class="st">&quot;My RMarkdown Template&quot;</span></span>
+<span id="cb16-2"><a href="rmarkdown.html#cb16-2" aria-hidden="true" tabindex="-1"></a>    author<span class="sc">:</span> <span class="st">&quot;Your Name&quot;</span></span>
+<span id="cb16-3"><a href="rmarkdown.html#cb16-3" aria-hidden="true" tabindex="-1"></a>    date<span class="sc">:</span> <span class="st">&quot;Aug 26, 2021&quot;</span></span>
+<span id="cb16-4"><a href="rmarkdown.html#cb16-4" aria-hidden="true" tabindex="-1"></a>    output<span class="sc">:</span></span>
+<span id="cb16-5"><a href="rmarkdown.html#cb16-5" aria-hidden="true" tabindex="-1"></a>      html_document<span class="sc">:</span> </span>
+<span id="cb16-6"><a href="rmarkdown.html#cb16-6" aria-hidden="true" tabindex="-1"></a>        toc<span class="sc">:</span> yes</span></code></pre></div>
 <p>You can edit this yourself, or click the settings button at the top of the document and select <code>Output Options...</code>. Here you can explore other themes and syntax highlighting options, as well as many additional options. Using this method will automatically modify this information in the document.</p>
 </div>
 <div id="try-it" class="section level2" number="2.10">

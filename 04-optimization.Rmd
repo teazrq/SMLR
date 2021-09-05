@@ -1,13 +1,17 @@
 \def\cD{\cal{D}}
 \def\bA{\mathbf{A}}
+\def\bB{\mathbf{B}}
 \def\bX{\mathbf{X}}
 \def\bH{\mathbf{H}}
 \def\bI{\mathbf{I}}
 \def\bx{\mathbf{x}}
 \def\by{\mathbf{y}}
+\def\bs{\mathbf{s}}
 \def\br{\mathbf{r}}
+\def\bu{\mathbf{u}}
 \def\be{\mathbf{e}}
 \def\bv{\mathbf{v}}
+\def\bp{\mathbf{p}}
 \def\bzero{\mathbf{0}}
 \def\bbeta{\boldsymbol \beta}
 \def\bmu{\boldsymbol \mu}
@@ -250,16 +254,395 @@ Hence, if we are currently at a point $\bx^{(k)}$, we need to calculate the grad
   $$\bx^{(k+1)} = \bx^{(k)} -  \delta \, \bH(\bx^{(k)})^{-1} \nabla f(\bx^{(k)})$$
   * There are also alternatives to take care of the step size. For example, __line search__ is frequently used, which will try to find the optimal $\delta$ that minimizes the function
   $$f(\bx^{(k)} + \delta \bv)$$
-  where the direction $\bv$ in this case is $\bv = \bH(\bx^{(k)})^{-1} \nabla f(\bx^{(k)})$. It is also popular to use __backtracking line search__, which reduces the computational cost. The idea is to start with a large $\delta$ and gradually reduces it by a certain porportion if the new point doesn't significantly improves, i.e., 
-  $$f(\bx^{(k)} + \delta \bv) > f(\bx^{(k)}) + \frac{1}{2} \delta \nabla f(\bx^{(k)})^\T \bv$$
-  * When you do not have the explicit formula of Hessian and even the gradient, you may numerically approximate them using the definition. For example, we could use 
+  where the direction $\bv$ in this case is $\bv = \bH(\bx^{(k)})^{-1} \nabla f(\bx^{(k)})$. It is also popular to use __backtracking line search__, which reduces the computational cost. The idea is to start with a large $\delta$ and gradually reduces it by a certain proportion if the new point doesn't significantly improves, i.e., 
+  $$f(\bx^{(k)} + \delta \bv) > f(\bx^{(k)}) - \frac{1}{2} \delta \nabla f(\bx^{(k)})^\T \bv$$
+  Note that when the direction $\bv$ is $\bH(\bx^{(k)})^{-1} \nabla f(\bx^{(k)})$, $\nabla f(\bx^{(k)})^\T \bv$ is essentially the norm defined by the Hessian matrix.
+  * When you do not have the explicit formula of Hessian and even the gradient, you may __numerically approximate the derivative__ using the definition. For example, we could use 
   $$ \frac{f(\bx^{(k)} + \epsilon) - f(\bx^{(k)})}{\epsilon} $$
-  with $\epsilon$ small enough, e.g., 10^{-5}. However, this is very costly for the Hessian matrix if the number of variables is large. 
+  with $\epsilon$ small enough, e.g., $10^{-5}$. However, this is very costly for the Hessian matrix if the number of variables is large. 
   
 ### Quasi-Newton Methods
 
+Since the idea of Newton's method is to solve a vector $\bv$ such that 
 
+$$\bH(\bx^{(k)}) \bv = - \nabla f(\bx^{(k)}), $$
+If $\bH$ is difficult to compute, we may use some matrix to substitute it. For example, if we simplify use the identity matrix $\bI$, then this reduces to a first-order method to be introduced later. However, if we can get a good approximation, we can still solve this linear system and get to a better point. Then the question is how to obtain such matrix in a computationally inexpensive way. The Broyden–Fletcher–Goldfarb–Shanno (BFSG) algorithm is such an approach by iteratively updating its (inverse) estimation. The algorithm proceed as follows:
 
+  1) Start with $x^{(0)}$ and a positive definite matrix, e.g., $\bB^{(0)} = \bI$
+  2) For $k = 0, 1, 2, \ldots$, 
+      * Search a updating direction by solving the linear system $\bB^{(k)} \bp_k = - \nabla f(\bx^{(k)})$
+      * Perform line search in the direction of $\bv_k$ and obtain the next point $\bx^{(k+1)} = \bx^{(k)} + \delta \bp_k$
+      * Update the approximation by 
+      $$ \bB^{(k+1)} = \bB^{(k)} + \frac{\by_k^\T \by_{k}}{ \by_{k}^\T \bs_{k} } -  \frac{\bB^{(k)}\bs_{k}\bs_{k}^\T {\bB^{(k)}}^\T }{\bs_{k}^\T \bB^{(k)} \bs_{k} }, $$
+      where $\by_k = \nabla f(\bx^{(k+1)}) - \nabla f(\bx^{(k)})$ and $\bs_{k} = \bx^{(k+1)} - \bx^{(k)}$.
 
+The BFGS is performing a rank-two update by assuming that 
+$$ \bB^{(k+1)} = \bB^{(k)} + a \bu \bu^\T + b \bv \bv^\T,$$
+Alternatives of such type of methods include the symmetric rank-one and Davidon-Fletcher-Powell (DFP) updates. 
 
+## First-order Methods 
 
+### Gradient Descent
+
+When simply using $\bH = \bI$, we update 
+$$\bx^{(k+1)} = \bx^{(k)} + \delta \nabla f(\bx^{(k)}).$$ 
+However, it is then crucial to figure out the step size $\delta$. A step size too large may not even converge at all, however, a step size too small will take too many iterations to converge. Alternatively, line search could be used. 
+
+### Gradient Descent Example: Linear Regression
+
+We use linear regression as an example. The objective function for linear regression is:
+
+$$ \ell(\boldsymbol \beta) = \frac{1}{2n}||\mathbf{y} - \mathbf{X} \boldsymbol \beta ||^2 $$
+with solution is
+
+$$\widehat{\boldsymbol \beta} = \left(\mathbf{X}^\text{T}\mathbf{X}\right)^{-1} \mathbf{X}^\text{T} \mathbf{y} $$
+
+```{r fig.dim = c(6, 6), out.width = "60%", fig.align = 'center', message= FALSE}
+  par(bg="transparent")
+  library(MASS)
+  set.seed(3)
+  n = 200
+  
+  # create some data with linear model
+  X = mvrnorm(n, c(0, 0), matrix(c(1,0.7, 0.7, 1), 2,2))
+  y = rnorm(n, mean = 2*X[,1] + X[,2])
+  
+  beta1 <- seq(-1, 4, 0.005)
+  beta2 <- seq(-1, 4, 0.005)
+  allbeta <- data.matrix(expand.grid(beta1, beta2))
+  rss <- matrix(apply(allbeta, 1, function(b, X, y) sum((y - X %*% b)^2), X, y), 
+                length(beta1), length(beta2))
+  
+  # quantile levels for drawing contour
+  quanlvl = c(0.01, 0.025, 0.05, 0.2, 0.5, 0.75)
+  
+  # plot the contour
+  contour(beta1, beta2, rss, levels = quantile(rss, quanlvl))
+  box()
+  
+  # the truth
+  b = solve(t(X) %*% X) %*% t(X) %*% y
+  points(b[1], b[2], pch = 19, col = "blue", cex = 2)
+```
+
+We use an optimization approach to solve this problem. By taking the derivative with respect to $\boldsymbol \beta$, we have the gradient
+
+$$
+\begin{align}
+\frac{\partial \ell(\boldsymbol \beta)}{\partial \boldsymbol \beta} = -\frac{1}{n} \sum_{i=1}^n (y_i - x_i^\text{T} \boldsymbol \beta) x_i.
+\end{align}
+$$
+To perform the optimization, we will first set an initial beta value, say $\boldsymbol \beta = \mathbf{0}$ for all entries, then proceed with the update
+
+$$ \boldsymbol \beta^\text{new} = \boldsymbol \beta^\text{old} - \frac{\partial \ell(\boldsymbol \beta)}{\partial \boldsymbol \beta} \times \delta.$$
+
+Let's set $\delta = 0.2$ for now. The following function performs gradient descent.  
+
+```{r fig.width=6, fig.height=6, out.width = "60%", fig.align = 'center'}
+  # gradient descent function, which also record the path
+  mylm_g <- function(x, y, 
+                     b0 = rep(0, ncol(x)), # initial value
+                     delta = 0.2, # step size
+                     epsilon = 1e-6, #stopping rule
+                     maxitr = 5000) # maximum iterations
+  {
+    if (!is.matrix(x)) stop("x must be a matrix")
+    if (!is.vector(y)) stop("y must be a vector")
+    if (nrow(x) != length(y)) stop("number of observations different")
+    
+    # initialize beta values
+    allb = matrix(b0, 1, length(b0))
+
+    # iterative update
+    for (k in 1:maxitr)
+    {
+      # the new beta value
+      b1 = b0 + t(x) %*% (y - x %*% b0) * delta / length(y)      
+
+      # record the new beta
+      allb = rbind(allb, as.vector(b1))
+      
+      # stopping rule
+      if (max(abs(b0 - b1)) < epsilon)
+        break;
+      
+      # reset beta0
+      b0 = b1
+    }
+
+    if (k == maxitr) cat("maximum iteration reached\n")
+    return(list("allb" = allb, "beta" = b1))
+  }
+
+  # fit the model 
+  mybeta = mylm_g(X, y, b0 = c(0, 1))
+  
+  par(bg="transparent")
+  contour(beta1, beta2, rss, levels = quantile(rss, quanlvl))
+  points(mybeta$allb[,1], mybeta$allb[,2], type = "b", col = "red", pch = 19)
+  points(b[1], b[2], pch = 19, col = "blue", cex = 1.5)
+  box()
+```
+
+The descent path is very smooth because we choose a very small step size. However, if the step size is too large, we may observe unstable results or even unable to converge. For example, if We set $\delta = 1$ or $\delta = 1.5$.
+
+```{r fig.width=12, fig.height=6, out.width = "100%", fig.align = 'center'}
+  par(mfrow=c(1,2))
+  par(mar=c(2,2,2,2))
+  par(bg="transparent")
+
+  # fit the model with a larger step size
+  mybeta = mylm_g(X, y, b0 = c(0, 1), delta = 1)
+
+  contour(beta1, beta2, rss, levels = quantile(rss, quanlvl))
+  points(mybeta$allb[,1], mybeta$allb[,2], type = "b", col = "red", pch = 19)
+  points(b[1], b[2], pch = 19, col = "blue", cex = 1.5)
+  box()
+  
+  # and even larger
+  mybeta = mylm_g(X, y, b0 = c(0, 1), delta = 1.5, maxitr = 6)
+  
+  contour(beta1, beta2, rss, levels = quantile(rss, quanlvl))
+  points(mybeta$allb[,1], mybeta$allb[,2], type = "b", col = "red", pch = 19)
+  points(b[1], b[2], pch = 19, col = "blue", cex = 1.5)
+  box()
+```
+
+## Coordinate Descent
+
+Instead of updating all parameters at a time, we can also update one parameter each time. The __Gauss-Seidel style__ coordinate descent algorithm at the $k$th iteration will sequentially update all $p$ parameters:
+
+\begin{align}
+    x_1^{(k+1)} &= \underset{\color{OrangeRed}{x_1}}{\arg\min} \quad f(\color{OrangeRed}{x_1}, x_2^{(k)}, \ldots, x_p^{(k)}) \nonumber \\
+    x_2^{(k+1)} &= \underset{\color{OrangeRed}{x_2}}{\arg\min} \quad f(x_1^{\color{DodgerBlue}{(k+1)}}, \color{OrangeRed}{\bx_2}, \ldots, x_p^{(k)}) \nonumber \\
+    \cdots &\nonumber \\
+    x_p^{(k+1)} &= \underset{\color{OrangeRed}{x_p}}{\arg\min} \quad f(x_1^{\color{DodgerBlue}{(k+1)}}, x_2^{\color{DodgerBlue}{(k+1)}}, \ldots, \color{OrangeRed}{x_p}) \nonumber \\
+\end{align}
+
+Note that after updating one coordinate, the new parameter value is used for updating the next coordinate. After we complete this loop, all $j$ are updated to their new values, and we proceed to the next step. 
+
+Another type of update is the __Jacobi style__, which can be performed in parallel at the $k$th iteration:
+
+\begin{align}
+    x_1^{(k+1)} &= \underset{\color{OrangeRed}{x_1}}{\arg\min} \quad f(\color{OrangeRed}{x_1}, x_2^{(k)}, \ldots, x_p^{(k)}) \nonumber \\
+    x_2^{(k+1)} &= \underset{\color{OrangeRed}{x_2}}{\arg\min} \quad f(x_1^{(k+1)}, \color{OrangeRed}{\bx_2}, \ldots, x_p^{(k)}) \nonumber \\
+    \cdots &\nonumber \\
+    x_p^{(k+1)} &= \underset{\color{OrangeRed}{x_p}}{\arg\min} \quad f(x_1^{(k+1)}, x_2^{(k+1)}, \ldots, \color{OrangeRed}{x_p}) \nonumber \\
+\end{align}
+
+For differentiable convex functions $f$, we can ensure that if all parameters are optimized then the entire problem is also optimized. If $f$ is not differentiable, we may have trouble (see the example on [wiki](https://en.wikipedia.org/wiki/Coordinate_descent)). However, there are also cases where coordinate descent would still guarantee a convergence, e.g., a sperable case:
+
+$$f(\bx) = g(\bx) + \sum_{j=1}^p h_j(x_j)$$
+This is the Lasso formulation which will be discussed in later section. 
+
+### Coordinate Descent Example: Linear Regression
+
+Coordinate descent for linear regression is not really necessary. However, we will still use this as an example. Note that the update for a single parameter is 
+
+$$
+\underset{\boldsymbol \beta_j}{\text{argmin}} \frac{1}{2n} ||\by - X_j \beta_j - \bX_{(-j)} \bbeta_{(-j)} ||^2
+$$
+
+where $\mathbf{X}_{(-j)}$ is the data matrix without the $j$th column. Note that when updating $\beta_j$ coordinate-wise, we can first calculate the residual defined as $\mathbf{r} = \mathbf{y} - \mathbf{X}_{(-j)} \boldsymbol \beta_{(-j)}$ which does not depend on $\beta_j$, and optimize the rest of the formula for $\beta_j$. This is essentially the same as performing a one-dimensional regression by regressing $\mathbf{r}$ on $X_j$ and obtain the update. 
+$$
+\beta_j = \frac{X_j^T \mathbf{r}}{X_j^T X_j}
+$$
+The coordinate descent usually does not involve choosing a step size. Note that the following function is __NOT__ efficient because there are a lot of wasted calculations. It is only for demonstration purpose. Here we use the Gauss-Seidel style update.
+
+```{r fig.width=6, fig.height=6, out.width = '60%', fig.align='center'}
+  # gradient descent function, which also record the path
+  mylm_c <- function(x, y, b0 = rep(0, ncol(x)), epsilon = 1e-6, maxitr = 5000)
+  {
+    if (!is.matrix(x)) stop("x must be a matrix")
+    if (!is.vector(y)) stop("y must be a vector")
+    if (nrow(x) != length(y)) stop("number of observations different")
+    
+    # initialize beta values
+    allb = matrix(b0, 1, length(b0))
+    
+    # iterative update
+    for (k in 1:maxitr)
+    {
+      # initiate a vector for new beta
+      b1 = b0
+      
+      for (j in 1:ncol(x))
+      {
+        # calculate the residual
+        r = y - x[, -j, drop = FALSE] %*% b1[-j]
+        
+        # update jth coordinate
+        b1[j] = t(r) %*% x[,j] / (t(x[,j, drop = FALSE]) %*% x[,j])
+        
+        # record the update
+        allb = rbind(allb, as.vector(b1))
+      }
+
+      if (max(abs(b0 - b1)) < epsilon)
+        break;
+      
+      # reset beta0
+      b0 = b1
+    }
+
+    if (k == maxitr) cat("maximum iteration reached\n")
+    return(list("allb" = allb, "beta" = b1))
+  }
+
+  # fit the model 
+  mybeta = mylm_c(X, y, b0 = c(0, 3))
+
+  par(bg="transparent")
+  contour(beta1, beta2, rss, levels = quantile(rss, quanlvl))
+  points(mybeta$allb[,1], mybeta$allb[,2], type = "b", col = "red", pch = 19)
+  points(b[1], b[2], pch = 19, col = "blue", cex = 1.5)
+  box()
+```
+
+## Stocastic Gradient Descent
+
+The main advantage of using Stochastic Gradient Descent (SGD) is its computational speed. Calculating the gradient using all observations can be costly. Instead, we consider update the parameter __based on a single observation__. Hence, the gradient is defined as 
+
+$$
+\frac{\partial \ell_i(\boldsymbol \beta)}{\partial \boldsymbol \beta} = - (y_i - x_i^\text{T} \boldsymbol \beta) x_i.
+$$
+Compared with using all observations, this is $1/n$ of the cost. However, because this is rater not accurate for each iteration, but can still converge in the long run. There is a decay rate involved in SGD step size. If the step size does not decreases to 0, the algorithm cannot converge. However, it also has to sum up to infinite to allow us to go as far as we can. For example, a choice could be $\delta_k = 1/k$, hence $\sum \delta_k = \infty$ and $\sum \delta_k^2 < \infty$. 
+
+```{r fig.width=6, fig.height=6, out.width = '60%', fig.align='center'}
+  # gradient descent function, which also record the path
+  mylm_sgd <- function(x, y, b0 = rep(0, ncol(x)), delta = 0.05, maxitr = 10)
+  {
+    if (!is.matrix(x)) stop("x must be a matrix")
+    if (!is.vector(y)) stop("y must be a vector")
+    if (nrow(x) != length(y)) stop("number of observations different")
+    
+    # initialize beta values
+    allb = matrix(b0, 1, length(b0))
+    
+    # iterative update
+    for (k in 1:maxitr)
+    {
+      # going through all samples
+      for (i in sample(1:nrow(x)))
+      {
+        # update based on the gradient of a single subject
+        b0 = b0 + (y[i] - sum(x[i, ] * b0)) * x[i, ] * delta
+
+        # record the update
+        allb = rbind(allb, as.vector(b0))
+        
+        # learning rate decay
+        delta = delta * 1/k
+      }
+    }
+    
+    return(list("allb" = allb, "beta" = b0))
+  }
+
+  # fit the model 
+  mybeta = mylm_sgd(X, y, b0 = c(0, 1), maxitr = 3)
+  
+  par(bg="transparent")
+  contour(beta1, beta2, rss, levels = quantile(rss, quanlvl))
+  points(mybeta$allb[,1], mybeta$allb[,2], type = "b", col = "red", pch = 19)
+  points(b[1], b[2], pch = 19, col = "blue", cex = 1.5)
+  box()
+```
+
+### Mini-batch Stocastic Gradient Descent
+
+Instead of using just one observation, we could also consider splitting the data into several small "batches" and use one batch of sample to calculate the gradient at each iteration. 
+
+```{r fig.width=6, fig.height=6, out.width = '60%', fig.align='center'}
+  # gradient descent function, which also record the path
+  mylm_sgd_mb <- function(x, y, b0 = rep(0, ncol(x)), delta = 0.3, maxitr = 20)
+  {
+    if (!is.matrix(x)) stop("x must be a matrix")
+    if (!is.vector(y)) stop("y must be a vector")
+    if (nrow(x) != length(y)) stop("number of observations different")
+    
+    # initiate batches with 10 observations each
+    batch = sample(rep(1:floor(nrow(x)/10), length.out = nrow(x)))
+  
+    # initialize beta values
+    allb = matrix(b0, 1, length(b0))
+    
+    # iterative update
+    for (k in 1:maxitr)
+    {
+      for (i in 1:max(batch)) # loop through batches
+      {
+        # update based on the gradient of a single subject
+        b0 = b0 + t(x[batch==i, ]) %*% (y[batch==i] - x[batch==i, ] %*% b0) * 
+          delta / sum(batch==i)
+        
+        # record the update
+        allb = rbind(allb, as.vector(b0))
+        
+        # learning rate decay
+        delta = delta * 1/k
+      }
+    }
+    
+    return(list("allb" = allb, "beta" = b0))
+  }
+
+  # fit the model 
+  mybeta = mylm_sgd_mb(X, y, b0 = c(0, 1), maxitr = 3)
+
+  par(bg="transparent")
+  contour(beta1, beta2, rss, levels = quantile(rss, quanlvl))
+  points(mybeta$allb[,1], mybeta$allb[,2], type = "b", col = "red", pch = 19)
+  points(b[1], b[2], pch = 19, col = "blue", cex = 1.5)
+  box()
+```
+
+You may further play around with these tuning parameters to see how sensitive the optimization is to them. A stopping rule can be difficult to determine, hence in practice, early stop is also used. 
+
+## Lagrangian Multiplier for Constrained Problems
+
+Constrained optimization problems appear very frequently. Both Lasso and Ridge regressions can be viewed as constrained problems, while support vector machines (SVM) is another example, which will be introduced later on. Let's investigate this using a toy example. Suppose we have an optimization problem
+
+$$\text{minimize} \quad f(x, y) = x^2 + y^2$$
+$$\text{subj. to} \quad g(x, y) = xy - 4 = 0$$
+
+```{r fig.width=6, fig.height=6, out.width = '60%', fig.align='center'}
+  x <- seq(-5, 5, 0.05)
+  y <- seq(-5, 5, 0.05)
+  mygrid <- data.matrix(expand.grid(x, y))
+  f <- matrix(mygrid[,1]^2 + mygrid[,2]^2, length(x), length(y))
+
+  f2 <- matrix(mygrid[,1]*mygrid[,2], length(x), length(y))
+  
+  # plot the contour
+  par(bg="transparent")
+  par(mar=c(2,2,2,2))
+  contour(x, y, f, levels = c(0.2, 1, 2, 4, 8, 16))
+  contour(x, y, f2, levels = 4, add = TRUE, col = "blue", lwd = 2)
+  box()
+
+  lines(seq(1, 3, 0.01), 4- seq(1, 3, 0.01), type = "l", col = "darkorange", lwd = 3)    
+  points(2, 2, col = "red", pch = 19, cex = 2)
+  points(-2, -2, col = "red", pch = 19, cex = 2)
+```
+
+The problem itself is very simple. We know that the optimizer is the red dot. But an interesting point of view is to look at the level curves of the objective function. As it is growing (expanding), there is one point (the red dot) at which level curve barely touches the constrain curve (blue line). This should be the optimizer. But this also implies that the tangent line (orange line) of this leveling curve must coincide with the tangent line of the constraint. Noticing that the tangent line can be obtained by taking the derivative of the function, this observation implies that gradients of the two functions (the objective function and the constraint function) must be a multiple of the other. Hence,  
+
+$$ 
+\begin{align}
+& \bigtriangledown f = \lambda \bigtriangledown g \\
+\\
+\Longrightarrow \qquad &  \begin{cases}
+    2x = \lambda y & \text{by taking derivative w.r.t.} \,\, x\\
+    2y = \lambda x & \text{by taking derivative w.r.t.} \,\, y\\
+    xy - 4 = 0 & \text{the constraint itself}
+  \end{cases}
+\end{align}
+$$
+
+The three equations put together is very easy to solve. We have $x = y = 0$ or $\lambda = \pm 2$ based on the first two equations. The first one is not feasible based on the constraint. The second solution leads to two feasible solutions: $x = y = 2$ or $x = y = -2$. Hence, we now know that there are two solutions. 
+
+Now, looking back at the equation $\bigtriangledown f = \lambda \bigtriangledown g$, this is simply the derivative of the **Lagrangian function** defined as
+
+$${\cal L}(x, y, \lambda) = f(x, y) - \lambda g(x, y),$$
+while solving for the solution of the constrained problem becomes finding the stationary point of the Lagrangian. Be aware that in some cases, the solution you found can be maximizers instead of minimizers. Hence, its necessary to compare all of them and see which one is smaller. 

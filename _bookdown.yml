@@ -1,6 +1,6 @@
 book_filename: "SMLR"
 repo: https://github.com/teazrq/SMLR
-clean: [packages.bib, bookdown.bbl]
+#clean: [packages.bib, bookdown.bbl]
 delete_merged_file: true
 output_dir: "docs"
 language:
