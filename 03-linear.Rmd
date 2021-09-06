@@ -220,7 +220,7 @@ $$\text{Goodness-of-Fit} + \text{Complexity Penality}$$
 
 ### Using Marrows' $C_p$
 
-For example, the Marrows' $C_p$ criterion minimize the following quantity (a derivation is provided at Section \@ref(mallows-cp)): 
+For example, the Marrows' $C_p$ criterion minimize the following quantity (a derivation is provided at Section \@ref(marrows-cp)): 
 
 $$\text{RSS} + 2 p \widehat\sigma_{\text{full}}^2$$
 Note that the $\sigma_{\text{full}}^2$ refers to the residual variance estimation based on the full model, i.e., will all variables. Hence, this formula cannot be used when $p > n$ because you would not be able to obtain a valid estimation of $\sigma_{\text{full}}^2$. Nonetheless, we can calculate this quantity with the diabetes dataset
@@ -396,7 +396,7 @@ We can also use different settings, such as which model to start with, which is 
 
 We can see that these results are slightly different from the best subset selection. So which is better? Of course the best subset selection is better because it considers all possible candidates, which step-wise regression may stuck at a sub-optimal model, while adding and subtracting any variable do not benefit further. Hence, the results of step-wise regression may be unstable. On the other hand, best subset selection not really feasible for high-dimensional problems because of the computational cost. 
 
-## Derivation of Mallows' $C_p$ {#mallows-cp}
+## Derivation of Marrows' $C_p$ {#marrows-cp}
 
 Suppose we have a set of training data $\cD_n = \{x_i, \color{DodgerBlue}{y_i}\}_{i=1}^n$ and a set of testing data, with the same covariates $\cD_n^\ast = \{x_i, \color{OrangeRed}{y_i^\ast}\}_{i=1}^n$. Hence, this is an __in-sample prediction__ problem. However, the $\color{OrangeRed}{y_i^\ast}$s are newly observed. Assuming that the data are generated from a linear model, i.e., in vector form,
 
@@ -444,7 +444,7 @@ In the above, we further used properties
   * $\bH$ and $\bI - \bH$ are projection matrices
   * $\bH \bX = \bX$
 
-If we contrast the two results above, the difference between the training and testing errors is $2 p \sigma^2$. Hence, if we can obtain a valid estimation of $\sigma^2$, then the training error plus $2 p \widehat{\sigma}^2$ is a good approximation of the testing error, which we want to minimize. And that is exactly what Mallows' $C_p$ does. 
+If we contrast the two results above, the difference between the training and testing errors is $2 p \sigma^2$. Hence, if we can obtain a valid estimation of $\sigma^2$, then the training error plus $2 p \widehat{\sigma}^2$ is a good approximation of the testing error, which we want to minimize. And that is exactly what Marrows' $C_p$ does. 
 
 We can also generalize this result to the case when the underlying model is not a linear model. Assume that
 

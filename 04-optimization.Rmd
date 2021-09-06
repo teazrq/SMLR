@@ -202,7 +202,7 @@ The result shows that the estimated parameters (`$par`) are 0.453 and 0.924, wit
 
 What we will be introducing in the following are some basic approaches to solve such a numerical problem. We will start with unconstrained problems, then introduce constrained problems. 
 
-## First and Second Order Propoerties
+## First and Second Order Properties
 
 These properties are usually applied to unconstrained optimization problems. They are essentially just describing the landscape around a point $\bx^\ast$ such that it becomes the local optimizer. Since we generally concerns a convex problem, a local solution is also the global solution. However, these properties are still generally applied when solving a non-convex problem. Note that these statements are multi-dimensional. 
 
