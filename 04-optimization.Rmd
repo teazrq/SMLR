@@ -48,7 +48,7 @@ Note that if you have a concave function (the bowl faces downwards) then $-f(\bx
   * Affine map: $a^\T \bx + b$ is both convex and concave
   * A quadratic function $\frac{1}{2}\bx^\T \bA \bx + b^\T \bx + c$, if $\bA$ is positive semidefinite
   * All $p$ norms are convex, following the Triangle inequality and properties of a norm.
-  * A sin function is neither convex or convave
+  * A sin function is neither convex or concave
 
 On the other hand, a __*convex set*__ $C$ means that if we have two points $x_1$ and $x_2$ in $C$, the line segment joining these two points has to lie within $C$, i.e., 
 
@@ -285,7 +285,7 @@ Alternatives of such type of methods include the symmetric rank-one and Davidon-
 ### Gradient Descent
 
 When simply using $\bH = \bI$, we update 
-$$\bx^{(k+1)} = \bx^{(k)} + \delta \nabla f(\bx^{(k)}).$$ 
+$$\bx^{(k+1)} = \bx^{(k)} - \delta \nabla f(\bx^{(k)}).$$ 
 However, it is then crucial to figure out the step size $\delta$. A step size too large may not even converge at all, however, a step size too small will take too many iterations to converge. Alternatively, line search could be used. 
 
 ### Gradient Descent Example: Linear Regression
