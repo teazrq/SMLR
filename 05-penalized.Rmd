@@ -40,9 +40,12 @@
 
 # Ridge Regression
 
-Ridge regression was proposed by @hoerl1970ridge. The essential idea is very simple, we add a ridge on the diagonal elements of $\bX^\T \bX$ so that it becomes invertible. Hence, the solution of the parameters is 
+Ridge regression was proposed by @hoerl1970ridge. The essential idea is very simple, we add an $\ell_2$ penalty to the residual sum of squares, i.e., 
 
-$$\widehat{\bbeta}^\text{ridge} = (\bX^\T \bX + \lambda \bI)^{-1} \bX^T \by.$$
+$$\widehat{\bbeta}^\text{ridge} = \argmin_{\bbeta} (\by - \bX \bbeta)^\T (\by - \bX \bbeta) + \lambda \lVert\bbeta\rVert^2,$$
+for some penalty $\lambda > 0$. Knowing the ordinary least squares (OLS) solution, a ridge regression is adding a ridge on the diagonal elements of $\bX^\T \bX$ so that it becomes invertible:
+
+$$\widehat{\bbeta}^\text{ridge} = (\bX^\T \bX + \lambda \bI)^{-1} \bX^\T \by,$$
 It provides a solution of linear regression when multicollinearity happens, especially when the number of variables is larger than the sample size. It is used extensively in genetic analysis to address such difficulties. We will start with a motivation example and then discuss the bias-variance trade-off issue. 
 
 ## Motivation: Correlated Variables and Convexity
@@ -65,7 +68,7 @@ Ridge regression has many advantages. Most notably, it can address highly correl
   lm.ridge(y~X-1, lambda=5)
 ```
 
-The variance of both $\beta_1$ and $\beta_2$ are quite large. This can also be interpreted through an optimization point of view. The objective function for an OLS estimator is demonstrated in the following.
+The variance of both $\beta_1$ and $\beta_2$ are quite large. This is expected because we know from linear regression that the variance of $\widehat{\bbeta}$ is $\sigma^2 (\bX^\T \bX)^{-1}$. However, since the columns of $\bX$ are highly correlated, the smallest eigenvalue of $\bX^\T \bX$ is close to 0, making the largest eigenvalue of $(\bX^\T \bX)^{-1}$ very large. This can also be interpreted through an optimization point of view. The objective function for an OLS estimator is demonstrated in the following.
 
 ```{r}
   beta1 <- seq(0, 3, 0.005)
@@ -91,7 +94,7 @@ The variance of both $\beta_1$ and $\beta_2$ are quite large. This can also be i
 
 As an alternative, if we add a ridge regression penalty, the contour is forced to be more convex due to the added eigenvalues. Here is a plot of the Ridge $\ell_2$ penalty.
 
-```{r}
+```{r echo = FALSE}
   pen <- matrix(apply(allbeta, 1, function(b) 3*b %*% b),
                 length(beta1), length(beta2))
   
@@ -100,7 +103,7 @@ As an alternative, if we add a ridge regression penalty, the contour is forced t
   box()
 ```
 
-Hence, by adding this to the OLS objective function, the solution is more stable. This may be interpreted in several different ways such as: 1) the objective function is more convex; 2) the variance of the estimator is smaller. However, this causes some bias too. Choosing the tuning parameter is again a balance of the bias-variance trade-off. 
+Hence, by adding this to the OLS objective function, the solution is more stable. This may be interpreted in several different ways such as: 1) the objective function is more convex; 2) the variance of the estimator is smaller. However, this causes some bias too. Choosing the tuning parameter is a balance of the bias-variance trade-off, which will be discussed in the following. 
 
 ```{r fig.dim = c(12, 6), out.width = '90%'}
     par(mfrow=c(1, 2))
@@ -130,8 +133,11 @@ Hence, by adding this to the OLS objective function, the solution is more stable
     box()
 ```
 
+## Bias and Variance of Ridge Regression
 
+The ridge regression is minimizing a penalized $\ell_2$ loss:
 
+$$\widehat{\bbeta}^\text{ridge} = \argmin_{\bbeta} (\by - \bX \bbeta)^\T (\by - \bX \bbeta) + \lambda \bbeta$$
 
 
 

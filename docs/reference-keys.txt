@@ -55,3 +55,4 @@ mini-batch-stocastic-gradient-descent
 lagrangian-multiplier-for-constrained-problems
 ridge-regression
 motivation-correlated-variables-and-convexity
+bias-and-variance-of-ridge-regression

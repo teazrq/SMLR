@@ -10,4 +10,4 @@ bookdown::gitbook:
     fontsettings:
         theme: sepia
         family: serif
-        size: 2
+        size: 1
