@@ -28,7 +28,7 @@ description: "A textbook for STAT 542 and 432 at UIUC"
 
 # Preface {-}
 
-Welcome to *Statistical Learning and Machine Learning with R*! I started this project during the summer of 2018 when I was preparing for the Stat 432 course. At that time, our faculty member [Dr. David Dalpiaz](https://daviddalpiaz.com/teaching.html), had decided to move to The Ohio State University (although he later on moved back to UIUC). David introduced to me this awesome way of publishing website on GitHub, which is a very efficient approach for developing courses. Since I was also teaching Stat 542 (Statistical Learning) for several years, I figured it could be beneficial to integrate what I have to this [existing book](https://daviddalpiaz.github.io/r4sl/) by David and use it as the R material for both courses. For Stat 542, the main focus is to learn the numerical optimization behind these learning algorithms, and also be familiar with the theoretical background. As you can tell, I am not being very creative on the name, so `SMLR` it is. You can find the source file of this book on my [GitHub](https://teazrq.github.io/SMLR/).
+Welcome to *Statistical Learning and Machine Learning with R*! I started this project during the summer of 2018 when I was preparing for the Stat 432 course. At that time, our faculty member [Dr. David Dalpiaz](https://daviddalpiaz.com/teaching.html), had decided to move to The Ohio State University (although he moved back to UIUC later on). David introduced to me this awesome way of publishing website on GitHub, which is a very efficient approach for developing courses. Since I have also taught Stat 542 (Statistical Learning) for several years, I figured it could be beneficial to integrate what I have to this [existing book](https://daviddalpiaz.github.io/r4sl/) by David and use it as the R material for both courses. For Stat 542, the main focus is to learn the numerical optimization behind these learning algorithms, and also be familiar with the theoretical background. As you can tell, I am not being very creative on the name, so `SMLR` it is. You can find the source file of this book on my [GitHub](https://teazrq.github.io/SMLR/).
 
 ## Target Audience {-}
 
@@ -38,16 +38,18 @@ This book can be suitable for students ranging from advanced undergraduate to fi
 
 I currently plan to include the following topics:
 
-1. Basic Knowledge in R
-2. Linear and Penalized Linear Models
-3. Numerical Optimization Basics
-4. Classification
-5. Non-parametric Statistical Models
-6. Machine Learning Models
-7. Unsupervised Learning
-8. Appendix
+  1. Basic Knowledge
+      * R, R Studio and R Markdown
+      * Linear regression and linear algebra
+      * Numerical optimization
+  3. Penalized linear models and the bias-variance trade-off
+  4. Classification
+  5. Non-parametric Statistical Models
+  6. Machine Learning Models
+  7. Unsupervised Learning
+  8. Appendix
 
-The goal of this book is to introduce not only how to run some of the popular statistical learning models in R, but also know the algorithms and programming techniques for solving these models. For each section, the difficulty will gradually increase from an undergraduate level to a graduate level. 
+The goal of this book is to introduce not only how to run some of the popular statistical learning models in R, but also to know the algorithms and programming techniques for solving these models. For each section, the difficulty will gradually increase from an undergraduate level to a graduate level. 
 
 It will be served as a supplement to [An Introduction to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/) [@james2013introduction] for [STAT 432 - Basics of Statistical Learning](https://go.illinois.edu/stat432) and to [The Elements of 
 Statistical Learning: Data Mining, Inference, and Prediction](https://web.stanford.edu/~hastie/ElemStatLearn/) [@hastie2001elements] for [STAT 542 - Statistical Learning](https://go.illinois.edu/stat542) at the [University of Illinois at Urbana-Champaign](http://illinois.edu/).

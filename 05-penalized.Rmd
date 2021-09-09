@@ -207,8 +207,38 @@ where $d_j$ is the $j$th eigenvalue of the PCA. Hence, the Ridge regression fitt
   * Shrink the projection $\bu_j^\T \by$ by the factor $d_j^2 / (n \lambda + d_j^2)$
   * Reassemble the PCs using all the shrunken length
 
+Hence, the bias-variance notion can be understood as the trade-off on these derived directions $\bu_j$ and their corresponding parameters $\bu_j^\T \by$.
+
 ## Degrees of Freedom
 
+We know that for a linear model, the degrees of freedom (DF) is simply the number of parameters used. There is a formal definition, using 
+
+\begin{align}
+\text{DF}(\widehat{f}) =& \frac{1}{\sigma^2} \Cov(\widehat{y}_i, y_i)\\
+=& \frac{1}{\sigma^2} \Trace[\Cov(\widehat{\by}, \by)]
+\end{align}
+
+We can check that for a linear regression (assuming the intercept is already included in $\bX$), the DF is 
+
+\begin{align}
+\frac{1}{\sigma^2} \Trace[\Cov(\widehat{\by}^\text{ols}, \by)] =& \frac{1}{\sigma^2} \Trace[\Cov(\bX(\bX^\T\bX)^{-1} \bX^\T \by, \by)] \\
+=& \Trace(\bX(\bX^\T\bX)^{-1} \bX^\T) \\
+=& \Trace(\bI_{p\times p})\\
+=& p
+\end{align}
+
+For the Ridge regression, we can perform the same analysis on ridge regression. 
+
+\begin{align}
+\frac{1}{\sigma^2} \Trace[\Cov(\widehat{\by}^\text{ridge}, \by)] =& \frac{1}{\sigma^2} \Trace[\Cov(\bX(\bX^\T\bX + n \lambda \bI)^{-1} \bX^\T \by, \by)] \\
+=& \Trace(\bX(\bX^\T\bX)^{-1} \bX^\T) \\
+=& \Trace(\bU \bD \bV^\T ( \bV \bD^2 \bV^\T + n \lambda \bV \bV^\T)^{-1} \bV \bD \bU^\T)\\
+=& \sum_{j = 1}^p \frac{d_j^2}{d_j^2 + n\lambda}
+\end{align}
+
+Note that this is smaller than $p$ as long as $\lambda \neq 0$. This implies that the Ridge regression does not use the full potential of all $p$ variables, since there is a risk of over-fitting. 
+
+## Using the `lm.ridge()` function
 
 
 

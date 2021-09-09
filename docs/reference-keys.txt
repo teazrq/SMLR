@@ -57,3 +57,4 @@ ridge-regression
 motivation-correlated-variables-and-convexity
 bias-and-variance-of-ridge-regression
 degrees-of-freedom
+using-the-lm.ridge-function

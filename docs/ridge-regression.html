@@ -254,6 +254,7 @@ div.csl-indent {
 <li class="chapter" data-level="5.1" data-path="ridge-regression.html"><a href="ridge-regression.html#motivation-correlated-variables-and-convexity"><i class="fa fa-check"></i><b>5.1</b> Motivation: Correlated Variables and Convexity</a></li>
 <li class="chapter" data-level="5.2" data-path="ridge-regression.html"><a href="ridge-regression.html#bias-and-variance-of-ridge-regression"><i class="fa fa-check"></i><b>5.2</b> Bias and Variance of Ridge Regression</a></li>
 <li class="chapter" data-level="5.3" data-path="ridge-regression.html"><a href="ridge-regression.html#degrees-of-freedom"><i class="fa fa-check"></i><b>5.3</b> Degrees of Freedom</a></li>
+<li class="chapter" data-level="5.4" data-path="ridge-regression.html"><a href="ridge-regression.html#using-the-lm.ridge-function"><i class="fa fa-check"></i><b>5.4</b> Using the <code>lm.ridge()</code> function</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2021 Ruoqing Zhu</a></li>
@@ -413,9 +414,33 @@ It provides a solution of linear regression when multicollinearity happens, espe
 <li>Shrink the projection <span class="math inline">\(\mathbf{u}_j^\text{T}\mathbf{y}\)</span> by the factor <span class="math inline">\(d_j^2 / (n \lambda + d_j^2)\)</span></li>
 <li>Reassemble the PCs using all the shrunken length</li>
 </ul>
+<p>Hence, the bias-variance notion can be understood as the trade-off on these derived directions <span class="math inline">\(\mathbf{u}_j\)</span> and their corresponding parameters <span class="math inline">\(\mathbf{u}_j^\text{T}\mathbf{y}\)</span>.</p>
 </div>
 <div id="degrees-of-freedom" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> Degrees of Freedom</h2>
+<p>We know that for a linear model, the degrees of freedom (DF) is simply the number of parameters used. There is a formal definition, using</p>
+<p><span class="math display">\[\begin{align}
+\text{DF}(\widehat{f}) =&amp; \frac{1}{\sigma^2} \text{Cov}(\widehat{y}_i, y_i)\\
+=&amp; \frac{1}{\sigma^2} \text{Trace}[\text{Cov}(\widehat{\mathbf{y}}, \mathbf{y})]
+\end{align}\]</span></p>
+<p>We can check that for a linear regression (assuming the intercept is already included in <span class="math inline">\(\mathbf{X}\)</span>), the DF is</p>
+<p><span class="math display">\[\begin{align}
+\frac{1}{\sigma^2} \text{Trace}[\text{Cov}(\widehat{\mathbf{y}}^\text{ols}, \mathbf{y})] =&amp; \frac{1}{\sigma^2} \text{Trace}[\text{Cov}(\mathbf{X}(\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}^\text{T}\mathbf{y}, \mathbf{y})] \\
+=&amp; \text{Trace}(\mathbf{X}(\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}^\text{T}) \\
+=&amp; \text{Trace}(\mathbf{I}_{p\times p})\\
+=&amp; p
+\end{align}\]</span></p>
+<p>For the Ridge regression, we can perform the same analysis on ridge regression.</p>
+<p><span class="math display">\[\begin{align}
+\frac{1}{\sigma^2} \text{Trace}[\text{Cov}(\widehat{\mathbf{y}}^\text{ridge}, \mathbf{y})] =&amp; \frac{1}{\sigma^2} \text{Trace}[\text{Cov}(\mathbf{X}(\mathbf{X}^\text{T}\mathbf{X}+ n \lambda \mathbf{I})^{-1} \mathbf{X}^\text{T}\mathbf{y}, \mathbf{y})] \\
+=&amp; \text{Trace}(\mathbf{X}(\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}^\text{T}) \\
+=&amp; \text{Trace}(\mathbf{U}\mathbf{D}\mathbf{V}^\text{T}( \mathbf{V}\mathbf{D}^2 \mathbf{V}^\text{T}+ n \lambda \mathbf{V}\mathbf{V}^\text{T})^{-1} \mathbf{V}\mathbf{D}\mathbf{U}^\text{T})\\
+=&amp; \sum_{j = 1}^p \frac{d_j^2}{d_j^2 + n\lambda}
+\end{align}\]</span></p>
+<p>Note that this is smaller than <span class="math inline">\(p\)</span> as long as <span class="math inline">\(\lambda \neq 0\)</span>. This implies that the Ridge regression does not use the full potential of all <span class="math inline">\(p\)</span> variables, since there is a risk of over-fitting.</p>
+</div>
+<div id="using-the-lm.ridge-function" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Using the <code>lm.ridge()</code> function</h2>
 
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div class="csl-entry">
