@@ -61,3 +61,4 @@ The initial contents are derived from Dr. David Dalpiaz's book. My STAT 542 cour
 ## License {-}
 
 ![This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).](images/cc.png){width=15%}
+

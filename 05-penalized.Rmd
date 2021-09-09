@@ -4,6 +4,9 @@
 \def\bX{\mathbf{X}}
 \def\bH{\mathbf{H}}
 \def\bI{\mathbf{I}}
+\def\bU{\mathbf{U}}
+\def\bD{\mathbf{D}}
+\def\bV{\mathbf{V}}
 \def\bx{\mathbf{x}}
 \def\by{\mathbf{y}}
 \def\bs{\mathbf{s}}
@@ -40,13 +43,19 @@
 
 # Ridge Regression
 
-Ridge regression was proposed by @hoerl1970ridge. The essential idea is very simple, we add an $\ell_2$ penalty to the residual sum of squares, i.e., 
+Ridge regression was proposed by @hoerl1970ridge, but is also a special case of Tikhonov regularization. The essential idea is very simple: Knowing the ordinary least squares (OLS) solution, a ridge regression is adding a ridge on the diagonal elements of $\bX^\T \bX$ so that it becomes invertible:
 
-$$\widehat{\bbeta}^\text{ridge} = \argmin_{\bbeta} (\by - \bX \bbeta)^\T (\by - \bX \bbeta) + \lambda \lVert\bbeta\rVert^2,$$
-for some penalty $\lambda > 0$. Knowing the ordinary least squares (OLS) solution, a ridge regression is adding a ridge on the diagonal elements of $\bX^\T \bX$ so that it becomes invertible:
+$$\widehat{\bbeta}^\text{ridge} = (\bX^\T \bX + n \lambda \bI)^{-1} \bX^\T \by,$$
+It provides a solution of linear regression when multicollinearity happens, especially when the number of variables is larger than the sample size. Alternatively, this is also the solution of a regularized least square estimator. We add an $\ell_2$ penalty to the residual sum of squares, i.e., 
 
-$$\widehat{\bbeta}^\text{ridge} = (\bX^\T \bX + \lambda \bI)^{-1} \bX^\T \by,$$
-It provides a solution of linear regression when multicollinearity happens, especially when the number of variables is larger than the sample size. It is used extensively in genetic analysis to address such difficulties. We will start with a motivation example and then discuss the bias-variance trade-off issue. 
+$$
+\begin{align}
+\widehat{\bbeta}^\text{ridge} =& \argmin_{\bbeta} (\by - \bX \bbeta)^\T (\by - \bX \bbeta) + n \lambda \lVert\bbeta\rVert^2\\
+=& \argmin_{\bbeta} \frac{1}{n} \sum_{i=1}^n (y_i - x_i^\T \bbeta)^2 + \lambda \sum_{i=1}^n \beta_j^2,
+\end{align}
+$$
+
+for some penalty $\lambda > 0$. Ridge regression is used extensively in genetic analysis to address such difficulties. We will start with a motivation example and then discuss the bias-variance trade-off issue. 
 
 ## Motivation: Correlated Variables and Convexity
 
@@ -135,17 +144,70 @@ Hence, by adding this to the OLS objective function, the solution is more stable
 
 ## Bias and Variance of Ridge Regression
 
-The ridge regression is minimizing a penalized $\ell_2$ loss:
+We can set a relationship between Ridge and OLS, assuming that the OLS estimator exist. 
 
-$$\widehat{\bbeta}^\text{ridge} = \argmin_{\bbeta} (\by - \bX \bbeta)^\T (\by - \bX \bbeta) + \lambda \bbeta$$
+\begin{align}
+\widehat{\bbeta}^\text{ridge} =& (\bX^\T \bX + n\lambda \bI)^{-1} \bX^\T \by \\
+=& (\bX^\T \bX + n\lambda \bI)^{-1} (\bX^\T \bX) \color{OrangeRed}{(\bX^\T \bX)^{-1} \bX^\T \by}\\
+=& (\bX^\T \bX + n\lambda \bI)^{-1} (\bX^\T \bX) \color{OrangeRed}{\widehat{\bbeta}^\text{ols}}
+\end{align}
 
+This leads to a biased estimator (since the OLS estimator is unbiased) if we use any nonzero $\lambda$. 
 
+  * As $\lambda \rightarrow 0$, the ridge solution is eventually the same as OLS
+  * As $\lambda \rightarrow \infty$, $\widehat{\bbeta}^\text{ridge} \rightarrow 0$
 
+It can be easier to analyze a case with $\bX^\T \bX = n \bI$, i.e, with standardized and orthogonal columns in $\bX$. Note that in this case, each $\beta_j^{\text{ols}}$ is just the projection of $\by$ onto $\bx_j$, the $j$th column of the design matrix. We also have 
 
+\begin{align}
+\widehat{\bbeta}^\text{ridge} =& (\bX^\T \bX + n\lambda \bI)^{-1} (\bX^\T \bX) \widehat{\bbeta}^\text{ols}\\
+=& (\bI + \lambda \bI)^{-1}\widehat{\bbeta}^\text{ols}\\
+=& (1 + \lambda)^{-1} \widehat{\bbeta}^\text{ols}\\
 
+\Longrightarrow \beta_j^{\text{ridge}} =& \frac{1}{1 + \lambda} \beta_j^\text{ols}
+\end{align}
 
+Then in this case, the bias and variance of the ridge estimator can be explicitly expressed: 
 
+  * $\text{Bias}(\beta_j^{\text{ridge}}) = \frac{-\lambda}{1 + \lambda} \beta_j^\text{ols}$ (not zero)
+  * $\text{Var}(\beta_j^{\text{ridge}}) = \frac{1}{(1 + \lambda)^2} \text{Var}(\beta_j^\text{ols})$ (reduced from OLS)
 
+Of course, we can ask the question: is it worth it? We could proceed with a simple analysis of the MSE of $\beta$ (dropping $j$):
+
+\begin{align}
+\text{MSE}(\beta) &= \E(\widehat{\beta} - \beta)^2 \\
+&= \E[\widehat{\beta} - \E(\widehat{\beta})]^2 + \E[\widehat{\beta} - \beta]^2 \\
+&= \E[\widehat{\beta} - \E(\widehat{\beta})]^2 + 0 + [\E(\widehat{\beta}) - \beta]^2 \\
+&= \Var(\widehat{\beta}) + \text{Bias}^2.
+\end{align}
+
+This bias-variance breakdown formula will appear multiple times. Now, plug-in the results developed earlier based on the orthogonal design matrix, and investigate the derivative of the MSE of the Ridge estimator, we have 
+
+\begin{align}
+\frac{\partial \text{MSE}(\widehat{\beta}^\text{ridge})}{ \partial \beta} =& \frac{\partial}{\partial \beta} \left[ \frac{1}{(1+\lambda)^2} \Var(\widehat{\beta}^\text{ols}) + \frac{\lambda^2}{(1 + \lambda)^2} \beta^2 \right] \\
+=& \frac{2}{(1+\lambda)^3} \left[ \lambda \beta^2 - \Var(\widehat{\beta}^\text{ols}) \right]
+\end{align}
+
+Note that when the derivative is negative, increasing $\lambda$ would decrease the MSE. This implies that we can reduce the MSE by choosing a small $\lambda$. Of course the situation is much more involving when the columns in $\bX$ are not orthogonal. However, the following analysis helps to understand a non-orthogonal case. It is essentially re-organizing the columns of $\bX$ into its principle components so that they are still orthogonal. 
+
+Let's first take a singular value decomposition (SVD) of $\bX$, with $\bX = \bU \bD \bV^\T$, then the columns in $\bU$ form an orthonormal basis and columns in $\bU \bD$ are the __principal components__ and $\bV$ defines the principle directions. In addition, we have $n \widehat{\boldsymbol \Sigma} = \bX^\T \bX = \bV \bD^2 \bV^\T$. Assuming that $p < n$, and $\bX$ has full column ranks, then the Ridge estimator fitted $\by$ value can be decomposed as
+
+\begin{align}
+\widehat{\by}^\text{ridge} =& \bX \widehat{\beta}^\text{ridge} \\ 
+=& \bX (\bX^\T \bX + n \lambda)^{-1} \bX^\T \by \\
+=& \bU \bD \bV^\T ( \bV \bD^2 \bV^\T + n \lambda \bV \bV^\T)^{-1} \bV \bD \bU^\T \by \\
+=& \bU \bD^2 (n \lambda + \bD^2)^{-1} \bU^\T \by \\
+=& \sum_{j = 1}^p \bu_j \left( \frac{d_j^2}{n \lambda + d_j^2} \bu_j^\T \by \right),
+\end{align}
+
+where $d_j$ is the $j$th eigenvalue of the PCA. Hence, the Ridge regression fitted value can be understood as 
+
+  * Perform PCA of $\bX$
+  * Project $\by$ onto the PCs
+  * Shrink the projection $\bu_j^\T \by$ by the factor $d_j^2 / (n \lambda + d_j^2)$
+  * Reassemble the PCs using all the shrunken length
+
+## Degrees of Freedom
 
 
 

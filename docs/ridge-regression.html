@@ -24,7 +24,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2021-09-08" />
+<meta name="date" content="2021-09-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,22 +53,6 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.19/datatables.js"></script>
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
-<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
-<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
-<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
-<script src="libs/selectize-0.12.0/selectize.min.js"></script>
-<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.9.4.1/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -269,6 +253,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="5.1" data-path="ridge-regression.html"><a href="ridge-regression.html#motivation-correlated-variables-and-convexity"><i class="fa fa-check"></i><b>5.1</b> Motivation: Correlated Variables and Convexity</a></li>
 <li class="chapter" data-level="5.2" data-path="ridge-regression.html"><a href="ridge-regression.html#bias-and-variance-of-ridge-regression"><i class="fa fa-check"></i><b>5.2</b> Bias and Variance of Ridge Regression</a></li>
+<li class="chapter" data-level="5.3" data-path="ridge-regression.html"><a href="ridge-regression.html#degrees-of-freedom"><i class="fa fa-check"></i><b>5.3</b> Degrees of Freedom</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2021 Ruoqing Zhu</a></li>
@@ -292,109 +277,149 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="ridge-regression" class="section level1" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Ridge Regression</h1>
-<p>Ridge regression was proposed by <span class="citation"><a href="#ref-hoerl1970ridge" role="doc-biblioref">Hoerl and Kennard</a> (<a href="#ref-hoerl1970ridge" role="doc-biblioref">1970</a>)</span>. The essential idea is very simple, we add an <span class="math inline">\(\ell_2\)</span> penalty to the residual sum of squares, i.e.,</p>
-<p><span class="math display">\[\widehat{\boldsymbol \beta}^\text{ridge} = \mathop{\mathrm{arg\,min}}_{\boldsymbol \beta} (\mathbf{y}- \mathbf{X}\boldsymbol \beta)^\text{T}(\mathbf{y}- \mathbf{X}\boldsymbol \beta) + \lambda \lVert\boldsymbol \beta\rVert^2,\]</span>
-for some penalty <span class="math inline">\(\lambda &gt; 0\)</span>. Knowing the ordinary least squares (OLS) solution, a ridge regression is adding a ridge on the diagonal elements of <span class="math inline">\(\mathbf{X}^\text{T}\mathbf{X}\)</span> so that it becomes invertible:</p>
-<p><span class="math display">\[\widehat{\boldsymbol \beta}^\text{ridge} = (\mathbf{X}^\text{T}\mathbf{X}+ \lambda \mathbf{I})^{-1} \mathbf{X}^\text{T}\mathbf{y},\]</span>
-It provides a solution of linear regression when multicollinearity happens, especially when the number of variables is larger than the sample size. It is used extensively in genetic analysis to address such difficulties. We will start with a motivation example and then discuss the bias-variance trade-off issue.</p>
+<p>Ridge regression was proposed by <span class="citation"><a href="#ref-hoerl1970ridge" role="doc-biblioref">Hoerl and Kennard</a> (<a href="#ref-hoerl1970ridge" role="doc-biblioref">1970</a>)</span>, but is also a special case of Tikhonov regularization. The essential idea is very simple: Knowing the ordinary least squares (OLS) solution, a ridge regression is adding a ridge on the diagonal elements of <span class="math inline">\(\mathbf{X}^\text{T}\mathbf{X}\)</span> so that it becomes invertible:</p>
+<p><span class="math display">\[\widehat{\boldsymbol \beta}^\text{ridge} = (\mathbf{X}^\text{T}\mathbf{X}+ n \lambda \mathbf{I})^{-1} \mathbf{X}^\text{T}\mathbf{y},\]</span>
+It provides a solution of linear regression when multicollinearity happens, especially when the number of variables is larger than the sample size. Alternatively, this is also the solution of a regularized least square estimator. We add an <span class="math inline">\(\ell_2\)</span> penalty to the residual sum of squares, i.e.,</p>
+<p><span class="math display">\[
+\begin{align}
+\widehat{\boldsymbol \beta}^\text{ridge} =&amp; \mathop{\mathrm{arg\,min}}_{\boldsymbol \beta} (\mathbf{y}- \mathbf{X}\boldsymbol \beta)^\text{T}(\mathbf{y}- \mathbf{X}\boldsymbol \beta) + n \lambda \lVert\boldsymbol \beta\rVert^2\\
+=&amp; \mathop{\mathrm{arg\,min}}_{\boldsymbol \beta} \frac{1}{n} \sum_{i=1}^n (y_i - x_i^\text{T}\boldsymbol \beta)^2 + \lambda \sum_{i=1}^n \beta_j^2,
+\end{align}
+\]</span></p>
+<p>for some penalty <span class="math inline">\(\lambda &gt; 0\)</span>. Ridge regression is used extensively in genetic analysis to address such difficulties. We will start with a motivation example and then discuss the bias-variance trade-off issue.</p>
 <div id="motivation-correlated-variables-and-convexity" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Motivation: Correlated Variables and Convexity</h2>
 <p>Ridge regression has many advantages. Most notably, it can address highly correlated variables. From an optimization point of view, having highly correlated variables means that the objective function (<span class="math inline">\(\ell_2\)</span> loss) becomes “flat” along certain directions in the parameter domain. This can be seen from the following example, where the true parameters are both 1s while the estimated parameters concludes almost all effects to the first variable. You can change different seed to observe the variability of these parameter estimates and notice that they are quite large. Instead, if we fit a ridge regression, the parameter estimates are relatively stable.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="ridge-regression.html#cb67-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(MASS)</span>
-<span id="cb67-2"><a href="ridge-regression.html#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
-<span id="cb67-3"><a href="ridge-regression.html#cb67-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">30</span></span>
-<span id="cb67-4"><a href="ridge-regression.html#cb67-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb67-5"><a href="ridge-regression.html#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create highly correlated variables and a linear model</span></span>
-<span id="cb67-6"><a href="ridge-regression.html#cb67-6" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">=</span> <span class="fu">mvrnorm</span>(n, <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.99</span>, <span class="fl">0.99</span>, <span class="dv">1</span>), <span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb67-7"><a href="ridge-regression.html#cb67-7" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> X[,<span class="dv">1</span>] <span class="sc">+</span> X[,<span class="dv">2</span>])</span>
-<span id="cb67-8"><a href="ridge-regression.html#cb67-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb67-9"><a href="ridge-regression.html#cb67-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># compare parameter estimates</span></span>
-<span id="cb67-10"><a href="ridge-regression.html#cb67-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(<span class="fu">lm</span>(y<span class="sc">~</span>X<span class="dv">-1</span>))<span class="sc">$</span>coef</span>
-<span id="cb67-11"><a href="ridge-regression.html#cb67-11" aria-hidden="true" tabindex="-1"></a><span class="do">##     Estimate Std. Error    t value  Pr(&gt;|t|)</span></span>
-<span id="cb67-12"><a href="ridge-regression.html#cb67-12" aria-hidden="true" tabindex="-1"></a><span class="do">## X1 1.8461255   1.294541 1.42608527 0.1648987</span></span>
-<span id="cb67-13"><a href="ridge-regression.html#cb67-13" aria-hidden="true" tabindex="-1"></a><span class="do">## X2 0.0990278   1.321283 0.07494822 0.9407888</span></span>
-<span id="cb67-14"><a href="ridge-regression.html#cb67-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb67-15"><a href="ridge-regression.html#cb67-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># note that the true parameters are all 1&#39;s</span></span>
-<span id="cb67-16"><a href="ridge-regression.html#cb67-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm.ridge</span>(y<span class="sc">~</span>X<span class="dv">-1</span>, <span class="at">lambda=</span><span class="dv">5</span>)</span>
-<span id="cb67-17"><a href="ridge-regression.html#cb67-17" aria-hidden="true" tabindex="-1"></a><span class="do">##        X1        X2 </span></span>
-<span id="cb67-18"><a href="ridge-regression.html#cb67-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.9413221 0.8693253</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="ridge-regression.html#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(MASS)</span>
+<span id="cb1-2"><a href="ridge-regression.html#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb1-3"><a href="ridge-regression.html#cb1-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">30</span></span>
+<span id="cb1-4"><a href="ridge-regression.html#cb1-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-5"><a href="ridge-regression.html#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create highly correlated variables and a linear model</span></span>
+<span id="cb1-6"><a href="ridge-regression.html#cb1-6" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">=</span> <span class="fu">mvrnorm</span>(n, <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.99</span>, <span class="fl">0.99</span>, <span class="dv">1</span>), <span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb1-7"><a href="ridge-regression.html#cb1-7" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> X[,<span class="dv">1</span>] <span class="sc">+</span> X[,<span class="dv">2</span>])</span>
+<span id="cb1-8"><a href="ridge-regression.html#cb1-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-9"><a href="ridge-regression.html#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># compare parameter estimates</span></span>
+<span id="cb1-10"><a href="ridge-regression.html#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(<span class="fu">lm</span>(y<span class="sc">~</span>X<span class="dv">-1</span>))<span class="sc">$</span>coef</span>
+<span id="cb1-11"><a href="ridge-regression.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">##     Estimate Std. Error    t value  Pr(&gt;|t|)</span></span>
+<span id="cb1-12"><a href="ridge-regression.html#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="do">## X1 1.8461255   1.294541 1.42608527 0.1648987</span></span>
+<span id="cb1-13"><a href="ridge-regression.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="do">## X2 0.0990278   1.321283 0.07494822 0.9407888</span></span>
+<span id="cb1-14"><a href="ridge-regression.html#cb1-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-15"><a href="ridge-regression.html#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># note that the true parameters are all 1&#39;s</span></span>
+<span id="cb1-16"><a href="ridge-regression.html#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm.ridge</span>(y<span class="sc">~</span>X<span class="dv">-1</span>, <span class="at">lambda=</span><span class="dv">5</span>)</span>
+<span id="cb1-17"><a href="ridge-regression.html#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="do">##        X1        X2 </span></span>
+<span id="cb1-18"><a href="ridge-regression.html#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.9413221 0.8693253</span></span></code></pre></div>
 <p>The variance of both <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span> are quite large. This is expected because we know from linear regression that the variance of <span class="math inline">\(\widehat{\boldsymbol \beta}\)</span> is <span class="math inline">\(\sigma^2 (\mathbf{X}^\text{T}\mathbf{X})^{-1}\)</span>. However, since the columns of <span class="math inline">\(\mathbf{X}\)</span> are highly correlated, the smallest eigenvalue of <span class="math inline">\(\mathbf{X}^\text{T}\mathbf{X}\)</span> is close to 0, making the largest eigenvalue of <span class="math inline">\((\mathbf{X}^\text{T}\mathbf{X})^{-1}\)</span> very large. This can also be interpreted through an optimization point of view. The objective function for an OLS estimator is demonstrated in the following.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="ridge-regression.html#cb68-1" aria-hidden="true" tabindex="-1"></a>  beta1 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="fl">0.005</span>)</span>
-<span id="cb68-2"><a href="ridge-regression.html#cb68-2" aria-hidden="true" tabindex="-1"></a>  beta2 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>, <span class="fl">0.005</span>)</span>
-<span id="cb68-3"><a href="ridge-regression.html#cb68-3" aria-hidden="true" tabindex="-1"></a>  allbeta <span class="ot">&lt;-</span> <span class="fu">data.matrix</span>(<span class="fu">expand.grid</span>(beta1, beta2))</span>
-<span id="cb68-4"><a href="ridge-regression.html#cb68-4" aria-hidden="true" tabindex="-1"></a>  rss <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">apply</span>(allbeta, <span class="dv">1</span>, <span class="cf">function</span>(b, X, y) <span class="fu">sum</span>((y <span class="sc">-</span> X <span class="sc">%*%</span> b)<span class="sc">^</span><span class="dv">2</span>), X, y), </span>
-<span id="cb68-5"><a href="ridge-regression.html#cb68-5" aria-hidden="true" tabindex="-1"></a>                <span class="fu">length</span>(beta1), <span class="fu">length</span>(beta2))</span>
-<span id="cb68-6"><a href="ridge-regression.html#cb68-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb68-7"><a href="ridge-regression.html#cb68-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># quantile levels for drawing contour</span></span>
-<span id="cb68-8"><a href="ridge-regression.html#cb68-8" aria-hidden="true" tabindex="-1"></a>  quanlvl <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.025</span>, <span class="fl">0.05</span>, <span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>)</span>
-<span id="cb68-9"><a href="ridge-regression.html#cb68-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb68-10"><a href="ridge-regression.html#cb68-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot the contour</span></span>
-<span id="cb68-11"><a href="ridge-regression.html#cb68-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">contour</span>(beta1, beta2, rss, <span class="at">levels =</span> <span class="fu">quantile</span>(rss, quanlvl))</span>
-<span id="cb68-12"><a href="ridge-regression.html#cb68-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">box</span>()</span>
-<span id="cb68-13"><a href="ridge-regression.html#cb68-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb68-14"><a href="ridge-regression.html#cb68-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the truth</span></span>
-<span id="cb68-15"><a href="ridge-regression.html#cb68-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
-<span id="cb68-16"><a href="ridge-regression.html#cb68-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb68-17"><a href="ridge-regression.html#cb68-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the data </span></span>
-<span id="cb68-18"><a href="ridge-regression.html#cb68-18" aria-hidden="true" tabindex="-1"></a>  betahat <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">lm</span>(y<span class="sc">~</span>X<span class="dv">-1</span>))</span>
-<span id="cb68-19"><a href="ridge-regression.html#cb68-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(betahat[<span class="dv">1</span>], betahat[<span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-84-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="ridge-regression.html#cb2-1" aria-hidden="true" tabindex="-1"></a>  beta1 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="fl">0.005</span>)</span>
+<span id="cb2-2"><a href="ridge-regression.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  beta2 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>, <span class="fl">0.005</span>)</span>
+<span id="cb2-3"><a href="ridge-regression.html#cb2-3" aria-hidden="true" tabindex="-1"></a>  allbeta <span class="ot">&lt;-</span> <span class="fu">data.matrix</span>(<span class="fu">expand.grid</span>(beta1, beta2))</span>
+<span id="cb2-4"><a href="ridge-regression.html#cb2-4" aria-hidden="true" tabindex="-1"></a>  rss <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">apply</span>(allbeta, <span class="dv">1</span>, <span class="cf">function</span>(b, X, y) <span class="fu">sum</span>((y <span class="sc">-</span> X <span class="sc">%*%</span> b)<span class="sc">^</span><span class="dv">2</span>), X, y), </span>
+<span id="cb2-5"><a href="ridge-regression.html#cb2-5" aria-hidden="true" tabindex="-1"></a>                <span class="fu">length</span>(beta1), <span class="fu">length</span>(beta2))</span>
+<span id="cb2-6"><a href="ridge-regression.html#cb2-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-7"><a href="ridge-regression.html#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># quantile levels for drawing contour</span></span>
+<span id="cb2-8"><a href="ridge-regression.html#cb2-8" aria-hidden="true" tabindex="-1"></a>  quanlvl <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.025</span>, <span class="fl">0.05</span>, <span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>)</span>
+<span id="cb2-9"><a href="ridge-regression.html#cb2-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-10"><a href="ridge-regression.html#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot the contour</span></span>
+<span id="cb2-11"><a href="ridge-regression.html#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">contour</span>(beta1, beta2, rss, <span class="at">levels =</span> <span class="fu">quantile</span>(rss, quanlvl))</span>
+<span id="cb2-12"><a href="ridge-regression.html#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">box</span>()</span>
+<span id="cb2-13"><a href="ridge-regression.html#cb2-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-14"><a href="ridge-regression.html#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the truth</span></span>
+<span id="cb2-15"><a href="ridge-regression.html#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb2-16"><a href="ridge-regression.html#cb2-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-17"><a href="ridge-regression.html#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the data </span></span>
+<span id="cb2-18"><a href="ridge-regression.html#cb2-18" aria-hidden="true" tabindex="-1"></a>  betahat <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">lm</span>(y<span class="sc">~</span>X<span class="dv">-1</span>))</span>
+<span id="cb2-19"><a href="ridge-regression.html#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(betahat[<span class="dv">1</span>], betahat[<span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-4-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>As an alternative, if we add a ridge regression penalty, the contour is forced to be more convex due to the added eigenvalues. Here is a plot of the Ridge <span class="math inline">\(\ell_2\)</span> penalty.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-85-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-5-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>Hence, by adding this to the OLS objective function, the solution is more stable. This may be interpreted in several different ways such as: 1) the objective function is more convex; 2) the variance of the estimator is smaller. However, this causes some bias too. Choosing the tuning parameter is a balance of the bias-variance trade-off, which will be discussed in the following.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="ridge-regression.html#cb69-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb69-2"><a href="ridge-regression.html#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-3"><a href="ridge-regression.html#cb69-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># adding a L2 penalty to the objective function</span></span>
-<span id="cb69-4"><a href="ridge-regression.html#cb69-4" aria-hidden="true" tabindex="-1"></a>    rss <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">apply</span>(allbeta, <span class="dv">1</span>, <span class="cf">function</span>(b, X, y) <span class="fu">sum</span>((y <span class="sc">-</span> X <span class="sc">%*%</span> b)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> b <span class="sc">%*%</span> b, X, y),</span>
-<span id="cb69-5"><a href="ridge-regression.html#cb69-5" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">length</span>(beta1), <span class="fu">length</span>(beta2))</span>
-<span id="cb69-6"><a href="ridge-regression.html#cb69-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb69-7"><a href="ridge-regression.html#cb69-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># the ridge solution</span></span>
-<span id="cb69-8"><a href="ridge-regression.html#cb69-8" aria-hidden="true" tabindex="-1"></a>    bh <span class="ot">=</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X <span class="sc">+</span> <span class="fu">diag</span>(<span class="dv">2</span>)) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
-<span id="cb69-9"><a href="ridge-regression.html#cb69-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb69-10"><a href="ridge-regression.html#cb69-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">contour</span>(beta1, beta2, rss, <span class="at">levels =</span> <span class="fu">quantile</span>(rss, quanlvl))</span>
-<span id="cb69-11"><a href="ridge-regression.html#cb69-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
-<span id="cb69-12"><a href="ridge-regression.html#cb69-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(bh[<span class="dv">1</span>], bh[<span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
-<span id="cb69-13"><a href="ridge-regression.html#cb69-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">box</span>()</span>
-<span id="cb69-14"><a href="ridge-regression.html#cb69-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb69-15"><a href="ridge-regression.html#cb69-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># adding a larger penalty</span></span>
-<span id="cb69-16"><a href="ridge-regression.html#cb69-16" aria-hidden="true" tabindex="-1"></a>    rss <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">apply</span>(allbeta, <span class="dv">1</span>, <span class="cf">function</span>(b, X, y) <span class="fu">sum</span>((y <span class="sc">-</span> X <span class="sc">%*%</span> b)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="dv">10</span><span class="sc">*</span>b <span class="sc">%*%</span> b, X, y),</span>
-<span id="cb69-17"><a href="ridge-regression.html#cb69-17" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">length</span>(beta1), <span class="fu">length</span>(beta2))</span>
-<span id="cb69-18"><a href="ridge-regression.html#cb69-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb69-19"><a href="ridge-regression.html#cb69-19" aria-hidden="true" tabindex="-1"></a>    bh <span class="ot">=</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X <span class="sc">+</span> <span class="dv">10</span><span class="sc">*</span><span class="fu">diag</span>(<span class="dv">2</span>)) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
-<span id="cb69-20"><a href="ridge-regression.html#cb69-20" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb69-21"><a href="ridge-regression.html#cb69-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># the ridge solution</span></span>
-<span id="cb69-22"><a href="ridge-regression.html#cb69-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">contour</span>(beta1, beta2, rss, <span class="at">levels =</span> <span class="fu">quantile</span>(rss, quanlvl))</span>
-<span id="cb69-23"><a href="ridge-regression.html#cb69-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
-<span id="cb69-24"><a href="ridge-regression.html#cb69-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(bh[<span class="dv">1</span>], bh[<span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
-<span id="cb69-25"><a href="ridge-regression.html#cb69-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">box</span>()</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-86-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="ridge-regression.html#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb3-2"><a href="ridge-regression.html#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="ridge-regression.html#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># adding a L2 penalty to the objective function</span></span>
+<span id="cb3-4"><a href="ridge-regression.html#cb3-4" aria-hidden="true" tabindex="-1"></a>    rss <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">apply</span>(allbeta, <span class="dv">1</span>, <span class="cf">function</span>(b, X, y) <span class="fu">sum</span>((y <span class="sc">-</span> X <span class="sc">%*%</span> b)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> b <span class="sc">%*%</span> b, X, y),</span>
+<span id="cb3-5"><a href="ridge-regression.html#cb3-5" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">length</span>(beta1), <span class="fu">length</span>(beta2))</span>
+<span id="cb3-6"><a href="ridge-regression.html#cb3-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-7"><a href="ridge-regression.html#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># the ridge solution</span></span>
+<span id="cb3-8"><a href="ridge-regression.html#cb3-8" aria-hidden="true" tabindex="-1"></a>    bh <span class="ot">=</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X <span class="sc">+</span> <span class="fu">diag</span>(<span class="dv">2</span>)) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
+<span id="cb3-9"><a href="ridge-regression.html#cb3-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-10"><a href="ridge-regression.html#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">contour</span>(beta1, beta2, rss, <span class="at">levels =</span> <span class="fu">quantile</span>(rss, quanlvl))</span>
+<span id="cb3-11"><a href="ridge-regression.html#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb3-12"><a href="ridge-regression.html#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(bh[<span class="dv">1</span>], bh[<span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb3-13"><a href="ridge-regression.html#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">box</span>()</span>
+<span id="cb3-14"><a href="ridge-regression.html#cb3-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-15"><a href="ridge-regression.html#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># adding a larger penalty</span></span>
+<span id="cb3-16"><a href="ridge-regression.html#cb3-16" aria-hidden="true" tabindex="-1"></a>    rss <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">apply</span>(allbeta, <span class="dv">1</span>, <span class="cf">function</span>(b, X, y) <span class="fu">sum</span>((y <span class="sc">-</span> X <span class="sc">%*%</span> b)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="dv">10</span><span class="sc">*</span>b <span class="sc">%*%</span> b, X, y),</span>
+<span id="cb3-17"><a href="ridge-regression.html#cb3-17" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">length</span>(beta1), <span class="fu">length</span>(beta2))</span>
+<span id="cb3-18"><a href="ridge-regression.html#cb3-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-19"><a href="ridge-regression.html#cb3-19" aria-hidden="true" tabindex="-1"></a>    bh <span class="ot">=</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X <span class="sc">+</span> <span class="dv">10</span><span class="sc">*</span><span class="fu">diag</span>(<span class="dv">2</span>)) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
+<span id="cb3-20"><a href="ridge-regression.html#cb3-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-21"><a href="ridge-regression.html#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># the ridge solution</span></span>
+<span id="cb3-22"><a href="ridge-regression.html#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">contour</span>(beta1, beta2, rss, <span class="at">levels =</span> <span class="fu">quantile</span>(rss, quanlvl))</span>
+<span id="cb3-23"><a href="ridge-regression.html#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb3-24"><a href="ridge-regression.html#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(bh[<span class="dv">1</span>], bh[<span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb3-25"><a href="ridge-regression.html#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">box</span>()</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-6-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="bias-and-variance-of-ridge-regression" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Bias and Variance of Ridge Regression</h2>
-<p>The ridge regression is minimizing a penalized <span class="math inline">\(\ell_2\)</span> loss:</p>
-<p><span class="math display">\[\widehat{\boldsymbol \beta}^\text{ridge} = \mathop{\mathrm{arg\,min}}_{\boldsymbol \beta} (\mathbf{y}- \mathbf{X}\boldsymbol \beta)^\text{T}(\mathbf{y}- \mathbf{X}\boldsymbol \beta) + \lambda \boldsymbol \beta\]</span></p>
+<p>We can set a relationship between Ridge and OLS, assuming that the OLS estimator exist.</p>
+<p><span class="math display">\[\begin{align}
+\widehat{\boldsymbol \beta}^\text{ridge} =&amp; (\mathbf{X}^\text{T}\mathbf{X}+ n\lambda \mathbf{I})^{-1} \mathbf{X}^\text{T}\mathbf{y}\\
+=&amp; (\mathbf{X}^\text{T}\mathbf{X}+ n\lambda \mathbf{I})^{-1} (\mathbf{X}^\text{T}\mathbf{X}) \color{OrangeRed}{(\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}^\text{T}\mathbf{y}}\\
+=&amp; (\mathbf{X}^\text{T}\mathbf{X}+ n\lambda \mathbf{I})^{-1} (\mathbf{X}^\text{T}\mathbf{X}) \color{OrangeRed}{\widehat{\boldsymbol \beta}^\text{ols}}
+\end{align}\]</span></p>
+<p>This leads to a biased estimator (since the OLS estimator is unbiased) if we use any nonzero <span class="math inline">\(\lambda\)</span>.</p>
+<ul>
+<li>As <span class="math inline">\(\lambda \rightarrow 0\)</span>, the ridge solution is eventually the same as OLS</li>
+<li>As <span class="math inline">\(\lambda \rightarrow \infty\)</span>, <span class="math inline">\(\widehat{\boldsymbol \beta}^\text{ridge} \rightarrow 0\)</span></li>
+</ul>
+<p>It can be easier to analyze a case with <span class="math inline">\(\mathbf{X}^\text{T}\mathbf{X}= n \mathbf{I}\)</span>, i.e, with standardized and orthogonal columns in <span class="math inline">\(\mathbf{X}\)</span>. Note that in this case, each <span class="math inline">\(\beta_j^{\text{ols}}\)</span> is just the projection of <span class="math inline">\(\mathbf{y}\)</span> onto <span class="math inline">\(\mathbf{x}_j\)</span>, the <span class="math inline">\(j\)</span>th column of the design matrix. We also have</p>
+<p><span class="math display">\[\begin{align}
+\widehat{\boldsymbol \beta}^\text{ridge} =&amp; (\mathbf{X}^\text{T}\mathbf{X}+ n\lambda \mathbf{I})^{-1} (\mathbf{X}^\text{T}\mathbf{X}) \widehat{\boldsymbol \beta}^\text{ols}\\
+=&amp; (\mathbf{I}+ \lambda \mathbf{I})^{-1}\widehat{\boldsymbol \beta}^\text{ols}\\
+=&amp; (1 + \lambda)^{-1} \widehat{\boldsymbol \beta}^\text{ols}\\
+
+\Longrightarrow \beta_j^{\text{ridge}} =&amp; \frac{1}{1 + \lambda} \beta_j^\text{ols}
+\end{align}\]</span></p>
+<p>Then in this case, the bias and variance of the ridge estimator can be explicitly expressed:</p>
+<ul>
+<li><span class="math inline">\(\text{Bias}(\beta_j^{\text{ridge}}) = \frac{-\lambda}{1 + \lambda} \beta_j^\text{ols}\)</span> (not zero)</li>
+<li><span class="math inline">\(\text{Var}(\beta_j^{\text{ridge}}) = \frac{1}{(1 + \lambda)^2} \text{Var}(\beta_j^\text{ols})\)</span> (reduced from OLS)</li>
+</ul>
+<p>Of course, we can ask the question: is it worth it? We could proceed with a simple analysis of the MSE of <span class="math inline">\(\beta\)</span> (dropping <span class="math inline">\(j\)</span>):</p>
+<p><span class="math display">\[\begin{align}
+\text{MSE}(\beta) &amp;= \text{E}(\widehat{\beta} - \beta)^2 \\
+&amp;= \text{E}[\widehat{\beta} - \text{E}(\widehat{\beta})]^2 + \text{E}[\widehat{\beta} - \beta]^2 \\
+&amp;= \text{E}[\widehat{\beta} - \text{E}(\widehat{\beta})]^2 + 0 + [\text{E}(\widehat{\beta}) - \beta]^2 \\
+&amp;= \text{Var}(\widehat{\beta}) + \text{Bias}^2.
+\end{align}\]</span></p>
+<p>This bias-variance breakdown formula will appear multiple times. Now, plug-in the results developed earlier based on the orthogonal design matrix, and investigate the derivative of the MSE of the Ridge estimator, we have</p>
+<p><span class="math display">\[\begin{align}
+\frac{\partial \text{MSE}(\widehat{\beta}^\text{ridge})}{ \partial \beta} =&amp; \frac{\partial}{\partial \beta} \left[ \frac{1}{(1+\lambda)^2} \text{Var}(\widehat{\beta}^\text{ols}) + \frac{\lambda^2}{(1 + \lambda)^2} \beta^2 \right] \\
+=&amp; \frac{2}{(1+\lambda)^3} \left[ \lambda \beta^2 - \text{Var}(\widehat{\beta}^\text{ols}) \right]
+\end{align}\]</span></p>
+<p>Note that when the derivative is negative, increasing <span class="math inline">\(\lambda\)</span> would decrease the MSE. This implies that we can reduce the MSE by choosing a small <span class="math inline">\(\lambda\)</span>. Of course the situation is much more involving when the columns in <span class="math inline">\(\mathbf{X}\)</span> are not orthogonal. However, the following analysis helps to understand a non-orthogonal case. It is essentially re-organizing the columns of <span class="math inline">\(\mathbf{X}\)</span> into its principle components so that they are still orthogonal.</p>
+<p>Let’s first take a singular value decomposition (SVD) of <span class="math inline">\(\mathbf{X}\)</span>, with <span class="math inline">\(\mathbf{X}= \mathbf{U}\mathbf{D}\mathbf{V}^\text{T}\)</span>, then the columns in <span class="math inline">\(\mathbf{U}\)</span> form an orthonormal basis and columns in <span class="math inline">\(\mathbf{U}\mathbf{D}\)</span> are the <strong>principal components</strong> and <span class="math inline">\(\mathbf{V}\)</span> defines the principle directions. In addition, we have <span class="math inline">\(n \widehat{\boldsymbol \Sigma} = \mathbf{X}^\text{T}\mathbf{X}= \mathbf{V}\mathbf{D}^2 \mathbf{V}^\text{T}\)</span>. Assuming that <span class="math inline">\(p &lt; n\)</span>, and <span class="math inline">\(\mathbf{X}\)</span> has full column ranks, then the Ridge estimator fitted <span class="math inline">\(\mathbf{y}\)</span> value can be decomposed as</p>
+<p><span class="math display">\[\begin{align}
+\widehat{\mathbf{y}}^\text{ridge} =&amp; \mathbf{X}\widehat{\beta}^\text{ridge} \\ 
+=&amp; \mathbf{X}(\mathbf{X}^\text{T}\mathbf{X}+ n \lambda)^{-1} \mathbf{X}^\text{T}\mathbf{y}\\
+=&amp; \mathbf{U}\mathbf{D}\mathbf{V}^\text{T}( \mathbf{V}\mathbf{D}^2 \mathbf{V}^\text{T}+ n \lambda \mathbf{V}\mathbf{V}^\text{T})^{-1} \mathbf{V}\mathbf{D}\mathbf{U}^\text{T}\mathbf{y}\\
+=&amp; \mathbf{U}\mathbf{D}^2 (n \lambda + \mathbf{D}^2)^{-1} \mathbf{U}^\text{T}\mathbf{y}\\
+=&amp; \sum_{j = 1}^p \mathbf{u}_j \left( \frac{d_j^2}{n \lambda + d_j^2} \mathbf{u}_j^\text{T}\mathbf{y}\right),
+\end{align}\]</span></p>
+<p>where <span class="math inline">\(d_j\)</span> is the <span class="math inline">\(j\)</span>th eigenvalue of the PCA. Hence, the Ridge regression fitted value can be understood as</p>
+<ul>
+<li>Perform PCA of <span class="math inline">\(\mathbf{X}\)</span></li>
+<li>Project <span class="math inline">\(\mathbf{y}\)</span> onto the PCs</li>
+<li>Shrink the projection <span class="math inline">\(\mathbf{u}_j^\text{T}\mathbf{y}\)</span> by the factor <span class="math inline">\(d_j^2 / (n \lambda + d_j^2)\)</span></li>
+<li>Reassemble the PCs using all the shrunken length</li>
+</ul>
+</div>
+<div id="degrees-of-freedom" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Degrees of Freedom</h2>
 
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div class="csl-entry">
-Boyd, Stephen, and Lieven Vandenberghe. 2004. <em>Convex Optimization</em>. Cambridge university press.
-</div>
-<div class="csl-entry">
-Efron, Bradley, Trevor Hastie, Iain Johnstone, and Robert Tibshirani. 2004. <span>“Least Angle Regression.”</span> <em>The Annals of Statistics</em> 32 (2): 407–99.
-</div>
-<div class="csl-entry">
-Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2001. <em>The Elements of Statistical Learning</em>. Vol. 1. Springer series in statistics New York.
-</div>
-<div class="csl-entry">
 Hoerl, Arthur E, and Robert W Kennard. 1970. <span>“Ridge Regression: Biased Estimation for Nonorthogonal Problems.”</span> <em>Technometrics</em> 12 (1): 55–67.
-</div>
-<div class="csl-entry">
-James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 112. Springer.
-</div>
-<div class="csl-entry">
-Nocedal, Jorge, and Stephen Wright. 2006. <em>Numerical Optimization</em>. Springer Science &amp; Business Media.
-</div>
-<div class="csl-entry">
-Yeh, I-Cheng, and Tzu-Kuang Hsu. 2018. <span>“Building Real Estate Valuation Models with Comparative Approach Through Case-Based Reasoning.”</span> <em>Applied Soft Computing</em> 65: 260–71.
 </div>
 </div>
 </div>
