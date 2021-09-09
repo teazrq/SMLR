@@ -15,10 +15,15 @@ urlcolor: cyan
 description: "A textbook for STAT 542 and 432 at UIUC"
 ---
 
-```{r global.options, include = FALSE}
-  options(width = 1000)
-  knitr::opts_chunk$set(collapse = TRUE)
-  knitr::opts_chunk$set(fig.dim = c(8, 6), out.width = "60%", fig.align = 'center')
+```{r include = FALSE}
+  options(width = 100)
+  knitr::opts_knit$set(global.par = TRUE)
+  knitr::opts_chunk$set(collapse = TRUE, fig.dim = c(6, 6), 
+                        out.width = "45%", fig.align = 'center')
+```
+```{r include = FALSE}
+  par(bg="transparent")
+  par(mar=c(2,2,2,2))
 ```
 
 # Preface {-}

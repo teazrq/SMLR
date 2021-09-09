@@ -25,6 +25,18 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
 
+```{r include = FALSE}
+  options(width = 100)
+  knitr::opts_knit$set(global.par = TRUE)
+  knitr::opts_chunk$set(collapse = TRUE, fig.dim = c(6, 6), 
+                        fig.width = 6, fig.width = 6,
+                        out.width = "45%", fig.align = 'center')
+```
+```{r include = FALSE}
+  par(bg="transparent")
+  par(mar=c(2,2,2,2))
+```
+
 # Optimization Basics
 
 Optimization is heavily involved in statistics and machine learning. Almost all methods introduced in this book can be viewed as some form of optimization. It would be good to have some prior knowledge of it so that later chapters can use these concepts without difficulties. Especially, one should be familiar with concepts such as constrains, gradient methods, and be able to implement them using existing R functions. Since optimization is such a broad topic, we refer readers to @boyd2004convex and @nocedal2006numerical for more further reading. 
@@ -79,7 +91,7 @@ Clearly, $f(x_1, x_2)$ is a convex function, and we know that the solution of th
 
 Here the convex set $C = \{x_1, x_2 \in \mathbb{R}: x_1 + x_2 \leq -1 \,\, \text{and} \,\, x_1 + x_2 > -2\}$. And our problem looks like the following, which attains it minimum at $(-0.5, -0.5)$.
 
-```{r message=FALSE, echo = FALSE}
+```{r message=FALSE, echo = FALSE, out.width = "75%"}
   library(plotly)
 
   # generate the surface
@@ -121,8 +133,7 @@ where $g_i(\bx)$s are a set of inequality constrains, and $h_j(\bx)$s are equali
 
 Although we would like to deal with convex optimization problems, non-convex problems appears more and more frequently. For example, deep learning models are almost always non-convex except overly simplified ones. However, __for convex optimization problems, a local minimum is also a global minimum__, i.e., a $x^\ast$ such that for any $x$ in the feasible set, $f(x^\ast) \leq f(x)$. This can be achieved by a variety of descent algorithms, to be introduced. However, for non-convex problems, we may still be interested in a local minimum, which satisfies that for any $x$ in a **neighboring set of $x^\ast$**, $f(x^\ast) \leq f(x)$. The comparison of these two cases can be demonstrated in the following plots. Again, a descent algorithm can help us find a local minimum, except for some very special cases, such as a saddle point. However, we will not discuss these issues in this book. 
 
-```{r echo = FALSE, fig.dim = c(12, 5), out.width = "75%", fig.align = 'center'}
-  par(bg="transparent")
+```{r echo = FALSE, fig.dim = c(12, 6), out.width = "75%"}
   par(mfrow=c(1,2))
   par(mar=c(2,2,2,2))
   
@@ -158,6 +169,10 @@ We generate 200 random observations, and also write a function to calculate the 
     
     # calculate the residual sum of squares for a grid of beta values
     rss <- function(b, trainx, trainy) sum((trainy - trainx %*% b)^2)
+```
+
+```{r message=FALSE, echo = FALSE, out.width = "80%"}
+    # generate grid of beta for plot
     b0 <- b1 <- seq(0, 2, length = 20)
     z = matrix(apply(expand.grid(b0, b1), 1, rss, x, y), 20, 20)
     
@@ -297,8 +312,8 @@ with solution is
 
 $$\widehat{\boldsymbol \beta} = \left(\mathbf{X}^\text{T}\mathbf{X}\right)^{-1} \mathbf{X}^\text{T} \mathbf{y} $$
 
-```{r fig.dim = c(6, 6), out.width = "60%", fig.align = 'center', message= FALSE}
-  par(bg="transparent")
+```{r fig.dim = c(6, 6), out.width='45%', message= FALSE}
+  par(mfrow=c(1,1))
   library(MASS)
   set.seed(3)
   n = 200
@@ -338,7 +353,7 @@ $$ \boldsymbol \beta^\text{new} = \boldsymbol \beta^\text{old} - \frac{\partial 
 
 Let's set $\delta = 0.2$ for now. The following function performs gradient descent.  
 
-```{r fig.width=6, fig.height=6, out.width = "60%", fig.align = 'center'}
+```{r fig.dim = c(6, 6), out.width='45%'}
   # gradient descent function, which also record the path
   mylm_g <- function(x, y, 
                      b0 = rep(0, ncol(x)), # initial value
@@ -386,10 +401,9 @@ Let's set $\delta = 0.2$ for now. The following function performs gradient desce
 
 The descent path is very smooth because we choose a very small step size. However, if the step size is too large, we may observe unstable results or even unable to converge. For example, if We set $\delta = 1$ or $\delta = 1.5$.
 
-```{r fig.width=12, fig.height=6, out.width = "100%", fig.align = 'center'}
+```{r fig.dim = c(12, 6), out.width = "90%"}
   par(mfrow=c(1,2))
   par(mar=c(2,2,2,2))
-  par(bg="transparent")
 
   # fit the model with a larger step size
   mybeta = mylm_g(X, y, b0 = c(0, 1), delta = 1)
@@ -449,7 +463,7 @@ $$
 $$
 The coordinate descent usually does not involve choosing a step size. Note that the following function is __NOT__ efficient because there are a lot of wasted calculations. It is only for demonstration purpose. Here we use the Gauss-Seidel style update.
 
-```{r fig.width=6, fig.height=6, out.width = '60%', fig.align='center'}
+```{r}
   # gradient descent function, which also record the path
   mylm_c <- function(x, y, b0 = rep(0, ncol(x)), epsilon = 1e-6, maxitr = 5000)
   {
@@ -492,7 +506,7 @@ The coordinate descent usually does not involve choosing a step size. Note that 
   # fit the model 
   mybeta = mylm_c(X, y, b0 = c(0, 3))
 
-  par(bg="transparent")
+  par(mfrow=c(1,1))
   contour(beta1, beta2, rss, levels = quantile(rss, quanlvl))
   points(mybeta$allb[,1], mybeta$allb[,2], type = "b", col = "red", pch = 19)
   points(b[1], b[2], pch = 19, col = "blue", cex = 1.5)
@@ -508,7 +522,7 @@ $$
 $$
 Compared with using all observations, this is $1/n$ of the cost. However, because this is rater not accurate for each iteration, but can still converge in the long run. There is a decay rate involved in SGD step size. If the step size does not decreases to 0, the algorithm cannot converge. However, it also has to sum up to infinite to allow us to go as far as we can. For example, a choice could be $\delta_k = 1/k$, hence $\sum \delta_k = \infty$ and $\sum \delta_k^2 < \infty$. 
 
-```{r fig.width=6, fig.height=6, out.width = '60%', fig.align='center'}
+```{r fig.width=6, fig.height=6, out.width = '45%', fig.align='center'}
   # gradient descent function, which also record the path
   mylm_sgd <- function(x, y, b0 = rep(0, ncol(x)), delta = 0.05, maxitr = 10)
   {
@@ -542,7 +556,6 @@ Compared with using all observations, this is $1/n$ of the cost. However, becaus
   # fit the model 
   mybeta = mylm_sgd(X, y, b0 = c(0, 1), maxitr = 3)
   
-  par(bg="transparent")
   contour(beta1, beta2, rss, levels = quantile(rss, quanlvl))
   points(mybeta$allb[,1], mybeta$allb[,2], type = "b", col = "red", pch = 19)
   points(b[1], b[2], pch = 19, col = "blue", cex = 1.5)
@@ -553,7 +566,7 @@ Compared with using all observations, this is $1/n$ of the cost. However, becaus
 
 Instead of using just one observation, we could also consider splitting the data into several small "batches" and use one batch of sample to calculate the gradient at each iteration. 
 
-```{r fig.width=6, fig.height=6, out.width = '60%', fig.align='center'}
+```{r fig.width=6, fig.height=6, out.width = '45%', fig.align='center'}
   # gradient descent function, which also record the path
   mylm_sgd_mb <- function(x, y, b0 = rep(0, ncol(x)), delta = 0.3, maxitr = 20)
   {
@@ -590,7 +603,6 @@ Instead of using just one observation, we could also consider splitting the data
   # fit the model 
   mybeta = mylm_sgd_mb(X, y, b0 = c(0, 1), maxitr = 3)
 
-  par(bg="transparent")
   contour(beta1, beta2, rss, levels = quantile(rss, quanlvl))
   points(mybeta$allb[,1], mybeta$allb[,2], type = "b", col = "red", pch = 19)
   points(b[1], b[2], pch = 19, col = "blue", cex = 1.5)
@@ -606,7 +618,7 @@ Constrained optimization problems appear very frequently. Both Lasso and Ridge r
 $$\text{minimize} \quad f(x, y) = x^2 + y^2$$
 $$\text{subj. to} \quad g(x, y) = xy - 4 = 0$$
 
-```{r fig.width=6, fig.height=6, out.width = '60%', fig.align='center'}
+```{r fig.width=6, fig.height=6, out.width = '45%', fig.align='center'}
   x <- seq(-5, 5, 0.05)
   y <- seq(-5, 5, 0.05)
   mygrid <- data.matrix(expand.grid(x, y))
@@ -615,7 +627,6 @@ $$\text{subj. to} \quad g(x, y) = xy - 4 = 0$$
   f2 <- matrix(mygrid[,1]*mygrid[,2], length(x), length(y))
   
   # plot the contour
-  par(bg="transparent")
   par(mar=c(2,2,2,2))
   contour(x, y, f, levels = c(0.2, 1, 2, 4, 8, 16))
   contour(x, y, f2, levels = 4, add = TRUE, col = "blue", lwd = 2)

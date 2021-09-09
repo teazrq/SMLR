@@ -1,5 +1,16 @@
 # (PART) Basics Knowledge {-}
 
+```{r include = FALSE}
+  options(width = 100)
+  knitr::opts_knit$set(global.par = TRUE)
+  knitr::opts_chunk$set(collapse = TRUE, fig.dim = c(6, 6), 
+                        out.width = "45%", fig.align = 'center')
+```
+```{r include = FALSE}
+  par(bg="transparent")
+  par(mar=c(2,2,2,2))
+```
+
 # R and RStudio
 
 ## Installing R and RStudio

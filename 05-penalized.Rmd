@@ -1,0 +1,146 @@
+\def\cD{\cal{D}}
+\def\bA{\mathbf{A}}
+\def\bB{\mathbf{B}}
+\def\bX{\mathbf{X}}
+\def\bH{\mathbf{H}}
+\def\bI{\mathbf{I}}
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\bs{\mathbf{s}}
+\def\br{\mathbf{r}}
+\def\bu{\mathbf{u}}
+\def\be{\mathbf{e}}
+\def\bv{\mathbf{v}}
+\def\bp{\mathbf{p}}
+\def\bzero{\mathbf{0}}
+\def\bbeta{\boldsymbol \beta}
+\def\bmu{\boldsymbol \mu}
+\def\bepsilon{\boldsymbol \epsilon}
+\def\T{\text{T}}
+\def\Trace{\text{Trace}}
+\def\Cov{\text{Cov}}
+\def\Var{\text{Var}}
+\def\E{\text{E}}
+\def\pr{\text{pr}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+```{r include = FALSE}
+  options(width = 100)
+  knitr::opts_knit$set(global.par = TRUE)
+  knitr::opts_chunk$set(collapse = TRUE, fig.dim = c(6, 6),
+                        out.width = "45%", fig.align = 'center')
+```
+```{r include = FALSE}
+  par(bg="transparent")
+  par(mar=c(2,2,2,2))
+```
+
+# (PART) Regression Models {-}
+
+# Ridge Regression
+
+Ridge regression was proposed by @hoerl1970ridge. The essential idea is very simple, we add a ridge on the diagonal elements of $\bX^\T \bX$ so that it becomes invertible. Hence, the solution of the parameters is 
+
+$$\widehat{\bbeta}^\text{ridge} = (\bX^\T \bX + \lambda \bI)^{-1} \bX^T \by.$$
+It provides a solution of linear regression when multicollinearity happens, especially when the number of variables is larger than the sample size. It is used extensively in genetic analysis to address such difficulties. We will start with a motivation example and then discuss the bias-variance trade-off issue. 
+
+## Motivation: Correlated Variables and Convexity
+
+Ridge regression has many advantages. Most notably, it can address highly correlated variables. From an optimization point of view, having highly correlated variables means that the objective function ($\ell_2$ loss) becomes "flat" along certain directions in the parameter domain. This can be seen from the following example, where the true parameters are both 1s while the estimated parameters concludes almost all effects to the first variable. You can change different seed to observe the variability of these parameter estimates and notice that they are quite large. Instead, if we fit a ridge regression, the parameter estimates are relatively stable.  
+
+```{r}
+  library(MASS)
+  set.seed(2)
+  n = 30
+  
+  # create highly correlated variables and a linear model
+  X = mvrnorm(n, c(0, 0), matrix(c(1,0.99, 0.99, 1), 2,2))
+  y = rnorm(n, mean = X[,1] + X[,2])
+  
+  # compare parameter estimates
+  summary(lm(y~X-1))$coef
+  
+  # note that the true parameters are all 1's
+  lm.ridge(y~X-1, lambda=5)
+```
+
+The variance of both $\beta_1$ and $\beta_2$ are quite large. This can also be interpreted through an optimization point of view. The objective function for an OLS estimator is demonstrated in the following.
+
+```{r}
+  beta1 <- seq(0, 3, 0.005)
+  beta2 <- seq(-1, 2, 0.005)
+  allbeta <- data.matrix(expand.grid(beta1, beta2))
+  rss <- matrix(apply(allbeta, 1, function(b, X, y) sum((y - X %*% b)^2), X, y), 
+                length(beta1), length(beta2))
+  
+  # quantile levels for drawing contour
+  quanlvl = c(0.01, 0.025, 0.05, 0.2, 0.5, 0.75)
+  
+  # plot the contour
+  contour(beta1, beta2, rss, levels = quantile(rss, quanlvl))
+  box()
+  
+  # the truth
+  points(1, 1, pch = 19, col = "red", cex = 2)
+  
+  # the data 
+  betahat <- coef(lm(y~X-1))
+  points(betahat[1], betahat[2], pch = 19, col = "blue", cex = 2)
+```
+
+As an alternative, if we add a ridge regression penalty, the contour is forced to be more convex due to the added eigenvalues. Here is a plot of the Ridge $\ell_2$ penalty.
+
+```{r}
+  pen <- matrix(apply(allbeta, 1, function(b) 3*b %*% b),
+                length(beta1), length(beta2))
+  
+  contour(beta1, beta2, pen, levels = quantile(pen, quanlvl))
+  points(1, 1, pch = 19, col = "red", cex = 2)
+  box()
+```
+
+Hence, by adding this to the OLS objective function, the solution is more stable. This may be interpreted in several different ways such as: 1) the objective function is more convex; 2) the variance of the estimator is smaller. However, this causes some bias too. Choosing the tuning parameter is again a balance of the bias-variance trade-off. 
+
+```{r fig.dim = c(12, 6), out.width = '90%'}
+    par(mfrow=c(1, 2))
+
+    # adding a L2 penalty to the objective function
+    rss <- matrix(apply(allbeta, 1, function(b, X, y) sum((y - X %*% b)^2) + b %*% b, X, y),
+                  length(beta1), length(beta2))
+    
+    # the ridge solution
+    bh = solve(t(X) %*% X + diag(2)) %*% t(X) %*% y
+    
+    contour(beta1, beta2, rss, levels = quantile(rss, quanlvl))
+    points(1, 1, pch = 19, col = "red", cex = 2)
+    points(bh[1], bh[2], pch = 19, col = "blue", cex = 2)
+    box()
+    
+    # adding a larger penalty
+    rss <- matrix(apply(allbeta, 1, function(b, X, y) sum((y - X %*% b)^2) + 10*b %*% b, X, y),
+                  length(beta1), length(beta2))
+    
+    bh = solve(t(X) %*% X + 10*diag(2)) %*% t(X) %*% y
+    
+    # the ridge solution
+    contour(beta1, beta2, rss, levels = quantile(rss, quanlvl))
+    points(1, 1, pch = 19, col = "red", cex = 2)
+    points(bh[1], bh[2], pch = 19, col = "blue", cex = 2)
+    box()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
