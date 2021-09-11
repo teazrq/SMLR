@@ -74,6 +74,7 @@ Ridge regression has many advantages. Most notably, it can address highly correl
   summary(lm(y~X-1))$coef
   
   # note that the true parameters are all 1's
+  # Be careful that the `lambda` parameter in lm.ridge is our (n*lambda)
   lm.ridge(y~X-1, lambda=5)
 ```
 
@@ -240,5 +241,147 @@ Note that this is smaller than $p$ as long as $\lambda \neq 0$. This implies tha
 
 ## Using the `lm.ridge()` function
 
+We have seen how the `lm.ridge()` can be used to fit a Ridge regression. However, keep in mind that the `lambda` parameter used in the function actually specifies the $n \lambda$ entirely we used in our notation. However, regardless, our goal is mainly to tune this parameter to achieve a good balance of bias-variance trade off. However, the difficulty here is to evaluate the performance without knowing the truth. Let's first use a simulated example, in which we do know the truth and then introduce the cross-validation approach for real data where we do not know the truth. 
+
+We use the prostate cancer data `prostate` from the `ElemStatLearn` package. The dataset contains 8 explanatory variables and one outcome `lpsa`, the log prostate-specific antigen value. 
+
+```{r}
+  # ElemStatLearn is currently archived, install a previous version
+  # library(devtools)
+  # install_version("ElemStatLearn", version = "2015.6.26", repos = "http://cran.r-project.org")
+  library(ElemStatLearn)
+  head(prostate)
+```
+
+In the previous example, we fit Ridge regression using a single $\lambda$ value. Since we now face the problem of bias-variance trade-off, we can fit the model with multiple $\lambda$ values and select the best. This can be done using the following code. Its syntax is again similar to the `lm()` function, with an additional argument `lambda`
+
+```{r}
+  library(MASS)
+  fit = lm.ridge(lpsa~.,  data = prostate[, -10], lambda = seq(0, 100, by=0.5))
+```
+
+For each $\lambda$, the coefficients of all variables are recorded. The left plot shows how these coefficients change as a function of $\lambda$ We can easily see that as $\lambda$ becomes larger, the coefficients are shrunken towards 0. This is consistent with our understanding of the bias. On the very left hand size, the values of each parameter correspond to the OLS result. 
+
+```{r echo = FALSE}
+  par(mfrow=c(1,1))
+```
+
+```{r fig.dim=c(6, 6), out.width = '45%'}
+    matplot(coef(fit)[, -1], type = "l", xlab = "Lambda", ylab = "Coefficients")
+    text(rep(50, 8), coef(fit)[1,-1], colnames(prostate)[1:8])
+    title("Prostate Cancer Data: Ridge Coefficients")
+```
+
+To select the best $\lambda$ value, there can be several different methods. We will discuss two approaches among them: $k$-fold cross-validation and generalized cross-validation (GCV).
+
+## Cross-validation
+
+Cross-validation (CV) is a technique to evaluate the performance of a model on an independent set of data. The essential idea is to separate out a subset of the data and do not use that part during the training, while using it for testing. We can then rotate to or sample a different subset as the testing data. Different cross-validation methods differs on the mechanisms of generating such testing data. __$K$-fold cross-validation__ is probably the the most popular among them. The method works in the following steps:
+
+  1. Randomly split the data into $K$ equal portions 
+  2. For each $k$ in $1, \ldots, K$: use the $k$th portion as the testing data and the rest as training data, obtain the testing error
+  3. Average all $K$ testing errors
+
+Here is a graphical demonstration of a $10$-fold CV:
+
+<center>
+![](images/kfoldcv.png){width=80%}
+</center>
+
+There are also many other cross-validation procedures, for example, the __Monte Carlo cross-validation__ randomly splits the data into training and testing (instead of fix $K$ portions) each time and repeat the process as many times as we like. The benefit of such procedure is that if this is repeated enough times, the estimated testing error becomes fairly stable, and not affected much by the random mechanism. On the other hand, we can also repeat the entire $K$-fold CV process many times, then average the errors. This is also trying to reduced the influence of randomness. 
+
+
+## Leave-one-out cross-validation
+
+Regarding the randomness, the leave-one-out cross-validation is completely nonrandom. It is essentially the $k$-fold CV approach, but with $k$ equal to $n$, the sample size. A standard approach would require to re-fit the model $n$ times, however, some linear algebra can show that there is an equivalent form using the "Hat" matrix when fitting a linear regression:
+
+\begin{align}
+\text{CV}(n) =& \frac{1}{n}\sum_{i=1}^n (y_i - \widehat{y}_{[i]})^2\\
+=& \frac{1}{n} \sum_{i=1}^n \left( \frac{y_i - \widehat{y}_i}{1 - \bH_{ii}} \right)^2,
+\end{align}
+where $\widehat{y}_{i}$ is the fitted value using the whole dataset, but $\widehat{y}_{[i]}$ is the prediction of $i$th observation using the data without it when fitting the model. And $\bH_{ii}$ is the $i$th diagonal element of the hat matrix $\bH = \bX(\bX^\T \bX)^{-1} \bX$. The proof is essentially an application of the [Sherman–Morrison–Woodbury (SMW)](https://en.wikipedia.org/wiki/Sherman%E2%80%93Morrison_formula) formula, which is also used when deriving the rank-one update of a quasi-Newton optimization approach. 
+
+```{proof}
+Denote $\bX_{[i]}$ and $\by_{[i]}$ the data derived from $\bX$ and $\by$, but with the $i$ observation ($x_i$, $y_i$) removed. We then have the properties that
+
+$$\bX_{[i]}^\T \bX_{[i]} = \bX^\T \bX - x_i x_i^\T, $$
+
+and 
+
+$$\bH_{ii} = x_i^\T (\bX^\T \bX)^{-1} x_i.$$
+
+By the SMW formula, we have 
+
+$$(\bX_{[i]}^\T \bX_{[i]})^{-1} = (\bX^\T \bX)^{-1} + \frac{(\bX^\T \bX)^{-1}x_i x_i^\T (\bX^\T \bX)^{-1}}{ 1 - \bH_{ii}}, $$
+
+Further notice that 
+
+$$\bX_{[i]}^\T \by_{[i]} = \bX^\T \by - x_i y_i, $$
+
+we can then reconstruct the fitted parameter when observation $i$ is removed:
+  
+\begin{align}
+\widehat{\bbeta}_{[i]} =& (\bX_{[i]}^\T \bX_{[i]})^{-1} \bX_{[i]}^\T \by_{[i]} \\
+=& \left[ (\bX^\T \bX)^{-1} + \frac{(\bX^\T \bX)^{-1}x_i x_i^\T (\bX^\T \bX)^{-1}}{ 1 - \bH_{ii}} \right] (\bX^\T \by - x_i y_i)\\
+=& (\bX^\T \bX)^{-1} \bX^\T \by + \left[ - (\bX^\T \bX)^{-1} x_i y_i +  \frac{(\bX^\T \bX)^{-1}x_i x_i^\T (\bX^\T \bX)^{-1}}{ 1 - \bH_{ii}} (\bX^\T \by - x_i y_i) \right] \\
+=& \widehat{\bbeta} - \frac{(\bX^\T \bX)^{-1} x_i}{1 - \bH_{ii}} \left[ y_i (1 - \bH_{ii}) - x_i^\T \widehat{\bbeta} + \bH_{ii} y_i \right]\\
+=& \widehat{\bbeta} - \frac{(\bX^\T \bX)^{-1} x_i}{1 - \bH_{ii}} \left( y_i - x_i^\T \widehat{\bbeta} \right)
+\end{align}
+
+Then the error of the $i$th obervation from the leave-one-out model is 
+
+\begin{align}
+y _i - \widehat{y}_{[i]} =& y _i - x_i^\T \widehat{\bbeta}_{[i]} \\
+=& y _i - x_i^\T \left[ \widehat{\bbeta} - \frac{(\bX^\T \bX)^{-1} x_i}{1 - \bH_{ii}} \left( y_i - x_i^\T \widehat{\bbeta} \right)  \right]\\
+=& y _i - x_i^\T \widehat{\bbeta} + \frac{x_i^\T (\bX^\T \bX)^{-1} x_i}{1 - \bH_{ii}} \left( y_i - x_i^\T \widehat{\bbeta} \right)\\
+=& y _i - x_i^\T \widehat{\bbeta} + \frac{\bH_{ii}}{1 - \bH_{ii}} \left( y_i - x_i^\T \widehat{\bbeta} \right)\\
+=& \frac{y_i - x_i^\T \widehat{\bbeta}}{1 - \bH_{ii}}
+\end{align}
+
+This completes the proof. 
+```
+
+### Generalized cross-validation 
+ 
+
+
+
+
+
+we use the GCV (generalized cross-validation) criteria. The right plot shows how GCV changes as a function of $\lambda$. Be careful that the coefficients of the fitted objects `fit$coef` are scaled by the standard deviation of the covariates. If you need the original scale, use `coef(fit)`.
+
+```{r fig.dim=c(12, 6), out.width = '90%'}
+
+    par(mfrow=c(1,2))
+    matplot(coef(fit)[, -1], type = "l", xlab = "Lambda", ylab = "Coefficients")
+    text(rep(50, 8), coef(fit)[1,-1], colnames(prostate)[1:8])
+    title("Prostate Cancer Data: Ridge Coefficients")
+    
+    # use GCV to select the best lambda
+    plot(fit$lambda[1:500], fit$GCV[1:500], type = "l", col = "darkorange", 
+         ylab = "GCV", xlab = "Lambda", lwd = 3)
+    title("Prostate Cancer Data: GCV")
+```
+
+We select the best $\lambda$ that produces the smallest GCV. 
+
+```{r}
+    fit$lambda[which.min(fit$GCV)]
+    round(coef(fit)[which.min(fit$GCV), ], 4)
+```
+
+An alternative approach of selecting the best $\lambda$ is using cross-validation. This can be done using the `glmnet` package. Note that for ridge regression, we need to specify `alpha = 0`.
+
+```{r include = FALSE}
+  par(mfrow=c(1,1))
+```
+
+```{r fig.dim=c(6, 6), out.width = '45%'}
+  library(glmnet)
+  set.seed(3)
+  fit2 = cv.glmnet(data.matrix(prostate[, 1:8]), prostate$lpsa, nfolds = 10, alpha = 0)
+  coef(fit2, s = "lambda.min")
+  plot(fit2$glmnet.fit, "lambda")
+```
 
 

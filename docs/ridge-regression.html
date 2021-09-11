@@ -24,7 +24,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2021-09-09" />
+<meta name="date" content="2021-09-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -255,6 +255,11 @@ div.csl-indent {
 <li class="chapter" data-level="5.2" data-path="ridge-regression.html"><a href="ridge-regression.html#bias-and-variance-of-ridge-regression"><i class="fa fa-check"></i><b>5.2</b> Bias and Variance of Ridge Regression</a></li>
 <li class="chapter" data-level="5.3" data-path="ridge-regression.html"><a href="ridge-regression.html#degrees-of-freedom"><i class="fa fa-check"></i><b>5.3</b> Degrees of Freedom</a></li>
 <li class="chapter" data-level="5.4" data-path="ridge-regression.html"><a href="ridge-regression.html#using-the-lm.ridge-function"><i class="fa fa-check"></i><b>5.4</b> Using the <code>lm.ridge()</code> function</a></li>
+<li class="chapter" data-level="5.5" data-path="ridge-regression.html"><a href="ridge-regression.html#cross-validation"><i class="fa fa-check"></i><b>5.5</b> Cross-validation</a></li>
+<li class="chapter" data-level="5.6" data-path="ridge-regression.html"><a href="ridge-regression.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>5.6</b> Leave-one-out cross-validation</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="ridge-regression.html"><a href="ridge-regression.html#generalized-cross-validation"><i class="fa fa-check"></i><b>5.6.1</b> Generalized cross-validation</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2021 Ruoqing Zhu</a></li>
@@ -306,9 +311,10 @@ It provides a solution of linear regression when multicollinearity happens, espe
 <span id="cb1-13"><a href="ridge-regression.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="do">## X2 0.0990278   1.321283 0.07494822 0.9407888</span></span>
 <span id="cb1-14"><a href="ridge-regression.html#cb1-14" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb1-15"><a href="ridge-regression.html#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># note that the true parameters are all 1&#39;s</span></span>
-<span id="cb1-16"><a href="ridge-regression.html#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm.ridge</span>(y<span class="sc">~</span>X<span class="dv">-1</span>, <span class="at">lambda=</span><span class="dv">5</span>)</span>
-<span id="cb1-17"><a href="ridge-regression.html#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="do">##        X1        X2 </span></span>
-<span id="cb1-18"><a href="ridge-regression.html#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.9413221 0.8693253</span></span></code></pre></div>
+<span id="cb1-16"><a href="ridge-regression.html#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Be careful that the `lambda` parameter in lm.ridge is our (n*lambda)</span></span>
+<span id="cb1-17"><a href="ridge-regression.html#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm.ridge</span>(y<span class="sc">~</span>X<span class="dv">-1</span>, <span class="at">lambda=</span><span class="dv">5</span>)</span>
+<span id="cb1-18"><a href="ridge-regression.html#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="do">##        X1        X2 </span></span>
+<span id="cb1-19"><a href="ridge-regression.html#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.9413221 0.8693253</span></span></code></pre></div>
 <p>The variance of both <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span> are quite large. This is expected because we know from linear regression that the variance of <span class="math inline">\(\widehat{\boldsymbol \beta}\)</span> is <span class="math inline">\(\sigma^2 (\mathbf{X}^\text{T}\mathbf{X})^{-1}\)</span>. However, since the columns of <span class="math inline">\(\mathbf{X}\)</span> are highly correlated, the smallest eigenvalue of <span class="math inline">\(\mathbf{X}^\text{T}\mathbf{X}\)</span> is close to 0, making the largest eigenvalue of <span class="math inline">\((\mathbf{X}^\text{T}\mathbf{X})^{-1}\)</span> very large. This can also be interpreted through an optimization point of view. The objective function for an OLS estimator is demonstrated in the following.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="ridge-regression.html#cb2-1" aria-hidden="true" tabindex="-1"></a>  beta1 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="fl">0.005</span>)</span>
 <span id="cb2-2"><a href="ridge-regression.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  beta2 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>, <span class="fl">0.005</span>)</span>
@@ -441,10 +447,125 @@ It provides a solution of linear regression when multicollinearity happens, espe
 </div>
 <div id="using-the-lm.ridge-function" class="section level2" number="5.4">
 <h2><span class="header-section-number">5.4</span> Using the <code>lm.ridge()</code> function</h2>
+<p>We have seen how the <code>lm.ridge()</code> can be used to fit a Ridge regression. However, keep in mind that the <code>lambda</code> parameter used in the function actually specifies the <span class="math inline">\(n \lambda\)</span> entirely we used in our notation. However, regardless, our goal is mainly to tune this parameter to achieve a good balance of bias-variance trade off. However, the difficulty here is to evaluate the performance without knowing the truth. Let’s first use a simulated example, in which we do know the truth and then introduce the cross-validation approach for real data where we do not know the truth.</p>
+<p>We use the prostate cancer data <code>prostate</code> from the <code>ElemStatLearn</code> package. The dataset contains 8 explanatory variables and one outcome <code>lpsa</code>, the log prostate-specific antigen value.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="ridge-regression.html#cb4-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ElemStatLearn is currently archived, install a previous version</span></span>
+<span id="cb4-2"><a href="ridge-regression.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># library(devtools)</span></span>
+<span id="cb4-3"><a href="ridge-regression.html#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># install_version(&quot;ElemStatLearn&quot;, version = &quot;2015.6.26&quot;, repos = &quot;http://cran.r-project.org&quot;)</span></span>
+<span id="cb4-4"><a href="ridge-regression.html#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ElemStatLearn)</span>
+<span id="cb4-5"><a href="ridge-regression.html#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(prostate)</span>
+<span id="cb4-6"><a href="ridge-regression.html#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="do">##       lcavol  lweight age      lbph svi       lcp gleason pgg45       lpsa train</span></span>
+<span id="cb4-7"><a href="ridge-regression.html#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 -0.5798185 2.769459  50 -1.386294   0 -1.386294       6     0 -0.4307829  TRUE</span></span>
+<span id="cb4-8"><a href="ridge-regression.html#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 -0.9942523 3.319626  58 -1.386294   0 -1.386294       6     0 -0.1625189  TRUE</span></span>
+<span id="cb4-9"><a href="ridge-regression.html#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 -0.5108256 2.691243  74 -1.386294   0 -1.386294       7    20 -0.1625189  TRUE</span></span>
+<span id="cb4-10"><a href="ridge-regression.html#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 -1.2039728 3.282789  58 -1.386294   0 -1.386294       6     0 -0.1625189  TRUE</span></span>
+<span id="cb4-11"><a href="ridge-regression.html#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  0.7514161 3.432373  62 -1.386294   0 -1.386294       6     0  0.3715636  TRUE</span></span>
+<span id="cb4-12"><a href="ridge-regression.html#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 -1.0498221 3.228826  50 -1.386294   0 -1.386294       6     0  0.7654678  TRUE</span></span></code></pre></div>
+<p>In the previous example, we fit Ridge regression using a single <span class="math inline">\(\lambda\)</span> value. Since we now face the problem of bias-variance trade-off, we can fit the model with multiple <span class="math inline">\(\lambda\)</span> values and select the best. This can be done using the following code. Its syntax is again similar to the <code>lm()</code> function, with an additional argument <code>lambda</code></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="ridge-regression.html#cb5-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(MASS)</span>
+<span id="cb5-2"><a href="ridge-regression.html#cb5-2" aria-hidden="true" tabindex="-1"></a>  fit <span class="ot">=</span> <span class="fu">lm.ridge</span>(lpsa<span class="sc">~</span>.,  <span class="at">data =</span> prostate[, <span class="sc">-</span><span class="dv">10</span>], <span class="at">lambda =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="at">by=</span><span class="fl">0.5</span>))</span></code></pre></div>
+<p>For each <span class="math inline">\(\lambda\)</span>, the coefficients of all variables are recorded. The left plot shows how these coefficients change as a function of <span class="math inline">\(\lambda\)</span> We can easily see that as <span class="math inline">\(\lambda\)</span> becomes larger, the coefficients are shrunken towards 0. This is consistent with our understanding of the bias. On the very left hand size, the values of each parameter correspond to the OLS result.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="ridge-regression.html#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">matplot</span>(<span class="fu">coef</span>(fit)[, <span class="sc">-</span><span class="dv">1</span>], <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Lambda&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Coefficients&quot;</span>)</span>
+<span id="cb6-2"><a href="ridge-regression.html#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">text</span>(<span class="fu">rep</span>(<span class="dv">50</span>, <span class="dv">8</span>), <span class="fu">coef</span>(fit)[<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>], <span class="fu">colnames</span>(prostate)[<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>])</span>
+<span id="cb6-3"><a href="ridge-regression.html#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="st">&quot;Prostate Cancer Data: Ridge Coefficients&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-10-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>To select the best <span class="math inline">\(\lambda\)</span> value, there can be several different methods. We will discuss two approaches among them: <span class="math inline">\(k\)</span>-fold cross-validation and generalized cross-validation (GCV).</p>
+</div>
+<div id="cross-validation" class="section level2" number="5.5">
+<h2><span class="header-section-number">5.5</span> Cross-validation</h2>
+<p>Cross-validation (CV) is a technique to evaluate the performance of a model on an independent set of data. The essential idea is to separate out a subset of the data and do not use that part during the training, while using it for testing. We can then rotate to or sample a different subset as the testing data. Different cross-validation methods differs on the mechanisms of generating such testing data. <strong><span class="math inline">\(K\)</span>-fold cross-validation</strong> is probably the the most popular among them. The method works in the following steps:</p>
+<ol style="list-style-type: decimal">
+<li>Randomly split the data into <span class="math inline">\(K\)</span> equal portions</li>
+<li>For each <span class="math inline">\(k\)</span> in <span class="math inline">\(1, \ldots, K\)</span>: use the <span class="math inline">\(k\)</span>th portion as the testing data and the rest as training data, obtain the testing error</li>
+<li>Average all <span class="math inline">\(K\)</span> testing errors</li>
+</ol>
+<p>Here is a graphical demonstration of a <span class="math inline">\(10\)</span>-fold CV:</p>
+<center>
+<img src="images/kfoldcv.png" style="width:80.0%" />
+</center>
+<p>There are also many other cross-validation procedures, for example, the <strong>Monte Carlo cross-validation</strong> randomly splits the data into training and testing (instead of fix <span class="math inline">\(K\)</span> portions) each time and repeat the process as many times as we like. The benefit of such procedure is that if this is repeated enough times, the estimated testing error becomes fairly stable, and not affected much by the random mechanism. On the other hand, we can also repeat the entire <span class="math inline">\(K\)</span>-fold CV process many times, then average the errors. This is also trying to reduced the influence of randomness.</p>
+</div>
+<div id="leave-one-out-cross-validation" class="section level2" number="5.6">
+<h2><span class="header-section-number">5.6</span> Leave-one-out cross-validation</h2>
+<p>Regarding the randomness, the leave-one-out cross-validation is completely nonrandom. It is essentially the <span class="math inline">\(k\)</span>-fold CV approach, but with <span class="math inline">\(k\)</span> equal to <span class="math inline">\(n\)</span>, the sample size. A standard approach would require to re-fit the model <span class="math inline">\(n\)</span> times, however, some linear algebra can show that there is an equivalent form using the “Hat” matrix when fitting a linear regression:</p>
+<p><span class="math display">\[\begin{align}
+\text{CV}(n) =&amp; \frac{1}{n}\sum_{i=1}^n (y_i - \widehat{y}_{[i]})^2\\
+=&amp; \frac{1}{n} \sum_{i=1}^n \left( \frac{y_i - \widehat{y}_i}{1 - \mathbf{H}_{ii}} \right)^2,
+\end{align}\]</span>
+where <span class="math inline">\(\widehat{y}_{i}\)</span> is the fitted value using the whole dataset, but <span class="math inline">\(\widehat{y}_{[i]}\)</span> is the prediction of <span class="math inline">\(i\)</span>th observation using the data without it when fitting the model. And <span class="math inline">\(\mathbf{H}_{ii}\)</span> is the <span class="math inline">\(i\)</span>th diagonal element of the hat matrix <span class="math inline">\(\mathbf{H}= \mathbf{X}(\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}\)</span>. The proof is essentially an application of the <a href="https://en.wikipedia.org/wiki/Sherman%E2%80%93Morrison_formula">Sherman–Morrison–Woodbury (SMW)</a> formula, which is also used when deriving the rank-one update of a quasi-Newton optimization approach.</p>
+
+<div class="proof">
+<p> <span class="proof"><em>Proof. </em></span> Denote <span class="math inline">\(\mathbf{X}_{[i]}\)</span> and <span class="math inline">\(\mathbf{y}_{[i]}\)</span> the data derived from <span class="math inline">\(\mathbf{X}\)</span> and <span class="math inline">\(\mathbf{y}\)</span>, but with the <span class="math inline">\(i\)</span> observation (<span class="math inline">\(x_i\)</span>, <span class="math inline">\(y_i\)</span>) removed. We then have the properties that</p>
+<p><span class="math display">\[\mathbf{X}_{[i]}^\text{T}\mathbf{X}_{[i]} = \mathbf{X}^\text{T}\mathbf{X}- x_i x_i^\text{T}, \]</span></p>
+<p>and</p>
+<p><span class="math display">\[\mathbf{H}_{ii} = x_i^\text{T}(\mathbf{X}^\text{T}\mathbf{X})^{-1} x_i.\]</span></p>
+<p>By the SMW formula, we have</p>
+<p><span class="math display">\[(\mathbf{X}_{[i]}^\text{T}\mathbf{X}_{[i]})^{-1} = (\mathbf{X}^\text{T}\mathbf{X})^{-1} + \frac{(\mathbf{X}^\text{T}\mathbf{X})^{-1}x_i x_i^\text{T}(\mathbf{X}^\text{T}\mathbf{X})^{-1}}{ 1 - \mathbf{H}_{ii}}, \]</span></p>
+<p>Further notice that</p>
+<p><span class="math display">\[\mathbf{X}_{[i]}^\text{T}\mathbf{y}_{[i]} = \mathbf{X}^\text{T}\mathbf{y}- x_i y_i, \]</span></p>
+<p>we can then reconstruct the fitted parameter when observation <span class="math inline">\(i\)</span> is removed:</p>
+<p><span class="math display">\[\begin{align}
+\widehat{\boldsymbol \beta}_{[i]} =&amp; (\mathbf{X}_{[i]}^\text{T}\mathbf{X}_{[i]})^{-1} \mathbf{X}_{[i]}^\text{T}\mathbf{y}_{[i]} \\
+=&amp; \left[ (\mathbf{X}^\text{T}\mathbf{X})^{-1} + \frac{(\mathbf{X}^\text{T}\mathbf{X})^{-1}x_i x_i^\text{T}(\mathbf{X}^\text{T}\mathbf{X})^{-1}}{ 1 - \mathbf{H}_{ii}} \right] (\mathbf{X}^\text{T}\mathbf{y}- x_i y_i)\\
+=&amp; (\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}^\text{T}\mathbf{y}+ \left[ - (\mathbf{X}^\text{T}\mathbf{X})^{-1} x_i y_i +  \frac{(\mathbf{X}^\text{T}\mathbf{X})^{-1}x_i x_i^\text{T}(\mathbf{X}^\text{T}\mathbf{X})^{-1}}{ 1 - \mathbf{H}_{ii}} (\mathbf{X}^\text{T}\mathbf{y}- x_i y_i) \right] \\
+=&amp; \widehat{\boldsymbol \beta} - \frac{(\mathbf{X}^\text{T}\mathbf{X})^{-1} x_i}{1 - \mathbf{H}_{ii}} \left[ y_i (1 - \mathbf{H}_{ii}) - x_i^\text{T}\widehat{\boldsymbol \beta} + \mathbf{H}_{ii} y_i \right]\\
+=&amp; \widehat{\boldsymbol \beta} - \frac{(\mathbf{X}^\text{T}\mathbf{X})^{-1} x_i}{1 - \mathbf{H}_{ii}} \left( y_i - x_i^\text{T}\widehat{\boldsymbol \beta} \right)
+\end{align}\]</span></p>
+<p>Then the error of the <span class="math inline">\(i\)</span>th obervation from the leave-one-out model is</p>
+<p><span class="math display">\[\begin{align}
+y _i - \widehat{y}_{[i]} =&amp; y _i - x_i^\text{T}\widehat{\boldsymbol \beta}_{[i]} \\
+=&amp; y _i - x_i^\text{T}\left[ \widehat{\boldsymbol \beta} - \frac{(\mathbf{X}^\text{T}\mathbf{X})^{-1} x_i}{1 - \mathbf{H}_{ii}} \left( y_i - x_i^\text{T}\widehat{\boldsymbol \beta} \right)  \right]\\
+=&amp; y _i - x_i^\text{T}\widehat{\boldsymbol \beta} + \frac{x_i^\text{T}(\mathbf{X}^\text{T}\mathbf{X})^{-1} x_i}{1 - \mathbf{H}_{ii}} \left( y_i - x_i^\text{T}\widehat{\boldsymbol \beta} \right)\\
+=&amp; y _i - x_i^\text{T}\widehat{\boldsymbol \beta} + \frac{\mathbf{H}_{ii}}{1 - \mathbf{H}_{ii}} \left( y_i - x_i^\text{T}\widehat{\boldsymbol \beta} \right)\\
+=&amp; \frac{y_i - x_i^\text{T}\widehat{\boldsymbol \beta}}{1 - \mathbf{H}_{ii}}
+\end{align}\]</span></p>
+This completes the proof.
+</div>
+<div id="generalized-cross-validation" class="section level3" number="5.6.1">
+<h3><span class="header-section-number">5.6.1</span> Generalized cross-validation</h3>
+<p>we use the GCV (generalized cross-validation) criteria. The right plot shows how GCV changes as a function of <span class="math inline">\(\lambda\)</span>. Be careful that the coefficients of the fitted objects <code>fit$coef</code> are scaled by the standard deviation of the covariates. If you need the original scale, use <code>coef(fit)</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="ridge-regression.html#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="ridge-regression.html#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb7-3"><a href="ridge-regression.html#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">matplot</span>(<span class="fu">coef</span>(fit)[, <span class="sc">-</span><span class="dv">1</span>], <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Lambda&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Coefficients&quot;</span>)</span>
+<span id="cb7-4"><a href="ridge-regression.html#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">text</span>(<span class="fu">rep</span>(<span class="dv">50</span>, <span class="dv">8</span>), <span class="fu">coef</span>(fit)[<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>], <span class="fu">colnames</span>(prostate)[<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>])</span>
+<span id="cb7-5"><a href="ridge-regression.html#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="st">&quot;Prostate Cancer Data: Ridge Coefficients&quot;</span>)</span>
+<span id="cb7-6"><a href="ridge-regression.html#cb7-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-7"><a href="ridge-regression.html#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># use GCV to select the best lambda</span></span>
+<span id="cb7-8"><a href="ridge-regression.html#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(fit<span class="sc">$</span>lambda[<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>], fit<span class="sc">$</span>GCV[<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>], <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, </span>
+<span id="cb7-9"><a href="ridge-regression.html#cb7-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">ylab =</span> <span class="st">&quot;GCV&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Lambda&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb7-10"><a href="ridge-regression.html#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="st">&quot;Prostate Cancer Data: GCV&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-12-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>We select the best <span class="math inline">\(\lambda\)</span> that produces the smallest GCV.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="ridge-regression.html#cb8-1" aria-hidden="true" tabindex="-1"></a>    fit<span class="sc">$</span>lambda[<span class="fu">which.min</span>(fit<span class="sc">$</span>GCV)]</span>
+<span id="cb8-2"><a href="ridge-regression.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 6.5</span></span>
+<span id="cb8-3"><a href="ridge-regression.html#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="fu">coef</span>(fit)[<span class="fu">which.min</span>(fit<span class="sc">$</span>GCV), ], <span class="dv">4</span>)</span>
+<span id="cb8-4"><a href="ridge-regression.html#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">##          lcavol lweight     age    lbph     svi     lcp gleason   pgg45 </span></span>
+<span id="cb8-5"><a href="ridge-regression.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  0.0217  0.4974  0.6058 -0.0171  0.0866  0.6910 -0.0441  0.0630  0.0035</span></span></code></pre></div>
+<p>An alternative approach of selecting the best <span class="math inline">\(\lambda\)</span> is using cross-validation. This can be done using the <code>glmnet</code> package. Note that for ridge regression, we need to specify <code>alpha = 0</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="ridge-regression.html#cb9-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(glmnet)</span>
+<span id="cb9-2"><a href="ridge-regression.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Loading required package: Matrix</span></span>
+<span id="cb9-3"><a href="ridge-regression.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Loaded glmnet 4.1-2</span></span>
+<span id="cb9-4"><a href="ridge-regression.html#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb9-5"><a href="ridge-regression.html#cb9-5" aria-hidden="true" tabindex="-1"></a>  fit2 <span class="ot">=</span> <span class="fu">cv.glmnet</span>(<span class="fu">data.matrix</span>(prostate[, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>]), prostate<span class="sc">$</span>lpsa, <span class="at">nfolds =</span> <span class="dv">10</span>, <span class="at">alpha =</span> <span class="dv">0</span>)</span>
+<span id="cb9-6"><a href="ridge-regression.html#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coef</span>(fit2, <span class="at">s =</span> <span class="st">&quot;lambda.min&quot;</span>)</span>
+<span id="cb9-7"><a href="ridge-regression.html#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 9 x 1 sparse Matrix of class &quot;dgCMatrix&quot;</span></span>
+<span id="cb9-8"><a href="ridge-regression.html#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="do">##                       s1</span></span>
+<span id="cb9-9"><a href="ridge-regression.html#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)  0.011566730</span></span>
+<span id="cb9-10"><a href="ridge-regression.html#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="do">## lcavol       0.492211875</span></span>
+<span id="cb9-11"><a href="ridge-regression.html#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="do">## lweight      0.604155671</span></span>
+<span id="cb9-12"><a href="ridge-regression.html#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="do">## age         -0.016727236</span></span>
+<span id="cb9-13"><a href="ridge-regression.html#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="do">## lbph         0.085820464</span></span>
+<span id="cb9-14"><a href="ridge-regression.html#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="do">## svi          0.685477645</span></span>
+<span id="cb9-15"><a href="ridge-regression.html#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="do">## lcp         -0.039717080</span></span>
+<span id="cb9-16"><a href="ridge-regression.html#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="do">## gleason      0.063806235</span></span>
+<span id="cb9-17"><a href="ridge-regression.html#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="do">## pgg45        0.003411982</span></span>
+<span id="cb9-18"><a href="ridge-regression.html#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(fit2<span class="sc">$</span>glmnet.fit, <span class="st">&quot;lambda&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-15-1.png" width="45%" style="display: block; margin: auto;" /></p>
 
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div class="csl-entry">
 Hoerl, Arthur E, and Robert W Kennard. 1970. <span>“Ridge Regression: Biased Estimation for Nonorthogonal Problems.”</span> <em>Technometrics</em> 12 (1): 55–67.
+</div>
 </div>
 </div>
 </div>
