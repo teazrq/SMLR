@@ -7,6 +7,7 @@
 \def\bU{\mathbf{U}}
 \def\bD{\mathbf{D}}
 \def\bV{\mathbf{V}}
+\def\bS{\mathbf{S}}
 \def\bx{\mathbf{x}}
 \def\by{\mathbf{y}}
 \def\bs{\mathbf{s}}
@@ -253,14 +254,51 @@ We use the prostate cancer data `prostate` from the `ElemStatLearn` package. The
   head(prostate)
 ```
 
-In the previous example, we fit Ridge regression using a single $\lambda$ value. Since we now face the problem of bias-variance trade-off, we can fit the model with multiple $\lambda$ values and select the best. This can be done using the following code. Its syntax is again similar to the `lm()` function, with an additional argument `lambda`
+### Scaling Issue
+
+We can use `lm.ridge()` with a fixed $\lambda$ value, as we have shown in the previous example. Its syntax is again similar to the `lm()` function, with an additional argument `lambda`. We can also compare that with our own code. 
+
+```{r}
+  # lm.ridge function from the MASS package
+  lm.ridge(lpsa ~., data = prostate[, 1:9], lambda = 1)
+
+  # using our own code
+  X = cbind(1, data.matrix(prostate[, 1:8]))
+  y = prostate[, 9]
+  solve(t(X) %*% X + diag(9)) %*% t(X) %*% y
+```
+However, they look different. This is because ridge regression has a scaling issue: it would shrink parameters differently if the corresponding covariates have different scales. This can be seen from our previous development of the SVD analysis. Since the shrinkage is the same for all $d_j$s, it would apply a larger shrinkage for small $d_j$. A commonly used approach to deal with the scaling issue is to __standardize  all covariates__ such that they are treated the same way. In addition, we will also __center both $\bX$ and $\by$__ before performing the ridge regression. An interesting consequence of centering is that we do not need the intercept anymore, since $\bX \bbeta = \mathbf{0}$ for all $\bbeta$. One last point is that when performing scaling, `lm.ridge()` use the $n$ factor instead of $n-1$ when calculating the standard deviation. Hence, incorporating all these, we have 
+
+```{r}
+  # perform centering and scaling
+  X = scale(data.matrix(prostate[, 1:8]), center = TRUE, scale = TRUE)
+
+  # use n instead of (n-1) for standardization
+  n = nrow(X)
+  X = X * sqrt(n / (n-1))
+  
+  # center y but not scaling
+  y = scale(prostate[, 9], center = TRUE, scale = FALSE)
+  
+  # getting the estimated parameter
+  mybeta = solve(t(X) %*% X + diag(8)) %*% t(X) %*% y
+  ridge.fit = lm.ridge(lpsa ~., data = prostate[, 1:9], lambda = 1)
+  
+  # note that $coef obtains the coefficients internally from lm.ridge
+  # however coef() would transform these back to the original scale version
+  cbind(mybeta, ridge.fit$coef)
+```
+
+### Multiple $\lambda$ values
+
+Since we now face the problem of bias-variance trade-off, we can fit the model with multiple $\lambda$ values and select the best. This can be done using the following code. 
 
 ```{r}
   library(MASS)
-  fit = lm.ridge(lpsa~.,  data = prostate[, -10], lambda = seq(0, 100, by=0.5))
+  fit = lm.ridge(lpsa~.,  data = prostate[, -10], lambda = seq(0, 100, by=0.2))
 ```
 
-For each $\lambda$, the coefficients of all variables are recorded. The left plot shows how these coefficients change as a function of $\lambda$ We can easily see that as $\lambda$ becomes larger, the coefficients are shrunken towards 0. This is consistent with our understanding of the bias. On the very left hand size, the values of each parameter correspond to the OLS result. 
+For each $\lambda$, the coefficients of all variables are recorded. The plot shows how these coefficients change as a function of $\lambda$. We can easily see that as $\lambda$ becomes larger, the coefficients are shrunken towards 0. This is consistent with our understanding of the bias. On the very left hand size of the plot, the value of each parameter corresponds to the OLS result since no penalty is applied. Be careful that the coefficients of the fitted objects `fit$coef` are scaled by the standard deviation of the covariates. If you need the original scale, make sure to use `coef(fit)`.
 
 ```{r echo = FALSE}
   par(mfrow=c(1,1))
@@ -289,7 +327,6 @@ Here is a graphical demonstration of a $10$-fold CV:
 </center>
 
 There are also many other cross-validation procedures, for example, the __Monte Carlo cross-validation__ randomly splits the data into training and testing (instead of fix $K$ portions) each time and repeat the process as many times as we like. The benefit of such procedure is that if this is repeated enough times, the estimated testing error becomes fairly stable, and not affected much by the random mechanism. On the other hand, we can also repeat the entire $K$-fold CV process many times, then average the errors. This is also trying to reduced the influence of randomness. 
-
 
 ## Leave-one-out cross-validation
 
@@ -343,45 +380,44 @@ This completes the proof.
 
 ### Generalized cross-validation 
  
+The generalized cross-validation (GCV, @golub1979generalized) is a modified version of the leave-one-out CV:
 
+$$\text{GCV}(\lambda) = \frac{\sum_{i=1}^n (y_i - x_i^\T \widehat{\bbeta}^\text{ridge}_\lambda)}{(n - \Trace{\bS_\lambda})}$$
+where $\bS_\lambda$ is the hat matrix corresponding to the ridge regression:
 
+$$\bS_\lambda = \bX (\bX^\T \bX + \lambda \bI)^{-1} \bX^\T$$
 
+The following plot shows how GCV value changes as a function of $\lambda$. 
 
-
-we use the GCV (generalized cross-validation) criteria. The right plot shows how GCV changes as a function of $\lambda$. Be careful that the coefficients of the fitted objects `fit$coef` are scaled by the standard deviation of the covariates. If you need the original scale, use `coef(fit)`.
-
-```{r fig.dim=c(12, 6), out.width = '90%'}
-
-    par(mfrow=c(1,2))
-    matplot(coef(fit)[, -1], type = "l", xlab = "Lambda", ylab = "Coefficients")
-    text(rep(50, 8), coef(fit)[1,-1], colnames(prostate)[1:8])
-    title("Prostate Cancer Data: Ridge Coefficients")
-    
+```{r}
     # use GCV to select the best lambda
     plot(fit$lambda[1:500], fit$GCV[1:500], type = "l", col = "darkorange", 
          ylab = "GCV", xlab = "Lambda", lwd = 3)
     title("Prostate Cancer Data: GCV")
 ```
 
-We select the best $\lambda$ that produces the smallest GCV. 
+We can select the best $\lambda$ that produces the smallest GCV. 
 
 ```{r}
     fit$lambda[which.min(fit$GCV)]
     round(coef(fit)[which.min(fit$GCV), ], 4)
 ```
 
-An alternative approach of selecting the best $\lambda$ is using cross-validation. This can be done using the `glmnet` package. Note that for ridge regression, we need to specify `alpha = 0`.
+## The `glmnet` package
 
-```{r include = FALSE}
-  par(mfrow=c(1,1))
-```
+The `glmnet` package implements the $k$-fold cross-validation. To perform a ridge regression with cross-validation, we need to use the `cv.glmnet()` function with $alpha = 0$. Here, the $\alpha$ is a parameter that controls the $\ell_2$ and $\ell_1$ (Lasso) penalties. In addition, the lambda values are also automatically selected, on the log-scale. 
 
-```{r fig.dim=c(6, 6), out.width = '45%'}
+```{r}
   library(glmnet)
   set.seed(3)
   fit2 = cv.glmnet(data.matrix(prostate[, 1:8]), prostate$lpsa, nfolds = 10, alpha = 0)
-  coef(fit2, s = "lambda.min")
   plot(fit2$glmnet.fit, "lambda")
 ```
 
+It is useful to plot the cross-validation error against the $\lambda$ values , then select the corresponding $\lambda$ with the smallest error. The corresponding coefficient values can be obtained using the `s = "lambda.min"` option in the `coef()` function. However, this can still be subject to over-fitting, and sometimes practitioners use `s = "lambda.1se"` to select a slightly heavier penalized version based on the variations observed from different folds. 
 
+```{r}
+  plot(fit2)
+  coef(fit2, s = "lambda.min")
+  coef(fit2, s = "lambda.1se")
+```
