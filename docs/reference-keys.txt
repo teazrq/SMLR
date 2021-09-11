@@ -58,12 +58,10 @@ motivation-correlated-variables-and-convexity
 bias-and-variance-of-ridge-regression
 degrees-of-freedom
 using-the-lm.ridge-function
-example-the-prostate-cancer-data
-k-fold-cross-validation
-generalized-cross-validation
-cross-validation
-leave-one-out-cross-validation
-scaling-issues
 scaling-issue
 multiple-lambda-values
+cross-validation
+leave-one-out-cross-validation
+generalized-cross-validation
 the-glmnet-package
+lasso
