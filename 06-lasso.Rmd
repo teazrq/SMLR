@@ -44,12 +44,11 @@
 
 Lasso [@tibshirani1996regression] is among the most popular machine learning models. Different from the Ridge regression, its adds $\ell_1$ penalty on the fitted parameters:
 
-$$
 \begin{align}
 \widehat{\bbeta}^\text{ridge} =& \argmin_{\bbeta} (\by - \bX \bbeta)^\T (\by - \bX \bbeta) + n \lambda \lVert\bbeta\rVert_1\\
 =& \argmin_{\bbeta} \frac{1}{n} \sum_{i=1}^n (y_i - x_i^\T \bbeta)^2 + \lambda \sum_{i=1}^n |\beta_j|,
 \end{align}
-$$
+
 The main advantage of adding such a penalty is that small $\widehat{\beta}_j$ values can be __shrunk to zero__. This may prevents over-fitting and also improve the interpretability especially when the number of variables is large. We will analyze the Lasso starting with a single variable case, and then discuss the application of coordinate descent algorithm to obtain the solution. 
 
 ## One-Variable Lasso and Shrinkage
@@ -102,10 +101,11 @@ However, this will maintain positive only when $\beta$ is greater than $a - \lam
         0 & \text{if} \quad |\hat\beta_j^\text{ols}| < \lambda/2 \\
         \hat\beta_j^\text{ols} + \lambda/2 & \text{if} \quad \hat\beta_j^\text{ols} < -\lambda/2 \\
         \end{cases}\\
-        &= \text{sign}(\hat\beta_j^\text{ols}) \left(|\hat\beta_j^\text{ols}| - \lambda/2 \right)_+
+        &= \text{sign}(\hat\beta_j^\text{ols}) \left(|\hat\beta_j^\text{ols}| - \lambda/2 \right)_+ \\
+        &\doteq \text{SoftTH}(\hat\beta_j^\text{ols}, \lambda)
 \end{align}
 
-This implies that when $\lambda$ is large enough, the estimated $\beta$ parameter of Lasso will be shrunk towards zero. The following animated figure demonstrates how adding an $\ell_1$ penalty can change the optimizer.
+This is called a __soft-thresholding function__. This implies that when $\lambda$ is large enough, the estimated $\beta$ parameter of Lasso will be shrunk towards zero. The following animated figure demonstrates how adding an $\ell_1$ penalty can change the optimizer. The objective function is $0.5 + (\beta - 1)^2$ and based on our previous analysis, once the penalty is larger than 2, the optimizer would stay at 0. 
 
 ```{r fig.dim = c(8, 6), out.width = "100%", fig.align = 'center', message=FALSE, warning=FALSE, echo=FALSE}
   library(gganimate)
@@ -113,7 +113,7 @@ This implies that when $\lambda$ is large enough, the estimated $\beta$ paramete
   
   b = seq(-0.5, 2, 0.01)
   fb = 0.5 + (b - 1)^2
-  alllambda = seq(0.01, 2.1, 0.01)
+  alllambda = seq(0, 2.5, 0.1)
   onevarlasso = data.frame()
   
   for (i in 1:length(alllambda))
@@ -133,6 +133,7 @@ This implies that when $\lambda$ is large enough, the estimated $\beta$ paramete
     geom_line(aes(frame = Lambda)) +
     scale_x_continuous(name = "Beta", limits = c(-0.5, 2)) +
     scale_y_continuous(name = "Function Value", limits = c(0, 4)) +
+    scale_color_manual(values=c("#ff8c00", "#000000", "#00bfff")) +
     theme(
       panel.background = element_rect(fill = "transparent"), # bg of the panel
       plot.background = element_rect(fill = "transparent", color = NA), # bg of the plot
@@ -143,4 +144,102 @@ This implies that when $\lambda$ is large enough, the estimated $\beta$ paramete
   
   fig
 ```
+
+## Constrained Optimization View
+
+Of course in a multivariate case, this is much more complicated since one variable may affect the optimizer of another. A commonly used alternative interpretation of the Lasso problem is the constrained optimization formulation:
+
+\begin{align}
+\min_{\bbeta} \,\,& \lVert \by - \bX \bbeta \rVert^2\\
+\text{subject to} \,\, & \lVert\bbeta\rVert_1 \leq t
+\end{align}
+
+We can see from the left penal of the following figure that, the Lasso penalty imposes a constraint with the rhombus, i.e., the solution has to stay within the shaded area. The objective function is shown with the contour, and once the contained area is sufficiently small, some $\beta$ parameter will be shrunk to exactly zero. On the other hand, the Ridge regression also has a similar interpretation. However, since the constrained areas is a circle, it will never for the estimated parameters to be zero. 
+
+<center>
+![From online sources](images/lassoridge2.png){width=100%} Figure from online sources.
+</center>
+
+## The Solution Path
+
+We are interested in getting the fitted model with a given $\lambda$ value, however, for selecting the tuning parameter, it would be much more stable to obtain the solution on a sequence of $\lambda$ values. The corresponding $\bbeta$ parameter estimates are called the solution path, i.e., the path how parameter changes as $\lambda$ changes. We have seen an example of this with the Ridge regression. For Lasso, the the solution path has an interpretation as the __forward-stagewise__ regression. This is different than the forward stepwise model we introduced before. A forward stagewise regression works in the following way:
+
+  * Start with the Null model (intercept) and choose the best variable out of all $p$, such that when its parameter grows by a small magnitude $\epsilon$ (either positive or negative), the RSS reduces the most. Grow the parameter estimate of this variable by $\epsilon$ and repeat. 
+
+The stage-wise regression solution has been shown to give the same solution path as the Lasso, if we start with a sufficiently large $\lambda$, and gradually reduces it towards zero. This can be done with the least angle regression (`lars`) package. Note that the `lars` package introduces another computationally more efficient approach to obtain the same solution, but we will not discuss it in details. We comparing the two approaches (stagewise and stepwise) using the `prostate` data from the `ElemStatLearn` package.
+
+```{r echo=FALSE}
+  par(mar=c(4,4,4,2))
+  par(mfrow=c(1,2))
+```
+
+```{r message=FALSE, fig.dim = c(12, 6), out.width = "90%"}
+  library(lars)
+  library(ElemStatLearn)
+  data(prostate)
+  
+  lars.fit = lars(x = data.matrix(prostate[, 1:8]), y = prostate$lpsa, 
+                  type = "forward.stagewise")
+  plot(lars.fit)
+  
+  lars.fit = lars(x = data.matrix(prostate[, 1:8]), y = prostate$lpsa, 
+                  type = "stepwise")
+  plot(lars.fit)
+```
+
+At each vertical line, a new variable enters the model by growing its parameter out of zero. You can relate this to our previous animated graph where as $\lambda$ decreases, the parameter estimate eventually comes out of zero. However, they may change their grow rate as a new variable comes. This is due to the covariance structure. 
+
+## Path-wise Coordinate Descent
+
+The coordinate descent algorithm [@friedman2010regularization] is probably the most efficient way to solve the Lasso solution up to now. The idea shares similarities with the stage-wise regression. However, with some careful analysis, we can obtain coordinate updates exactly, instead of moving a small step size. And this is done on a decreasing grid of $\lambda$ values. The entire algorithm proceed in the following way:
+
+  1) Start with a $\lambda$ value sufficiently large such that all parameter estimates are zero. 
+  2) Reduce $\lambda$ by a fraction, e.g., 0.05, and perform coordinate descent updates:
+      i) For $j = 1, \ldots p$, update $\beta_j$.
+      ii) Repeat i) until convergence. 
+  3) Record the corresponding $\widehat{\bbeta}^\text{lasso}_\lambda$.
+  4) Repeat steps 2) and 3) until $\lambda$ is sufficiently small or there are already $n$ nonzero parameters entered into the model. Output $\widehat{\bbeta}^\text{lasso}_\lambda$ for all $\lambda$ values.
+  
+The crucial step is then figuring out the explicit formula of the coordinate update. Recall that in a coordinate descent algorithm of OLS at Section \@ref(coordinate), we update $\beta_j$ using 
+
+$$
+\underset{\boldsymbol \beta_j}{\text{argmin}} \,\, \frac{1}{n} ||\by - X_j \beta_j - \bX_{(-j)} \bbeta_{(-j)} ||^2
+$$
+Since this is a single variable OLS problem, the solution is 
+
+$$
+\beta_j = \frac{X_j^T \mathbf{r}}{X_j^T X_j}
+$$
+
+with $\br = \by - \bX_{(-j)} \bbeta_{(-j)}$. Now, adding the penalty $|\beta_j|$, we essentially reduces back to the previous example of the single variable lasso problem, where we have the OLS solution. Hence, all we need to do is to apply the soft-thresholding function. The the Lasso coordinate update becomes 
+
+$$\beta_j^\text{new} = \text{SoftTH}\left(\frac{X_j^T \mathbf{r}}{X_j^T X_j}, \lambda\right) $$
+Incorporate this into the previous algorithm, we can obtain the entire solution path of a Lasso problem. This algorithm is implemented in the `glmnet` package. We will show an example of it. 
+
+## Using the `glmnet` package
+
+We still use the prostate cancer data `prostate` data. The dataset contains 8 explanatory variables and one outcome `lpsa`, the log prostate-specific antigen value. We fit the model using the `glmnet` package. The tuning parameter need to be selected using cross-validation with the `cv.glmnet` function. Specify `nfolds` for the number of folds in the cross-validation. The default is 10. We do not need to specify `alpha = 1` (for Lasso) since it is the default value. 
+
+```{r}
+    library(glmnet)
+    set.seed(3)
+    fit2 = cv.glmnet(data.matrix(prostate[, 1:8]), prostate$lpsa, nfolds = 10, alpha = 1)
+```
+
+We can obtain the estimated coefficients from the best $\lambda$ value. Similar to the ridge regression, there are two popular options, `lambda.min` and `lambda.1se`. The first one is the value that minimizes the cross-validation error, the second one is slightly more conservative, which gives larger penalty value with more shrinkage. You can notice that `lambda.min` contains more nonzero parameters. 
+
+```{r}
+    coef(fit2, s = "lambda.min")
+    coef(fit2, s = "lambda.1se")
+```
+
+The left plots demonstrates how $\lambda$ changes the cross-validation error. There are two vertical lines, which represents `lambda.min` and `lambda.1se` respectively. The right plot shows how $\lambda$ changes the parameter values. 
+
+```{r fig.dim = c(12, 6), out.width = '90%'}
+    par(mfrow = c(1, 2))
+    plot(fit2)
+    plot(fit2$glmnet.fit, "lambda")
+```
+
+Some other packages can perform the same analysis, for example, the `lars` package. 
 

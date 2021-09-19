@@ -67,3 +67,10 @@ the-glmnet-package
 lasso
 one-variable-lasso-and-shrinkage
 reference
+lasso-and-shrinkage
+coordinate-descent-for-solving-the-lasso
+path-wise-coordinate-descent
+using-the-glmnet-package
+constrained-optimization-view
+the-solution-path
+coordinate

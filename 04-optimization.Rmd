@@ -422,7 +422,7 @@ The descent path is very smooth because we choose a very small step size. Howeve
   box()
 ```
 
-## Coordinate Descent
+## Coordinate Descent {#coordinate}
 
 Instead of updating all parameters at a time, we can also update one parameter each time. The __Gauss-Seidel style__ coordinate descent algorithm at the $k$th iteration will sequentially update all $p$ parameters:
 
