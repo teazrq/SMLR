@@ -65,3 +65,5 @@ leave-one-out-cross-validation
 generalized-cross-validation
 the-glmnet-package
 lasso
+one-variable-lasso-and-shrinkage
+reference

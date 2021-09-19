@@ -41,3 +41,106 @@
 ```
 
 # Lasso
+
+Lasso [@tibshirani1996regression] is among the most popular machine learning models. Different from the Ridge regression, its adds $\ell_1$ penalty on the fitted parameters:
+
+$$
+\begin{align}
+\widehat{\bbeta}^\text{ridge} =& \argmin_{\bbeta} (\by - \bX \bbeta)^\T (\by - \bX \bbeta) + n \lambda \lVert\bbeta\rVert_1\\
+=& \argmin_{\bbeta} \frac{1}{n} \sum_{i=1}^n (y_i - x_i^\T \bbeta)^2 + \lambda \sum_{i=1}^n |\beta_j|,
+\end{align}
+$$
+The main advantage of adding such a penalty is that small $\widehat{\beta}_j$ values can be __shrunk to zero__. This may prevents over-fitting and also improve the interpretability especially when the number of variables is large. We will analyze the Lasso starting with a single variable case, and then discuss the application of coordinate descent algorithm to obtain the solution. 
+
+## One-Variable Lasso and Shrinkage
+
+To illustrate how Lasso shrink a parameter estimate to zero, let's consider an orthogonal design matrix case, , i.e., $\bX^\T \bX = n \bI$, which will eventually reduce to a one-variable problem. Note that the intercept term is not essential because we can always pre-center the observed data $x_i$ and $y_i$s so that they can be recovered after this one variable problem. Our objective function is 
+
+$$\frac{1}{n}\lVert \by - \bX \bbeta \rVert^2 + \lambda \lVert\bbeta\rVert_1$$
+We are going to relate the solution the OLS solution, which exists in this case because $\bX^\T \bX$ is invertible. Hence, we have 
+
+\begin{align}
+&\frac{1}{n}\lVert \by - \bX \bbeta \rVert^2 + \lambda \lVert\bbeta\rVert_1\\
+=&\frac{1}{n}\lVert \by - \color{OrangeRed}{\bX \widehat{\bbeta}^\text{ols} + \bX \widehat{\bbeta}^\text{ols}} - \bX \bbeta \rVert^2 + \lambda \lVert\bbeta\rVert_1\\
+=&\frac{1}{n}\lVert \by - \bX \widehat{\bbeta}^\text{ols} \rVert^2 + \frac{1}{n} \lVert \bX \widehat{\bbeta}^\text{ols} - \bX \bbeta \rVert^2 + \lambda \lVert\bbeta\rVert_1
+\end{align}
+
+The cross-term is zero because the OLS residual term is orthogonal to the columns of $\bX$:
+
+\begin{align}
+&2(\by - \bX \widehat{\bbeta}^\text{ols})^\T (\bX \widehat{\bbeta}^\text{ols} - \bX \bbeta )\\
+=& 2\br^\T \bX (\widehat{\bbeta}^\text{ols} - \bbeta )\\
+=& 0
+\end{align}
+
+Then we just need to optimize the part that involves $\bbeta$:
+
+\begin{align}
+&\underset{\bbeta}{\argmin} \frac{1}{n}\lVert \by - \bX \widehat{\bbeta}^\text{ols} \rVert^2 + \frac{1}{n} \lVert \bX \widehat{\bbeta}^\text{ols} - \bX \bbeta \rVert^2 + \lambda \lVert\bbeta\rVert_1\\
+=&\underset{\bbeta}{\argmin} \frac{1}{n} \lVert \bX \widehat{\bbeta}^\text{ols} - \bX \bbeta \rVert^2 + \lambda \lVert\bbeta\rVert_1\\
+=&\underset{\bbeta}{\argmin} \frac{1}{n} (\widehat{\bbeta}^\text{ols} - \bbeta )^\T \bX^\T \bX (\widehat{\bbeta}^\text{ols} - \bbeta )  + \lambda \lVert\bbeta\rVert_1\\
+=&\underset{\bbeta}{\argmin} \frac{1}{n} (\widehat{\bbeta}^\text{ols} - \bbeta )^\T n \bI (\widehat{\bbeta}^\text{ols} - \bbeta )  + \lambda \lVert\bbeta\rVert_1\\
+=&\underset{\bbeta}{\argmin} \sum_{j = 1}^p (\widehat{\bbeta}^\text{ols}_j - \bbeta_j )^2 + \lambda \sum_j |\bbeta_j|\\
+\end{align}
+
+This is a separable problem meaning that we can solve each $\beta_j$ independently since they do not interfere each other. Then the univariate problem is 
+
+$$\underset{\beta}{\argmin} \,\, (\beta - a)^2 + \lambda |\beta|$$
+We learned that to solve for an optimizer, we can set the gradient to be zero. However, the function is not everywhere differentiable. Still, we can separate this into two cases: $\beta > 0$ and $\beta < 0$. For the positive side, we have 
+
+\begin{align}
+0 =& \frac{\partial}{\partial \beta} \,\, (\beta - a)^2 + \lambda |\beta| = 2 (\beta - a) + \lambda \\
+\Longrightarrow \quad \beta =&\, a - \lambda/2
+\end{align}
+
+However, this will maintain positive only when $\beta$ is greater than $a - \lambda/2$. The negative size is similar. And whenever $\beta$ falls in between, it will be shrunk to zero. Overall, for our previous univariate optimization problem, the solution is  
+
+\begin{align}
+\hat\beta_j^\text{lasso} &=
+        \begin{cases}
+        \hat\beta_j^\text{ols} - \lambda/2 & \text{if} \quad \hat\beta_j^\text{ols} > \lambda/2 \\
+        0 & \text{if} \quad |\hat\beta_j^\text{ols}| < \lambda/2 \\
+        \hat\beta_j^\text{ols} + \lambda/2 & \text{if} \quad \hat\beta_j^\text{ols} < -\lambda/2 \\
+        \end{cases}\\
+        &= \text{sign}(\hat\beta_j^\text{ols}) \left(|\hat\beta_j^\text{ols}| - \lambda/2 \right)_+
+\end{align}
+
+This implies that when $\lambda$ is large enough, the estimated $\beta$ parameter of Lasso will be shrunk towards zero. The following animated figure demonstrates how adding an $\ell_1$ penalty can change the optimizer.
+
+```{r fig.dim = c(8, 6), out.width = "100%", fig.align = 'center', message=FALSE, warning=FALSE, echo=FALSE}
+  library(gganimate)
+  library(plotly)
+  
+  b = seq(-0.5, 2, 0.01)
+  fb = 0.5 + (b - 1)^2
+  alllambda = seq(0.01, 2.1, 0.01)
+  onevarlasso = data.frame()
+  
+  for (i in 1:length(alllambda))
+  {
+    lambdadata = rbind(data.frame("b" = b, "value" = fb, "Function" = "Loss", 
+                             "Lambda" = alllambda[i], "bnum" = 1:length(b)), 
+                       data.frame("b" = b, "value" = abs(b*alllambda[i]), "Function" = "Penalty", 
+                             "Lambda" = alllambda[i], "bnum" = 1:length(b)),
+                       data.frame("b" = b, "value" = fb + abs(b*alllambda[i]), "Function" = "Loss + Penalty", 
+                             "Lambda" = alllambda[i], "bnum" = 1:length(b)))
+    
+    onevarlasso = rbind(onevarlasso, lambdadata)
+  }
+  
+  
+  p <- ggplot(data.frame(onevarlasso), aes(x = b, y = value, color = Function)) +
+    geom_line(aes(frame = Lambda)) +
+    scale_x_continuous(name = "Beta", limits = c(-0.5, 2)) +
+    scale_y_continuous(name = "Function Value", limits = c(0, 4)) +
+    theme(
+      panel.background = element_rect(fill = "transparent"), # bg of the panel
+      plot.background = element_rect(fill = "transparent", color = NA), # bg of the plot
+      legend.background = element_rect(fill = "transparent"), # get rid of legend bg
+      legend.box.background = element_rect(fill = "transparent") # get rid of legend panel bg
+    )
+  fig <- ggplotly(p)
+  
+  fig
+```
+
