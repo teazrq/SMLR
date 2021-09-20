@@ -191,11 +191,11 @@ At each vertical line, a new variable enters the model by growing its parameter 
 
 ## Path-wise Coordinate Descent
 
-The coordinate descent algorithm [@friedman2010regularization] is probably the most efficient way to solve the Lasso solution up to now. The idea shares similarities with the stage-wise regression. However, with some careful analysis, we can obtain coordinate updates exactly, instead of moving a small step size. And this is done on a decreasing grid of $\lambda$ values. The entire algorithm proceed in the following way:
+The coordinate descent algorithm [@friedman2010regularization] is probably the most efficient way to solve the Lasso solution up to now. The idea shares similarities with the stage-wise regression. However, with some careful analysis, we can obtain coordinate updates exactly, instead of moving a small step size. And this is done on a decreasing grid of $\lambda$ values. A pseudo algorithm proceed in the following way:
 
   1) Start with a $\lambda$ value sufficiently large such that all parameter estimates are zero. 
   2) Reduce $\lambda$ by a fraction, e.g., 0.05, and perform coordinate descent updates:
-      i) For $j = 1, \ldots p$, update $\beta_j$.
+      i) For $j = 1, \ldots p$, update $\beta_j$ using a one-variable penalized formulation.
       ii) Repeat i) until convergence. 
   3) Record the corresponding $\widehat{\bbeta}^\text{lasso}_\lambda$.
   4) Repeat steps 2) and 3) until $\lambda$ is sufficiently small or there are already $n$ nonzero parameters entered into the model. Output $\widehat{\bbeta}^\text{lasso}_\lambda$ for all $\lambda$ values.
@@ -205,7 +205,7 @@ The crucial step is then figuring out the explicit formula of the coordinate upd
 $$
 \underset{\boldsymbol \beta_j}{\text{argmin}} \,\, \frac{1}{n} ||\by - X_j \beta_j - \bX_{(-j)} \bbeta_{(-j)} ||^2
 $$
-Since this is a single variable OLS problem, the solution is 
+Since this is a one-variable OLS problem, the solution is 
 
 $$
 \beta_j = \frac{X_j^T \mathbf{r}}{X_j^T X_j}
@@ -218,7 +218,7 @@ Incorporate this into the previous algorithm, we can obtain the entire solution 
 
 ## Using the `glmnet` package
 
-We still use the prostate cancer data `prostate` data. The dataset contains 8 explanatory variables and one outcome `lpsa`, the log prostate-specific antigen value. We fit the model using the `glmnet` package. The tuning parameter need to be selected using cross-validation with the `cv.glmnet` function. Specify `nfolds` for the number of folds in the cross-validation. The default is 10. We do not need to specify `alpha = 1` (for Lasso) since it is the default value. 
+We still use the prostate cancer data `prostate` data. The dataset contains 8 explanatory variables and one outcome `lpsa`, the log prostate-specific antigen value. We fit the model using the `glmnet` package. The tuning parameter can be selected using cross-validation with the `cv.glmnet` function. You can specify `nfolds` for the number of folds in the cross-validation. The default is 10. For Lasso, we should use `alpha = 1`, while `alpha = 0` is for Ridge. However, it is the default value that you do not need to specify. 
 
 ```{r}
     library(glmnet)
@@ -226,14 +226,7 @@ We still use the prostate cancer data `prostate` data. The dataset contains 8 ex
     fit2 = cv.glmnet(data.matrix(prostate[, 1:8]), prostate$lpsa, nfolds = 10, alpha = 1)
 ```
 
-We can obtain the estimated coefficients from the best $\lambda$ value. Similar to the ridge regression, there are two popular options, `lambda.min` and `lambda.1se`. The first one is the value that minimizes the cross-validation error, the second one is slightly more conservative, which gives larger penalty value with more shrinkage. You can notice that `lambda.min` contains more nonzero parameters. 
-
-```{r}
-    coef(fit2, s = "lambda.min")
-    coef(fit2, s = "lambda.1se")
-```
-
-The left plots demonstrates how $\lambda$ changes the cross-validation error. There are two vertical lines, which represents `lambda.min` and `lambda.1se` respectively. The right plot shows how $\lambda$ changes the parameter values. 
+The left plots demonstrates how $\lambda$ changes the cross-validation error. There are two vertical lines, which represents `lambda.min` and `lambda.1se` respectively. The right plot shows how $\lambda$ changes the parameter values, with each line representing a variable. The x-axis in the figure is in terms of $\log(\lambda)$, hence their is a larger penalty to the right. Note that the `glmnet` package uses $1/(2n)$ in the loss function instead of $1/n$, hence the corresponding soft-thresholding function would reduce the magnitude of $\lambda$ by $\lambda$ instead of half of it. Moreover, the package will perform scaling before the model fitting, which essentially changes the corresponding one-variable OLS solution. The solution on the original scale will be retrieved once the entire solution path is finished. However, we usually do not need to worry about these computationally issues in practice. The main advantage of Lasso is shown here that the model can be sparse, with some parameter estimates shrunk to exactly 0.  
 
 ```{r fig.dim = c(12, 6), out.width = '90%'}
     par(mfrow = c(1, 2))
@@ -241,5 +234,19 @@ The left plots demonstrates how $\lambda$ changes the cross-validation error. Th
     plot(fit2$glmnet.fit, "lambda")
 ```
 
-Some other packages can perform the same analysis, for example, the `lars` package. 
+We can obtain the estimated coefficients from the best $\lambda$ value. Similar to the ridge regression example, there are two popular options, `lambda.min` and `lambda.1se`. The first one is the value that minimizes the cross-validation error, the second one is slightly more conservative, which gives larger penalty value with more shrinkage. You can notice that `lambda.min` contains more nonzero parameters. 
+
+```{r}
+    coef(fit2, s = "lambda.min")
+    coef(fit2, s = "lambda.1se")
+```
+
+## Elastic-Net
+
+Lasso may suffer in the case where two variables are strongly correlated. The situation is similar to OLS, however, in Lasso, it would only select one out of the two, instead of letting both parameter estimates to be large. This is not preferred in some practical situations such as genetic studies because expressions of genes from the same pathway may have large correlation, but biologist want to identify all of them instead of just one. The Ridge penalty may help in this case because it naturally considers the correlation structure. Hence the __Elastic-Net__ [@zou2005regularization] penalty has been proposed to address this issue: the data contains many correlated variables and we want to select them together if they are important for prediction. The `glmnet` package uses the following definition of an Elastic-Net penalty, which is a mixture of $\ell_1$ and $\ell_2$ penalties:
+
+$$\lambda \left[ (1 - \alpha)/2 \lVert \bbeta\rVert_2^2 + \alpha |\bbeta|_1 \right],$$
+which involves two tuning parameters. However, in practice, it is very common to simply use $\alpha = 0.5$.
+
+
 
