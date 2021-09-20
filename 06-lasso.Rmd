@@ -45,15 +45,15 @@
 Lasso [@tibshirani1996regression] is among the most popular machine learning models. Different from the Ridge regression, its adds $\ell_1$ penalty on the fitted parameters:
 
 \begin{align}
-\widehat{\bbeta}^\text{ridge} =& \argmin_{\bbeta} (\by - \bX \bbeta)^\T (\by - \bX \bbeta) + n \lambda \lVert\bbeta\rVert_1\\
-=& \argmin_{\bbeta} \frac{1}{n} \sum_{i=1}^n (y_i - x_i^\T \bbeta)^2 + \lambda \sum_{i=1}^n |\beta_j|,
+\widehat{\bbeta}^\text{lasso} =& \argmin_{\bbeta} (\by - \bX \bbeta)^\T (\by - \bX \bbeta) + n \lambda \lVert\bbeta\rVert_1\\
+=& \argmin_{\bbeta} \frac{1}{n} \sum_{i=1}^n (y_i - x_i^\T \bbeta)^2 + \lambda \sum_{i=1}^p |\beta_j|,
 \end{align}
 
 The main advantage of adding such a penalty is that small $\widehat{\beta}_j$ values can be __shrunk to zero__. This may prevents over-fitting and also improve the interpretability especially when the number of variables is large. We will analyze the Lasso starting with a single variable case, and then discuss the application of coordinate descent algorithm to obtain the solution. 
 
 ## One-Variable Lasso and Shrinkage
 
-To illustrate how Lasso shrink a parameter estimate to zero, let's consider an orthogonal design matrix case, , i.e., $\bX^\T \bX = n \bI$, which will eventually reduce to a one-variable problem. Note that the intercept term is not essential because we can always pre-center the observed data $x_i$ and $y_i$s so that they can be recovered after this one variable problem. Our objective function is 
+To illustrate how Lasso shrink a parameter estimate to zero, let's consider an orthogonal design matrix case, i.e., $\bX^\T \bX = n \bI$, which will eventually reduce to a one-variable problem. Note that the intercept term is not essential because we can always pre-center the observed data $x_i$ and $y_i$s so that they can be recovered after this one variable problem. Our objective function is 
 
 $$\frac{1}{n}\lVert \by - \bX \bbeta \rVert^2 + \lambda \lVert\bbeta\rVert_1$$
 We are going to relate the solution the OLS solution, which exists in this case because $\bX^\T \bX$ is invertible. Hence, we have 
@@ -226,7 +226,7 @@ We still use the prostate cancer data `prostate` data. The dataset contains 8 ex
     fit2 = cv.glmnet(data.matrix(prostate[, 1:8]), prostate$lpsa, nfolds = 10, alpha = 1)
 ```
 
-The left plots demonstrates how $\lambda$ changes the cross-validation error. There are two vertical lines, which represents `lambda.min` and `lambda.1se` respectively. The right plot shows how $\lambda$ changes the parameter values, with each line representing a variable. The x-axis in the figure is in terms of $\log(\lambda)$, hence their is a larger penalty to the right. Note that the `glmnet` package uses $1/(2n)$ in the loss function instead of $1/n$, hence the corresponding soft-thresholding function would reduce the magnitude of $\lambda$ by $\lambda$ instead of half of it. Moreover, the package will perform scaling before the model fitting, which essentially changes the corresponding one-variable OLS solution. The solution on the original scale will be retrieved once the entire solution path is finished. However, we usually do not need to worry about these computationally issues in practice. The main advantage of Lasso is shown here that the model can be sparse, with some parameter estimates shrunk to exactly 0.  
+The left plot demonstrates how $\lambda$ changes the cross-validation error. There are two vertical lines, which represents `lambda.min` and `lambda.1se` respectively. The right plot shows how $\lambda$ changes the parameter values, with each line representing a variable. The x-axis in the figure is in terms of $\log(\lambda)$, hence their is a larger penalty to the right. Note that the `glmnet` package uses $1/(2n)$ in the loss function instead of $1/n$, hence the corresponding soft-thresholding function would reduce the magnitude of $\lambda$ by $\lambda$ instead of half of it. Moreover, the package will perform scaling before the model fitting, which essentially changes the corresponding one-variable OLS solution. The solution on the original scale will be retrieved once the entire solution path is finished. However, we usually do not need to worry about these computationally issues in practice. The main advantage of Lasso is shown here that the model can be sparse, with some parameter estimates shrunk to exactly 0.  
 
 ```{r fig.dim = c(12, 6), out.width = '90%'}
     par(mfrow = c(1, 2))

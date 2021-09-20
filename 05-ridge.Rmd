@@ -52,7 +52,7 @@ It provides a solution of linear regression when multicollinearity happens, espe
 $$
 \begin{align}
 \widehat{\bbeta}^\text{ridge} =& \argmin_{\bbeta} (\by - \bX \bbeta)^\T (\by - \bX \bbeta) + n \lambda \lVert\bbeta\rVert_2^2\\
-=& \argmin_{\bbeta} \frac{1}{n} \sum_{i=1}^n (y_i - x_i^\T \bbeta)^2 + \lambda \sum_{i=1}^n \beta_j^2,
+=& \argmin_{\bbeta} \frac{1}{n} \sum_{i=1}^n (y_i - x_i^\T \bbeta)^2 + \lambda \sum_{j=1}^p \beta_j^2,
 \end{align}
 $$
 
