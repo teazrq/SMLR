@@ -30,6 +30,8 @@
   par(mar=c(2,2,2,2))
 ```
 
+# (PART) Linear and Penalized Linear Models {-}
+
 # Linear Regression and Model Selection
 
 This chapter severs several purposes. First, we will review some basic knowledge of linear regression. This includes the concept of vector space, projection, which leads to estimating parameters of a linear regression. Most of these knowledge are covered in the prerequisite so you shouldn't find these concepts too difficult to understand. Secondly, we will mainly use the `lm()` function as an example to demonstrate some features of `R`. This includes extracting results, visualizations, handling categorical variables, prediction and model selection. These concepts will be useful for other models. Finally, we will introduce several model selection criteria and  algorithms to perform model selection. 

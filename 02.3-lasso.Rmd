@@ -241,6 +241,13 @@ We can obtain the estimated coefficients from the best $\lambda$ value. Similar 
     coef(fit2, s = "lambda.1se")
 ```
 
+Prediction can be done using the `predict()` function. 
+
+```{r}
+    pred = predict(fit2, data.matrix(prostate[, 1:8]), s = "lambda.min")
+    # training error
+    mean((pred - prostate$lpsa)^2)
+```
 ## Elastic-Net
 
 Lasso may suffer in the case where two variables are strongly correlated. The situation is similar to OLS, however, in Lasso, it would only select one out of the two, instead of letting both parameter estimates to be large. This is not preferred in some practical situations such as genetic studies because expressions of genes from the same pathway may have large correlation, but biologist want to identify all of them instead of just one. The Ridge penalty may help in this case because it naturally considers the correlation structure. Hence the __Elastic-Net__ [@zou2005regularization] penalty has been proposed to address this issue: the data contains many correlated variables and we want to select them together if they are important for prediction. The `glmnet` package uses the following definition of an Elastic-Net penalty, which is a mixture of $\ell_1$ and $\ell_2$ penalties:

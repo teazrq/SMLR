@@ -1,0 +1,45 @@
+\def\cD{\cal{D}}
+\def\bA{\mathbf{A}}
+\def\bB{\mathbf{B}}
+\def\bX{\mathbf{X}}
+\def\bH{\mathbf{H}}
+\def\bI{\mathbf{I}}
+\def\bU{\mathbf{U}}
+\def\bD{\mathbf{D}}
+\def\bV{\mathbf{V}}
+\def\bS{\mathbf{S}}
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\bs{\mathbf{s}}
+\def\br{\mathbf{r}}
+\def\bu{\mathbf{u}}
+\def\be{\mathbf{e}}
+\def\bv{\mathbf{v}}
+\def\bp{\mathbf{p}}
+\def\bzero{\mathbf{0}}
+\def\bbeta{\boldsymbol \beta}
+\def\bmu{\boldsymbol \mu}
+\def\bepsilon{\boldsymbol \epsilon}
+\def\T{\text{T}}
+\def\Trace{\text{Trace}}
+\def\Cov{\text{Cov}}
+\def\Var{\text{Var}}
+\def\E{\text{E}}
+\def\pr{\text{pr}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+```{r include = FALSE}
+  options(width = 100)
+  knitr::opts_knit$set(global.par = TRUE)
+  knitr::opts_chunk$set(collapse = TRUE, fig.dim = c(6, 6),
+                        out.width = "45%", fig.align = 'center')
+```
+```{r include = FALSE}
+  par(bg="transparent")
+  par(mar=c(2,2,2,2))
+```
+
+# (PART) Nonparametric Models through Local Averaging {-}
+
+# K-Neariest Neighber

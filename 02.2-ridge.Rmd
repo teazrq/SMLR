@@ -40,8 +40,6 @@
   par(mar=c(2,2,2,2))
 ```
 
-# (PART) Regression Models {-}
-
 # Ridge Regression
 
 Ridge regression was proposed by @hoerl1970ridge, but is also a special case of Tikhonov regularization. The essential idea is very simple: Knowing that the ordinary least squares (OLS) solution is not unique in an ill-posed problem, i.e., $\bX^\T \bX$ is not invertible, a ridge regression adds a ridge (diagonal matrix) on $\bX^\T \bX$:
@@ -421,3 +419,31 @@ It is useful to plot the cross-validation error against the $\lambda$ values , t
   coef(fit2, s = "lambda.min")
   coef(fit2, s = "lambda.1se")
 ```
+
+### Scaling Issue
+
+The `glmnet` package would using the same strategies for scaling: center and standardize $\bX$ and center $\by$. A slight difference is that it considers using $1/(2n)$ as the normalizing factor of the residual sum of squares, but also uses $\lambda/2 \lVert \bbeta\rVert_2^2$ as the penalty. This does not affect our formulation since the $1/2$ cancels out. However, it would slightly affect the Lasso formulation introduced in the next Chapter since the $\ell_1$ penalty does not apply this $1/2$ factor. Nonetheless, we can check the (nearly) equivalence between `lm.ridge` and `glmnet()`:
+
+```{r fig.dim = c(12, 6), out.width = "70%"}
+  n = 100
+  p = 5
+
+  X <- as.matrix(scale(matrix(rnorm(n*p), n, p)))
+  y <- as.matrix(scale(X[, 1] + X[,2]*0.5 + rnorm(n, sd = 0.5)))
+ 
+  lam = 10^seq(-1, 3, 0.1)
+ 
+  fit1 <- lm.ridge(y ~ X, lambda = lam)
+  fit2 <- glmnet(X, y, alpha = 0, lambda = lam / nrow(X))
+ 
+  # the estimated parameters
+  par(mfrow=c(1, 2))
+  matplot(apply(coef(fit1), 2, rev), type = "l", main = "lm.ridge")
+  matplot(t(as.matrix(coef(fit2))), type = "l", main = "glmnet")
+  
+  # Check differences
+  max(abs(apply(coef(fit1), 2, rev) - t(as.matrix(coef(fit2)))))
+```
+
+
+
