@@ -64,6 +64,7 @@ cross-validation
 leave-one-out-cross-validation
 generalized-cross-validation
 the-glmnet-package
+scaling-issue-1
 lasso
 one-variable-lasso-and-shrinkage
 constrained-optimization-view
@@ -73,6 +74,14 @@ using-the-glmnet-package
 elastic-net
 spline
 k-neariest-neighber
+tuning-k
+the-bias-variance-trade-off
+knn-for-classification
+example-1-an-artificial-data
+tuning-with-the-caret-package
+distance-measures
+nn-error-bound
+example-2-handwritten-digit-data
+curse-of-dimensionality
 kernel-smoothing
 reference
-scaling-issue-1
