@@ -23,6 +23,8 @@ displaystyle-latex
 inline-latex
 output-options
 try-it
+linear-algebra-basics
+definition
 optimization-basics
 basic-concept
 global_local
@@ -74,6 +76,7 @@ using-the-glmnet-package
 elastic-net
 spline
 k-neariest-neighber
+definition-1
 tuning-k
 the-bias-variance-trade-off
 knn-for-classification
@@ -84,4 +87,13 @@ nn-error-bound
 example-2-handwritten-digit-data
 curse-of-dimensionality
 kernel-smoothing
+knn-vs.-kernel
+kernel-density-estimations
+bias-variance-trade-off
+gaussian-kernel-regression
+bias-variance-trade-off-1
+choice-of-kernel-functions
+local-linear-regression
+local-polynomial-regression
+r-implementations
 reference

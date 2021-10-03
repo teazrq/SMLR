@@ -1,0 +1,70 @@
+\def\cD{\cal{D}}
+\def\bA{\mathbf{A}}
+\def\bB{\mathbf{B}}
+\def\bC{\mathbf{C}}
+\def\bX{\mathbf{X}}
+\def\bH{\mathbf{H}}
+\def\bI{\mathbf{I}}
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\bs{\mathbf{s}}
+\def\br{\mathbf{r}}
+\def\bu{\mathbf{u}}
+\def\be{\mathbf{e}}
+\def\bv{\mathbf{v}}
+\def\bp{\mathbf{p}}
+\def\bzero{\mathbf{0}}
+\def\bbeta{\boldsymbol \beta}
+\def\bmu{\boldsymbol \mu}
+\def\bepsilon{\boldsymbol \epsilon}
+\def\T{\text{T}}
+\def\Trace{\text{Trace}}
+\def\Cov{\text{Cov}}
+\def\Var{\text{Var}}
+\def\E{\text{E}}
+\def\pr{\text{pr}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+```{r include = FALSE}
+  options(width = 100)
+  knitr::opts_knit$set(global.par = TRUE)
+  knitr::opts_chunk$set(collapse = TRUE, fig.dim = c(6, 6), 
+                        fig.width = 6, fig.width = 6,
+                        out.width = "45%", fig.align = 'center')
+```
+```{r include = FALSE}
+  par(bg="transparent")
+  par(mar=c(2,2,2,2))
+```
+
+# Linear Algebra Basics
+
+You should already be familiar with some basic linear algebra concepts such as matrix and vector multiplications. Here we review some basic concepts and properties that will be used in this course. For the most part, they are used in deriving linear regression results. 
+
+## Definition
+
+We usually use $\bX$ to denote an $n \times p$ dimensional design matrix, where $n$ is the number of observations and $p$ is the number of variables. The columns of $\bx$ are denoted as $\bx_1, \ldots, \bx_p$:
+
+$$
+\bX = \begin{pmatrix}
+x_{11} & x_{12} & \cdots & x_{1p}\\
+x_{21} & x_{22} & \cdots & x_{2p}\\
+\vdots & \vdots & \ddots & \vdots\\
+x_{m1} & x_{n2} & \cdots & x_{np}\\
+\end{pmatrix} = 
+\begin{pmatrix}
+\bx_1 & \bx_2 & \cdots & \bx_p\\
+\end{pmatrix}
+$$
+The __column space__, $\cal{C}(\bX)$ of $\bX$ is the set of all linear combinations of $\bx_1, \bx_2, \ldots, \bx_p$, i.e., 
+
+$$c_1 \bx_1 + c_2 \bx_2 + \cdots c_p \bx_p.$$
+This is also called the __span__ of these vectors, $\text{span}(\bx_1, \bx_2, \ldots, \bx_p)$. Its orthogonal space is 
+
+$$\{\bv: \bX^\T \bv = 0\}.$$
+A projection matrix $\bP$ is a matrix such that 
+
+
+
+

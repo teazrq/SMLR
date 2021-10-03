@@ -45,10 +45,14 @@
 
 # K-Neariest Neighber
 
-$K$ nearest neighbor is a simple nonparametric method. Suppose we collect a set of observations $\{x_i, y_i\}_{i=1}^n$, the prediction at a new target point $x_0$ is
+$K$ nearest neighbor (KNN) is a simple nonparametric method. It can be used for both regression and classification problems. However, the idea is quite different from models we introduced before. In a linear model, we have a set of parameters $\bbeta$ and our estimated function value, for any target point $x_0$ is $x_0^\T \bbeta$. In KNN, we don't really specify these parameters. Instead, we directed estimate $f(x_0)$. This is traditionally called __nonparametric models__ in statistics. Usually these models perform a local averaging technique to estimate $f(x_0)$ using observations close to $x_0$. 
+
+## Definition
+
+Suppose we collect a set of observations $\{x_i, y_i\}_{i=1}^n$, the prediction at a new target point $x_0$ is
 
 $$\widehat y = \frac{1}{k} \sum_{x_i \in N_k(x_0)} y_i,$$
-where $N_k(x_0)$ defines the $k$ samples from the training data that are closest to $x_0$. As default, closeness is defined using distance measures, such as the Euclidean distance. Here is a demonstration of the fitted regression function. 
+where $N_k(x_0)$ defines the $k$ samples from the training data that are closest to $x_0$. As default, closeness is defined using a distance measure, such as the Euclidean distance. Here is a demonstration of the fitted regression function. 
 
 ```{r fig.dim = c(9, 6)}
     # generate training data with 2*sin(x) and random Gaussian errors
@@ -81,9 +85,9 @@ where $N_k(x_0)$ defines the $k$ samples from the training data that are closest
            col = c("darkorange", "deepskyblue"), lty = 1, cex = 1.5)
 ```
 
-## Tuning $K$
+## Tuning $k$
 
-Tuning $K$ is crucial for $k$NN. Let's observe its effect. This time, I generate 200 observations. For 1NN, the fitted regression line is very jumpy. 
+Tuning $k$ is crucial for $k$NN. Let's observe its effect. This time, I generate 200 observations. For 1NN, the fitted regression line is very jumpy. 
 
 ```{r}
   # generate more data
@@ -163,7 +167,7 @@ As we can see from the previous example, when $k=1$, the prediction error is abo
 
 ## KNN for Classification 
 
-For hard classification, kNN is not really much different from the regression model, except that a majority voting is used instead of averaging. For 1NN, it is a Voronoi tessellation. The plot on the left is some randomly observed data, and the plot on the right is the corresponding 1NN classification model. 
+For classification, kNN is different from the regression model in term of finding neighbers. The only difference is to majority voting instead of averaging. Majority voting means that we look for the most popular class label among its neighbors. For 1NN, it is simply the class of the closest neighbor. The visualization of 1NN is a Voronoi tessellation. The plot on the left is some randomly observed data in $[0, 1]^2$, and the plot on the right is the corresponding 1NN classification model. 
 
 ```{r message=FALSE, fig.dim=c(12, 6), out.width="90%", echo = FALSE}
   # knn for classification: 

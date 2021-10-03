@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 10 Kernel Smoothing | Statistical Learning and Machine Learning with R</title>
+  <title>Chapter 3 Linear Algebra Basics | Statistical Learning and Machine Learning with R</title>
   <meta name="description" content="A textbook for STAT 542 and 432 at UIUC" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 10 Kernel Smoothing | Statistical Learning and Machine Learning with R" />
+  <meta property="og:title" content="Chapter 3 Linear Algebra Basics | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://teazrq.github.io/SMLR/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 10 Kernel Smoothing | Statistical Learning and Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 3 Linear Algebra Basics | Statistical Learning and Machine Learning with R" />
   
   <meta name="twitter:description" content="A textbook for STAT 542 and 432 at UIUC" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="k-neariest-neighber.html"/>
-<link rel="next" href="reference.html"/>
+<link rel="prev" href="rmarkdown.html"/>
+<link rel="next" href="optimization-basics.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -349,173 +349,38 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="kernel-smoothing" class="section level1" number="10">
-<h1><span class="header-section-number">Chapter 10</span> Kernel Smoothing</h1>
-<p>Fundamental ideas of local regression approaches are similar to <span class="math inline">\(k\)</span>NN. But most approaches would address a fundamental drawback of <span class="math inline">\(k\)</span>NN that the estimated function is not smooth. Having a smoothed estimation would also allow us to estimate the derivative, which is essentially used when estimating the density function. We will start with the intuition of the kernel estimator and then discuss the bias-variance trade-off using kernel density estimation as an example.</p>
-<div id="knn-vs.-kernel" class="section level2" number="10.1">
-<h2><span class="header-section-number">10.1</span> KNN vs. Kernel</h2>
-<p>We first compare the <span class="math inline">\(K\)</span>NN method with a Gaussian kernel regression. <span class="math inline">\(K\)</span>NN has jumps while Gaussian kernel regression is smooth.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-133-1.png" width="90%" style="display: block; margin: auto;" /></p>
-</div>
-<div id="kernel-density-estimations" class="section level2" number="10.2">
-<h2><span class="header-section-number">10.2</span> Kernel Density Estimations</h2>
-<p>A natural estimator, by using the counts, is</p>
-<p><span class="math display">\[\widehat f(x) = \frac{\#\big\{x_i: x_i \in [x - \frac{h}{2}, x + \frac{h}{2}]\big\}}{h n}\]</span>
-This maybe compared with the histogram estimator</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="kernel-smoothing.html#cb99-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(ggplot2)</span>
-<span id="cb99-2"><a href="kernel-smoothing.html#cb99-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data</span>(mpg)</span>
-<span id="cb99-3"><a href="kernel-smoothing.html#cb99-3" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb99-4"><a href="kernel-smoothing.html#cb99-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># histogram </span></span>
-<span id="cb99-5"><a href="kernel-smoothing.html#cb99-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hist</span>(mpg<span class="sc">$</span>hwy, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">6</span>, <span class="dv">50</span>, <span class="dv">2</span>))</span>
-<span id="cb99-6"><a href="kernel-smoothing.html#cb99-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb99-7"><a href="kernel-smoothing.html#cb99-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># uniform kernel</span></span>
-<span id="cb99-8"><a href="kernel-smoothing.html#cb99-8" aria-hidden="true" tabindex="-1"></a>    xgrid <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">6</span>, <span class="dv">50</span>, <span class="fl">0.1</span>)</span>
-<span id="cb99-9"><a href="kernel-smoothing.html#cb99-9" aria-hidden="true" tabindex="-1"></a>    histden <span class="ot">=</span> <span class="fu">sapply</span>(xgrid, <span class="at">FUN =</span> <span class="cf">function</span>(x, obs, h) <span class="fu">sum</span>( ((x<span class="sc">-</span>h<span class="sc">/</span><span class="dv">2</span>) <span class="sc">&lt;=</span> obs) <span class="sc">*</span> ((x<span class="sc">+</span>h<span class="sc">/</span><span class="dv">2</span>) <span class="sc">&gt;</span> obs))<span class="sc">/</span>h<span class="sc">/</span><span class="fu">length</span>(obs), </span>
-<span id="cb99-10"><a href="kernel-smoothing.html#cb99-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">obs =</span> mpg<span class="sc">$</span>hwy, <span class="at">h =</span> <span class="dv">2</span>)</span>
-<span id="cb99-11"><a href="kernel-smoothing.html#cb99-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb99-12"><a href="kernel-smoothing.html#cb99-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(xgrid, histden, <span class="at">type =</span> <span class="st">&quot;s&quot;</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-134-1.png" width="90%" style="display: block; margin: auto;" /></p>
-<p>This can be view in two ways. The easier interpretation is that, for each target point, we count how many observations are close-by. We can also interpret it as evenly distributing the point-mass of each observation to a close-by region with width <span class="math inline">\(h\)</span>, and then stack them all.</p>
-<p><span class="math display">\[\widehat f(x) = \frac{1}{h n} \sum_i \,\underbrace{ \mathbf{1} \Big(x \in [x_i - \frac{h}{2}, x_i + \frac{h}{2}]}_{\text{uniform density centered at } x_i} \Big)\]</span>
-Here is a close-up demonstration of how those uniform density functions are stacked for all observations.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-136-1.png" width="55%" style="display: block; margin: auto;" /></p>
-<p>However, this is will lead to jumps at the end of each small uniform density. Let’s consider using a smooth function instead. Naturally, we can use the Gaussian kernel function to calculate the numerator in the above equation.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-137-1.png" width="55%" style="display: block; margin: auto;" /></p>
-<p>We apply this to the <code>mpg</code> dataset.</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="kernel-smoothing.html#cb100-1" aria-hidden="true" tabindex="-1"></a>  xgrid <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">6</span>, <span class="dv">50</span>, <span class="fl">0.1</span>)</span>
-<span id="cb100-2"><a href="kernel-smoothing.html#cb100-2" aria-hidden="true" tabindex="-1"></a>  kernelfun <span class="ot">&lt;-</span> <span class="cf">function</span>(x, obs, h) <span class="fu">sum</span>(<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">0.5</span><span class="sc">*</span>((x<span class="sc">-</span>obs)<span class="sc">/</span>h)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">*</span>pi)<span class="sc">/</span>h)</span>
-<span id="cb100-3"><a href="kernel-smoothing.html#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(xgrid, <span class="fu">sapply</span>(xgrid, <span class="at">FUN =</span> kernelfun, <span class="at">obs =</span> mpg<span class="sc">$</span>hwy, <span class="at">h =</span> <span class="fl">1.5</span>)<span class="sc">/</span><span class="fu">length</span>(mpg<span class="sc">$</span>hwy), <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
-<span id="cb100-4"><a href="kernel-smoothing.html#cb100-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;MPG&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Estimated Density&quot;</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-138-1.png" width="55%" style="display: block; margin: auto;" /></p>
-<p>The <code>ggplot2</code> packages provides some convenient features to plot the density and histogram.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="kernel-smoothing.html#cb101-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x=</span>hwy)) <span class="sc">+</span> </span>
-<span id="cb101-2"><a href="kernel-smoothing.html#cb101-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..), <span class="at">colour=</span><span class="st">&quot;black&quot;</span>, <span class="at">fill=</span><span class="st">&quot;white&quot;</span>)<span class="sc">+</span></span>
-<span id="cb101-3"><a href="kernel-smoothing.html#cb101-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>(<span class="at">alpha=</span>.<span class="dv">2</span>, <span class="at">fill=</span><span class="st">&quot;#ff8c00&quot;</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-139-1.png" width="45%" style="display: block; margin: auto;" /></p>
-</div>
-<div id="bias-variance-trade-off" class="section level2" number="10.3">
-<h2><span class="header-section-number">10.3</span> Bias-variance trade-off</h2>
-<p>Let’s consider estimating a density, using the Parzen estimator</p>
-<p><span class="math display">\[\widehat f(x) = \frac{1}{n} \sum_{i=1}^n K_{h} (x, x_i)\]</span>
-here, <span class="math inline">\(K_h(\mathbf{u}, \mathbf{v}) = K(|\mathbf{u}- \mathbf{v}|/h)/h\)</span> is a kernel function that satisfies</p>
-<ul>
-<li><span class="math inline">\(\int K(u)du = 1\)</span> (a proper density)</li>
-<li><span class="math inline">\(K(-u) = K(u)\)</span> (symmetric)</li>
-<li><span class="math inline">\(\int K(u) u^2 du \leq \infty\)</span> (finite second moment)</li>
-</ul>
-<p>Note that <span class="math inline">\(h\)</span> simply scales the covariate and adjust the density accordingly. Our goal is to estimate a target point <span class="math inline">\(x\)</span> using a set of iid data. First, we can analyze the bias:</p>
-<p><span class="math display">\[\begin{align}
-    \text{E}\big[ \widehat f(x) \big] &amp;= \text{E}\left[ K\left( \frac{x - x_1}{h} \right) \Big/ h \right] \\
-    &amp;= \int_{-\infty}^\infty \frac{1}{h} K\left(\frac{x-x_1}{h}\right) f(x_1) d x_1 \\
-    &amp;= \int_{\infty}^{-\infty} \frac{1}{h} K(t) f(x - th) d (x-th) \\
-    (\text{Taylor expansion}) \quad &amp;= f(x) + \frac{h^2}{2} f&#39;&#39;(x) \int_{-\infty}^\infty K(t) t^2 dt + o(h^2) \\
-    (\text{as } ha \rightarrow 0) \quad &amp;\rightarrow f(x)
-\end{align}\]</span></p>
-<p>Since the density is over the entire domain, we can define the integrated Bias<span class="math inline">\(^2\)</span>:</p>
-<p><span class="math display">\[\begin{align}
-\text{Bias}^2 &amp;= \int \left( E[\widehat f(x)] - f(x)\right)^2 dx \\
-    &amp;\approx \frac{h^4 \sigma_K^4}{4} \int \big[ f&#39;&#39;(x)\big]^2 dx
-\end{align}\]</span>
-where <span class="math inline">\(\sigma_K^2 = \int_{-\infty}^\infty K(t) t^2 dt\)</span>.</p>
-<p>On the other hand, the variance term is</p>
-<p><span class="math display">\[\begin{align}
-  \text{Var}\big[ \widehat f(x) \big] &amp;= \frac{1}{n} \text{Var}\Big[\frac{1}{h}K\big( \frac{x - x_1}{h} \big) \Big] \\
-  &amp;= \frac{1}{n} \text{E}\bigg[ \frac{1}{h^2} K^2\big( \frac{x - x_1}{h}\big) - \text{E}\Big[ \frac{1}{h} K\big( \frac{x - x_1}{h} \big)\Big]^2 \bigg]\\
-  &amp;= \frac{1}{n} \Big[ \int \frac{1}{h} K^2( \frac{x - x_1}{h} ) f(x_1) dx_1 + O(1) \Big] \\
-  &amp;= \frac{1}{n} \Big[ \frac{1}{h} \int K^2( u ) f(x) du + O(1) \Big] \\
-  &amp;= \frac{f(x)}{nh} \int K^2( u ) du 
-\end{align}\]</span></p>
-<p>with the integrated variance being</p>
-<p><span class="math display">\[\frac{1}{nh} \int K^2( u ) dt \]</span></p>
-<p>By minimizing the asymptotic mean integrated squared error (AMISE), defined as the sum of integrated Bias<span class="math inline">\(^2\)</span> and variance, we have the optimal <span class="math inline">\(h\)</span> being</p>
-<p><span class="math display">\[h^\text{opt} = \bigg[\frac{1}{n} \frac{\int K^2(u)du}{ \sigma^2_K \int f&#39;&#39;(u)du} \bigg]^{1/5},\]</span></p>
-<p>and the optimal <span class="math inline">\(h\)</span> is in the order of <span class="math inline">\(\cal O(n^{-4/5})\)</span>.</p>
-</div>
-<div id="gaussian-kernel-regression" class="section level2" number="10.4">
-<h2><span class="header-section-number">10.4</span> Gaussian Kernel Regression</h2>
-<p>A Nadaraya-Watson kernel regression model has the following formula. Note that we use <span class="math inline">\(h\)</span> as the bandwidth instead of <span class="math inline">\(h\)</span>.</p>
-<p><span class="math display">\[\widehat f(x) = \frac{\sum_i K_h(x, x_i) y_i}{\sum_i K_h(x, x_i)},\]</span>
-where <span class="math inline">\(h\)</span> is the bandwidth. At each target point <span class="math inline">\(x\)</span>, training data <span class="math inline">\(x_i\)</span>s that are closer to <span class="math inline">\(x\)</span> receives higher weights <span class="math inline">\(K_h(x, x_i)\)</span>, hence their <span class="math inline">\(y_i\)</span> values are more influential in terms of estimating <span class="math inline">\(f(x)\)</span>. For the Gaussian kernel, we use</p>
-<p><span class="math display">\[K_h(x, x_i) = \frac{1}{h\sqrt{2\pi}} \exp\left\{ -\frac{(x - x_i)^2}{2 h^2}\right\}\]</span></p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-140-1.png" width="90%" style="display: block; margin: auto;" /></p>
-<div id="bias-variance-trade-off-1" class="section level3" number="10.4.1">
-<h3><span class="header-section-number">10.4.1</span> Bias-variance Trade-off</h3>
-<p>The bandwidth <span class="math inline">\(h\)</span> is an important tuning parameter that controls the bias-variance trade-off. It behaves the same as the density estimation. By setting a large <span class="math inline">\(h\)</span>, the estimator is more stable but has more bias.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="kernel-smoothing.html#cb102-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># a small bandwidth</span></span>
-<span id="cb102-2"><a href="kernel-smoothing.html#cb102-2" aria-hidden="true" tabindex="-1"></a>  ksmooth.fit1 <span class="ot">=</span> <span class="fu">ksmooth</span>(x, y, <span class="at">bandwidth =</span> <span class="fl">0.5</span>, <span class="at">kernel =</span> <span class="st">&quot;normal&quot;</span>, <span class="at">x.points =</span> testx)</span>
-<span id="cb102-3"><a href="kernel-smoothing.html#cb102-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb102-4"><a href="kernel-smoothing.html#cb102-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># a large bandwidth</span></span>
-<span id="cb102-5"><a href="kernel-smoothing.html#cb102-5" aria-hidden="true" tabindex="-1"></a>  ksmooth.fit2 <span class="ot">=</span> <span class="fu">ksmooth</span>(x, y, <span class="at">bandwidth =</span> <span class="dv">2</span>, <span class="at">kernel =</span> <span class="st">&quot;normal&quot;</span>, <span class="at">x.points =</span> testx)</span>
-<span id="cb102-6"><a href="kernel-smoothing.html#cb102-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb102-7"><a href="kernel-smoothing.html#cb102-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot both</span></span>
-<span id="cb102-8"><a href="kernel-smoothing.html#cb102-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x, y, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span><span class="sc">*</span>pi), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">xaxt=</span><span class="st">&#39;n&#39;</span>, <span class="at">yaxt=</span><span class="st">&#39;n&#39;</span>)</span>
-<span id="cb102-9"><a href="kernel-smoothing.html#cb102-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(testx, <span class="dv">2</span><span class="sc">*</span><span class="fu">sin</span>(testx), <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb102-10"><a href="kernel-smoothing.html#cb102-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(testx, ksmooth.fit1<span class="sc">$</span>y, <span class="at">type =</span> <span class="st">&quot;s&quot;</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb102-11"><a href="kernel-smoothing.html#cb102-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(testx, ksmooth.fit2<span class="sc">$</span>y, <span class="at">type =</span> <span class="st">&quot;s&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb102-12"><a href="kernel-smoothing.html#cb102-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;h = 0.5&quot;</span>, <span class="st">&quot;h = 2&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;red&quot;</span>), </span>
-<span id="cb102-13"><a href="kernel-smoothing.html#cb102-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-142-1.png" width="45%" style="display: block; margin: auto;" /></p>
-</div>
-</div>
-<div id="choice-of-kernel-functions" class="section level2" number="10.5">
-<h2><span class="header-section-number">10.5</span> Choice of Kernel Functions</h2>
-<p>Other kernel functions can also be used. The most efficient kernel is the Epanechnikov kernel, which will minimize the mean integrated squared error (MISE). The efficiency is defined as</p>
-<p><span class="math display">\[ \Big(\int u^2K(u) du\Big)^\frac{1}{2}  \int K^2(u) du, \]</span>
-Different kernel functions can be visualized in the following. Most kernels are bounded within <span class="math inline">\([-h/2, h/2]\)</span>, except the Gaussian kernel.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-143-1.png" width="45%" style="display: block; margin: auto;" /></p>
-</div>
-<div id="local-linear-regression" class="section level2" number="10.6">
-<h2><span class="header-section-number">10.6</span> Local Linear Regression</h2>
-<p>Local averaging will suffer severe bias at the boundaries. One solution is to use the local polynomial regression. The following examples are local linear regressions, evaluated as different target points. We are solving for a linear model weighted by the kernel weights</p>
-<p><span class="math display">\[\sum_{i = 1}^n K_h(x, x_i) \big( y_i - \beta_0 - \beta_1 x_i \big)^2\]</span></p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-144-1.png" width="90%" style="display: block; margin: auto;" /></p>
-</div>
-<div id="local-polynomial-regression" class="section level2" number="10.7">
-<h2><span class="header-section-number">10.7</span> Local Polynomial Regression</h2>
-<p>The following examples are local polynomial regressions, evaluated as different target points. We can easily extend the local linear model to inccorperate higher orders terms:</p>
-<p><span class="math display">\[\sum_{i=1}^n K_h(x, x_i) \Big[ y_i - \beta_0(x) - \sum_{r=1}^d \beta_j(x) x_i^r \Big]^2\]</span></p>
-<p>The followings are local quadratic fittings, which will further correct the bias.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-146-1.png" width="90%" style="display: block; margin: auto;" /></p>
-</div>
-<div id="r-implementations" class="section level2" number="10.8">
-<h2><span class="header-section-number">10.8</span> R Implementations</h2>
-<p>Some popular <code>R</code> functions implements the local polynomial regressions: <code>loess</code>, <code>locfit</code>, <code>locploy</code>, etc. These functions automatically calculate the fitted value for each target point (essentially all the observed points). This can be used in combination with <code>ggplot2</code>. The point-wise confidence intervals are also calculated.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="kernel-smoothing.html#cb103-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb103-2"><a href="kernel-smoothing.html#cb103-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_smooth</span>(<span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="at">span =</span> <span class="fl">0.5</span>)</span>
-<span id="cb103-3"><a href="kernel-smoothing.html#cb103-3" aria-hidden="true" tabindex="-1"></a><span class="do">## `geom_smooth()` using formula &#39;y ~ x&#39;</span></span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-147-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<p>A toy example that compares different bandwidth. Be careful that different methods may formulat the bandwidth parameter in different ways.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="kernel-smoothing.html#cb104-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># local polynomial fitting using locfit and locpoly</span></span>
-<span id="cb104-2"><a href="kernel-smoothing.html#cb104-2" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb104-3"><a href="kernel-smoothing.html#cb104-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(KernSmooth)</span>
-<span id="cb104-4"><a href="kernel-smoothing.html#cb104-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(locfit)</span>
-<span id="cb104-5"><a href="kernel-smoothing.html#cb104-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb104-6"><a href="kernel-smoothing.html#cb104-6" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb104-7"><a href="kernel-smoothing.html#cb104-7" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb104-8"><a href="kernel-smoothing.html#cb104-8" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="fu">sin</span>(<span class="dv">2</span><span class="sc">*</span>pi<span class="sc">*</span>x)<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb104-9"><a href="kernel-smoothing.html#cb104-9" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">=</span> y[<span class="fu">order</span>(x)]</span>
-<span id="cb104-10"><a href="kernel-smoothing.html#cb104-10" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">=</span> <span class="fu">sort</span>(x)</span>
-<span id="cb104-11"><a href="kernel-smoothing.html#cb104-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb104-12"><a href="kernel-smoothing.html#cb104-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>)</span>
-<span id="cb104-13"><a href="kernel-smoothing.html#cb104-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(x, <span class="fu">sin</span>(<span class="dv">2</span><span class="sc">*</span>pi<span class="sc">*</span>x), <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="dv">1</span>)</span>
-<span id="cb104-14"><a href="kernel-smoothing.html#cb104-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="fu">locpoly</span>(x, y, <span class="at">bandwidth=</span><span class="fl">0.15</span>, <span class="at">degree=</span><span class="dv">2</span>), <span class="at">col=</span><span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb104-15"><a href="kernel-smoothing.html#cb104-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="fu">locfit</span>(y<span class="sc">~</span><span class="fu">lp</span>(x, <span class="at">nn =</span> <span class="fl">0.3</span>, <span class="at">h=</span><span class="fl">0.05</span>, <span class="at">deg=</span><span class="dv">2</span>)), <span class="at">col=</span><span class="dv">4</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb104-16"><a href="kernel-smoothing.html#cb104-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb104-17"><a href="kernel-smoothing.html#cb104-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;locpoly&quot;</span>, <span class="st">&quot;locfit&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">1.5</span>, <span class="at">lwd =</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-149-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div id="linear-algebra-basics" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Linear Algebra Basics</h1>
+<p>You should already be familiar with some basic linear algebra concepts such as matrix and vector multiplications. Here we review some basic concepts and properties that will be used in this course. For the most part, they are used in deriving linear regression results.</p>
+<div id="definition" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Definition</h2>
+<p>We usually use <span class="math inline">\(\mathbf{X}\)</span> to denote an <span class="math inline">\(n \times p\)</span> dimensional design matrix, where <span class="math inline">\(n\)</span> is the number of observations and <span class="math inline">\(p\)</span> is the number of variables. The columns of <span class="math inline">\(\mathbf{x}\)</span> are denoted as <span class="math inline">\(\mathbf{x}_1, \ldots, \mathbf{x}_p\)</span>:</p>
+<p><span class="math display">\[
+\mathbf{X}= \begin{pmatrix}
+x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1p}\\
+x_{21} &amp; x_{22} &amp; \cdots &amp; x_{2p}\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+x_{m1} &amp; x_{n2} &amp; \cdots &amp; x_{np}\\
+\end{pmatrix} = 
+\begin{pmatrix}
+\mathbf{x}_1 &amp; \mathbf{x}_2 &amp; \cdots &amp; \mathbf{x}_p\\
+\end{pmatrix}
+\]</span>
+The <strong>column space</strong>, <span class="math inline">\(\cal{C}(\mathbf{X})\)</span> of <span class="math inline">\(\mathbf{X}\)</span> is the set of all linear combinations of <span class="math inline">\(\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_p\)</span>, i.e.,</p>
+<p><span class="math display">\[c_1 \mathbf{x}_1 + c_2 \mathbf{x}_2 + \cdots c_p \mathbf{x}_p.\]</span>
+This is also called the <strong>span</strong> of these vectors, <span class="math inline">\(\text{span}(\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_p)\)</span>. Its orthogonal space is</p>
+<p><span class="math display">\[\{\mathbf{v}: \mathbf{X}^\text{T}\mathbf{v}= 0\}.\]</span>
+A projection matrix <span class="math inline">\(\bP\)</span> is a matrix such that</p>
 
 </div>
 </div>
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="k-neariest-neighber.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="reference.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="rmarkdown.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="optimization-basics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
