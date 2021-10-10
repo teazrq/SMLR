@@ -1,0 +1,312 @@
+\def\cD{\cal{D}}
+\def\bA{\mathbf{A}}
+\def\bB{\mathbf{B}}
+\def\bX{\mathbf{X}}
+\def\bH{\mathbf{H}}
+\def\bI{\mathbf{I}}
+\def\bU{\mathbf{U}}
+\def\bD{\mathbf{D}}
+\def\bV{\mathbf{V}}
+\def\bS{\mathbf{S}}
+\def\bW{\mathbf{W}}
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\bs{\mathbf{s}}
+\def\br{\mathbf{r}}
+\def\bu{\mathbf{u}}
+\def\be{\mathbf{e}}
+\def\bv{\mathbf{v}}
+\def\bp{\mathbf{p}}
+\def\bw{\mathbf{w}}
+\def\bzero{\mathbf{0}}
+\def\bbeta{\boldsymbol \beta}
+\def\bmu{\boldsymbol \mu}
+\def\bepsilon{\boldsymbol \epsilon}
+\def\T{\text{T}}
+\def\Trace{\text{Trace}}
+\def\Cov{\text{Cov}}
+\def\Var{\text{Var}}
+\def\E{\text{E}}
+\def\pr{\text{pr}}
+\def\Prob{\text{P}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+```{r include = FALSE}
+  options(width = 100)
+  knitr::opts_knit$set(global.par = TRUE)
+  knitr::opts_chunk$set(collapse = TRUE, fig.dim = c(6, 6),
+                        out.width = "45%", fig.align = 'center')
+```
+```{r include = FALSE}
+  par(bg="transparent")
+  par(mar=c(2,2,2,2))
+  par(mfrow=c(1,1))
+```
+
+# Discriminant Analysis
+
+When we model the probability of $Y$ given $X$, such as using a logistic regression, the approach is often called a soft classification, meaning that we do not directly produce the class label for prediction. However, we can also view the task as finding a function, with 0/1 as the output. In this case, the function is called a __classifier__:
+
+$$f : \mathbb{R}^p \longrightarrow \{0, 1\}$$
+In this case, we can directly evaluate the prediction error, which is calculated from the __0-1 loss__:
+
+$$L\big(f(\bx), y \big) = \begin{cases}
+0 \quad \text{if} \quad y = f(\bx)\\
+1 \quad \text{o.w.}
+\end{cases}$$
+
+The goal is to minimize the overall __risk__, the integrated loss:
+
+$$\text{R}(f) = \E_{X, Y} \left[ L\big(f(X), Y\big) \right]$$
+Continuing the notation from the logistic regression, with $\eta(\bx) = \Prob(Y = 1 | X = \bx)$, we can easily see the decision rule to minimize the risk is to take the dominate label for any given $\bx$, this leads to the __Bayes rule__:
+
+\begin{align}
+f_B(\bx) = \underset{f}{\arg\min} \,\, \text{R}(f) =
+    \begin{cases}
+    1 & \text{if} \quad \eta(\bx) \geq 1/2 \\
+    0 & \text{if} \quad \eta(\bx) < 1/2. \\
+    \end{cases}
+\end{align}
+
+Note that it doesn't matter when $\eta(\bx) = 1/2$ since we will make 50% mistake anyway. The risk associated with this rule is called the __Bayes risk__, which is the best risk we could achieve with a classification model with 0/1 loss. 
+
+## Bayes Rule
+
+The essential idea of Discriminant Analysis is to estimate the densities functions of each class, and compare the densities at any given target point to perform classification. Let's construct the Bayes rule from the Bayes prospective:
+
+\begin{align}
+  \Prob(Y = 1 | X = \bx) &= \frac{\Prob(X = \bx | Y = 1)\Prob(Y = 1)}{\Prob(X = \bx)} \\
+  \Prob(Y = 0 | X = \bx) &= \frac{\Prob(X = \bx | Y = 0)\Prob(Y = 0)}{\Prob(X = \bx)}
+\end{align}
+
+Lets further define marginal probabilities (__prior__) $\pi_1 = P(Y = 1)$ and $\pi_0 = 1 - \pi_1 = P(Y = 0)$, then, denote the conditional densities of $X$ as 
+
+\begin{align}
+  f_1 = \Prob(X = \bx| Y = 1)\\
+  f_0 = \Prob(X = \bx| Y = 0)\\
+\end{align}
+
+Note that the Bayes rule suggests to make the decision 1 when $\eta(\bx) \geq 1/2$, this is equivalent to $\pi_1 > \pi_0$. Utilizing the __Bayes Theorem__, we have 
+
+\begin{align}
+f_B(\bx) = \underset{f}{\arg\min} \,\, \text{R}(f) =
+    \begin{cases}
+    1 & \text{if} \quad \pi_1 f_1(\bx) \geq \pi_0 f_0(\bx) \\
+    0 & \text{if} \quad \pi_1 f_1(\bx) < \pi_0 f_0(\bx). \\
+    \end{cases}
+\end{align}
+
+This suggests that we can model the conditional density of $X$ given $Y$ instead of modeling $P(Y | X)$ to make the decision. 
+
+## Example: Linear Discriminant Analysis (LDA)
+
+We create two density functions that use the __same covariance matrix__: $X_1 \sim \cal{N}(\mu_1, \Sigma)$ and $X_2 \sim \cal{N}(\mu_2, \Sigma)$, with $\mu_1 = (0.5, -1)^\T$, $\mu_2 = (-0.5, 0.5)^\T$, and $\Sigma_{2\times2}$ has diagonal elements 1 and off diagonal elements 0.5. Let's first generate some observations.
+
+```{r}
+  library(mvtnorm)
+  set.seed(1)
+  
+  # generate two sets of samples
+  Sigma = matrix(c(1, 0.5, 0.5, 1), 2, 2)
+  mu1 = c(0.5, -1)
+  mu2 = c(-0.5, 0.5)
+  
+  # define prior
+  p1 = 0.4 
+  p2 = 0.6
+    
+  n = 1000
+  
+  Class1 = rmvnorm(n*p1, mean = mu1, sigma = Sigma)
+  Class2 = rmvnorm(n*p2, mean = mu2, sigma = Sigma)
+
+  plot(Class1, pch = 19, col = "darkorange", xlim = c(-4, 4), ylim = c(-4, 4))
+  points(Class2, pch = 19, col = "deepskyblue")
+```
+
+If we know their true density functions, then the decision line is linear. 
+
+```{r, message=FALSE, out.width = "75%", echo = FALSE}
+    library(plotly)
+
+    # generate two densities 
+    x1 = seq(-2.5, 2.5, 0.1)
+    x2 = seq(-2.5, 2.5, 0.1)
+    data = expand.grid(x1, x2)
+    
+    # the density function after removing some constants
+    sigma_inv = solve(Sigma)
+    d1 = apply(data, 1, function(x) exp(-0.5 * t(x - mu1) %*% sigma_inv %*% (x - mu1))*p1 )
+    d2 = apply(data, 1, function(x) exp(-0.5 * t(x - mu2) %*% sigma_inv %*% (x - mu2))*p2 )
+    
+    # plot the densities
+    plot_ly(x = x1, y = x2) %>% 
+            add_surface(z = matrix(d1, length(x1), length(x2)), colorscale = list(c(0,"rgb(255,112,183)"), c(1,"rgb(128,0,64)"))) %>% 
+            layout(paper_bgcolor='transparent') %>% 
+            add_surface(z = matrix(d2, length(x1), length(x2))) %>% 
+            layout(scene = list(xaxis = list(title = "X1"), 
+                                yaxis = list(title = "X2"),
+                                zaxis = list(title = "Log Normal Densities")))
+```
+
+## Linear Discriminant Analysis
+
+As we demonstrated earlier using the Bayes rule, the conditional probability can be formulated using Bayes Theorem. For this time, we will assume in generate that there are $K$ classes instead of just two. However, the notation are similar to the previous case:
+
+\begin{align}
+\Prob(Y = k | X = \bx) =&~ \frac{\Prob(X = \bx | Y = k)\Prob(Y = k)}{\Prob(X = \bx)}\\
+                     =&~ \frac{\Prob(X = \bx | Y = k)\Prob(Y = k)}{\sum_{l=1}^K \Prob(X = \bx | Y = l) \Prob(Y = l)}\\
+                     =&~ \frac{\pi_k f_k(\bx)}{\sum_{l=1}^K \pi_l f_l(\bx)}
+\end{align}
+
+Given any target point $\bx$, the best prediction is simply picking the one that maximizes the posterior 
+
+$$\underset{k}{\arg\max} \,\, \pi_k f_k(x)$$
+Both LDA and QDA model $f_k$ as a normal density function. Suppose we model each class density as multivariate Gaussian ${\cal N}(\bmu_k, \Sigma_k)$, and \alert{assume that the covariance matrices are the same across all $k$, i.e., $\Sigma_k = \Sigma$}. Then 
+
+$$f_k(x) = \frac{1}{(2\pi)^{p/2} |\Sigma|^{1/2}} \exp\left[ -\frac{1}{2} (\bx - \bmu_k)^\T \Sigma^{-1} (\bx - \bmu_k) \right].$$
+The log-likelihood function for the conditional distribution is
+
+\begin{align}
+\log f_k(\bx) =&~ -\log \big((2\pi)^{p/2} |\Sigma|^{1/2} \big) - \frac{1}{2} (\bx - \bmu_k)^\T \Sigma^{-1} (\bx - \bmu_k) \\
+    =&~ - \frac{1}{2} (\bx - \bmu_k)^\T \Sigma^{-1} (\bx - \bmu_k) + \text{Constant}
+\end{align}
+
+The __maximum a posteriori__ probability (MAP) estimate is simply 
+
+\begin{align}
+\widehat f(\bx) =& ~\underset{k}{\arg\max} \,\, \log \big( \pi_k f_k(\bx) \big) \\
+    =& ~\underset{k}{\arg\max} \,\, - \frac{1}{2} (\bx - \bmu_k)^\T \Sigma^{-1} (\bx - \bmu_k) + \log(\pi_k)
+\end{align}
+
+The term $(\bx - \bmu_k)^\T \Sigma^{-1} (\bx - \bmu_k)$ is simply the \alert{Mahalanobis distance} between $x$ and the centroid $\bmu_k$ for class $k$. Hence, this is essentially classifying $x$ to the class label with the closest centroid (after adjusting the for prior). This sets a connection with the $k$NN algorithm. __A special case__ is that when $\Sigma = \bI$, i.e., only Euclidean distance is needed, and we have 
+
+$$\underset{k}{\arg\max} \,\, - \frac{1}{2} \lVert x - \bmu_k \rVert^2 + \log(\pi_k)$$
+
+The decision boundary of LDA, as its name suggests, is a linear function of $\bx$. To see this, let's look at the terms in the MAP. Note that anything that does not depends on the class index $k$ is irrelevant to the decision. 
+
+\begin{align}
+ & - \frac{1}{2} (\bx - \bmu_k)^\T \Sigma^{-1} (\bx - \bmu_k) + \log(\pi_k)\\
+=&~ \bx^\T \Sigma^{-1} \bmu_k - \frac{1}{2}\bmu_k^\T \Sigma^{-1} \bmu_k + \log(\pi_k) \text{irrelevant terms} \\
+=&~ \bx^\T \bw_k + b_k + \text{irrelevant terms}
+\end{align}
+
+Then, the decision boundary between two classes, $k$ and $l$ is 
+
+\begin{align}
+\bx^\T \bw_k + b_k &= \bx^\T \bw_l + b_l \\
+\Leftrightarrow \quad \bx^\T (\bw_k - \bw_l) + (b_k - b_l) &= 0, \\
+\end{align}
+
+which is a linear function of $\bx$. The previous density plot already showed this effect. Estimating the parameters in LDA is very simple:
+
+  * Prior probabilities: $\widehat{\pi}_k = n_k / n = n^{-1} \sum_k \mathbf{1}\{y_i = k\}$, where $n_k$ is the number of observations in class $k$.
+  * Centroids: $\widehat{\bmu}_k = n_k^{-1} \sum_{i: \,y_i = k} x_i$
+  * Pooled covariance matrix:
+    $$\widehat \Sigma = \frac{1}{n-K} \sum_{k=1}^K \sum_{i : \, y_i = k} (\bx_i - \widehat{\bmu}_k) (\bx_i - \widehat{\bmu}_k)^\T$$
+
+## Example: Quadratic Discriminant Analysis (QDA)
+
+When we assume that each class has its own covariance structure, the decision boundary will not be linear anymore. Let's visualize this by creating two density functions that use different covariance matrices.
+
+```{r out.width = "75%", echo = FALSE}
+    Sigma2 = matrix(c(1, -0.5, -0.5, 1), 2, 2)
+    sigma2_inv = solve(Sigma2)
+    
+    # the density function after removing some constants
+    d1 = apply(data, 1, function(x) 1/sqrt(det(Sigma))*exp(-0.5 * t(x - mu1) %*% sigma_inv %*% (x - mu1))*p1 )
+    d2 = apply(data, 1, function(x) 1/sqrt(det(Sigma2))*exp(-0.5 * t(x - mu2) %*% sigma2_inv %*% (x - mu2))*p2 )
+    
+    # plot the densities
+    plot_ly(x = x1, y = x2) %>% 
+            add_surface(z = matrix(d1, length(x1), length(x2)), colorscale = list(c(0,"rgb(107,184,214)"),c(1,"rgb(0,90,124)"))) %>% 
+            layout(paper_bgcolor='transparent') %>% 
+            add_surface(z = matrix(d2, length(x1), length(x2))) %>% 
+            layout(scene = list(xaxis = list(title = "X1"), 
+                                yaxis = list(title = "X2"),
+                                zaxis = list(title = "Log Normal Densities")))  
+```
+
+```{r include = FALSE}    
+    # constants 
+    c1 = - 0.5 * t(mu1) %*% sigma_inv %*% mu1 + log(0.3)
+    c2 = - 0.5 * t(mu2) %*% sigma_inv %*% mu2 + log(0.7)    
+    
+    # the discriminate function 
+    d1 = apply(data, 1, function(x) t(x) %*% sigma_inv %*% mu1 + c1 )
+    d2 = apply(data, 1, function(x) t(x) %*% sigma_inv %*% mu2 + c2 )   
+```    
+    
+## Quadratic Discriminant Analysis
+
+QDA simply abandons the assumption of the common covariance matrix. Hence, $\Sigma_k$'s are not equal. In this case, the determinant $|\Sigma_k|$ of each covariance matrix will be different. In addition, the MAP decision becomes a quadratic function of the target point $\bx$
+
+\begin{align}
+ & \underset{k}{\max} \,\, \log \big( \pi_k f_k(x) \big) \\
+=& ~\underset{k}{\max} \,\, -\frac{1}{2} \log |\Sigma_k| - \frac{1}{2} (\bx - \bmu_k)^\T \Sigma_k^{-1} (\bx - \bmu_k) + \log(\pi_k) \\
+=& \bx^\T \bW_k \bx + \bw_k^\T \bx + b_k
+\end{align}
+
+This leads to quadratic decision boundary between class $k$ and $l$
+
+$$\big\{\bx: \bx^\T (\bW_k - \bW_l) \bx + \bx^\T (\bw_k - \bw_l) + (b_k - b_l) = 0\big\}.$$
+
+The estimation procedure is also similar:
+
+  * Prior probabilities: $\widehat{\pi}_k = n_k / n = n^{-1} \sum_k \mathbf{1}\{y_i = k\}$, where $n_k$ is the number of observations in class $k$.
+  * Centroid: $\widehat{\bmu}_k = n_k^{-1} \sum_{i: \,y_i = k} \bx_i$
+  * Sample covariance matrix for each class:
+    $$\widehat \Sigma_k = \frac{1}{n_k-1} \sum_{i : \, y_i = k} (\bx_i - \widehat{\bmu}_k)(\bx_i - \widehat{\bmu}_k)^\T$$
+
+## Example: the Hand Written Digit Data
+
+We first sample 100 data from both the training and testing sets. 
+
+```{r}
+    library(ElemStatLearn)
+    # a plot of some samples 
+    findRows <- function(zip, n) {
+        # Find n (random) rows with zip representing 0,1,2,...,9
+        res <- vector(length=10, mode="list")
+        names(res) <- 0:9
+        ind <- zip[,1]
+        for (j in 0:9) {
+        res[[j+1]] <- sample( which(ind==j), n ) }
+        return(res) 
+    }
+    
+    set.seed(1)
+    
+    # find 100 samples for each digit for both the training and testing data
+    train.id <- findRows(zip.train, 100)
+    train.id = unlist(train.id)
+    
+    test.id <- findRows(zip.test, 100)
+    test.id = unlist(test.id)
+    
+    X = zip.train[train.id, -1]
+    Y = zip.train[train.id, 1]
+    dim(X)
+    
+    Xtest = zip.test[test.id, -1]
+    Ytest = zip.test[test.id, 1]
+    dim(Xtest)
+```
+
+We can then fit LDA and QDA and predict.
+
+```{r}
+    # fit LDA
+    library(MASS)
+    
+    dig.lda=lda(X,Y)
+    Ytest.pred=predict(dig.lda, Xtest)$class
+    table(Ytest, Ytest.pred)
+    mean(Ytest != Ytest.pred)
+```
+
+However, QDA does not work in this case because there are too many parameters
+```{r eval=FALSE}
+    dig.qda = qda(X, Y) # error message
+```
