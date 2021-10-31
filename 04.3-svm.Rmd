@@ -1,0 +1,523 @@
+\def\cD{{\cal D}}
+\def\cL{{\cal L}}
+\def\cX{{\cal X}}
+\def\cF{{\cal F}}
+\def\cH{{\cal H}}
+\def\bA{\mathbf{A}}
+\def\bB{\mathbf{B}}
+\def\bX{\mathbf{X}}
+\def\bH{\mathbf{H}}
+\def\bI{\mathbf{I}}
+\def\bU{\mathbf{U}}
+\def\bD{\mathbf{D}}
+\def\bV{\mathbf{V}}
+\def\bS{\mathbf{S}}
+\def\bW{\mathbf{W}}
+\def\bK{\mathbf{K}}
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\bs{\mathbf{s}}
+\def\br{\mathbf{r}}
+\def\bu{\mathbf{u}}
+\def\be{\mathbf{e}}
+\def\bv{\mathbf{v}}
+\def\bp{\mathbf{p}}
+\def\bw{\mathbf{w}}
+\def\bz{\mathbf{z}}
+\def\bzero{\mathbf{0}}
+\def\balpha{\boldsymbol \alpha}
+\def\bbeta{\boldsymbol \beta}
+\def\btheta{\boldsymbol \theta}
+\def\bxi{\boldsymbol \xi}
+\def\bmu{\boldsymbol \mu}
+\def\bepsilon{\boldsymbol \epsilon}
+\def\T{\text{T}}
+\def\Trace{\text{Trace}}
+\def\Cov{\text{Cov}}
+\def\Var{\text{Var}}
+\def\E{\text{E}}
+\def\pr{\text{pr}}
+\def\Prob{\text{P}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+```{r include = FALSE}
+  options(width = 100)
+  knitr::opts_knit$set(global.par = TRUE)
+  knitr::opts_chunk$set(collapse = TRUE, fig.dim = c(6, 6),
+                        out.width = "45%", fig.align = 'center')
+```
+```{r include = FALSE}
+  par(bg="transparent")
+  par(mar=c(2,2,2,2))
+  par(mfrow=c(1,1))
+```
+
+# Support Vector Machines
+
+Support Vector Machine (SVM) is one of the most popular classification models. The original SVM was proposed by Vladimir Vapnik and Alexey Chervonenkis in 1963. Then two important improvements was developed in the 90's: the soft margin version [@cortes1995support] and the nonlinear SVM using the kernel trick [@boser1992training]. We will start with the hard margin version, and then introduce all other techniques. 
+
+## Maximum-margin Classifier
+
+This is the original SVM proposed in 1963. It shares similarities with the perception algorithm, but in certain sense is a stable version. We observe the training data $\cD_n = \{\bx_i, y_i\}_{i=1}^n$, where we code $y_i$ as a binary outcome from $\{-1, 1\}$. The advantages of using this coding instead of $0/1$ will be seen later. The goal is to find a linear classification rule $f(\bx) = \beta_0 + \bx^\T \bbeta$ such that the classification rule is the sign of $f(\bx)$:
+
+$$
+\hat{y} = 
+\begin{cases}
+        +1, \quad \text{if} \quad f(\bx) > 0\\ 
+        -1, \quad \text{if} \quad f(\bx) < 0
+\end{cases}
+$$
+Hence, a correct classification would satisfy $y_i f(\bx_i) > 0$. Let's look at the following example of data from two classes. 
+
+```{r}
+    set.seed(1)
+    n <- 6
+    p <- 2
+    
+    # Generate positive and negative examples
+    xneg <- matrix(rnorm(n*p,mean=0,sd=1),n,p)
+    xpos <- matrix(rnorm(n*p,mean=3,sd=1),n,p)
+    x <- rbind(xpos,xneg)
+    y <- matrix(as.factor(c(rep(1,n),rep(-1,n))))
+    
+    # plot 
+    plot(x,col=ifelse(y>0,"blue","red"), pch = 19, cex = 1.2, lwd = 2, 
+         xlab = "X1", ylab = "X2", cex.lab = 1.5)
+    legend("bottomright", c("Positive", "Negative"),col=c("blue", "red"),
+           pch=c(19, 19), text.col=c("blue", "red"), cex = 1.5)
+```
+
+There are many linear lines that can perfectly separate the two classes. But which is better? The SVM defines this as the line that maximizes the margin, which can be seen in the following. 
+
+We use the `e1071` package to fit the SVM. There is a cost parameter $C$, with default value 1. This parameter has a significant impact on non-separable problems. However, for this __separable case__, we should set this to be a very large value, meaning that the cost for having a wrong classification is very large. We also need to specify the `linear` kernel. 
+
+```{r}
+    library(e1071)
+    svm.fit <- svm(y ~ ., data = data.frame(x, y), type='C-classification', 
+                   kernel='linear', scale=FALSE, cost = 10000)
+```
+
+The following code can recover the fitted linear separation margin. Note here that the points on the margins are the ones with $\alpha_i > 0$ (will be introduced later):
+
+  * `coefs` provides the $y_i \alpha_i$ for the support vectors
+  * `SV` are the $x_i$ values correspond to the support vectors 
+  * `rho` is negative $\beta_0$
+
+```{r}
+    b <- t(svm.fit$coefs) %*% svm.fit$SV
+    b0 <- -svm.fit$rho
+    
+    # an alternative of b0 as the lecture note
+    b0 <- -(max(x[y == -1, ] %*% t(b)) + min(x[y == 1, ] %*% t(b)))/2
+    
+    # plot on the data 
+    plot(x,col=ifelse(y>0,"blue","red"), pch = 19, cex = 1.2, lwd = 2, 
+         xlab = "X1", ylab = "X2", cex.lab = 1.5)
+    legend("bottomleft", c("Positive","Negative"),col=c("blue","red"),
+           pch=c(19, 19),text.col=c("blue","red"), cex = 1.5)
+    abline(a= -b0/b[1,2], b=-b[1,1]/b[1,2], col="black", lty=1, lwd = 2)
+    
+    # mark the support vectors
+    points(x[svm.fit$index, ], col="black", cex=3)
+    
+    # the two margin lines 
+    abline(a= (-b0-1)/b[1,2], b=-b[1,1]/b[1,2], col="black", lty=3, lwd = 2)
+    abline(a= (-b0+1)/b[1,2], b=-b[1,1]/b[1,2], col="black", lty=3, lwd = 2)
+```
+
+As we can see, the separation line is trying to have the maximum distance from both classes. This is why it is called the __Maximum-margin Classifier__. 
+
+```{r include = FALSE, echo = FALSE}
+    n = 200
+    p = 2
+    trainx = matrix(runif(n*p, -1, 1), n, p)
+
+    trainx = trainx[ abs(trainx[,2] - 0.75*sin(2*pi*trainx[,1]))>0.2,  ]
+
+    y = sign(trainx[,2] - 0.75*sin(2*pi*trainx[,1]))
+    plot(trainx, col = as.factor(y), pch = 19)
+    lines(trainx[,1], 0.75*sin(2*pi*trainx[,1])) 
+    
+    svm.fit <- svm(y ~ ., data = data.frame(trainx, y), type='C-classification', 
+                   kernel='linear', scale=FALSE, cost = 10)
+    
+    svm.fit <- svm(y ~ ., data = data.frame(trainx, y), type='C-classification', 
+                   kernel='radial', scale=FALSE, cost = 10000)    
+```
+
+## Linearly Separable SVM
+
+In linearly SVM, $f(\bx) = \beta_0 + \bx^\T \bbeta$. When $f(\bx) = 0$, it corresponds to a hyperplane that separates the two classes:
+
+$$\{ \bx: \beta_0 + \bx^\text{T} \boldsymbol \beta = 0 \}$$
+
+Hence, for this separable case, all observations with $y_i = 1$ are on one side $f(\bx) > 0$, and observations with $y_i = -1$ are on the other side. 
+
+<center>
+![](images/SVMdist.png){width=40%}
+</center>
+
+First, let's calculate the __distance from any point $\bx$ to this hyperplane__. We can first find a point $\bx_0$ on the hyperplane, such that $\bx_0^\T = - \beta_0$. By taking the difference between $\bx$ and $\bx_0$, and project this vector to the direction of $\bbeta$, we have that the distance from $\bx$ to the hyperplane is the projection of $\bx - \bx_0$ onto the normed vector $\frac{\bbeta}{\lVert \bbeta \lVert}$:
+
+\begin{align}
+& \left \langle  \frac{\bbeta}{\lVert \bbeta \lVert}, \bx - \bx_0 \right \rangle \\
+=& \frac{1}{\lVert \bbeta \lVert} (\bx - \bx_0)^\T \bbeta \\
+=& \frac{1}{\lVert \bbeta \lVert} (\bx^\T \bbeta + \beta_0) \\
+=& \frac{1}{\lVert \bbeta \lVert} f(\bx) \\
+\end{align}
+
+Since the goal of SVM is to create the maximum margin, let's denote this as $M$. Then we want all observations to be lied on the correct side, with at least an margin $M$. This means $y_i (\bx_i^\T \bbeta + \beta_0) \geq M$. But the scale of $\bbeta$ is also playing a role in calculating the margin. Hence, we will use the normed version. Then, the linearly separable SVM is to solve this constrained optimization problem:
+
+\begin{align}
+\underset{\bbeta, \beta_0}{\text{min}} \quad & M \\
+\text{subject to} \quad & \frac{1}{\lVert \bbeta \lVert} y_i(\bx^\T \bbeta + \beta_0) \geq M, \,\, i = 1, \ldots, n.
+\end{align}
+
+Note that the scale of $\bbeta$ can be arbitrary, let's set it as $\lVert \bbeta \rVert = 1/M$. The maximization becomes minimization, and its equivalent to minimizing $\frac{1}{2} \lVert \bbeta \rVert^2$. Then we have the __primal form__ of the SVM optimization problem. 
+
+\begin{align}
+\text{min} \quad & \frac{1}{2} \lVert \bbeta \rVert^2 \\
+\text{subject to} \quad & y_i(\bx^\T \bbeta + \beta_0) \geq 1, \,\, i = 1, \ldots, n.
+\end{align}
+
+### From Primal to Dual 
+
+This is a general inequality constrained optimization problem. 
+
+\begin{align}
+\text{min} \quad & g(\btheta) \\
+\text{subject to} \quad & h(\btheta) \leq 0, \,\, i = 1, \ldots, n.
+\end{align}
+
+We can consider the corresponding Lagrangian (with all $\alpha_i$'s positive):
+
+$$\cL(\btheta, \balpha) = g(\btheta) + \sum_{i = 1}^n \alpha_i h_i(\btheta)$$
+Then there can be two ways to optimize this. If we maximize $\alpha_i$'s first, for any fixed $\btheta$, then for any $\btheta$ that violates the constraint, i.e., $h_i(\btheta) > 0$ for some $i$, we can always choose an extremely large $\alpha_i$ so that $\cal{L}(\btheta, \balpha)$ is infinity. Hence the solution of this __primal form__ must satisfy the constraint.
+
+$$\underset{\btheta}{\min} \underset{\balpha \succeq 0}{\max} \cL(\btheta, \balpha)$$
+On the other hand, if we minimize $\btheta$ first, then maximize for $\balpha$, we have the __dual form__:
+
+$$\underset{\balpha \succeq 0}{\max} \underset{\btheta}{\min} \cL(\btheta, \balpha)$$
+In general, the two are not the same:
+
+$$\underbrace{\underset{\balpha \succeq 0}{\max} \underset{\btheta}{\min} \cL(\btheta, \balpha)}_{\text{duel}} \leq \underbrace{\underset{\btheta}{\min} \underset{\balpha \succeq 0}{\max} \cL(\btheta, \balpha)}_{\text{primal}}$$
+But a sufficient condition is that if both $g$ and $h_i$'s are convex and also the constraints $h_i$'s are feasible. We will use this technique to solve the SVM problem. 
+
+First, rewrite the problem as 
+
+\begin{align}
+\text{min} \quad & \frac{1}{2} \lVert \bbeta \rVert^2 \\
+\text{subject to} \quad & - \{ y_i(\bx^\T \bbeta + \beta_0) - 1\} \leq 0, i = 1, \ldots, n.
+\end{align}
+
+Then the Lagrangian is 
+
+$$\cL(\bbeta, \beta_0, \balpha) = \frac{1}{2} \lVert \bbeta \rVert^2 - \sum_{i = 1}^n \alpha_i \big\{ y_i(\bx_i^\T \bbeta + \beta_0) - 1 \big\}$$
+To solve this using the dual form, we first find the optimizer of $\bbeta$ and $\beta_0$. We take derivatives with respect to them:
+
+\begin{align}
+    \bbeta - \sum_{i = 1}^n \alpha_i y_i \bx_i  =&~ 0 \quad (\nabla_\bbeta \cL = 0 ) \\
+    \sum_{i = 1}^n \alpha_i y_i =&~ 0 \quad (\nabla_{\beta_0} \cL = 0 )
+\end{align}
+
+Take these solution and plug them back into the Lagrangian, we have
+
+$$\cL(\bbeta, \beta_0, \balpha) = \sum_{i = 1}^n \alpha_i - \frac{1}{2} \sum_{i, j = 1}^n y_i y_j \alpha_i\alpha_j \bx_i^\T \bx_j$$
+Hence, the dual optimization problem is 
+
+\begin{align}
+\underset{\balpha}{\max} \quad & \sum_{i = 1}^n \alpha_i - \frac{1}{2} \sum_{i, j = 1}^n y_i y_j \alpha_i\alpha_j \bx_i^\T \bx_j \nonumber \\
+\text{subject to} \quad & \alpha_i \geq 0, \,\, i = 1, \ldots, n. \nonumber \\
+& \sum_{i = 1}^n \alpha_i y_i = 0
+\end{align}
+
+Compared with the original primal form, this version has a trivial feasible solution with all $\alpha_i$'s being 0. One can start from this solution to search for the optimizer while maintaining within the contained region. However, the primal form is difficult since there is no apparent way to satisfy the constraint. 
+
+After solving the dual form, we have all the $\alpha_i$ values. The ones with $\alpha_i > 0$ are called the support vectors. Based on our previous analysis, $\widehat{\bbeta} = \sum_{i = 1}^n \alpha_i y_i x_i$, and we can also obtain $\beta_0$ by calculating the midpoint of two "closest" support vectors to the separating hyperplane:
+
+$$\widehat{\beta}_0 = - \,\, \frac{\max_{i: y_i = -1} \bx_i^\T \widehat{\bbeta} + \min_{i: y_i = 1} \bx_i^\T \widehat{\bbeta} }{2}$$
+And the decision is $\text{sign}(\bx^\T \widehat{\bbeta} + \widehat{\beta}_0)$. An example has been demonstrated previously with the `e1071` package. 
+
+## Linearly Non-seperable SVM with Slack Variables
+
+When we cannot have a perfect separation of the two classes, the original SVM cannot find a solution. Hence, a slack was introduce to incorporate such observations: 
+
+$$y_i (\bx_i^\T \bbeta + \beta_0) \geq (1 - \xi_i)$$
+for a positive $\xi$. Note that when $\xi = 0$, the observation is lying at the correct side, with enough margin. When $1 > \xi > 0$, the observation is lying at the correct side, but the margin is not sufficiently large. When $\xi > 1$, the observation is lying on the wrong side of the separation hyperplane. 
+
+<center>
+![](images/SVMslack.png){width=40%}
+</center>
+
+This new optimization problem can be formulated as 
+
+\begin{align}
+\text{min} \quad & \frac{1}{2}\lVert \bbeta \rVert^2 + C \sum_{i=1}^n \xi_i \\
+\text{subject to} \quad & y_i (\bx_i^\T \bbeta + \beta_0) \geq (1 - \xi_i), \,\, i = 1, \ldots, n, \\
+\text{and} \quad & \xi_i \geq 0, \,\, i = 1, \ldots, n,
+\end{align}
+
+where $C$ is a tuning parameter that controls the emphasis on the slack variable. Large $C$ will be less tolerable on having positive slacks. We can again write the Lagrangian primal $\cL(\bbeta, \beta_0, \balpha, \bxi)$ as
+
+$$\frac{1}{2} \lVert \bbeta \rVert^2 + C \sum_{i=1}^n \xi_i - \sum_{i = 1}^n \alpha_i \big\{ y_i(x_i^\T \bbeta + \beta_0) - (1 - \xi_i) \big\} - \sum_{i = 1}^n \gamma_i \xi_i,$$
+where $\alpha_i$'s and $\gamma_i$'s are all positive. We can similarly obtain the solution corresponding to $\bbeta$, $\beta_0$ and $\bxi$:
+
+\begin{align}
+\bbeta - \sum_{i = 1}^n \alpha_i y_i x_i  =&~ 0 \quad (\nabla_\bbeta \cL = 0 ) \\
+\sum_{i = 1}^n \alpha_i y_i =&~ 0 \quad (\nabla_{\beta_0} \cL = 0 ) \\
+C - \alpha_i - \gamma_i =&~ 0 \quad (\nabla_{\xi_i} \cL = 0 )
+\end{align}
+
+Substituting them back into the Lagrangian, we have the dual form:
+
+\begin{align}
+\underset{\balpha}{\max} \quad & \sum_{i = 1}^n \alpha_i - \frac{1}{2} \sum_{i, j = 1}^n y_i y_j \alpha_i\alpha_j \color{OrangeRed}{\langle \bx_i, \bx_j \rangle} \\
+\text{subject to} \quad & 0 \leq \alpha_i \leq C, \,\, i = 1, \ldots, n, \\
+\text{and} \quad & \sum_{i = 1}^n \alpha_i y_i = 0.
+\end{align}
+
+Here, the inner product $\langle \bx_i, \bx_j \rangle$ is nothing but $\bx_i^\T \bx_j$. The observations with $0 < \alpha_i < C$ are the \alert{support vectors} that lie on the margin. Hence, we can obtain these observations and perform the same calculations as before to obtain $\widehat{\beta}_0$. The following code generates some data for this situation and fit SVM. We use the default $C = 1$. 
+
+```{r fig.width=8, fig.height=8, out.width = '40%'}
+
+    set.seed(70)
+    n <- 10 # number of data points for each class
+    p <- 2 # dimension
+
+    # Generate the positive and negative examples
+    xneg <- matrix(rnorm(n*p,mean=0,sd=1),n,p)
+    xpos <- matrix(rnorm(n*p,mean=1.5,sd=1),n,p)
+    x <- rbind(xpos,xneg)
+    y <- matrix(as.factor(c(rep(1,n),rep(-1,n))))
+
+    # Visualize the data
+    
+    plot(x,col=ifelse(y>0,"blue","red"), pch = 19, cex = 1.2, lwd = 2, 
+         xlab = "X1", ylab = "X2", cex.lab = 1.5)
+    legend("topright", c("Positive","Negative"),col=c("blue","red"),
+           pch=c(19, 19),text.col=c("blue","red"), cex = 1.5)
+
+    svm.fit <- svm(y ~ ., data = data.frame(x, y), type='C-classification', 
+                   kernel='linear',scale=FALSE, cost = 1)
+
+    b <- t(svm.fit$coefs) %*% svm.fit$SV
+    b0 <- -svm.fit$rho
+    
+    points(x[svm.fit$index, ], col="black", cex=3)     
+    abline(a= -b0/b[1,2], b=-b[1,1]/b[1,2], col="black", lty=1, lwd = 2)
+    
+    abline(a= (-b0-1)/b[1,2], b=-b[1,1]/b[1,2], col="black", lty=3, lwd = 2)
+    abline(a= (-b0+1)/b[1,2], b=-b[1,1]/b[1,2], col="black", lty=3, lwd = 2)
+```
+
+If we instead use a smaller $C$:
+
+```{r}
+    # Visualize the data
+    plot(x,col=ifelse(y>0,"blue","red"), pch = 19, cex = 1.2, lwd = 2, 
+         xlab = "X1", ylab = "X2", cex.lab = 1.5)
+    legend("topright", c("Positive","Negative"),col=c("blue","red"),
+           pch=c(19, 19),text.col=c("blue","red"), cex = 1.5)
+
+    # fit SVM with C = 10
+    svm.fit <- svm(y ~ ., data = data.frame(x, y), type='C-classification', 
+                   kernel='linear',scale=FALSE, cost = 0.1)
+
+    b <- t(svm.fit$coefs) %*% svm.fit$SV
+    b0 <- -svm.fit$rho
+    
+    points(x[svm.fit$index, ], col="black", cex=3)     
+    abline(a= -b0/b[1,2], b=-b[1,1]/b[1,2], col="black", lty=1, lwd = 2)
+    
+    abline(a= (-b0-1)/b[1,2], b=-b[1,1]/b[1,2], col="black", lty=3, lwd = 2)
+    abline(a= (-b0+1)/b[1,2], b=-b[1,1]/b[1,2], col="black", lty=3, lwd = 2)
+```
+
+## Example: `SAheart` Data
+
+If you want to use the `1071e` package and perform cross-validation, you could consider using the `caret` package. Make sure that you specify `method = "svmLinear2"`. The following code is using the `SAheart` as an example.
+
+```{r}
+  library(ElemStatLearn)
+  data(SAheart)
+  library(caret)
+
+  cost.grid = expand.grid(cost = seq(0.01, 2, length = 20))
+  train_control = trainControl(method="repeatedcv", number=10, repeats=3)
+  
+  svm2 <- train(as.factor(chd) ~., data = SAheart, method = "svmLinear2", 
+                trControl = train_control,  
+                tuneGrid = cost.grid)
+  
+  # see the fitted model
+  svm2
+```
+
+Note that when you fit the model, there are a few things you could consider:
+
+  * You can consider centering and scaling the covariates. This can be done during pre-processing. Or you may specify `preProcess = c("center", "scale")` in the `train()` function. 
+  * You may want to start with a wider range of cost values, then narrow down to a smaller range, since SVM can be quite sensitive to tuning in some cases. 
+  * There are many other SVM libraries, such as `kernlab`. This can be specified by using `method = "svmLinear"`. However, `kernlab` uses `C` as the parameter name for cost. We will show an example later. 
+
+## Nonlinear SVM via Kernel Trick
+
+The essential idea of kernel trick can be summarized as using the kernel function of two observations $\bx$ and $\bz$ to replace the inner product between some feature mapping of the two covariate vectors. In other words, if we want to create some nonlinear features of $\bx$, such as $x_1^2$, $\exp(x_2)$, $\sqrt{x_3}$, etc., we may in general write them as 
+
+$$\Phi : \cX \rightarrow \cF, \,\,\, \Phi(\bx) = (\phi_1(\bx), \phi_2(\bx), \ldots ),$$
+where $\cF$ has either finite or infinite dimensions. Then, we can still treat this as a linear SVM by constructing the decision rule as 
+
+$$f(x) = \langle \Phi(\bx), \bbeta \rangle = \Phi(\bx)^\T \bbeta.$$
+This is why we used the $\langle \cdot, \cdot\rangle$ operator in the previous example. Now, the kernel trick is essentially skipping the explicit calculation of $\Phi(\bx)$ by utilizing the property that 
+
+$$K(\bx, \bz) = \langle \Phi(\bx), \Phi(\bz) \rangle$$
+for some kernel function $K(\bx, \bz)$. Since $\langle \Phi(\bx), \Phi(\bz) \rangle$ is all we need in the dual form, we can simply replace it by $K(\bx, \bz)$, which gives the kernel form:
+
+\begin{align}
+\underset{\balpha}{\max} \quad & \sum_{i = 1}^n \alpha_i - \frac{1}{2} \sum_{i, j = 1}^n y_i y_j \alpha_i\alpha_j \color{OrangeRed}{K(\bx_i, \bx_j)} \\
+\text{subject to} \quad & 0 \leq \alpha_i \leq C, \,\, i = 1, \ldots, n, \\
+\text{and} \quad & \sum_{i = 1}^n \alpha_i y_i = 0.
+\end{align}
+
+One most apparent advantage of doing this is to save computational cost. This maybe understood using the following example:
+
+  * Consider kernel function $K(\bx, \bz) = (\bx^\T \bz)^2$
+  * Consider $\Phi(\bx)$ being the basis expansion that contains all second order interactions: $x_k x_l$ for $1 \leq k, l \leq p$
+  
+We can show that the two gives equivalent results, however, the kernel version is much faster. $K(\bx, \bz)$ takes $p+1$ operations, while $\langle \Phi(\bx_i),  \Phi(\bx_j) \rangle$ requires $3p^2$. 
+
+\begin{align}
+K(\bx, \bz) &=~ \left(\sum_{k=1}^p x_k z_k\right) \left(\sum_{l=1}^p x_l z_l\right) \\
+&=~ \sum_{k=1}^p \sum_{l=1}^p x_k z_k x_l z_l \\
+&=~ \sum_{k, l=1}^p (x_k x_l) (z_k z_l) \\
+&=~ \langle \Phi(\bx),  \Phi(\bz) \rangle
+\end{align}
+
+Formally, this property is guaranteed by the __Mercer’s theorem__ that states: The kernel matrix $K$ is positive semi-definite if and only if the function $K(x_i ,x_j)$ is equivalent to some inner product $\langle \Phi(\bx), \Phi(\bz) \rangle$.
+
+Besides making the calculation of nonlinear functions easier, using the kernel trick also implies that if we use a proper kernel function, then it defines a space of functions that can be represented in the form of $f(x) = \sum_i \alpha_i K(x, x_i)$, for any $f(x)$ within the space. Hence, as long as we search for a solution within such a space (reproducing kernel Hilbert space, RKHS), then our computational job reduces to solving the $\alpha_i$'s. This is guaranteed by the __Moore–Aronszajn theorem__, which formally states that: Suppose $K$ is a symmetric, positive definite kernel on a set $\cX$. Then there is a unique Hilbert space of functions on $\cX$ for which $K$ is a reproducing kernel. There are numerous articles on the RKHS. Hence, we will not focus on introducing this technique. However, we will later on use some of its properties (the Representor theorem) to motivate the penalized version of SVM. 
+
+## Example: `mixture.example` Data
+
+We use the `mixture.example` data in the `ElemStatLearn` package. In addition, we use a different package `kernlab`. The red dotted line indicates the true decision boundary. 
+
+```{r message=FALSE}
+    library(ElemStatLearn)
+    data(mixture.example)
+
+    # redefine data
+    px1 = mixture.example$px1
+    px2 = mixture.example$px2
+    x = mixture.example$x
+    y = mixture.example$y
+    
+    # plot the data and true decision boundary
+    prob <- mixture.example$prob
+    prob.bayes <- matrix(prob, 
+                         length(px1), 
+                         length(px2))
+    contour(px1, px2, prob.bayes, levels=0.5, lty=2, 
+            labels="", xlab="x1",ylab="x2",
+            main="SVM with linear kernal", col = "red", lwd = 2)
+    points(x, col=ifelse(y==1, "darkorange", "deepskyblue"), pch = 19)
+
+    # train linear SVM using the kernlab package
+    library(kernlab)
+    cost = 10
+    svm.fit <- ksvm(x, y, type="C-svc", kernel='vanilladot', C=cost)
+
+    # plot the SVM decision boundary
+    # Extract the indices of the support vectors on the margin:
+    sv.alpha<-alpha(svm.fit)[[1]][which(alpha(svm.fit)[[1]]<cost)]
+    sv.index<-alphaindex(svm.fit)[[1]][which(alpha(svm.fit)[[1]]<cost)]
+    sv.matrix<-x[sv.index,]
+    points(sv.matrix, pch=16, col=ifelse(y[sv.index] == 1, "darkorange", "deepskyblue"), cex=1.5)
+
+    # Plot the hyperplane and the margins:
+    w <- t(cbind(coef(svm.fit)[[1]])) %*% xmatrix(svm.fit)[[1]]
+    b <- - b(svm.fit)
+
+    abline(a= -b/w[1,2], b=-w[1,1]/w[1,2], col="black", lty=1, lwd = 2)
+    abline(a= (-b-1)/w[1,2], b=-w[1,1]/w[1,2], col="black", lty=3, lwd = 2)
+    abline(a= (-b+1)/w[1,2], b=-w[1,1]/w[1,2], col="black", lty=3, lwd = 2)
+```
+
+Let's also try a nonlinear SVM, using the radial kernel. 
+
+```{r}
+    # fit SVM with radial kernel, with cost = 5
+    dat = data.frame(y = factor(y), x)
+    fit = svm(y ~ ., data = dat, scale = FALSE, kernel = "radial", cost = 5)
+    
+    # extract the prediction
+    xgrid = expand.grid(X1 = px1, X2 = px2)
+    func = predict(fit, xgrid, decision.values = TRUE)
+    func = attributes(func)$decision
+    
+    # visualize the decision rule
+    ygrid = predict(fit, xgrid)
+    plot(xgrid, col = ifelse(ygrid == 1, "bisque", "cadetblue1"), 
+         pch = 20, cex = 0.2, main="SVM with radial kernal")
+    points(x, col=ifelse(y==1, "darkorange", "deepskyblue"), pch = 19)
+    
+    # our estimated function value, cut at 0
+    contour(px1, px2, matrix(func, 69, 99), level = 0, add = TRUE, lwd = 2)
+    
+    # the true probability, cut at 0.5
+    contour(px1, px2, matrix(prob, 69, 99), level = 0.5, add = TRUE, 
+            col = "red", lty=2, lwd = 2)
+```
+
+You may also consider some other popular kernels. The following ones are implemented in the `e1071` package, with additional tuning parameters $\text{coef}_0$ and $\gamma$. 
+
+  * Linear: $K(\bx, \bz) = \bx^\T \bz$
+  * $d$th degree polynomial: $K(\bx, \bz) = (\text{coef}_0 + \gamma \bx^\T \bz)^d$
+  * Radial basis: $K(\bx, \bz) = \exp(- \gamma \lVert \bx - \bz \lVert^2)$
+  * Sigmoid: $\tanh(\gamma \bx^\T \bz + \text{coef}_0)$
+  
+## SVM as a Penalized Model
+
+Recall that in SVM, we need $y_i f(\bx_i)$ to be at least $1 - \xi_i$, this implies that we would prefer $1 - y_i f(\bx_i)$ to be negative or 0. And observation with $1 - y_i f(\bx_i)$ should be penalized. Hence, recall that the objective function of dual form in SVM is $\frac{1}{2}\lVert \bbeta \rVert^2 + C \sum_{i=1}^n \xi_i$, we may rewrite this as a new version:
+
+$$\min \,\, \sum_{i=1}^n \big[ 1 - y_i f(\bx_i) \big]_{+} \, +\, \lambda \lVert \bbeta \rVert^2.$$
+Here, we converted $1/(2C)$ to $\lambda$. And this resembles a familiar form of "Loss $+$ Penalty", where the slack variables becomes the loss and the norm of $\bbeta$ is the penalty. This particular loss function is called the __Hinge loss__, with 
+
+$$L(y, f(\bx)) = [1 - yf(\bx)]_+ = \max(0, 1 - yf(\bx))$$
+However, the Hinge loss is not differentiable. There are some other loss functions that can be used as substitute:
+
+  * Logistic loss: 
+  $$L(y, f(\bx)) = \log_2( 1 + e^{-y f(\bx)})$$
+  * Modified Huber Loss: 
+  $$L(y, f(\bx)) = \begin{cases}
+    \max(0, 1 - yf(\bx))^2 & \text{for} \quad yf(\bx) \geq -1 \\
+    -4 yf(\bx)  & \text{otherwise}  \\
+    \end{cases}$$
+
+Here is a visualization of several different loss functions. 
+
+```{r}
+  t = seq(-2, 3, 0.01)
+
+  # different loss functions
+  hinge = pmax(0, 1 - t) 
+  zeroone = (t <= 0)
+  logistic = log2(1 + exp(-t))
+  modifiedhuber = ifelse(t >= -1, (pmax(0, 1 - t))^2, -4*t)
+  
+  # plot
+  plot(t, zeroone, type = "l", lwd = 2, ylim = c(0, 4),
+       xlab = "yf(x)", ylab = "Loss Function")
+  points(t, hinge, type = "l", lwd = 2, col = "red", )
+  points(t, logistic, type = "l", lty = 2, col = "darkorange", lwd = 2)
+  points(t, modifiedhuber, type = "l", lty = 2, col = "deepskyblue", lwd = 2)
+  legend("topright", c("Zero-one", "Hinge", "Logistic", "Modified Huber"),
+         col = c(1, 2, "darkorange", "deepskyblue"), lty = c(1, 1, 2, 2), 
+         lwd = 2, cex = 1.5)
+```
+Again, want to consider nonlinear decision functions. But the above form does not contain a kernel function. The __Representer Theorem__ [@kimeldorf1970correspondence] may help us in this case. The theorem ensures that if we solve the function $f$ with regularization with respect to the norm in the RKHS induced from a kernel function $K$, then the solution must admits a representation of the form
+
+$$\widehat{f}(\bx) = \sum_{i = 1}^n \beta_i K(\bx, \bx_i).$$
+This suggests that the optimization problem becomes 
+
+$$\sum_{i=1}^n L(y_i, \bK_i^\T \bbeta) + \lambda \bbeta^\T \bK \bbeta,$$
+where $\bK_{n \times n}$ is the kernel matrix with $\bK_{ij} = K(x_i, x_j)$, and $\bK_i$ is the $i$ the column of $\bK$. This is an unconstrained optimization problem that can be solved using gradient decent if $L$ is differentiable. 

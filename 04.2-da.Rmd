@@ -220,7 +220,8 @@ When we assume that each class has its own covariance structure, the decision bo
     
     # plot the densities
     plot_ly(x = x1, y = x2) %>% 
-            add_surface(z = matrix(d1, length(x1), length(x2)), colorscale = list(c(0,"rgb(107,184,214)"),c(1,"rgb(0,90,124)"))) %>% 
+            add_surface(z = matrix(d1, length(x1), length(x2)), 
+                        colorscale = list(c(0,"rgb(107,184,214)"),c(1,"rgb(0,90,124)"))) %>% 
             layout(paper_bgcolor='transparent') %>% 
             add_surface(z = matrix(d2, length(x1), length(x2))) %>% 
             layout(scene = list(xaxis = list(title = "X1"), 

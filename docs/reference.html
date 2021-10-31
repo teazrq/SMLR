@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 13 Reference | Statistical Learning and Machine Learning with R</title>
+  <title>Chapter 14 Reference | Statistical Learning and Machine Learning with R</title>
   <meta name="description" content="A textbook for STAT 542 and 432 at UIUC" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 13 Reference | Statistical Learning and Machine Learning with R" />
+  <meta property="og:title" content="Chapter 14 Reference | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://teazrq.github.io/SMLR/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 13 Reference | Statistical Learning and Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 14 Reference | Statistical Learning and Machine Learning with R" />
   
   <meta name="twitter:description" content="A textbook for STAT 542 and 432 at UIUC" />
   
@@ -24,14 +24,14 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2021-10-09" />
+<meta name="date" content="2021-10-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="discriminant-analysis.html"/>
+<link rel="prev" href="support-vector-machines.html"/>
 
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -346,8 +346,21 @@ div.csl-indent {
 <li class="chapter" data-level="12.5" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#quadratic-discriminant-analysis"><i class="fa fa-check"></i><b>12.5</b> Quadratic Discriminant Analysis</a></li>
 <li class="chapter" data-level="12.6" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-the-hand-written-digit-data"><i class="fa fa-check"></i><b>12.6</b> Example: the Hand Written Digit Data</a></li>
 </ul></li>
+<li class="chapter" data-level="13" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>13</b> Support Vector Machines</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#maximum-margin-classifier"><i class="fa fa-check"></i><b>13.1</b> Maximum-margin Classifier</a></li>
+<li class="chapter" data-level="13.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-separable-svm"><i class="fa fa-check"></i><b>13.2</b> Linearly Separable SVM</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#from-primal-to-dual"><i class="fa fa-check"></i><b>13.2.1</b> From Primal to Dual</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-non-seperable-svm-with-slack-variables"><i class="fa fa-check"></i><b>13.3</b> Linearly Non-seperable SVM with Slack Variables</a></li>
+<li class="chapter" data-level="13.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-saheart-data"><i class="fa fa-check"></i><b>13.4</b> Example: <code>SAheart</code> Data</a></li>
+<li class="chapter" data-level="13.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#nonlinear-svm-via-kernel-trick"><i class="fa fa-check"></i><b>13.5</b> Nonlinear SVM via Kernel Trick</a></li>
+<li class="chapter" data-level="13.6" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-mixture.example-data"><i class="fa fa-check"></i><b>13.6</b> Example: <code>mixture.example</code> Data</a></li>
+<li class="chapter" data-level="13.7" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svm-as-a-penalized-model"><i class="fa fa-check"></i><b>13.7</b> SVM as a Penalized Model</a></li>
+</ul></li>
 <li class="part"><span><b>V Reference</b></span></li>
-<li class="chapter" data-level="13" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>13</b> Reference</a></li>
+<li class="chapter" data-level="14" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>14</b> Reference</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2021 Ruoqing Zhu</a></li>
 
@@ -368,15 +381,21 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="reference" class="section level1" number="13">
-<h1><span class="header-section-number">Chapter 13</span> Reference</h1>
+<div id="reference" class="section level1" number="14">
+<h1><span class="header-section-number">Chapter 14</span> Reference</h1>
 
 <div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Boser, Bernhard E, Isabelle M Guyon, and Vladimir N Vapnik. 1992. <span>“A Training Algorithm for Optimal Margin Classifiers.”</span> In <em>Proceedings of the Fifth Annual Workshop on Computational Learning Theory</em>, 144–52.
+</div>
 <div class="csl-entry">
 Boyd, Stephen, and Lieven Vandenberghe. 2004. <em>Convex Optimization</em>. Cambridge university press.
 </div>
 <div class="csl-entry">
 Cayton, Lawrence. 2005. <span>“Algorithms for Manifold Learning.”</span> <em>Univ. Of California at San Diego Tech. Rep</em> 12 (1-17): 1.
+</div>
+<div class="csl-entry">
+Cortes, Corinna, and Vladimir Vapnik. 1995. <span>“Support-Vector Networks.”</span> <em>Machine Learning</em> 20 (3): 273–97.
 </div>
 <div class="csl-entry">
 Efron, Bradley, Trevor Hastie, Iain Johnstone, and Robert Tibshirani. 2004. <span>“Least Angle Regression.”</span> <em>The Annals of Statistics</em> 32 (2): 407–99.
@@ -395,6 +414,9 @@ Hoerl, Arthur E, and Robert W Kennard. 1970. <span>“Ridge Regression: Biased E
 </div>
 <div class="csl-entry">
 James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 112. Springer.
+</div>
+<div class="csl-entry">
+Kimeldorf, George S, and Grace Wahba. 1970. <span>“A Correspondence Between Bayesian Estimation on Stochastic Processes and Smoothing by Splines.”</span> <em>The Annals of Mathematical Statistics</em> 41 (2): 495–502.
 </div>
 <div class="csl-entry">
 Li, Ker-Chau. 1991. <span>“Sliced Inverse Regression for Dimension Reduction.”</span> <em>Journal of the American Statistical Association</em> 86 (414): 316–27.
@@ -421,7 +443,7 @@ Zou, Hui, and Trevor Hastie. 2005. <span>“Regularization and Variable Selectio
           </div>
         </div>
       </div>
-<a href="discriminant-analysis.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="support-vector-machines.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

@@ -110,4 +110,13 @@ linear-discriminant-analysis
 example-quadratic-discriminant-analysis-qda
 quadratic-discriminant-analysis
 example-the-hand-written-digit-data
+support-vector-machines
+maximum-margin-classifier
+linearly-separable-svm
+from-primal-to-dual
+linearly-non-seperable-svm-with-slack-variables
+example-saheart-data
+nonlinear-svm-via-kernel-trick
+example-mixture.example-data
+svm-as-a-penalized-model
 reference
