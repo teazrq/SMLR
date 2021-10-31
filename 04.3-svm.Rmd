@@ -475,6 +475,16 @@ You may also consider some other popular kernels. The following ones are impleme
   * Radial basis: $K(\bx, \bz) = \exp(- \gamma \lVert \bx - \bz \lVert^2)$
   * Sigmoid: $\tanh(\gamma \bx^\T \bz + \text{coef}_0)$
   
+Cross-validation can also be doing using the `caret` package. To specify the kernel, one must correctly specify the `method` parameter in the `train()` function. For this example, we use the `method = "svmRadial"` that uses the `kernlab` package to fit the model. For this choice, you need to tune just `sigma` and `C` (cost). More details are refereed to the [`caret` documentation](https://topepo.github.io/caret/train-models-by-tag.html#support-vector-machines). 
+
+```{r}
+  svm.radial <- train(y ~ ., data = dat, method = "svmRadial",
+                preProcess = c("center", "scale"),
+                tuneGrid = expand.grid(C = c(0.01, 0.1, 0.5, 1), sigma = c(1, 2, 3)),
+                trControl = trainControl(method = "cv", number = 5))
+  svm.radial
+```
+
 ## SVM as a Penalized Model
 
 Recall that in SVM, we need $y_i f(\bx_i)$ to be at least $1 - \xi_i$, this implies that we would prefer $1 - y_i f(\bx_i)$ to be negative or 0. And observation with $1 - y_i f(\bx_i)$ should be penalized. Hence, recall that the objective function of dual form in SVM is $\frac{1}{2}\lVert \bbeta \rVert^2 + C \sum_{i=1}^n \xi_i$, we may rewrite this as a new version:
@@ -506,7 +516,7 @@ Here is a visualization of several different loss functions.
   
   # plot
   plot(t, zeroone, type = "l", lwd = 2, ylim = c(0, 4),
-       xlab = "yf(x)", ylab = "Loss Function")
+       main = "Loss Functions")
   points(t, hinge, type = "l", lwd = 2, col = "red", )
   points(t, logistic, type = "l", lty = 2, col = "darkorange", lwd = 2)
   points(t, modifiedhuber, type = "l", lty = 2, col = "deepskyblue", lwd = 2)
