@@ -158,7 +158,7 @@ Hence, for this separable case, all observations with $y_i = 1$ are on one side 
 ![](images/SVMdist.png){width=40%}
 </center>
 
-First, let's calculate the __distance from any point $\bx$ to this hyperplane__. We can first find a point $\bx_0$ on the hyperplane, such that $\bx_0^\T = - \beta_0$. By taking the difference between $\bx$ and $\bx_0$, and project this vector to the direction of $\bbeta$, we have that the distance from $\bx$ to the hyperplane is the projection of $\bx - \bx_0$ onto the normed vector $\frac{\bbeta}{\lVert \bbeta \lVert}$:
+First, let's calculate the __distance from any point $\bx$ to this hyperplane__. We can first find a point $\bx_0$ on the hyperplane, such that $\bx_0^\T \bbeta = - \beta_0$. By taking the difference between $\bx$ and $\bx_0$, and project this vector to the direction of $\bbeta$, we have that the distance from $\bx$ to the hyperplane is the projection of $\bx - \bx_0$ onto the normed vector $\frac{\bbeta}{\lVert \bbeta \lVert}$:
 
 \begin{align}
 & \left \langle  \frac{\bbeta}{\lVert \bbeta \lVert}, \bx - \bx_0 \right \rangle \\
@@ -170,7 +170,7 @@ First, let's calculate the __distance from any point $\bx$ to this hyperplane__.
 Since the goal of SVM is to create the maximum margin, let's denote this as $M$. Then we want all observations to be lied on the correct side, with at least an margin $M$. This means $y_i (\bx_i^\T \bbeta + \beta_0) \geq M$. But the scale of $\bbeta$ is also playing a role in calculating the margin. Hence, we will use the normed version. Then, the linearly separable SVM is to solve this constrained optimization problem:
 
 \begin{align}
-\underset{\bbeta, \beta_0}{\text{min}} \quad & M \\
+\underset{\bbeta, \beta_0}{\text{max}} \quad & M \\
 \text{subject to} \quad & \frac{1}{\lVert \bbeta \lVert} y_i(\bx^\T \bbeta + \beta_0) \geq M, \,\, i = 1, \ldots, n.
 \end{align}
 
@@ -395,7 +395,7 @@ K(\bx, \bz) &=~ \left(\sum_{k=1}^p x_k z_k\right) \left(\sum_{l=1}^p x_l z_l\rig
 
 Formally, this property is guaranteed by the __Mercer’s theorem__ that states: The kernel matrix $K$ is positive semi-definite if and only if the function $K(x_i ,x_j)$ is equivalent to some inner product $\langle \Phi(\bx), \Phi(\bz) \rangle$.
 
-Besides making the calculation of nonlinear functions easier, using the kernel trick also implies that if we use a proper kernel function, then it defines a space of functions that can be represented in the form of $f(x) = \sum_i \alpha_i K(x, x_i)$, for any $f(x)$ within the space. Hence, as long as we search for a solution within such a space (reproducing kernel Hilbert space, RKHS), then our computational job reduces to solving the $\alpha_i$'s. This is guaranteed by the __Moore–Aronszajn theorem__, which formally states that: Suppose $K$ is a symmetric, positive definite kernel on a set $\cX$. Then there is a unique Hilbert space of functions on $\cX$ for which $K$ is a reproducing kernel. There are numerous articles on the RKHS. Hence, we will not focus on introducing this technique. However, we will later on use some of its properties (the Representor theorem) to motivate the penalized version of SVM. 
+Besides making the calculation of nonlinear functions easier, using the kernel trick also implies that if we use a proper kernel function, then it defines a space of functions $\cH$ (reproducing kernel Hilbert space, RKHS) that can be represented in the form of $f(x) = \sum_i \alpha_i K(x, x_i)$ for some $x_i$ in $\cX$ (see the Moore–Aronszajn theorem) with a proper definition of inner product. However, this space is of infinite dimension, noticing that $i$ goes from 1 to infinity. However, as long as we search for the solution within $\cH$, and also apply a proper penalty of the estimated function $\widehat{f}(\bx)$, then our computational job will reduce to solving the $\alpha_i$'s that corresponds to the observed $n$ data points, meaning that we only need to solve the solution within a finite space. This is guaranteed by the __Representer theorem__. There are numerous articles on the RKHS. Hence, we will not focus on introducing this technique. However, we will later on use this property in the penalized formulation of SVM. 
 
 ## Example: `mixture.example` Data
 
@@ -524,7 +524,8 @@ Here is a visualization of several different loss functions.
          col = c(1, 2, "darkorange", "deepskyblue"), lty = c(1, 1, 2, 2), 
          lwd = 2, cex = 1.5)
 ```
-Again, want to consider nonlinear decision functions. But the above form does not contain a kernel function. The __Representer Theorem__ [@kimeldorf1970correspondence] may help us in this case. The theorem ensures that if we solve the function $f$ with regularization with respect to the norm in the RKHS induced from a kernel function $K$, then the solution must admits a representation of the form
+
+For linear decision rules, with $f(\bx) = \beta_0 + \bx^\T \bbeta$, this should be trivial to solve. However, we also want to consider nonlinear decision functions. But the above form does not contain a kernel function to use the kernel trick. The __Representer Theorem__ [@kimeldorf1970correspondence] can help us in this case. This theorem was originally developed for in the setting of Chebyshev splines, but later on generalized. The theorem ensures that if we solve the function $f$ with regularization with respect to the norm in the RKHS induced from a kernel function $K$, then the solution must admits a finite representation of the form (although the space $\cH$ we search for the solution is infinite):
 
 $$\widehat{f}(\bx) = \sum_{i = 1}^n \beta_i K(\bx, \bx_i).$$
 This suggests that the optimization problem becomes 
