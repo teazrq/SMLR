@@ -120,3 +120,4 @@ nonlinear-svm-via-kernel-trick
 example-mixture.example-data
 svm-as-a-penalized-model
 reference
+linearly-non-separable-svm-with-slack-variables

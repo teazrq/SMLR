@@ -239,7 +239,7 @@ After solving the dual form, we have all the $\alpha_i$ values. The ones with $\
 $$\widehat{\beta}_0 = - \,\, \frac{\max_{i: y_i = -1} \bx_i^\T \widehat{\bbeta} + \min_{i: y_i = 1} \bx_i^\T \widehat{\bbeta} }{2}$$
 And the decision is $\text{sign}(\bx^\T \widehat{\bbeta} + \widehat{\beta}_0)$. An example has been demonstrated previously with the `e1071` package. 
 
-## Linearly Non-seperable SVM with Slack Variables
+## Linearly Non-separable SVM with Slack Variables
 
 When we cannot have a perfect separation of the two classes, the original SVM cannot find a solution. Hence, a slack was introduce to incorporate such observations: 
 
