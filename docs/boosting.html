@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Linear Algebra Basics | Statistical Learning and Machine Learning with R</title>
+  <title>Chapter 16 Boosting | Statistical Learning and Machine Learning with R</title>
   <meta name="description" content="A textbook for STAT 542 and 432 at UIUC" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Linear Algebra Basics | Statistical Learning and Machine Learning with R" />
+  <meta property="og:title" content="Chapter 16 Boosting | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://teazrq.github.io/SMLR/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Linear Algebra Basics | Statistical Learning and Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 16 Boosting | Statistical Learning and Machine Learning with R" />
   
   <meta name="twitter:description" content="A textbook for STAT 542 and 432 at UIUC" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="rmarkdown.html"/>
-<link rel="next" href="optimization-basics.html"/>
+<link rel="prev" href="random-forests.html"/>
+<link rel="next" href="reference.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -385,38 +385,20 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="linear-algebra-basics" class="section level1" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Linear Algebra Basics</h1>
-<p>You should already be familiar with some basic linear algebra concepts such as matrix and vector multiplications. Here we review some basic concepts and properties that will be used in this course. For the most part, they are used in deriving linear regression results.</p>
-<div id="definition" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Definition</h2>
-<p>We usually use <span class="math inline">\(\mathbf{X}\)</span> to denote an <span class="math inline">\(n \times p\)</span> dimensional design matrix, where <span class="math inline">\(n\)</span> is the number of observations and <span class="math inline">\(p\)</span> is the number of variables. The columns of <span class="math inline">\(\mathbf{x}\)</span> are denoted as <span class="math inline">\(\mathbf{x}_1, \ldots, \mathbf{x}_p\)</span>:</p>
-<p><span class="math display">\[
-\mathbf{X}= \begin{pmatrix}
-x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1p}\\
-x_{21} &amp; x_{22} &amp; \cdots &amp; x_{2p}\\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
-x_{m1} &amp; x_{n2} &amp; \cdots &amp; x_{np}\\
-\end{pmatrix} = 
-\begin{pmatrix}
-\mathbf{x}_1 &amp; \mathbf{x}_2 &amp; \cdots &amp; \mathbf{x}_p\\
-\end{pmatrix}
-\]</span>
-The <strong>column space</strong>, <span class="math inline">\(\cal{C}(\mathbf{X})\)</span> of <span class="math inline">\(\mathbf{X}\)</span> is the set of all linear combinations of <span class="math inline">\(\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_p\)</span>, i.e.,</p>
-<p><span class="math display">\[c_1 \mathbf{x}_1 + c_2 \mathbf{x}_2 + \cdots c_p \mathbf{x}_p.\]</span>
-This is also called the <strong>span</strong> of these vectors, <span class="math inline">\(\text{span}(\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_p)\)</span>. Its orthogonal space is</p>
-<p><span class="math display">\[\{\mathbf{v}: \mathbf{X}^\text{T}\mathbf{v}= 0\}.\]</span>
-A projection matrix <span class="math inline">\(\bP\)</span> is a matrix such that</p>
+<div id="boosting" class="section level1" number="16">
+<h1><span class="header-section-number">Chapter 16</span> Boosting</h1>
 
 </div>
-</div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="rmarkdown.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="optimization-basics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="random-forests.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="reference.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -114,10 +114,12 @@ support-vector-machines
 maximum-margin-classifier
 linearly-separable-svm
 from-primal-to-dual
-linearly-non-seperable-svm-with-slack-variables
+linearly-non-separable-svm-with-slack-variables
 example-saheart-data
 nonlinear-svm-via-kernel-trick
 example-mixture.example-data
 svm-as-a-penalized-model
+classification-and-regression-trees
+random-forests
+boosting
 reference
-linearly-non-separable-svm-with-slack-variables
