@@ -3,6 +3,8 @@
 \def\cX{{\cal X}}
 \def\cF{{\cal F}}
 \def\cH{{\cal H}}
+\def\cT{{\cal T}}
+\def\cA{{\cal A}}
 \def\bA{\mathbf{A}}
 \def\bB{\mathbf{B}}
 \def\bX{\mathbf{X}}
@@ -55,5 +57,218 @@
 
 # Classification and Regression Trees
 
+A tree model is very simple to fit and enjoys interpretability. It is also the core component of random forest and boosting. Both trees and random forests can be used for classification and regression problems, although trees are not ideal for regressions problems due to its large bias. There are two main stream of tree models,  Classification and Regression Trees (CART, @breiman1984classification) and C4.5 [@quinlan1993c4], which is an improvement of the ID3 (Iterative Dichotomiser 3) algorithm. The main difference is to use binary or multiple splits and the criteria of the splitting rule. In fact the splitting rule criteria is probably the most essential part of a tree. 
+
+## Example: Classification Tree
+
+Let's generate a model with nonlinear classification rule. 
+
+```{r}
+    set.seed(1)
+    n = 500
+    x1 = runif(n, -1, 1)
+    x2 = runif(n, -1, 1)
+    y = rbinom(n, size = 1, prob = ifelse(x1^2 + x2^2 < 0.6, 0.9, 0.1))
+    
+    par(mar=rep(2,4))
+    plot(x1, x2, col = ifelse(y == 1, "deepskyblue", "darkorange"), pch = 19)
+    symbols(0, 0, circles = sqrt(0.6), add = TRUE, inches = FALSE, cex = 2)
+```
+
+A classification tree model is recursively splitting the feature space such that eventually each region is dominated by one class. We will use `rpart` as an example to fit trees, which stands for recursively partitioning. 
+
+```{r}
+    set.seed(1)
+    library(rpart)
+    rpart.fit = rpart(as.factor(y)~x1+x2, data = data.frame(x1, x2, y))
+    
+    # the tree structure    
+    par(mar=rep(0.5, 4))
+    plot(rpart.fit)
+    text(rpart.fit)    
+
+    # if you want to peek into the tree 
+    # note that we set cp = 0.041, which is a tuning parameter
+    # we will discuss this later
+    rpart.fit$cptable
+    prune(rpart.fit, cp = 0.041)
+```
+
+The model proceed with the following steps. Note that steps 5 and 6 may not be really beneficial (consider that we know the true model). 
+
+```{r fig.dim = c(12, 9), out.width = '90%', echo = FALSE}
+  TreeSteps <- function(i)
+  {
+    plot(x1, x2, col = ifelse(y == 1, "deepskyblue", "darkorange"), pch = 19, yaxt="n", xaxt = "n")
+      
+    # the four cuts that are performing well
+    if(i > 0) lines(x = c(-1, 1), y = c(-0.6444322, -0.6444322), lwd = 2)
+    if(i > 1) lines(x = c(0.6941279, 0.6941279), y = c(-0.6444322, 1), lwd = 2)
+    if(i > 2) lines(x = c(-1, 0.6941279), y = c(0.7484327, 0.7484327), lwd = 2)
+    if(i > 3) lines(x = c(-0.6903174, -0.6903174), y = c(-0.6444322, 0.7484327), lwd = 2)
+    
+    # the model will go further, but they seem to be over-fitting
+    if(i > 4) lines(x = c(-0.7675897, -0.7675897), y = c(-0.6444322, 0.7484327), 
+                    lwd = 3, lty = 2, col = "red")
+    if(i > 5) lines(x = c(-0.6903174, 0.6941279), y = c(0.3800769, 0.3800769), 
+                    lwd = 3, lty = 2, col = "red")           
+  }
+
+  par(mfrow = c(2, 3), mar=c(0.5, 0.5, 3, 0.5))
+  for (i in c(1,2,3,4,5,6)) 
+  {
+    TreeSteps(i)
+    title(paste("Tree splitting step", i))
+  }
+```
+
+Alternatively, there are many other packages that can perform the same analysis. For example, the `tree` package. However, be careful that this package uses a different splitting rule by default If you want to match the result, use `split = "gini"`. Note that this plot is very crowded because it will split until pretty much only one class in each terminal node. Hence, you can imaging that there will be a tuning parameter issue. We will discuss this later. 
+
+```{r echo = FALSE}
+  par(mfrow = c(1, 1))
+```
+
+```{r}
+    library(tree)
+    tree.fit = tree(as.factor(y)~x1+x2, data = data.frame(x1, x2, y), split = "gini")
+    plot(tree.fit)
+    text(tree.fit)
+```
+
+## Splitting a Node 
+
+In a tree model, the splitting mechanism performs in the following way, which is just comparing all possible splits on all variables. For simplicity, we will assume that a binary splitting rule is used, i.e., we split the current node into to two child nodes, and apply the procedure recursively.
+
+  * At the current node, go through each variable to find the best cut-off point that splits the node.
+  * Compare all the best cut-off points across all variable and choose the best one to split the current node and then iterate.
+  
+So, what error criterion should we use to compare different cut-off points? There are three of them at least:
+
+  * Gini impurity (CART)
+  * Shannon entropy (C4.5)
+  * Mis-classification error
+
+Gini impurity is used in CART, while ID3/C4.5 uses the Shannon entropy. These criteria have different effects than the mis-classifications error. They usually prefer more "pure" nodes, meaning that it is more likely to single out a set of pure class terminal node if we use Gini impurity and Shannon entropy. This is because their measures are nonlinear. 
+
+Suppose that we have a population (or a set of observations) with $p_k$ proportion of class $k$, for $k = 1, \ldots, K$. Then, the Gini impurity is given by 
+
+$$ \text{Gini} = \sum_{k = 1}^K p_k (1 - p_k) = 1 - \sum_{k=1}^K p_k^2.$$
+The Shannon theory is defined as 
+
+$$- \sum_{k=1}^K p_k \log(p_k).$$
+And the classification error simply adds up all mis-classified portions if we predict the population into the most prevalent one:
+
+$$ 1 - \underset{k = 1, \ldots, K}{\max} \,\, p_k$$
+The following plot shows all three quantities as a function of $p$, when there are only two classes, i.e., $K = 2$. 
+
+```{r echo = FALSE}
+    gini <- function(y)
+    {
+    	p = table(y)/length(y)
+    	sum(p*(1-p))
+    }
+    
+    shannon <- function(y)
+    {
+    	p = table(y)/length(y)
+    	-sum(p*log(p))
+    }
+    
+    error <- function(y)
+    {
+    	p = table(y)/length(y)
+    	1 - max(p)
+    }
+    
+    score <- function(TL, TR, measure)
+    {
+    	nl = length(TL)
+    	nr = length(TR)
+    	n = nl + nr
+    	f <- get(measure)
+    	f(c(TL, TR)) - nl/n*f(TL) - nr/n*f(TR)
+    }
+    
+    TL = rep(1, 3)
+    TR = c(rep(1, 4), rep(0, 3))
+    
+    # score(TL, TR, "gini")
+    # score(TL, TR, "shannon")
+    # score(TL, TR, "error")
+    
+    x = seq(0, 1, 0.01)
+    g = 2*x*(1-x)
+    s = -x*log(x) - (1-x)*log(1-x)
+    e = 1-pmax(x, 1-x)
+    
+    par(mar=c(4.2,4.2,2,2))
+    plot(x, s, type = "l", lty = 1, col = 3, lwd = 2, ylim = c(0, 1), ylab = "Impurity", xlab = "p", cex.lab = 1.5)
+    lines(x, g, lty = 1, col = 2, lwd = 2)
+    lines(x, e, lty = 1, col = 4, lwd = 2)
+    
+    legend("topleft", c("Entropy", "Gini", "Error"), col = c(3,2,4), lty =1, cex = 1.2)
+```
+
+For each quantity, smaller value means that the node is more "pure", hence, there is a higher certainty when we predict a new value. The idea of splitting a node is that, we want the two resulting child node to contain less variation. In other words, we want each child node to be as "pure" as possible. Hence, the idea is to calculate this error criterion both before and after the split and see what cut-off point gives us the best reduction of error. Of course, all of these quantities will be calculated based on the sample version, instead of the truth. For example, if we use the Gini impurity to compare different splits, we use the following quantity for an __internal node__ $\cA$:
+
+\begin{align}
+\text{score}(j, c) = \text{Gini}(\cA) - \left( \frac{N_{\cA_L}}{N_{\cA}} \text{Gini}(\cA_L) + \frac{N_{\cA_R}}{N_{\cA}} \text{Gini}(\cA_R)  \right).
+\end{align}
+
+Here, $\cA_L$ (left child node) and $\cA_R$ (right child node) denote the two child nodes resulted from a potential split on the $j$th variable at a cut-off point $c$, such that 
+
+$$\cA_L = \{\bx: \bx \in \cA, \, x_j \leq c\}$$
+and 
+
+$$\cA_R = \{\bx: \bx \in \cA, \, x_j > c\}.$$
+Then $N_\cA$, $N_{\cA_L}$, $N_{\cA_R}$ are the number of observations in these nodes, respectively. The implication of this is quite intuitive: $\text{Gini}(\cA)$ calculates the uncertainty of the entire node $\cA$, while the second quantity is a summary of the uncertainty of the two potential child nodes. Hence a larger score indicates a better split, and we may choose the best index $j$ and cut-off point $c$ to proceed, 
+
+$$\underset{j \, , \, c}{\argmax} \,\, \text{score}(j, c)$$
+
+and then work on each child node separately using the same procedure. 
+
+## Regression Trees 
+
+The basic procedure for a regression tree is pretty much the same as a classification tree, except that we will use a different way to evaluate how good a potential split is. Note that the variance is a simple quantity to describe the noise within a node, we can use 
+
+\begin{align}
+\text{score}(j, c) = \text{Var}(\cA) - \left( \frac{N_{\cA_L}}{N_{\cA}} \text{Var}(\cA_L) + \frac{N_{\cA_R}}{N_{\cA}} \text{Var}(\cA_R)  \right).
+\end{align}
+
+## Predicting a Target Point 
+
+When we have a new target point $\bx_0$ to predict, the basic strategy is to "drop it down the tree". This is simply starting from the root node and following the splitting rule to see which terminal node it ends up with. Note that a fitted tree will have a collection of terminal nodes, say, $\{\cA_1, \cA_2, \ldots, \cA_M\}$, then suppose $\bx_0$ falls into terminal node $\cA_m$, we use $\bar{y}_{\cA_m}$, the average of original training data that falls into this node, as the prediction. The final prediction can be written as 
+
+\begin{align}
+\widehat{f}(\bx_0) =& \sum_{m = 1}^M \bar{y}_{\cA_m} \mathbf{1}\{\bx_0 \in \cA_m\} \\
+=& \sum_{m = 1}^M \frac{\sum_{i=1}^n y_i \mathbf{1}\{\bx_i \in \cA_m\}}{\sum_{i=1}^n \mathbf{1}\{\bx_i \in \cA_m\}} \mathbf{1}\{\bx_0 \in \cA_m\}.
+\end{align}
+
+## Tuning a Tree Model
+
+Tree tuning is essentially about when to stop splitting. Or we could look at this reversely by first fitting a very large tree, then see if we could remove some branches of a tree to make it simpler without sacrificing much accuracy. One approach is called the __cost-complexity pruning__. This is another penalized framework that we use the accuracy as the loss function, and use the tree-size as the penalty part for complexity. Formally, if we have any tree model $\cT$, consider this can be written as 
+
+\begin{align}
+C_\alpha(\cT) =&~ \sum_{\text{all terminal nodes $t$ in $\cT$}} N_t \cdot \text{Impurity}(t) + \alpha |\cT| \nonumber \\
+=&~ C(\cT) + \alpha |\cT|
+\end{align}
+
+Now, we can start with a very large tree, say, fitted until all pure terminal nodes. Call this tree as $\cT_\text{max}$. We can then exhaust all its sub-trees by pruning any branches, and calculate this $C(\cdot)$ function of the sub-tree. Then the tree that gives the smallest value will be our best tree. 
+
+But this can be computationally too expensive. Hence, one compromise, instead of trying all possible sub-trees, is to use the __weakest-link cutting__. This means that, we cut the branch (essentially a certain split) that displays the weakest banefit towards the $C(\cdot)$ function. The procedure is the following:
 
 
+  * Look at an internal node $t$ of $\cT_\text{max}$, and denote the entire branch starting from $t$ as $\cT_t$
+  * Compare: remove the entire branch (collapse $\cT_t$ into a single terminal node) vs. keep $T_t$. To do this, calculate
+    $$\alpha \leq \frac{C(t) - C(\cT_t)}{|T_t| - 1}$$
+    Note that $|\cT_t| - 1$ is the size difference between the two trees.
+  * Try all internal nodes $t$, and cut the branch $t$ that has the smallest value on the right hand side. This gives the smallest $\alpha$ value to remove some branches. Then iterate the procedure based on this reduced tree. 
+
+Note that the $\alpha$ values will get larger as we move more branches. Hence this produces a solution path. Now this is very similar to the Lasso solution path idea, and we could use cross-validation to select the best tuning. By default, the `rpart` function uses a 10-fold cross-validation. This can be controlled using the `rpart.control()` function and specify the `xval` argument. For details, please see the [documentation](https://cran.r-project.org/web/packages/rpart/rpart.pdf). The following plot using `plotcp()` in the `rpart` package gives a visualization of the relative cross-validation error. It also produces a horizontal line (the dotted line). It suggests the lowest (plus certain variation) that we could achieve. Hence, we will select the best `cp` value ($alpha$) that is above this line. The way that this is constructed is similar to the `lambda.1se` choice in `glmnet`. 
+
+```{r}
+  # and the tuning parameter 
+  plotcp(rpart.fit)  
+  printcp(rpart.fit)
+```
+    

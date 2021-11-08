@@ -24,7 +24,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2021-11-07" />
+<meta name="date" content="2021-11-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -360,8 +360,23 @@ div.csl-indent {
 <li class="chapter" data-level="13.6" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-mixture.example-data"><i class="fa fa-check"></i><b>13.6</b> Example: <code>mixture.example</code> Data</a></li>
 <li class="chapter" data-level="13.7" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svm-as-a-penalized-model"><i class="fa fa-check"></i><b>13.7</b> SVM as a Penalized Model</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html"><i class="fa fa-check"></i><b>14</b> Classification and Regression Trees</a></li>
-<li class="chapter" data-level="15" data-path="random-forests.html"><a href="random-forests.html"><i class="fa fa-check"></i><b>15</b> Random Forests</a></li>
+<li class="chapter" data-level="14" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html"><i class="fa fa-check"></i><b>14</b> Classification and Regression Trees</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#example-classification-tree"><i class="fa fa-check"></i><b>14.1</b> Example: Classification Tree</a></li>
+<li class="chapter" data-level="14.2" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#splitting-a-node"><i class="fa fa-check"></i><b>14.2</b> Splitting a Node</a></li>
+<li class="chapter" data-level="14.3" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#regression-trees"><i class="fa fa-check"></i><b>14.3</b> Regression Trees</a></li>
+<li class="chapter" data-level="14.4" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#predicting-a-target-point"><i class="fa fa-check"></i><b>14.4</b> Predicting a Target Point</a></li>
+<li class="chapter" data-level="14.5" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#tuning-a-tree-model"><i class="fa fa-check"></i><b>14.5</b> Tuning a Tree Model</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="random-forests.html"><a href="random-forests.html"><i class="fa fa-check"></i><b>15</b> Random Forests</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="random-forests.html"><a href="random-forests.html#bagging-predictors"><i class="fa fa-check"></i><b>15.1</b> Bagging Predictors</a></li>
+<li class="chapter" data-level="15.2" data-path="random-forests.html"><a href="random-forests.html#random-forests-1"><i class="fa fa-check"></i><b>15.2</b> Random Forests</a></li>
+<li class="chapter" data-level="15.3" data-path="random-forests.html"><a href="random-forests.html#effect-of-mtry"><i class="fa fa-check"></i><b>15.3</b> Effect of <code>mtry</code></a></li>
+<li class="chapter" data-level="15.4" data-path="random-forests.html"><a href="random-forests.html#effect-of-nodesize"><i class="fa fa-check"></i><b>15.4</b> Effect of <code>nodesize</code></a></li>
+<li class="chapter" data-level="15.5" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>15.5</b> Variable Importance</a></li>
+<li class="chapter" data-level="15.6" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forets"><i class="fa fa-check"></i><b>15.6</b> Kernel view of Random Forets</a></li>
+</ul></li>
 <li class="chapter" data-level="16" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>16</b> Boosting</a></li>
 <li class="part"><span><b>VI Reference</b></span></li>
 <li class="chapter" data-level="17" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>17</b> Reference</a></li>
@@ -387,7 +402,177 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="random-forests" class="section level1" number="15">
 <h1><span class="header-section-number">Chapter 15</span> Random Forests</h1>
+<p>Roughly speaking, random forests <span class="citation">(<a href="#ref-breiman2001random" role="doc-biblioref">Breiman 2001</a>)</span> are parallelly fitted CART models with some randomness. There are several main components:</p>
+<ul>
+<li>Bootstrapping of data for each tree using the Bagging idea <span class="citation">(<a href="#ref-breiman1996bagging" role="doc-biblioref">Breiman 1996</a>)</span>, and use the averaged result (for regression) or majority voting (for classification) of all trees as the prediction.</li>
+<li>At each internal node, we may not consider all variables. Instead, we consider a randomly selected <code>mtry</code> variables to search for the best split. This idea was inspired by by <span class="citation"><a href="#ref-ho1998random" role="doc-biblioref">Ho</a> (<a href="#ref-ho1998random" role="doc-biblioref">1998</a>)</span>.</li>
+<li>For each tree, we will not perform pruning. Instead, we simply stop when the internal node contains no more than <code>nodesize</code> number of observations.</li>
+</ul>
+<p>Later on, there were various version of random forests that attempts to improve the performance, from both computational and theoretical prospective. We will introduce them later.</p>
+<div id="bagging-predictors" class="section level2" number="15.1">
+<h2><span class="header-section-number">15.1</span> Bagging Predictors</h2>
+<p>CART models may be difficult when dealing with non-axis-aligned decision boundaries. This can be seen from the example below, in a two-dimensional case. The idea of Bagging is that we can fit many CART models, each from a Bootstrap sample, i.e., sample with replacement from the original <span class="math inline">\(n\)</span> observations. The reason that Breiman considered bootstrap samples is because it can approximate the original distribution that generates the data. But the end result is that since each tree may be slightly different from each other, when we stack them, the decision bound can be more “smooth.”</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="random-forests.html#cb136-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># generate some data </span></span>
+<span id="cb136-2"><a href="random-forests.html#cb136-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb136-3"><a href="random-forests.html#cb136-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb136-4"><a href="random-forests.html#cb136-4" aria-hidden="true" tabindex="-1"></a>  x1 <span class="ot">=</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb136-5"><a href="random-forests.html#cb136-5" aria-hidden="true" tabindex="-1"></a>  x2 <span class="ot">=</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb136-6"><a href="random-forests.html#cb136-6" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">rbinom</span>(n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fu">ifelse</span>((x1 <span class="sc">+</span> x2 <span class="sc">&gt;</span> <span class="sc">-</span><span class="fl">0.5</span>) <span class="sc">&amp;</span> (x1 <span class="sc">+</span> x2 <span class="sc">&lt;</span> <span class="fl">0.5</span>) , <span class="fl">0.8</span>, <span class="fl">0.2</span>))</span>
+<span id="cb136-7"><a href="random-forests.html#cb136-7" aria-hidden="true" tabindex="-1"></a>  xgrid <span class="ot">=</span> <span class="fu">expand.grid</span>(<span class="at">x1 =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.01</span>), <span class="at">x2 =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.01</span>))</span></code></pre></div>
+<p>Let’s compare the decision rule of CART and Bagging. For CART, the decision line has to be aligned to axis. For Bagging, we use a total of 200 trees, specified by <code>nbagg</code> in the <code>ipred</code> package.</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="random-forests.html#cb137-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># fit CART</span></span>
+<span id="cb137-2"><a href="random-forests.html#cb137-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(rpart)</span>
+<span id="cb137-3"><a href="random-forests.html#cb137-3" aria-hidden="true" tabindex="-1"></a>  rpart.fit <span class="ot">=</span> <span class="fu">rpart</span>(<span class="fu">as.factor</span>(y)<span class="sc">~</span>x1<span class="sc">+</span>x2, <span class="at">data =</span> <span class="fu">data.frame</span>(x1, x2, y))</span>
+<span id="cb137-4"><a href="random-forests.html#cb137-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-5"><a href="random-forests.html#cb137-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># we could fit a different tree using a bootstrap sample</span></span>
+<span id="cb137-6"><a href="random-forests.html#cb137-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># rpart.fit = rpart(as.factor(y)~x1+x2, data = data.frame(x1, x2, y)[sample(1:n, n, replace = TRUE), ])</span></span>
+<span id="cb137-7"><a href="random-forests.html#cb137-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-8"><a href="random-forests.html#cb137-8" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">predict</span>(rpart.fit, xgrid, <span class="at">type =</span> <span class="st">&quot;class&quot;</span>) <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">201</span>, <span class="dv">201</span>)</span>
+<span id="cb137-9"><a href="random-forests.html#cb137-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">contour</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.01</span>), <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.01</span>), pred, <span class="at">levels=</span><span class="fl">0.5</span>, <span class="at">labels=</span><span class="st">&quot;&quot;</span>,<span class="at">axes=</span><span class="cn">FALSE</span>)</span>
+<span id="cb137-10"><a href="random-forests.html#cb137-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(x1, x2, <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">yaxt=</span><span class="st">&quot;n&quot;</span>, <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb137-11"><a href="random-forests.html#cb137-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">pch=</span><span class="st">&quot;.&quot;</span>, <span class="at">cex=</span><span class="fl">1.2</span>, <span class="at">col=</span><span class="fu">ifelse</span>(pred, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>))</span>
+<span id="cb137-12"><a href="random-forests.html#cb137-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">box</span>()    </span>
+<span id="cb137-13"><a href="random-forests.html#cb137-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">title</span>(<span class="st">&quot;CART&quot;</span>)</span>
+<span id="cb137-14"><a href="random-forests.html#cb137-14" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb137-15"><a href="random-forests.html#cb137-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># fit Bagging</span></span>
+<span id="cb137-16"><a href="random-forests.html#cb137-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ipred)</span>
+<span id="cb137-17"><a href="random-forests.html#cb137-17" aria-hidden="true" tabindex="-1"></a>  bag.fit <span class="ot">=</span> <span class="fu">bagging</span>(<span class="fu">as.factor</span>(y)<span class="sc">~</span>x1<span class="sc">+</span>x2, <span class="at">data =</span> <span class="fu">data.frame</span>(x1, x2, y), <span class="at">nbagg =</span> <span class="dv">200</span>, <span class="at">ns =</span> <span class="dv">400</span>)</span>
+<span id="cb137-18"><a href="random-forests.html#cb137-18" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">predict</span>(<span class="fu">prune</span>(bag.fit), xgrid) <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">201</span>, <span class="dv">201</span>)</span>
+<span id="cb137-19"><a href="random-forests.html#cb137-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">contour</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.01</span>), <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.01</span>), pred, <span class="at">levels=</span><span class="fl">0.5</span>, <span class="at">labels=</span><span class="st">&quot;&quot;</span>,<span class="at">axes=</span><span class="cn">FALSE</span>)</span>
+<span id="cb137-20"><a href="random-forests.html#cb137-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(x1, x2, <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">yaxt=</span><span class="st">&quot;n&quot;</span>, <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb137-21"><a href="random-forests.html#cb137-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">pch=</span><span class="st">&quot;.&quot;</span>, <span class="at">cex=</span><span class="fl">1.2</span>, <span class="at">col=</span><span class="fu">ifelse</span>(pred, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>))</span>
+<span id="cb137-22"><a href="random-forests.html#cb137-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">box</span>()</span>
+<span id="cb137-23"><a href="random-forests.html#cb137-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">title</span>(<span class="st">&quot;Bagging&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-199-1.png" width="90%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="random-forests-1" class="section level2" number="15.2">
+<h2><span class="header-section-number">15.2</span> Random Forests</h2>
+<p>Random forests are equipped with this Bootstrapping strategy, but also with other things, which are mentioned previously. They are controlled by several key parameters:</p>
+<ul>
+<li><code>ntree</code>: number of trees</li>
+<li><code>sampsize</code>: how many samples to use when fitting each tree</li>
+<li><code>mtry</code>: number of randomly sampled variable to consider at each internal node</li>
+<li><code>nodesize</code>: stop splitting when the node sample size is no larger than <code>nodesize</code></li>
+</ul>
+<p>Using the <code>randomForest</code> package, we can fit the model. It is difficult to visualize this when <code>p &gt; 2</code>. But we can look at the testing error.</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="random-forests.html#cb138-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># generate some data with larger p</span></span>
+<span id="cb138-2"><a href="random-forests.html#cb138-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb138-3"><a href="random-forests.html#cb138-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb138-4"><a href="random-forests.html#cb138-4" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb138-5"><a href="random-forests.html#cb138-5" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(n<span class="sc">*</span>p, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), n, p)</span>
+<span id="cb138-6"><a href="random-forests.html#cb138-6" aria-hidden="true" tabindex="-1"></a>  x1 <span class="ot">=</span> X[, <span class="dv">1</span>]</span>
+<span id="cb138-7"><a href="random-forests.html#cb138-7" aria-hidden="true" tabindex="-1"></a>  x2 <span class="ot">=</span> X[, <span class="dv">2</span>]</span>
+<span id="cb138-8"><a href="random-forests.html#cb138-8" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">rbinom</span>(n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fu">ifelse</span>((x1 <span class="sc">+</span> x2 <span class="sc">&gt;</span> <span class="sc">-</span><span class="fl">0.5</span>) <span class="sc">&amp;</span> (x1 <span class="sc">+</span> x2 <span class="sc">&lt;</span> <span class="fl">0.5</span>), <span class="fl">0.8</span>, <span class="fl">0.2</span>))</span>
+<span id="cb138-9"><a href="random-forests.html#cb138-9" aria-hidden="true" tabindex="-1"></a>  xgrid <span class="ot">=</span> <span class="fu">expand.grid</span>(<span class="at">x1 =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.01</span>), <span class="at">x2 =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.01</span>))</span>
+<span id="cb138-10"><a href="random-forests.html#cb138-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-11"><a href="random-forests.html#cb138-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># fit random forests with a selected tuning</span></span>
+<span id="cb138-12"><a href="random-forests.html#cb138-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(randomForest)</span>
+<span id="cb138-13"><a href="random-forests.html#cb138-13" aria-hidden="true" tabindex="-1"></a><span class="do">## randomForest 4.6-14</span></span>
+<span id="cb138-14"><a href="random-forests.html#cb138-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Type rfNews() to see new features/changes/bug fixes.</span></span>
+<span id="cb138-15"><a href="random-forests.html#cb138-15" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb138-16"><a href="random-forests.html#cb138-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Attaching package: &#39;randomForest&#39;</span></span>
+<span id="cb138-17"><a href="random-forests.html#cb138-17" aria-hidden="true" tabindex="-1"></a><span class="do">## The following object is masked from &#39;package:ggplot2&#39;:</span></span>
+<span id="cb138-18"><a href="random-forests.html#cb138-18" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb138-19"><a href="random-forests.html#cb138-19" aria-hidden="true" tabindex="-1"></a><span class="do">##     margin</span></span>
+<span id="cb138-20"><a href="random-forests.html#cb138-20" aria-hidden="true" tabindex="-1"></a>  rf.fit <span class="ot">=</span> <span class="fu">randomForest</span>(X, <span class="fu">as.factor</span>(y), <span class="at">ntree =</span> <span class="dv">1000</span>, </span>
+<span id="cb138-21"><a href="random-forests.html#cb138-21" aria-hidden="true" tabindex="-1"></a>                        <span class="at">mtry =</span> <span class="dv">7</span>, <span class="at">nodesize =</span> <span class="dv">10</span>, <span class="at">sampsize =</span> <span class="dv">800</span>)</span></code></pre></div>
+<p>Instead of generating a set of testing samples labels, let’s directly compare with the “true” decision rule, the Bayes rule.</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="random-forests.html#cb139-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the testing data </span></span>
+<span id="cb139-2"><a href="random-forests.html#cb139-2" aria-hidden="true" tabindex="-1"></a>  Xtest <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(n<span class="sc">*</span>p, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), n, p)</span>
+<span id="cb139-3"><a href="random-forests.html#cb139-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb139-4"><a href="random-forests.html#cb139-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the Bayes rule</span></span>
+<span id="cb139-5"><a href="random-forests.html#cb139-5" aria-hidden="true" tabindex="-1"></a>  BayesRule <span class="ot">=</span> <span class="fu">ifelse</span>((Xtest[, <span class="dv">1</span>] <span class="sc">+</span> Xtest[, <span class="dv">2</span>] <span class="sc">&gt;</span> <span class="sc">-</span><span class="fl">0.5</span>) <span class="sc">&amp;</span> </span>
+<span id="cb139-6"><a href="random-forests.html#cb139-6" aria-hidden="true" tabindex="-1"></a>                     (Xtest[, <span class="dv">1</span>] <span class="sc">+</span> Xtest[, <span class="dv">2</span>] <span class="sc">&lt;</span> <span class="fl">0.5</span>), <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb139-7"><a href="random-forests.html#cb139-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb139-8"><a href="random-forests.html#cb139-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>( (<span class="fu">predict</span>(rf.fit, Xtest) <span class="sc">==</span> <span class="st">&quot;1&quot;</span>) <span class="sc">==</span> BayesRule )</span>
+<span id="cb139-9"><a href="random-forests.html#cb139-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.785</span></span></code></pre></div>
+</div>
+<div id="effect-of-mtry" class="section level2" number="15.3">
+<h2><span class="header-section-number">15.3</span> Effect of <code>mtry</code></h2>
+<p>In the two dimensional setting, we probably won’t see much difference by using random forests, since the only effective change is <code>mtry = 1</code>, which is not really different than <code>mtry = 2</code> (the CART choice). You can try this by yourself.
+However, the difference would be significant in higher dimensional settings, in our case <span class="math inline">\(p=10\)</span>. This is again an issue of bias-variance trade-off. The intuition is that, when we use a small <code>mtry</code>, and when <span class="math inline">\(p\)</span> is large, we may by chance randomly select some irrelevant variables that has nothing to do with the outcome. Then this particular split would be wasted. Missing the true variable may cause larger bias. On the other hand, when we use a large <code>mtry</code>, we will be greedy for signals since we compare many different variables and pick the best one. But this is also as the risk of over-fitting. Hence, tuning is necessary.</p>
+<p>Just as an example, let’s try a small <code>mtry</code>:</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="random-forests.html#cb140-1" aria-hidden="true" tabindex="-1"></a>  rf.fit <span class="ot">=</span> <span class="fu">randomForest</span>(X, <span class="fu">as.factor</span>(y), <span class="at">ntree =</span> <span class="dv">1000</span>, </span>
+<span id="cb140-2"><a href="random-forests.html#cb140-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">mtry =</span> <span class="dv">1</span>, <span class="at">nodesize =</span> <span class="dv">10</span>, <span class="at">sampsize =</span> <span class="dv">800</span>)</span>
+<span id="cb140-3"><a href="random-forests.html#cb140-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-4"><a href="random-forests.html#cb140-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>( (<span class="fu">predict</span>(rf.fit, Xtest) <span class="sc">==</span> <span class="st">&quot;1&quot;</span>) <span class="sc">==</span> BayesRule )</span>
+<span id="cb140-5"><a href="random-forests.html#cb140-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.634</span></span></code></pre></div>
+</div>
+<div id="effect-of-nodesize" class="section level2" number="15.4">
+<h2><span class="header-section-number">15.4</span> Effect of <code>nodesize</code></h2>
+<p>When we use a small <code>nodesize</code>, we are at the risk of over-fitting. This is similar to the 1NN example. When we use large <code>nodesize</code>, there could be under-fitting.</p>
+</div>
+<div id="variable-importance" class="section level2" number="15.5">
+<h2><span class="header-section-number">15.5</span> Variable Importance</h2>
+<p>Random forests model provides a way to evaluate the importance of each variable. This can be done by specifying the <code>importance</code> argument. We usually use the <code>MeanDecreaseAccuracy</code> or <code>MeanDecreaseGini</code> column as the summary of the importance of each variable.</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="random-forests.html#cb141-1" aria-hidden="true" tabindex="-1"></a>  rf.fit <span class="ot">=</span> <span class="fu">randomForest</span>(X, <span class="fu">as.factor</span>(y), <span class="at">ntree =</span> <span class="dv">1000</span>, </span>
+<span id="cb141-2"><a href="random-forests.html#cb141-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">mtry =</span> <span class="dv">7</span>, <span class="at">nodesize =</span> <span class="dv">10</span>, <span class="at">sampsize =</span> <span class="dv">800</span>,</span>
+<span id="cb141-3"><a href="random-forests.html#cb141-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">importance=</span><span class="cn">TRUE</span>)</span>
+<span id="cb141-4"><a href="random-forests.html#cb141-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-5"><a href="random-forests.html#cb141-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">importance</span>(rf.fit)</span>
+<span id="cb141-6"><a href="random-forests.html#cb141-6" aria-hidden="true" tabindex="-1"></a><span class="do">##             0         1 MeanDecreaseAccuracy MeanDecreaseGini</span></span>
+<span id="cb141-7"><a href="random-forests.html#cb141-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  39.1053057 39.823786           45.4232897         47.79065</span></span>
+<span id="cb141-8"><a href="random-forests.html#cb141-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  38.1820764 40.119387           45.1964485         54.89580</span></span>
+<span id="cb141-9"><a href="random-forests.html#cb141-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 3   3.2719270  1.461298            3.2274895         28.44828</span></span>
+<span id="cb141-10"><a href="random-forests.html#cb141-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  -0.2777943 -6.287430           -4.8470758         22.09006</span></span>
+<span id="cb141-11"><a href="random-forests.html#cb141-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 5   2.0937973  1.654224            2.5256400         28.57575</span></span>
+<span id="cb141-12"><a href="random-forests.html#cb141-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 6   2.2354984 -2.435663           -0.1297796         25.29836</span></span>
+<span id="cb141-13"><a href="random-forests.html#cb141-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 7   0.2083020  2.724449            2.0679184         24.28751</span></span>
+<span id="cb141-14"><a href="random-forests.html#cb141-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 8   0.2018946  3.350897            2.3962745         25.51630</span></span>
+<span id="cb141-15"><a href="random-forests.html#cb141-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 9  -1.6159803  2.150674            0.3912234         23.41498</span></span>
+<span id="cb141-16"><a href="random-forests.html#cb141-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 10  2.6081961  4.417256            4.8004480         27.80399</span></span></code></pre></div>
+</div>
+<div id="kernel-view-of-random-forets" class="section level2" number="15.6">
+<h2><span class="header-section-number">15.6</span> Kernel view of Random Forets</h2>
+<p>I wrote a small function that will extract the kernel weights from a random forests for predicting a testing point <span class="math inline">\(x\)</span>. This is essentially the counts for how many times a training data falls into the same terminal node as <span class="math inline">\(x\)</span>. Since the prediction on <span class="math inline">\(x\)</span> are essentially the average of them in a weighted fashion, this is basically a kernel averaging approach. However, the kernel weights are adaptive to the true structure.</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="random-forests.html#cb142-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># generate the 2 dimensional case</span></span>
+<span id="cb142-2"><a href="random-forests.html#cb142-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb142-3"><a href="random-forests.html#cb142-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb142-4"><a href="random-forests.html#cb142-4" aria-hidden="true" tabindex="-1"></a>  x1 <span class="ot">=</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb142-5"><a href="random-forests.html#cb142-5" aria-hidden="true" tabindex="-1"></a>  x2 <span class="ot">=</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb142-6"><a href="random-forests.html#cb142-6" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">rbinom</span>(n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fu">ifelse</span>((x1 <span class="sc">+</span> x2 <span class="sc">&gt;</span> <span class="sc">-</span><span class="fl">0.5</span>) <span class="sc">&amp;</span> (x1 <span class="sc">+</span> x2 <span class="sc">&lt;</span> <span class="fl">0.5</span>) , <span class="fl">0.8</span>, <span class="fl">0.2</span>))</span>
+<span id="cb142-7"><a href="random-forests.html#cb142-7" aria-hidden="true" tabindex="-1"></a>  xgrid <span class="ot">=</span> <span class="fu">expand.grid</span>(<span class="at">x1 =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.01</span>), <span class="at">x2 =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.01</span>))</span>
+<span id="cb142-8"><a href="random-forests.html#cb142-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb142-9"><a href="random-forests.html#cb142-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># fit a random forest model</span></span>
+<span id="cb142-10"><a href="random-forests.html#cb142-10" aria-hidden="true" tabindex="-1"></a>  rf.fit <span class="ot">=</span> <span class="fu">randomForest</span>(<span class="fu">cbind</span>(x1, x2), <span class="fu">as.factor</span>(y), <span class="at">ntree =</span> <span class="dv">300</span>, </span>
+<span id="cb142-11"><a href="random-forests.html#cb142-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">mtry =</span> <span class="dv">1</span>, <span class="at">nodesize =</span> <span class="dv">20</span>, <span class="at">keep.inbag =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb142-12"><a href="random-forests.html#cb142-12" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">predict</span>(rf.fit, xgrid) <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">201</span>, <span class="dv">201</span>)</span>
+<span id="cb142-13"><a href="random-forests.html#cb142-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb142-14"><a href="random-forests.html#cb142-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="dv">2</span>, <span class="fl">0.5</span>))</span>
+<span id="cb142-15"><a href="random-forests.html#cb142-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb142-16"><a href="random-forests.html#cb142-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># check the kernel weight at different points</span></span>
+<span id="cb142-17"><a href="random-forests.html#cb142-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotRFKernel</span>(rf.fit, <span class="fu">data.frame</span>(<span class="fu">cbind</span>(x1, x2)), <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.4</span>))</span>
+<span id="cb142-18"><a href="random-forests.html#cb142-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotRFKernel</span>(rf.fit, <span class="fu">data.frame</span>(<span class="fu">cbind</span>(x1, x2)), <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.6</span>))</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-206-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>As contrast, here is the regular Gaussian kernel weights (after some tuning). This effect will play an important role when <span class="math inline">\(p\)</span> is large.</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="random-forests.html#cb143-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gaussian kernel weights</span></span>
+<span id="cb143-2"><a href="random-forests.html#cb143-2" aria-hidden="true" tabindex="-1"></a>  onex <span class="ot">=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.4</span>)</span>
+<span id="cb143-3"><a href="random-forests.html#cb143-3" aria-hidden="true" tabindex="-1"></a>  h <span class="ot">=</span> <span class="fl">0.2</span></span>
+<span id="cb143-4"><a href="random-forests.html#cb143-4" aria-hidden="true" tabindex="-1"></a>  wt <span class="ot">=</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fl">0.5</span><span class="sc">*</span><span class="fu">rowSums</span>(<span class="fu">sweep</span>(<span class="fu">cbind</span>(x1, x2), <span class="dv">2</span>, onex, <span class="at">FUN =</span> <span class="st">&quot;-&quot;</span>)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>h<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb143-5"><a href="random-forests.html#cb143-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">contour</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.01</span>), <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.01</span>), pred, </span>
+<span id="cb143-6"><a href="random-forests.html#cb143-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">levels=</span><span class="fl">0.5</span>, <span class="at">labels=</span><span class="st">&quot;&quot;</span>,<span class="at">axes=</span><span class="cn">FALSE</span>)</span>
+<span id="cb143-7"><a href="random-forests.html#cb143-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(x1, x2, <span class="at">cex =</span> <span class="dv">4</span><span class="sc">*</span>wt<span class="sc">^</span>(<span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>), <span class="at">pch =</span> <span class="dv">1</span>, <span class="at">cex.axis=</span><span class="fl">1.25</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb143-8"><a href="random-forests.html#cb143-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(x1, x2, <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), </span>
+<span id="cb143-9"><a href="random-forests.html#cb143-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.75</span>, <span class="at">yaxt=</span><span class="st">&quot;n&quot;</span>, <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb143-10"><a href="random-forests.html#cb143-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">pch=</span><span class="st">&quot;.&quot;</span>, <span class="at">cex=</span><span class="fl">1.2</span>, </span>
+<span id="cb143-11"><a href="random-forests.html#cb143-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">col=</span><span class="fu">ifelse</span>(pred, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>))</span>
+<span id="cb143-12"><a href="random-forests.html#cb143-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(onex[<span class="dv">1</span>], onex[<span class="dv">2</span>], <span class="at">pch =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span><span class="dv">4</span>, <span class="at">lwd =</span> <span class="dv">6</span>)</span>
+<span id="cb143-13"><a href="random-forests.html#cb143-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">box</span>()</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-208-1.png" width="45%" style="display: block; margin: auto;" /></p>
 
+</div>
+</div>
+<h3> Reference</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-breiman1996bagging" class="csl-entry">
+Breiman, Leo. 1996. <span>“Bagging Predictors.”</span> <em>Machine Learning</em> 24 (2): 123–40.
+</div>
+<div id="ref-breiman2001random" class="csl-entry">
+———. 2001. <span>“Random Forests.”</span> <em>Machine Learning</em> 45 (1): 5–32.
+</div>
+<div id="ref-ho1998random" class="csl-entry">
+Ho, Tin Kam. 1998. <span>“The Random Subspace Method for Constructing Decision Forests.”</span> <em>IEEE Transactions on Pattern Analysis and Machine Intelligence</em> 20 (8): 832–44.
+</div>
 </div>
             </section>
 

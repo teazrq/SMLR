@@ -120,6 +120,17 @@ nonlinear-svm-via-kernel-trick
 example-mixture.example-data
 svm-as-a-penalized-model
 classification-and-regression-trees
+example-classification-tree
+splitting-a-node
+regression-trees
+predicting-a-target-point
+tuning-a-tree-model
 random-forests
+bagging-predictors
+random-forests-1
+effect-of-mtry
+effect-of-nodesize
+variable-importance
+kernel-view-of-random-forets
 boosting
 reference

@@ -55,5 +55,212 @@
 
 # Random Forests
 
+Roughly speaking, random forests [@breiman2001random] are parallelly fitted CART models with some randomness. There are several main components: 
 
+  * Bootstrapping of data for each tree using the Bagging idea [@breiman1996bagging], and use the averaged result (for regression) or majority voting (for classification) of all trees as the prediction. 
+  * At each internal node, we may not consider all variables. Instead, we consider a randomly selected `mtry` variables to search for the best split. This idea was inspired by by @ho1998random.
+  * For each tree, we will not perform pruning. Instead, we simply stop when the internal node contains no more than `nodesize` number of observations. 
 
+Later on, there were various version of random forests that attempts to improve the performance, from both computational and theoretical prospective. We will introduce them later. 
+
+## Bagging Predictors
+
+CART models may be difficult when dealing with non-axis-aligned decision boundaries. This can be seen from the example below, in a two-dimensional case. The idea of Bagging is that we can fit many CART models, each from a Bootstrap sample, i.e., sample with replacement from the original $n$ observations. The reason that Breiman considered bootstrap samples is because it can approximate the original distribution that generates the data. But the end result is that since each tree may be slightly different from each other, when we stack them, the decision bound can be more "smooth". 
+
+```{r}
+  # generate some data 
+  set.seed(2)
+  n = 1000
+  x1 = runif(n, -1, 1)
+  x2 = runif(n, -1, 1)
+  y = rbinom(n, size = 1, prob = ifelse((x1 + x2 > -0.5) & (x1 + x2 < 0.5) , 0.8, 0.2))
+  xgrid = expand.grid(x1 = seq(-1, 1, 0.01), x2 = seq(-1, 1, 0.01))
+```
+
+```{r echo = FALSE} 
+  par(mfrow=c(1, 2), mar=c(0.5, 0.5, 2, 0.5))
+```
+
+Let's compare the decision rule of CART and Bagging. For CART, the decision line has to be aligned to axis. For Bagging, we use a total of 200 trees, specified by `nbagg` in the `ipred` package.  
+
+```{r fig.dim = c(12, 6), out.width = "90%"}
+  # fit CART
+  library(rpart)
+  rpart.fit = rpart(as.factor(y)~x1+x2, data = data.frame(x1, x2, y))
+
+  # we could fit a different tree using a bootstrap sample
+  # rpart.fit = rpart(as.factor(y)~x1+x2, data = data.frame(x1, x2, y)[sample(1:n, n, replace = TRUE), ])
+
+  pred = matrix(predict(rpart.fit, xgrid, type = "class") == 1, 201, 201)
+  contour(seq(-1, 1, 0.01), seq(-1, 1, 0.01), pred, levels=0.5, labels="",axes=FALSE)
+  points(x1, x2, col = ifelse(y == 1, "deepskyblue", "darkorange"), pch = 19, yaxt="n", xaxt = "n")
+  points(xgrid, pch=".", cex=1.2, col=ifelse(pred, "deepskyblue", "darkorange"))
+  box()    
+  title("CART")
+ 
+  # fit Bagging
+  library(ipred)
+  bag.fit = bagging(as.factor(y)~x1+x2, data = data.frame(x1, x2, y), nbagg = 200, ns = 400)
+  pred = matrix(predict(prune(bag.fit), xgrid) == 1, 201, 201)
+  contour(seq(-1, 1, 0.01), seq(-1, 1, 0.01), pred, levels=0.5, labels="",axes=FALSE)
+  points(x1, x2, col = ifelse(y == 1, "deepskyblue", "darkorange"), pch = 19, yaxt="n", xaxt = "n")
+  points(xgrid, pch=".", cex=1.2, col=ifelse(pred, "deepskyblue", "darkorange"))
+  box()
+  title("Bagging")
+```
+
+## Random Forests
+
+Random forests are equipped with this Bootstrapping strategy, but also with other things, which are mentioned previously. They are controlled by several key parameters: 
+
+  * `ntree`: number of trees
+  * `sampsize`: how many samples to use when fitting each tree
+  * `mtry`: number of randomly sampled variable to consider at each internal node
+  * `nodesize`: stop splitting when the node sample size is no larger than `nodesize`
+  
+Using the `randomForest` package, we can fit the model. It is difficult to visualize this when `p > 2`. But we can look at the testing error. 
+
+```{r echo = FALSE} 
+    par(mfrow=c(1, 1), mar=c(0.5, 0.5, 2, 0.5))
+```
+
+```{r, fig.dim = c(6, 6), out.width = "45%"}
+  # generate some data with larger p
+  set.seed(2)
+  n = 1000
+  p = 10
+  X = matrix(runif(n*p, -1, 1), n, p)
+  x1 = X[, 1]
+  x2 = X[, 2]
+  y = rbinom(n, size = 1, prob = ifelse((x1 + x2 > -0.5) & (x1 + x2 < 0.5), 0.8, 0.2))
+  xgrid = expand.grid(x1 = seq(-1, 1, 0.01), x2 = seq(-1, 1, 0.01))
+
+  # fit random forests with a selected tuning
+  library(randomForest)
+  rf.fit = randomForest(X, as.factor(y), ntree = 1000, 
+                        mtry = 7, nodesize = 10, sampsize = 800)
+```
+
+Instead of generating a set of testing samples labels, let's directly compare with the "true" decision rule, the Bayes rule. 
+    
+```{r}
+  # the testing data 
+  Xtest = matrix(runif(n*p, -1, 1), n, p)
+  
+  # the Bayes rule
+  BayesRule = ifelse((Xtest[, 1] + Xtest[, 2] > -0.5) & 
+                     (Xtest[, 1] + Xtest[, 2] < 0.5), 1, 0)
+  
+  mean( (predict(rf.fit, Xtest) == "1") == BayesRule )
+```
+
+## Effect of `mtry`
+
+In the two dimensional setting, we probably won't see much difference by using random forests, since the only effective change is `mtry = 1`, which is not really different than `mtry = 2` (the CART choice). You can try this by yourself.
+However, the difference would be significant in higher dimensional settings, in our case $p=10$. This is again an issue of bias-variance trade-off. The intuition is that, when we use a small `mtry`, and when $p$ is large, we may by chance randomly select some irrelevant variables that has nothing to do with the outcome. Then this particular split would be wasted. Missing the true variable may cause larger bias. On the other hand, when we use a large `mtry`, we will be greedy for signals since we compare many different variables and pick the best one. But this is also as the risk of over-fitting. Hence, tuning is necessary. 
+
+Just as an example, let's try a small `mtry`:
+
+```{r}
+  rf.fit = randomForest(X, as.factor(y), ntree = 1000, 
+                        mtry = 1, nodesize = 10, sampsize = 800)
+
+  mean( (predict(rf.fit, Xtest) == "1") == BayesRule )
+```
+
+## Effect of `nodesize`
+
+When we use a small `nodesize`, we are at the risk of over-fitting. This is similar to the 1NN example. When we use large `nodesize`, there could be under-fitting. 
+
+## Variable Importance 
+
+Random forests model provides a way to evaluate the importance of each variable. This can be done by specifying the `importance` argument. We usually use the `MeanDecreaseAccuracy` or `MeanDecreaseGini` column as the summary of the importance of each variable. 
+
+```{r fig.dim=c(6,6), out.width = '45%'}
+  rf.fit = randomForest(X, as.factor(y), ntree = 1000, 
+                        mtry = 7, nodesize = 10, sampsize = 800,
+                        importance=TRUE)
+
+  importance(rf.fit)
+```
+
+## Kernel view of Random Forets
+
+```{r echo = FALSE}
+  # define a function to extract kernel
+  rf.kernel.weights <- function(rffit, x, testx)
+  {
+      if (ncol(x) != length(testx))
+          stop("dimention of x and test differ.")
+      
+      if (is.null(rffit$inbag))
+          stop("the random forest fitting must contain inbag information")
+      
+      register = matrix(NA, nrow(x), rffit$ntree)
+      
+      for (i in 1:nrow(x))
+          register[i, ] = attributes(predict(rffit, x[i,], node = TRUE))$nodes
+      
+      regi = attributes(predict(rffit, testx, node = TRUE))$nodes
+      
+      return(rowSums( sweep(register, 2, regi, FUN = "==")*rffit$inbag ))
+  }
+
+  plotRFKernel <- function(rffit, x, onex)
+  {
+      wt = rf.kernel.weights(rffit, x, onex)
+      wt = wt/max(wt)
+      
+      contour(seq(-1, 1, 0.01), seq(-1, 1, 0.01), pred, levels=0.5, labels="",axes=FALSE)
+      points(x1, x2, cex = 4*wt^(2/3), pch = 1, cex.axis=1.25, lwd = 2)
+      points(x1, x2, col = ifelse(y == 1, "deepskyblue", "darkorange"), pch = 19, cex = 0.75, yaxt="n", xaxt = "n")
+      points(xgrid, pch=".", cex=1.2, col=ifelse(pred, "deepskyblue", "darkorange"))
+      points(onex[1], onex[2], pch = 4, col = "red", cex =4, lwd = 6)        
+      box()
+  }
+```
+
+I wrote a small function that will extract the kernel weights from a random forests for predicting a testing point $x$. This is essentially the counts for how many times a training data falls into the same terminal node as $x$. Since the prediction on $x$ are essentially the average of them in a weighted fashion, this is basically a kernel averaging approach. However, the kernel weights are adaptive to the true structure. 
+
+```{r fig.dim=c(12,6), out.width = '90%'}
+  # generate the 2 dimensional case
+  set.seed(2)
+  n = 1000
+  x1 = runif(n, -1, 1)
+  x2 = runif(n, -1, 1)
+  y = rbinom(n, size = 1, prob = ifelse((x1 + x2 > -0.5) & (x1 + x2 < 0.5) , 0.8, 0.2))
+  xgrid = expand.grid(x1 = seq(-1, 1, 0.01), x2 = seq(-1, 1, 0.01))
+  
+  # fit a random forest model
+  rf.fit = randomForest(cbind(x1, x2), as.factor(y), ntree = 300, 
+                        mtry = 1, nodesize = 20, keep.inbag = TRUE)
+  pred = matrix(predict(rf.fit, xgrid) == 1, 201, 201)
+  
+  par(mfrow=c(1,2), mar=c(0.5, 0.5, 2, 0.5))
+
+  # check the kernel weight at different points
+  plotRFKernel(rf.fit, data.frame(cbind(x1, x2)), c(-0.1, 0.4))
+  plotRFKernel(rf.fit, data.frame(cbind(x1, x2)), c(0, 0.6))
+```
+
+As contrast, here is the regular Gaussian kernel weights (after some tuning). This effect will play an important role when $p$ is large. 
+
+```{r echo = FALSE}
+  par(mfrow=c(1,1))
+```
+
+```{r fig.dim=c(6, 6), out.width = '45%'}
+  # Gaussian kernel weights
+  onex = c(-0.1, 0.4)
+  h = 0.2
+  wt = exp(-0.5*rowSums(sweep(cbind(x1, x2), 2, onex, FUN = "-")^2)/h^2)
+  contour(seq(-1, 1, 0.01), seq(-1, 1, 0.01), pred, 
+          levels=0.5, labels="",axes=FALSE)
+  points(x1, x2, cex = 4*wt^(2/3), pch = 1, cex.axis=1.25, lwd = 2)
+  points(x1, x2, col = ifelse(y == 1, "deepskyblue", "darkorange"), 
+         pch = 19, cex = 0.75, yaxt="n", xaxt = "n")
+  points(xgrid, pch=".", cex=1.2, 
+         col=ifelse(pred, "deepskyblue", "darkorange"))
+  points(onex[1], onex[2], pch = 4, col = "red", cex =4, lwd = 6)
+  box()
+```
