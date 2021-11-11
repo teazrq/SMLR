@@ -133,4 +133,8 @@ effect-of-nodesize
 variable-importance
 kernel-view-of-random-forets
 boosting
+k-means
+basic-concepts
+example-1-iris-data
+example-2-clustering-of-image-pixels
 reference
