@@ -137,4 +137,8 @@ k-means
 basic-concepts
 example-1-iris-data
 example-2-clustering-of-image-pixels
+hierarchical-clustering
+basic-concepts-1
+example-1-iris-data-1
+example-2-rna-expression-data
 reference

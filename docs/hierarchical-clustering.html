@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Statistical Learning and Machine Learning with R</title>
+  <title>Chapter 18 Hierarchical Clustering | Statistical Learning and Machine Learning with R</title>
   <meta name="description" content="A textbook for STAT 542 and 432 at UIUC" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Statistical Learning and Machine Learning with R" />
+  <meta property="og:title" content="Chapter 18 Hierarchical Clustering | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://teazrq.github.io/SMLR/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Statistical Learning and Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 18 Hierarchical Clustering | Statistical Learning and Machine Learning with R" />
   
   <meta name="twitter:description" content="A textbook for STAT 542 and 432 at UIUC" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-
-
+<link rel="prev" href="k-means.html"/>
+<link rel="next" href="reference.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -375,19 +375,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="hierarchical-clustering" class="section level1" number="18">
+<h1><span class="header-section-number">Chapter 18</span> Hierarchical Clustering</h1>
+<div id="basic-concepts-1" class="section level2" number="18.1">
+<h2><span class="header-section-number">18.1</span> Basic Concepts</h2>
+<p>Suppose we have a set of six observations:</p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-4-1.png" width="30%" style="display: block; margin: auto;" /></p>
+<p>The goal is to progressively group them together until there is only one group. During this process, we will always choose the closest two groups (some may be individuals) to merge.</p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>If we evaluate the distance between two observations, that would be very easy. For example, the Euclidean distance and Hamming distance can be used. But what about the distance between two groups? Suppose we have two groups of observations <span class="math inline">\(G\)</span> and <span class="math inline">\(H\)</span>, then several distance metric can be considered:</p>
+<ul>
+<li><strong>Complete linkage</strong>: the furthest pair
+<span class="math display">\[d(G, H) = \underset{i \in G, \, j \in G}{\max} d(x_i, x_j)\]</span></li>
+<li><strong>Single linkage</strong>: the closest pair
+<span class="math display">\[d(G, H) = \underset{i \in G, \, j \in G}{\min} d(x_i, x_j)\]</span></li>
+<li><strong>Average linkage</strong>: average distance
+<span class="math display">\[d(G, H) = \frac{1}{n_G n_H} \sum_{i \in G} \sum_{i \in H} d(x_i, x_j)\]</span></li>
+</ul>
+<p>The <code>R</code> function <code>hclust()</code> uses the complete linkage as default. To perform a hierarchical clustering, we need to know all the pair-wise distances, i.e., <span class="math inline">\(d(x_i, x_j)\)</span>. Let’s consider the Euclidean distance.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="hierarchical-clustering.html#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the Euclidean distance can be computed using dist()</span></span>
+<span id="cb1-2"><a href="hierarchical-clustering.html#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>(<span class="fu">dist</span>(x))</span>
+<span id="cb1-3"><a href="hierarchical-clustering.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">##          1         2         3         4         5         6</span></span>
+<span id="cb1-4"><a href="hierarchical-clustering.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 0.000000 1.2294164 1.7864196 1.1971565 1.4246185 1.5698349</span></span>
+<span id="cb1-5"><a href="hierarchical-clustering.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 1.229416 0.0000000 2.3996575 0.8727261 1.9243764 2.2708670</span></span>
+<span id="cb1-6"><a href="hierarchical-clustering.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 1.786420 2.3996575 0.0000000 2.8586738 0.4782442 0.2448835</span></span>
+<span id="cb1-7"><a href="hierarchical-clustering.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 1.197156 0.8727261 2.8586738 0.0000000 2.4219048 2.6741260</span></span>
+<span id="cb1-8"><a href="hierarchical-clustering.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 1.424618 1.9243764 0.4782442 2.4219048 0.0000000 0.4204479</span></span>
+<span id="cb1-9"><a href="hierarchical-clustering.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 1.569835 2.2708670 0.2448835 2.6741260 0.4204479 0.0000000</span></span></code></pre></div>
+<p>We use this distance matrix in the hierarchical clustering algorithm <code>hclust()</code>. The <code>plot()</code> function will display the merging process. This should be exactly the same as we demonstrated previously.</p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-9-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>The height of each split represents how separated the two subsets are (the distance when they are merged). Selecting the number of clusters is still a tricky problem. Usually, we pick a cutoff where the height of the next split is short. Hence, the above example fits well with two clusters.</p>
 </div>
+<div id="example-1-iris-data-1" class="section level2" number="18.2">
+<h2><span class="header-section-number">18.2</span> Example 1: <code>iris</code> data</h2>
+<p>The <code>iris</code> data contains three clusters and four variables. We use all variables in the distance calculation and use the default complete linkage.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="hierarchical-clustering.html#cb2-1" aria-hidden="true" tabindex="-1"></a>  iris_hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(iris[, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]))</span>
+<span id="cb2-2"><a href="hierarchical-clustering.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(iris_hc)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-10-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<p>This does not seem to perform very well, considering that we know the true number of classes is three. This shows that, in practice, the detected clusters can heavily depend on the variables you use. Let’s try some other linkage functions.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="hierarchical-clustering.html#cb3-1" aria-hidden="true" tabindex="-1"></a>  iris_hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(iris[, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]), <span class="at">method =</span> <span class="st">&quot;average&quot;</span>)</span>
+<span id="cb3-2"><a href="hierarchical-clustering.html#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(iris_hc, <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-11-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<p>This looks better, at least more consistent with the truth. Now we can also consider using other package to plot this result. For example, the <code>ape</code> package provides some interesting choices.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="hierarchical-clustering.html#cb4-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ape)</span>
+<span id="cb4-2"><a href="hierarchical-clustering.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">as.phylo</span>(iris_hc), <span class="at">type =</span> <span class="st">&quot;unrooted&quot;</span>, <span class="at">cex =</span> <span class="fl">0.6</span>, <span class="at">no.margin =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-12-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>We can also add the true class colors to the plot. This plot is motivated by the <code>dendextend</code> package vignettes. Of course in a realistic situation, we wouldn’t know what the true class is.</p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-13-1.png" width="60%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="example-2-rna-expression-data" class="section level2" number="18.3">
+<h2><span class="header-section-number">18.3</span> Example 2: RNA Expression Data</h2>
+<p>We use a tissue gene expression dataset from the <code>tissuesGeneExpression</code> library, available from bioconductor. I prepared the data to include only 100 genes. You can download the data from the course website. In this first step, we simply plot the data using a heatmap. By default, a heatmap uses red to denote higher values, and yellow for lower values. Note that we first plot the data without organizing the columns or rows. The data is also standardized based on columns (genes).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="hierarchical-clustering.html#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">load</span>(<span class="st">&quot;data/tissue.Rda&quot;</span>)</span>
+<span id="cb5-2"><a href="hierarchical-clustering.html#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dim</span>(expression)</span>
+<span id="cb5-3"><a href="hierarchical-clustering.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 189 100</span></span>
+<span id="cb5-4"><a href="hierarchical-clustering.html#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">table</span>(tissue)</span>
+<span id="cb5-5"><a href="hierarchical-clustering.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="do">## tissue</span></span>
+<span id="cb5-6"><a href="hierarchical-clustering.html#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  cerebellum       colon endometrium hippocampus      kidney       liver    placenta </span></span>
+<span id="cb5-7"><a href="hierarchical-clustering.html#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">##          38          34          15          31          39          26           6</span></span>
+<span id="cb5-8"><a href="hierarchical-clustering.html#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(expression[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>])</span>
+<span id="cb5-9"><a href="hierarchical-clustering.html#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="do">##                 211298_s_at 203540_at 211357_s_at</span></span>
+<span id="cb5-10"><a href="hierarchical-clustering.html#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="do">## GSM11805.CEL.gz    7.710426  5.856596   12.618471</span></span>
+<span id="cb5-11"><a href="hierarchical-clustering.html#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="do">## GSM11814.CEL.gz    4.741010  5.813841    5.116707</span></span>
+<span id="cb5-12"><a href="hierarchical-clustering.html#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="do">## GSM11823.CEL.gz   11.730652  5.986338   13.206078</span></span>
+<span id="cb5-13"><a href="hierarchical-clustering.html#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="do">## GSM11830.CEL.gz    5.061337  6.316815    9.780614</span></span>
+<span id="cb5-14"><a href="hierarchical-clustering.html#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="do">## GSM12067.CEL.gz    4.955245  6.561705    8.589003</span></span>
+<span id="cb5-15"><a href="hierarchical-clustering.html#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="do">## GSM12075.CEL.gz   10.469501  5.880740   13.050554</span></span>
+<span id="cb5-16"><a href="hierarchical-clustering.html#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">heatmap</span>(<span class="fu">scale</span>(expression), <span class="at">Rowv =</span> <span class="cn">NA</span>, <span class="at">Colv =</span> <span class="cn">NA</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-14-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>Hierarchical clustering may help us discover interesting patterns. If we reorganize the columns and rows based on the clusters, then it may reveal underlying subclasses of issues, or subgroups of genes.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="hierarchical-clustering.html#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">heatmap</span>(<span class="fu">scale</span>(expression))</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-15-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>Note that there are many other <code>R</code> packages that produce more interesting plots. For example, you can try the <a href="https://cran.r-project.org/web/packages/heatmaply/vignettes/heatmaply.html">heatmaply</a> package.</p>
+
+</div>
+</div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="k-means.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="reference.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
