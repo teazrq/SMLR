@@ -57,10 +57,9 @@
 
 # K-Means
 
-
 ## Basic Concepts
 
-The $k$-means clustering algorithm attemps to solve the following optimization problem: 
+The $k$-means clustering algorithm attempts to solve the following optimization problem: 
 
 $$ \underset{C, \, \{m_k\}_{k=1}^K}\min \sum_{k=1}^K \sum_{C(i) = k} \lVert x_i - m_k \rVert^2, $$
 where $C(\cdot): \{1, \ldots, n\} \rightarrow \{1, \ldots, K\}$ is a cluster assignment function, and $m_k$'s are the cluster means. To solve this problem, $k$-means uses an iterative approach that updates $C(\cdot)$ and $m_k$'s alternatively. Suppose we have a set of six observations. 
