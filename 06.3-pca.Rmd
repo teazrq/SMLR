@@ -1,0 +1,299 @@
+\def\cD{{\cal D}}
+\def\cL{{\cal L}}
+\def\cX{{\cal X}}
+\def\cF{{\cal F}}
+\def\cH{{\cal H}}
+\def\bA{\mathbf{A}}
+\def\bB{\mathbf{B}}
+\def\bX{\mathbf{X}}
+\def\bH{\mathbf{H}}
+\def\bI{\mathbf{I}}
+\def\bU{\mathbf{U}}
+\def\bD{\mathbf{D}}
+\def\bV{\mathbf{V}}
+\def\bS{\mathbf{S}}
+\def\bW{\mathbf{W}}
+\def\bK{\mathbf{K}}
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\bs{\mathbf{s}}
+\def\br{\mathbf{r}}
+\def\bu{\mathbf{u}}
+\def\be{\mathbf{e}}
+\def\bv{\mathbf{v}}
+\def\bp{\mathbf{p}}
+\def\bw{\mathbf{w}}
+\def\bz{\mathbf{z}}
+\def\bzero{\mathbf{0}}
+\def\balpha{\boldsymbol \alpha}
+\def\bbeta{\boldsymbol \beta}
+\def\btheta{\boldsymbol \theta}
+\def\bxi{\boldsymbol \xi}
+\def\bmu{\boldsymbol \mu}
+\def\bepsilon{\boldsymbol \epsilon}
+\def\T{\text{T}}
+\def\Trace{\text{Trace}}
+\def\Cov{\text{Cov}}
+\def\Var{\text{Var}}
+\def\E{\text{E}}
+\def\pr{\text{pr}}
+\def\Prob{\text{P}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+```{r include = FALSE}
+  options(width = 100)
+  knitr::opts_knit$set(global.par = TRUE)
+  knitr::opts_chunk$set(collapse = TRUE, fig.dim = c(6, 6),
+                        out.width = "45%", fig.align = 'center')
+```
+```{r include = FALSE}
+  par(bg="transparent")
+  par(mar=c(2,2,2,2))
+  par(mfrow=c(1,1))
+```
+
+# Principle Component Analysis
+
+## Basic Concepts
+
+Principle Component Analysis (PCA) is arguably the most commonly used approach for dimension reduction and visualization. The idea is to capture major signals of variation in a dataset. A nice demonstration of the search of direction is provided at this [r-bloggers](https://www.r-bloggers.com/principal-component-analysis-in-r/) site:
+
+<center>
+![](images/PCA2.gif)
+</center>
+
+Let's look at a two-dimensional case, we are trying to find a line (direction) on this plain, such that if all points are projected onto this line, their coordinates have the largest variance, compared with any other line. The following code is used to generate a set of observations. 
+
+```{r}
+  # generate some random data from a 2-dimensional normal distribution. 
+  library(MASS)
+  set.seed(1)
+  
+  n = 100
+  Sigma = matrix(c(0.5, -0.65, -0.65, 1), 2, 2)
+  x_org = mvrnorm(n, c(1, 2), Sigma)
+  x = scale(x_org, scale = FALSE, center = TRUE)
+```
+
+```{r out.width = "40%"}
+  plot(x, xlim = c(-3, 3), ylim= c(-3, 3), 
+       pch = 19, cex = 0.75)
+  abline(h = 0, col = "red")
+  abline(v = 0, col = "red")
+```
+
+Let' start with finding a direction to project all the observations onto. And we want this projection to have the largest variation. Of course the direction that goes along the spread of the data would be the best choice for the purpose of large variance. 
+
+```{r out.width = "40%"}
+  plot(x, xlim = c(-3, 3), ylim= c(-3, 3), pch = 19, cex = 0.75)
+  abline(h = 0, col = "red")
+  abline(v = 0, col = "red")
+
+  # This line is obtained from performing PCA
+  pc1 = princomp(x)$loadings[,1]
+  abline(a = 0, b = pc1[2]/pc1[1], col = "deepskyblue", lwd = 4)
+  
+  # The direction 
+  pc1
+```
+
+Once we have the first direction, we can also remove the projection from the original covariates, and search for a direction $\bv_2$ that is orthogonal to $\bv_1$, with $\bv_1^\T \bv_2 = 0$, such that it contains large variation of $\bX$.  
+
+
+```{r out.width = "40%"}
+  par(mar=c(2, 2, 0.3, 0.3))
+  plot(x, xlim = c(-3.5, 3.5), ylim= c(-3.5, 3.5), pch = 19, cex = 0.5)
+  abline(h = 0, col = "red")
+  abline(v = 0, col = "red")
+
+  # largest PC 
+  pc1 = princomp(x)$loadings[,1]
+  abline(a = 0, b = pc1[2]/pc1[1], col = "deepskyblue", lwd = 4)
+
+  # second largest PC
+  pc2 = princomp(x)$loadings[,2]
+  abline(a = 0, b = pc2[2]/pc2[1], col = "darkorange", lwd = 3)
+  
+  pc2
+  t(pc1) %*% pc2
+```
+
+We can also see how much variation these two directions accounts for in the original data. The following shows the corresponding standard deviation. 
+
+```{r}
+  princomp(x)$sdev
+```
+
+Formally, we can generalized this to $\bX$ with any dimensions. And the key tool is to perform the singular value decomposition (SVD):
+
+$$\bX = \bU \bD \bV^\T$$
+The $\bV$ matrix here corresponds to the directions we found. Hence, $\bv_1$ is its first column, $\bv_1$ is its second column, etc.. $\bD$ is a diagonal matrix ordered from the largest to the smallest values, correspond to the standard deviation of the spreads. And $\bU$ represents the coordinates once we project $\bX$ onto those directions. An alternative way to understand this is by matrix approximation, if we want to find a rank-1 matrix that best approximate $\bX$ with the Frobenius norm, we optimize 
+
+$$\text{minimize} \quad \lVert \bX - \bu_1 d_1 \bv_1^\T \rVert_2^2$$
+
+This can be generalized into any dimensional problem. Another alternative formulation is to use eigen-decomposition of $\bX^\T \bX$, which can be written as 
+
+$$\bX^\T \bX = \bV \bD \bU^\T \bU \bD \bV^\T = \bV \bD^2 \bV^\T$$
+
+But one thing we usually need to take care of is the centering issue. This is why we used `scale()` function at the beginning. However, we only center, but not scale the data. If we do not center, then the first principle component (PC) could be a direction that points to the center of the data. Note that when $\bX$ is already centered, $\bX^\T \bX$ is the covariance matrix. Hence PCA is also performing eigen-decomposition to the covariance matrix. 
+
+```{r include = FALSE}
+    par(mfrow=c(1,2))
+    par(mar=c(2, 2, 2, 0.3))
+```    
+    
+```{r fig.dim = c(12, 6), out.width = "70%"}
+    plot(x_org, main = "Before Centering", 
+         xlim = c(-5, 5), ylim= c(-5, 5), pch = 19, cex = 0.5)
+    abline(h = 0, col = "red")
+    abline(v = 0, col = "red")
+    
+    par(mar=c(2, 2, 2, 0.3))
+    plot(x, main = "After Centering", 
+         xlim = c(-5, 5), ylim= c(-5, 5), pch = 19, cex = 0.5)
+    abline(h = 0, col = "red")
+    abline(v = 0, col = "red")    
+```
+
+Finally, for any dimensional data $\bX$, we usually visualize them in the first two directions, or three. Note that the coordinates on the PC's can be obtained using either the `scores` ($\bU$) in the fitted object of `princomp`, or simply multiply the original data matrix by the loading matrix $\bV$.
+
+```{r include = FALSE}
+    par(mfrow=c(1,1))
+```    
+
+```{r fig.dim = c(6, 6), out.width = "40%"}
+    pcafit <- princomp(x)
+
+    # the new coordinates on PC's
+    head(pcafit$scores)
+    
+    # direct calculation based on projection 
+    head(x %*% pcafit$loadings)
+
+    # visualize the data on the PCs
+    # Note that the both axies are scaled 
+    par(mar=c(4, 4.2, 0.3, 0.3))
+    plot(pcafit$scores[,1], pcafit$scores[,2], xlab = "First PC", ylab = "Second PC", pch = 19, cex.lab = 1.5)
+    abline(h = 0, col = "deepskyblue", lwd = 4)
+    abline(v = 0, col = "darkorange", lwd = 4)
+```
+
+There are many different functions in `R` that performs PCA. `princomp` and `prcomp` are the most popular ones.
+
+### Note: Scaling
+
+You should always center the variables when performing PCA, however, whether to use scaling (force each variable to have a standard deviation of 1) depends on the particular application. When you have variables that are extremely disproportionate, e.g., age vs. RNA expression, scaling should be used. This is to prevent some variables from dominating the PC loadings due to their large scales. When all the variables are of the similar type, e.g., color intensities of pixels in a figure, it is better to use the original scale. This is because the variables with larger variations may carry more signal. Scaling may lose that information.
+
+## Example 1: `iris` Data
+
+We use the `iris` data again. All four variables are considered in this analysis. We plot the first and second PC directions. 
+
+```{r fig.width=6, fig.height=4.5}
+    iris_pc <- prcomp(iris[, 1:4])
+    library(ggplot2)
+    ggplot(data = data.frame(iris_pc$x), aes(x=PC1, y=PC2)) + 
+        geom_point(color=c("chartreuse4", "darkorange", "deepskyblue")[iris$Species], size = 3)
+```
+
+One may be interested in plotting all pair-wise direction to see if lower PC's provide useful information. 
+
+```{r fig.width=7, fig.height=6.5}
+    pairs(iris_pc$x, col=c("chartreuse4", "darkorange", "deepskyblue")[iris$Species], pch = 19)
+```
+
+However, usually, the lower PC's are less informative. This can also be speculated from the eigenvalue plot, which shows how influential each PC is. 
+
+```{r fig.width=5, fig.height=4.5}
+    plot(iris_pc, type = "l", pch = 19, main = "Iris PCA Variance")
+```
+
+Feature contributions to the PC can be accessed through the magnitude of the loadings. This table shows that `Petal.Length` is the most influential variable on the first PC, with loading $\approx 0.8567$. 
+
+```{r}
+    iris_pc$rotation
+```
+
+We can further visualize this on a plot. This can be helpful when the number of variables is large. 
+
+```{r fig.width=6, fig.height=4}
+    features = row.names(iris_pc$rotation)
+    ggplot(data = data.frame(iris_pc$rotation), aes(x=PC1, y=PC2, label=features,color=features)) + 
+        geom_point(size = 3) + geom_text(size=3)
+```
+
+## Example 2: Handwritten Digits
+
+The handwritten zip code digits data contains 7291 training data and 2007 testing data. Each image is a $16 \times 16$-pixel gray-scale image. Hence they are converted to a vector of 256 variables. 
+
+```{r}
+    library(ElemStatLearn)
+    # Handwritten Digit Recognition Data
+    # the first column is the true digit
+    dim(zip.train)
+```
+
+Here is a sample of some images:
+
+```{r, fig.width=6, fig.height=4, echo = FALSE, results='hide', fig.keep='all'}
+    par(mar=c(0.3, 0.3, 0.3, 0.3))
+    # a plot of some samples 
+    findRows <- function(zip, n) {
+    # Find n (random) rows with zip representing 0,1,2,...,9
+    res <- vector(length=10, mode="list")
+    names(res) <- 0:9
+    ind <- zip[,1]
+    for (j in 0:9) {
+    res[[j+1]] <- sample( which(ind==j), n ) }
+    return(res) }
+
+    # Making a plot like that on page 4 of HTF:
+    digits <- vector(length=10, mode="list")
+    names(digits) <- 0:9
+    rows <- findRows(zip.train, 6)
+    for (j in 0:9) {
+    digits[[j+1]] <- do.call("cbind", lapply(as.list(rows[[j+1]]),
+    function(x) zip2image(zip.train, x)) )
+    }
+    im <- do.call("rbind", digits)
+    
+    image(im, col=gray(256:0/256), zlim=c(0,1), 
+          xaxt="n", yaxt="n", xlab="", ylab="")
+```
+
+Let's do a simpler task, using just three letters: 1, 4 and 8. 
+
+```{r, fig.width=6, fig.height=4}
+    zip.sub = zip.train[zip.train[,1] %in% c(1,4,8), -1]
+    zip.sub.truth = as.factor(zip.train[zip.train[,1] %in% c(1,4,8), 1])
+    dim(zip.sub)
+    zip_pc = prcomp(zip.sub)
+    plot(zip_pc, type = "l", pch = 19, main = "Digits 1, 4, and 8: PCA Variance")
+```
+
+The eigenvalue results suggest that the first two principal components are much more influential than the rest. A pair-wise PC plot of the first four PC's may further confirm that speculation. 
+
+```{r, fig.width=8, fig.height=6}
+    pairs(zip_pc$x[, 1:4], col=c("chartreuse4", "darkorange", "deepskyblue")[zip.sub.truth], pch = 19)
+```
+
+Let's look at the first two PCs more closely. Even without knowing the true class (no colors) we can still vaguely see 3 clusters. 
+
+```{r fig.width=5, fig.height=4}
+    library(ggplot2)
+    ggplot(data = data.frame(zip_pc$x), aes(x=PC1, y=PC2)) + 
+        geom_point(size = 2)
+```
+
+Finally, let's briefly look at the results of PCA for all 10 different digits. Of course, more PC's are needed for this task. You can also plot other PC's to get more information. 
+
+```{r fig.width=5, fig.height=4}
+    library(colorspace)
+
+    zip_pc <- prcomp(zip.train)
+
+    plot(zip_pc, type = "l", pch = 19, main = "All Digits: PCA Variance")
+
+    ggplot(data = data.frame(prcomp(zip.train)$x), aes(x=PC1, y=PC2)) + 
+    geom_point(color = rainbow_hcl(10)[zip.train[,1]+1], size = 1)
+```
