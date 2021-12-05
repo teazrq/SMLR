@@ -1,0 +1,167 @@
+\def\cD{{\cal D}}
+\def\cL{{\cal L}}
+\def\cX{{\cal X}}
+\def\cF{{\cal F}}
+\def\cH{{\cal H}}
+\def\bA{\mathbf{A}}
+\def\bB{\mathbf{B}}
+\def\bX{\mathbf{X}}
+\def\bH{\mathbf{H}}
+\def\bI{\mathbf{I}}
+\def\bU{\mathbf{U}}
+\def\bD{\mathbf{D}}
+\def\bV{\mathbf{V}}
+\def\bS{\mathbf{S}}
+\def\bW{\mathbf{W}}
+\def\bK{\mathbf{K}}
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\bs{\mathbf{s}}
+\def\br{\mathbf{r}}
+\def\bu{\mathbf{u}}
+\def\be{\mathbf{e}}
+\def\bv{\mathbf{v}}
+\def\bp{\mathbf{p}}
+\def\bw{\mathbf{w}}
+\def\bz{\mathbf{z}}
+\def\bzero{\mathbf{0}}
+\def\balpha{\boldsymbol \alpha}
+\def\bbeta{\boldsymbol \beta}
+\def\btheta{\boldsymbol \theta}
+\def\bxi{\boldsymbol \xi}
+\def\bmu{\boldsymbol \mu}
+\def\bepsilon{\boldsymbol \epsilon}
+\def\T{\text{T}}
+\def\Trace{\text{Trace}}
+\def\Cov{\text{Cov}}
+\def\Var{\text{Var}}
+\def\E{\text{E}}
+\def\pr{\text{pr}}
+\def\Prob{\text{P}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+```{r include = FALSE}
+  options(width = 100)
+  knitr::opts_knit$set(global.par = TRUE)
+  knitr::opts_chunk$set(collapse = TRUE, fig.dim = c(6, 6),
+                        out.width = "45%", fig.align = 'center')
+```
+```{r include = FALSE}
+  par(bg="transparent")
+  par(mar=c(2,2,2,2))
+  par(mfrow=c(1,1))
+```
+
+# Spectral Clustering
+
+## Basic Concepts 
+
+Spectral clustering essentially consists of two steps. First, we construct the graph Laplacian $\mathbf{L}$ (or normalized version), then we perform eigen-decomposition of the matrix. Lets show an example, replicated from @von2007tutorial.
+
+```{r}
+  set.seed(1)
+  n = 50
+  x = c(rnorm(n, 0, 0.2), rnorm(n, 2, 0.2), rnorm(n, 4, 0.2), rnorm(n, 6, 0.2))
+  hist(x, breaks = 100)
+```
+
+We use the adjacency matrix defined as $$w_{ij} = \exp\bigg\{\frac{- \lVert x_i - x_j\rVert^2 }{2 \sigma^2 } \bigg\},$$ and calculate the Laplacian $$\mathbf{L} = \mathbf{D} - \mathbf{W}.$$ We can then use the eigen decomposition to recover the underlying features. 
+
+```{r}
+  # construct the adjacency matrix
+  W = as.matrix(exp(-dist(as.matrix(x))^2) / 4)
+  heatmap(W, Rowv = NA, Colv=NA, symm = TRUE, revC = TRUE)
+  
+  # compute the degree of each vertex
+  d = colSums(W)
+  
+  # the laplacian matrix
+  L = diag(d) - W
+  
+  # eigen-decomposition
+  f = eigen(L, symmetric = TRUE)
+  
+  # plot the eigen-values 
+  # we need the smallest ones
+  plot(rev(f$values)[1:20], pch = 19, ylab = "eigen-values", 
+       col = c(rep("red", 4), rep("blue", 196)))
+  
+```
+  
+```{r echo = FALSE}
+  par(mfrow=c(1,4))
+```
+  
+```{r fig.dim = c(14, 4), out.width = '95%'}
+  # plot the last four eigen-vectors
+  plot(f$vectors[, 200], type = "l", ylab = "eigen-values", ylim = c(-0.15, 0.15))
+  plot(f$vectors[, 199], type = "l", ylab = "eigen-values", ylim = c(-0.15, 0.15))
+  plot(f$vectors[, 198], type = "l", ylab = "eigen-values", ylim = c(-0.15, 0.15))
+  plot(f$vectors[, 197], type = "l", ylab = "eigen-values", ylim = c(-0.15, 0.15))
+```
+
+On the other hand, if we use an adjacency matrix that contains several non-connected blocks, then we would observe four zero eigen-values. For example, using the KNN adjacency index, we may obtain four separated blocks. 
+
+```{r}
+  library(FNN)
+  nn = get.knn(x, k=10)
+  W = matrix(0, 200, 200)
+  for (i in 1:200)
+    W[i, nn$nn.index[i, ]] = 1
+  
+  # W is not necessary symmetric
+  W = pmax(W, t(W))
+  
+  heatmap(W, Rowv = NA, Colv=NA, symm = TRUE, revC = TRUE)
+```
+
+We use a normalized graph Laplacian, defined as 
+
+$$\mathbf{L}_\text{sym} = \mathbf{I} - \mathbf{D^{-1/2} \mathbf{W} D^{-1/2}}$$
+```{r echo = FALSE}
+  par(mfrow=c(1,1))
+```
+
+```{r fig.dim = c(6, 6), out.width = '45%'}
+  # compute the degree of each vertex
+  d = colSums(W)
+  
+  # the laplacian matrix
+  L = diag(200) - diag(1/sqrt(d)) %*% W %*% diag(1/sqrt(d))
+  
+  # eigen-decomposition
+  f = eigen(L, symmetric = TRUE)
+  
+  # plot the eigen-values 
+  # we need the smallest ones
+  plot(rev(f$values)[1:20], pch = 19, ylab = "eigen-values", 
+       col = c(rep("red", 4), rep("blue", 196)))
+```
+
+```{r echo = FALSE}
+  par(mfrow=c(1,4))
+```
+
+```{r fig.dim = c(14, 4), out.width = '95%'}
+  # plot the last four eigen-vectors
+  plot(f$vectors[, 200], type = "l", ylab = "eigen-values", ylim = c(-0.15, 0.15))
+  plot(f$vectors[, 199], type = "l", ylab = "eigen-values", ylim = c(-0.15, 0.15))
+  plot(f$vectors[, 198], type = "l", ylab = "eigen-values", ylim = c(-0.15, 0.15))
+  plot(f$vectors[, 197], type = "l", ylab = "eigen-values", ylim = c(-0.15, 0.15))
+```
+
+We can then perform k-means clustering using the top eigen-vectors as the features.
+
+```{r echo = FALSE}
+  par(mfrow=c(1,1))
+```
+
+```{r fig.dim = c(14, 4), out.width = '95%'}
+  cl = kmeans(f$vectors[, 197:200], centers = 4, nstart = 100)
+  plot(x, cl$cluster, ylab = "Cluster", col = cl$cluster, pch = 3)
+```
+
+
+
+
