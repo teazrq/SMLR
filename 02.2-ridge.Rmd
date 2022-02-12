@@ -184,7 +184,7 @@ Of course, we can ask the question: is it worth it? We could proceed with a simp
 This bias-variance breakdown formula will appear multiple times. Now, plug-in the results developed earlier based on the orthogonal design matrix, and investigate the derivative of the MSE of the Ridge estimator, we have 
 
 \begin{align}
-\frac{\partial \text{MSE}(\widehat{\beta}^\text{ridge})}{ \partial \beta} =& \frac{\partial}{\partial \beta} \left[ \frac{1}{(1+\lambda)^2} \Var(\widehat{\beta}^\text{ols}) + \frac{\lambda^2}{(1 + \lambda)^2} \beta^2 \right] \\
+\frac{\partial \text{MSE}(\widehat{\beta}^\text{ridge})}{ \partial \lambda} =& \frac{\partial}{\partial \lambda} \left[ \frac{1}{(1+\lambda)^2} \Var(\widehat{\beta}^\text{ols}) + \frac{\lambda^2}{(1 + \lambda)^2} \beta^2 \right] \\
 =& \frac{2}{(1+\lambda)^3} \left[ \lambda \beta^2 - \Var(\widehat{\beta}^\text{ols}) \right]
 \end{align}
 
@@ -380,7 +380,7 @@ This completes the proof.
  
 The generalized cross-validation (GCV, @golub1979generalized) is a modified version of the leave-one-out CV:
 
-$$\text{GCV}(\lambda) = \frac{\sum_{i=1}^n (y_i - x_i^\T \widehat{\bbeta}^\text{ridge}_\lambda)}{(n - \Trace{\bS_\lambda})}$$
+$$\text{GCV}(\lambda) = \frac{\sum_{i=1}^n (y_i - x_i^\T \widehat{\bbeta}^\text{ridge}_\lambda)}{(n - \Trace(\bS_\lambda))}$$
 where $\bS_\lambda$ is the hat matrix corresponding to the ridge regression:
 
 $$\bS_\lambda = \bX (\bX^\T \bX + \lambda \bI)^{-1} \bX^\T$$
