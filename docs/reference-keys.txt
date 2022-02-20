@@ -57,6 +57,7 @@ step-wise-regression-using-step
 marrows-cp
 ridge-regression
 motivation-correlated-variables-and-convexity
+ridge-penalty-and-the-reduced-variation
 bias-and-variance-of-ridge-regression
 degrees-of-freedom
 using-the-lm.ridge-function
@@ -74,7 +75,12 @@ the-solution-path
 path-wise-coordinate-descent
 using-the-glmnet-package
 elastic-net
-spline
+piecewise-polynomials
+splines
+spline-basis
+natural-cubic-spline
+smoothing-spline
+extending-splines-to-multiple-varibles
 k-neariest-neighber
 definition-1
 tuning-k
@@ -151,4 +157,10 @@ basic-concepts-3
 spectral-clustering
 basic-concepts-4
 reference
-ridge-penalty-and-the-reduced-variation
+spline
+from-linear-to-nonlinear
+a-motivating-example-and-polynomials
+fitting-smoothing-splines
+eq:label
+eq:penalized
+eq:roughness

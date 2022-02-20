@@ -24,7 +24,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2021-12-05" />
+<meta name="date" content="2022-02-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,22 +53,6 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.20/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
-<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
-<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
-<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
-<script src="libs/selectize-0.12.0/selectize.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -136,28 +120,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -272,21 +234,22 @@ div.csl-indent {
 <li class="chapter" data-level="6" data-path="ridge-regression.html"><a href="ridge-regression.html"><i class="fa fa-check"></i><b>6</b> Ridge Regression</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="ridge-regression.html"><a href="ridge-regression.html#motivation-correlated-variables-and-convexity"><i class="fa fa-check"></i><b>6.1</b> Motivation: Correlated Variables and Convexity</a></li>
-<li class="chapter" data-level="6.2" data-path="ridge-regression.html"><a href="ridge-regression.html#bias-and-variance-of-ridge-regression"><i class="fa fa-check"></i><b>6.2</b> Bias and Variance of Ridge Regression</a></li>
-<li class="chapter" data-level="6.3" data-path="ridge-regression.html"><a href="ridge-regression.html#degrees-of-freedom"><i class="fa fa-check"></i><b>6.3</b> Degrees of Freedom</a></li>
-<li class="chapter" data-level="6.4" data-path="ridge-regression.html"><a href="ridge-regression.html#using-the-lm.ridge-function"><i class="fa fa-check"></i><b>6.4</b> Using the <code>lm.ridge()</code> function</a>
+<li class="chapter" data-level="6.2" data-path="ridge-regression.html"><a href="ridge-regression.html#ridge-penalty-and-the-reduced-variation"><i class="fa fa-check"></i><b>6.2</b> Ridge Penalty and the Reduced Variation</a></li>
+<li class="chapter" data-level="6.3" data-path="ridge-regression.html"><a href="ridge-regression.html#bias-and-variance-of-ridge-regression"><i class="fa fa-check"></i><b>6.3</b> Bias and Variance of Ridge Regression</a></li>
+<li class="chapter" data-level="6.4" data-path="ridge-regression.html"><a href="ridge-regression.html#degrees-of-freedom"><i class="fa fa-check"></i><b>6.4</b> Degrees of Freedom</a></li>
+<li class="chapter" data-level="6.5" data-path="ridge-regression.html"><a href="ridge-regression.html#using-the-lm.ridge-function"><i class="fa fa-check"></i><b>6.5</b> Using the <code>lm.ridge()</code> function</a>
 <ul>
-<li class="chapter" data-level="6.4.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue"><i class="fa fa-check"></i><b>6.4.1</b> Scaling Issue</a></li>
-<li class="chapter" data-level="6.4.2" data-path="ridge-regression.html"><a href="ridge-regression.html#multiple-lambda-values"><i class="fa fa-check"></i><b>6.4.2</b> Multiple <span class="math inline">\(\lambda\)</span> values</a></li>
+<li class="chapter" data-level="6.5.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue"><i class="fa fa-check"></i><b>6.5.1</b> Scaling Issue</a></li>
+<li class="chapter" data-level="6.5.2" data-path="ridge-regression.html"><a href="ridge-regression.html#multiple-lambda-values"><i class="fa fa-check"></i><b>6.5.2</b> Multiple <span class="math inline">\(\lambda\)</span> values</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="ridge-regression.html"><a href="ridge-regression.html#cross-validation"><i class="fa fa-check"></i><b>6.5</b> Cross-validation</a></li>
-<li class="chapter" data-level="6.6" data-path="ridge-regression.html"><a href="ridge-regression.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>6.6</b> Leave-one-out cross-validation</a>
+<li class="chapter" data-level="6.6" data-path="ridge-regression.html"><a href="ridge-regression.html#cross-validation"><i class="fa fa-check"></i><b>6.6</b> Cross-validation</a></li>
+<li class="chapter" data-level="6.7" data-path="ridge-regression.html"><a href="ridge-regression.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>6.7</b> Leave-one-out cross-validation</a>
 <ul>
-<li class="chapter" data-level="6.6.1" data-path="ridge-regression.html"><a href="ridge-regression.html#generalized-cross-validation"><i class="fa fa-check"></i><b>6.6.1</b> Generalized cross-validation</a></li>
+<li class="chapter" data-level="6.7.1" data-path="ridge-regression.html"><a href="ridge-regression.html#generalized-cross-validation"><i class="fa fa-check"></i><b>6.7.1</b> Generalized cross-validation</a></li>
 </ul></li>
-<li class="chapter" data-level="6.7" data-path="ridge-regression.html"><a href="ridge-regression.html#the-glmnet-package"><i class="fa fa-check"></i><b>6.7</b> The <code>glmnet</code> package</a>
+<li class="chapter" data-level="6.8" data-path="ridge-regression.html"><a href="ridge-regression.html#the-glmnet-package"><i class="fa fa-check"></i><b>6.8</b> The <code>glmnet</code> package</a>
 <ul>
-<li class="chapter" data-level="6.7.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue-1"><i class="fa fa-check"></i><b>6.7.1</b> Scaling Issue</a></li>
+<li class="chapter" data-level="6.8.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue-1"><i class="fa fa-check"></i><b>6.8.1</b> Scaling Issue</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="lasso.html"><a href="lasso.html"><i class="fa fa-check"></i><b>7</b> Lasso</a>
@@ -299,7 +262,18 @@ div.csl-indent {
 <li class="chapter" data-level="7.6" data-path="lasso.html"><a href="lasso.html#elastic-net"><i class="fa fa-check"></i><b>7.6</b> Elastic-Net</a></li>
 </ul></li>
 <li class="part"><span><b>III Nonparametric Models</b></span></li>
-<li class="chapter" data-level="8" data-path="spline.html"><a href="spline.html"><i class="fa fa-check"></i><b>8</b> Spline</a></li>
+<li class="chapter" data-level="8" data-path="spline.html"><a href="spline.html"><i class="fa fa-check"></i><b>8</b> Spline</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="spline.html"><a href="spline.html#from-linear-to-nonlinear"><i class="fa fa-check"></i><b>8.1</b> From Linear to Nonlinear</a></li>
+<li class="chapter" data-level="8.2" data-path="spline.html"><a href="spline.html#a-motivating-example-and-polynomials"><i class="fa fa-check"></i><b>8.2</b> A Motivating Example and Polynomials</a></li>
+<li class="chapter" data-level="8.3" data-path="spline.html"><a href="spline.html#piecewise-polynomials"><i class="fa fa-check"></i><b>8.3</b> Piecewise Polynomials</a></li>
+<li class="chapter" data-level="8.4" data-path="spline.html"><a href="spline.html#splines"><i class="fa fa-check"></i><b>8.4</b> Splines</a></li>
+<li class="chapter" data-level="8.5" data-path="spline.html"><a href="spline.html#spline-basis"><i class="fa fa-check"></i><b>8.5</b> Spline Basis</a></li>
+<li class="chapter" data-level="8.6" data-path="spline.html"><a href="spline.html#natural-cubic-spline"><i class="fa fa-check"></i><b>8.6</b> Natural Cubic Spline</a></li>
+<li class="chapter" data-level="8.7" data-path="spline.html"><a href="spline.html#smoothing-spline"><i class="fa fa-check"></i><b>8.7</b> Smoothing Spline</a></li>
+<li class="chapter" data-level="8.8" data-path="spline.html"><a href="spline.html#fitting-smoothing-splines"><i class="fa fa-check"></i><b>8.8</b> Fitting Smoothing Splines</a></li>
+<li class="chapter" data-level="8.9" data-path="spline.html"><a href="spline.html#extending-splines-to-multiple-varibles"><i class="fa fa-check"></i><b>8.9</b> Extending Splines to Multiple Varibles</a></li>
+</ul></li>
 <li class="chapter" data-level="9" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html"><i class="fa fa-check"></i><b>9</b> K-Neariest Neighber</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#definition-1"><i class="fa fa-check"></i><b>9.1</b> Definition</a></li>
@@ -432,7 +406,328 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="spline" class="section level1" number="8">
 <h1><span class="header-section-number">Chapter 8</span> Spline</h1>
+<div id="from-linear-to-nonlinear" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> From Linear to Nonlinear</h2>
+<p>In previous chapters, we mainly focused linear models. Modeling nonlinear trends can still be done with linear model by introducing higher-order terms, or nonlinear transformations. For example, <span class="math inline">\(x^2\)</span>, <span class="math inline">\(\log(x)\)</span> are all very commonly used approaches to model nonlinear effects. There is another class of approaches that is more flexible with nice theoretical properties, the splines. In this chapter, we mainly focus on univariate regression problems.</p>
+</div>
+<div id="a-motivating-example-and-polynomials" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> A Motivating Example and Polynomials</h2>
+<p>We use the U.S. birth rate data as an example. The data records birth rates from 1917 to 2003. The birth rate trend is obviously very nonlinear.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="spline.html#cb1-1" aria-hidden="true" tabindex="-1"></a>    birthrates<span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/birthrate2.csv&quot;</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb1-2"><a href="spline.html#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(birthrates)</span>
+<span id="cb1-3"><a href="spline.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   Year Birthrate</span></span>
+<span id="cb1-4"><a href="spline.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 1917     183.1</span></span>
+<span id="cb1-5"><a href="spline.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 1918     183.9</span></span>
+<span id="cb1-6"><a href="spline.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 1919     163.1</span></span>
+<span id="cb1-7"><a href="spline.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 1920     179.5</span></span>
+<span id="cb1-8"><a href="spline.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 1921     181.4</span></span>
+<span id="cb1-9"><a href="spline.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 1922     173.4</span></span>
+<span id="cb1-10"><a href="spline.html#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb1-11"><a href="spline.html#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(birthrates, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-3-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>It might be interesting to fit a linear regression with high order polynomials to approximate this curve. This can be carried out using the <code>poly()</code> function, which calculates all polynomials up to a certain power. Please note that this is a more stable method compared with writing out the powers such as <code>I(Year^2)</code>, <code>I(Year^3)</code> etc because the <code>Year</code> variable is very large, and is numerically unstable.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="spline.html#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb2-2"><a href="spline.html#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="spline.html#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">0</span>))</span>
+<span id="cb2-4"><a href="spline.html#cb2-4" aria-hidden="true" tabindex="-1"></a>    lmfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> <span class="fu">poly</span>(Year, <span class="dv">3</span>), <span class="at">data =</span> birthrates)</span>
+<span id="cb2-5"><a href="spline.html#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(birthrates, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span>
+<span id="cb2-6"><a href="spline.html#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(birthrates<span class="sc">$</span>Year, lmfit<span class="sc">$</span>fitted.values, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb2-7"><a href="spline.html#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="st">&quot;degree = 3&quot;</span>)</span>
+<span id="cb2-8"><a href="spline.html#cb2-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-9"><a href="spline.html#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">0</span>))</span>
+<span id="cb2-10"><a href="spline.html#cb2-10" aria-hidden="true" tabindex="-1"></a>    lmfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> <span class="fu">poly</span>(Year, <span class="dv">5</span>), <span class="at">data =</span> birthrates)</span>
+<span id="cb2-11"><a href="spline.html#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(birthrates, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span>
+<span id="cb2-12"><a href="spline.html#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(birthrates<span class="sc">$</span>Year, lmfit<span class="sc">$</span>fitted.values, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb2-13"><a href="spline.html#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="st">&quot;degree = 5&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-4-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>These fittings do not seem to perform very well. How about we take a different approach to model the curve locally. Well, we know there is an approach that works in a similar way – <span class="math inline">\(k\)</span>NN. But we will try something new. Let’s first divide the year range into several non-overlapping intervals, say, every 10 years. Then we will estimate the regression coefficients within each interval by averaging the observations, just like <span class="math inline">\(k\)</span>NN. The only difference is that for prediction, we do not recalculate the neighbors anymore, just check the intervals.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="spline.html#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb3-2"><a href="spline.html#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">0</span>))</span>
+<span id="cb3-3"><a href="spline.html#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="spline.html#cb3-4" aria-hidden="true" tabindex="-1"></a>    mybasis <span class="ot">=</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="fu">nrow</span>(birthrates), <span class="dv">8</span>)</span>
+<span id="cb3-5"><a href="spline.html#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>)</span>
+<span id="cb3-6"><a href="spline.html#cb3-6" aria-hidden="true" tabindex="-1"></a>        mybasis[, l] <span class="ot">=</span> birthrates<span class="sc">$</span>Year<span class="sc">*</span>(birthrates<span class="sc">$</span>Year <span class="sc">&gt;=</span> <span class="dv">1917</span> <span class="sc">+</span> l<span class="sc">*</span><span class="dv">10</span>)</span>
+<span id="cb3-7"><a href="spline.html#cb3-7" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-8"><a href="spline.html#cb3-8" aria-hidden="true" tabindex="-1"></a>    lmfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(birthrates<span class="sc">$</span>Birthrate <span class="sc">~</span> ., <span class="at">data =</span> <span class="fu">data.frame</span>(mybasis))</span>
+<span id="cb3-9"><a href="spline.html#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(birthrates, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span>
+<span id="cb3-10"><a href="spline.html#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(birthrates<span class="sc">$</span>Year, lmfit<span class="sc">$</span>fitted.values, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">&quot;s&quot;</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb3-11"><a href="spline.html#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="st">&quot;Histgram Regression&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-5-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>The method is called a histogram regression. Suppose the interval that contains a given testing point <span class="math inline">\(x\)</span> is <span class="math inline">\(\phi(x)\)</span>, then, we are fitting a model with</p>
+<p><span class="math display">\[\widehat{f}(x) = \frac{\sum_{i=1}^n Y_i \,\, I\{X_i \in \phi(x)\} }{ \sum_{i=1}^n I\{X_i \in \phi(x)\}}\]</span></p>
+<p>You may know the word histogram from the plotting the density of a set of observations. Yes, these two are actually motivated by the same philosophy. We will discuss the connection later on. For the purpose of fitting a regression function, the histogram regression does not seem to perform ideally since there will be jumps at the edge of an interval. Hence we need a more flexible framework.</p>
+</div>
+<div id="piecewise-polynomials" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Piecewise Polynomials</h2>
+<p>Instead of fitting constant functions within each interval (between two knots), we may consider fitting a line. Consider a simpler case, where we just use 3 knots at 1938, 1960, 1978, which gives 4 intervals.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="spline.html#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb4-2"><a href="spline.html#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="spline.html#cb4-3" aria-hidden="true" tabindex="-1"></a>    myknots <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1936</span>, <span class="dv">1960</span>, <span class="dv">1978</span>)</span>
+<span id="cb4-4"><a href="spline.html#cb4-4" aria-hidden="true" tabindex="-1"></a>    bounds <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1917</span>, myknots, <span class="dv">2003</span>)  </span>
+<span id="cb4-5"><a href="spline.html#cb4-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-6"><a href="spline.html#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># piecewise constant</span></span>
+<span id="cb4-7"><a href="spline.html#cb4-7" aria-hidden="true" tabindex="-1"></a>    mybasis <span class="ot">=</span> <span class="fu">cbind</span>(<span class="st">&quot;x_1&quot;</span> <span class="ot">=</span> (birthrates<span class="sc">$</span>Year <span class="sc">&lt;</span> myknots[<span class="dv">1</span>]), </span>
+<span id="cb4-8"><a href="spline.html#cb4-8" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;x_2&quot;</span> <span class="ot">=</span> (birthrates<span class="sc">$</span>Year <span class="sc">&gt;=</span> myknots[<span class="dv">1</span>])<span class="sc">*</span>(birthrates<span class="sc">$</span>Year <span class="sc">&lt;</span> myknots[<span class="dv">2</span>]), </span>
+<span id="cb4-9"><a href="spline.html#cb4-9" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;x_3&quot;</span> <span class="ot">=</span> (birthrates<span class="sc">$</span>Year <span class="sc">&gt;=</span> myknots[<span class="dv">2</span>])<span class="sc">*</span>(birthrates<span class="sc">$</span>Year <span class="sc">&lt;</span> myknots[<span class="dv">3</span>]),</span>
+<span id="cb4-10"><a href="spline.html#cb4-10" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;x_4&quot;</span> <span class="ot">=</span> (birthrates<span class="sc">$</span>Year <span class="sc">&gt;=</span> myknots[<span class="dv">3</span>]))</span>
+<span id="cb4-11"><a href="spline.html#cb4-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-12"><a href="spline.html#cb4-12" aria-hidden="true" tabindex="-1"></a>    lmfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(birthrates<span class="sc">$</span>Birthrate <span class="sc">~</span> . <span class="sc">-</span><span class="dv">1</span>, <span class="at">data =</span> <span class="fu">data.frame</span>(mybasis))</span>
+<span id="cb4-13"><a href="spline.html#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">0</span>))    </span>
+<span id="cb4-14"><a href="spline.html#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(birthrates, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span>
+<span id="cb4-15"><a href="spline.html#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v =</span> myknots, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb4-16"><a href="spline.html#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="st">&quot;Piecewise constant&quot;</span>)</span>
+<span id="cb4-17"><a href="spline.html#cb4-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-18"><a href="spline.html#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb4-19"><a href="spline.html#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">points</span>(<span class="fu">c</span>(bounds[k], bounds[k<span class="sc">+</span><span class="dv">1</span>]), <span class="fu">rep</span>(lmfit<span class="sc">$</span>coefficients[k], <span class="dv">2</span>), <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="cb4-20"><a href="spline.html#cb4-20" aria-hidden="true" tabindex="-1"></a>               <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span>
+<span id="cb4-21"><a href="spline.html#cb4-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-22"><a href="spline.html#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># piecewise linear</span></span>
+<span id="cb4-23"><a href="spline.html#cb4-23" aria-hidden="true" tabindex="-1"></a>    mybasis <span class="ot">=</span> <span class="fu">cbind</span>(<span class="st">&quot;x_1&quot;</span> <span class="ot">=</span> (birthrates<span class="sc">$</span>Year <span class="sc">&lt;</span> myknots[<span class="dv">1</span>]), </span>
+<span id="cb4-24"><a href="spline.html#cb4-24" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;x_2&quot;</span> <span class="ot">=</span> (birthrates<span class="sc">$</span>Year <span class="sc">&gt;=</span> myknots[<span class="dv">1</span>])<span class="sc">*</span>(birthrates<span class="sc">$</span>Year <span class="sc">&lt;</span> myknots[<span class="dv">2</span>]), </span>
+<span id="cb4-25"><a href="spline.html#cb4-25" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;x_3&quot;</span> <span class="ot">=</span> (birthrates<span class="sc">$</span>Year <span class="sc">&gt;=</span> myknots[<span class="dv">2</span>])<span class="sc">*</span>(birthrates<span class="sc">$</span>Year <span class="sc">&lt;</span> myknots[<span class="dv">3</span>]),</span>
+<span id="cb4-26"><a href="spline.html#cb4-26" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;x_4&quot;</span> <span class="ot">=</span> (birthrates<span class="sc">$</span>Year <span class="sc">&gt;=</span> myknots[<span class="dv">3</span>]),</span>
+<span id="cb4-27"><a href="spline.html#cb4-27" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;x_11&quot;</span> <span class="ot">=</span> birthrates<span class="sc">$</span>Year<span class="sc">*</span>(birthrates<span class="sc">$</span>Year <span class="sc">&lt;</span> myknots[<span class="dv">1</span>]), </span>
+<span id="cb4-28"><a href="spline.html#cb4-28" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;x_21&quot;</span> <span class="ot">=</span> birthrates<span class="sc">$</span>Year<span class="sc">*</span>(birthrates<span class="sc">$</span>Year <span class="sc">&gt;=</span> myknots[<span class="dv">1</span>])<span class="sc">*</span>(birthrates<span class="sc">$</span>Year <span class="sc">&lt;</span> myknots[<span class="dv">2</span>]), </span>
+<span id="cb4-29"><a href="spline.html#cb4-29" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;x_31&quot;</span> <span class="ot">=</span> birthrates<span class="sc">$</span>Year<span class="sc">*</span>(birthrates<span class="sc">$</span>Year <span class="sc">&gt;=</span> myknots[<span class="dv">2</span>])<span class="sc">*</span>(birthrates<span class="sc">$</span>Year <span class="sc">&lt;</span> myknots[<span class="dv">3</span>]),</span>
+<span id="cb4-30"><a href="spline.html#cb4-30" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;x_41&quot;</span> <span class="ot">=</span> birthrates<span class="sc">$</span>Year<span class="sc">*</span>(birthrates<span class="sc">$</span>Year <span class="sc">&gt;=</span> myknots[<span class="dv">3</span>]))</span>
+<span id="cb4-31"><a href="spline.html#cb4-31" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-32"><a href="spline.html#cb4-32" aria-hidden="true" tabindex="-1"></a>    lmfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(birthrates<span class="sc">$</span>Birthrate <span class="sc">~</span> .<span class="sc">-</span><span class="dv">1</span>, <span class="at">data =</span> <span class="fu">data.frame</span>(mybasis))</span>
+<span id="cb4-33"><a href="spline.html#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">0</span>))  </span>
+<span id="cb4-34"><a href="spline.html#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(birthrates, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span>
+<span id="cb4-35"><a href="spline.html#cb4-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v =</span> myknots, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb4-36"><a href="spline.html#cb4-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="st">&quot;Piecewise linear&quot;</span>)</span>
+<span id="cb4-37"><a href="spline.html#cb4-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-38"><a href="spline.html#cb4-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb4-39"><a href="spline.html#cb4-39" aria-hidden="true" tabindex="-1"></a>        <span class="fu">points</span>(<span class="fu">c</span>(bounds[k], bounds[k<span class="sc">+</span><span class="dv">1</span>]), </span>
+<span id="cb4-40"><a href="spline.html#cb4-40" aria-hidden="true" tabindex="-1"></a>               lmfit<span class="sc">$</span>coefficients[k] <span class="sc">+</span> <span class="fu">c</span>(bounds[k], bounds[k<span class="sc">+</span><span class="dv">1</span>])<span class="sc">*</span>lmfit<span class="sc">$</span>coefficients[k<span class="sc">+</span><span class="dv">4</span>], </span>
+<span id="cb4-41"><a href="spline.html#cb4-41" aria-hidden="true" tabindex="-1"></a>               <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="splines" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> Splines</h2>
+<p>However, these functions are not continuous. Hence we use a trick to construct continuous basis:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="spline.html#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb5-2"><a href="spline.html#cb5-2" aria-hidden="true" tabindex="-1"></a>    pos <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x<span class="sc">*</span>(x<span class="sc">&gt;</span><span class="dv">0</span>)</span>
+<span id="cb5-3"><a href="spline.html#cb5-3" aria-hidden="true" tabindex="-1"></a>    mybasis <span class="ot">=</span> <span class="fu">cbind</span>(<span class="st">&quot;int&quot;</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">&quot;x_1&quot;</span> <span class="ot">=</span> birthrates<span class="sc">$</span>Year, </span>
+<span id="cb5-4"><a href="spline.html#cb5-4" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;x_2&quot;</span> <span class="ot">=</span> <span class="fu">pos</span>(birthrates<span class="sc">$</span>Year <span class="sc">-</span> myknots[<span class="dv">1</span>]), </span>
+<span id="cb5-5"><a href="spline.html#cb5-5" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;x_3&quot;</span> <span class="ot">=</span> <span class="fu">pos</span>(birthrates<span class="sc">$</span>Year <span class="sc">-</span> myknots[<span class="dv">2</span>]),</span>
+<span id="cb5-6"><a href="spline.html#cb5-6" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;x_4&quot;</span> <span class="ot">=</span> <span class="fu">pos</span>(birthrates<span class="sc">$</span>Year <span class="sc">-</span> myknots[<span class="dv">3</span>]))</span>
+<span id="cb5-7"><a href="spline.html#cb5-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-8"><a href="spline.html#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">0</span>))</span>
+<span id="cb5-9"><a href="spline.html#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">matplot</span>(birthrates<span class="sc">$</span>Year, mybasis[, <span class="sc">-</span><span class="dv">1</span>], <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lty =</span> <span class="dv">1</span>, </span>
+<span id="cb5-10"><a href="spline.html#cb5-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">yaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>), <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb5-11"><a href="spline.html#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="st">&quot;Spline Basis Functions&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-7-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>With this definition, any fitted model will be</p>
+<ul>
+<li>Continuous everywhere</li>
+<li>Linear everywhere except the knots</li>
+<li>Has a different slot for each region</li>
+</ul>
+<p>The resulted model is called a spline.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="spline.html#cb6-1" aria-hidden="true" tabindex="-1"></a>    lmfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(birthrates<span class="sc">$</span>Birthrate <span class="sc">~</span> .<span class="sc">-</span><span class="dv">1</span>, <span class="at">data =</span> <span class="fu">data.frame</span>(mybasis))</span>
+<span id="cb6-2"><a href="spline.html#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">0</span>))  </span>
+<span id="cb6-3"><a href="spline.html#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(birthrates, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span>
+<span id="cb6-4"><a href="spline.html#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(birthrates<span class="sc">$</span>Year, lmfit<span class="sc">$</span>fitted.values, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span>
+<span id="cb6-5"><a href="spline.html#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v =</span> myknots, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb6-6"><a href="spline.html#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="st">&quot;Linear Spline&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-8-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>Of course, writing this out explicitly is very tedious, hence we have the <code>bs</code> function in the <code>splines</code> package to help us.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="spline.html#cb7-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">0</span>))</span>
+<span id="cb7-2"><a href="spline.html#cb7-2" aria-hidden="true" tabindex="-1"></a>    lmfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> splines<span class="sc">::</span><span class="fu">bs</span>(Year, <span class="at">degree =</span> <span class="dv">1</span>, <span class="at">knots =</span> myknots), <span class="at">data =</span> birthrates)</span>
+<span id="cb7-3"><a href="spline.html#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(birthrates, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span>
+<span id="cb7-4"><a href="spline.html#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(birthrates<span class="sc">$</span>Year, lmfit<span class="sc">$</span>fitted.values, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span>
+<span id="cb7-5"><a href="spline.html#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="st">&quot;Linear spline with the bs() function&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-9-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>The next step is to increase the degree to account for more complicated functions. A few things we need to consider here:</p>
+<ul>
+<li>How many knots should be used</li>
+<li>Where to place the knots</li>
+<li>What is the degree of functions in each region</li>
+</ul>
+<p>For example, we consider this setting</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="spline.html#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">0</span>))</span>
+<span id="cb8-2"><a href="spline.html#cb8-2" aria-hidden="true" tabindex="-1"></a>    lmfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> splines<span class="sc">::</span><span class="fu">bs</span>(Year, <span class="at">degree =</span> <span class="dv">3</span>, <span class="at">knots =</span> myknots), <span class="at">data =</span> birthrates)</span>
+<span id="cb8-3"><a href="spline.html#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(birthrates, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span>
+<span id="cb8-4"><a href="spline.html#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(birthrates<span class="sc">$</span>Year, lmfit<span class="sc">$</span>fitted.values, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span>
+<span id="cb8-5"><a href="spline.html#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="st">&quot;Cubic spline with 3 knots&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-10-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>All of them affects the performance. In particular, the number of knots and the number of degrees in each region will determine the total number of degrees of freedom. For simplicity, we can control that using the <code>df</code> parameter. We use a total of 6 parameters, chosen by the function automatically. However, this does not seems to perform better than the knots we implemented. The choice of knots can be crucial.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="spline.html#cb9-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">0</span>))</span>
+<span id="cb9-2"><a href="spline.html#cb9-2" aria-hidden="true" tabindex="-1"></a>    lmfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> splines<span class="sc">::</span><span class="fu">bs</span>(Year, <span class="at">df =</span> <span class="dv">5</span>), <span class="at">data =</span> birthrates)</span>
+<span id="cb9-3"><a href="spline.html#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(birthrates, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span>
+<span id="cb9-4"><a href="spline.html#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(birthrates<span class="sc">$</span>Year, lmfit<span class="sc">$</span>fitted.values, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span>
+<span id="cb9-5"><a href="spline.html#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="st">&quot;Linear spline with 6 degrees of parameters&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-11-1.png" width="45%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="spline-basis" class="section level2" number="8.5">
+<h2><span class="header-section-number">8.5</span> Spline Basis</h2>
+<p>There are different ways to construct spline basis. We used two techniques previously, the regression spline and basis spline (B-spline). The B-spline has slight more advantages computationally. Here is a comparision of B-spline with different degrees.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="spline.html#cb10-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>))</span>
+<span id="cb10-2"><a href="spline.html#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="spline.html#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (d <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb10-4"><a href="spline.html#cb10-4" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb10-5"><a href="spline.html#cb10-5" aria-hidden="true" tabindex="-1"></a>        bs_d <span class="ot">=</span> splines2<span class="sc">::</span><span class="fu">bSpline</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">degree =</span> d, <span class="at">knots =</span> <span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">90</span>, <span class="dv">10</span>), <span class="at">intercept =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-6"><a href="spline.html#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">matplot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, bs_d, <span class="at">type =</span> <span class="fu">ifelse</span>(d <span class="sc">==</span> <span class="dv">0</span>, <span class="st">&quot;s&quot;</span>, <span class="st">&quot;l&quot;</span>), <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">ylab =</span> <span class="st">&quot;spline&quot;</span>, </span>
+<span id="cb10-7"><a href="spline.html#cb10-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">xaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="at">yaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.05</span>, <span class="fl">1.05</span>), <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb10-8"><a href="spline.html#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">title</span>(<span class="fu">paste</span>(<span class="st">&quot;degree =&quot;</span>, d))</span>
+<span id="cb10-9"><a href="spline.html#cb10-9" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-12-1.png" width="45%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="natural-cubic-spline" class="section level2" number="8.6">
+<h2><span class="header-section-number">8.6</span> Natural Cubic Spline</h2>
+<p>Extrapolations are generally dangerous because the functions could be extream outside the range of the observed data. In linear models fit by <code>bs()</code>, extrapolations outside the boundaries will trigger a warning.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="spline.html#cb11-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb11-2"><a href="spline.html#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(splines)</span>
+<span id="cb11-3"><a href="spline.html#cb11-3" aria-hidden="true" tabindex="-1"></a>    fit.bs <span class="ot">=</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> <span class="fu">bs</span>(Year, <span class="at">df=</span><span class="dv">6</span>), <span class="at">data=</span>birthrates)</span>
+<span id="cb11-4"><a href="spline.html#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(birthrates<span class="sc">$</span>Year, birthrates<span class="sc">$</span>Birthrate, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">280</span>), <span class="at">pch =</span> <span class="dv">19</span>, </span>
+<span id="cb11-5"><a href="spline.html#cb11-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">1900</span>, <span class="dv">2020</span>), <span class="at">xlab =</span> <span class="st">&quot;year&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;rate&quot;</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)   </span>
+<span id="cb11-6"><a href="spline.html#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">1900</span>, <span class="dv">2020</span>), <span class="fu">predict</span>(fit.bs, <span class="fu">data.frame</span>(<span class="st">&quot;Year&quot;</span><span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">1900</span>, <span class="dv">2020</span>))),</span>
+<span id="cb11-7"><a href="spline.html#cb11-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">col=</span><span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">3</span>)    </span>
+<span id="cb11-8"><a href="spline.html#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in bs(Year, degree = 3L, knots = c(`25%` = 1938.5, `50%` = 1960, : some &#39;x&#39; values beyond</span></span>
+<span id="cb11-9"><a href="spline.html#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="do">## boundary knots may cause ill-conditioned bases</span></span>
+<span id="cb11-10"><a href="spline.html#cb11-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-11"><a href="spline.html#cb11-11" aria-hidden="true" tabindex="-1"></a>    fit.ns <span class="ot">=</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> <span class="fu">ns</span>(Year, <span class="at">df=</span><span class="dv">6</span>), <span class="at">data=</span>birthrates)    </span>
+<span id="cb11-12"><a href="spline.html#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">1900</span>, <span class="dv">2020</span>), <span class="fu">predict</span>(fit.ns, <span class="fu">data.frame</span>(<span class="st">&quot;Year&quot;</span><span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">1900</span>, <span class="dv">2020</span>))), </span>
+<span id="cb11-13"><a href="spline.html#cb11-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">col=</span><span class="st">&quot;darkgreen&quot;</span>, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb11-14"><a href="spline.html#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;Cubic B-Spline&quot;</span>, <span class="st">&quot;Natural Cubic Spline&quot;</span>), </span>
+<span id="cb11-15"><a href="spline.html#cb11-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">1.2</span>)</span>
+<span id="cb11-16"><a href="spline.html#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="st">&quot;Birth rate extrapolation&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-13-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>Hence this motivates us to consider setting additional constrains that forces the extrapolations to be come more regular. This is done by forcing the second and third derivatives to be 0 if beyond the two extreme knots.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="spline.html#cb12-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">0</span>))</span>
+<span id="cb12-2"><a href="spline.html#cb12-2" aria-hidden="true" tabindex="-1"></a>    ncs <span class="ot">=</span> <span class="fu">ns</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">df =</span> <span class="dv">6</span>, <span class="at">intercept =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-3"><a href="spline.html#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">matplot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, ncs, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">ylab =</span> <span class="st">&quot;spline&quot;</span>,</span>
+<span id="cb12-4"><a href="spline.html#cb12-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">xaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="at">yaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb12-5"><a href="spline.html#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="st">&quot;Natural Cubic Spline&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-14-1.png" width="45%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="smoothing-spline" class="section level2" number="8.7">
+<h2><span class="header-section-number">8.7</span> Smoothing Spline</h2>
+<p>The motivation is to trying to solve the knots selection issue. Instead, let’s start with a “horrible” idea, by putting knots at all each observed data point <span class="math inline">\((x_1, x_2, \ldots, x_n)\)</span>. Then, we can create <span class="math inline">\(n\)</span> natural cubic spline basis. However, we also know that this leads to over-fitting since there are too many parameters. Let’s utilize the ridge regression idea by adding some penalties. This leads to the objective function</p>
+<p><span class="math display" id="eq:penalized">\[\begin{equation}
+\underset{\boldsymbol \beta}{\text{min}} \,\, \lVert \mathbf{y}- \mathbf{F}\boldsymbol \beta\rVert^2 + \lambda \boldsymbol \beta^\text{T}\Omega \boldsymbol \beta, \tag{8.1}
+\end{equation}\]</span>
+where <span class="math inline">\(\mathbf{F}\)</span> is the matrix of all <span class="math inline">\(n\)</span> natural cubic spline basis, and <span class="math inline">\(\Omega\)</span> is some covariance matrix that takes care of some form of relationship among different basis, which we will define later, and <span class="math inline">\(\lambda\)</span> is similar to the ridge regression. The question is, will this type of regression problem provide a good solution with nice properties?</p>
+<p>Let’s consider fitting a regression model by solving a regression function <span class="math inline">\(g(x)\)</span> with the following penalized criteria:</p>
+<p><span class="math display" id="eq:roughness">\[\begin{equation}
+\frac{1}{n} \sum_{i=1}^n \big(y_i - g(x_i)\big)^2 + \lambda \int_a^b \big[g&#39;&#39;(x) \big]^2 dx. \tag{8.2}
+\end{equation}\]</span></p>
+<p>This is the sum of <span class="math inline">\(\ell_2\)</span> loss and a roughness penalty that enforce certain smoothness on <span class="math inline">\(g(x)\)</span>. And we shall show that the optimal <span class="math inline">\(g(x)\)</span> that minimize this objective function will take the ridge penalty form in <a href="spline.html#eq:penalized">(8.1)</a> mentioned previously.</p>
+<p>We will consider all absolutely continuous functions on <span class="math inline">\([a, b] = [\min(x_i), \max(x_i)]\)</span>, with finite roughness, i.e., <span class="math inline">\(\int_a^b \big[g&#39;&#39;(x) \big]^2 dx &lt; \infty\)</span>. Let’s first define <span class="math inline">\(g(\cdot)\)</span> as the optimal solution to Equation <a href="spline.html#eq:roughness">(8.2)</a>. Since the loss part in <a href="spline.html#eq:roughness">(8.2)</a> only involves <span class="math inline">\(n\)</span> data points, we can find define a natural cubic spline (NCS) fit <span class="math inline">\(\tilde{g}(\cdot)\)</span> such that it matches with <span class="math inline">\(g(\cdot)\)</span> on all the observed data, i.e.,</p>
+<p><span class="math display">\[g(x_i) = \widetilde{g}(x_i), \quad i = 1, \ldots, n.\]</span></p>
+<p>Note that the roughness of NCS fit <span class="math inline">\(\widetilde{g}\)</span> is also finite, hence <span class="math inline">\(\widetilde{g}\)</span> is within the space of functions we are considering. Also, such matching on all observed data points is doable when we have <span class="math inline">\(n\)</span> basis in the natural cubic spline. In this case, the loss corresponds to <span class="math inline">\(\tilde{g}\)</span> and <span class="math inline">\(g\)</span> are identical. Hence, it only matters if the penalty part of <span class="math inline">\(\tilde{g}(\cdot)\)</span> is the same. To analyze this, we define the difference between these two functions as</p>
+<p><span class="math display">\[h(x) = g(x) - \tilde{g}(x).\]</span>
+It is then obvious that <span class="math inline">\(h(x_i) = 0\)</span> for all observed <span class="math inline">\(i\)</span>. Then we have</p>
+<p><span class="math display">\[\int g&#39;&#39;^2 dx = \int \widetilde{g}&#39;&#39;^2 dx + \int h&#39;&#39;^2 dx + 2 \int \widetilde{g}&#39;&#39; h&#39;&#39; dx\]</span>
+The first and second term on the right hand side are both non-negative. Hence, only the third term matters. WLOG, we assume that <span class="math inline">\(x_i\)</span>’s are ordered from the smallest to the largest. Then</p>
+<p><span class="math display">\[\begin{align}
+\int \tilde{g}&#39;&#39; h&#39;&#39; dx =&amp; ~\tilde{g}&#39;&#39; h&#39; \Big|_a^b - \int_a^b h&#39; \tilde{g}^{(3)} dx \nonumber \\
+=&amp;~ 0 - \int_a^b h&#39; \tilde{g}^{(3)} dx \nonumber \\
+=&amp;~ - \sum_{i=1}^{n-1} \tilde{g}^{(3)}(x_j^+) \int_{x_j}^{x_{j+1}} h&#39; dx \quad \nonumber \\
+=&amp;~ - \sum_{i=1}^{n-1} \tilde{g}^{(3)}(x_j^+) \big(h(x_{j+1}) - h(x_j)\big) \nonumber \\
+=&amp;~ 0 
+\end{align}\]</span></p>
+<p>The second equation is because <span class="math inline">\(\tilde{g}\)</span> is a NCS and suppose to have 0 second derivative on the two boundaries <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. The third equation is because <span class="math inline">\(\tilde{g}\)</span> is at most <span class="math inline">\(x^3\)</span> on any regions and have constant third derivatives, which we can pull out of the integration. And the last equation is because <span class="math inline">\(h(x) = 0\)</span> on all <span class="math inline">\(x_i\)</span>’s.</p>
+<p>Hence, this shows that the roughness penalty <span class="math display">\[\int \widetilde{g}&#39;&#39;^2 dx\]</span> of our NCS solution is no larger than the best solution <span class="math inline">\(g\)</span>. Noticing that <span class="math inline">\(\widetilde{g}\)</span> is also with the space of functions we are considering, then <span class="math inline">\(g\)</span> must be our NCS solution.</p>
+<p>Hence, <span class="math inline">\(g\)</span> has a finite sample representation</p>
+<p><span class="math display">\[\widehat g(x) = \sum_{j=1}^n \beta_j N_j(x)\]</span></p>
+<p>where <span class="math inline">\(N_j\)</span>’s are a set of natural cubic spline basis functions with knots at each of the unique <span class="math inline">\(x\)</span> values. Then Equation <a href="spline.html#eq:roughness">(8.2)</a> becomes</p>
+<p><span class="math display">\[\begin{align}
+&amp; \lVert \mathbf{y}- \sum_{j=1}^n \beta_j N_j(x) \rVert^2 + \int \Big( \sum_{j=1}^n \beta_j N_j&#39;&#39;(x)\Big)^2 dx \\
+=&amp; \lVert \mathbf{y}- \mathbf{F}\boldsymbol \beta\rVert^2 + \boldsymbol \beta^\text{T}\Omega \boldsymbol \beta,
+\end{align}\]</span></p>
+<p>where <span class="math inline">\(\mathbf{F}\)</span> is the design matrix corresponds to the <span class="math inline">\(n\)</span> NCS basis <span class="math inline">\(N_j\)</span>’s, and <span class="math inline">\(\Omega\)</span> is an <span class="math inline">\(n \times n\)</span> matrix with <span class="math inline">\(\Omega_{ij} = \int N_i&#39;&#39;(x) N_j(x) dx.\)</span> The solution is essentially a ridge solution:</p>
+<p><span class="math display">\[\widehat{\boldsymbol \beta} = (\mathbf{F}^\text{T}\mathbf{F}+ \lambda \Omega)^{-1} \mathbf{F}^\text{T}\mathbf{y}.\]</span>
+and the penalty <span class="math inline">\(\lambda\)</span> can be tuned using GCV.</p>
+</div>
+<div id="fitting-smoothing-splines" class="section level2" number="8.8">
+<h2><span class="header-section-number">8.8</span> Fitting Smoothing Splines</h2>
+<p>Fitting a smoothing spline can be done by using the <code>smooth.spline</code> package. However, since the birthrate data has little variation in adjacent years, over-fitting is quite severe. The function will automatically use GCV to tune the parameter.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="spline.html#cb13-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># smoothing spline </span></span>
+<span id="cb13-2"><a href="spline.html#cb13-2" aria-hidden="true" tabindex="-1"></a>    fit <span class="ot">=</span> <span class="fu">smooth.spline</span>(birthrates<span class="sc">$</span>Year, birthrates<span class="sc">$</span>Birthrate)</span>
+<span id="cb13-3"><a href="spline.html#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(birthrates<span class="sc">$</span>Year, birthrates<span class="sc">$</span>Birthrate, <span class="at">pch =</span> <span class="dv">19</span>, </span>
+<span id="cb13-4"><a href="spline.html#cb13-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;BirthRates&quot;</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span>
+<span id="cb13-5"><a href="spline.html#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">1917</span>, <span class="dv">2003</span>), <span class="fu">predict</span>(fit, <span class="fu">seq</span>(<span class="dv">1917</span>, <span class="dv">2003</span>))<span class="sc">$</span>y, <span class="at">col=</span><span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-15-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="spline.html#cb14-1" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-2"><a href="spline.html#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># the degrees of freedom is very large</span></span>
+<span id="cb14-3"><a href="spline.html#cb14-3" aria-hidden="true" tabindex="-1"></a>    fit<span class="sc">$</span>df</span>
+<span id="cb14-4"><a href="spline.html#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 60.7691</span></span></code></pre></div>
+<p>Let’s look at another simulation example, where this method performs resonabaly well.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="spline.html#cb15-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb15-2"><a href="spline.html#cb15-2" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">=</span> <span class="dv">100</span></span>
+<span id="cb15-3"><a href="spline.html#cb15-3" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> n)</span>
+<span id="cb15-4"><a href="spline.html#cb15-4" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">=</span> <span class="fu">sin</span>(<span class="dv">12</span><span class="sc">*</span>(x<span class="fl">+0.2</span>))<span class="sc">/</span>(x<span class="fl">+0.2</span>) <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb15-5"><a href="spline.html#cb15-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-6"><a href="spline.html#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># fit smoothing spline</span></span>
+<span id="cb15-7"><a href="spline.html#cb15-7" aria-hidden="true" tabindex="-1"></a>    fit <span class="ot">=</span> <span class="fu">smooth.spline</span>(x, y)</span>
+<span id="cb15-8"><a href="spline.html#cb15-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-9"><a href="spline.html#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># the degrees of freedom</span></span>
+<span id="cb15-10"><a href="spline.html#cb15-10" aria-hidden="true" tabindex="-1"></a>    fit<span class="sc">$</span>df    </span>
+<span id="cb15-11"><a href="spline.html#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 9.96443</span></span>
+<span id="cb15-12"><a href="spline.html#cb15-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-13"><a href="spline.html#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># fitted model</span></span>
+<span id="cb15-14"><a href="spline.html#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span>
+<span id="cb15-15"><a href="spline.html#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(x, <span class="fu">sin</span>(<span class="dv">12</span><span class="sc">*</span>(x<span class="fl">+0.2</span>))<span class="sc">/</span>(x<span class="fl">+0.2</span>), <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">3</span>)    </span>
+<span id="cb15-16"><a href="spline.html#cb15-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(x, <span class="fu">predict</span>(fit, x)<span class="sc">$</span>y, <span class="at">col=</span><span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb15-17"><a href="spline.html#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">legend</span>(<span class="st">&quot;bottomright&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;Truth&quot;</span>, <span class="st">&quot;Smoothing Splines&quot;</span>), </span>
+<span id="cb15-18"><a href="spline.html#cb15-18" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>), <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">1.2</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-16-1.png" width="45%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="extending-splines-to-multiple-varibles" class="section level2" number="8.9">
+<h2><span class="header-section-number">8.9</span> Extending Splines to Multiple Varibles</h2>
+<p>Since all spline approaches can be transformed into some kind of linear model, if we postulate an additive structure, we can fit a multivariate model with</p>
+<p><span class="math display">\[f(x) = \sum_j h_j(x_j) = \sum_j \sum_k N_{jk}(x_j) \beta_{jk}\]</span>
+where <span class="math inline">\(h_j(x_j)\)</span> is a univariate function for <span class="math inline">\(x_j\)</span> that can be approximated by splines basis <span class="math inline">\(N_{jk}(\cdot), k = 1, \ldots, K\)</span>. This works for both linear regression and generalized linear regressions. For the South Africa Heart Disease data, we use the <code>gam()</code> function in the <code>gam</code> (generalized additive models) package. We compute a logistic regression model using natural splines (note <code>famhist</code> is included as a factor).</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="spline.html#cb16-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(ElemStatLearn)</span>
+<span id="cb16-2"><a href="spline.html#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(gam)</span>
+<span id="cb16-3"><a href="spline.html#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Loading required package: foreach</span></span>
+<span id="cb16-4"><a href="spline.html#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Loaded gam 1.20</span></span>
+<span id="cb16-5"><a href="spline.html#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="spline.html#cb16-6" aria-hidden="true" tabindex="-1"></a>    form <span class="ot">=</span> <span class="fu">formula</span>(<span class="st">&quot;chd ~ ns(sbp,df=4) + ns(tobacco,df=4) + </span></span>
+<span id="cb16-7"><a href="spline.html#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="st">                          ns(ldl,df=4) + famhist + ns(obesity,df=4) + </span></span>
+<span id="cb16-8"><a href="spline.html#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="st">                          ns(alcohol,df=4) + ns(age,df=4)&quot;</span>)</span>
+<span id="cb16-9"><a href="spline.html#cb16-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-10"><a href="spline.html#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># note that we can also do </span></span>
+<span id="cb16-11"><a href="spline.html#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># m = glm(form, data=SAheart, family=binomial)</span></span>
+<span id="cb16-12"><a href="spline.html#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print(summary(m), digits=3)</span></span>
+<span id="cb16-13"><a href="spline.html#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># however, the gam function provides more information </span></span>
+<span id="cb16-14"><a href="spline.html#cb16-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-15"><a href="spline.html#cb16-15" aria-hidden="true" tabindex="-1"></a>    m <span class="ot">=</span> <span class="fu">gam</span>(form, <span class="at">data=</span>SAheart, <span class="at">family=</span>binomial)</span>
+<span id="cb16-16"><a href="spline.html#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary</span>(m)</span>
+<span id="cb16-17"><a href="spline.html#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb16-18"><a href="spline.html#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Call: gam(formula = form, family = binomial, data = SAheart)</span></span>
+<span id="cb16-19"><a href="spline.html#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Deviance Residuals:</span></span>
+<span id="cb16-20"><a href="spline.html#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="do">##     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb16-21"><a href="spline.html#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="do">## -1.7245 -0.8265 -0.3884  0.8870  2.9589 </span></span>
+<span id="cb16-22"><a href="spline.html#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb16-23"><a href="spline.html#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="do">## (Dispersion Parameter for binomial family taken to be 1)</span></span>
+<span id="cb16-24"><a href="spline.html#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb16-25"><a href="spline.html#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="do">##     Null Deviance: 596.1084 on 461 degrees of freedom</span></span>
+<span id="cb16-26"><a href="spline.html#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="do">## Residual Deviance: 457.6318 on 436 degrees of freedom</span></span>
+<span id="cb16-27"><a href="spline.html#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="do">## AIC: 509.6318 </span></span>
+<span id="cb16-28"><a href="spline.html#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb16-29"><a href="spline.html#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="do">## Number of Local Scoring Iterations: 6 </span></span>
+<span id="cb16-30"><a href="spline.html#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb16-31"><a href="spline.html#cb16-31" aria-hidden="true" tabindex="-1"></a><span class="do">## Anova for Parametric Effects</span></span>
+<span id="cb16-32"><a href="spline.html#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="do">##                      Df Sum Sq Mean Sq F value    Pr(&gt;F)    </span></span>
+<span id="cb16-33"><a href="spline.html#cb16-33" aria-hidden="true" tabindex="-1"></a><span class="do">## ns(sbp, df = 4)       4   6.31  1.5783  1.4242  0.224956    </span></span>
+<span id="cb16-34"><a href="spline.html#cb16-34" aria-hidden="true" tabindex="-1"></a><span class="do">## ns(tobacco, df = 4)   4  18.09  4.5218  4.0802  0.002941 ** </span></span>
+<span id="cb16-35"><a href="spline.html#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="do">## ns(ldl, df = 4)       4  12.05  3.0137  2.7194  0.029290 *  </span></span>
+<span id="cb16-36"><a href="spline.html#cb16-36" aria-hidden="true" tabindex="-1"></a><span class="do">## famhist               1  19.70 19.7029 17.7788 3.019e-05 ***</span></span>
+<span id="cb16-37"><a href="spline.html#cb16-37" aria-hidden="true" tabindex="-1"></a><span class="do">## ns(obesity, df = 4)   4   3.66  0.9161  0.8266  0.508701    </span></span>
+<span id="cb16-38"><a href="spline.html#cb16-38" aria-hidden="true" tabindex="-1"></a><span class="do">## ns(alcohol, df = 4)   4   1.28  0.3200  0.2887  0.885278    </span></span>
+<span id="cb16-39"><a href="spline.html#cb16-39" aria-hidden="true" tabindex="-1"></a><span class="do">## ns(age, df = 4)       4  17.64  4.4100  3.9794  0.003496 ** </span></span>
+<span id="cb16-40"><a href="spline.html#cb16-40" aria-hidden="true" tabindex="-1"></a><span class="do">## Residuals           436 483.19  1.1082                      </span></span>
+<span id="cb16-41"><a href="spline.html#cb16-41" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb16-42"><a href="spline.html#cb16-42" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb16-43"><a href="spline.html#cb16-43" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-44"><a href="spline.html#cb16-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">0</span>))</span>
+<span id="cb16-45"><a href="spline.html#cb16-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(m, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">residuals =</span> <span class="cn">TRUE</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-17-1.png" width="90%" style="display: block; margin: auto;" /></p>
 
+</div>
 </div>
             </section>
 
