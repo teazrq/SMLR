@@ -65,16 +65,18 @@ This book currently covers the following topics:
 
 The goal of this book is to introduce not only how to run some of the popular statistical learning models in `R`, know the algorithms and programming techniques for solving these models and also understand some of the fundamental statistical theory behind them. For example, for graduate students, these topics will be discuss in more detail:
 
-  * Constrained optimization
+  * Optimization
     + Lagrangian
     + Primal vs. dual
-  * Bias-variance trade-off using examples in
+  * EM and MM algorithm
+  * Bias-variance trade-off in
+    + Linear regression
     + KNN
     + Kernel density estimation
-  * Reproducing Kernel Hilbert Space
-  * Representation Theorem in 
-    + Splines
+  * Kernel Trick and RKHS
+  * Representer Theorem
     + SVM
+    + Spline
 
 For each section, the difficulty will gradually increase from an undergraduate level to a graduate level. 
 
