@@ -296,7 +296,7 @@ Let's consider fitting a regression model by solving a regression function $g(x)
 
 This is the sum of $\ell_2$ loss and a roughness penalty that enforce certain smoothness on $g(x)$. And we shall show that the optimal $g(x)$ that minimize this objective function will take the ridge penalty form in \@ref(eq:penalized) mentioned previously. 
 
-We will consider all absolutely continuous functions on $[a, b] = [\min(x_i), \max(x_i)]$, with finite roughness, i.e., $\int_a^b \big[g''(x) \big]^2 dx < \infty$. Let's first define $g(\cdot)$ as the optimal solution to Equation \@ref(eq:roughness). Since the loss part in \@ref(eq:roughness) only involves $n$ data points, we can find define a natural cubic spline (NCS) fit $\tilde{g}(\cdot)$ such that it matches with $g(\cdot)$ on all the observed data, i.e., 
+We will consider all absolutely continuous functions on $[a, b] = [\min(x_i), \max(x_i)]$, with finite roughness, i.e., $\int_a^b \big[g''(x) \big]^2 dx < \infty$. This is known as the second order Sobolev space. Let's first define $g(\cdot)$ as the optimal solution to Equation \@ref(eq:roughness). Since the loss part in \@ref(eq:roughness) only involves $n$ data points, we can find define a natural cubic spline (NCS) fit $\tilde{g}(\cdot)$ such that it matches with $g(\cdot)$ on all the observed data, i.e., 
 
 $$g(x_i) = \widetilde{g}(x_i), \quad i = 1, \ldots, n.$$
 

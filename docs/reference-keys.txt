@@ -1,3 +1,6 @@
+eq:penalized
+eq:roughness
+thm:unnamed-chunk-207
 r-and-rstudio
 installing-r-and-rstudio
 r-basic
@@ -75,11 +78,15 @@ the-solution-path
 path-wise-coordinate-descent
 using-the-glmnet-package
 elastic-net
+spline
+from-linear-to-nonlinear
+a-motivating-example-and-polynomials
 piecewise-polynomials
 splines
 spline-basis
 natural-cubic-spline
 smoothing-spline
+fitting-smoothing-splines
 extending-splines-to-multiple-varibles
 k-neariest-neighber
 definition-1
@@ -125,6 +132,11 @@ example-saheart-data
 nonlinear-svm-via-kernel-trick
 example-mixture.example-data
 svm-as-a-penalized-model
+kernel-and-feature-maps-another-example
+reproducing-kernel-hilbert-space
+constructing-the-rkhs
+properties-of-rkhs
+the-representer-theorem
 classification-and-regression-trees
 example-classification-tree
 splitting-a-node
@@ -157,10 +169,3 @@ basic-concepts-3
 spectral-clustering
 basic-concepts-4
 reference
-spline
-from-linear-to-nonlinear
-a-motivating-example-and-polynomials
-fitting-smoothing-splines
-eq:label
-eq:penalized
-eq:roughness

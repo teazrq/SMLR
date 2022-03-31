@@ -58,7 +58,7 @@
 Roughly speaking, random forests [@breiman2001random] are parallelly fitted CART models with some randomness. There are several main components: 
 
   * Bootstrapping of data for each tree using the Bagging idea [@breiman1996bagging], and use the averaged result (for regression) or majority voting (for classification) of all trees as the prediction. 
-  * At each internal node, we may not consider all variables. Instead, we consider a randomly selected `mtry` variables to search for the best split. This idea was inspired by by @ho1998random.
+  * At each internal node, we may not consider all variables. Instead, we consider a randomly selected `mtry` variables to search for the best split. This idea was inspired by @ho1998random.
   * For each tree, we will not perform pruning. Instead, we simply stop when the internal node contains no more than `nodesize` number of observations. 
 
 Later on, there were various version of random forests that attempts to improve the performance, from both computational and theoretical prospective. We will introduce them later. 

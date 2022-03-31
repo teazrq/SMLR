@@ -11,6 +11,7 @@ bibliography: [book.bib]
 biblio-style: apalike
 favicon: "favicon.ico"
 link-citations: yes
+linkcolor: cyan
 urlcolor: cyan
 description: "A textbook for STAT 542 and 432 at UIUC"
 ---
@@ -36,20 +37,46 @@ This book can be suitable for students ranging from advanced undergraduate to fi
 
 ## What's Covered? {-}
 
-I currently plan to include the following topics:
+This book currently covers the following topics:
 
   1. Basic Knowledge
       * R, R Studio and R Markdown
       * Linear regression and linear algebra
       * Numerical optimization
-  3. Penalized linear models and the bias-variance trade-off
-  4. Classification
-  5. Non-parametric Statistical Models
-  6. Machine Learning Models
-  7. Unsupervised Learning
-  8. Appendix
+  2. Penalized linear models and model selection
+  3. Nonlinear and Nonparametric Models
+      * Spline
+      * K-nearest neighbor
+      * Kernel smoothing
+  4. Classification models
+      * Logistic regression
+      * Discriminant analysis
+  5. Machine Learning Models
+      * Support vector machines
+      * Tree models
+      * Random forest
+      * Boosting
+  6. Unsupervised Learning
+      * K-means
+      * Hierarchical clustering
+      * PCA
+      * self-organizing map
+      * Spectral clustering
 
-The goal of this book is to introduce not only how to run some of the popular statistical learning models in R, but also to know the algorithms and programming techniques for solving these models. For each section, the difficulty will gradually increase from an undergraduate level to a graduate level. 
+The goal of this book is to introduce not only how to run some of the popular statistical learning models in `R`, know the algorithms and programming techniques for solving these models and also understand some of the fundamental statistical theory behind them. For example, for graduate students, these topics will be discuss in more detail:
+
+  * Constrained optimization
+    + Lagrangian
+    + Primal vs. dual
+  * Bias-variance trade-off using examples in
+    + KNN
+    + Kernel density estimation
+  * Reproducing Kernel Hilbert Space
+  * Representation Theorem in 
+    + Splines
+    + SVM
+
+For each section, the difficulty will gradually increase from an undergraduate level to a graduate level. 
 
 It will be served as a supplement to [An Introduction to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/) [@james2013introduction] for [STAT 432 - Basics of Statistical Learning](https://go.illinois.edu/stat432) and to [The Elements of 
 Statistical Learning: Data Mining, Inference, and Prediction](https://web.stanford.edu/~hastie/ElemStatLearn/) [@hastie2001elements] for [STAT 542 - Statistical Learning](https://go.illinois.edu/stat542) at the [University of Illinois at Urbana-Champaign](http://illinois.edu/).
@@ -58,7 +85,7 @@ Statistical Learning: Data Mining, Inference, and Prediction](https://web.stanfo
 
 ## Acknowledgements {-}
 
-The initial contents are derived from Dr. David Dalpiaz's book. My STAT 542 course materials are also inspired by [Dr. Feng Liang](https://stat.illinois.edu/directory/profile/liangf) and [Dr. John Marden](https://stat.illinois.edu/directory/profile/jimarden) who developed earlier versions of this course. And I also incorporated many online resources, which I cannot put into a comprehensive list. 
+The initial contents are derived from Dr. David Dalpiaz's book. My STAT 542 course materials are also inspired by [Dr. Feng Liang](https://stat.illinois.edu/directory/profile/liangf) and [Dr. John Marden](https://stat.illinois.edu/directory/profile/jimarden) who developed earlier versions of this course. And I also incorporated many online resources, which I cannot put into a comprehensive list. If you think I missed some references, please let me know. 
 
 ## License {-}
 

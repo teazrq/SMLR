@@ -533,4 +533,21 @@ $$\widehat{f}(\bx) = \sum_{i = 1}^n \beta_i K(\bx, \bx_i).$$
 This suggests that the optimization problem becomes 
 
 $$\sum_{i=1}^n L(y_i, \bK_i^\T \bbeta) + \lambda \bbeta^\T \bK \bbeta,$$
-where $\bK_{n \times n}$ is the kernel matrix with $\bK_{ij} = K(x_i, x_j)$, and $\bK_i$ is the $i$ the column of $\bK$. This is an unconstrained optimization problem that can be solved using gradient decent if $L$ is differentiable. 
+where $\bK_{n \times n}$ is the kernel matrix with $\bK_{ij} = K(x_i, x_j)$, and $\bK_i$ is the $i$ the column of $\bK$. This is an unconstrained optimization problem that can be solved using gradient decent if $L$ is differentiable. More details will be presented in the next Chapter.
+
+## Kernel and Feature Maps: Another Example
+
+We give another example about the equivalence of kernel and the inner product of feature maps, which is ensured by the Mercer's Theorem [@mercer1909xvi]. Consider the Gaussian kernel $e^{-\gamma \lVert \bx - \bz \rVert}$. We can write, using Tayler expansion, 
+
+\begin{align}
+&e^{\gamma \lVert \bx - \bz \rVert} \nonumber \\
+=& e^{-\gamma \lVert \bx \rVert + 2 \gamma \bx^\T \bz - \gamma \lVert \bz \rVert} \nonumber \\
+=& e^{-\gamma \lVert \bx \rVert - \gamma \lVert \bz \rVert} \bigg[ 1 + \frac{2 \gamma \bx^\T \bz}{1!} + \frac{(2 \gamma \bx^\T \bz)^2}{2!} + \frac{(2 \gamma \bx^\T \bz)^3}{3!} + \cdots \bigg]
+\end{align}
+
+Note that $\bx^\T \bz$ is the inner product of all first order feature maps. We also showed previously $(\bx^\T \bz)^2$ is equivalent to the inner product of all second order feature maps ($\Phi_2(\bx)$), and $(\bx^\T \bz)^3$ would be equivalent to the third order version ($\Phi_3(\bx)$), etc.. Hence, the previous equation can be written as the inner product of feature maps in the form of
+
+$$e^{-\gamma \lVert \bx \rVert} \bigg[ 1, \sqrt{\frac{2\gamma}{1!}} \bx^\T, \sqrt{\frac{(2\gamma)^2}{2!}} \Phi_2^\T(\bx), \sqrt{\frac{(2\gamma)^3}{3!}} \Phi_3^\T(\bx), \cdots \bigg]$$
+
+This shows the Gaussian kernel is corresponding to all polynomials with a scaling factor of $e^{-\gamma \lVert \bx \rVert}$
+
