@@ -137,6 +137,9 @@ reproducing-kernel-hilbert-space
 constructing-the-rkhs
 properties-of-rkhs
 the-representer-theorem
+kernel-ridge-regression
+example-linear-kernel-and-ridge-regression
+example-alternative-view
 classification-and-regression-trees
 example-classification-tree
 splitting-a-node

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 15 Classification and Regression Trees | Statistical Learning and Machine Learning with R</title>
+  <title>Chapter 16 Classification and Regression Trees | Statistical Learning and Machine Learning with R</title>
   <meta name="description" content="A textbook for STAT 542 and 432 at UIUC" />
   <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 15 Classification and Regression Trees | Statistical Learning and Machine Learning with R" />
+  <meta property="og:title" content="Chapter 16 Classification and Regression Trees | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A textbook for STAT 542 and 432 at UIUC" />
   <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 15 Classification and Regression Trees | Statistical Learning and Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 16 Classification and Regression Trees | Statistical Learning and Machine Learning with R" />
   
   <meta name="twitter:description" content="A textbook for STAT 542 and 432 at UIUC" />
   
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="reproducing-kernel-hilbert-space.html"/>
+<link rel="prev" href="kernel-ridge-regression.html"/>
 <link rel="next" href="random-forests.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -378,56 +378,61 @@ div.csl-indent {
 <li class="chapter" data-level="14.2" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#properties-of-rkhs"><i class="fa fa-check"></i><b>14.2</b> Properties of RKHS<span></span></a></li>
 <li class="chapter" data-level="14.3" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-representer-theorem"><i class="fa fa-check"></i><b>14.3</b> The Representer Theorem<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html"><i class="fa fa-check"></i><b>15</b> Classification and Regression Trees<span></span></a>
+<li class="chapter" data-level="15" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html"><i class="fa fa-check"></i><b>15</b> Kernel Ridge Regression<span></span></a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#example-classification-tree"><i class="fa fa-check"></i><b>15.1</b> Example: Classification Tree<span></span></a></li>
-<li class="chapter" data-level="15.2" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#splitting-a-node"><i class="fa fa-check"></i><b>15.2</b> Splitting a Node<span></span></a></li>
-<li class="chapter" data-level="15.3" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#regression-trees"><i class="fa fa-check"></i><b>15.3</b> Regression Trees<span></span></a></li>
-<li class="chapter" data-level="15.4" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#predicting-a-target-point"><i class="fa fa-check"></i><b>15.4</b> Predicting a Target Point<span></span></a></li>
-<li class="chapter" data-level="15.5" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#tuning-a-tree-model"><i class="fa fa-check"></i><b>15.5</b> Tuning a Tree Model<span></span></a></li>
+<li class="chapter" data-level="15.1" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-linear-kernel-and-ridge-regression"><i class="fa fa-check"></i><b>15.1</b> Example: Linear Kernel and Ridge Regression<span></span></a></li>
+<li class="chapter" data-level="15.2" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-alternative-view"><i class="fa fa-check"></i><b>15.2</b> Example: Alternative View<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="random-forests.html"><a href="random-forests.html"><i class="fa fa-check"></i><b>16</b> Random Forests<span></span></a>
+<li class="chapter" data-level="16" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html"><i class="fa fa-check"></i><b>16</b> Classification and Regression Trees<span></span></a>
 <ul>
-<li class="chapter" data-level="16.1" data-path="random-forests.html"><a href="random-forests.html#bagging-predictors"><i class="fa fa-check"></i><b>16.1</b> Bagging Predictors<span></span></a></li>
-<li class="chapter" data-level="16.2" data-path="random-forests.html"><a href="random-forests.html#random-forests-1"><i class="fa fa-check"></i><b>16.2</b> Random Forests<span></span></a></li>
-<li class="chapter" data-level="16.3" data-path="random-forests.html"><a href="random-forests.html#effect-of-mtry"><i class="fa fa-check"></i><b>16.3</b> Effect of <code>mtry</code><span></span></a></li>
-<li class="chapter" data-level="16.4" data-path="random-forests.html"><a href="random-forests.html#effect-of-nodesize"><i class="fa fa-check"></i><b>16.4</b> Effect of <code>nodesize</code><span></span></a></li>
-<li class="chapter" data-level="16.5" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>16.5</b> Variable Importance<span></span></a></li>
-<li class="chapter" data-level="16.6" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forets"><i class="fa fa-check"></i><b>16.6</b> Kernel view of Random Forets<span></span></a></li>
+<li class="chapter" data-level="16.1" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#example-classification-tree"><i class="fa fa-check"></i><b>16.1</b> Example: Classification Tree<span></span></a></li>
+<li class="chapter" data-level="16.2" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#splitting-a-node"><i class="fa fa-check"></i><b>16.2</b> Splitting a Node<span></span></a></li>
+<li class="chapter" data-level="16.3" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#regression-trees"><i class="fa fa-check"></i><b>16.3</b> Regression Trees<span></span></a></li>
+<li class="chapter" data-level="16.4" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#predicting-a-target-point"><i class="fa fa-check"></i><b>16.4</b> Predicting a Target Point<span></span></a></li>
+<li class="chapter" data-level="16.5" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#tuning-a-tree-model"><i class="fa fa-check"></i><b>16.5</b> Tuning a Tree Model<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>17</b> Boosting<span></span></a></li>
+<li class="chapter" data-level="17" data-path="random-forests.html"><a href="random-forests.html"><i class="fa fa-check"></i><b>17</b> Random Forests<span></span></a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="random-forests.html"><a href="random-forests.html#bagging-predictors"><i class="fa fa-check"></i><b>17.1</b> Bagging Predictors<span></span></a></li>
+<li class="chapter" data-level="17.2" data-path="random-forests.html"><a href="random-forests.html#random-forests-1"><i class="fa fa-check"></i><b>17.2</b> Random Forests<span></span></a></li>
+<li class="chapter" data-level="17.3" data-path="random-forests.html"><a href="random-forests.html#effect-of-mtry"><i class="fa fa-check"></i><b>17.3</b> Effect of <code>mtry</code><span></span></a></li>
+<li class="chapter" data-level="17.4" data-path="random-forests.html"><a href="random-forests.html#effect-of-nodesize"><i class="fa fa-check"></i><b>17.4</b> Effect of <code>nodesize</code><span></span></a></li>
+<li class="chapter" data-level="17.5" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>17.5</b> Variable Importance<span></span></a></li>
+<li class="chapter" data-level="17.6" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forets"><i class="fa fa-check"></i><b>17.6</b> Kernel view of Random Forets<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>18</b> Boosting<span></span></a></li>
 <li class="part"><span><b>VI Unsupervised Learning<span></span></b></span></li>
-<li class="chapter" data-level="18" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>18</b> K-Means<span></span></a>
+<li class="chapter" data-level="19" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>19</b> K-Means<span></span></a>
 <ul>
-<li class="chapter" data-level="18.1" data-path="k-means.html"><a href="k-means.html#basic-concepts"><i class="fa fa-check"></i><b>18.1</b> Basic Concepts<span></span></a></li>
-<li class="chapter" data-level="18.2" data-path="k-means.html"><a href="k-means.html#example-1-iris-data"><i class="fa fa-check"></i><b>18.2</b> Example 1: <code>iris</code> data<span></span></a></li>
-<li class="chapter" data-level="18.3" data-path="k-means.html"><a href="k-means.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>18.3</b> Example 2: clustering of image pixels<span></span></a></li>
+<li class="chapter" data-level="19.1" data-path="k-means.html"><a href="k-means.html#basic-concepts"><i class="fa fa-check"></i><b>19.1</b> Basic Concepts<span></span></a></li>
+<li class="chapter" data-level="19.2" data-path="k-means.html"><a href="k-means.html#example-1-iris-data"><i class="fa fa-check"></i><b>19.2</b> Example 1: <code>iris</code> data<span></span></a></li>
+<li class="chapter" data-level="19.3" data-path="k-means.html"><a href="k-means.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>19.3</b> Example 2: clustering of image pixels<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>19</b> Hierarchical Clustering<span></span></a>
+<li class="chapter" data-level="20" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>20</b> Hierarchical Clustering<span></span></a>
 <ul>
-<li class="chapter" data-level="19.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>19.1</b> Basic Concepts<span></span></a></li>
-<li class="chapter" data-level="19.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>19.2</b> Example 1: <code>iris</code> data<span></span></a></li>
-<li class="chapter" data-level="19.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>19.3</b> Example 2: RNA Expression Data<span></span></a></li>
+<li class="chapter" data-level="20.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>20.1</b> Basic Concepts<span></span></a></li>
+<li class="chapter" data-level="20.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>20.2</b> Example 1: <code>iris</code> data<span></span></a></li>
+<li class="chapter" data-level="20.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>20.3</b> Example 2: RNA Expression Data<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html"><i class="fa fa-check"></i><b>20</b> Principle Component Analysis<span></span></a>
+<li class="chapter" data-level="21" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html"><i class="fa fa-check"></i><b>21</b> Principle Component Analysis<span></span></a>
 <ul>
-<li class="chapter" data-level="20.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>20.1</b> Basic Concepts<span></span></a>
+<li class="chapter" data-level="21.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>21.1</b> Basic Concepts<span></span></a>
 <ul>
-<li class="chapter" data-level="20.1.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>20.1.1</b> Note: Scaling<span></span></a></li>
+<li class="chapter" data-level="21.1.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>21.1.1</b> Note: Scaling<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="20.2" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>20.2</b> Example 1: <code>iris</code> Data<span></span></a></li>
-<li class="chapter" data-level="20.3" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>20.3</b> Example 2: Handwritten Digits<span></span></a></li>
+<li class="chapter" data-level="21.2" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>21.2</b> Example 1: <code>iris</code> Data<span></span></a></li>
+<li class="chapter" data-level="21.3" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>21.3</b> Example 2: Handwritten Digits<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="self-organizing-map.html"><a href="self-organizing-map.html"><i class="fa fa-check"></i><b>21</b> Self-Organizing Map<span></span></a>
+<li class="chapter" data-level="22" data-path="self-organizing-map.html"><a href="self-organizing-map.html"><i class="fa fa-check"></i><b>22</b> Self-Organizing Map<span></span></a>
 <ul>
-<li class="chapter" data-level="21.1" data-path="self-organizing-map.html"><a href="self-organizing-map.html#basic-concepts-3"><i class="fa fa-check"></i><b>21.1</b> Basic Concepts<span></span></a></li>
+<li class="chapter" data-level="22.1" data-path="self-organizing-map.html"><a href="self-organizing-map.html#basic-concepts-3"><i class="fa fa-check"></i><b>22.1</b> Basic Concepts<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="22" data-path="spectral-clustering.html"><a href="spectral-clustering.html"><i class="fa fa-check"></i><b>22</b> Spectral Clustering<span></span></a>
+<li class="chapter" data-level="23" data-path="spectral-clustering.html"><a href="spectral-clustering.html"><i class="fa fa-check"></i><b>23</b> Spectral Clustering<span></span></a>
 <ul>
-<li class="chapter" data-level="22.1" data-path="spectral-clustering.html"><a href="spectral-clustering.html#basic-concepts-4"><i class="fa fa-check"></i><b>22.1</b> Basic Concepts<span></span></a></li>
+<li class="chapter" data-level="23.1" data-path="spectral-clustering.html"><a href="spectral-clustering.html#basic-concepts-4"><i class="fa fa-check"></i><b>23.1</b> Basic Concepts<span></span></a></li>
 </ul></li>
 <li class="part"><span><b>VII Reference<span></span></b></span></li>
-<li class="chapter" data-level="23" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>23</b> Reference<span></span></a></li>
+<li class="chapter" data-level="24" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>24</b> Reference<span></span></a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2022 Ruoqing Zhu</a></li>
 
@@ -448,11 +453,11 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="classification-and-regression-trees" class="section level1 hasAnchor" number="15">
-<h1><span class="header-section-number">Chapter 15</span> Classification and Regression Trees<a href="classification-and-regression-trees.html#classification-and-regression-trees" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="classification-and-regression-trees" class="section level1 hasAnchor" number="16">
+<h1><span class="header-section-number">Chapter 16</span> Classification and Regression Trees<a href="classification-and-regression-trees.html#classification-and-regression-trees" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>A tree model is very simple to fit and enjoys interpretability. It is also the core component of random forest and boosting. Both trees and random forests can be used for classification and regression problems, although trees are not ideal for regressions problems due to its large bias. There are two main stream of tree models, Classification and Regression Trees (CART, <span class="citation"><a href="#ref-breiman1984classification" role="doc-biblioref">Breiman et al.</a> (<a href="#ref-breiman1984classification" role="doc-biblioref">1984</a>)</span>) and C4.5 <span class="citation">(<a href="#ref-quinlan1993c4" role="doc-biblioref">Quinlan 1993</a>)</span>, which is an improvement of the ID3 (Iterative Dichotomiser 3) algorithm. The main difference is to use binary or multiple splits and the criteria of the splitting rule. In fact the splitting rule criteria is probably the most essential part of a tree.</p>
-<div id="example-classification-tree" class="section level2 hasAnchor" number="15.1">
-<h2><span class="header-section-number">15.1</span> Example: Classification Tree<a href="classification-and-regression-trees.html#example-classification-tree" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="example-classification-tree" class="section level2 hasAnchor" number="16.1">
+<h2><span class="header-section-number">16.1</span> Example: Classification Tree<a href="classification-and-regression-trees.html#example-classification-tree" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s generate a model with nonlinear classification rule.</p>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="classification-and-regression-trees.html#cb149-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb149-2"><a href="classification-and-regression-trees.html#cb149-2" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">=</span> <span class="dv">500</span></span>
@@ -463,7 +468,7 @@ div.csl-indent {
 <span id="cb149-7"><a href="classification-and-regression-trees.html#cb149-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">2</span>,<span class="dv">4</span>))</span>
 <span id="cb149-8"><a href="classification-and-regression-trees.html#cb149-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(x1, x2, <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), <span class="at">pch =</span> <span class="dv">19</span>)</span>
 <span id="cb149-9"><a href="classification-and-regression-trees.html#cb149-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">symbols</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">circles =</span> <span class="fu">sqrt</span>(<span class="fl">0.6</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">inches =</span> <span class="cn">FALSE</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-211-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-213-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>A classification tree model is recursively splitting the feature space such that eventually each region is dominated by one class. We will use <code>rpart</code> as an example to fit trees, which stands for recursively partitioning.</p>
 <div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="classification-and-regression-trees.html#cb150-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb150-2"><a href="classification-and-regression-trees.html#cb150-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(rpart)</span>
@@ -473,7 +478,7 @@ div.csl-indent {
 <span id="cb150-6"><a href="classification-and-regression-trees.html#cb150-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="dv">4</span>))</span>
 <span id="cb150-7"><a href="classification-and-regression-trees.html#cb150-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(rpart.fit)</span>
 <span id="cb150-8"><a href="classification-and-regression-trees.html#cb150-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">text</span>(rpart.fit)    </span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-212-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-214-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="classification-and-regression-trees.html#cb151-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb151-2"><a href="classification-and-regression-trees.html#cb151-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if you want to peek into the tree </span></span>
 <span id="cb151-3"><a href="classification-and-regression-trees.html#cb151-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># note that we set cp = 0.041, which is a tuning parameter</span></span>
@@ -500,17 +505,17 @@ div.csl-indent {
 <span id="cb151-24"><a href="classification-and-regression-trees.html#cb151-24" aria-hidden="true" tabindex="-1"></a><span class="do">##         30) x1&lt; -0.6903174 51   9 0 (0.82352941 0.17647059) *</span></span>
 <span id="cb151-25"><a href="classification-and-regression-trees.html#cb151-25" aria-hidden="true" tabindex="-1"></a><span class="do">##         31) x1&gt;=-0.6903174 238  45 1 (0.18907563 0.81092437) *</span></span></code></pre></div>
 <p>The model proceed with the following steps. Note that steps 5 and 6 may not be really beneficial (consider that we know the true model).</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-213-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-215-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Alternatively, there are many other packages that can perform the same analysis. For example, the <code>tree</code> package. However, be careful that this package uses a different splitting rule by default If you want to match the result, use <code>split = "gini"</code>. Note that this plot is very crowded because it will split until pretty much only one class in each terminal node. Hence, you can imaging that there will be a tuning parameter issue. We will discuss this later.</p>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="classification-and-regression-trees.html#cb152-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(tree)</span>
 <span id="cb152-2"><a href="classification-and-regression-trees.html#cb152-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: package &#39;tree&#39; was built under R version 4.1.3</span></span>
 <span id="cb152-3"><a href="classification-and-regression-trees.html#cb152-3" aria-hidden="true" tabindex="-1"></a>    tree.fit <span class="ot">=</span> <span class="fu">tree</span>(<span class="fu">as.factor</span>(y)<span class="sc">~</span>x1<span class="sc">+</span>x2, <span class="at">data =</span> <span class="fu">data.frame</span>(x1, x2, y), <span class="at">split =</span> <span class="st">&quot;gini&quot;</span>)</span>
 <span id="cb152-4"><a href="classification-and-regression-trees.html#cb152-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(tree.fit)</span>
 <span id="cb152-5"><a href="classification-and-regression-trees.html#cb152-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">text</span>(tree.fit)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-215-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-217-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="splitting-a-node" class="section level2 hasAnchor" number="15.2">
-<h2><span class="header-section-number">15.2</span> Splitting a Node<a href="classification-and-regression-trees.html#splitting-a-node" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="splitting-a-node" class="section level2 hasAnchor" number="16.2">
+<h2><span class="header-section-number">16.2</span> Splitting a Node<a href="classification-and-regression-trees.html#splitting-a-node" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In a tree model, the splitting mechanism performs in the following way, which is just comparing all possible splits on all variables. For simplicity, we will assume that a binary splitting rule is used, i.e., we split the current node into to two child nodes, and apply the procedure recursively.</p>
 <ul>
 <li>At the current node, go through each variable to find the best cut-off point that splits the node.</li>
@@ -530,7 +535,7 @@ The Shannon theory is defined as</p>
 And the classification error simply adds up all mis-classified portions if we predict the population into the most prevalent one:</p>
 <p><span class="math display">\[ 1 - \underset{k = 1, \ldots, K}{\max} \,\, p_k\]</span>
 The following plot shows all three quantities as a function of <span class="math inline">\(p\)</span>, when there are only two classes, i.e., <span class="math inline">\(K = 2\)</span>.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-216-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-218-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>For each quantity, smaller value means that the node is more “pure,” hence, there is a higher certainty when we predict a new value. The idea of splitting a node is that, we want the two resulting child node to contain less variation. In other words, we want each child node to be as “pure” as possible. Hence, the idea is to calculate this error criterion both before and after the split and see what cut-off point gives us the best reduction of error. Of course, all of these quantities will be calculated based on the sample version, instead of the truth. For example, if we use the Gini impurity to compare different splits, we use the following quantity for an <strong>internal node</strong> <span class="math inline">\({\cal A}\)</span>:</p>
 <p><span class="math display">\[\begin{align}
 \text{score}(j, c) = \text{Gini}({\cal A}) - \left( \frac{N_{{\cal A}_L}}{N_{{\cal A}}} \text{Gini}({\cal A}_L) + \frac{N_{{\cal A}_R}}{N_{{\cal A}}} \text{Gini}({\cal A}_R)  \right).
@@ -543,23 +548,23 @@ Then <span class="math inline">\(N_{\cal A}\)</span>, <span class="math inline">
 <p><span class="math display">\[\underset{j \, , \, c}{\mathop{\mathrm{arg\,max}}} \,\, \text{score}(j, c)\]</span></p>
 <p>and then work on each child node separately using the same procedure.</p>
 </div>
-<div id="regression-trees" class="section level2 hasAnchor" number="15.3">
-<h2><span class="header-section-number">15.3</span> Regression Trees<a href="classification-and-regression-trees.html#regression-trees" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="regression-trees" class="section level2 hasAnchor" number="16.3">
+<h2><span class="header-section-number">16.3</span> Regression Trees<a href="classification-and-regression-trees.html#regression-trees" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The basic procedure for a regression tree is pretty much the same as a classification tree, except that we will use a different way to evaluate how good a potential split is. Note that the variance is a simple quantity to describe the noise within a node, we can use</p>
 <p><span class="math display">\[\begin{align}
 \text{score}(j, c) = \text{Var}({\cal A}) - \left( \frac{N_{{\cal A}_L}}{N_{{\cal A}}} \text{Var}({\cal A}_L) + \frac{N_{{\cal A}_R}}{N_{{\cal A}}} \text{Var}({\cal A}_R)  \right).
 \end{align}\]</span></p>
 </div>
-<div id="predicting-a-target-point" class="section level2 hasAnchor" number="15.4">
-<h2><span class="header-section-number">15.4</span> Predicting a Target Point<a href="classification-and-regression-trees.html#predicting-a-target-point" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="predicting-a-target-point" class="section level2 hasAnchor" number="16.4">
+<h2><span class="header-section-number">16.4</span> Predicting a Target Point<a href="classification-and-regression-trees.html#predicting-a-target-point" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>When we have a new target point <span class="math inline">\(\mathbf{x}_0\)</span> to predict, the basic strategy is to “drop it down the tree.” This is simply starting from the root node and following the splitting rule to see which terminal node it ends up with. Note that a fitted tree will have a collection of terminal nodes, say, <span class="math inline">\(\{{\cal A}_1, {\cal A}_2, \ldots, {\cal A}_M\}\)</span>, then suppose <span class="math inline">\(\mathbf{x}_0\)</span> falls into terminal node <span class="math inline">\({\cal A}_m\)</span>, we use <span class="math inline">\(\bar{y}_{{\cal A}_m}\)</span>, the average of original training data that falls into this node, as the prediction. The final prediction can be written as</p>
 <p><span class="math display">\[\begin{align}
 \widehat{f}(\mathbf{x}_0) =&amp; \sum_{m = 1}^M \bar{y}_{{\cal A}_m} \mathbf{1}\{\mathbf{x}_0 \in {\cal A}_m\} \\
 =&amp; \sum_{m = 1}^M \frac{\sum_{i=1}^n y_i \mathbf{1}\{\mathbf{x}_i \in {\cal A}_m\}}{\sum_{i=1}^n \mathbf{1}\{\mathbf{x}_i \in {\cal A}_m\}} \mathbf{1}\{\mathbf{x}_0 \in {\cal A}_m\}.
 \end{align}\]</span></p>
 </div>
-<div id="tuning-a-tree-model" class="section level2 hasAnchor" number="15.5">
-<h2><span class="header-section-number">15.5</span> Tuning a Tree Model<a href="classification-and-regression-trees.html#tuning-a-tree-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="tuning-a-tree-model" class="section level2 hasAnchor" number="16.5">
+<h2><span class="header-section-number">16.5</span> Tuning a Tree Model<a href="classification-and-regression-trees.html#tuning-a-tree-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Tree tuning is essentially about when to stop splitting. Or we could look at this reversely by first fitting a very large tree, then see if we could remove some branches of a tree to make it simpler without sacrificing much accuracy. One approach is called the <strong>cost-complexity pruning</strong>. This is another penalized framework that we use the accuracy as the loss function, and use the tree-size as the penalty part for complexity. Formally, if we have any tree model <span class="math inline">\({\cal T}\)</span>, consider this can be written as</p>
 <p><span class="math display">\[\begin{align}
 C_\alpha({\cal T}) =&amp;~ \sum_{\text{all terminal nodes $t$ in ${\cal T}$}} N_t \cdot \text{Impurity}(t) + \alpha |{\cal T}| \nonumber \\
@@ -577,7 +582,7 @@ Note that <span class="math inline">\(|{\cal T}_t| - 1\)</span> is the size diff
 <p>Note that the <span class="math inline">\(\alpha\)</span> values will get larger as we move more branches. Hence this produces a solution path. Now this is very similar to the Lasso solution path idea, and we could use cross-validation to select the best tuning. By default, the <code>rpart</code> function uses a 10-fold cross-validation. This can be controlled using the <code>rpart.control()</code> function and specify the <code>xval</code> argument. For details, please see the <a href="https://cran.r-project.org/web/packages/rpart/rpart.pdf">documentation</a>. The following plot using <code>plotcp()</code> in the <code>rpart</code> package gives a visualization of the relative cross-validation error. It also produces a horizontal line (the dotted line). It suggests the lowest (plus certain variation) that we could achieve. Hence, we will select the best <code>cp</code> value (<span class="math inline">\(alpha\)</span>) that is above this line. The way that this is constructed is similar to the <code>lambda.1se</code> choice in <code>glmnet</code>.</p>
 <div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="classification-and-regression-trees.html#cb153-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and the tuning parameter </span></span>
 <span id="cb153-2"><a href="classification-and-regression-trees.html#cb153-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotcp</span>(rpart.fit)  </span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-217-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-219-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="classification-and-regression-trees.html#cb154-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">printcp</span>(rpart.fit)</span>
 <span id="cb154-2"><a href="classification-and-regression-trees.html#cb154-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb154-3"><a href="classification-and-regression-trees.html#cb154-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Classification tree:</span></span>
@@ -613,7 +618,7 @@ Quinlan, J Ross. 1993. <em>C4. 5: Programs for Machine Learning</em>. Elsevier.
           </div>
         </div>
       </div>
-<a href="reproducing-kernel-hilbert-space.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="kernel-ridge-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="random-forests.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

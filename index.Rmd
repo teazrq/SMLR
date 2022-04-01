@@ -52,7 +52,8 @@ This book currently covers the following topics:
       * Logistic regression
       * Discriminant analysis
   5. Machine Learning Models
-      * Support vector machines
+      * Support vector machine
+      * Kernel ridge regression
       * Tree models
       * Random forest
       * Boosting
