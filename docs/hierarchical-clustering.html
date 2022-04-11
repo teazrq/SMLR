@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2022-03-31" />
+<meta name="date" content="2022-04-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -400,7 +400,11 @@ div.csl-indent {
 <li class="chapter" data-level="17.5" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>17.5</b> Variable Importance<span></span></a></li>
 <li class="chapter" data-level="17.6" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forets"><i class="fa fa-check"></i><b>17.6</b> Kernel view of Random Forets<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>18</b> Boosting<span></span></a></li>
+<li class="chapter" data-level="18" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>18</b> Boosting<span></span></a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="boosting.html"><a href="boosting.html#adaboost"><i class="fa fa-check"></i><b>18.1</b> AdaBoost<span></span></a></li>
+<li class="chapter" data-level="18.2" data-path="boosting.html"><a href="boosting.html#training-error-of-adaboost"><i class="fa fa-check"></i><b>18.2</b> Training Error of AdaBoost<span></span></a></li>
+</ul></li>
 <li class="part"><span><b>VI Unsupervised Learning<span></span></b></span></li>
 <li class="chapter" data-level="19" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>19</b> K-Means<span></span></a>
 <ul>
@@ -458,9 +462,9 @@ div.csl-indent {
 <div id="basic-concepts-1" class="section level2 hasAnchor" number="20.1">
 <h2><span class="header-section-number">20.1</span> Basic Concepts<a href="hierarchical-clustering.html#basic-concepts-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Suppose we have a set of six observations:</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-256-1.png" width="30%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-262-1.png" width="30%" style="display: block; margin: auto;" /></p>
 <p>The goal is to progressively group them together until there is only one group. During this process, we will always choose the closest two groups (some may be individuals) to merge.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-258-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-264-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>If we evaluate the distance between two observations, that would be very easy. For example, the Euclidean distance and Hamming distance can be used. But what about the distance between two groups? Suppose we have two groups of observations <span class="math inline">\(G\)</span> and <span class="math inline">\(H\)</span>, then several distance metric can be considered:</p>
 <ul>
 <li><strong>Complete linkage</strong>: the furthest pair
@@ -471,61 +475,61 @@ div.csl-indent {
 <span class="math display">\[d(G, H) = \frac{1}{n_G n_H} \sum_{i \in G} \sum_{i \in H} d(x_i, x_j)\]</span></li>
 </ul>
 <p>The <code>R</code> function <code>hclust()</code> uses the complete linkage as default. To perform a hierarchical clustering, we need to know all the pair-wise distances, i.e., <span class="math inline">\(d(x_i, x_j)\)</span>. Let’s consider the Euclidean distance.</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="hierarchical-clustering.html#cb172-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the Euclidean distance can be computed using dist()</span></span>
-<span id="cb172-2"><a href="hierarchical-clustering.html#cb172-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>(<span class="fu">dist</span>(x))</span>
-<span id="cb172-3"><a href="hierarchical-clustering.html#cb172-3" aria-hidden="true" tabindex="-1"></a><span class="do">##          1         2         3         4         5         6</span></span>
-<span id="cb172-4"><a href="hierarchical-clustering.html#cb172-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 0.000000 1.2294164 1.7864196 1.1971565 1.4246185 1.5698349</span></span>
-<span id="cb172-5"><a href="hierarchical-clustering.html#cb172-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 1.229416 0.0000000 2.3996575 0.8727261 1.9243764 2.2708670</span></span>
-<span id="cb172-6"><a href="hierarchical-clustering.html#cb172-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 1.786420 2.3996575 0.0000000 2.8586738 0.4782442 0.2448835</span></span>
-<span id="cb172-7"><a href="hierarchical-clustering.html#cb172-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 1.197156 0.8727261 2.8586738 0.0000000 2.4219048 2.6741260</span></span>
-<span id="cb172-8"><a href="hierarchical-clustering.html#cb172-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 1.424618 1.9243764 0.4782442 2.4219048 0.0000000 0.4204479</span></span>
-<span id="cb172-9"><a href="hierarchical-clustering.html#cb172-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 1.569835 2.2708670 0.2448835 2.6741260 0.4204479 0.0000000</span></span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="hierarchical-clustering.html#cb176-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the Euclidean distance can be computed using dist()</span></span>
+<span id="cb176-2"><a href="hierarchical-clustering.html#cb176-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>(<span class="fu">dist</span>(x))</span>
+<span id="cb176-3"><a href="hierarchical-clustering.html#cb176-3" aria-hidden="true" tabindex="-1"></a><span class="do">##          1         2         3         4         5         6</span></span>
+<span id="cb176-4"><a href="hierarchical-clustering.html#cb176-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 0.000000 1.2294164 1.7864196 1.1971565 1.4246185 1.5698349</span></span>
+<span id="cb176-5"><a href="hierarchical-clustering.html#cb176-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 1.229416 0.0000000 2.3996575 0.8727261 1.9243764 2.2708670</span></span>
+<span id="cb176-6"><a href="hierarchical-clustering.html#cb176-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 1.786420 2.3996575 0.0000000 2.8586738 0.4782442 0.2448835</span></span>
+<span id="cb176-7"><a href="hierarchical-clustering.html#cb176-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 1.197156 0.8727261 2.8586738 0.0000000 2.4219048 2.6741260</span></span>
+<span id="cb176-8"><a href="hierarchical-clustering.html#cb176-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 1.424618 1.9243764 0.4782442 2.4219048 0.0000000 0.4204479</span></span>
+<span id="cb176-9"><a href="hierarchical-clustering.html#cb176-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 1.569835 2.2708670 0.2448835 2.6741260 0.4204479 0.0000000</span></span></code></pre></div>
 <p>We use this distance matrix in the hierarchical clustering algorithm <code>hclust()</code>. The <code>plot()</code> function will display the merging process. This should be exactly the same as we demonstrated previously.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-261-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-267-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>The height of each split represents how separated the two subsets are (the distance when they are merged). Selecting the number of clusters is still a tricky problem. Usually, we pick a cutoff where the height of the next split is short. Hence, the above example fits well with two clusters.</p>
 </div>
 <div id="example-1-iris-data-1" class="section level2 hasAnchor" number="20.2">
 <h2><span class="header-section-number">20.2</span> Example 1: <code>iris</code> data<a href="hierarchical-clustering.html#example-1-iris-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The <code>iris</code> data contains three clusters and four variables. We use all variables in the distance calculation and use the default complete linkage.</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="hierarchical-clustering.html#cb173-1" aria-hidden="true" tabindex="-1"></a>  iris_hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(iris[, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]))</span>
-<span id="cb173-2"><a href="hierarchical-clustering.html#cb173-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(iris_hc)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-262-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="hierarchical-clustering.html#cb177-1" aria-hidden="true" tabindex="-1"></a>  iris_hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(iris[, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]))</span>
+<span id="cb177-2"><a href="hierarchical-clustering.html#cb177-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(iris_hc)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-268-1.png" width="40%" style="display: block; margin: auto;" /></p>
 <p>This does not seem to perform very well, considering that we know the true number of classes is three. This shows that, in practice, the detected clusters can heavily depend on the variables you use. Let’s try some other linkage functions.</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="hierarchical-clustering.html#cb174-1" aria-hidden="true" tabindex="-1"></a>  iris_hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(iris[, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]), <span class="at">method =</span> <span class="st">&quot;average&quot;</span>)</span>
-<span id="cb174-2"><a href="hierarchical-clustering.html#cb174-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(iris_hc, <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-263-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="hierarchical-clustering.html#cb178-1" aria-hidden="true" tabindex="-1"></a>  iris_hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(iris[, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]), <span class="at">method =</span> <span class="st">&quot;average&quot;</span>)</span>
+<span id="cb178-2"><a href="hierarchical-clustering.html#cb178-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(iris_hc, <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-269-1.png" width="40%" style="display: block; margin: auto;" /></p>
 <p>This looks better, at least more consistent with the truth. Now we can also consider using other package to plot this result. For example, the <code>ape</code> package provides some interesting choices.</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="hierarchical-clustering.html#cb175-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ape)</span>
-<span id="cb175-2"><a href="hierarchical-clustering.html#cb175-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: package &#39;ape&#39; was built under R version 4.1.3</span></span>
-<span id="cb175-3"><a href="hierarchical-clustering.html#cb175-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">as.phylo</span>(iris_hc), <span class="at">type =</span> <span class="st">&quot;unrooted&quot;</span>, <span class="at">cex =</span> <span class="fl">0.6</span>, <span class="at">no.margin =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-264-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="hierarchical-clustering.html#cb179-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ape)</span>
+<span id="cb179-2"><a href="hierarchical-clustering.html#cb179-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: package &#39;ape&#39; was built under R version 4.1.3</span></span>
+<span id="cb179-3"><a href="hierarchical-clustering.html#cb179-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">as.phylo</span>(iris_hc), <span class="at">type =</span> <span class="st">&quot;unrooted&quot;</span>, <span class="at">cex =</span> <span class="fl">0.6</span>, <span class="at">no.margin =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-270-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>We can also add the true class colors to the plot. This plot is motivated by the <code>dendextend</code> package vignettes. Of course in a realistic situation, we wouldn’t know what the true class is.</p>
 <pre><code>## Warning: package &#39;dendextend&#39; was built under R version 4.1.3</code></pre>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-265-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-271-1.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="example-2-rna-expression-data" class="section level2 hasAnchor" number="20.3">
 <h2><span class="header-section-number">20.3</span> Example 2: RNA Expression Data<a href="hierarchical-clustering.html#example-2-rna-expression-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We use a tissue gene expression dataset from the <code>tissuesGeneExpression</code> library, available from bioconductor. I prepared the data to include only 100 genes. You can download the data from the course website. In this first step, we simply plot the data using a heatmap. By default, a heatmap uses red to denote higher values, and yellow for lower values. Note that we first plot the data without organizing the columns or rows. The data is also standardized based on columns (genes).</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="hierarchical-clustering.html#cb177-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">load</span>(<span class="st">&quot;data/tissue.Rda&quot;</span>)</span>
-<span id="cb177-2"><a href="hierarchical-clustering.html#cb177-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dim</span>(expression)</span>
-<span id="cb177-3"><a href="hierarchical-clustering.html#cb177-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 189 100</span></span>
-<span id="cb177-4"><a href="hierarchical-clustering.html#cb177-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">table</span>(tissue)</span>
-<span id="cb177-5"><a href="hierarchical-clustering.html#cb177-5" aria-hidden="true" tabindex="-1"></a><span class="do">## tissue</span></span>
-<span id="cb177-6"><a href="hierarchical-clustering.html#cb177-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  cerebellum       colon endometrium hippocampus      kidney       liver    placenta </span></span>
-<span id="cb177-7"><a href="hierarchical-clustering.html#cb177-7" aria-hidden="true" tabindex="-1"></a><span class="do">##          38          34          15          31          39          26           6</span></span>
-<span id="cb177-8"><a href="hierarchical-clustering.html#cb177-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(expression[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>])</span>
-<span id="cb177-9"><a href="hierarchical-clustering.html#cb177-9" aria-hidden="true" tabindex="-1"></a><span class="do">##                 211298_s_at 203540_at 211357_s_at</span></span>
-<span id="cb177-10"><a href="hierarchical-clustering.html#cb177-10" aria-hidden="true" tabindex="-1"></a><span class="do">## GSM11805.CEL.gz    7.710426  5.856596   12.618471</span></span>
-<span id="cb177-11"><a href="hierarchical-clustering.html#cb177-11" aria-hidden="true" tabindex="-1"></a><span class="do">## GSM11814.CEL.gz    4.741010  5.813841    5.116707</span></span>
-<span id="cb177-12"><a href="hierarchical-clustering.html#cb177-12" aria-hidden="true" tabindex="-1"></a><span class="do">## GSM11823.CEL.gz   11.730652  5.986338   13.206078</span></span>
-<span id="cb177-13"><a href="hierarchical-clustering.html#cb177-13" aria-hidden="true" tabindex="-1"></a><span class="do">## GSM11830.CEL.gz    5.061337  6.316815    9.780614</span></span>
-<span id="cb177-14"><a href="hierarchical-clustering.html#cb177-14" aria-hidden="true" tabindex="-1"></a><span class="do">## GSM12067.CEL.gz    4.955245  6.561705    8.589003</span></span>
-<span id="cb177-15"><a href="hierarchical-clustering.html#cb177-15" aria-hidden="true" tabindex="-1"></a><span class="do">## GSM12075.CEL.gz   10.469501  5.880740   13.050554</span></span>
-<span id="cb177-16"><a href="hierarchical-clustering.html#cb177-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">heatmap</span>(<span class="fu">scale</span>(expression), <span class="at">Rowv =</span> <span class="cn">NA</span>, <span class="at">Colv =</span> <span class="cn">NA</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-266-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="hierarchical-clustering.html#cb181-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">load</span>(<span class="st">&quot;data/tissue.Rda&quot;</span>)</span>
+<span id="cb181-2"><a href="hierarchical-clustering.html#cb181-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dim</span>(expression)</span>
+<span id="cb181-3"><a href="hierarchical-clustering.html#cb181-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 189 100</span></span>
+<span id="cb181-4"><a href="hierarchical-clustering.html#cb181-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">table</span>(tissue)</span>
+<span id="cb181-5"><a href="hierarchical-clustering.html#cb181-5" aria-hidden="true" tabindex="-1"></a><span class="do">## tissue</span></span>
+<span id="cb181-6"><a href="hierarchical-clustering.html#cb181-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  cerebellum       colon endometrium hippocampus      kidney       liver    placenta </span></span>
+<span id="cb181-7"><a href="hierarchical-clustering.html#cb181-7" aria-hidden="true" tabindex="-1"></a><span class="do">##          38          34          15          31          39          26           6</span></span>
+<span id="cb181-8"><a href="hierarchical-clustering.html#cb181-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(expression[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>])</span>
+<span id="cb181-9"><a href="hierarchical-clustering.html#cb181-9" aria-hidden="true" tabindex="-1"></a><span class="do">##                 211298_s_at 203540_at 211357_s_at</span></span>
+<span id="cb181-10"><a href="hierarchical-clustering.html#cb181-10" aria-hidden="true" tabindex="-1"></a><span class="do">## GSM11805.CEL.gz    7.710426  5.856596   12.618471</span></span>
+<span id="cb181-11"><a href="hierarchical-clustering.html#cb181-11" aria-hidden="true" tabindex="-1"></a><span class="do">## GSM11814.CEL.gz    4.741010  5.813841    5.116707</span></span>
+<span id="cb181-12"><a href="hierarchical-clustering.html#cb181-12" aria-hidden="true" tabindex="-1"></a><span class="do">## GSM11823.CEL.gz   11.730652  5.986338   13.206078</span></span>
+<span id="cb181-13"><a href="hierarchical-clustering.html#cb181-13" aria-hidden="true" tabindex="-1"></a><span class="do">## GSM11830.CEL.gz    5.061337  6.316815    9.780614</span></span>
+<span id="cb181-14"><a href="hierarchical-clustering.html#cb181-14" aria-hidden="true" tabindex="-1"></a><span class="do">## GSM12067.CEL.gz    4.955245  6.561705    8.589003</span></span>
+<span id="cb181-15"><a href="hierarchical-clustering.html#cb181-15" aria-hidden="true" tabindex="-1"></a><span class="do">## GSM12075.CEL.gz   10.469501  5.880740   13.050554</span></span>
+<span id="cb181-16"><a href="hierarchical-clustering.html#cb181-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">heatmap</span>(<span class="fu">scale</span>(expression), <span class="at">Rowv =</span> <span class="cn">NA</span>, <span class="at">Colv =</span> <span class="cn">NA</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-272-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>Hierarchical clustering may help us discover interesting patterns. If we reorganize the columns and rows based on the clusters, then it may reveal underlying subclasses of issues, or subgroups of genes.</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="hierarchical-clustering.html#cb178-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">heatmap</span>(<span class="fu">scale</span>(expression))</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-267-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="hierarchical-clustering.html#cb182-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">heatmap</span>(<span class="fu">scale</span>(expression))</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-273-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>Note that there are many other <code>R</code> packages that produce more interesting plots. For example, you can try the <a href="https://cran.r-project.org/web/packages/heatmaply/vignettes/heatmaply.html">heatmaply</a> package.</p>
 
 </div>

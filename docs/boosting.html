@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2022-03-31" />
+<meta name="date" content="2022-04-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -400,7 +400,11 @@ div.csl-indent {
 <li class="chapter" data-level="17.5" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>17.5</b> Variable Importance<span></span></a></li>
 <li class="chapter" data-level="17.6" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forets"><i class="fa fa-check"></i><b>17.6</b> Kernel view of Random Forets<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>18</b> Boosting<span></span></a></li>
+<li class="chapter" data-level="18" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>18</b> Boosting<span></span></a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="boosting.html"><a href="boosting.html#adaboost"><i class="fa fa-check"></i><b>18.1</b> AdaBoost<span></span></a></li>
+<li class="chapter" data-level="18.2" data-path="boosting.html"><a href="boosting.html#training-error-of-adaboost"><i class="fa fa-check"></i><b>18.2</b> Training Error of AdaBoost<span></span></a></li>
+</ul></li>
 <li class="part"><span><b>VI Unsupervised Learning<span></span></b></span></li>
 <li class="chapter" data-level="19" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>19</b> K-Means<span></span></a>
 <ul>
@@ -455,11 +459,213 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="boosting" class="section level1 hasAnchor" number="18">
 <h1><span class="header-section-number">Chapter 18</span> Boosting<a href="boosting.html#boosting" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Boosting is another ensemble model, created in the form of</p>
+<p><span class="math display">\[F_T(x) = \sum_{t = 1}^T \alpha_t f_t(x)\]</span></p>
+<p>However, it is different from random forest, in which each <span class="math inline">\(f_t(x)\)</span> is learned parallelly. These <span class="math inline">\(f_t(x)\)</span>’s are called weak learners and are constructed <strong>sequentially</strong>, with coefficients <span class="math inline">\(\alpha_t\)</span>’s to represent their weights. The most classical model, AdaBoost was proposed by <span class="citation"><a href="#ref-freund1997decision" role="doc-biblioref">Freund and Schapire</a> (<a href="#ref-freund1997decision" role="doc-biblioref">1997</a>)</span> for classification problems, and a more statically view of this model called gradient boosting machines <span class="citation">(<a href="#ref-friedman2001greedy" role="doc-biblioref">J. H. Friedman 2001</a>)</span> can handle any loss function we commonly use. We will first introduce AdaBoost and then discuss gradient boosting.</p>
+<div id="adaboost" class="section level2 hasAnchor" number="18.1">
+<h2><span class="header-section-number">18.1</span> AdaBoost<a href="boosting.html#adaboost" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Following our common notation, we observe a set of data <span class="math inline">\(\{\mathbf{x}_i, y_i\}_{i=1}^n\)</span>. Similar to SVM, we code <span class="math inline">\(y_i\)</span>s as <span class="math inline">\(-1\)</span> or <span class="math inline">\(1\)</span>. The AdaBoost works by creating <span class="math inline">\(F_T(x)\)</span> sequentially and use <span class="math inline">\(\text{sign}(F_T(x))\)</span> as the classification rule. The algorithm is given in the following:</p>
+<ul>
+<li>Initiate weights <span class="math inline">\(w_i^{(1)} = 1/n\)</span>, for <span class="math inline">\(i = 1, \ldots, n\)</span></li>
+<li>For <span class="math inline">\(t = 1, \ldots, T\)</span>, do
+<ul>
+<li>Fit a classifier <span class="math inline">\(f_t(x)\)</span> to the training data with subject weights <span class="math inline">\(w_i^{(t)}\)</span>’s.</li>
+<li>Compute the weighed error rate
+<span class="math display">\[\epsilon_t = \sum_{i=1}^n w_i^{(t)} \mathbf{1}\{y_i \neq f_t(x_i) \}\]</span></li>
+<li>Compute
+<span class="math display">\[\alpha_t = \frac{1}{2} \log \frac{1 - \epsilon_t}{\epsilon_t}\]</span></li>
+<li>Update subject weights
+<span class="math display">\[w_i^{(t + 1)} = \frac{1}{Z_t} w_i^{(t)} \exp\big\{ - \alpha_t y_i f_t(x_i) \big\}\]</span>
+where <span class="math inline">\(Z_t\)</span> is a normalizing constant make <span class="math inline">\(w_i^{(t + 1)}\)</span>’s sum up to 1:
+<span class="math display">\[Z_t = \sum_{i=1}^n w_i^{(t)} \exp\big\{ - \alpha_t y_i f_t(x_i) \big\}\]</span></li>
+</ul></li>
+<li>Output the final model
+<span class="math display">\[F_T(x) = \sum_{t = 1}^T \alpha_t f_t(x)\]</span>
+and the decision rule is <span class="math inline">\(\text{sign}(F_T(x))\)</span>.</li>
+</ul>
+<p>An important mechanism in AdaBoost is the weight update step. We can notice that the weight is increased if <span class="math inline">\(\exp\big\{ - \alpha_t y_i f_t(x_i) \big\}\)</span> is larger than 1. This is simply when <span class="math inline">\(y_i f_t(x_i)\)</span> is negative, i.e., subject <span class="math inline">\(i\)</span> got mis-classified by <span class="math inline">\(f_t\)</span> at this iteration. Hence, during the next iteration <span class="math inline">\(t+1\)</span>, the model <span class="math inline">\(f_{(t+1)}\)</span> will more likely to address this subject. Here, <span class="math inline">\(f_t\)</span> can be any classification model, for example, we could use a tree model. The following figures demonstrate this idea of updating weights and aggregate the learners.</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="boosting.html#cb163-1" aria-hidden="true" tabindex="-1"></a>  x1 <span class="ot">=</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="fl">0.1</span>)</span>
+<span id="cb163-2"><a href="boosting.html#cb163-2" aria-hidden="true" tabindex="-1"></a>  x2 <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.6</span>, <span class="fl">0.7</span>,</span>
+<span id="cb163-3"><a href="boosting.html#cb163-3" aria-hidden="true" tabindex="-1"></a>         <span class="fl">0.8</span>, <span class="fl">0.5</span>, <span class="fl">0.7</span>, <span class="fl">0.8</span>, <span class="fl">0.2</span>)</span>
+<span id="cb163-4"><a href="boosting.html#cb163-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb163-5"><a href="boosting.html#cb163-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the data</span></span>
+<span id="cb163-6"><a href="boosting.html#cb163-6" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, </span>
+<span id="cb163-7"><a href="boosting.html#cb163-7" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb163-8"><a href="boosting.html#cb163-8" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">=</span> <span class="fu">cbind</span>(<span class="st">&quot;x1&quot;</span> <span class="ot">=</span> x1, <span class="st">&quot;x2&quot;</span> <span class="ot">=</span> x2)</span>
+<span id="cb163-9"><a href="boosting.html#cb163-9" aria-hidden="true" tabindex="-1"></a>  xgrid <span class="ot">=</span> <span class="fu">expand.grid</span>(<span class="st">&quot;x1&quot;</span> <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fl">1.1</span>, <span class="fl">0.01</span>), <span class="st">&quot;x2&quot;</span> <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fl">0.9</span>, <span class="fl">0.01</span>))</span>
+<span id="cb163-10"><a href="boosting.html#cb163-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb163-11"><a href="boosting.html#cb163-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot data</span></span>
+<span id="cb163-12"><a href="boosting.html#cb163-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
+<span id="cb163-13"><a href="boosting.html#cb163-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb163-14"><a href="boosting.html#cb163-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">3</span>)</span>
+<span id="cb163-15"><a href="boosting.html#cb163-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb163-16"><a href="boosting.html#cb163-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># fit gbm with 3 trees</span></span>
+<span id="cb163-17"><a href="boosting.html#cb163-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(gbm)</span>
+<span id="cb163-18"><a href="boosting.html#cb163-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: package &#39;gbm&#39; was built under R version 4.1.3</span></span>
+<span id="cb163-19"><a href="boosting.html#cb163-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Loaded gbm 2.1.8</span></span>
+<span id="cb163-20"><a href="boosting.html#cb163-20" aria-hidden="true" tabindex="-1"></a>  gbm.fit <span class="ot">=</span> <span class="fu">gbm</span>(y <span class="sc">~</span>., <span class="fu">data.frame</span>(x1, x2, <span class="at">y=</span> <span class="fu">as.numeric</span>(y <span class="sc">==</span> <span class="dv">1</span>)), </span>
+<span id="cb163-21"><a href="boosting.html#cb163-21" aria-hidden="true" tabindex="-1"></a>                <span class="at">distribution=</span><span class="st">&quot;adaboost&quot;</span>, <span class="at">interaction.depth =</span> <span class="dv">1</span>, </span>
+<span id="cb163-22"><a href="boosting.html#cb163-22" aria-hidden="true" tabindex="-1"></a>                <span class="at">n.minobsinnode =</span> <span class="dv">1</span>, <span class="at">n.trees =</span> <span class="dv">3</span>, </span>
+<span id="cb163-23"><a href="boosting.html#cb163-23" aria-hidden="true" tabindex="-1"></a>                <span class="at">shrinkage =</span> <span class="dv">1</span>, <span class="at">bag.fraction =</span> <span class="dv">1</span>)</span>
+<span id="cb163-24"><a href="boosting.html#cb163-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb163-25"><a href="boosting.html#cb163-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># you may peek into each tree</span></span>
+<span id="cb163-26"><a href="boosting.html#cb163-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pretty.gbm.tree</span>(gbm.fit, <span class="at">i.tree =</span> <span class="dv">1</span>)</span>
+<span id="cb163-27"><a href="boosting.html#cb163-27" aria-hidden="true" tabindex="-1"></a><span class="do">##   SplitVar SplitCodePred LeftNode RightNode MissingNode ErrorReduction Weight Prediction</span></span>
+<span id="cb163-28"><a href="boosting.html#cb163-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 0        0          0.25        1         2           3            2.5     10       0.00</span></span>
+<span id="cb163-29"><a href="boosting.html#cb163-29" aria-hidden="true" tabindex="-1"></a><span class="do">## 1       -1          1.00       -1        -1          -1            0.0      2       1.00</span></span>
+<span id="cb163-30"><a href="boosting.html#cb163-30" aria-hidden="true" tabindex="-1"></a><span class="do">## 2       -1         -0.25       -1        -1          -1            0.0      8      -0.25</span></span>
+<span id="cb163-31"><a href="boosting.html#cb163-31" aria-hidden="true" tabindex="-1"></a><span class="do">## 3       -1          0.00       -1        -1          -1            0.0     10       0.00</span></span>
+<span id="cb163-32"><a href="boosting.html#cb163-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb163-33"><a href="boosting.html#cb163-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># we can view the predicted decision rule</span></span>
+<span id="cb163-34"><a href="boosting.html#cb163-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
+<span id="cb163-35"><a href="boosting.html#cb163-35" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb163-36"><a href="boosting.html#cb163-36" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">3</span>)</span>
+<span id="cb163-37"><a href="boosting.html#cb163-37" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">=</span> <span class="fu">predict</span>(gbm.fit, xgrid)</span>
+<span id="cb163-38"><a href="boosting.html#cb163-38" aria-hidden="true" tabindex="-1"></a><span class="do">## Using 3 trees...</span></span>
+<span id="cb163-39"><a href="boosting.html#cb163-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">col =</span> <span class="fu">ifelse</span>(pred <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), </span>
+<span id="cb163-40"><a href="boosting.html#cb163-40" aria-hidden="true" tabindex="-1"></a>         <span class="at">cex =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-237-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>Here is a rundown of the algorithm. Let’s initialize all weights as <span class="math inline">\(1/n\)</span>. We only used trees with a single split as weak learners. The first tree is splitting at <span class="math inline">\(X_1 = 0.25\)</span>. After the first split, we need to adjust the weights.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="boosting.html#cb164-1" aria-hidden="true" tabindex="-1"></a>  w1 <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb164-2"><a href="boosting.html#cb164-2" aria-hidden="true" tabindex="-1"></a>  f1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">ifelse</span>(x[, <span class="dv">1</span>] <span class="sc">&lt;</span> <span class="fl">0.25</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb164-3"><a href="boosting.html#cb164-3" aria-hidden="true" tabindex="-1"></a>  e1 <span class="ot">=</span> <span class="fu">sum</span>(w1<span class="sc">*</span>(<span class="fu">f1</span>(X) <span class="sc">!=</span> y))</span>
+<span id="cb164-4"><a href="boosting.html#cb164-4" aria-hidden="true" tabindex="-1"></a>  a1 <span class="ot">=</span> <span class="fl">0.5</span><span class="sc">*</span><span class="fu">log</span>((<span class="dv">1</span><span class="sc">-</span>e1)<span class="sc">/</span>e1)</span>
+<span id="cb164-5"><a href="boosting.html#cb164-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb164-6"><a href="boosting.html#cb164-6" aria-hidden="true" tabindex="-1"></a>  w2 <span class="ot">=</span> w1<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span> a1<span class="sc">*</span>y<span class="sc">*</span><span class="fu">f1</span>(X))</span>
+<span id="cb164-7"><a href="boosting.html#cb164-7" aria-hidden="true" tabindex="-1"></a>  w2 <span class="ot">=</span> w2<span class="sc">/</span><span class="fu">sum</span>(w2)</span>
+<span id="cb164-8"><a href="boosting.html#cb164-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb164-9"><a href="boosting.html#cb164-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the first tree</span></span>
+<span id="cb164-10"><a href="boosting.html#cb164-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
+<span id="cb164-11"><a href="boosting.html#cb164-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb164-12"><a href="boosting.html#cb164-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">3</span>)</span>
+<span id="cb164-13"><a href="boosting.html#cb164-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb164-14"><a href="boosting.html#cb164-14" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">=</span> <span class="fu">f1</span>(xgrid)</span>
+<span id="cb164-15"><a href="boosting.html#cb164-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">col =</span> <span class="fu">ifelse</span>(pred <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), </span>
+<span id="cb164-16"><a href="boosting.html#cb164-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">cex =</span> <span class="fl">0.2</span>)</span>
+<span id="cb164-17"><a href="boosting.html#cb164-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb164-18"><a href="boosting.html#cb164-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># weights after the first tree</span></span>
+<span id="cb164-19"><a href="boosting.html#cb164-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
+<span id="cb164-20"><a href="boosting.html#cb164-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb164-21"><a href="boosting.html#cb164-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">30</span><span class="sc">*</span>w2)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-239-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>We can notice that the observations got correctly classified will decrease their weights while those mis-classified will increase the weights.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="boosting.html#cb165-1" aria-hidden="true" tabindex="-1"></a>  f2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">ifelse</span>(x[, <span class="dv">2</span>] <span class="sc">&gt;</span> <span class="fl">0.65</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb165-2"><a href="boosting.html#cb165-2" aria-hidden="true" tabindex="-1"></a>  e2 <span class="ot">=</span> <span class="fu">sum</span>(w2<span class="sc">*</span>(<span class="fu">f2</span>(X) <span class="sc">!=</span> y))</span>
+<span id="cb165-3"><a href="boosting.html#cb165-3" aria-hidden="true" tabindex="-1"></a>  a2 <span class="ot">=</span> <span class="fl">0.5</span><span class="sc">*</span><span class="fu">log</span>((<span class="dv">1</span><span class="sc">-</span>e2)<span class="sc">/</span>e2)</span>
+<span id="cb165-4"><a href="boosting.html#cb165-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb165-5"><a href="boosting.html#cb165-5" aria-hidden="true" tabindex="-1"></a>  w3 <span class="ot">=</span> w2<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span> a2<span class="sc">*</span>y<span class="sc">*</span><span class="fu">f2</span>(X))</span>
+<span id="cb165-6"><a href="boosting.html#cb165-6" aria-hidden="true" tabindex="-1"></a>  w3 <span class="ot">=</span> w3<span class="sc">/</span><span class="fu">sum</span>(w3)</span>
+<span id="cb165-7"><a href="boosting.html#cb165-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb165-8"><a href="boosting.html#cb165-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the second tree</span></span>
+<span id="cb165-9"><a href="boosting.html#cb165-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
+<span id="cb165-10"><a href="boosting.html#cb165-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb165-11"><a href="boosting.html#cb165-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">30</span><span class="sc">*</span>w2)</span>
+<span id="cb165-12"><a href="boosting.html#cb165-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb165-13"><a href="boosting.html#cb165-13" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">=</span> <span class="fu">f2</span>(xgrid)</span>
+<span id="cb165-14"><a href="boosting.html#cb165-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">col =</span> <span class="fu">ifelse</span>(pred <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), </span>
+<span id="cb165-15"><a href="boosting.html#cb165-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">cex =</span> <span class="fl">0.2</span>)</span>
+<span id="cb165-16"><a href="boosting.html#cb165-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb165-17"><a href="boosting.html#cb165-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># weights after the second tree</span></span>
+<span id="cb165-18"><a href="boosting.html#cb165-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
+<span id="cb165-19"><a href="boosting.html#cb165-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb165-20"><a href="boosting.html#cb165-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">30</span><span class="sc">*</span>w3)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-240-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>And then we have the third step. Combining all three steps and their decision function, we have the final classifier</p>
+<p><span class="math display">\[\begin{align}
+F_3(x) =&amp; \sum_{t=1}^3 \alpha_t f_t(x) \nonumber \\
+=&amp; 0.4236 \cdot f_1(x) + 0.6496 \cdot f_2(x) + 0.9229 \cdot f_3(x)
+\end{align}\]</span></p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="boosting.html#cb166-1" aria-hidden="true" tabindex="-1"></a>  f3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">ifelse</span>(x[, <span class="dv">1</span>] <span class="sc">&lt;</span> <span class="fl">0.85</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb166-2"><a href="boosting.html#cb166-2" aria-hidden="true" tabindex="-1"></a>  e3 <span class="ot">=</span> <span class="fu">sum</span>(w3<span class="sc">*</span>(<span class="fu">f3</span>(X) <span class="sc">!=</span> y))</span>
+<span id="cb166-3"><a href="boosting.html#cb166-3" aria-hidden="true" tabindex="-1"></a>  a3 <span class="ot">=</span> <span class="fl">0.5</span><span class="sc">*</span><span class="fu">log</span>((<span class="dv">1</span><span class="sc">-</span>e3)<span class="sc">/</span>e3)</span>
+<span id="cb166-4"><a href="boosting.html#cb166-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb166-5"><a href="boosting.html#cb166-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the third tree</span></span>
+<span id="cb166-6"><a href="boosting.html#cb166-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
+<span id="cb166-7"><a href="boosting.html#cb166-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb166-8"><a href="boosting.html#cb166-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">30</span><span class="sc">*</span>w3)</span>
+<span id="cb166-9"><a href="boosting.html#cb166-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb166-10"><a href="boosting.html#cb166-10" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">=</span> <span class="fu">f3</span>(xgrid)</span>
+<span id="cb166-11"><a href="boosting.html#cb166-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">col =</span> <span class="fu">ifelse</span>(pred <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), </span>
+<span id="cb166-12"><a href="boosting.html#cb166-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">cex =</span> <span class="fl">0.2</span>)</span>
+<span id="cb166-13"><a href="boosting.html#cb166-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb166-14"><a href="boosting.html#cb166-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the final decision rule </span></span>
+<span id="cb166-15"><a href="boosting.html#cb166-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
+<span id="cb166-16"><a href="boosting.html#cb166-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb166-17"><a href="boosting.html#cb166-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">3</span>)</span>
+<span id="cb166-18"><a href="boosting.html#cb166-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb166-19"><a href="boosting.html#cb166-19" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">=</span> a1<span class="sc">*</span><span class="fu">f1</span>(xgrid) <span class="sc">+</span> a2<span class="sc">*</span><span class="fu">f2</span>(xgrid) <span class="sc">+</span> a3<span class="sc">*</span><span class="fu">f3</span>(xgrid)</span>
+<span id="cb166-20"><a href="boosting.html#cb166-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">col =</span> <span class="fu">ifelse</span>(pred <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), </span>
+<span id="cb166-21"><a href="boosting.html#cb166-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">cex =</span> <span class="fl">0.2</span>)</span>
+<span id="cb166-22"><a href="boosting.html#cb166-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">0.25</span>) <span class="co"># f1</span></span>
+<span id="cb166-23"><a href="boosting.html#cb166-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.65</span>) <span class="co"># f2</span></span>
+<span id="cb166-24"><a href="boosting.html#cb166-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">0.85</span>) <span class="co"># f3</span></span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-241-1.png" width="90%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="training-error-of-adaboost" class="section level2 hasAnchor" number="18.2">
+<h2><span class="header-section-number">18.2</span> Training Error of AdaBoost<a href="boosting.html#training-error-of-adaboost" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There is an interesting property about the boosting algorithm that if we can always find a classifier that performs better than random guessing at each iteration <span class="math inline">\(t\)</span>, then the training error will eventually converge to zero. This works by analyzing the weight after the last iteration <span class="math inline">\(T\)</span>:</p>
+<p><span class="math display">\[\begin{align}
+w_i^{(T+1)} =&amp; \frac{1}{Z_T} w_i^{(T)} \exp\big\{ - \alpha_t y_i f_t(x_i) \big\} \nonumber \\
+=&amp; \frac{1}{Z_1\cdots Z_T} w_i^{(1)} \prod_{t = 1}^T \exp\big\{ - \alpha_t y_i f_t(x_i) \big\} \nonumber \\
+=&amp; \frac{1}{Z_1\cdots Z_T} \frac{1}{n} \exp\Big\{ - y_i \sum_{t = 1}^T \alpha_t f_t(x_i) \Big\}
+\end{align}\]</span></p>
+<p>Since <span class="math inline">\(\sum_{t = 1}^T \alpha_t f_t(x_i)\)</span> is just the model at the <span class="math inline">\(T\)</span>-th iteration, we can write it as <span class="math inline">\(F_T(x_i)\)</span>. Noticing that they sum up to 1, we have</p>
+<p><span class="math display">\[1 = \sum_{i = 1}^n w_i^{(T+1)} = \frac{1}{Z_1\cdots Z_T} \frac{1}{n} \sum_{i = 1}^n \exp\big\{ - y_i F_T(x_i) \big\}\]</span>
+and
+<span class="math display">\[Z_1\cdots Z_T = \frac{1}{n} \sum_{i = 1}^n \exp\big\{ - y_i F_T(x_i) \big\}\]</span>
+On the right-hand-side, this is the exponential loss after we fit the model. In fact, this quantity would bound above the 0/1 loss, since the exponential loss is <span class="math inline">\(\exp[ - y f(x) ]\)</span>,</p>
+<ul>
+<li>For correctly classified subjects, <span class="math inline">\(y f(x) &gt; 0\)</span>, and <span class="math inline">\(\exp[ - y f(x) ] &gt; 0\)</span></li>
+<li>For incorrectly classified subjects, <span class="math inline">\(y f(x) &lt; 0\)</span> the exponential loss is larger than 1</li>
+</ul>
+<p>This means that</p>
+<p><span class="math display">\[Z_1\cdots Z_T &gt; \frac{1}{n} \sum_{i = 1}^n \mathbf{1} \big\{ y_i \neq \text{sign}(F_T(x_i)) \big\}\]</span>
+Hence, if we want the final model to have low training error, we should bound above the <span class="math inline">\(Z_t\)</span>’s. Recall that <span class="math inline">\(Z_t\)</span> is used to normalize the weights, we have</p>
+<p><span class="math display">\[Z_t = \sum_i^{n} w_i^{(t)} \exp[ - \alpha_t y_i f_t(x_i) ].\]</span>
+We have two cases at this iteration, <span class="math inline">\(y_i f(x_i) = 1\)</span> for correct subjects, and <span class="math inline">\(y_i f(x_i) = -1\)</span> for the incorrect ones, hence,
+By our definition, <span class="math inline">\(\epsilon_t = \sum_i w_i^{(t)} \mathbf{1} \big\{ y_i \neq f_t(x_i) \big\}\)</span> is the proportion of weights for mis-classified samples.
+<span class="math display">\[\begin{align}
+Z_t =&amp; \,\,\sum_{i=1}^n w_i^{(t)} \exp[ - \alpha_t y_i f_t(x_i)] \nonumber\\
+=&amp;\,\,\sum_{y_i = f_t(x_i)} w_i^{(t)} \exp[ - \alpha_t ] +  \sum_{y_i \neq f_t(x_i)} w_i^{(t)} \exp[ \alpha_t ] \nonumber\\
+=&amp; \,\, \exp[ - \alpha_t ] \sum_{y_i = f_t(x_i)} w_i^{(t)} + \exp[ \alpha_t ] \sum_{y_i \neq f_t(x_i)} w_i^{(t)}
+\end{align}\]</span></p>
+<p>So we have</p>
+<p><span class="math display">\[ Z_t = (1 - \epsilon_t) \exp[ - \alpha_t ] + \epsilon_t \exp[ \alpha_t ].\]</span></p>
+<p>If we want to minimize the product of all <span class="math inline">\(Z_t\)</span>’s, we can consider minimizing each of them. Let’s consider this as a function of <span class="math inline">\(\alpha_t\)</span>, then by taking a derivative with respect to <span class="math inline">\(\alpha_t\)</span>, we have</p>
+<p><span class="math display">\[ - (1 - \epsilon_t) \exp[ - \alpha_t ] + \epsilon_t \exp[ \alpha_t ] = 0\]</span>
+and</p>
+<p><span class="math display">\[\alpha_t = \frac{1}{2} \log \frac{1 - \epsilon_t}{\epsilon_t}.\]</span>
+Plugging this back into <span class="math inline">\(Z_t\)</span>, we have</p>
+<p><span class="math display">\[Z_t = 2 \sqrt{\epsilon_t(1-\epsilon_t)}\]</span>
+Since <span class="math inline">\(\epsilon_t(1-\epsilon_t)\)</span> can only attain maximum of <span class="math inline">\(1/4\)</span>, <span class="math inline">\(Z_t\)</span> must be smaller than 1. This makes the product <span class="math inline">\(Z_1 \cdots Z_T\)</span> converging to 0. If we look at this more closely, by defining <span class="math inline">\(\gamma_t = \frac{1}{2} - \epsilon_t\)</span> as the improvement from a random model (with error <span class="math inline">\(1/2\)</span>), then</p>
+<p><span class="math display">\[\begin{align}
+Z_t =&amp; 2 \sqrt{\epsilon_t(1-\epsilon_t)} \nonumber \\
+=&amp; \sqrt{1 - 4 \gamma_t^2} \nonumber \\
+\leq&amp; \exp\big[ - 2 \gamma_t^2 \big]
+\end{align}\]</span></p>
+<p>The last equation is because by Taylor expansion, <span class="math inline">\(\exp\big[ - 4 \gamma_t^2 \big] \geq 1 - 4 \gamma_t^2\)</span>. Then, we can finally put all <span class="math inline">\(Z_t\)</span>’s together:</p>
+<p><span class="math display">\[\begin{align}
+\text{Training Error} =&amp; \sum_{i = 1}^n \mathbf{1} \big\{ y_i \neq \text{sign}(F_T(x_i)) \big\} \nonumber \\
+=&amp; \sum_{i = 1}^n \exp \big[ - y_i \neq F_T(x_i) \big] \nonumber \\
+=&amp; Z_1 \cdots Z_T \nonumber \\
+\leq&amp; \exp \big[ - 2 \sum_{t=1}^T \gamma_t^2 \big],
+\end{align}\]</span></p>
+<p>which converges to 0 as long as <span class="math inline">\(\sum_{t=1}^T \gamma_t^2\)</span> accumulates up to infinite. But of course, in practice, it would increasing difficult find <span class="math inline">\(f_t(x)\)</span> that reduces the training error greatly.</p>
 
+</div>
 </div>
 
 
 
+<h3> Reference<a href="reference.html#reference" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-freund1997decision" class="csl-entry">
+Freund, Yoav, and Robert E Schapire. 1997. <span>“A Decision-Theoretic Generalization of on-Line Learning and an Application to Boosting.”</span> <em>Journal of Computer and System Sciences</em> 55 (1): 119–39.
+</div>
+<div id="ref-friedman2001greedy" class="csl-entry">
+Friedman, Jerome H. 2001. <span>“Greedy Function Approximation: A Gradient Boosting Machine.”</span> <em>Annals of Statistics</em>, 1189–1232.
+</div>
+</div>
             </section>
 
           </div>

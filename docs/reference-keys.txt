@@ -154,6 +154,8 @@ effect-of-nodesize
 variable-importance
 kernel-view-of-random-forets
 boosting
+adaboost
+training-error-of-adaboost
 k-means
 basic-concepts
 example-1-iris-data
