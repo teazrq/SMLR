@@ -278,3 +278,106 @@ The last equation is because by Taylor expansion, $\exp\big[ - 4 \gamma_t^2 \big
 \end{align}
 
 which converges to 0 as long as $\sum_{t=1}^T \gamma_t^2$ accumulates up to infinite. But of course, in practice, it would increasing difficult find $f_t(x)$ that reduces the training error greatly. 
+
+## Gradient Boosting
+
+Let's take an alternative view of this problem, we use an additive structure to fit models
+
+$$F_T(x) = \sum_{t = 1}^T \alpha_t f(x; \btheta_t)$$
+
+by minimizing a loss function 
+
+$$\underset{\{\alpha_t, \btheta_t\}_{t=1}^T}{\min} \sum_{i=1}^n L\big(y_i, F_T(x_i)\big)$$
+In this framework, we may choose a loss function $L$ that is suitable for the problem, and also choose the base learner $f(x; \btheta)$ with parameter $\btheta$. Examples of this include linear function, spline, tree, etc.. While it maybe difficult to minimize over all parameters  $\{\alpha_t, \btheta_t\}_{t=1}^T$, we may consider doing this in a stage-wise fashion. The algorithm could work in the following way:
+
+  * Set $F_0(x) = 0$
+  * For $t = 1, \ldots, T$
+      + Choose $(\alpha_t, \btheta_t)$ to minimize the loss
+        $$\underset{\alpha, \btheta}{\min} \,\, \sum_{i=1}^n L\big(y_i, F_{t-1}(x_i) + \alpha f(x_i; \btheta)\big)$$
+      + Update $F_t(x) = F_{t-1}(x) + \alpha_t f(x; \btheta_t)$
+  * Output $F_T(x)$ as the final model
+
+The previous AdaBoost example is using exponential loss function. Also, it doesn't pick an optimal $f(x; \btheta)$ at each step. We just need a model that is better than random. The step size $\alpha_t$ is optimized at each $t$ given the fitted $f(x; \btheta_t)$. 
+
+Another example is the forward stage-wise linear regression. In this case, we fit a single variable linear model at each step $t$:
+
+$$f(x, j) = \text{sign}\big(\text{Cor}(X_j, \br)\big) X_j$$
+  * $\br$ is the residual, as $r_i = y_i - F_{t-1}(x_i)$
+  * $j$ is the index that has the largest absolute correlation with $\br$
+
+Then we give a very small step size $\alpha_t$, say, $\alpha_t = 10^{-5}$, and with sign equal to the correlation between $X_j$. In this case, $F_t(x)$ is almost equivalent to the Lasso solution path, as $t$ increases. 
+
+We may notice that $r_i$ is in fact the negative gradient of the squared-error loss, as a function of the fitted function:
+
+$$r_{it} = - \left[ \frac{\partial \, \big(y_i - F(x_i)\big)^2 }{\partial \, F(x_i)} \right]_{F(x_i) = F_{t-1}(x_i)}$$
+and we are essentially fitting a weak leaner $f_t(x)$ to the residuals and update the fitted model $F_t(x)$. The following example shows the result of using a tree leaner as $f_t(x)$:
+
+```{r include = FALSE}
+  par(mar=c(2,2,2,2))
+  par(mfrow=c(1,1))
+```
+
+```{r out.width="45%"}
+  library(gbm)
+
+  # a simple regression problem
+  p = 1
+  x = seq(0, 1, 0.001)
+  fx <- function(x) 2*sin(3*pi*x)
+  y = fx(x) + rnorm(length(x))
+
+  plot(x, y, pch = 19, ylab = "y", col = "gray", cex = 0.5)
+  # plot the true regression line
+  lines(x, fx(x), lwd = 2, col = "deepskyblue")
+```
+
+We can see that the fitted model progressively approaximates the true function. 
+
+```{r out.width="90%", fig.dim = c(12, 8)}
+  # fit regression boosting
+  # I use a very large shrinkage value for demonstrating the functions
+  # in practice you should use 0.1 or even smaller values for stability
+  gbm.fit = gbm(y~x, data = data.frame(x, y), distribution = "gaussian",
+                n.trees=300, shrinkage=0.5, bag.fraction=0.8)
+
+  # somehow, cross-validation for 1 dimensional problem creates error
+  # gbm(y ~ ., data = data.frame(x, y), cv.folds = 3) # this produces an error  
+  
+  # plot the fitted regression function at several iterations
+  par(mfrow=c(2,3))
+  size=c(1,5,10,50,100,300)
+  
+  for(i in 1:6)
+  {
+    par(mar=c(2,2,3,1))
+    plot(x, y, pch = 19, ylab = "y", col = "gray", cex = 0.5)
+    lines(x, fx(x), lwd = 2, col = "deepskyblue")
+    
+    # this returns the fitted function, but not class
+    Fx = predict(gbm.fit, n.trees=size[i])
+    lines(x, Fx, lwd = 3, col = "darkorange")
+    title(paste("# of Iterations = ", size[i]))
+  }
+```
+
+This idea can be generalized to any loss function $L$. This is the __gradient boosting__ model:
+
+  * At each iteration $t$, calculate ``pseudo-residuals'', i.e., the negative gradient for each observation
+  $$g_{it} = - \left[ \frac{\partial L(y_i, F(x_i))}{\partial F(x_i)} \right]_{F(x_i) = F_{t-1}(x_i)}$$
+  * Fit $f_t(x, \btheta_t)$ to pseudo-residual $g_{it}$'s
+  * Search for the best \alert{step length} 
+  $$\alpha_t = \underset{\alpha}{\arg\min} \sum_{i=1}^n L\big(y_i, F_{t-1}(x_i) + \alpha f(x_i; \btheta_t)\big)$$
+  * Update $F_t(x) = F_{t-1}(x) + \alpha_t f(x; \btheta_t)$
+
+Hence, the only change when modeling different outcomes is to choose the loss function $L$, and derive the pseudo-residuals
+
+  * For regression, the loss is $\frac{1}{2} (y  - f(x))^2$, and the pseudo-residual is $y_i - f(x_i)$
+  * For quantile regression to model median, the loss is $|y  - f(x)|$, and the pseudo-residual is sign$(y_i - f(x_i))$ \\
+  * For classification, we can use the deviance $y\log(p) + (1-y)\log(1-p)$, and express $p$ as the log-odds of a scale predictor, i.e., $f = \log(p/(1-p))$. Then the pseudo-residual is $y_i - p(x_i)$
+
+
+
+
+
+
+    

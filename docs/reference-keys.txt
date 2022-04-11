@@ -174,3 +174,4 @@ basic-concepts-3
 spectral-clustering
 basic-concepts-4
 reference
+gradient-boosting
