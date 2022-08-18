@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 19 K-Means | Statistical Learning and Machine Learning with R</title>
   <meta name="description" content="A textbook for STAT 542 and 432 at UIUC" />
-  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 19 K-Means | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2022-04-10" />
+<meta name="date" content="2022-08-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,7 +54,7 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.20/datatables.js"></script>
+<script src="libs/datatables-binding-0.24/datatables.js"></script>
 <link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
@@ -174,269 +174,270 @@ div.csl-indent {
 <li><a href="./">Statistical Learning and Machine Learning with R</a></li>
 
 <li class="divider"></li>
-<li><a href="index.html#preface">Preface<span></span></a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
 <ul>
-<li><a href="index.html#target-audience">Target Audience<span></span></a></li>
-<li><a href="index.html#whats-covered">What’s Covered?<span></span></a></li>
-<li><a href="index.html#acknowledgements">Acknowledgements<span></span></a></li>
-<li><a href="index.html#license">License<span></span></a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#target-audience"><i class="fa fa-check"></i>Target Audience</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#whats-covered"><i class="fa fa-check"></i>What’s Covered?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
 </ul></li>
-<li class="part"><span><b>I Basics Knowledge<span></span></b></span></li>
-<li class="chapter" data-level="1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> R and RStudio<span></span></a>
+<li class="part"><span><b>I Basics Knowledge</b></span></li>
+<li class="chapter" data-level="1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> R and RStudio</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> Installing R and RStudio<span></span></a></li>
-<li class="chapter" data-level="1.2" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#r-basic"><i class="fa fa-check"></i><b>1.2</b> Resources and Guides<span></span></a></li>
-<li class="chapter" data-level="1.3" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#basic-mathematical-operations"><i class="fa fa-check"></i><b>1.3</b> Basic Mathematical Operations<span></span></a></li>
-<li class="chapter" data-level="1.4" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#data-objects"><i class="fa fa-check"></i><b>1.4</b> Data Objects<span></span></a></li>
-<li class="chapter" data-level="1.5" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#readin-and-save-data"><i class="fa fa-check"></i><b>1.5</b> Readin and save data<span></span></a></li>
-<li class="chapter" data-level="1.6" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#using-and-defining-functions"><i class="fa fa-check"></i><b>1.6</b> Using and defining functions<span></span></a></li>
-<li class="chapter" data-level="1.7" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#distribution-and-random-numbers"><i class="fa fa-check"></i><b>1.7</b> Distribution and random numbers<span></span></a></li>
-<li class="chapter" data-level="1.8" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#using-packages-and-other-resources"><i class="fa fa-check"></i><b>1.8</b> Using packages and other resources<span></span></a></li>
-<li class="chapter" data-level="1.9" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#practice-questions"><i class="fa fa-check"></i><b>1.9</b> Practice questions<span></span></a></li>
+<li class="chapter" data-level="1.1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> Installing R and RStudio</a></li>
+<li class="chapter" data-level="1.2" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#r-basic"><i class="fa fa-check"></i><b>1.2</b> Resources and Guides</a></li>
+<li class="chapter" data-level="1.3" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#basic-mathematical-operations"><i class="fa fa-check"></i><b>1.3</b> Basic Mathematical Operations</a></li>
+<li class="chapter" data-level="1.4" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#data-objects"><i class="fa fa-check"></i><b>1.4</b> Data Objects</a></li>
+<li class="chapter" data-level="1.5" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#readin-and-save-data"><i class="fa fa-check"></i><b>1.5</b> Readin and save data</a></li>
+<li class="chapter" data-level="1.6" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#using-and-defining-functions"><i class="fa fa-check"></i><b>1.6</b> Using and defining functions</a></li>
+<li class="chapter" data-level="1.7" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#distribution-and-random-numbers"><i class="fa fa-check"></i><b>1.7</b> Distribution and random numbers</a></li>
+<li class="chapter" data-level="1.8" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#using-packages-and-other-resources"><i class="fa fa-check"></i><b>1.8</b> Using packages and other resources</a></li>
+<li class="chapter" data-level="1.9" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#practice-questions"><i class="fa fa-check"></i><b>1.9</b> Practice questions</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="rmarkdown.html"><a href="rmarkdown.html"><i class="fa fa-check"></i><b>2</b> RMarkdown<span></span></a>
+<li class="chapter" data-level="2" data-path="rmarkdown.html"><a href="rmarkdown.html"><i class="fa fa-check"></i><b>2</b> RMarkdown</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="rmarkdown.html"><a href="rmarkdown.html#basics-and-resources"><i class="fa fa-check"></i><b>2.1</b> Basics and Resources<span></span></a></li>
-<li class="chapter" data-level="2.2" data-path="rmarkdown.html"><a href="rmarkdown.html#formatting-text"><i class="fa fa-check"></i><b>2.2</b> Formatting Text<span></span></a></li>
-<li class="chapter" data-level="2.3" data-path="rmarkdown.html"><a href="rmarkdown.html#adding-r-code"><i class="fa fa-check"></i><b>2.3</b> Adding <code>R</code> Code<span></span></a>
+<li class="chapter" data-level="2.1" data-path="rmarkdown.html"><a href="rmarkdown.html#basics-and-resources"><i class="fa fa-check"></i><b>2.1</b> Basics and Resources</a></li>
+<li class="chapter" data-level="2.2" data-path="rmarkdown.html"><a href="rmarkdown.html#formatting-text"><i class="fa fa-check"></i><b>2.2</b> Formatting Text</a></li>
+<li class="chapter" data-level="2.3" data-path="rmarkdown.html"><a href="rmarkdown.html#adding-r-code"><i class="fa fa-check"></i><b>2.3</b> Adding <code>R</code> Code</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="rmarkdown.html"><a href="rmarkdown.html#r-chunks"><i class="fa fa-check"></i><b>2.3.1</b> <code>R</code> Chunks<span></span></a></li>
-<li class="chapter" data-level="2.3.2" data-path="rmarkdown.html"><a href="rmarkdown.html#inline-r"><i class="fa fa-check"></i><b>2.3.2</b> Inline <code>R</code><span></span></a></li>
+<li class="chapter" data-level="2.3.1" data-path="rmarkdown.html"><a href="rmarkdown.html#r-chunks"><i class="fa fa-check"></i><b>2.3.1</b> <code>R</code> Chunks</a></li>
+<li class="chapter" data-level="2.3.2" data-path="rmarkdown.html"><a href="rmarkdown.html#inline-r"><i class="fa fa-check"></i><b>2.3.2</b> Inline <code>R</code></a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="rmarkdown.html"><a href="rmarkdown.html#importing-data"><i class="fa fa-check"></i><b>2.4</b> Importing Data<span></span></a></li>
-<li class="chapter" data-level="2.5" data-path="rmarkdown.html"><a href="rmarkdown.html#working-directory"><i class="fa fa-check"></i><b>2.5</b> Working Directory<span></span></a></li>
-<li class="chapter" data-level="2.6" data-path="rmarkdown.html"><a href="rmarkdown.html#plotting"><i class="fa fa-check"></i><b>2.6</b> Plotting<span></span></a></li>
-<li class="chapter" data-level="2.7" data-path="rmarkdown.html"><a href="rmarkdown.html#chunk-options"><i class="fa fa-check"></i><b>2.7</b> Chunk Options<span></span></a></li>
-<li class="chapter" data-level="2.8" data-path="rmarkdown.html"><a href="rmarkdown.html#adding-math-with-latex"><i class="fa fa-check"></i><b>2.8</b> Adding Math with LaTeX<span></span></a>
+<li class="chapter" data-level="2.4" data-path="rmarkdown.html"><a href="rmarkdown.html#importing-data"><i class="fa fa-check"></i><b>2.4</b> Importing Data</a></li>
+<li class="chapter" data-level="2.5" data-path="rmarkdown.html"><a href="rmarkdown.html#working-directory"><i class="fa fa-check"></i><b>2.5</b> Working Directory</a></li>
+<li class="chapter" data-level="2.6" data-path="rmarkdown.html"><a href="rmarkdown.html#plotting"><i class="fa fa-check"></i><b>2.6</b> Plotting</a></li>
+<li class="chapter" data-level="2.7" data-path="rmarkdown.html"><a href="rmarkdown.html#chunk-options"><i class="fa fa-check"></i><b>2.7</b> Chunk Options</a></li>
+<li class="chapter" data-level="2.8" data-path="rmarkdown.html"><a href="rmarkdown.html#adding-math-with-latex"><i class="fa fa-check"></i><b>2.8</b> Adding Math with LaTeX</a>
 <ul>
-<li class="chapter" data-level="2.8.1" data-path="rmarkdown.html"><a href="rmarkdown.html#displaystyle-latex"><i class="fa fa-check"></i><b>2.8.1</b> Displaystyle LaTeX<span></span></a></li>
-<li class="chapter" data-level="2.8.2" data-path="rmarkdown.html"><a href="rmarkdown.html#inline-latex"><i class="fa fa-check"></i><b>2.8.2</b> Inline LaTex<span></span></a></li>
+<li class="chapter" data-level="2.8.1" data-path="rmarkdown.html"><a href="rmarkdown.html#displaystyle-latex"><i class="fa fa-check"></i><b>2.8.1</b> Displaystyle LaTeX</a></li>
+<li class="chapter" data-level="2.8.2" data-path="rmarkdown.html"><a href="rmarkdown.html#inline-latex"><i class="fa fa-check"></i><b>2.8.2</b> Inline LaTex</a></li>
 </ul></li>
-<li class="chapter" data-level="2.9" data-path="rmarkdown.html"><a href="rmarkdown.html#output-options"><i class="fa fa-check"></i><b>2.9</b> Output Options<span></span></a></li>
-<li class="chapter" data-level="2.10" data-path="rmarkdown.html"><a href="rmarkdown.html#try-it"><i class="fa fa-check"></i><b>2.10</b> Try It!<span></span></a></li>
+<li class="chapter" data-level="2.9" data-path="rmarkdown.html"><a href="rmarkdown.html#output-options"><i class="fa fa-check"></i><b>2.9</b> Output Options</a></li>
+<li class="chapter" data-level="2.10" data-path="rmarkdown.html"><a href="rmarkdown.html#try-it"><i class="fa fa-check"></i><b>2.10</b> Try It!</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html"><i class="fa fa-check"></i><b>3</b> Linear Algebra Basics<span></span></a>
+<li class="chapter" data-level="3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html"><i class="fa fa-check"></i><b>3</b> Linear Algebra Basics</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#definition"><i class="fa fa-check"></i><b>3.1</b> Definition<span></span></a></li>
+<li class="chapter" data-level="3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#definition"><i class="fa fa-check"></i><b>3.1</b> Definition</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>4</b> Optimization Basics<span></span></a>
+<li class="chapter" data-level="4" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>4</b> Optimization Basics</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="optimization-basics.html"><a href="optimization-basics.html#basic-concept"><i class="fa fa-check"></i><b>4.1</b> Basic Concept<span></span></a></li>
-<li class="chapter" data-level="4.2" data-path="optimization-basics.html"><a href="optimization-basics.html#global_local"><i class="fa fa-check"></i><b>4.2</b> Global vs. Local Optima<span></span></a></li>
-<li class="chapter" data-level="4.3" data-path="optimization-basics.html"><a href="optimization-basics.html#example-linear-regression-using-optim"><i class="fa fa-check"></i><b>4.3</b> Example: Linear Regression using <code>optim()</code><span></span></a></li>
-<li class="chapter" data-level="4.4" data-path="optimization-basics.html"><a href="optimization-basics.html#first-and-second-order-properties"><i class="fa fa-check"></i><b>4.4</b> First and Second Order Properties<span></span></a></li>
-<li class="chapter" data-level="4.5" data-path="optimization-basics.html"><a href="optimization-basics.html#algorithm"><i class="fa fa-check"></i><b>4.5</b> Algorithm<span></span></a></li>
-<li class="chapter" data-level="4.6" data-path="optimization-basics.html"><a href="optimization-basics.html#second-order-methods"><i class="fa fa-check"></i><b>4.6</b> Second-order Methods<span></span></a>
+<li class="chapter" data-level="4.1" data-path="optimization-basics.html"><a href="optimization-basics.html#basic-concept"><i class="fa fa-check"></i><b>4.1</b> Basic Concept</a></li>
+<li class="chapter" data-level="4.2" data-path="optimization-basics.html"><a href="optimization-basics.html#global_local"><i class="fa fa-check"></i><b>4.2</b> Global vs. Local Optima</a></li>
+<li class="chapter" data-level="4.3" data-path="optimization-basics.html"><a href="optimization-basics.html#example-linear-regression-using-optim"><i class="fa fa-check"></i><b>4.3</b> Example: Linear Regression using <code>optim()</code></a></li>
+<li class="chapter" data-level="4.4" data-path="optimization-basics.html"><a href="optimization-basics.html#first-and-second-order-properties"><i class="fa fa-check"></i><b>4.4</b> First and Second Order Properties</a></li>
+<li class="chapter" data-level="4.5" data-path="optimization-basics.html"><a href="optimization-basics.html#algorithm"><i class="fa fa-check"></i><b>4.5</b> Algorithm</a></li>
+<li class="chapter" data-level="4.6" data-path="optimization-basics.html"><a href="optimization-basics.html#second-order-methods"><i class="fa fa-check"></i><b>4.6</b> Second-order Methods</a>
 <ul>
-<li class="chapter" data-level="4.6.1" data-path="optimization-basics.html"><a href="optimization-basics.html#newtons-method"><i class="fa fa-check"></i><b>4.6.1</b> Newton’s Method<span></span></a></li>
-<li class="chapter" data-level="4.6.2" data-path="optimization-basics.html"><a href="optimization-basics.html#quasi-newton-methods"><i class="fa fa-check"></i><b>4.6.2</b> Quasi-Newton Methods<span></span></a></li>
+<li class="chapter" data-level="4.6.1" data-path="optimization-basics.html"><a href="optimization-basics.html#newtons-method"><i class="fa fa-check"></i><b>4.6.1</b> Newton’s Method</a></li>
+<li class="chapter" data-level="4.6.2" data-path="optimization-basics.html"><a href="optimization-basics.html#quasi-newton-methods"><i class="fa fa-check"></i><b>4.6.2</b> Quasi-Newton Methods</a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="optimization-basics.html"><a href="optimization-basics.html#first-order-methods"><i class="fa fa-check"></i><b>4.7</b> First-order Methods<span></span></a>
+<li class="chapter" data-level="4.7" data-path="optimization-basics.html"><a href="optimization-basics.html#first-order-methods"><i class="fa fa-check"></i><b>4.7</b> First-order Methods</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="optimization-basics.html"><a href="optimization-basics.html#gradient-descent"><i class="fa fa-check"></i><b>4.7.1</b> Gradient Descent<span></span></a></li>
-<li class="chapter" data-level="4.7.2" data-path="optimization-basics.html"><a href="optimization-basics.html#gradient-descent-example-linear-regression"><i class="fa fa-check"></i><b>4.7.2</b> Gradient Descent Example: Linear Regression<span></span></a></li>
+<li class="chapter" data-level="4.7.1" data-path="optimization-basics.html"><a href="optimization-basics.html#gradient-descent"><i class="fa fa-check"></i><b>4.7.1</b> Gradient Descent</a></li>
+<li class="chapter" data-level="4.7.2" data-path="optimization-basics.html"><a href="optimization-basics.html#gradient-descent-example-linear-regression"><i class="fa fa-check"></i><b>4.7.2</b> Gradient Descent Example: Linear Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="4.8" data-path="optimization-basics.html"><a href="optimization-basics.html#coordinate"><i class="fa fa-check"></i><b>4.8</b> Coordinate Descent<span></span></a>
+<li class="chapter" data-level="4.8" data-path="optimization-basics.html"><a href="optimization-basics.html#coordinate"><i class="fa fa-check"></i><b>4.8</b> Coordinate Descent</a>
 <ul>
-<li class="chapter" data-level="4.8.1" data-path="optimization-basics.html"><a href="optimization-basics.html#coordinate-descent-example-linear-regression"><i class="fa fa-check"></i><b>4.8.1</b> Coordinate Descent Example: Linear Regression<span></span></a></li>
+<li class="chapter" data-level="4.8.1" data-path="optimization-basics.html"><a href="optimization-basics.html#coordinate-descent-example-linear-regression"><i class="fa fa-check"></i><b>4.8.1</b> Coordinate Descent Example: Linear Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="4.9" data-path="optimization-basics.html"><a href="optimization-basics.html#stocastic-gradient-descent"><i class="fa fa-check"></i><b>4.9</b> Stocastic Gradient Descent<span></span></a>
+<li class="chapter" data-level="4.9" data-path="optimization-basics.html"><a href="optimization-basics.html#stocastic-gradient-descent"><i class="fa fa-check"></i><b>4.9</b> Stocastic Gradient Descent</a>
 <ul>
-<li class="chapter" data-level="4.9.1" data-path="optimization-basics.html"><a href="optimization-basics.html#mini-batch-stocastic-gradient-descent"><i class="fa fa-check"></i><b>4.9.1</b> Mini-batch Stocastic Gradient Descent<span></span></a></li>
+<li class="chapter" data-level="4.9.1" data-path="optimization-basics.html"><a href="optimization-basics.html#mini-batch-stocastic-gradient-descent"><i class="fa fa-check"></i><b>4.9.1</b> Mini-batch Stocastic Gradient Descent</a></li>
 </ul></li>
-<li class="chapter" data-level="4.10" data-path="optimization-basics.html"><a href="optimization-basics.html#lagrangian-multiplier-for-constrained-problems"><i class="fa fa-check"></i><b>4.10</b> Lagrangian Multiplier for Constrained Problems<span></span></a></li>
+<li class="chapter" data-level="4.10" data-path="optimization-basics.html"><a href="optimization-basics.html#lagrangian-multiplier-for-constrained-problems"><i class="fa fa-check"></i><b>4.10</b> Lagrangian Multiplier for Constrained Problems</a></li>
 </ul></li>
-<li class="part"><span><b>II Linear and Penalized Linear Models<span></span></b></span></li>
-<li class="chapter" data-level="5" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html"><i class="fa fa-check"></i><b>5</b> Linear Regression and Model Selection<span></span></a>
+<li class="part"><span><b>II Linear and Penalized Linear Models</b></span></li>
+<li class="chapter" data-level="5" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html"><i class="fa fa-check"></i><b>5</b> Linear Regression and Model Selection</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#example-real-estate-data"><i class="fa fa-check"></i><b>5.1</b> Example: real estate data<span></span></a></li>
-<li class="chapter" data-level="5.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#notation-and-basic-properties"><i class="fa fa-check"></i><b>5.2</b> Notation and Basic Properties<span></span></a></li>
-<li class="chapter" data-level="5.3" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-the-lm-function"><i class="fa fa-check"></i><b>5.3</b> Using the <code>lm()</code> Function<span></span></a>
+<li class="chapter" data-level="5.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#example-real-estate-data"><i class="fa fa-check"></i><b>5.1</b> Example: real estate data</a></li>
+<li class="chapter" data-level="5.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#notation-and-basic-properties"><i class="fa fa-check"></i><b>5.2</b> Notation and Basic Properties</a></li>
+<li class="chapter" data-level="5.3" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-the-lm-function"><i class="fa fa-check"></i><b>5.3</b> Using the <code>lm()</code> Function</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#adding-covariates"><i class="fa fa-check"></i><b>5.3.1</b> Adding Covariates<span></span></a></li>
-<li class="chapter" data-level="5.3.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#categorical-variables"><i class="fa fa-check"></i><b>5.3.2</b> Categorical Variables<span></span></a></li>
+<li class="chapter" data-level="5.3.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#adding-covariates"><i class="fa fa-check"></i><b>5.3.1</b> Adding Covariates</a></li>
+<li class="chapter" data-level="5.3.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#categorical-variables"><i class="fa fa-check"></i><b>5.3.2</b> Categorical Variables</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-criteria"><i class="fa fa-check"></i><b>5.4</b> Model Selection Criteria<span></span></a>
+<li class="chapter" data-level="5.4" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-criteria"><i class="fa fa-check"></i><b>5.4</b> Model Selection Criteria</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-marrows-c_p"><i class="fa fa-check"></i><b>5.4.1</b> Using Marrows’ <span class="math inline">\(C_p\)</span><span></span></a></li>
-<li class="chapter" data-level="5.4.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-aic-and-bic"><i class="fa fa-check"></i><b>5.4.2</b> Using AIC and BIC<span></span></a></li>
+<li class="chapter" data-level="5.4.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-marrows-c_p"><i class="fa fa-check"></i><b>5.4.1</b> Using Marrows’ <span class="math inline">\(C_p\)</span></a></li>
+<li class="chapter" data-level="5.4.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-aic-and-bic"><i class="fa fa-check"></i><b>5.4.2</b> Using AIC and BIC</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-algorithms"><i class="fa fa-check"></i><b>5.5</b> Model Selection Algorithms<span></span></a>
+<li class="chapter" data-level="5.5" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-algorithms"><i class="fa fa-check"></i><b>5.5</b> Model Selection Algorithms</a>
 <ul>
-<li class="chapter" data-level="5.5.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#best-subset-selection-with-leaps"><i class="fa fa-check"></i><b>5.5.1</b> Best Subset Selection with <code>leaps</code><span></span></a></li>
-<li class="chapter" data-level="5.5.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#step-wise-regression-using-step"><i class="fa fa-check"></i><b>5.5.2</b> Step-wise regression using <code>step()</code><span></span></a></li>
+<li class="chapter" data-level="5.5.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#best-subset-selection-with-leaps"><i class="fa fa-check"></i><b>5.5.1</b> Best Subset Selection with <code>leaps</code></a></li>
+<li class="chapter" data-level="5.5.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#step-wise-regression-using-step"><i class="fa fa-check"></i><b>5.5.2</b> Step-wise regression using <code>step()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#marrows-cp"><i class="fa fa-check"></i><b>5.6</b> Derivation of Marrows’ <span class="math inline">\(C_p\)</span><span></span></a></li>
+<li class="chapter" data-level="5.6" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#marrows-cp"><i class="fa fa-check"></i><b>5.6</b> Derivation of Marrows’ <span class="math inline">\(C_p\)</span></a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="ridge-regression.html"><a href="ridge-regression.html"><i class="fa fa-check"></i><b>6</b> Ridge Regression<span></span></a>
+<li class="chapter" data-level="6" data-path="ridge-regression.html"><a href="ridge-regression.html"><i class="fa fa-check"></i><b>6</b> Ridge Regression</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="ridge-regression.html"><a href="ridge-regression.html#motivation-correlated-variables-and-convexity"><i class="fa fa-check"></i><b>6.1</b> Motivation: Correlated Variables and Convexity<span></span></a></li>
-<li class="chapter" data-level="6.2" data-path="ridge-regression.html"><a href="ridge-regression.html#ridge-penalty-and-the-reduced-variation"><i class="fa fa-check"></i><b>6.2</b> Ridge Penalty and the Reduced Variation<span></span></a></li>
-<li class="chapter" data-level="6.3" data-path="ridge-regression.html"><a href="ridge-regression.html#bias-and-variance-of-ridge-regression"><i class="fa fa-check"></i><b>6.3</b> Bias and Variance of Ridge Regression<span></span></a></li>
-<li class="chapter" data-level="6.4" data-path="ridge-regression.html"><a href="ridge-regression.html#degrees-of-freedom"><i class="fa fa-check"></i><b>6.4</b> Degrees of Freedom<span></span></a></li>
-<li class="chapter" data-level="6.5" data-path="ridge-regression.html"><a href="ridge-regression.html#using-the-lm.ridge-function"><i class="fa fa-check"></i><b>6.5</b> Using the <code>lm.ridge()</code> function<span></span></a>
+<li class="chapter" data-level="6.1" data-path="ridge-regression.html"><a href="ridge-regression.html#motivation-correlated-variables-and-convexity"><i class="fa fa-check"></i><b>6.1</b> Motivation: Correlated Variables and Convexity</a></li>
+<li class="chapter" data-level="6.2" data-path="ridge-regression.html"><a href="ridge-regression.html#ridge-penalty-and-the-reduced-variation"><i class="fa fa-check"></i><b>6.2</b> Ridge Penalty and the Reduced Variation</a></li>
+<li class="chapter" data-level="6.3" data-path="ridge-regression.html"><a href="ridge-regression.html#bias-and-variance-of-ridge-regression"><i class="fa fa-check"></i><b>6.3</b> Bias and Variance of Ridge Regression</a></li>
+<li class="chapter" data-level="6.4" data-path="ridge-regression.html"><a href="ridge-regression.html#degrees-of-freedom"><i class="fa fa-check"></i><b>6.4</b> Degrees of Freedom</a></li>
+<li class="chapter" data-level="6.5" data-path="ridge-regression.html"><a href="ridge-regression.html#using-the-lm.ridge-function"><i class="fa fa-check"></i><b>6.5</b> Using the <code>lm.ridge()</code> function</a>
 <ul>
-<li class="chapter" data-level="6.5.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue"><i class="fa fa-check"></i><b>6.5.1</b> Scaling Issue<span></span></a></li>
-<li class="chapter" data-level="6.5.2" data-path="ridge-regression.html"><a href="ridge-regression.html#multiple-lambda-values"><i class="fa fa-check"></i><b>6.5.2</b> Multiple <span class="math inline">\(\lambda\)</span> values<span></span></a></li>
+<li class="chapter" data-level="6.5.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue"><i class="fa fa-check"></i><b>6.5.1</b> Scaling Issue</a></li>
+<li class="chapter" data-level="6.5.2" data-path="ridge-regression.html"><a href="ridge-regression.html#multiple-lambda-values"><i class="fa fa-check"></i><b>6.5.2</b> Multiple <span class="math inline">\(\lambda\)</span> values</a></li>
 </ul></li>
-<li class="chapter" data-level="6.6" data-path="ridge-regression.html"><a href="ridge-regression.html#cross-validation"><i class="fa fa-check"></i><b>6.6</b> Cross-validation<span></span></a></li>
-<li class="chapter" data-level="6.7" data-path="ridge-regression.html"><a href="ridge-regression.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>6.7</b> Leave-one-out cross-validation<span></span></a>
+<li class="chapter" data-level="6.6" data-path="ridge-regression.html"><a href="ridge-regression.html#cross-validation"><i class="fa fa-check"></i><b>6.6</b> Cross-validation</a></li>
+<li class="chapter" data-level="6.7" data-path="ridge-regression.html"><a href="ridge-regression.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>6.7</b> Leave-one-out cross-validation</a>
 <ul>
-<li class="chapter" data-level="6.7.1" data-path="ridge-regression.html"><a href="ridge-regression.html#generalized-cross-validation"><i class="fa fa-check"></i><b>6.7.1</b> Generalized cross-validation<span></span></a></li>
+<li class="chapter" data-level="6.7.1" data-path="ridge-regression.html"><a href="ridge-regression.html#generalized-cross-validation"><i class="fa fa-check"></i><b>6.7.1</b> Generalized cross-validation</a></li>
 </ul></li>
-<li class="chapter" data-level="6.8" data-path="ridge-regression.html"><a href="ridge-regression.html#the-glmnet-package"><i class="fa fa-check"></i><b>6.8</b> The <code>glmnet</code> package<span></span></a>
+<li class="chapter" data-level="6.8" data-path="ridge-regression.html"><a href="ridge-regression.html#the-glmnet-package"><i class="fa fa-check"></i><b>6.8</b> The <code>glmnet</code> package</a>
 <ul>
-<li class="chapter" data-level="6.8.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue-1"><i class="fa fa-check"></i><b>6.8.1</b> Scaling Issue<span></span></a></li>
+<li class="chapter" data-level="6.8.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue-1"><i class="fa fa-check"></i><b>6.8.1</b> Scaling Issue</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="lasso.html"><a href="lasso.html"><i class="fa fa-check"></i><b>7</b> Lasso<span></span></a>
+<li class="chapter" data-level="7" data-path="lasso.html"><a href="lasso.html"><i class="fa fa-check"></i><b>7</b> Lasso</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="lasso.html"><a href="lasso.html#one-variable-lasso-and-shrinkage"><i class="fa fa-check"></i><b>7.1</b> One-Variable Lasso and Shrinkage<span></span></a></li>
-<li class="chapter" data-level="7.2" data-path="lasso.html"><a href="lasso.html#constrained-optimization-view"><i class="fa fa-check"></i><b>7.2</b> Constrained Optimization View<span></span></a></li>
-<li class="chapter" data-level="7.3" data-path="lasso.html"><a href="lasso.html#the-solution-path"><i class="fa fa-check"></i><b>7.3</b> The Solution Path<span></span></a></li>
-<li class="chapter" data-level="7.4" data-path="lasso.html"><a href="lasso.html#path-wise-coordinate-descent"><i class="fa fa-check"></i><b>7.4</b> Path-wise Coordinate Descent<span></span></a></li>
-<li class="chapter" data-level="7.5" data-path="lasso.html"><a href="lasso.html#using-the-glmnet-package"><i class="fa fa-check"></i><b>7.5</b> Using the <code>glmnet</code> package<span></span></a></li>
-<li class="chapter" data-level="7.6" data-path="lasso.html"><a href="lasso.html#elastic-net"><i class="fa fa-check"></i><b>7.6</b> Elastic-Net<span></span></a></li>
+<li class="chapter" data-level="7.1" data-path="lasso.html"><a href="lasso.html#one-variable-lasso-and-shrinkage"><i class="fa fa-check"></i><b>7.1</b> One-Variable Lasso and Shrinkage</a></li>
+<li class="chapter" data-level="7.2" data-path="lasso.html"><a href="lasso.html#constrained-optimization-view"><i class="fa fa-check"></i><b>7.2</b> Constrained Optimization View</a></li>
+<li class="chapter" data-level="7.3" data-path="lasso.html"><a href="lasso.html#the-solution-path"><i class="fa fa-check"></i><b>7.3</b> The Solution Path</a></li>
+<li class="chapter" data-level="7.4" data-path="lasso.html"><a href="lasso.html#path-wise-coordinate-descent"><i class="fa fa-check"></i><b>7.4</b> Path-wise Coordinate Descent</a></li>
+<li class="chapter" data-level="7.5" data-path="lasso.html"><a href="lasso.html#using-the-glmnet-package"><i class="fa fa-check"></i><b>7.5</b> Using the <code>glmnet</code> package</a></li>
+<li class="chapter" data-level="7.6" data-path="lasso.html"><a href="lasso.html#elastic-net"><i class="fa fa-check"></i><b>7.6</b> Elastic-Net</a></li>
 </ul></li>
-<li class="part"><span><b>III Nonparametric Models<span></span></b></span></li>
-<li class="chapter" data-level="8" data-path="spline.html"><a href="spline.html"><i class="fa fa-check"></i><b>8</b> Spline<span></span></a>
+<li class="part"><span><b>III Nonparametric Models</b></span></li>
+<li class="chapter" data-level="8" data-path="spline.html"><a href="spline.html"><i class="fa fa-check"></i><b>8</b> Spline</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="spline.html"><a href="spline.html#from-linear-to-nonlinear"><i class="fa fa-check"></i><b>8.1</b> From Linear to Nonlinear<span></span></a></li>
-<li class="chapter" data-level="8.2" data-path="spline.html"><a href="spline.html#a-motivating-example-and-polynomials"><i class="fa fa-check"></i><b>8.2</b> A Motivating Example and Polynomials<span></span></a></li>
-<li class="chapter" data-level="8.3" data-path="spline.html"><a href="spline.html#piecewise-polynomials"><i class="fa fa-check"></i><b>8.3</b> Piecewise Polynomials<span></span></a></li>
-<li class="chapter" data-level="8.4" data-path="spline.html"><a href="spline.html#splines"><i class="fa fa-check"></i><b>8.4</b> Splines<span></span></a></li>
-<li class="chapter" data-level="8.5" data-path="spline.html"><a href="spline.html#spline-basis"><i class="fa fa-check"></i><b>8.5</b> Spline Basis<span></span></a></li>
-<li class="chapter" data-level="8.6" data-path="spline.html"><a href="spline.html#natural-cubic-spline"><i class="fa fa-check"></i><b>8.6</b> Natural Cubic Spline<span></span></a></li>
-<li class="chapter" data-level="8.7" data-path="spline.html"><a href="spline.html#smoothing-spline"><i class="fa fa-check"></i><b>8.7</b> Smoothing Spline<span></span></a></li>
-<li class="chapter" data-level="8.8" data-path="spline.html"><a href="spline.html#fitting-smoothing-splines"><i class="fa fa-check"></i><b>8.8</b> Fitting Smoothing Splines<span></span></a></li>
-<li class="chapter" data-level="8.9" data-path="spline.html"><a href="spline.html#extending-splines-to-multiple-varibles"><i class="fa fa-check"></i><b>8.9</b> Extending Splines to Multiple Varibles<span></span></a></li>
+<li class="chapter" data-level="8.1" data-path="spline.html"><a href="spline.html#from-linear-to-nonlinear"><i class="fa fa-check"></i><b>8.1</b> From Linear to Nonlinear</a></li>
+<li class="chapter" data-level="8.2" data-path="spline.html"><a href="spline.html#a-motivating-example-and-polynomials"><i class="fa fa-check"></i><b>8.2</b> A Motivating Example and Polynomials</a></li>
+<li class="chapter" data-level="8.3" data-path="spline.html"><a href="spline.html#piecewise-polynomials"><i class="fa fa-check"></i><b>8.3</b> Piecewise Polynomials</a></li>
+<li class="chapter" data-level="8.4" data-path="spline.html"><a href="spline.html#splines"><i class="fa fa-check"></i><b>8.4</b> Splines</a></li>
+<li class="chapter" data-level="8.5" data-path="spline.html"><a href="spline.html#spline-basis"><i class="fa fa-check"></i><b>8.5</b> Spline Basis</a></li>
+<li class="chapter" data-level="8.6" data-path="spline.html"><a href="spline.html#natural-cubic-spline"><i class="fa fa-check"></i><b>8.6</b> Natural Cubic Spline</a></li>
+<li class="chapter" data-level="8.7" data-path="spline.html"><a href="spline.html#smoothing-spline"><i class="fa fa-check"></i><b>8.7</b> Smoothing Spline</a></li>
+<li class="chapter" data-level="8.8" data-path="spline.html"><a href="spline.html#fitting-smoothing-splines"><i class="fa fa-check"></i><b>8.8</b> Fitting Smoothing Splines</a></li>
+<li class="chapter" data-level="8.9" data-path="spline.html"><a href="spline.html#extending-splines-to-multiple-varibles"><i class="fa fa-check"></i><b>8.9</b> Extending Splines to Multiple Varibles</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html"><i class="fa fa-check"></i><b>9</b> K-Neariest Neighber<span></span></a>
+<li class="chapter" data-level="9" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html"><i class="fa fa-check"></i><b>9</b> K-Neariest Neighber</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#definition-1"><i class="fa fa-check"></i><b>9.1</b> Definition<span></span></a></li>
-<li class="chapter" data-level="9.2" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-k"><i class="fa fa-check"></i><b>9.2</b> Tuning <span class="math inline">\(k\)</span><span></span></a></li>
-<li class="chapter" data-level="9.3" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#the-bias-variance-trade-off"><i class="fa fa-check"></i><b>9.3</b> The Bias-variance Trade-off<span></span></a></li>
-<li class="chapter" data-level="9.4" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#knn-for-classification"><i class="fa fa-check"></i><b>9.4</b> KNN for Classification<span></span></a></li>
-<li class="chapter" data-level="9.5" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-1-an-artificial-data"><i class="fa fa-check"></i><b>9.5</b> Example 1: An artificial data<span></span></a></li>
-<li class="chapter" data-level="9.6" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-with-the-caret-package"><i class="fa fa-check"></i><b>9.6</b> Tuning with the <code>caret</code> Package<span></span></a></li>
-<li class="chapter" data-level="9.7" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#distance-measures"><i class="fa fa-check"></i><b>9.7</b> Distance Measures<span></span></a></li>
-<li class="chapter" data-level="9.8" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#nn-error-bound"><i class="fa fa-check"></i><b>9.8</b> 1NN Error Bound<span></span></a></li>
-<li class="chapter" data-level="9.9" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-2-handwritten-digit-data"><i class="fa fa-check"></i><b>9.9</b> Example 2: Handwritten Digit Data<span></span></a></li>
-<li class="chapter" data-level="9.10" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#curse-of-dimensionality"><i class="fa fa-check"></i><b>9.10</b> Curse of Dimensionality<span></span></a></li>
+<li class="chapter" data-level="9.1" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#definition-1"><i class="fa fa-check"></i><b>9.1</b> Definition</a></li>
+<li class="chapter" data-level="9.2" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-k"><i class="fa fa-check"></i><b>9.2</b> Tuning <span class="math inline">\(k\)</span></a></li>
+<li class="chapter" data-level="9.3" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#the-bias-variance-trade-off"><i class="fa fa-check"></i><b>9.3</b> The Bias-variance Trade-off</a></li>
+<li class="chapter" data-level="9.4" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#knn-for-classification"><i class="fa fa-check"></i><b>9.4</b> KNN for Classification</a></li>
+<li class="chapter" data-level="9.5" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-1-an-artificial-data"><i class="fa fa-check"></i><b>9.5</b> Example 1: An artificial data</a></li>
+<li class="chapter" data-level="9.6" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-with-the-caret-package"><i class="fa fa-check"></i><b>9.6</b> Tuning with the <code>caret</code> Package</a></li>
+<li class="chapter" data-level="9.7" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#distance-measures"><i class="fa fa-check"></i><b>9.7</b> Distance Measures</a></li>
+<li class="chapter" data-level="9.8" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#nn-error-bound"><i class="fa fa-check"></i><b>9.8</b> 1NN Error Bound</a></li>
+<li class="chapter" data-level="9.9" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-2-handwritten-digit-data"><i class="fa fa-check"></i><b>9.9</b> Example 2: Handwritten Digit Data</a></li>
+<li class="chapter" data-level="9.10" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#curse-of-dimensionality"><i class="fa fa-check"></i><b>9.10</b> Curse of Dimensionality</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html"><i class="fa fa-check"></i><b>10</b> Kernel Smoothing<span></span></a>
+<li class="chapter" data-level="10" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html"><i class="fa fa-check"></i><b>10</b> Kernel Smoothing</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#knn-vs.-kernel"><i class="fa fa-check"></i><b>10.1</b> KNN vs. Kernel<span></span></a></li>
-<li class="chapter" data-level="10.2" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#kernel-density-estimations"><i class="fa fa-check"></i><b>10.2</b> Kernel Density Estimations<span></span></a></li>
-<li class="chapter" data-level="10.3" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off"><i class="fa fa-check"></i><b>10.3</b> Bias-variance trade-off<span></span></a></li>
-<li class="chapter" data-level="10.4" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#gaussian-kernel-regression"><i class="fa fa-check"></i><b>10.4</b> Gaussian Kernel Regression<span></span></a>
+<li class="chapter" data-level="10.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#knn-vs.-kernel"><i class="fa fa-check"></i><b>10.1</b> KNN vs. Kernel</a></li>
+<li class="chapter" data-level="10.2" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#kernel-density-estimations"><i class="fa fa-check"></i><b>10.2</b> Kernel Density Estimations</a></li>
+<li class="chapter" data-level="10.3" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off"><i class="fa fa-check"></i><b>10.3</b> Bias-variance trade-off</a></li>
+<li class="chapter" data-level="10.4" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#gaussian-kernel-regression"><i class="fa fa-check"></i><b>10.4</b> Gaussian Kernel Regression</a>
 <ul>
-<li class="chapter" data-level="10.4.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off-1"><i class="fa fa-check"></i><b>10.4.1</b> Bias-variance Trade-off<span></span></a></li>
+<li class="chapter" data-level="10.4.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off-1"><i class="fa fa-check"></i><b>10.4.1</b> Bias-variance Trade-off</a></li>
 </ul></li>
-<li class="chapter" data-level="10.5" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#choice-of-kernel-functions"><i class="fa fa-check"></i><b>10.5</b> Choice of Kernel Functions<span></span></a></li>
-<li class="chapter" data-level="10.6" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-linear-regression"><i class="fa fa-check"></i><b>10.6</b> Local Linear Regression<span></span></a></li>
-<li class="chapter" data-level="10.7" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-polynomial-regression"><i class="fa fa-check"></i><b>10.7</b> Local Polynomial Regression<span></span></a></li>
-<li class="chapter" data-level="10.8" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#r-implementations"><i class="fa fa-check"></i><b>10.8</b> R Implementations<span></span></a></li>
+<li class="chapter" data-level="10.5" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#choice-of-kernel-functions"><i class="fa fa-check"></i><b>10.5</b> Choice of Kernel Functions</a></li>
+<li class="chapter" data-level="10.6" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-linear-regression"><i class="fa fa-check"></i><b>10.6</b> Local Linear Regression</a></li>
+<li class="chapter" data-level="10.7" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-polynomial-regression"><i class="fa fa-check"></i><b>10.7</b> Local Polynomial Regression</a></li>
+<li class="chapter" data-level="10.8" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#r-implementations"><i class="fa fa-check"></i><b>10.8</b> R Implementations</a></li>
 </ul></li>
-<li class="part"><span><b>IV Classification Models<span></span></b></span></li>
-<li class="chapter" data-level="11" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression<span></span></a>
+<li class="part"><span><b>IV Classification Models</b></span></li>
+<li class="chapter" data-level="11" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="logistic-regression.html"><a href="logistic-regression.html#modeling-binary-outcomes"><i class="fa fa-check"></i><b>11.1</b> Modeling Binary Outcomes<span></span></a></li>
-<li class="chapter" data-level="11.2" data-path="logistic-regression.html"><a href="logistic-regression.html#example-cleveland-clinic-heart-disease-data"><i class="fa fa-check"></i><b>11.2</b> Example: Cleveland Clinic Heart Disease Data<span></span></a></li>
-<li class="chapter" data-level="11.3" data-path="logistic-regression.html"><a href="logistic-regression.html#interpretation-of-the-parameters"><i class="fa fa-check"></i><b>11.3</b> Interpretation of the Parameters<span></span></a></li>
-<li class="chapter" data-level="11.4" data-path="logistic-regression.html"><a href="logistic-regression.html#solving-a-logistic-regression"><i class="fa fa-check"></i><b>11.4</b> Solving a Logistic Regression<span></span></a></li>
-<li class="chapter" data-level="11.5" data-path="logistic-regression.html"><a href="logistic-regression.html#example-south-africa-heart-data"><i class="fa fa-check"></i><b>11.5</b> Example: South Africa Heart Data<span></span></a></li>
-<li class="chapter" data-level="11.6" data-path="logistic-regression.html"><a href="logistic-regression.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>11.6</b> Penalized Logistic Regression<span></span></a></li>
+<li class="chapter" data-level="11.1" data-path="logistic-regression.html"><a href="logistic-regression.html#modeling-binary-outcomes"><i class="fa fa-check"></i><b>11.1</b> Modeling Binary Outcomes</a></li>
+<li class="chapter" data-level="11.2" data-path="logistic-regression.html"><a href="logistic-regression.html#example-cleveland-clinic-heart-disease-data"><i class="fa fa-check"></i><b>11.2</b> Example: Cleveland Clinic Heart Disease Data</a></li>
+<li class="chapter" data-level="11.3" data-path="logistic-regression.html"><a href="logistic-regression.html#interpretation-of-the-parameters"><i class="fa fa-check"></i><b>11.3</b> Interpretation of the Parameters</a></li>
+<li class="chapter" data-level="11.4" data-path="logistic-regression.html"><a href="logistic-regression.html#solving-a-logistic-regression"><i class="fa fa-check"></i><b>11.4</b> Solving a Logistic Regression</a></li>
+<li class="chapter" data-level="11.5" data-path="logistic-regression.html"><a href="logistic-regression.html#example-south-africa-heart-data"><i class="fa fa-check"></i><b>11.5</b> Example: South Africa Heart Data</a></li>
+<li class="chapter" data-level="11.6" data-path="logistic-regression.html"><a href="logistic-regression.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>11.6</b> Penalized Logistic Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>12</b> Discriminant Analysis<span></span></a>
+<li class="chapter" data-level="12" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>12</b> Discriminant Analysis</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#bayes-rule"><i class="fa fa-check"></i><b>12.1</b> Bayes Rule<span></span></a></li>
-<li class="chapter" data-level="12.2" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>12.2</b> Example: Linear Discriminant Analysis (LDA)<span></span></a></li>
-<li class="chapter" data-level="12.3" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#linear-discriminant-analysis"><i class="fa fa-check"></i><b>12.3</b> Linear Discriminant Analysis<span></span></a></li>
-<li class="chapter" data-level="12.4" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-quadratic-discriminant-analysis-qda"><i class="fa fa-check"></i><b>12.4</b> Example: Quadratic Discriminant Analysis (QDA)<span></span></a></li>
-<li class="chapter" data-level="12.5" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#quadratic-discriminant-analysis"><i class="fa fa-check"></i><b>12.5</b> Quadratic Discriminant Analysis<span></span></a></li>
-<li class="chapter" data-level="12.6" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-the-hand-written-digit-data"><i class="fa fa-check"></i><b>12.6</b> Example: the Hand Written Digit Data<span></span></a></li>
+<li class="chapter" data-level="12.1" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#bayes-rule"><i class="fa fa-check"></i><b>12.1</b> Bayes Rule</a></li>
+<li class="chapter" data-level="12.2" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>12.2</b> Example: Linear Discriminant Analysis (LDA)</a></li>
+<li class="chapter" data-level="12.3" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#linear-discriminant-analysis"><i class="fa fa-check"></i><b>12.3</b> Linear Discriminant Analysis</a></li>
+<li class="chapter" data-level="12.4" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-quadratic-discriminant-analysis-qda"><i class="fa fa-check"></i><b>12.4</b> Example: Quadratic Discriminant Analysis (QDA)</a></li>
+<li class="chapter" data-level="12.5" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#quadratic-discriminant-analysis"><i class="fa fa-check"></i><b>12.5</b> Quadratic Discriminant Analysis</a></li>
+<li class="chapter" data-level="12.6" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-the-hand-written-digit-data"><i class="fa fa-check"></i><b>12.6</b> Example: the Hand Written Digit Data</a></li>
 </ul></li>
-<li class="part"><span><b>V Machine Learning Algorithms<span></span></b></span></li>
-<li class="chapter" data-level="13" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>13</b> Support Vector Machines<span></span></a>
+<li class="part"><span><b>V Machine Learning Algorithms</b></span></li>
+<li class="chapter" data-level="13" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>13</b> Support Vector Machines</a>
 <ul>
-<li class="chapter" data-level="13.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#maximum-margin-classifier"><i class="fa fa-check"></i><b>13.1</b> Maximum-margin Classifier<span></span></a></li>
-<li class="chapter" data-level="13.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-separable-svm"><i class="fa fa-check"></i><b>13.2</b> Linearly Separable SVM<span></span></a>
+<li class="chapter" data-level="13.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#maximum-margin-classifier"><i class="fa fa-check"></i><b>13.1</b> Maximum-margin Classifier</a></li>
+<li class="chapter" data-level="13.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-separable-svm"><i class="fa fa-check"></i><b>13.2</b> Linearly Separable SVM</a>
 <ul>
-<li class="chapter" data-level="13.2.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#from-primal-to-dual"><i class="fa fa-check"></i><b>13.2.1</b> From Primal to Dual<span></span></a></li>
+<li class="chapter" data-level="13.2.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#from-primal-to-dual"><i class="fa fa-check"></i><b>13.2.1</b> From Primal to Dual</a></li>
 </ul></li>
-<li class="chapter" data-level="13.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-non-separable-svm-with-slack-variables"><i class="fa fa-check"></i><b>13.3</b> Linearly Non-separable SVM with Slack Variables<span></span></a></li>
-<li class="chapter" data-level="13.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-saheart-data"><i class="fa fa-check"></i><b>13.4</b> Example: <code>SAheart</code> Data<span></span></a></li>
-<li class="chapter" data-level="13.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#nonlinear-svm-via-kernel-trick"><i class="fa fa-check"></i><b>13.5</b> Nonlinear SVM via Kernel Trick<span></span></a></li>
-<li class="chapter" data-level="13.6" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-mixture.example-data"><i class="fa fa-check"></i><b>13.6</b> Example: <code>mixture.example</code> Data<span></span></a></li>
-<li class="chapter" data-level="13.7" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svm-as-a-penalized-model"><i class="fa fa-check"></i><b>13.7</b> SVM as a Penalized Model<span></span></a></li>
-<li class="chapter" data-level="13.8" data-path="support-vector-machines.html"><a href="support-vector-machines.html#kernel-and-feature-maps-another-example"><i class="fa fa-check"></i><b>13.8</b> Kernel and Feature Maps: Another Example<span></span></a></li>
+<li class="chapter" data-level="13.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-non-separable-svm-with-slack-variables"><i class="fa fa-check"></i><b>13.3</b> Linearly Non-separable SVM with Slack Variables</a></li>
+<li class="chapter" data-level="13.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-saheart-data"><i class="fa fa-check"></i><b>13.4</b> Example: <code>SAheart</code> Data</a></li>
+<li class="chapter" data-level="13.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#nonlinear-svm-via-kernel-trick"><i class="fa fa-check"></i><b>13.5</b> Nonlinear SVM via Kernel Trick</a></li>
+<li class="chapter" data-level="13.6" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-mixture.example-data"><i class="fa fa-check"></i><b>13.6</b> Example: <code>mixture.example</code> Data</a></li>
+<li class="chapter" data-level="13.7" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svm-as-a-penalized-model"><i class="fa fa-check"></i><b>13.7</b> SVM as a Penalized Model</a></li>
+<li class="chapter" data-level="13.8" data-path="support-vector-machines.html"><a href="support-vector-machines.html#kernel-and-feature-maps-another-example"><i class="fa fa-check"></i><b>13.8</b> Kernel and Feature Maps: Another Example</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html"><i class="fa fa-check"></i><b>14</b> Reproducing Kernel Hilbert Space<span></span></a>
+<li class="chapter" data-level="14" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html"><i class="fa fa-check"></i><b>14</b> Reproducing Kernel Hilbert Space</a>
 <ul>
-<li class="chapter" data-level="14.1" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#constructing-the-rkhs"><i class="fa fa-check"></i><b>14.1</b> Constructing the RKHS<span></span></a></li>
-<li class="chapter" data-level="14.2" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#properties-of-rkhs"><i class="fa fa-check"></i><b>14.2</b> Properties of RKHS<span></span></a></li>
-<li class="chapter" data-level="14.3" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-representer-theorem"><i class="fa fa-check"></i><b>14.3</b> The Representer Theorem<span></span></a></li>
+<li class="chapter" data-level="14.1" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#constructing-the-rkhs"><i class="fa fa-check"></i><b>14.1</b> Constructing the RKHS</a></li>
+<li class="chapter" data-level="14.2" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#properties-of-rkhs"><i class="fa fa-check"></i><b>14.2</b> Properties of RKHS</a></li>
+<li class="chapter" data-level="14.3" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-representer-theorem"><i class="fa fa-check"></i><b>14.3</b> The Representer Theorem</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html"><i class="fa fa-check"></i><b>15</b> Kernel Ridge Regression<span></span></a>
+<li class="chapter" data-level="15" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html"><i class="fa fa-check"></i><b>15</b> Kernel Ridge Regression</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-linear-kernel-and-ridge-regression"><i class="fa fa-check"></i><b>15.1</b> Example: Linear Kernel and Ridge Regression<span></span></a></li>
-<li class="chapter" data-level="15.2" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-alternative-view"><i class="fa fa-check"></i><b>15.2</b> Example: Alternative View<span></span></a></li>
+<li class="chapter" data-level="15.1" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-linear-kernel-and-ridge-regression"><i class="fa fa-check"></i><b>15.1</b> Example: Linear Kernel and Ridge Regression</a></li>
+<li class="chapter" data-level="15.2" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-alternative-view"><i class="fa fa-check"></i><b>15.2</b> Example: Alternative View</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html"><i class="fa fa-check"></i><b>16</b> Classification and Regression Trees<span></span></a>
+<li class="chapter" data-level="16" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html"><i class="fa fa-check"></i><b>16</b> Classification and Regression Trees</a>
 <ul>
-<li class="chapter" data-level="16.1" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#example-classification-tree"><i class="fa fa-check"></i><b>16.1</b> Example: Classification Tree<span></span></a></li>
-<li class="chapter" data-level="16.2" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#splitting-a-node"><i class="fa fa-check"></i><b>16.2</b> Splitting a Node<span></span></a></li>
-<li class="chapter" data-level="16.3" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#regression-trees"><i class="fa fa-check"></i><b>16.3</b> Regression Trees<span></span></a></li>
-<li class="chapter" data-level="16.4" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#predicting-a-target-point"><i class="fa fa-check"></i><b>16.4</b> Predicting a Target Point<span></span></a></li>
-<li class="chapter" data-level="16.5" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#tuning-a-tree-model"><i class="fa fa-check"></i><b>16.5</b> Tuning a Tree Model<span></span></a></li>
+<li class="chapter" data-level="16.1" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#example-classification-tree"><i class="fa fa-check"></i><b>16.1</b> Example: Classification Tree</a></li>
+<li class="chapter" data-level="16.2" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#splitting-a-node"><i class="fa fa-check"></i><b>16.2</b> Splitting a Node</a></li>
+<li class="chapter" data-level="16.3" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#regression-trees"><i class="fa fa-check"></i><b>16.3</b> Regression Trees</a></li>
+<li class="chapter" data-level="16.4" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#predicting-a-target-point"><i class="fa fa-check"></i><b>16.4</b> Predicting a Target Point</a></li>
+<li class="chapter" data-level="16.5" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#tuning-a-tree-model"><i class="fa fa-check"></i><b>16.5</b> Tuning a Tree Model</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="random-forests.html"><a href="random-forests.html"><i class="fa fa-check"></i><b>17</b> Random Forests<span></span></a>
+<li class="chapter" data-level="17" data-path="random-forests.html"><a href="random-forests.html"><i class="fa fa-check"></i><b>17</b> Random Forests</a>
 <ul>
-<li class="chapter" data-level="17.1" data-path="random-forests.html"><a href="random-forests.html#bagging-predictors"><i class="fa fa-check"></i><b>17.1</b> Bagging Predictors<span></span></a></li>
-<li class="chapter" data-level="17.2" data-path="random-forests.html"><a href="random-forests.html#random-forests-1"><i class="fa fa-check"></i><b>17.2</b> Random Forests<span></span></a></li>
-<li class="chapter" data-level="17.3" data-path="random-forests.html"><a href="random-forests.html#effect-of-mtry"><i class="fa fa-check"></i><b>17.3</b> Effect of <code>mtry</code><span></span></a></li>
-<li class="chapter" data-level="17.4" data-path="random-forests.html"><a href="random-forests.html#effect-of-nodesize"><i class="fa fa-check"></i><b>17.4</b> Effect of <code>nodesize</code><span></span></a></li>
-<li class="chapter" data-level="17.5" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>17.5</b> Variable Importance<span></span></a></li>
-<li class="chapter" data-level="17.6" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forets"><i class="fa fa-check"></i><b>17.6</b> Kernel view of Random Forets<span></span></a></li>
+<li class="chapter" data-level="17.1" data-path="random-forests.html"><a href="random-forests.html#bagging-predictors"><i class="fa fa-check"></i><b>17.1</b> Bagging Predictors</a></li>
+<li class="chapter" data-level="17.2" data-path="random-forests.html"><a href="random-forests.html#random-forests-1"><i class="fa fa-check"></i><b>17.2</b> Random Forests</a></li>
+<li class="chapter" data-level="17.3" data-path="random-forests.html"><a href="random-forests.html#effect-of-mtry"><i class="fa fa-check"></i><b>17.3</b> Effect of <code>mtry</code></a></li>
+<li class="chapter" data-level="17.4" data-path="random-forests.html"><a href="random-forests.html#effect-of-nodesize"><i class="fa fa-check"></i><b>17.4</b> Effect of <code>nodesize</code></a></li>
+<li class="chapter" data-level="17.5" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>17.5</b> Variable Importance</a></li>
+<li class="chapter" data-level="17.6" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forets"><i class="fa fa-check"></i><b>17.6</b> Kernel view of Random Forets</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>18</b> Boosting<span></span></a>
+<li class="chapter" data-level="18" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>18</b> Boosting</a>
 <ul>
-<li class="chapter" data-level="18.1" data-path="boosting.html"><a href="boosting.html#adaboost"><i class="fa fa-check"></i><b>18.1</b> AdaBoost<span></span></a></li>
-<li class="chapter" data-level="18.2" data-path="boosting.html"><a href="boosting.html#training-error-of-adaboost"><i class="fa fa-check"></i><b>18.2</b> Training Error of AdaBoost<span></span></a></li>
+<li class="chapter" data-level="18.1" data-path="boosting.html"><a href="boosting.html#adaboost"><i class="fa fa-check"></i><b>18.1</b> AdaBoost</a></li>
+<li class="chapter" data-level="18.2" data-path="boosting.html"><a href="boosting.html#training-error-of-adaboost"><i class="fa fa-check"></i><b>18.2</b> Training Error of AdaBoost</a></li>
+<li class="chapter" data-level="18.3" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>18.3</b> Gradient Boosting</a></li>
 </ul></li>
-<li class="part"><span><b>VI Unsupervised Learning<span></span></b></span></li>
-<li class="chapter" data-level="19" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>19</b> K-Means<span></span></a>
+<li class="part"><span><b>VI Unsupervised Learning</b></span></li>
+<li class="chapter" data-level="19" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>19</b> K-Means</a>
 <ul>
-<li class="chapter" data-level="19.1" data-path="k-means.html"><a href="k-means.html#basic-concepts"><i class="fa fa-check"></i><b>19.1</b> Basic Concepts<span></span></a></li>
-<li class="chapter" data-level="19.2" data-path="k-means.html"><a href="k-means.html#example-1-iris-data"><i class="fa fa-check"></i><b>19.2</b> Example 1: <code>iris</code> data<span></span></a></li>
-<li class="chapter" data-level="19.3" data-path="k-means.html"><a href="k-means.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>19.3</b> Example 2: clustering of image pixels<span></span></a></li>
+<li class="chapter" data-level="19.1" data-path="k-means.html"><a href="k-means.html#basic-concepts"><i class="fa fa-check"></i><b>19.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="19.2" data-path="k-means.html"><a href="k-means.html#example-1-iris-data"><i class="fa fa-check"></i><b>19.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="19.3" data-path="k-means.html"><a href="k-means.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>19.3</b> Example 2: clustering of image pixels</a></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>20</b> Hierarchical Clustering<span></span></a>
+<li class="chapter" data-level="20" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>20</b> Hierarchical Clustering</a>
 <ul>
-<li class="chapter" data-level="20.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>20.1</b> Basic Concepts<span></span></a></li>
-<li class="chapter" data-level="20.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>20.2</b> Example 1: <code>iris</code> data<span></span></a></li>
-<li class="chapter" data-level="20.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>20.3</b> Example 2: RNA Expression Data<span></span></a></li>
+<li class="chapter" data-level="20.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>20.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="20.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>20.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="20.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>20.3</b> Example 2: RNA Expression Data</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html"><i class="fa fa-check"></i><b>21</b> Principle Component Analysis<span></span></a>
+<li class="chapter" data-level="21" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html"><i class="fa fa-check"></i><b>21</b> Principle Component Analysis</a>
 <ul>
-<li class="chapter" data-level="21.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>21.1</b> Basic Concepts<span></span></a>
+<li class="chapter" data-level="21.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>21.1</b> Basic Concepts</a>
 <ul>
-<li class="chapter" data-level="21.1.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>21.1.1</b> Note: Scaling<span></span></a></li>
+<li class="chapter" data-level="21.1.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>21.1.1</b> Note: Scaling</a></li>
 </ul></li>
-<li class="chapter" data-level="21.2" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>21.2</b> Example 1: <code>iris</code> Data<span></span></a></li>
-<li class="chapter" data-level="21.3" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>21.3</b> Example 2: Handwritten Digits<span></span></a></li>
+<li class="chapter" data-level="21.2" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>21.2</b> Example 1: <code>iris</code> Data</a></li>
+<li class="chapter" data-level="21.3" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>21.3</b> Example 2: Handwritten Digits</a></li>
 </ul></li>
-<li class="chapter" data-level="22" data-path="self-organizing-map.html"><a href="self-organizing-map.html"><i class="fa fa-check"></i><b>22</b> Self-Organizing Map<span></span></a>
+<li class="chapter" data-level="22" data-path="self-organizing-map.html"><a href="self-organizing-map.html"><i class="fa fa-check"></i><b>22</b> Self-Organizing Map</a>
 <ul>
-<li class="chapter" data-level="22.1" data-path="self-organizing-map.html"><a href="self-organizing-map.html#basic-concepts-3"><i class="fa fa-check"></i><b>22.1</b> Basic Concepts<span></span></a></li>
+<li class="chapter" data-level="22.1" data-path="self-organizing-map.html"><a href="self-organizing-map.html#basic-concepts-3"><i class="fa fa-check"></i><b>22.1</b> Basic Concepts</a></li>
 </ul></li>
-<li class="chapter" data-level="23" data-path="spectral-clustering.html"><a href="spectral-clustering.html"><i class="fa fa-check"></i><b>23</b> Spectral Clustering<span></span></a>
+<li class="chapter" data-level="23" data-path="spectral-clustering.html"><a href="spectral-clustering.html"><i class="fa fa-check"></i><b>23</b> Spectral Clustering</a>
 <ul>
-<li class="chapter" data-level="23.1" data-path="spectral-clustering.html"><a href="spectral-clustering.html#basic-concepts-4"><i class="fa fa-check"></i><b>23.1</b> Basic Concepts<span></span></a></li>
+<li class="chapter" data-level="23.1" data-path="spectral-clustering.html"><a href="spectral-clustering.html#basic-concepts-4"><i class="fa fa-check"></i><b>23.1</b> Basic Concepts</a></li>
 </ul></li>
-<li class="part"><span><b>VII Reference<span></span></b></span></li>
-<li class="chapter" data-level="24" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>24</b> Reference<span></span></a></li>
+<li class="part"><span><b>VII Reference</b></span></li>
+<li class="chapter" data-level="24" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>24</b> Reference</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2022 Ruoqing Zhu</a></li>
 
@@ -464,135 +465,135 @@ div.csl-indent {
 <p>The <span class="math inline">\(k\)</span>-means clustering algorithm attempts to solve the following optimization problem:</p>
 <p><span class="math display">\[ \underset{C, \, \{m_k\}_{k=1}^K}\min \sum_{k=1}^K \sum_{C(i) = k} \lVert x_i - m_k \rVert^2, \]</span>
 where <span class="math inline">\(C(\cdot): \{1, \ldots, n\} \rightarrow \{1, \ldots, K\}\)</span> is a cluster assignment function, and <span class="math inline">\(m_k\)</span>’s are the cluster means. To solve this problem, <span class="math inline">\(k\)</span>-means uses an iterative approach that updates <span class="math inline">\(C(\cdot)\)</span> and <span class="math inline">\(m_k\)</span>’s alternatively. Suppose we have a set of six observations.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-244-1.png" width="35%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-247-1.png" width="35%" style="display: block; margin: auto;" /></p>
 <p>We first randomly assign them into two clusters (initiate a random <span class="math inline">\(C\)</span> function). Based on this cluster assignment, we can calculate the corresponding cluster mean <span class="math inline">\(m_k\)</span>’s.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-246-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-249-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Then we will assign each observation to the closest cluster mean. In this example, only the blue point on the top will be moved to a new cluster. Then the cluster means can then be recalculated.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-247-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-250-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>When there is nothing to move anymore, the algorithm stops. Keep in mind that we started with a random cluster assignment, and this objective function is not convex. Hence we may obtain different results if started with different values. The solution is to try different starting points and use the best final results. This can be tuned using the <code>nstart</code> parameter in the <code>kmeans()</code> function.</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="k-means.html#cb167-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># some random data</span></span>
-<span id="cb167-2"><a href="k-means.html#cb167-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb167-3"><a href="k-means.html#cb167-3" aria-hidden="true" tabindex="-1"></a>    mat <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>), <span class="dv">50</span>, <span class="dv">20</span>)</span>
-<span id="cb167-4"><a href="k-means.html#cb167-4" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb167-5"><a href="k-means.html#cb167-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if we use only one starting point</span></span>
-<span id="cb167-6"><a href="k-means.html#cb167-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kmeans</span>(mat, <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">1</span>)<span class="sc">$</span>tot.withinss</span>
-<span id="cb167-7"><a href="k-means.html#cb167-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 885.8913</span></span>
-<span id="cb167-8"><a href="k-means.html#cb167-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb167-9"><a href="k-means.html#cb167-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if we use multiple starting point and pick the best one</span></span>
-<span id="cb167-10"><a href="k-means.html#cb167-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kmeans</span>(mat, <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">100</span>)<span class="sc">$</span>tot.withinss</span>
-<span id="cb167-11"><a href="k-means.html#cb167-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 883.8241</span></span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="k-means.html#cb169-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># some random data</span></span>
+<span id="cb169-2"><a href="k-means.html#cb169-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb169-3"><a href="k-means.html#cb169-3" aria-hidden="true" tabindex="-1"></a>    mat <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>), <span class="dv">50</span>, <span class="dv">20</span>)</span>
+<span id="cb169-4"><a href="k-means.html#cb169-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb169-5"><a href="k-means.html#cb169-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if we use only one starting point</span></span>
+<span id="cb169-6"><a href="k-means.html#cb169-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kmeans</span>(mat, <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">1</span>)<span class="sc">$</span>tot.withinss</span>
+<span id="cb169-7"><a href="k-means.html#cb169-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 885.8913</span></span>
+<span id="cb169-8"><a href="k-means.html#cb169-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb169-9"><a href="k-means.html#cb169-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if we use multiple starting point and pick the best one</span></span>
+<span id="cb169-10"><a href="k-means.html#cb169-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kmeans</span>(mat, <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">100</span>)<span class="sc">$</span>tot.withinss</span>
+<span id="cb169-11"><a href="k-means.html#cb169-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 883.8241</span></span></code></pre></div>
 </div>
 <div id="example-1-iris-data" class="section level2 hasAnchor" number="19.2">
 <h2><span class="header-section-number">19.2</span> Example 1: <code>iris</code> data<a href="k-means.html#example-1-iris-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We use the classical <code>iris</code> data as an example. This dataset contains three different classes, but the goal here is to learn the clusters without knowing the class labels.</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="k-means.html#cb168-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot the original data using two variables</span></span>
-<span id="cb168-2"><a href="k-means.html#cb168-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(iris)</span>
-<span id="cb168-3"><a href="k-means.html#cb168-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span></span>
-<span id="cb168-4"><a href="k-means.html#cb168-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1          5.1         3.5          1.4         0.2  setosa</span></span>
-<span id="cb168-5"><a href="k-means.html#cb168-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 2          4.9         3.0          1.4         0.2  setosa</span></span>
-<span id="cb168-6"><a href="k-means.html#cb168-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 3          4.7         3.2          1.3         0.2  setosa</span></span>
-<span id="cb168-7"><a href="k-means.html#cb168-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 4          4.6         3.1          1.5         0.2  setosa</span></span>
-<span id="cb168-8"><a href="k-means.html#cb168-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 5          5.0         3.6          1.4         0.2  setosa</span></span>
-<span id="cb168-9"><a href="k-means.html#cb168-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 6          5.4         3.9          1.7         0.4  setosa</span></span>
-<span id="cb168-10"><a href="k-means.html#cb168-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(ggplot2)</span>
-<span id="cb168-11"><a href="k-means.html#cb168-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Petal.Length, Petal.Width, <span class="at">color =</span> Species)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-249-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<p>The last two variables in the <code>iris</code> data carry more information on separating the three classes. Hence we will only use the <code>Petal.Length</code> and <code>Petal.Width</code>.</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="k-means.html#cb169-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(colorspace)</span>
-<span id="cb169-2"><a href="k-means.html#cb169-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>), <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb169-3"><a href="k-means.html#cb169-3" aria-hidden="true" tabindex="-1"></a>    MASS<span class="sc">::</span><span class="fu">parcoord</span>(iris[, <span class="sc">-</span><span class="dv">5</span>], <span class="at">col =</span> <span class="fu">rainbow_hcl</span>(<span class="dv">3</span>)[iris<span class="sc">$</span>Species], </span>
-<span id="cb169-4"><a href="k-means.html#cb169-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">var.label =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb169-5"><a href="k-means.html#cb169-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">legend</span>(<span class="at">x =</span> <span class="fl">1.2</span>, <span class="at">y =</span> <span class="fl">1.3</span>, <span class="at">cex =</span> <span class="dv">1</span>,</span>
-<span id="cb169-6"><a href="k-means.html#cb169-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">as.character</span>(<span class="fu">levels</span>(iris<span class="sc">$</span>Species)),</span>
-<span id="cb169-7"><a href="k-means.html#cb169-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">fill =</span> <span class="fu">rainbow_hcl</span>(<span class="dv">3</span>), <span class="at">horiz =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-251-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<p>Let’s perform the <span class="math inline">\(k\)</span>-means clustering</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="k-means.html#cb170-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb170-2"><a href="k-means.html#cb170-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb170-3"><a href="k-means.html#cb170-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># k mean clustering</span></span>
-<span id="cb170-4"><a href="k-means.html#cb170-4" aria-hidden="true" tabindex="-1"></a>  iris.kmean <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(iris[, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
-<span id="cb170-5"><a href="k-means.html#cb170-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb170-6"><a href="k-means.html#cb170-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the center of each class</span></span>
-<span id="cb170-7"><a href="k-means.html#cb170-7" aria-hidden="true" tabindex="-1"></a>  iris.kmean<span class="sc">$</span>centers</span>
-<span id="cb170-8"><a href="k-means.html#cb170-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   Petal.Length Petal.Width</span></span>
-<span id="cb170-9"><a href="k-means.html#cb170-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 1     1.462000    0.246000</span></span>
-<span id="cb170-10"><a href="k-means.html#cb170-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 2     5.595833    2.037500</span></span>
-<span id="cb170-11"><a href="k-means.html#cb170-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 3     4.269231    1.342308</span></span>
-<span id="cb170-12"><a href="k-means.html#cb170-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb170-13"><a href="k-means.html#cb170-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the within cluster variation </span></span>
-<span id="cb170-14"><a href="k-means.html#cb170-14" aria-hidden="true" tabindex="-1"></a>  iris.kmean<span class="sc">$</span>withinss</span>
-<span id="cb170-15"><a href="k-means.html#cb170-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  2.02200 16.29167 13.05769</span></span>
-<span id="cb170-16"><a href="k-means.html#cb170-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb170-17"><a href="k-means.html#cb170-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the between cluster variation </span></span>
-<span id="cb170-18"><a href="k-means.html#cb170-18" aria-hidden="true" tabindex="-1"></a>  iris.kmean<span class="sc">$</span>betweenss</span>
-<span id="cb170-19"><a href="k-means.html#cb170-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 519.524</span></span>
-<span id="cb170-20"><a href="k-means.html#cb170-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb170-21"><a href="k-means.html#cb170-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot the fitted clusters vs. the truth</span></span>
-<span id="cb170-22"><a href="k-means.html#cb170-22" aria-hidden="true" tabindex="-1"></a>  iris.kmean<span class="sc">$</span>cluster <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(iris.kmean<span class="sc">$</span>cluster)</span>
-<span id="cb170-23"><a href="k-means.html#cb170-23" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb170-24"><a href="k-means.html#cb170-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Petal.Length, Petal.Width, <span class="at">color =</span> Species)) <span class="sc">+</span> <span class="co"># true cluster</span></span>
-<span id="cb170-25"><a href="k-means.html#cb170-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span> </span>
-<span id="cb170-26"><a href="k-means.html#cb170-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>, <span class="st">&#39;blue&#39;</span>)) <span class="sc">+</span></span>
-<span id="cb170-27"><a href="k-means.html#cb170-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;red&quot;</span>)[iris.kmean<span class="sc">$</span>cluster]) <span class="co"># fitted cluster </span></span></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="k-means.html#cb170-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot the original data using two variables</span></span>
+<span id="cb170-2"><a href="k-means.html#cb170-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(iris)</span>
+<span id="cb170-3"><a href="k-means.html#cb170-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span></span>
+<span id="cb170-4"><a href="k-means.html#cb170-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1          5.1         3.5          1.4         0.2  setosa</span></span>
+<span id="cb170-5"><a href="k-means.html#cb170-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 2          4.9         3.0          1.4         0.2  setosa</span></span>
+<span id="cb170-6"><a href="k-means.html#cb170-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 3          4.7         3.2          1.3         0.2  setosa</span></span>
+<span id="cb170-7"><a href="k-means.html#cb170-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 4          4.6         3.1          1.5         0.2  setosa</span></span>
+<span id="cb170-8"><a href="k-means.html#cb170-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 5          5.0         3.6          1.4         0.2  setosa</span></span>
+<span id="cb170-9"><a href="k-means.html#cb170-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 6          5.4         3.9          1.7         0.4  setosa</span></span>
+<span id="cb170-10"><a href="k-means.html#cb170-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(ggplot2)</span>
+<span id="cb170-11"><a href="k-means.html#cb170-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Petal.Length, Petal.Width, <span class="at">color =</span> Species)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-252-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>The last two variables in the <code>iris</code> data carry more information on separating the three classes. Hence we will only use the <code>Petal.Length</code> and <code>Petal.Width</code>.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="k-means.html#cb171-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(colorspace)</span>
+<span id="cb171-2"><a href="k-means.html#cb171-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>), <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb171-3"><a href="k-means.html#cb171-3" aria-hidden="true" tabindex="-1"></a>    MASS<span class="sc">::</span><span class="fu">parcoord</span>(iris[, <span class="sc">-</span><span class="dv">5</span>], <span class="at">col =</span> <span class="fu">rainbow_hcl</span>(<span class="dv">3</span>)[iris<span class="sc">$</span>Species], </span>
+<span id="cb171-4"><a href="k-means.html#cb171-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">var.label =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb171-5"><a href="k-means.html#cb171-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">legend</span>(<span class="at">x =</span> <span class="fl">1.2</span>, <span class="at">y =</span> <span class="fl">1.3</span>, <span class="at">cex =</span> <span class="dv">1</span>,</span>
+<span id="cb171-6"><a href="k-means.html#cb171-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">as.character</span>(<span class="fu">levels</span>(iris<span class="sc">$</span>Species)),</span>
+<span id="cb171-7"><a href="k-means.html#cb171-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">fill =</span> <span class="fu">rainbow_hcl</span>(<span class="dv">3</span>), <span class="at">horiz =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-254-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>Let’s perform the <span class="math inline">\(k\)</span>-means clustering</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="k-means.html#cb172-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb172-2"><a href="k-means.html#cb172-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb172-3"><a href="k-means.html#cb172-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># k mean clustering</span></span>
+<span id="cb172-4"><a href="k-means.html#cb172-4" aria-hidden="true" tabindex="-1"></a>  iris.kmean <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(iris[, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
+<span id="cb172-5"><a href="k-means.html#cb172-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb172-6"><a href="k-means.html#cb172-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the center of each class</span></span>
+<span id="cb172-7"><a href="k-means.html#cb172-7" aria-hidden="true" tabindex="-1"></a>  iris.kmean<span class="sc">$</span>centers</span>
+<span id="cb172-8"><a href="k-means.html#cb172-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   Petal.Length Petal.Width</span></span>
+<span id="cb172-9"><a href="k-means.html#cb172-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 1     1.462000    0.246000</span></span>
+<span id="cb172-10"><a href="k-means.html#cb172-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 2     5.595833    2.037500</span></span>
+<span id="cb172-11"><a href="k-means.html#cb172-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 3     4.269231    1.342308</span></span>
+<span id="cb172-12"><a href="k-means.html#cb172-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb172-13"><a href="k-means.html#cb172-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the within cluster variation </span></span>
+<span id="cb172-14"><a href="k-means.html#cb172-14" aria-hidden="true" tabindex="-1"></a>  iris.kmean<span class="sc">$</span>withinss</span>
+<span id="cb172-15"><a href="k-means.html#cb172-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  2.02200 16.29167 13.05769</span></span>
+<span id="cb172-16"><a href="k-means.html#cb172-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb172-17"><a href="k-means.html#cb172-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the between cluster variation </span></span>
+<span id="cb172-18"><a href="k-means.html#cb172-18" aria-hidden="true" tabindex="-1"></a>  iris.kmean<span class="sc">$</span>betweenss</span>
+<span id="cb172-19"><a href="k-means.html#cb172-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 519.524</span></span>
+<span id="cb172-20"><a href="k-means.html#cb172-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb172-21"><a href="k-means.html#cb172-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot the fitted clusters vs. the truth</span></span>
+<span id="cb172-22"><a href="k-means.html#cb172-22" aria-hidden="true" tabindex="-1"></a>  iris.kmean<span class="sc">$</span>cluster <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(iris.kmean<span class="sc">$</span>cluster)</span>
+<span id="cb172-23"><a href="k-means.html#cb172-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb172-24"><a href="k-means.html#cb172-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Petal.Length, Petal.Width, <span class="at">color =</span> Species)) <span class="sc">+</span> <span class="co"># true cluster</span></span>
+<span id="cb172-25"><a href="k-means.html#cb172-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span> </span>
+<span id="cb172-26"><a href="k-means.html#cb172-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>, <span class="st">&#39;blue&#39;</span>)) <span class="sc">+</span></span>
+<span id="cb172-27"><a href="k-means.html#cb172-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;red&quot;</span>)[iris.kmean<span class="sc">$</span>cluster]) <span class="co"># fitted cluster </span></span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-255-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="example-2-clustering-of-image-pixels" class="section level2 hasAnchor" number="19.3">
 <h2><span class="header-section-number">19.3</span> Example 2: clustering of image pixels<a href="k-means.html#example-2-clustering-of-image-pixels" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s first load and plot an image of Leo.</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="k-means.html#cb171-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(jpeg)</span>
-<span id="cb171-2"><a href="k-means.html#cb171-2" aria-hidden="true" tabindex="-1"></a>    img<span class="ot">&lt;-</span><span class="fu">readJPEG</span>(<span class="st">&quot;data/leo.jpg&quot;</span>)</span>
-<span id="cb171-3"><a href="k-means.html#cb171-3" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb171-4"><a href="k-means.html#cb171-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate a blank image</span></span>
-<span id="cb171-5"><a href="k-means.html#cb171-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="fl">0.2</span>, <span class="dv">4</span>))</span>
-<span id="cb171-6"><a href="k-means.html#cb171-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">400</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">500</span>), <span class="at">xaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="at">yaxt =</span> <span class="st">&#39;n&#39;</span>, </span>
-<span id="cb171-7"><a href="k-means.html#cb171-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">bty =</span> <span class="st">&#39;n&#39;</span>, <span class="at">pch =</span> <span class="st">&#39;&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;&#39;</span>)</span>
-<span id="cb171-8"><a href="k-means.html#cb171-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb171-9"><a href="k-means.html#cb171-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rasterImage</span>(img, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">500</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-253-1.png" width="35%" style="display: block; margin: auto;" /></p>
-<p>For a <code>jpg</code> file, each pixel is stored as a vector with 3 elements — representing red, green and blue intensities. However, by the way, that this objective <code>img</code> being constructed, it is stored as a 3d array. The first two dimensions are the height and width of the figure. We need to vectorize them and treat each pixel as an observation.</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="k-means.html#cb172-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dim</span>(img)</span>
-<span id="cb172-2"><a href="k-means.html#cb172-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 500 400   3</span></span>
-<span id="cb172-3"><a href="k-means.html#cb172-3" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb172-4"><a href="k-means.html#cb172-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># this apply function applies vecterization to each layer (r/g/b) of the image. </span></span>
-<span id="cb172-5"><a href="k-means.html#cb172-5" aria-hidden="true" tabindex="-1"></a>    img_expand <span class="ot">=</span> <span class="fu">apply</span>(img, <span class="dv">3</span>, c)</span>
-<span id="cb172-6"><a href="k-means.html#cb172-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb172-7"><a href="k-means.html#cb172-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># and now we have the desired data matrix</span></span>
-<span id="cb172-8"><a href="k-means.html#cb172-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dim</span>(img_expand)</span>
-<span id="cb172-9"><a href="k-means.html#cb172-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 200000      3</span></span></code></pre></div>
-<p>Before performing the <span class="math inline">\(k\)</span>-mean clustering, let’s have a quick peek at the data in a 3d view. Since there are too many observations, we randomly sample a few.</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="k-means.html#cb173-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(scatterplot3d)</span>
-<span id="cb173-2"><a href="k-means.html#cb173-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb173-3"><a href="k-means.html#cb173-3" aria-hidden="true" tabindex="-1"></a>    sub_pixels <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(img_expand), <span class="dv">1000</span>)</span>
-<span id="cb173-4"><a href="k-means.html#cb173-4" aria-hidden="true" tabindex="-1"></a>    sub_img_expand <span class="ot">=</span> img_expand[sub_pixels, ]</span>
-<span id="cb173-5"><a href="k-means.html#cb173-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb173-6"><a href="k-means.html#cb173-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scatterplot3d</span>(sub_img_expand, <span class="at">pch =</span> <span class="dv">19</span>, </span>
-<span id="cb173-7"><a href="k-means.html#cb173-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">xlab =</span> <span class="st">&quot;red&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;green&quot;</span>, <span class="at">zlab =</span> <span class="st">&quot;blue&quot;</span>, </span>
-<span id="cb173-8"><a href="k-means.html#cb173-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color =</span> <span class="fu">rgb</span>(sub_img_expand[,<span class="dv">1</span>], sub_img_expand[,<span class="dv">2</span>],</span>
-<span id="cb173-9"><a href="k-means.html#cb173-9" aria-hidden="true" tabindex="-1"></a>                              sub_img_expand[,<span class="dv">3</span>]))</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-255-1.png" width="55%" style="display: block; margin: auto;" /></p>
-<p>The next step is to perform the <span class="math inline">\(k\)</span>-mean and obtain the cluster label. For example, let’s try 5 clusters.</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="k-means.html#cb174-1" aria-hidden="true" tabindex="-1"></a>  kmeanfit <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(img_expand, <span class="dv">5</span>)</span>
-<span id="cb174-2"><a href="k-means.html#cb174-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb174-3"><a href="k-means.html#cb174-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># to produce the new graph, we simply replicate the cluster mean </span></span>
-<span id="cb174-4"><a href="k-means.html#cb174-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for all observations in the same cluster</span></span>
-<span id="cb174-5"><a href="k-means.html#cb174-5" aria-hidden="true" tabindex="-1"></a>  new_img_expand <span class="ot">=</span> kmeanfit<span class="sc">$</span>centers[kmeanfit<span class="sc">$</span>cluster, ]</span>
-<span id="cb174-6"><a href="k-means.html#cb174-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb174-7"><a href="k-means.html#cb174-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># now we need to convert this back to the array that can be plotted as an image. </span></span>
-<span id="cb174-8"><a href="k-means.html#cb174-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># this is a lazy way to do it, but get the job done</span></span>
-<span id="cb174-9"><a href="k-means.html#cb174-9" aria-hidden="true" tabindex="-1"></a>  new_img <span class="ot">=</span> img</span>
-<span id="cb174-10"><a href="k-means.html#cb174-10" aria-hidden="true" tabindex="-1"></a>  new_img[, , <span class="dv">1</span>] <span class="ot">=</span> <span class="fu">matrix</span>(new_img_expand[,<span class="dv">1</span>], <span class="dv">500</span>, <span class="dv">400</span>)</span>
-<span id="cb174-11"><a href="k-means.html#cb174-11" aria-hidden="true" tabindex="-1"></a>  new_img[, , <span class="dv">2</span>] <span class="ot">=</span> <span class="fu">matrix</span>(new_img_expand[,<span class="dv">2</span>], <span class="dv">500</span>, <span class="dv">400</span>)</span>
-<span id="cb174-12"><a href="k-means.html#cb174-12" aria-hidden="true" tabindex="-1"></a>  new_img[, , <span class="dv">3</span>] <span class="ot">=</span> <span class="fu">matrix</span>(new_img_expand[,<span class="dv">3</span>], <span class="dv">500</span>, <span class="dv">400</span>)</span>
-<span id="cb174-13"><a href="k-means.html#cb174-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb174-14"><a href="k-means.html#cb174-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot the new image</span></span>
-<span id="cb174-15"><a href="k-means.html#cb174-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">400</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">500</span>), <span class="at">xaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="at">yaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="at">bty =</span> <span class="st">&#39;n&#39;</span>, </span>
-<span id="cb174-16"><a href="k-means.html#cb174-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="st">&#39;&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;&#39;</span>)</span>
-<span id="cb174-17"><a href="k-means.html#cb174-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb174-18"><a href="k-means.html#cb174-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rasterImage</span>(new_img, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">500</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="k-means.html#cb173-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(jpeg)</span>
+<span id="cb173-2"><a href="k-means.html#cb173-2" aria-hidden="true" tabindex="-1"></a>    img<span class="ot">&lt;-</span><span class="fu">readJPEG</span>(<span class="st">&quot;data/leo.jpg&quot;</span>)</span>
+<span id="cb173-3"><a href="k-means.html#cb173-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb173-4"><a href="k-means.html#cb173-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate a blank image</span></span>
+<span id="cb173-5"><a href="k-means.html#cb173-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="fl">0.2</span>, <span class="dv">4</span>))</span>
+<span id="cb173-6"><a href="k-means.html#cb173-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">400</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">500</span>), <span class="at">xaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="at">yaxt =</span> <span class="st">&#39;n&#39;</span>, </span>
+<span id="cb173-7"><a href="k-means.html#cb173-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">bty =</span> <span class="st">&#39;n&#39;</span>, <span class="at">pch =</span> <span class="st">&#39;&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;&#39;</span>)</span>
+<span id="cb173-8"><a href="k-means.html#cb173-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-9"><a href="k-means.html#cb173-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rasterImage</span>(img, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">500</span>)</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-256-1.png" width="35%" style="display: block; margin: auto;" /></p>
+<p>For a <code>jpg</code> file, each pixel is stored as a vector with 3 elements — representing red, green and blue intensities. However, by the way, that this objective <code>img</code> being constructed, it is stored as a 3d array. The first two dimensions are the height and width of the figure. We need to vectorize them and treat each pixel as an observation.</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="k-means.html#cb174-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dim</span>(img)</span>
+<span id="cb174-2"><a href="k-means.html#cb174-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 500 400   3</span></span>
+<span id="cb174-3"><a href="k-means.html#cb174-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb174-4"><a href="k-means.html#cb174-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># this apply function applies vecterization to each layer (r/g/b) of the image. </span></span>
+<span id="cb174-5"><a href="k-means.html#cb174-5" aria-hidden="true" tabindex="-1"></a>    img_expand <span class="ot">=</span> <span class="fu">apply</span>(img, <span class="dv">3</span>, c)</span>
+<span id="cb174-6"><a href="k-means.html#cb174-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb174-7"><a href="k-means.html#cb174-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># and now we have the desired data matrix</span></span>
+<span id="cb174-8"><a href="k-means.html#cb174-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dim</span>(img_expand)</span>
+<span id="cb174-9"><a href="k-means.html#cb174-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 200000      3</span></span></code></pre></div>
+<p>Before performing the <span class="math inline">\(k\)</span>-mean clustering, let’s have a quick peek at the data in a 3d view. Since there are too many observations, we randomly sample a few.</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="k-means.html#cb175-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(scatterplot3d)</span>
+<span id="cb175-2"><a href="k-means.html#cb175-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb175-3"><a href="k-means.html#cb175-3" aria-hidden="true" tabindex="-1"></a>    sub_pixels <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(img_expand), <span class="dv">1000</span>)</span>
+<span id="cb175-4"><a href="k-means.html#cb175-4" aria-hidden="true" tabindex="-1"></a>    sub_img_expand <span class="ot">=</span> img_expand[sub_pixels, ]</span>
+<span id="cb175-5"><a href="k-means.html#cb175-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb175-6"><a href="k-means.html#cb175-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scatterplot3d</span>(sub_img_expand, <span class="at">pch =</span> <span class="dv">19</span>, </span>
+<span id="cb175-7"><a href="k-means.html#cb175-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">xlab =</span> <span class="st">&quot;red&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;green&quot;</span>, <span class="at">zlab =</span> <span class="st">&quot;blue&quot;</span>, </span>
+<span id="cb175-8"><a href="k-means.html#cb175-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color =</span> <span class="fu">rgb</span>(sub_img_expand[,<span class="dv">1</span>], sub_img_expand[,<span class="dv">2</span>],</span>
+<span id="cb175-9"><a href="k-means.html#cb175-9" aria-hidden="true" tabindex="-1"></a>                              sub_img_expand[,<span class="dv">3</span>]))</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-258-1.png" width="55%" style="display: block; margin: auto;" /></p>
+<p>The next step is to perform the <span class="math inline">\(k\)</span>-mean and obtain the cluster label. For example, let’s try 5 clusters.</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="k-means.html#cb176-1" aria-hidden="true" tabindex="-1"></a>  kmeanfit <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(img_expand, <span class="dv">5</span>)</span>
+<span id="cb176-2"><a href="k-means.html#cb176-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-3"><a href="k-means.html#cb176-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># to produce the new graph, we simply replicate the cluster mean </span></span>
+<span id="cb176-4"><a href="k-means.html#cb176-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for all observations in the same cluster</span></span>
+<span id="cb176-5"><a href="k-means.html#cb176-5" aria-hidden="true" tabindex="-1"></a>  new_img_expand <span class="ot">=</span> kmeanfit<span class="sc">$</span>centers[kmeanfit<span class="sc">$</span>cluster, ]</span>
+<span id="cb176-6"><a href="k-means.html#cb176-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb176-7"><a href="k-means.html#cb176-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># now we need to convert this back to the array that can be plotted as an image. </span></span>
+<span id="cb176-8"><a href="k-means.html#cb176-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># this is a lazy way to do it, but get the job done</span></span>
+<span id="cb176-9"><a href="k-means.html#cb176-9" aria-hidden="true" tabindex="-1"></a>  new_img <span class="ot">=</span> img</span>
+<span id="cb176-10"><a href="k-means.html#cb176-10" aria-hidden="true" tabindex="-1"></a>  new_img[, , <span class="dv">1</span>] <span class="ot">=</span> <span class="fu">matrix</span>(new_img_expand[,<span class="dv">1</span>], <span class="dv">500</span>, <span class="dv">400</span>)</span>
+<span id="cb176-11"><a href="k-means.html#cb176-11" aria-hidden="true" tabindex="-1"></a>  new_img[, , <span class="dv">2</span>] <span class="ot">=</span> <span class="fu">matrix</span>(new_img_expand[,<span class="dv">2</span>], <span class="dv">500</span>, <span class="dv">400</span>)</span>
+<span id="cb176-12"><a href="k-means.html#cb176-12" aria-hidden="true" tabindex="-1"></a>  new_img[, , <span class="dv">3</span>] <span class="ot">=</span> <span class="fu">matrix</span>(new_img_expand[,<span class="dv">3</span>], <span class="dv">500</span>, <span class="dv">400</span>)</span>
+<span id="cb176-13"><a href="k-means.html#cb176-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-14"><a href="k-means.html#cb176-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot the new image</span></span>
+<span id="cb176-15"><a href="k-means.html#cb176-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">400</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">500</span>), <span class="at">xaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="at">yaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="at">bty =</span> <span class="st">&#39;n&#39;</span>, </span>
+<span id="cb176-16"><a href="k-means.html#cb176-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="st">&#39;&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;&#39;</span>)</span>
+<span id="cb176-17"><a href="k-means.html#cb176-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb176-18"><a href="k-means.html#cb176-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rasterImage</span>(new_img, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">500</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-259-1.png" width="35%" style="display: block; margin: auto;" /></p>
 <p>With this technique, we can easily reproduce results with different <span class="math inline">\(k\)</span> values. Apparently, as <span class="math inline">\(k\)</span> increases, we get better resolution. <span class="math inline">\(k = 30\)</span> seems to recover the original image fairly well.</p>
 <pre><code>## Warning: did not converge in 10 iterations</code></pre>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-258-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-261-1.png" width="100%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
@@ -662,7 +663,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
