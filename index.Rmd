@@ -88,7 +88,7 @@ Statistical Learning: Data Mining, Inference, and Prediction](https://web.stanfo
 
 ## Acknowledgements {-}
 
-The initial contents are derived from Dr. David Dalpiaz's book. My STAT 542 course materials are also inspired by [Dr. Feng Liang](https://stat.illinois.edu/directory/profile/liangf) and [Dr. John Marden](https://stat.illinois.edu/directory/profile/jimarden) who developed earlier versions of this course. And I also incorporated many online resources, which I cannot put into a comprehensive list. If you think I missed some references, please let me know. 
+The initial contents  are derived from Dr. David Dalpiaz's book. My STAT 542 course materials are also inspired by [Dr. Feng Liang](https://stat.illinois.edu/directory/profile/liangf) and [Dr. John Marden](https://stat.illinois.edu/directory/profile/jimarden) who developed earlier versions of this course. And I also incorporated many online resources, which I cannot put into a comprehensive list. If you think I missed some references, please let me know. 
 
 ## License {-}
 

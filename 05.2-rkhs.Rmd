@@ -167,7 +167,7 @@ Which means that, the evaluation of $f(x_j)$ would be the same as just evaluatin
 \geq& \lVert \sum_{i=1}^n \alpha_i K(\cdot, x_i) \rVert^2
 \end{align}
 
-This completes the proof since this finite represetnation would be the one being prefered that $f$. 
+This completes the proof since this finite represetnation would be the one being prefered than $f$. 
 ```
 
 
