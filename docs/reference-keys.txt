@@ -156,6 +156,7 @@ kernel-view-of-random-forets
 boosting
 adaboost
 training-error-of-adaboost
+gradient-boosting
 k-means
 basic-concepts
 example-1-iris-data
@@ -174,4 +175,3 @@ basic-concepts-3
 spectral-clustering
 basic-concepts-4
 reference
-gradient-boosting
