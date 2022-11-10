@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 K-Neariest Neighber | Statistical Learning and Machine Learning with R</title>
   <meta name="description" content="A textbook for STAT 542 and 432 at UIUC" />
-  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 K-Neariest Neighber | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2022-08-17" />
+<meta name="date" content="2022-11-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,20 +54,20 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.24/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.26/datatables.js"></script>
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
 <link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
 <script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
 <link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
 <script src="libs/selectize-0.12.0/selectize.min.js"></script>
 <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -466,57 +466,57 @@ div.csl-indent {
 <p>Suppose we collect a set of observations <span class="math inline">\(\{x_i, y_i\}_{i=1}^n\)</span>, the prediction at a new target point <span class="math inline">\(x_0\)</span> is</p>
 <p><span class="math display">\[\widehat y = \frac{1}{k} \sum_{x_i \in N_k(x_0)} y_i,\]</span>
 where <span class="math inline">\(N_k(x_0)\)</span> defines the <span class="math inline">\(k\)</span> samples from the training data that are closest to <span class="math inline">\(x_0\)</span>. As default, closeness is defined using a distance measure, such as the Euclidean distance. Here is a demonstration of the fitted regression function.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="k-neariest-neighber.html#cb106-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate training data with 2*sin(x) and random Gaussian errors</span></span>
-<span id="cb106-2"><a href="k-neariest-neighber.html#cb106-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1</span>)    </span>
-<span id="cb106-3"><a href="k-neariest-neighber.html#cb106-3" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">15</span>, <span class="dv">0</span>, <span class="dv">2</span><span class="sc">*</span>pi)</span>
-<span id="cb106-4"><a href="k-neariest-neighber.html#cb106-4" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">sin</span>(x) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x))</span>
-<span id="cb106-5"><a href="k-neariest-neighber.html#cb106-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb106-6"><a href="k-neariest-neighber.html#cb106-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate testing data points where we evaluate the prediction function</span></span>
-<span id="cb106-7"><a href="k-neariest-neighber.html#cb106-7" aria-hidden="true" tabindex="-1"></a>    test.x <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.001</span>)<span class="sc">*</span><span class="dv">2</span><span class="sc">*</span>pi</span>
-<span id="cb106-8"><a href="k-neariest-neighber.html#cb106-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-9"><a href="k-neariest-neighber.html#cb106-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &quot;1-nearest neighbor&quot; regression using kknn package</span></span>
-<span id="cb106-10"><a href="k-neariest-neighber.html#cb106-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(kknn)</span>
-<span id="cb106-11"><a href="k-neariest-neighber.html#cb106-11" aria-hidden="true" tabindex="-1"></a>    knn.fit <span class="ot">=</span> <span class="fu">kknn</span>(y <span class="sc">~</span> x, <span class="at">train =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), </span>
-<span id="cb106-12"><a href="k-neariest-neighber.html#cb106-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">test =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> test.x),</span>
-<span id="cb106-13"><a href="k-neariest-neighber.html#cb106-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">k =</span> <span class="dv">1</span>, <span class="at">kernel =</span> <span class="st">&quot;rectangular&quot;</span>)</span>
-<span id="cb106-14"><a href="k-neariest-neighber.html#cb106-14" aria-hidden="true" tabindex="-1"></a>    test.pred <span class="ot">=</span> knn.fit<span class="sc">$</span>fitted.values</span>
-<span id="cb106-15"><a href="k-neariest-neighber.html#cb106-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb106-16"><a href="k-neariest-neighber.html#cb106-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot the data</span></span>
-<span id="cb106-17"><a href="k-neariest-neighber.html#cb106-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">2</span>,<span class="dv">4</span>))</span>
-<span id="cb106-18"><a href="k-neariest-neighber.html#cb106-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(x, y, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span><span class="sc">*</span>pi), <span class="at">pch =</span> <span class="st">&quot;o&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>, </span>
-<span id="cb106-19"><a href="k-neariest-neighber.html#cb106-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="at">cex.lab =</span> <span class="fl">1.5</span>)</span>
-<span id="cb106-20"><a href="k-neariest-neighber.html#cb106-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="at">main=</span><span class="st">&quot;1-Nearest Neighbor Regression&quot;</span>, <span class="at">cex.main =</span> <span class="fl">1.5</span>)</span>
-<span id="cb106-21"><a href="k-neariest-neighber.html#cb106-21" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb106-22"><a href="k-neariest-neighber.html#cb106-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot the true regression line</span></span>
-<span id="cb106-23"><a href="k-neariest-neighber.html#cb106-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(test.x, <span class="dv">2</span><span class="sc">*</span><span class="fu">sin</span>(test.x), <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb106-24"><a href="k-neariest-neighber.html#cb106-24" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb106-25"><a href="k-neariest-neighber.html#cb106-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot the fitted line</span></span>
-<span id="cb106-26"><a href="k-neariest-neighber.html#cb106-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(test.x, test.pred, <span class="at">type =</span> <span class="st">&quot;s&quot;</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb106-27"><a href="k-neariest-neighber.html#cb106-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;Fitted line&quot;</span>, <span class="st">&quot;True function&quot;</span>), </span>
-<span id="cb106-28"><a href="k-neariest-neighber.html#cb106-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>), <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="k-neariest-neighber.html#cb107-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate training data with 2*sin(x) and random Gaussian errors</span></span>
+<span id="cb107-2"><a href="k-neariest-neighber.html#cb107-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1</span>)    </span>
+<span id="cb107-3"><a href="k-neariest-neighber.html#cb107-3" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">15</span>, <span class="dv">0</span>, <span class="dv">2</span><span class="sc">*</span>pi)</span>
+<span id="cb107-4"><a href="k-neariest-neighber.html#cb107-4" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">sin</span>(x) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x))</span>
+<span id="cb107-5"><a href="k-neariest-neighber.html#cb107-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb107-6"><a href="k-neariest-neighber.html#cb107-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate testing data points where we evaluate the prediction function</span></span>
+<span id="cb107-7"><a href="k-neariest-neighber.html#cb107-7" aria-hidden="true" tabindex="-1"></a>    test.x <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.001</span>)<span class="sc">*</span><span class="dv">2</span><span class="sc">*</span>pi</span>
+<span id="cb107-8"><a href="k-neariest-neighber.html#cb107-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-9"><a href="k-neariest-neighber.html#cb107-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># &quot;1-nearest neighbor&quot; regression using kknn package</span></span>
+<span id="cb107-10"><a href="k-neariest-neighber.html#cb107-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(kknn)</span>
+<span id="cb107-11"><a href="k-neariest-neighber.html#cb107-11" aria-hidden="true" tabindex="-1"></a>    knn.fit <span class="ot">=</span> <span class="fu">kknn</span>(y <span class="sc">~</span> x, <span class="at">train =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), </span>
+<span id="cb107-12"><a href="k-neariest-neighber.html#cb107-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">test =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> test.x),</span>
+<span id="cb107-13"><a href="k-neariest-neighber.html#cb107-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">k =</span> <span class="dv">1</span>, <span class="at">kernel =</span> <span class="st">&quot;rectangular&quot;</span>)</span>
+<span id="cb107-14"><a href="k-neariest-neighber.html#cb107-14" aria-hidden="true" tabindex="-1"></a>    test.pred <span class="ot">=</span> knn.fit<span class="sc">$</span>fitted.values</span>
+<span id="cb107-15"><a href="k-neariest-neighber.html#cb107-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb107-16"><a href="k-neariest-neighber.html#cb107-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot the data</span></span>
+<span id="cb107-17"><a href="k-neariest-neighber.html#cb107-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">2</span>,<span class="dv">4</span>))</span>
+<span id="cb107-18"><a href="k-neariest-neighber.html#cb107-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(x, y, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span><span class="sc">*</span>pi), <span class="at">pch =</span> <span class="st">&quot;o&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>, </span>
+<span id="cb107-19"><a href="k-neariest-neighber.html#cb107-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="at">cex.lab =</span> <span class="fl">1.5</span>)</span>
+<span id="cb107-20"><a href="k-neariest-neighber.html#cb107-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="at">main=</span><span class="st">&quot;1-Nearest Neighbor Regression&quot;</span>, <span class="at">cex.main =</span> <span class="fl">1.5</span>)</span>
+<span id="cb107-21"><a href="k-neariest-neighber.html#cb107-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb107-22"><a href="k-neariest-neighber.html#cb107-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot the true regression line</span></span>
+<span id="cb107-23"><a href="k-neariest-neighber.html#cb107-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(test.x, <span class="dv">2</span><span class="sc">*</span><span class="fu">sin</span>(test.x), <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb107-24"><a href="k-neariest-neighber.html#cb107-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb107-25"><a href="k-neariest-neighber.html#cb107-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot the fitted line</span></span>
+<span id="cb107-26"><a href="k-neariest-neighber.html#cb107-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(test.x, test.pred, <span class="at">type =</span> <span class="st">&quot;s&quot;</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb107-27"><a href="k-neariest-neighber.html#cb107-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;Fitted line&quot;</span>, <span class="st">&quot;True function&quot;</span>), </span>
+<span id="cb107-28"><a href="k-neariest-neighber.html#cb107-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>), <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-132-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="tuning-k" class="section level2 hasAnchor" number="9.2">
 <h2><span class="header-section-number">9.2</span> Tuning <span class="math inline">\(k\)</span><a href="k-neariest-neighber.html#tuning-k" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Tuning <span class="math inline">\(k\)</span> is crucial for <span class="math inline">\(k\)</span>NN. Let’s observe its effect. This time, I generate 200 observations. For 1NN, the fitted regression line is very jumpy.</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="k-neariest-neighber.html#cb107-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># generate more data</span></span>
-<span id="cb107-2"><a href="k-neariest-neighber.html#cb107-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb107-3"><a href="k-neariest-neighber.html#cb107-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">200</span></span>
-<span id="cb107-4"><a href="k-neariest-neighber.html#cb107-4" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">2</span><span class="sc">*</span>pi)</span>
-<span id="cb107-5"><a href="k-neariest-neighber.html#cb107-5" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">sin</span>(x) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x))</span>
-<span id="cb107-6"><a href="k-neariest-neighber.html#cb107-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb107-7"><a href="k-neariest-neighber.html#cb107-7" aria-hidden="true" tabindex="-1"></a>  test.y <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">sin</span>(test.x) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(test.x))</span>
-<span id="cb107-8"><a href="k-neariest-neighber.html#cb107-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb107-9"><a href="k-neariest-neighber.html#cb107-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 1-nearest neighbor</span></span>
-<span id="cb107-10"><a href="k-neariest-neighber.html#cb107-10" aria-hidden="true" tabindex="-1"></a>  knn.fit <span class="ot">=</span> <span class="fu">kknn</span>(y <span class="sc">~</span> x, <span class="at">train =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), </span>
-<span id="cb107-11"><a href="k-neariest-neighber.html#cb107-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">test =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> test.x),</span>
-<span id="cb107-12"><a href="k-neariest-neighber.html#cb107-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">k =</span> <span class="dv">1</span>, <span class="at">kernel =</span> <span class="st">&quot;rectangular&quot;</span>)</span>
-<span id="cb107-13"><a href="k-neariest-neighber.html#cb107-13" aria-hidden="true" tabindex="-1"></a>  test.pred <span class="ot">=</span> knn.fit<span class="sc">$</span>fitted.values</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="k-neariest-neighber.html#cb108-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># generate more data</span></span>
+<span id="cb108-2"><a href="k-neariest-neighber.html#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb108-3"><a href="k-neariest-neighber.html#cb108-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">200</span></span>
+<span id="cb108-4"><a href="k-neariest-neighber.html#cb108-4" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">2</span><span class="sc">*</span>pi)</span>
+<span id="cb108-5"><a href="k-neariest-neighber.html#cb108-5" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">sin</span>(x) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x))</span>
+<span id="cb108-6"><a href="k-neariest-neighber.html#cb108-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-7"><a href="k-neariest-neighber.html#cb108-7" aria-hidden="true" tabindex="-1"></a>  test.y <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">sin</span>(test.x) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(test.x))</span>
+<span id="cb108-8"><a href="k-neariest-neighber.html#cb108-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb108-9"><a href="k-neariest-neighber.html#cb108-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 1-nearest neighbor</span></span>
+<span id="cb108-10"><a href="k-neariest-neighber.html#cb108-10" aria-hidden="true" tabindex="-1"></a>  knn.fit <span class="ot">=</span> <span class="fu">kknn</span>(y <span class="sc">~</span> x, <span class="at">train =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), </span>
+<span id="cb108-11"><a href="k-neariest-neighber.html#cb108-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">test =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> test.x),</span>
+<span id="cb108-12"><a href="k-neariest-neighber.html#cb108-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">k =</span> <span class="dv">1</span>, <span class="at">kernel =</span> <span class="st">&quot;rectangular&quot;</span>)</span>
+<span id="cb108-13"><a href="k-neariest-neighber.html#cb108-13" aria-hidden="true" tabindex="-1"></a>  test.pred <span class="ot">=</span> knn.fit<span class="sc">$</span>fitted.values</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-134-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>We can evaluate the prediction error of this model:</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="k-neariest-neighber.html#cb108-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># prediction error</span></span>
-<span id="cb108-2"><a href="k-neariest-neighber.html#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>((test.pred <span class="sc">-</span> test.y)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb108-3"><a href="k-neariest-neighber.html#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2.097488</span></span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="k-neariest-neighber.html#cb109-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># prediction error</span></span>
+<span id="cb109-2"><a href="k-neariest-neighber.html#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>((test.pred <span class="sc">-</span> test.y)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb109-3"><a href="k-neariest-neighber.html#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2.097488</span></span></code></pre></div>
 <p>If we consider different values of <span class="math inline">\(k\)</span>, we can observe the trade-off between bias and variance.</p>
 <pre><code>## Prediction Error for K = 1 : 2.09748780881932
 ## Prediction Error for K = 5 : 1.39071867992277
@@ -551,83 +551,83 @@ where <span class="math inline">\(N_k(x_0)\)</span> defines the <span class="mat
 <div id="example-1-an-artificial-data" class="section level2 hasAnchor" number="9.5">
 <h2><span class="header-section-number">9.5</span> Example 1: An artificial data<a href="k-neariest-neighber.html#example-1-an-artificial-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We use artificial data from the <code>ElemStatLearn</code> package.</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="k-neariest-neighber.html#cb110-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ElemStatLearn)</span>
-<span id="cb110-2"><a href="k-neariest-neighber.html#cb110-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb110-3"><a href="k-neariest-neighber.html#cb110-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> mixture.example<span class="sc">$</span>x</span>
-<span id="cb110-4"><a href="k-neariest-neighber.html#cb110-4" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> mixture.example<span class="sc">$</span>y</span>
-<span id="cb110-5"><a href="k-neariest-neighber.html#cb110-5" aria-hidden="true" tabindex="-1"></a>  xnew <span class="ot">&lt;-</span> mixture.example<span class="sc">$</span>xnew</span>
-<span id="cb110-6"><a href="k-neariest-neighber.html#cb110-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb110-7"><a href="k-neariest-neighber.html#cb110-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">2</span>,<span class="dv">4</span>))</span>
-<span id="cb110-8"><a href="k-neariest-neighber.html#cb110-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x, <span class="at">col=</span><span class="fu">ifelse</span>(y<span class="sc">==</span><span class="dv">1</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>), </span>
-<span id="cb110-9"><a href="k-neariest-neighber.html#cb110-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span>
-<span id="cb110-10"><a href="k-neariest-neighber.html#cb110-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">box</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="k-neariest-neighber.html#cb111-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ElemStatLearn)</span>
+<span id="cb111-2"><a href="k-neariest-neighber.html#cb111-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb111-3"><a href="k-neariest-neighber.html#cb111-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> mixture.example<span class="sc">$</span>x</span>
+<span id="cb111-4"><a href="k-neariest-neighber.html#cb111-4" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> mixture.example<span class="sc">$</span>y</span>
+<span id="cb111-5"><a href="k-neariest-neighber.html#cb111-5" aria-hidden="true" tabindex="-1"></a>  xnew <span class="ot">&lt;-</span> mixture.example<span class="sc">$</span>xnew</span>
+<span id="cb111-6"><a href="k-neariest-neighber.html#cb111-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb111-7"><a href="k-neariest-neighber.html#cb111-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">2</span>,<span class="dv">4</span>))</span>
+<span id="cb111-8"><a href="k-neariest-neighber.html#cb111-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x, <span class="at">col=</span><span class="fu">ifelse</span>(y<span class="sc">==</span><span class="dv">1</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>), </span>
+<span id="cb111-9"><a href="k-neariest-neighber.html#cb111-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span>
+<span id="cb111-10"><a href="k-neariest-neighber.html#cb111-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">box</span>()</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-139-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>The decision boundary is highly nonlinear. We can utilize the <code>contour()</code> function to demonstrate the result.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="k-neariest-neighber.html#cb111-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># knn classification </span></span>
-<span id="cb111-2"><a href="k-neariest-neighber.html#cb111-2" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">=</span> <span class="dv">15</span></span>
-<span id="cb111-3"><a href="k-neariest-neighber.html#cb111-3" aria-hidden="true" tabindex="-1"></a>  knn.fit <span class="ot">&lt;-</span> <span class="fu">knn</span>(x, xnew, y, <span class="at">k=</span>k)</span>
-<span id="cb111-4"><a href="k-neariest-neighber.html#cb111-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb111-5"><a href="k-neariest-neighber.html#cb111-5" aria-hidden="true" tabindex="-1"></a>  px1 <span class="ot">&lt;-</span> mixture.example<span class="sc">$</span>px1</span>
-<span id="cb111-6"><a href="k-neariest-neighber.html#cb111-6" aria-hidden="true" tabindex="-1"></a>  px2 <span class="ot">&lt;-</span> mixture.example<span class="sc">$</span>px2</span>
-<span id="cb111-7"><a href="k-neariest-neighber.html#cb111-7" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">&lt;-</span> <span class="fu">matrix</span>(knn.fit <span class="sc">==</span> <span class="st">&quot;1&quot;</span>, <span class="fu">length</span>(px1), <span class="fu">length</span>(px2))</span>
-<span id="cb111-8"><a href="k-neariest-neighber.html#cb111-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb111-9"><a href="k-neariest-neighber.html#cb111-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">contour</span>(px1, px2, pred, <span class="at">levels=</span><span class="fl">0.5</span>, <span class="at">labels=</span><span class="st">&quot;&quot;</span>,<span class="at">axes=</span><span class="cn">FALSE</span>)</span>
-<span id="cb111-10"><a href="k-neariest-neighber.html#cb111-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">box</span>()</span>
-<span id="cb111-11"><a href="k-neariest-neighber.html#cb111-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">title</span>(<span class="fu">paste</span>(k, <span class="st">&quot;-Nearest Neighbor&quot;</span>, <span class="at">sep=</span> <span class="st">&quot;&quot;</span>))</span>
-<span id="cb111-12"><a href="k-neariest-neighber.html#cb111-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(x, <span class="at">col=</span><span class="fu">ifelse</span>(y<span class="sc">==</span><span class="dv">1</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>), <span class="at">pch =</span> <span class="dv">19</span>)</span>
-<span id="cb111-13"><a href="k-neariest-neighber.html#cb111-13" aria-hidden="true" tabindex="-1"></a>  mesh <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(px1, px2)</span>
-<span id="cb111-14"><a href="k-neariest-neighber.html#cb111-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(mesh, <span class="at">pch=</span><span class="st">&quot;.&quot;</span>, <span class="at">cex=</span><span class="fl">1.2</span>, <span class="at">col=</span><span class="fu">ifelse</span>(pred, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="k-neariest-neighber.html#cb112-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># knn classification </span></span>
+<span id="cb112-2"><a href="k-neariest-neighber.html#cb112-2" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">=</span> <span class="dv">15</span></span>
+<span id="cb112-3"><a href="k-neariest-neighber.html#cb112-3" aria-hidden="true" tabindex="-1"></a>  knn.fit <span class="ot">&lt;-</span> <span class="fu">knn</span>(x, xnew, y, <span class="at">k=</span>k)</span>
+<span id="cb112-4"><a href="k-neariest-neighber.html#cb112-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb112-5"><a href="k-neariest-neighber.html#cb112-5" aria-hidden="true" tabindex="-1"></a>  px1 <span class="ot">&lt;-</span> mixture.example<span class="sc">$</span>px1</span>
+<span id="cb112-6"><a href="k-neariest-neighber.html#cb112-6" aria-hidden="true" tabindex="-1"></a>  px2 <span class="ot">&lt;-</span> mixture.example<span class="sc">$</span>px2</span>
+<span id="cb112-7"><a href="k-neariest-neighber.html#cb112-7" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">&lt;-</span> <span class="fu">matrix</span>(knn.fit <span class="sc">==</span> <span class="st">&quot;1&quot;</span>, <span class="fu">length</span>(px1), <span class="fu">length</span>(px2))</span>
+<span id="cb112-8"><a href="k-neariest-neighber.html#cb112-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb112-9"><a href="k-neariest-neighber.html#cb112-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">contour</span>(px1, px2, pred, <span class="at">levels=</span><span class="fl">0.5</span>, <span class="at">labels=</span><span class="st">&quot;&quot;</span>,<span class="at">axes=</span><span class="cn">FALSE</span>)</span>
+<span id="cb112-10"><a href="k-neariest-neighber.html#cb112-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">box</span>()</span>
+<span id="cb112-11"><a href="k-neariest-neighber.html#cb112-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">title</span>(<span class="fu">paste</span>(k, <span class="st">&quot;-Nearest Neighbor&quot;</span>, <span class="at">sep=</span> <span class="st">&quot;&quot;</span>))</span>
+<span id="cb112-12"><a href="k-neariest-neighber.html#cb112-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(x, <span class="at">col=</span><span class="fu">ifelse</span>(y<span class="sc">==</span><span class="dv">1</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>), <span class="at">pch =</span> <span class="dv">19</span>)</span>
+<span id="cb112-13"><a href="k-neariest-neighber.html#cb112-13" aria-hidden="true" tabindex="-1"></a>  mesh <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(px1, px2)</span>
+<span id="cb112-14"><a href="k-neariest-neighber.html#cb112-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(mesh, <span class="at">pch=</span><span class="st">&quot;.&quot;</span>, <span class="at">cex=</span><span class="fl">1.2</span>, <span class="at">col=</span><span class="fu">ifelse</span>(pred, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>))</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-140-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>We can evaluate the in-sample prediction result of this model using a confusion matrix:</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="k-neariest-neighber.html#cb112-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the confusion matrix</span></span>
-<span id="cb112-2"><a href="k-neariest-neighber.html#cb112-2" aria-hidden="true" tabindex="-1"></a>  knn.fit <span class="ot">&lt;-</span> <span class="fu">knn</span>(x, x, y, <span class="at">k =</span> <span class="dv">15</span>)</span>
-<span id="cb112-3"><a href="k-neariest-neighber.html#cb112-3" aria-hidden="true" tabindex="-1"></a>  xtab <span class="ot">=</span> <span class="fu">table</span>(knn.fit, y)</span>
-<span id="cb112-4"><a href="k-neariest-neighber.html#cb112-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb112-5"><a href="k-neariest-neighber.html#cb112-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(caret)</span>
-<span id="cb112-6"><a href="k-neariest-neighber.html#cb112-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">confusionMatrix</span>(xtab)</span>
-<span id="cb112-7"><a href="k-neariest-neighber.html#cb112-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Confusion Matrix and Statistics</span></span>
-<span id="cb112-8"><a href="k-neariest-neighber.html#cb112-8" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb112-9"><a href="k-neariest-neighber.html#cb112-9" aria-hidden="true" tabindex="-1"></a><span class="do">##        y</span></span>
-<span id="cb112-10"><a href="k-neariest-neighber.html#cb112-10" aria-hidden="true" tabindex="-1"></a><span class="do">## knn.fit  0  1</span></span>
-<span id="cb112-11"><a href="k-neariest-neighber.html#cb112-11" aria-hidden="true" tabindex="-1"></a><span class="do">##       0 82 13</span></span>
-<span id="cb112-12"><a href="k-neariest-neighber.html#cb112-12" aria-hidden="true" tabindex="-1"></a><span class="do">##       1 18 87</span></span>
-<span id="cb112-13"><a href="k-neariest-neighber.html#cb112-13" aria-hidden="true" tabindex="-1"></a><span class="do">##                                           </span></span>
-<span id="cb112-14"><a href="k-neariest-neighber.html#cb112-14" aria-hidden="true" tabindex="-1"></a><span class="do">##                Accuracy : 0.845           </span></span>
-<span id="cb112-15"><a href="k-neariest-neighber.html#cb112-15" aria-hidden="true" tabindex="-1"></a><span class="do">##                  95% CI : (0.7873, 0.8922)</span></span>
-<span id="cb112-16"><a href="k-neariest-neighber.html#cb112-16" aria-hidden="true" tabindex="-1"></a><span class="do">##     No Information Rate : 0.5             </span></span>
-<span id="cb112-17"><a href="k-neariest-neighber.html#cb112-17" aria-hidden="true" tabindex="-1"></a><span class="do">##     P-Value [Acc &gt; NIR] : &lt;2e-16          </span></span>
-<span id="cb112-18"><a href="k-neariest-neighber.html#cb112-18" aria-hidden="true" tabindex="-1"></a><span class="do">##                                           </span></span>
-<span id="cb112-19"><a href="k-neariest-neighber.html#cb112-19" aria-hidden="true" tabindex="-1"></a><span class="do">##                   Kappa : 0.69            </span></span>
-<span id="cb112-20"><a href="k-neariest-neighber.html#cb112-20" aria-hidden="true" tabindex="-1"></a><span class="do">##                                           </span></span>
-<span id="cb112-21"><a href="k-neariest-neighber.html#cb112-21" aria-hidden="true" tabindex="-1"></a><span class="do">##  Mcnemar&#39;s Test P-Value : 0.4725          </span></span>
-<span id="cb112-22"><a href="k-neariest-neighber.html#cb112-22" aria-hidden="true" tabindex="-1"></a><span class="do">##                                           </span></span>
-<span id="cb112-23"><a href="k-neariest-neighber.html#cb112-23" aria-hidden="true" tabindex="-1"></a><span class="do">##             Sensitivity : 0.8200          </span></span>
-<span id="cb112-24"><a href="k-neariest-neighber.html#cb112-24" aria-hidden="true" tabindex="-1"></a><span class="do">##             Specificity : 0.8700          </span></span>
-<span id="cb112-25"><a href="k-neariest-neighber.html#cb112-25" aria-hidden="true" tabindex="-1"></a><span class="do">##          Pos Pred Value : 0.8632          </span></span>
-<span id="cb112-26"><a href="k-neariest-neighber.html#cb112-26" aria-hidden="true" tabindex="-1"></a><span class="do">##          Neg Pred Value : 0.8286          </span></span>
-<span id="cb112-27"><a href="k-neariest-neighber.html#cb112-27" aria-hidden="true" tabindex="-1"></a><span class="do">##              Prevalence : 0.5000          </span></span>
-<span id="cb112-28"><a href="k-neariest-neighber.html#cb112-28" aria-hidden="true" tabindex="-1"></a><span class="do">##          Detection Rate : 0.4100          </span></span>
-<span id="cb112-29"><a href="k-neariest-neighber.html#cb112-29" aria-hidden="true" tabindex="-1"></a><span class="do">##    Detection Prevalence : 0.4750          </span></span>
-<span id="cb112-30"><a href="k-neariest-neighber.html#cb112-30" aria-hidden="true" tabindex="-1"></a><span class="do">##       Balanced Accuracy : 0.8450          </span></span>
-<span id="cb112-31"><a href="k-neariest-neighber.html#cb112-31" aria-hidden="true" tabindex="-1"></a><span class="do">##                                           </span></span>
-<span id="cb112-32"><a href="k-neariest-neighber.html#cb112-32" aria-hidden="true" tabindex="-1"></a><span class="do">##        &#39;Positive&#39; Class : 0               </span></span>
-<span id="cb112-33"><a href="k-neariest-neighber.html#cb112-33" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="k-neariest-neighber.html#cb113-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the confusion matrix</span></span>
+<span id="cb113-2"><a href="k-neariest-neighber.html#cb113-2" aria-hidden="true" tabindex="-1"></a>  knn.fit <span class="ot">&lt;-</span> <span class="fu">knn</span>(x, x, y, <span class="at">k =</span> <span class="dv">15</span>)</span>
+<span id="cb113-3"><a href="k-neariest-neighber.html#cb113-3" aria-hidden="true" tabindex="-1"></a>  xtab <span class="ot">=</span> <span class="fu">table</span>(knn.fit, y)</span>
+<span id="cb113-4"><a href="k-neariest-neighber.html#cb113-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb113-5"><a href="k-neariest-neighber.html#cb113-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(caret)</span>
+<span id="cb113-6"><a href="k-neariest-neighber.html#cb113-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">confusionMatrix</span>(xtab)</span>
+<span id="cb113-7"><a href="k-neariest-neighber.html#cb113-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Confusion Matrix and Statistics</span></span>
+<span id="cb113-8"><a href="k-neariest-neighber.html#cb113-8" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb113-9"><a href="k-neariest-neighber.html#cb113-9" aria-hidden="true" tabindex="-1"></a><span class="do">##        y</span></span>
+<span id="cb113-10"><a href="k-neariest-neighber.html#cb113-10" aria-hidden="true" tabindex="-1"></a><span class="do">## knn.fit  0  1</span></span>
+<span id="cb113-11"><a href="k-neariest-neighber.html#cb113-11" aria-hidden="true" tabindex="-1"></a><span class="do">##       0 82 13</span></span>
+<span id="cb113-12"><a href="k-neariest-neighber.html#cb113-12" aria-hidden="true" tabindex="-1"></a><span class="do">##       1 18 87</span></span>
+<span id="cb113-13"><a href="k-neariest-neighber.html#cb113-13" aria-hidden="true" tabindex="-1"></a><span class="do">##                                           </span></span>
+<span id="cb113-14"><a href="k-neariest-neighber.html#cb113-14" aria-hidden="true" tabindex="-1"></a><span class="do">##                Accuracy : 0.845           </span></span>
+<span id="cb113-15"><a href="k-neariest-neighber.html#cb113-15" aria-hidden="true" tabindex="-1"></a><span class="do">##                  95% CI : (0.7873, 0.8922)</span></span>
+<span id="cb113-16"><a href="k-neariest-neighber.html#cb113-16" aria-hidden="true" tabindex="-1"></a><span class="do">##     No Information Rate : 0.5             </span></span>
+<span id="cb113-17"><a href="k-neariest-neighber.html#cb113-17" aria-hidden="true" tabindex="-1"></a><span class="do">##     P-Value [Acc &gt; NIR] : &lt;2e-16          </span></span>
+<span id="cb113-18"><a href="k-neariest-neighber.html#cb113-18" aria-hidden="true" tabindex="-1"></a><span class="do">##                                           </span></span>
+<span id="cb113-19"><a href="k-neariest-neighber.html#cb113-19" aria-hidden="true" tabindex="-1"></a><span class="do">##                   Kappa : 0.69            </span></span>
+<span id="cb113-20"><a href="k-neariest-neighber.html#cb113-20" aria-hidden="true" tabindex="-1"></a><span class="do">##                                           </span></span>
+<span id="cb113-21"><a href="k-neariest-neighber.html#cb113-21" aria-hidden="true" tabindex="-1"></a><span class="do">##  Mcnemar&#39;s Test P-Value : 0.4725          </span></span>
+<span id="cb113-22"><a href="k-neariest-neighber.html#cb113-22" aria-hidden="true" tabindex="-1"></a><span class="do">##                                           </span></span>
+<span id="cb113-23"><a href="k-neariest-neighber.html#cb113-23" aria-hidden="true" tabindex="-1"></a><span class="do">##             Sensitivity : 0.8200          </span></span>
+<span id="cb113-24"><a href="k-neariest-neighber.html#cb113-24" aria-hidden="true" tabindex="-1"></a><span class="do">##             Specificity : 0.8700          </span></span>
+<span id="cb113-25"><a href="k-neariest-neighber.html#cb113-25" aria-hidden="true" tabindex="-1"></a><span class="do">##          Pos Pred Value : 0.8632          </span></span>
+<span id="cb113-26"><a href="k-neariest-neighber.html#cb113-26" aria-hidden="true" tabindex="-1"></a><span class="do">##          Neg Pred Value : 0.8286          </span></span>
+<span id="cb113-27"><a href="k-neariest-neighber.html#cb113-27" aria-hidden="true" tabindex="-1"></a><span class="do">##              Prevalence : 0.5000          </span></span>
+<span id="cb113-28"><a href="k-neariest-neighber.html#cb113-28" aria-hidden="true" tabindex="-1"></a><span class="do">##          Detection Rate : 0.4100          </span></span>
+<span id="cb113-29"><a href="k-neariest-neighber.html#cb113-29" aria-hidden="true" tabindex="-1"></a><span class="do">##    Detection Prevalence : 0.4750          </span></span>
+<span id="cb113-30"><a href="k-neariest-neighber.html#cb113-30" aria-hidden="true" tabindex="-1"></a><span class="do">##       Balanced Accuracy : 0.8450          </span></span>
+<span id="cb113-31"><a href="k-neariest-neighber.html#cb113-31" aria-hidden="true" tabindex="-1"></a><span class="do">##                                           </span></span>
+<span id="cb113-32"><a href="k-neariest-neighber.html#cb113-32" aria-hidden="true" tabindex="-1"></a><span class="do">##        &#39;Positive&#39; Class : 0               </span></span>
+<span id="cb113-33"><a href="k-neariest-neighber.html#cb113-33" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span></code></pre></div>
 </div>
 <div id="tuning-with-the-caret-package" class="section level2 hasAnchor" number="9.6">
 <h2><span class="header-section-number">9.6</span> Tuning with the <code>caret</code> Package<a href="k-neariest-neighber.html#tuning-with-the-caret-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The <code>caret</code> package has some built-in feature that can tune some popular machine learning models using cross-validation. The cross-validation settings need to be specified using the <span class="math inline">\(trainControl()\)</span> function.</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="k-neariest-neighber.html#cb113-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(caret)</span>
-<span id="cb113-2"><a href="k-neariest-neighber.html#cb113-2" aria-hidden="true" tabindex="-1"></a>  control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;cv&quot;</span>, <span class="at">number =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="k-neariest-neighber.html#cb114-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(caret)</span>
+<span id="cb114-2"><a href="k-neariest-neighber.html#cb114-2" aria-hidden="true" tabindex="-1"></a>  control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">&quot;cv&quot;</span>, <span class="at">number =</span> <span class="dv">10</span>)</span></code></pre></div>
 <p>There are other cross-validation methods, such as <code>repeatedcv</code> the repeats the CV several times, and leave-one-out CV <code>LOOCV</code>. For more details, you can read the <a href="https://www.rdocumentation.org/packages/caret/versions/6.0-88/topics/trainControl">documentation</a>. We can then setup the training by specifying a grid of <span class="math inline">\(k\)</span> values, and also the CV setup. Make sure that you specify <code>method = "knn"</code> and also construct the outcome as a factor in a data frame.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="k-neariest-neighber.html#cb114-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb114-2"><a href="k-neariest-neighber.html#cb114-2" aria-hidden="true" tabindex="-1"></a>  knn.cvfit <span class="ot">&lt;-</span> <span class="fu">train</span>(y <span class="sc">~</span> ., <span class="at">method =</span> <span class="st">&quot;knn&quot;</span>, </span>
-<span id="cb114-3"><a href="k-neariest-neighber.html#cb114-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> <span class="fu">data.frame</span>(<span class="st">&quot;x&quot;</span> <span class="ot">=</span> x, <span class="st">&quot;y&quot;</span> <span class="ot">=</span> <span class="fu">as.factor</span>(y)),</span>
-<span id="cb114-4"><a href="k-neariest-neighber.html#cb114-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">tuneGrid =</span> <span class="fu">data.frame</span>(<span class="at">k =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">40</span>, <span class="dv">1</span>)),</span>
-<span id="cb114-5"><a href="k-neariest-neighber.html#cb114-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">trControl =</span> control)</span>
-<span id="cb114-6"><a href="k-neariest-neighber.html#cb114-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb114-7"><a href="k-neariest-neighber.html#cb114-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(knn.cvfit<span class="sc">$</span>results<span class="sc">$</span>k, <span class="dv">1</span><span class="sc">-</span>knn.cvfit<span class="sc">$</span>results<span class="sc">$</span>Accuracy,</span>
-<span id="cb114-8"><a href="k-neariest-neighber.html#cb114-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;K&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Classification Error&quot;</span>, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>,</span>
-<span id="cb114-9"><a href="k-neariest-neighber.html#cb114-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="k-neariest-neighber.html#cb115-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb115-2"><a href="k-neariest-neighber.html#cb115-2" aria-hidden="true" tabindex="-1"></a>  knn.cvfit <span class="ot">&lt;-</span> <span class="fu">train</span>(y <span class="sc">~</span> ., <span class="at">method =</span> <span class="st">&quot;knn&quot;</span>, </span>
+<span id="cb115-3"><a href="k-neariest-neighber.html#cb115-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> <span class="fu">data.frame</span>(<span class="st">&quot;x&quot;</span> <span class="ot">=</span> x, <span class="st">&quot;y&quot;</span> <span class="ot">=</span> <span class="fu">as.factor</span>(y)),</span>
+<span id="cb115-4"><a href="k-neariest-neighber.html#cb115-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">tuneGrid =</span> <span class="fu">data.frame</span>(<span class="at">k =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">40</span>, <span class="dv">1</span>)),</span>
+<span id="cb115-5"><a href="k-neariest-neighber.html#cb115-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">trControl =</span> control)</span>
+<span id="cb115-6"><a href="k-neariest-neighber.html#cb115-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb115-7"><a href="k-neariest-neighber.html#cb115-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(knn.cvfit<span class="sc">$</span>results<span class="sc">$</span>k, <span class="dv">1</span><span class="sc">-</span>knn.cvfit<span class="sc">$</span>results<span class="sc">$</span>Accuracy,</span>
+<span id="cb115-8"><a href="k-neariest-neighber.html#cb115-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;K&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Classification Error&quot;</span>, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>,</span>
+<span id="cb115-9"><a href="k-neariest-neighber.html#cb115-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-144-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>Print out the fitted object, we can see that the best <span class="math inline">\(k\)</span> is 6. And there is a clear “U” shaped pattern that shows the potential bias-variance trade-off.</p>
 </div>
@@ -640,13 +640,15 @@ However, this measure is not scale invariant. A variable with large scale can do
 where <span class="math inline">\(\sigma_j^2\)</span> can be estimated using the sample variance of variable <span class="math inline">\(j\)</span>. Another choice that further taking the covariance structure into consideration is the <strong>Mahalanobis distance</strong>:</p>
 <p><span class="math display">\[d^2(\mathbf{u}, \mathbf{v}) = (\mathbf{u}- \mathbf{v})^\text{T}\Sigma^{-1} (\mathbf{u}- \mathbf{v}),\]</span>
 where <span class="math inline">\(\Sigma\)</span> is the covariance matrix, and can be estimated using the sample covariance. In the following plot, the red cross and orange cross have the same Euclidean distance to the center. However, the red cross is more of a “outlier” based on the joint distribution. The Mahalanobis distance would reflect this.</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="k-neariest-neighber.html#cb115-1" aria-hidden="true" tabindex="-1"></a>  x<span class="ot">=</span><span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb115-2"><a href="k-neariest-neighber.html#cb115-2" aria-hidden="true" tabindex="-1"></a>  y<span class="ot">=</span><span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.3</span><span class="sc">*</span>x <span class="sc">+</span> <span class="fl">0.3</span><span class="sc">*</span><span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb115-3"><a href="k-neariest-neighber.html#cb115-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-4"><a href="k-neariest-neighber.html#cb115-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(car)</span>
-<span id="cb115-5"><a href="k-neariest-neighber.html#cb115-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataEllipse</span>(x, y, <span class="at">levels=</span><span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.9</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>), <span class="at">pch =</span> <span class="dv">19</span>)</span>
-<span id="cb115-6"><a href="k-neariest-neighber.html#cb115-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(<span class="dv">1</span>, <span class="fl">0.5</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">4</span>, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span>
-<span id="cb115-7"><a href="k-neariest-neighber.html#cb115-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(<span class="dv">1</span>, <span class="fl">1.5</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="at">pch =</span> <span class="dv">4</span>, <span class="at">cex =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="k-neariest-neighber.html#cb116-1" aria-hidden="true" tabindex="-1"></a>  x<span class="ot">=</span><span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb116-2"><a href="k-neariest-neighber.html#cb116-2" aria-hidden="true" tabindex="-1"></a>  y<span class="ot">=</span><span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.3</span><span class="sc">*</span>x <span class="sc">+</span> <span class="fl">0.3</span><span class="sc">*</span><span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb116-3"><a href="k-neariest-neighber.html#cb116-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-4"><a href="k-neariest-neighber.html#cb116-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(car)</span>
+<span id="cb116-5"><a href="k-neariest-neighber.html#cb116-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: package &#39;car&#39; was built under R version 4.2.2</span></span>
+<span id="cb116-6"><a href="k-neariest-neighber.html#cb116-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: package &#39;carData&#39; was built under R version 4.2.2</span></span>
+<span id="cb116-7"><a href="k-neariest-neighber.html#cb116-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataEllipse</span>(x, y, <span class="at">levels=</span><span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.9</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>), <span class="at">pch =</span> <span class="dv">19</span>)</span>
+<span id="cb116-8"><a href="k-neariest-neighber.html#cb116-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(<span class="dv">1</span>, <span class="fl">0.5</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">4</span>, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span>
+<span id="cb116-9"><a href="k-neariest-neighber.html#cb116-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(<span class="dv">1</span>, <span class="fl">1.5</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="at">pch =</span> <span class="dv">4</span>, <span class="at">cex =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-145-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>For categorical variables, the Hamming distance is commonly used:</p>
 <p><span class="math display">\[d(\mathbf{u}, \mathbf{v}) = \sum_{j=1}^p I(u_j \neq v_j).\]</span>
@@ -667,41 +669,41 @@ It simply counts how many entries are not the same.</p>
 <div id="example-2-handwritten-digit-data" class="section level2 hasAnchor" number="9.9">
 <h2><span class="header-section-number">9.9</span> Example 2: Handwritten Digit Data<a href="k-neariest-neighber.html#example-2-handwritten-digit-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s consider another example using the handwritten digit data. Each observation in this data is a <span class="math inline">\(16 \times 16\)</span> pixel image. Hence, the total number of variables is <span class="math inline">\(256\)</span>. At each pixel, we have the gray scale as the numerical value.</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="k-neariest-neighber.html#cb116-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Handwritten Digit Recognition Data</span></span>
-<span id="cb116-2"><a href="k-neariest-neighber.html#cb116-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ElemStatLearn)</span>
-<span id="cb116-3"><a href="k-neariest-neighber.html#cb116-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the first column is the true digit</span></span>
-<span id="cb116-4"><a href="k-neariest-neighber.html#cb116-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dim</span>(zip.train)</span>
-<span id="cb116-5"><a href="k-neariest-neighber.html#cb116-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 7291  257</span></span>
-<span id="cb116-6"><a href="k-neariest-neighber.html#cb116-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dim</span>(zip.test)</span>
-<span id="cb116-7"><a href="k-neariest-neighber.html#cb116-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2007  257</span></span>
-<span id="cb116-8"><a href="k-neariest-neighber.html#cb116-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb116-9"><a href="k-neariest-neighber.html#cb116-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># look at one sample</span></span>
-<span id="cb116-10"><a href="k-neariest-neighber.html#cb116-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">image</span>(<span class="fu">zip2image</span>(zip.train, <span class="dv">1</span>), <span class="at">col=</span><span class="fu">gray</span>(<span class="dv">256</span><span class="sc">:</span><span class="dv">0</span><span class="sc">/</span><span class="dv">256</span>), <span class="at">zlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), </span>
-<span id="cb116-11"><a href="k-neariest-neighber.html#cb116-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab=</span><span class="st">&quot;&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;&quot;</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb116-12"><a href="k-neariest-neighber.html#cb116-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;digit  6  taken&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="k-neariest-neighber.html#cb117-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Handwritten Digit Recognition Data</span></span>
+<span id="cb117-2"><a href="k-neariest-neighber.html#cb117-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ElemStatLearn)</span>
+<span id="cb117-3"><a href="k-neariest-neighber.html#cb117-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the first column is the true digit</span></span>
+<span id="cb117-4"><a href="k-neariest-neighber.html#cb117-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dim</span>(zip.train)</span>
+<span id="cb117-5"><a href="k-neariest-neighber.html#cb117-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 7291  257</span></span>
+<span id="cb117-6"><a href="k-neariest-neighber.html#cb117-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dim</span>(zip.test)</span>
+<span id="cb117-7"><a href="k-neariest-neighber.html#cb117-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2007  257</span></span>
+<span id="cb117-8"><a href="k-neariest-neighber.html#cb117-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb117-9"><a href="k-neariest-neighber.html#cb117-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># look at one sample</span></span>
+<span id="cb117-10"><a href="k-neariest-neighber.html#cb117-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">image</span>(<span class="fu">zip2image</span>(zip.train, <span class="dv">1</span>), <span class="at">col=</span><span class="fu">gray</span>(<span class="dv">256</span><span class="sc">:</span><span class="dv">0</span><span class="sc">/</span><span class="dv">256</span>), <span class="at">zlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), </span>
+<span id="cb117-11"><a href="k-neariest-neighber.html#cb117-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab=</span><span class="st">&quot;&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;&quot;</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb117-12"><a href="k-neariest-neighber.html#cb117-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;digit  6  taken&quot;</span></span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-146-1.png" width="20%" style="display: block; margin: auto;" /></p>
 <p>We use 3NN to predict all samples in the testing data. The model is fairly accurate.</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="k-neariest-neighber.html#cb117-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># fit 3nn model and calculate the error</span></span>
-<span id="cb117-2"><a href="k-neariest-neighber.html#cb117-2" aria-hidden="true" tabindex="-1"></a>  knn.fit <span class="ot">&lt;-</span> <span class="fu">knn</span>(zip.train[, <span class="dv">2</span><span class="sc">:</span><span class="dv">257</span>], zip.test[, <span class="dv">2</span><span class="sc">:</span><span class="dv">257</span>], zip.train[, <span class="dv">1</span>], <span class="at">k=</span><span class="dv">3</span>)</span>
-<span id="cb117-3"><a href="k-neariest-neighber.html#cb117-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb117-4"><a href="k-neariest-neighber.html#cb117-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># overall prediction error</span></span>
-<span id="cb117-5"><a href="k-neariest-neighber.html#cb117-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(knn.fit <span class="sc">!=</span> zip.test[,<span class="dv">1</span>])</span>
-<span id="cb117-6"><a href="k-neariest-neighber.html#cb117-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.05430992</span></span>
-<span id="cb117-7"><a href="k-neariest-neighber.html#cb117-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb117-8"><a href="k-neariest-neighber.html#cb117-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the confusion matrix</span></span>
-<span id="cb117-9"><a href="k-neariest-neighber.html#cb117-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">table</span>(knn.fit, zip.test[,<span class="dv">1</span>])</span>
-<span id="cb117-10"><a href="k-neariest-neighber.html#cb117-10" aria-hidden="true" tabindex="-1"></a><span class="do">##        </span></span>
-<span id="cb117-11"><a href="k-neariest-neighber.html#cb117-11" aria-hidden="true" tabindex="-1"></a><span class="do">## knn.fit   0   1   2   3   4   5   6   7   8   9</span></span>
-<span id="cb117-12"><a href="k-neariest-neighber.html#cb117-12" aria-hidden="true" tabindex="-1"></a><span class="do">##       0 355   0   6   1   0   3   3   0   4   2</span></span>
-<span id="cb117-13"><a href="k-neariest-neighber.html#cb117-13" aria-hidden="true" tabindex="-1"></a><span class="do">##       1   0 258   0   0   2   0   0   1   0   0</span></span>
-<span id="cb117-14"><a href="k-neariest-neighber.html#cb117-14" aria-hidden="true" tabindex="-1"></a><span class="do">##       2   1   0 182   2   0   2   1   1   2   0</span></span>
-<span id="cb117-15"><a href="k-neariest-neighber.html#cb117-15" aria-hidden="true" tabindex="-1"></a><span class="do">##       3   0   0   1 153   0   4   0   1   5   0</span></span>
-<span id="cb117-16"><a href="k-neariest-neighber.html#cb117-16" aria-hidden="true" tabindex="-1"></a><span class="do">##       4   0   3   1   0 183   0   2   4   0   3</span></span>
-<span id="cb117-17"><a href="k-neariest-neighber.html#cb117-17" aria-hidden="true" tabindex="-1"></a><span class="do">##       5   0   0   0   7   2 146   0   0   1   0</span></span>
-<span id="cb117-18"><a href="k-neariest-neighber.html#cb117-18" aria-hidden="true" tabindex="-1"></a><span class="do">##       6   0   2   2   0   2   0 164   0   0   0</span></span>
-<span id="cb117-19"><a href="k-neariest-neighber.html#cb117-19" aria-hidden="true" tabindex="-1"></a><span class="do">##       7   2   1   2   1   2   0   0 138   1   4</span></span>
-<span id="cb117-20"><a href="k-neariest-neighber.html#cb117-20" aria-hidden="true" tabindex="-1"></a><span class="do">##       8   0   0   4   0   1   1   0   1 151   0</span></span>
-<span id="cb117-21"><a href="k-neariest-neighber.html#cb117-21" aria-hidden="true" tabindex="-1"></a><span class="do">##       9   1   0   0   2   8   4   0   1   2 168</span></span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="k-neariest-neighber.html#cb118-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># fit 3nn model and calculate the error</span></span>
+<span id="cb118-2"><a href="k-neariest-neighber.html#cb118-2" aria-hidden="true" tabindex="-1"></a>  knn.fit <span class="ot">&lt;-</span> <span class="fu">knn</span>(zip.train[, <span class="dv">2</span><span class="sc">:</span><span class="dv">257</span>], zip.test[, <span class="dv">2</span><span class="sc">:</span><span class="dv">257</span>], zip.train[, <span class="dv">1</span>], <span class="at">k=</span><span class="dv">3</span>)</span>
+<span id="cb118-3"><a href="k-neariest-neighber.html#cb118-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb118-4"><a href="k-neariest-neighber.html#cb118-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># overall prediction error</span></span>
+<span id="cb118-5"><a href="k-neariest-neighber.html#cb118-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(knn.fit <span class="sc">!=</span> zip.test[,<span class="dv">1</span>])</span>
+<span id="cb118-6"><a href="k-neariest-neighber.html#cb118-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.05430992</span></span>
+<span id="cb118-7"><a href="k-neariest-neighber.html#cb118-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb118-8"><a href="k-neariest-neighber.html#cb118-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the confusion matrix</span></span>
+<span id="cb118-9"><a href="k-neariest-neighber.html#cb118-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">table</span>(knn.fit, zip.test[,<span class="dv">1</span>])</span>
+<span id="cb118-10"><a href="k-neariest-neighber.html#cb118-10" aria-hidden="true" tabindex="-1"></a><span class="do">##        </span></span>
+<span id="cb118-11"><a href="k-neariest-neighber.html#cb118-11" aria-hidden="true" tabindex="-1"></a><span class="do">## knn.fit   0   1   2   3   4   5   6   7   8   9</span></span>
+<span id="cb118-12"><a href="k-neariest-neighber.html#cb118-12" aria-hidden="true" tabindex="-1"></a><span class="do">##       0 355   0   6   1   0   3   3   0   4   2</span></span>
+<span id="cb118-13"><a href="k-neariest-neighber.html#cb118-13" aria-hidden="true" tabindex="-1"></a><span class="do">##       1   0 258   0   0   2   0   0   1   0   0</span></span>
+<span id="cb118-14"><a href="k-neariest-neighber.html#cb118-14" aria-hidden="true" tabindex="-1"></a><span class="do">##       2   1   0 182   2   0   2   1   1   2   0</span></span>
+<span id="cb118-15"><a href="k-neariest-neighber.html#cb118-15" aria-hidden="true" tabindex="-1"></a><span class="do">##       3   0   0   1 153   0   4   0   1   5   0</span></span>
+<span id="cb118-16"><a href="k-neariest-neighber.html#cb118-16" aria-hidden="true" tabindex="-1"></a><span class="do">##       4   0   3   1   0 183   0   2   4   0   3</span></span>
+<span id="cb118-17"><a href="k-neariest-neighber.html#cb118-17" aria-hidden="true" tabindex="-1"></a><span class="do">##       5   0   0   0   7   2 146   0   0   1   0</span></span>
+<span id="cb118-18"><a href="k-neariest-neighber.html#cb118-18" aria-hidden="true" tabindex="-1"></a><span class="do">##       6   0   2   2   0   2   0 164   0   0   0</span></span>
+<span id="cb118-19"><a href="k-neariest-neighber.html#cb118-19" aria-hidden="true" tabindex="-1"></a><span class="do">##       7   2   1   2   1   2   0   0 138   1   4</span></span>
+<span id="cb118-20"><a href="k-neariest-neighber.html#cb118-20" aria-hidden="true" tabindex="-1"></a><span class="do">##       8   0   0   4   0   1   1   0   1 151   0</span></span>
+<span id="cb118-21"><a href="k-neariest-neighber.html#cb118-21" aria-hidden="true" tabindex="-1"></a><span class="do">##       9   1   0   0   2   8   4   0   1   2 168</span></span></code></pre></div>
 </div>
 <div id="curse-of-dimensionality" class="section level2 hasAnchor" number="9.10">
 <h2><span class="header-section-number">9.10</span> Curse of Dimensionality<a href="k-neariest-neighber.html#curse-of-dimensionality" class="anchor-section" aria-label="Anchor link to header"></a></h2>

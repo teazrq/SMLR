@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 22 Self-Organizing Map | Statistical Learning and Machine Learning with R</title>
   <meta name="description" content="A textbook for STAT 542 and 432 at UIUC" />
-  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 22 Self-Organizing Map | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2022-08-17" />
+<meta name="date" content="2022-11-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,20 +54,20 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.24/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.26/datatables.js"></script>
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
 <link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
 <script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
 <link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
 <script src="libs/selectize-0.12.0/selectize.min.js"></script>
 <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -481,44 +481,45 @@ div.csl-indent {
 </ul>
 <p>After each iteration (updating with one more observation), we will decrease the value of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(r\)</span>. In the <code>kohonen</code> package, the <span class="math inline">\(\alpha\)</span> starts at 0.05, and gradually decreases to 0.01, while <span class="math inline">\(r\)</span> is chosen to be 2/3 of all cluster means at the first iteration.</p>
 <p>Using the <code>kohonen</code> package, we perform a SOM on the Handwritten Digit Recognition Data. The heatmap shows how each <span class="math inline">\(w_{ij}\)</span> is away from it’s neighboring <span class="math inline">\(w_{ij}\)</span>’s. The extreme bright one means that the center is quite isolated by itself.</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="self-organizing-map.html#cb204-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(kohonen)</span>
-<span id="cb204-2"><a href="self-organizing-map.html#cb204-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb204-3"><a href="self-organizing-map.html#cb204-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Attaching package: &#39;kohonen&#39;</span></span>
-<span id="cb204-4"><a href="self-organizing-map.html#cb204-4" aria-hidden="true" tabindex="-1"></a><span class="do">## The following object is masked from &#39;package:class&#39;:</span></span>
-<span id="cb204-5"><a href="self-organizing-map.html#cb204-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb204-6"><a href="self-organizing-map.html#cb204-6" aria-hidden="true" tabindex="-1"></a><span class="do">##     somgrid</span></span>
-<span id="cb204-7"><a href="self-organizing-map.html#cb204-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb204-8"><a href="self-organizing-map.html#cb204-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Handwritten Digit Recognition Data</span></span>
-<span id="cb204-9"><a href="self-organizing-map.html#cb204-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ElemStatLearn)</span>
-<span id="cb204-10"><a href="self-organizing-map.html#cb204-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb204-11"><a href="self-organizing-map.html#cb204-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the first column is the true digit</span></span>
-<span id="cb204-12"><a href="self-organizing-map.html#cb204-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dim</span>(zip.train)</span>
-<span id="cb204-13"><a href="self-organizing-map.html#cb204-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 7291  257</span></span>
-<span id="cb204-14"><a href="self-organizing-map.html#cb204-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb204-15"><a href="self-organizing-map.html#cb204-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for speed concern, I only use a few variables (pixels)</span></span>
-<span id="cb204-16"><a href="self-organizing-map.html#cb204-16" aria-hidden="true" tabindex="-1"></a>  zip.SOM <span class="ot">&lt;-</span> <span class="fu">som</span>(zip.train[, <span class="fu">seq</span>(<span class="dv">2</span>, <span class="dv">257</span>, <span class="at">length.out =</span> <span class="dv">10</span>)], </span>
-<span id="cb204-17"><a href="self-organizing-map.html#cb204-17" aria-hidden="true" tabindex="-1"></a>                 <span class="at">grid =</span> <span class="fu">somgrid</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="st">&quot;rectangular&quot;</span>))</span>
-<span id="cb204-18"><a href="self-organizing-map.html#cb204-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(zip.SOM, <span class="at">type =</span> <span class="st">&quot;dist.neighbours&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="self-organizing-map.html#cb205-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(kohonen)</span>
+<span id="cb205-2"><a href="self-organizing-map.html#cb205-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: package &#39;kohonen&#39; was built under R version 4.2.2</span></span>
+<span id="cb205-3"><a href="self-organizing-map.html#cb205-3" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb205-4"><a href="self-organizing-map.html#cb205-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Attaching package: &#39;kohonen&#39;</span></span>
+<span id="cb205-5"><a href="self-organizing-map.html#cb205-5" aria-hidden="true" tabindex="-1"></a><span class="do">## The following object is masked from &#39;package:class&#39;:</span></span>
+<span id="cb205-6"><a href="self-organizing-map.html#cb205-6" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb205-7"><a href="self-organizing-map.html#cb205-7" aria-hidden="true" tabindex="-1"></a><span class="do">##     somgrid</span></span>
+<span id="cb205-8"><a href="self-organizing-map.html#cb205-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb205-9"><a href="self-organizing-map.html#cb205-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Handwritten Digit Recognition Data</span></span>
+<span id="cb205-10"><a href="self-organizing-map.html#cb205-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ElemStatLearn)</span>
+<span id="cb205-11"><a href="self-organizing-map.html#cb205-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb205-12"><a href="self-organizing-map.html#cb205-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the first column is the true digit</span></span>
+<span id="cb205-13"><a href="self-organizing-map.html#cb205-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dim</span>(zip.train)</span>
+<span id="cb205-14"><a href="self-organizing-map.html#cb205-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 7291  257</span></span>
+<span id="cb205-15"><a href="self-organizing-map.html#cb205-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb205-16"><a href="self-organizing-map.html#cb205-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># for speed concern, I only use a few variables (pixels)</span></span>
+<span id="cb205-17"><a href="self-organizing-map.html#cb205-17" aria-hidden="true" tabindex="-1"></a>  zip.SOM <span class="ot">&lt;-</span> <span class="fu">som</span>(zip.train[, <span class="fu">seq</span>(<span class="dv">2</span>, <span class="dv">257</span>, <span class="at">length.out =</span> <span class="dv">10</span>)], </span>
+<span id="cb205-18"><a href="self-organizing-map.html#cb205-18" aria-hidden="true" tabindex="-1"></a>                 <span class="at">grid =</span> <span class="fu">somgrid</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="st">&quot;rectangular&quot;</span>))</span>
+<span id="cb205-19"><a href="self-organizing-map.html#cb205-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(zip.SOM, <span class="at">type =</span> <span class="st">&quot;dist.neighbours&quot;</span>)</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-301-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="self-organizing-map.html#cb205-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(zip.SOM, <span class="at">type =</span> <span class="st">&quot;mapping&quot;</span>, <span class="at">pchs =</span> <span class="dv">20</span>, </span>
-<span id="cb205-2"><a href="self-organizing-map.html#cb205-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">&quot;Mapping Type SOM&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="self-organizing-map.html#cb206-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(zip.SOM, <span class="at">type =</span> <span class="st">&quot;mapping&quot;</span>, <span class="at">pchs =</span> <span class="dv">20</span>, </span>
+<span id="cb206-2"><a href="self-organizing-map.html#cb206-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">&quot;Mapping Type SOM&quot;</span>)</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-301-2.png" width="45%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="self-organizing-map.html#cb206-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot(zip.SOM, main = &quot;Default SOM Plot&quot;)</span></span>
-<span id="cb206-2"><a href="self-organizing-map.html#cb206-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb206-3"><a href="self-organizing-map.html#cb206-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># you can try using all the pixels</span></span>
-<span id="cb206-4"><a href="self-organizing-map.html#cb206-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># zip.SOM &lt;- som(zip.train[, 2:257], </span></span>
-<span id="cb206-5"><a href="self-organizing-map.html#cb206-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#            grid = somgrid(10, 10, &quot;rectangular&quot;))</span></span>
-<span id="cb206-6"><a href="self-organizing-map.html#cb206-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot(zip.SOM, type = &quot;dist.neighbours&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="self-organizing-map.html#cb207-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot(zip.SOM, main = &quot;Default SOM Plot&quot;)</span></span>
+<span id="cb207-2"><a href="self-organizing-map.html#cb207-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb207-3"><a href="self-organizing-map.html#cb207-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># you can try using all the pixels</span></span>
+<span id="cb207-4"><a href="self-organizing-map.html#cb207-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># zip.SOM &lt;- som(zip.train[, 2:257], </span></span>
+<span id="cb207-5"><a href="self-organizing-map.html#cb207-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#            grid = somgrid(10, 10, &quot;rectangular&quot;))</span></span>
+<span id="cb207-6"><a href="self-organizing-map.html#cb207-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot(zip.SOM, type = &quot;dist.neighbours&quot;)</span></span></code></pre></div>
 <p>We could also look at the class labels (digits) coming out of the SOM. Particularly the plot on the right-hand side shows the proportion of subjects with each label for the subjects in each cluster (using a pie chart).</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="self-organizing-map.html#cb207-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb207-2"><a href="self-organizing-map.html#cb207-2" aria-hidden="true" tabindex="-1"></a>    zip.SOM2 <span class="ot">&lt;-</span> <span class="fu">xyf</span>(zip.train[, <span class="fu">seq</span>(<span class="dv">2</span>, <span class="dv">257</span>, <span class="at">length.out =</span> <span class="dv">10</span>)], </span>
-<span id="cb207-3"><a href="self-organizing-map.html#cb207-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">classvec2classmat</span>(zip.train[, <span class="dv">1</span>]),</span>
-<span id="cb207-4"><a href="self-organizing-map.html#cb207-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">grid =</span> <span class="fu">somgrid</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="st">&quot;hexagonal&quot;</span>), <span class="at">rlen =</span> <span class="dv">300</span>)</span>
-<span id="cb207-5"><a href="self-organizing-map.html#cb207-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb207-6"><a href="self-organizing-map.html#cb207-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(zip.SOM2, <span class="at">type =</span> <span class="st">&quot;codes&quot;</span>, <span class="at">main =</span> <span class="fu">c</span>(<span class="st">&quot;Codes X&quot;</span>, <span class="st">&quot;Codes Y&quot;</span>))</span>
-<span id="cb207-7"><a href="self-organizing-map.html#cb207-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in par(opar): argument 1 does not name a graphical parameter</span></span>
-<span id="cb207-8"><a href="self-organizing-map.html#cb207-8" aria-hidden="true" tabindex="-1"></a>    zip.SOM2.hc <span class="ot">&lt;-</span> <span class="fu">cutree</span>(<span class="fu">hclust</span>(<span class="fu">dist</span>(zip.SOM2<span class="sc">$</span>codes[[<span class="dv">2</span>]])), <span class="dv">10</span>)</span>
-<span id="cb207-9"><a href="self-organizing-map.html#cb207-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add.cluster.boundaries</span>(zip.SOM2, zip.SOM2.hc)</span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="self-organizing-map.html#cb208-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb208-2"><a href="self-organizing-map.html#cb208-2" aria-hidden="true" tabindex="-1"></a>    zip.SOM2 <span class="ot">&lt;-</span> <span class="fu">xyf</span>(zip.train[, <span class="fu">seq</span>(<span class="dv">2</span>, <span class="dv">257</span>, <span class="at">length.out =</span> <span class="dv">10</span>)], </span>
+<span id="cb208-3"><a href="self-organizing-map.html#cb208-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">classvec2classmat</span>(zip.train[, <span class="dv">1</span>]),</span>
+<span id="cb208-4"><a href="self-organizing-map.html#cb208-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">grid =</span> <span class="fu">somgrid</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="st">&quot;hexagonal&quot;</span>), <span class="at">rlen =</span> <span class="dv">300</span>)</span>
+<span id="cb208-5"><a href="self-organizing-map.html#cb208-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb208-6"><a href="self-organizing-map.html#cb208-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(zip.SOM2, <span class="at">type =</span> <span class="st">&quot;codes&quot;</span>, <span class="at">main =</span> <span class="fu">c</span>(<span class="st">&quot;Codes X&quot;</span>, <span class="st">&quot;Codes Y&quot;</span>))</span>
+<span id="cb208-7"><a href="self-organizing-map.html#cb208-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in par(opar): argument 1 does not name a graphical parameter</span></span>
+<span id="cb208-8"><a href="self-organizing-map.html#cb208-8" aria-hidden="true" tabindex="-1"></a>    zip.SOM2.hc <span class="ot">&lt;-</span> <span class="fu">cutree</span>(<span class="fu">hclust</span>(<span class="fu">dist</span>(zip.SOM2<span class="sc">$</span>codes[[<span class="dv">2</span>]])), <span class="dv">10</span>)</span>
+<span id="cb208-9"><a href="self-organizing-map.html#cb208-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add.cluster.boundaries</span>(zip.SOM2, zip.SOM2.hc)</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-302-1.png" width="45%" style="display: block; margin: auto;" /></p>
 
 </div>
