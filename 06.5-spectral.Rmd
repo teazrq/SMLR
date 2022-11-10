@@ -83,7 +83,7 @@ We use the adjacency matrix defined as $$w_{ij} = \exp\bigg\{\frac{- \lVert x_i 
   f = eigen(L, symmetric = TRUE)
   
   # plot the eigen-values 
-  # we need the smallest ones
+  # we need the samll ones, but notice that the smallest one should be exactly zero
   plot(rev(f$values)[1:20], pch = 19, ylab = "eigen-values", 
        col = c(rep("red", 4), rep("blue", 196)))
   
@@ -93,6 +93,8 @@ We use the adjacency matrix defined as $$w_{ij} = \exp\bigg\{\frac{- \lVert x_i 
   par(mfrow=c(1,4))
 ```
   
+These are the feature embedding we obtained. But the eigen-value associated with the smallest one will not be used. 
+
 ```{r fig.dim = c(14, 4), out.width = '95%'}
   # plot the last four eigen-vectors
   plot(f$vectors[, 200], type = "l", ylab = "eigen-values", ylim = c(-0.15, 0.15))
@@ -151,14 +153,14 @@ $$\mathbf{L}_\text{sym} = \mathbf{I} - \mathbf{D^{-1/2} \mathbf{W} D^{-1/2}}$$
   plot(f$vectors[, 197], type = "l", ylab = "eigen-values", ylim = c(-0.15, 0.15))
 ```
 
-We can then perform k-means clustering using the top eigen-vectors as the features.
+We can then perform $k$-means clustering using the top eigen-vectors (except the smallest one) as the features.
 
 ```{r echo = FALSE}
   par(mfrow=c(1,1))
 ```
 
 ```{r fig.dim = c(14, 4), out.width = '95%'}
-  cl = kmeans(f$vectors[, 197:200], centers = 4, nstart = 100)
+  cl = kmeans(f$vectors[, 197:199], centers = 4, nstart = 100)
   plot(x, cl$cluster, ylab = "Cluster", col = cl$cluster, pch = 3)
 ```
 
