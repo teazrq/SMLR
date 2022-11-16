@@ -5,7 +5,6 @@
 \def\cH{{\cal H}}
 \def\bA{\mathbf{A}}
 \def\bB{\mathbf{B}}
-\def\bF{\mathbf{F}}
 \def\bX{\mathbf{X}}
 \def\bH{\mathbf{H}}
 \def\bI{\mathbf{I}}
@@ -39,8 +38,8 @@
 \def\E{\text{E}}
 \def\pr{\text{pr}}
 \def\Prob{\text{P}}
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\argmax}{arg\,max}
+\def\argmin{\arg\min}
+\def\argmax{\arg\max}
 \usepackage{amsmath}
 
 ```{r include = FALSE}

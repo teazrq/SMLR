@@ -55,7 +55,7 @@ This book currently covers the following topics:
       * Support vector machine
       * Kernel ridge regression
       * Tree models
-      * Random forest
+      * Random forests
       * Boosting
   6. Unsupervised Learning
       * K-means
@@ -63,6 +63,7 @@ This book currently covers the following topics:
       * PCA
       * self-organizing map
       * Spectral clustering
+      * UMAP
 
 The goal of this book is to introduce not only how to run some of the popular statistical learning models in `R`, know the algorithms and programming techniques for solving these models and also understand some of the fundamental statistical theory behind them. For example, for graduate students, these topics will be discuss in more detail:
 

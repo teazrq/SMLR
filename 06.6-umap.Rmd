@@ -1,0 +1,132 @@
+\def\cD{{\cal D}}
+\def\cL{{\cal L}}
+\def\cX{{\cal X}}
+\def\cF{{\cal F}}
+\def\cH{{\cal H}}
+\def\bA{\mathbf{A}}
+\def\bB{\mathbf{B}}
+\def\bX{\mathbf{X}}
+\def\bH{\mathbf{H}}
+\def\bI{\mathbf{I}}
+\def\bU{\mathbf{U}}
+\def\bD{\mathbf{D}}
+\def\bV{\mathbf{V}}
+\def\bS{\mathbf{S}}
+\def\bW{\mathbf{W}}
+\def\bK{\mathbf{K}}
+\def\bx{\mathbf{x}}
+\def\by{\mathbf{y}}
+\def\bs{\mathbf{s}}
+\def\br{\mathbf{r}}
+\def\bu{\mathbf{u}}
+\def\be{\mathbf{e}}
+\def\bv{\mathbf{v}}
+\def\bp{\mathbf{p}}
+\def\bw{\mathbf{w}}
+\def\bz{\mathbf{z}}
+\def\bzero{\mathbf{0}}
+\def\balpha{\boldsymbol \alpha}
+\def\bbeta{\boldsymbol \beta}
+\def\btheta{\boldsymbol \theta}
+\def\bxi{\boldsymbol \xi}
+\def\bmu{\boldsymbol \mu}
+\def\bepsilon{\boldsymbol \epsilon}
+\def\T{\text{T}}
+\def\Trace{\text{Trace}}
+\def\Cov{\text{Cov}}
+\def\Var{\text{Var}}
+\def\E{\text{E}}
+\def\pr{\text{pr}}
+\def\Prob{\text{P}}
+\def\argmin{\arg\min}
+\def\argmax{\arg\max}
+
+```{r include = FALSE}
+  options(width = 100)
+  knitr::opts_knit$set(global.par = TRUE)
+  knitr::opts_chunk$set(collapse = TRUE, fig.dim = c(6, 6),
+                        out.width = "45%", fig.align = 'center')
+```
+```{r include = FALSE}
+  par(bg="transparent")
+  par(mar=c(2,2,2,2))
+  par(mfrow=c(1,1))
+```
+
+# Uniform Manifold Approximation and Projection
+
+Uniform Manifold Approximation and Projection (UMAP, @mcinnes2018umap) becomes a very popular feature embedding / dimension reduction algorithm. If you have finished the spectral clustering section, then these concepts shouldn't be new. In fact, PCA is also a similar approach, but its just linear in terms of the original features. 
+
+There are two methods that are worth to mention here, t-SNE [@van2008visualizing] and spectral embedding (the embedding step in spectral clustering). All of these methods are graph-based, meaning that they are trying to learn an embedding space such that the pair-wise geometric distances among subjects in this embedding space is "similar" to the graph defined in the original data. Here, an example of the graph is the k-nearest neighbor graph (for spectral clustering), which counts 1 if two subjects are within each others neighbors. But for t-SNE, the graph values are proportional to the kernel density function between two points with a t-distribution density function. 
+
+The difference among these method is mainly on how do they define "similar". In UMAP, this similarity is defined by a type of cross-entropy, while for spectral clustering, its the eigen-values, meaning the matrix approximation, and for t-SNE, its based on the Kullback-Leibler divergence. 
+
+## An Example
+
+Let's consider our example from the spectral clustering lecture. 
+
+```{r}
+  set.seed(1)
+
+  n = 200
+  
+  r = c(rep(1, n), rep(2, n), rep(3, n)) + runif(n*3, -0.1, 0.1)
+  theta = runif(n) * 2 * pi
+
+  x1 = r * cos(theta)
+  x2 = r * sin(theta)
+  X = cbind(x1, x2)
+  
+  plot(X)
+  circle.labels = c(rep(1, n), rep(2, n), rep(3, n))
+```
+
+We can perform UMAP using the default tuning. This will create a two-dimensional embedding.
+
+```{r}
+  library(umap)
+  circles.umap = umap(X)
+  circles.umap
+  
+  plot(circles.umap$layout, col = circle.labels)
+```
+
+We can see that UMAP learns these new features, which groups similar observations together. Its reasonable to expect that if we perform any clustering algorithm on these new embedded features, we will recover the truth. 
+
+## Tuning
+
+UMAP involves a lot of tuning parameters and the most significant one concerns about how we create the (KNN) graph in the first step. You can see the summary of all tuning parameters:
+
+```{r}
+  umap.defaults
+```
+
+To change the default value, we can do the following 
+
+```{r}
+  myumap.tuning = umap.defaults
+  umap.defaults$n_neighbors = 5
+  
+  circles.umap = umap(X, umap.defaults)
+
+  plot(circles.umap$layout, col = circle.labels)
+```
+You can see that the result is not as perfect as we wanted. It seems that there are more groups, although each group only involves one type of data. There are other parameter you may consider tuning. For example `n_components` controls how many dimensions you reduced data should have. Usually we don't use values larger than three, but this is very problem specific. 
+
+## Another Example
+
+Let's use UMAP on a larger data, the hand written digit data. We will perform clustering on just the pixels. We can also predict the embedding feature values for future observations. We can see that both recovers the true labels pretty well. 
+
+```{r}
+  library(ElemStatLearn)
+  dim(zip.train)
+  dim(zip.test)
+  
+  zip.umap = umap(zip.train[, -1])
+  zip.pred = predict(zip.umap, zip.test[, -1])
+  
+  plot(zip.umap$layout, col = zip.train[, 1]+1, pch = 19, cex = 0.2)
+  plot(zip.pred, col = zip.test[, 1]+1, pch = 19, cex = 0.2)
+```
+
+

@@ -8,9 +8,6 @@
 \def\bX{\mathbf{X}}
 \def\bH{\mathbf{H}}
 \def\bI{\mathbf{I}}
-\def\bK{\mathbf{K}}
-\def\bP{\mathbf{P}}
-\def\bQ{\mathbf{Q}}
 \def\bU{\mathbf{U}}
 \def\bD{\mathbf{D}}
 \def\bV{\mathbf{V}}
@@ -41,8 +38,8 @@
 \def\E{\text{E}}
 \def\pr{\text{pr}}
 \def\Prob{\text{P}}
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\argmax}{arg\,max}
+\def\argmin{\arg\min}
+\def\argmax{\arg\max}
 
 ```{r include = FALSE}
   options(width = 100)

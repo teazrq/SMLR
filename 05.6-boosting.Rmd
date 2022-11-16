@@ -38,8 +38,8 @@
 \def\E{\text{E}}
 \def\pr{\text{pr}}
 \def\Prob{\text{P}}
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\argmax}{arg\,max}
+\def\argmin{\arg\min}
+\def\argmax{\arg\max}
 
 ```{r include = FALSE}
   options(width = 100)
@@ -278,6 +278,61 @@ The last equation is because by Taylor expansion, $\exp\big[ - 4 \gamma_t^2 \big
 \end{align}
 
 which converges to 0 as long as $\sum_{t=1}^T \gamma_t^2$ accumulates up to infinite. But of course, in practice, it would increasing difficult find $f_t(x)$ that reduces the training error greatly. 
+
+## Tuning the Number of Trees
+
+Although we can get really low training classification error, this is subject to overfitting. The following code demonstrates what an overfitted looks like. 
+
+```{r include = FALSE}
+  par(mfrow=c(1,1))
+```
+
+```{r}
+  # One-dimensional classification example
+  n = 1000; set.seed(1)
+  x = cbind(seq(0, 1, length.out = n), runif(n))
+  py = (sin(4*pi*x[, 1]) + 1)/2
+  y = rbinom(n, 1, py)
+  
+  plot(x[, 1], y + runif(n, -0.05, 0.05), pch = 19, ylim = c(-0.05, 1.05), cex = 0.5,
+       col = ifelse(y==1,"darkorange", "deepskyblue"), xlab = "x", ylab = "P(Y=1 | X=x)")
+  points(x[, 1], py, type = "l", lwd = 3)
+  
+  # fit AdaBoost with bootstrapping, I am using a large shrinkage factor
+  gbm.fit = gbm(y~., data.frame(x, y), distribution="adaboost", n.minobsinnode = 2, 
+                n.trees=200, shrinkage = 1, bag.fraction=0.8, cv.folds = 10)
+```
+
+```{r include = FALSE}
+  par(mfrow=c(2,3))
+```
+
+```{r fig.dim = c(12, 9), out.width='90%'}
+  # plot the decision function (Fx, not sign(Fx))
+  size=c(1, 5, 10, 20, 50, 100)
+
+  for(i in 1:6)
+  {
+    par(mar=c(2,2,3,1))
+    plot(x[, 1], py, type = "l", lwd = 3, ylab = "P(Y=1 | X=x)", col = "gray")
+    points(x[, 1], y + runif(n, -0.05, 0.05), pch = 19, cex = 0.5, ylim =c(-0.05, 1.05),
+           col = ifelse(y==1, "darkorange", "deepskyblue"))
+    Fx = predict(gbm.fit, n.trees=size[i]) # this returns the fitted function, but not class
+    lines(x[, 1], 1/(1+exp(-2*Fx)), lwd = 1)
+    title(paste("# of Iterations = ", size[i]))
+  }
+```
+
+Hence, selecting trees is necessary. For this purpose, we can use either the out-of-bag error to estimate the exponential upper bound, or simply do cross-validation. 
+
+```{r include = FALSE}
+  par(mfrow=c(1,1))
+```
+
+```{r}
+  # get the best number of trees from cross-validation (or oob if no cv is used)
+  gbm.perf(gbm.fit)
+```
 
 ## Gradient Boosting
 

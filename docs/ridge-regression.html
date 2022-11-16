@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2022-11-09" />
+<meta name="date" content="2022-11-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -108,7 +108,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -121,7 +121,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -404,7 +404,8 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="18.1" data-path="boosting.html"><a href="boosting.html#adaboost"><i class="fa fa-check"></i><b>18.1</b> AdaBoost</a></li>
 <li class="chapter" data-level="18.2" data-path="boosting.html"><a href="boosting.html#training-error-of-adaboost"><i class="fa fa-check"></i><b>18.2</b> Training Error of AdaBoost</a></li>
-<li class="chapter" data-level="18.3" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>18.3</b> Gradient Boosting</a></li>
+<li class="chapter" data-level="18.3" data-path="boosting.html"><a href="boosting.html#tuning-the-number-of-trees"><i class="fa fa-check"></i><b>18.3</b> Tuning the Number of Trees</a></li>
+<li class="chapter" data-level="18.4" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>18.4</b> Gradient Boosting</a></li>
 </ul></li>
 <li class="part"><span><b>VI Unsupervised Learning</b></span></li>
 <li class="chapter" data-level="19" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>19</b> K-Means</a>
@@ -434,10 +435,21 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="23" data-path="spectral-clustering.html"><a href="spectral-clustering.html"><i class="fa fa-check"></i><b>23</b> Spectral Clustering</a>
 <ul>
-<li class="chapter" data-level="23.1" data-path="spectral-clustering.html"><a href="spectral-clustering.html#basic-concepts-4"><i class="fa fa-check"></i><b>23.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="23.1" data-path="spectral-clustering.html"><a href="spectral-clustering.html#an-example"><i class="fa fa-check"></i><b>23.1</b> An Example</a></li>
+<li class="chapter" data-level="23.2" data-path="spectral-clustering.html"><a href="spectral-clustering.html#adjacency-matrix"><i class="fa fa-check"></i><b>23.2</b> Adjacency Matrix</a></li>
+<li class="chapter" data-level="23.3" data-path="spectral-clustering.html"><a href="spectral-clustering.html#laplacian-matrix"><i class="fa fa-check"></i><b>23.3</b> Laplacian Matrix</a></li>
+<li class="chapter" data-level="23.4" data-path="spectral-clustering.html"><a href="spectral-clustering.html#feature-embedding"><i class="fa fa-check"></i><b>23.4</b> Feature Embedding</a></li>
+<li class="chapter" data-level="23.5" data-path="spectral-clustering.html"><a href="spectral-clustering.html#clustering-with-embedded-features"><i class="fa fa-check"></i><b>23.5</b> Clustering with Embedded Features</a></li>
+<li class="chapter" data-level="23.6" data-path="spectral-clustering.html"><a href="spectral-clustering.html#normalized-graph-laplacian"><i class="fa fa-check"></i><b>23.6</b> Normalized Graph Laplacian</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html"><i class="fa fa-check"></i><b>24</b> Uniform Manifold Approximation and Projection</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#an-example-1"><i class="fa fa-check"></i><b>24.1</b> An Example</a></li>
+<li class="chapter" data-level="24.2" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#tuning"><i class="fa fa-check"></i><b>24.2</b> Tuning</a></li>
+<li class="chapter" data-level="24.3" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#another-example"><i class="fa fa-check"></i><b>24.3</b> Another Example</a></li>
 </ul></li>
 <li class="part"><span><b>VII Reference</b></span></li>
-<li class="chapter" data-level="24" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>24</b> Reference</a></li>
+<li class="chapter" data-level="25" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>25</b> Reference</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2022 Ruoqing Zhu</a></li>
 
@@ -465,8 +477,8 @@ div.csl-indent {
 It provides a solution of linear regression when multicollinearity happens, especially when the number of variables is larger than the sample size. Alternatively, this is also the solution of a regularized least square estimator. We add an <span class="math inline">\(\ell_2\)</span> penalty to the residual sum of squares, i.e.,</p>
 <p><span class="math display">\[
 \begin{align}
-\widehat{\boldsymbol \beta}^\text{ridge} =&amp; \mathop{\mathrm{arg\,min}}_{\boldsymbol \beta} (\mathbf{y}- \mathbf{X}\boldsymbol \beta)^\text{T}(\mathbf{y}- \mathbf{X}\boldsymbol \beta) + n \lambda \lVert\boldsymbol \beta\rVert_2^2\\
-=&amp; \mathop{\mathrm{arg\,min}}_{\boldsymbol \beta} \frac{1}{n} \sum_{i=1}^n (y_i - x_i^\text{T}\boldsymbol \beta)^2 + \lambda \sum_{j=1}^p \beta_j^2,
+\widehat{\boldsymbol \beta}^\text{ridge} =&amp; \arg\min_{\boldsymbol \beta} (\mathbf{y}- \mathbf{X}\boldsymbol \beta)^\text{T}(\mathbf{y}- \mathbf{X}\boldsymbol \beta) + n \lambda \lVert\boldsymbol \beta\rVert_2^2\\
+=&amp; \arg\min_{\boldsymbol \beta} \frac{1}{n} \sum_{i=1}^n (y_i - x_i^\text{T}\boldsymbol \beta)^2 + \lambda \sum_{j=1}^p \beta_j^2,
 \end{align}
 \]</span></p>
 <p>for some penalty <span class="math inline">\(\lambda &gt; 0\)</span>. Another approach that leads to the ridge regression is a constraint on the <span class="math inline">\(\ell_2\)</span> norm of the parameters, which will be introduced in the next Chapter. Ridge regression is used extensively in genetic analyses to address “small-<span class="math inline">\(n\)</span>-large-<span class="math inline">\(p\)</span>” problems. We will start with a motivation example and then discuss the bias-variance trade-off issue.</p>
@@ -845,11 +857,10 @@ where <span class="math inline">\(\mathbf{S}_\lambda\)</span> is the hat matrix 
 <p>The <code>glmnet</code> package implements the <span class="math inline">\(k\)</span>-fold cross-validation. To perform a ridge regression with cross-validation, we need to use the <code>cv.glmnet()</code> function with <span class="math inline">\(alpha = 0\)</span>. Here, the <span class="math inline">\(\alpha\)</span> is a parameter that controls the <span class="math inline">\(\ell_2\)</span> and <span class="math inline">\(\ell_1\)</span> (Lasso) penalties. In addition, the lambda values are also automatically selected, on the log-scale.</p>
 <div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="ridge-regression.html#cb81-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(glmnet)</span>
 <span id="cb81-2"><a href="ridge-regression.html#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Loading required package: Matrix</span></span>
-<span id="cb81-3"><a href="ridge-regression.html#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: package &#39;Matrix&#39; was built under R version 4.2.2</span></span>
-<span id="cb81-4"><a href="ridge-regression.html#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Loaded glmnet 4.1-4</span></span>
-<span id="cb81-5"><a href="ridge-regression.html#cb81-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
-<span id="cb81-6"><a href="ridge-regression.html#cb81-6" aria-hidden="true" tabindex="-1"></a>  fit2 <span class="ot">=</span> <span class="fu">cv.glmnet</span>(<span class="fu">data.matrix</span>(prostate[, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>]), prostate<span class="sc">$</span>lpsa, <span class="at">nfolds =</span> <span class="dv">10</span>, <span class="at">alpha =</span> <span class="dv">0</span>)</span>
-<span id="cb81-7"><a href="ridge-regression.html#cb81-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(fit2<span class="sc">$</span>glmnet.fit, <span class="st">&quot;lambda&quot;</span>)</span></code></pre></div>
+<span id="cb81-3"><a href="ridge-regression.html#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Loaded glmnet 4.1-4</span></span>
+<span id="cb81-4"><a href="ridge-regression.html#cb81-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb81-5"><a href="ridge-regression.html#cb81-5" aria-hidden="true" tabindex="-1"></a>  fit2 <span class="ot">=</span> <span class="fu">cv.glmnet</span>(<span class="fu">data.matrix</span>(prostate[, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>]), prostate<span class="sc">$</span>lpsa, <span class="at">nfolds =</span> <span class="dv">10</span>, <span class="at">alpha =</span> <span class="dv">0</span>)</span>
+<span id="cb81-6"><a href="ridge-regression.html#cb81-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(fit2<span class="sc">$</span>glmnet.fit, <span class="st">&quot;lambda&quot;</span>)</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-101-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>It is useful to plot the cross-validation error against the <span class="math inline">\(\lambda\)</span> values , then select the corresponding <span class="math inline">\(\lambda\)</span> with the smallest error. The corresponding coefficient values can be obtained using the <code>s = "lambda.min"</code> option in the <code>coef()</code> function. However, this can still be subject to over-fitting, and sometimes practitioners use <code>s = "lambda.1se"</code> to select a slightly heavier penalized version based on the variations observed from different folds.</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="ridge-regression.html#cb82-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(fit2)</span></code></pre></div>

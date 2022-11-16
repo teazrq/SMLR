@@ -1,9 +1,19 @@
-\def\cD{\cal{D}}
+\def\cD{{\cal D}}
+\def\cL{{\cal L}}
+\def\cX{{\cal X}}
+\def\cF{{\cal F}}
+\def\cH{{\cal H}}
 \def\bA{\mathbf{A}}
 \def\bB{\mathbf{B}}
 \def\bX{\mathbf{X}}
 \def\bH{\mathbf{H}}
 \def\bI{\mathbf{I}}
+\def\bU{\mathbf{U}}
+\def\bD{\mathbf{D}}
+\def\bV{\mathbf{V}}
+\def\bS{\mathbf{S}}
+\def\bW{\mathbf{W}}
+\def\bK{\mathbf{K}}
 \def\bx{\mathbf{x}}
 \def\by{\mathbf{y}}
 \def\bs{\mathbf{s}}
@@ -12,8 +22,13 @@
 \def\be{\mathbf{e}}
 \def\bv{\mathbf{v}}
 \def\bp{\mathbf{p}}
+\def\bw{\mathbf{w}}
+\def\bz{\mathbf{z}}
 \def\bzero{\mathbf{0}}
+\def\balpha{\boldsymbol \alpha}
 \def\bbeta{\boldsymbol \beta}
+\def\btheta{\boldsymbol \theta}
+\def\bxi{\boldsymbol \xi}
 \def\bmu{\boldsymbol \mu}
 \def\bepsilon{\boldsymbol \epsilon}
 \def\T{\text{T}}
@@ -22,8 +37,9 @@
 \def\Var{\text{Var}}
 \def\E{\text{E}}
 \def\pr{\text{pr}}
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\argmax}{arg\,max}
+\def\Prob{\text{P}}
+\def\argmin{\arg\min}
+\def\argmax{\arg\max}
 
 ```{r include = FALSE}
   options(width = 100)

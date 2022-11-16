@@ -38,8 +38,8 @@
 \def\E{\text{E}}
 \def\pr{\text{pr}}
 \def\Prob{\text{P}}
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\argmax}{arg\,max}
+\def\argmin{\arg\min}
+\def\argmax{\arg\max}
 
 ```{r include = FALSE}
   options(width = 100)
@@ -55,24 +55,70 @@
 
 # Spectral Clustering
 
-## Basic Concepts 
+Spectral clustering aims at clustering observations based on their proximity information. It essentially consists of two steps. The first step is a feature embedding, or dimension reduction. We first construct the graph Laplacian $\mathbf{L}$ (or normalized version), which represent the proximity information, and perform eigen-decomposition of the matrix. This allows us to use a lower dimensional matrix to represent the proximity information of the original data. Once we have the low-dimensional data, we can perform the regular clustering algorithm, i.e., $k$-means on the new dataset. 
 
-Spectral clustering essentially consists of two steps. First, we construct the graph Laplacian $\mathbf{L}$ (or normalized version), then we perform eigen-decomposition of the matrix. Lets show an example, replicated from @von2007tutorial.
+## An Example
+
+Let's look at an example that regular $k$-means would fail. 
 
 ```{r}
   set.seed(1)
-  n = 50
-  x = c(rnorm(n, 0, 0.2), rnorm(n, 2, 0.2), rnorm(n, 4, 0.2), rnorm(n, 6, 0.2))
-  hist(x, breaks = 100)
+
+  n = 200
+  
+  r = c(rep(1, n), rep(2, n), rep(3, n)) + runif(n*3, -0.1, 0.1)
+  theta = runif(n) * 2 * pi
+
+  x1 = r * cos(theta)
+  x2 = r * sin(theta)
+  X = cbind(x1, x2)
+  
+  plot(X)
+
+  kmeanfit = kmeans(X, centers = 3)
+  
+  plot(X, col = kmeanfit$cluster + 1, pch = 19)
 ```
 
-We use the adjacency matrix defined as $$w_{ij} = \exp\bigg\{\frac{- \lVert x_i - x_j\rVert^2 }{2 \sigma^2 } \bigg\},$$ and calculate the Laplacian $$\mathbf{L} = \mathbf{D} - \mathbf{W}.$$ We can then use the eigen decomposition to recover the underlying features. 
+Since $k$-means use Euclidean distance, it is not appropriate for such problems. 
+
+## Adjacency Matrix
+
+Maybe we should use a nonlinear way to describe the distance/closeness between subjects. For example, let's define two sample to be close if they are within the k-nearest neighbors of each other. We use $k = 10$, and create an adjacency matrix $\mathbf{W}$. 
 
 ```{r}
-  # construct the adjacency matrix
-  W = as.matrix(exp(-dist(as.matrix(x))^2) / 4)
-  heatmap(W, Rowv = NA, Colv=NA, symm = TRUE, revC = TRUE)
+  library(FNN)
   
+  W = matrix(0, 3*n, 3*n)
+  
+  # get neighbor index for each observation
+  nn = get.knn(X, k=10)
+
+  # write into W
+  for (i in 1:(3*n))
+    W[i, nn$nn.index[i, ]] = 1
+  
+  # W is not necessary symmetric
+  W = 0.5*(W + t(W))
+  # we may also use
+  # W = pmax(W, t(W))
+```
+  
+Let's use a heatmap to display what the adjacency information look like. Please note that our data are ordered with clusters 1, 2 and 3. 
+
+```{r}
+  # plot the adjacency matrix
+  heatmap(W, Rowv = NA, Colv=NA, symm = TRUE, revC = TRUE)
+```
+
+## Laplacian Matrix
+
+The next step is to calculate the Laplacian 
+
+$$\mathbf{L} = \mathbf{D} - \mathbf{W},$$ 
+where $\mathbf{D}$ is a diagonal matrix with its elements equation to the row sums (or column sums) of $\mathbf{W}$. We will then perform eigen-decomposition on $\mathbf{L}$ to extract/define some underlying features. 
+
+```{r}
   # compute the degree of each vertex
   d = colSums(W)
   
@@ -82,88 +128,50 @@ We use the adjacency matrix defined as $$w_{ij} = \exp\bigg\{\frac{- \lVert x_i 
   # eigen-decomposition
   f = eigen(L, symmetric = TRUE)
   
-  # plot the eigen-values 
-  # we need the samll ones, but notice that the smallest one should be exactly zero
-  plot(rev(f$values)[1:20], pch = 19, ylab = "eigen-values", 
-       col = c(rep("red", 4), rep("blue", 196)))
-  
-```
-  
-```{r echo = FALSE}
-  par(mfrow=c(1,4))
-```
-  
-These are the feature embedding we obtained. But the eigen-value associated with the smallest one will not be used. 
-
-```{r fig.dim = c(14, 4), out.width = '95%'}
-  # plot the last four eigen-vectors
-  plot(f$vectors[, 200], type = "l", ylab = "eigen-values", ylim = c(-0.15, 0.15))
-  plot(f$vectors[, 199], type = "l", ylab = "eigen-values", ylim = c(-0.15, 0.15))
-  plot(f$vectors[, 198], type = "l", ylab = "eigen-values", ylim = c(-0.15, 0.15))
-  plot(f$vectors[, 197], type = "l", ylab = "eigen-values", ylim = c(-0.15, 0.15))
+  # plot the smallest eigen-values 
+  # the smallest one will be zero --- why?
+  plot(rev(f$values)[1:10], pch = 19, ylab = "eigen-values", 
+       col = c(rep("red", 3), rep("blue", 17)))
 ```
 
-On the other hand, if we use an adjacency matrix that contains several non-connected blocks, then we would observe four zero eigen-values. For example, using the KNN adjacency index, we may obtain four separated blocks. 
+## Feature Embedding
+
+In fact the smallest eigen-value will always be zero. However, we can use the eigen-vectors associated with the second and third smallest eigen-values. They define some feature embedding or dimension reduction to represent the original data. Since we know the underlying model, two dimensions are enough (to separate three clusters). However, based on the eigen-value plot, there is a big gap between the third and the fourth one. Hence, we only need three. Further removing the smallest one, only two are needed. 
+
+```{r fig.dim=c(10,5), out.width='70%'}
+  par(mfrow=c(1,2))
+  plot(f$vectors[, length(f$values)-1], type = "l", ylab = "eigen-values", ylim = c(-0.1, 0.1))
+  plot(f$vectors[, length(f$values)-2], type = "l", ylab = "eigen-values", ylim = c(-0.1, 0.1))
+```
+
+## Clustering with Embedded Features
+
+We can then perform $k$-means on these two new features. And it will give us the correct clustering.
 
 ```{r}
-  library(FNN)
-  nn = get.knn(x, k=10)
-  W = matrix(0, 200, 200)
-  for (i in 1:200)
-    W[i, nn$nn.index[i, ]] = 1
-  
-  # W is not necessary symmetric
-  W = pmax(W, t(W))
-  
-  heatmap(W, Rowv = NA, Colv=NA, symm = TRUE, revC = TRUE)
-```
-
-We use a normalized graph Laplacian, defined as 
-
-$$\mathbf{L}_\text{sym} = \mathbf{I} - \mathbf{D^{-1/2} \mathbf{W} D^{-1/2}}$$
-```{r echo = FALSE}
   par(mfrow=c(1,1))
+  scfit = kmeans(f$vectors[, (length(f$values)-2) : (length(f$values)-1) ], centers = 3, nstart = 20)
+  plot(X, col = scfit$cluster + 1, pch = 19)
 ```
 
-```{r fig.dim = c(6, 6), out.width = '45%'}
-  # compute the degree of each vertex
-  d = colSums(W)
-  
-  # the laplacian matrix
-  L = diag(200) - diag(1/sqrt(d)) %*% W %*% diag(1/sqrt(d))
+## Normalized Graph Laplacian
+
+There are other choices of the Laplacian matrix. For example, a normalized graph Laplacian is defined as 
+$$\mathbf{L}_\text{sym} = \mathbf{I} - \mathbf{D^{-1/2} \mathbf{W} D^{-1/2}}$$
+
+For our problem, it achieves pretty much the same effect. 
+
+```{r}
+  # the normed laplacian matrix
+  L = diag(nrow(W)) - diag(1/sqrt(d)) %*% W %*% diag(1/sqrt(d))
   
   # eigen-decomposition
   f = eigen(L, symmetric = TRUE)
   
-  # plot the eigen-values 
-  # we need the smallest ones
-  plot(rev(f$values)[1:20], pch = 19, ylab = "eigen-values", 
-       col = c(rep("red", 4), rep("blue", 196)))
+  # perform clustering
+  scfit = kmeans(f$vectors[, (length(f$values)-2) : (length(f$values)-1) ], centers = 3, nstart = 20)
+  plot(X, col = scfit$cluster + 1, pch = 19)
 ```
-
-```{r echo = FALSE}
-  par(mfrow=c(1,4))
-```
-
-```{r fig.dim = c(14, 4), out.width = '95%'}
-  # plot the last four eigen-vectors
-  plot(f$vectors[, 200], type = "l", ylab = "eigen-values", ylim = c(-0.15, 0.15))
-  plot(f$vectors[, 199], type = "l", ylab = "eigen-values", ylim = c(-0.15, 0.15))
-  plot(f$vectors[, 198], type = "l", ylab = "eigen-values", ylim = c(-0.15, 0.15))
-  plot(f$vectors[, 197], type = "l", ylab = "eigen-values", ylim = c(-0.15, 0.15))
-```
-
-We can then perform $k$-means clustering using the top eigen-vectors (except the smallest one) as the features.
-
-```{r echo = FALSE}
-  par(mfrow=c(1,1))
-```
-
-```{r fig.dim = c(14, 4), out.width = '95%'}
-  cl = kmeans(f$vectors[, 197:199], centers = 4, nstart = 100)
-  plot(x, cl$cluster, ylab = "Cluster", col = cl$cluster, pch = 3)
-```
-
 
 
 

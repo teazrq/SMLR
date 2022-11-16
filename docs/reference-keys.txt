@@ -156,6 +156,7 @@ kernel-view-of-random-forets
 boosting
 adaboost
 training-error-of-adaboost
+tuning-the-number-of-trees
 gradient-boosting
 k-means
 basic-concepts
@@ -173,5 +174,14 @@ example-2-handwritten-digits
 self-organizing-map
 basic-concepts-3
 spectral-clustering
-basic-concepts-4
+an-example
+adjacency-matrix
+laplacian-matrix
+feature-embedding
+clustering-with-embedded-features
+normalized-graph-laplacian
+uniform-manifold-approximation-and-projection
+an-example-1
+tuning
+another-example
 reference

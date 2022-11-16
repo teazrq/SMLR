@@ -3,8 +3,6 @@
 \def\cX{{\cal X}}
 \def\cF{{\cal F}}
 \def\cH{{\cal H}}
-\def\cT{{\cal T}}
-\def\cA{{\cal A}}
 \def\bA{\mathbf{A}}
 \def\bB{\mathbf{B}}
 \def\bX{\mathbf{X}}
@@ -40,8 +38,8 @@
 \def\E{\text{E}}
 \def\pr{\text{pr}}
 \def\Prob{\text{P}}
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\argmax}{arg\,max}
+\def\argmin{\arg\min}
+\def\argmax{\arg\max}
 
 ```{r include = FALSE}
   options(width = 100)
