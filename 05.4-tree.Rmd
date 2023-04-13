@@ -3,6 +3,8 @@
 \def\cX{{\cal X}}
 \def\cF{{\cal F}}
 \def\cH{{\cal H}}
+\def\cA{{\cal A}}
+\def\cT{{\cal T}}
 \def\bA{\mathbf{A}}
 \def\bB{\mathbf{B}}
 \def\bX{\mathbf{X}}
