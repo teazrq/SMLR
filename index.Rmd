@@ -13,7 +13,8 @@ favicon: "favicon.ico"
 link-citations: yes
 linkcolor: cyan
 urlcolor: cyan
-description: "A textbook for STAT 542 and 432 at UIUC"
+always_allow_html: true
+description: "A Textbook for Statistical Learning Courses at UIUC"
 ---
 
 ```{r include = FALSE}

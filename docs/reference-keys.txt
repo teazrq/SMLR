@@ -1,6 +1,6 @@
 eq:penalized
 eq:roughness
-thm:unnamed-chunk-207
+thm:unnamed-chunk-209
 r-and-rstudio
 installing-r-and-rstudio
 r-basic
@@ -26,6 +26,8 @@ displaystyle-latex
 inline-latex
 output-options
 try-it
+visual-studio-code
+basics-and-resources-1
 linear-algebra-basics
 definition
 optimization-basics

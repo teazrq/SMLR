@@ -4,26 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 18 Boosting | Statistical Learning and Machine Learning with R</title>
-  <meta name="description" content="A textbook for STAT 542 and 432 at UIUC" />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <title>Chapter 19 Boosting | Statistical Learning and Machine Learning with R</title>
+  <meta name="description" content="A Textbook for Statistical Learning Courses at UIUC" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 18 Boosting | Statistical Learning and Machine Learning with R" />
+  <meta property="og:title" content="Chapter 19 Boosting | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="A textbook for STAT 542 and 432 at UIUC" />
+  <meta property="og:description" content="A Textbook for Statistical Learning Courses at UIUC" />
   <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 18 Boosting | Statistical Learning and Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 19 Boosting | Statistical Learning and Machine Learning with R" />
   
-  <meta name="twitter:description" content="A textbook for STAT 542 and 432 at UIUC" />
+  <meta name="twitter:description" content="A Textbook for Statistical Learning Courses at UIUC" />
   
 
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2022-11-16" />
+<meta name="date" content="2023-08-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,19 +52,19 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.26/datatables.js"></script>
-<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.28/datatables.js"></script>
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
 <link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
 <script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
 <link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
 <script src="libs/selectize-0.12.0/selectize.min.js"></script>
 <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
@@ -215,241 +215,245 @@ div.csl-indent {
 <li class="chapter" data-level="2.9" data-path="rmarkdown.html"><a href="rmarkdown.html#output-options"><i class="fa fa-check"></i><b>2.9</b> Output Options</a></li>
 <li class="chapter" data-level="2.10" data-path="rmarkdown.html"><a href="rmarkdown.html#try-it"><i class="fa fa-check"></i><b>2.10</b> Try It!</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html"><i class="fa fa-check"></i><b>3</b> Linear Algebra Basics</a>
+<li class="chapter" data-level="3" data-path="visual-studio-code.html"><a href="visual-studio-code.html"><i class="fa fa-check"></i><b>3</b> Visual Studio Code</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#definition"><i class="fa fa-check"></i><b>3.1</b> Definition</a></li>
+<li class="chapter" data-level="3.1" data-path="visual-studio-code.html"><a href="visual-studio-code.html#basics-and-resources-1"><i class="fa fa-check"></i><b>3.1</b> Basics and Resources</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>4</b> Optimization Basics</a>
+<li class="chapter" data-level="4" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html"><i class="fa fa-check"></i><b>4</b> Linear Algebra Basics</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="optimization-basics.html"><a href="optimization-basics.html#basic-concept"><i class="fa fa-check"></i><b>4.1</b> Basic Concept</a></li>
-<li class="chapter" data-level="4.2" data-path="optimization-basics.html"><a href="optimization-basics.html#global_local"><i class="fa fa-check"></i><b>4.2</b> Global vs. Local Optima</a></li>
-<li class="chapter" data-level="4.3" data-path="optimization-basics.html"><a href="optimization-basics.html#example-linear-regression-using-optim"><i class="fa fa-check"></i><b>4.3</b> Example: Linear Regression using <code>optim()</code></a></li>
-<li class="chapter" data-level="4.4" data-path="optimization-basics.html"><a href="optimization-basics.html#first-and-second-order-properties"><i class="fa fa-check"></i><b>4.4</b> First and Second Order Properties</a></li>
-<li class="chapter" data-level="4.5" data-path="optimization-basics.html"><a href="optimization-basics.html#algorithm"><i class="fa fa-check"></i><b>4.5</b> Algorithm</a></li>
-<li class="chapter" data-level="4.6" data-path="optimization-basics.html"><a href="optimization-basics.html#second-order-methods"><i class="fa fa-check"></i><b>4.6</b> Second-order Methods</a>
-<ul>
-<li class="chapter" data-level="4.6.1" data-path="optimization-basics.html"><a href="optimization-basics.html#newtons-method"><i class="fa fa-check"></i><b>4.6.1</b> Newton’s Method</a></li>
-<li class="chapter" data-level="4.6.2" data-path="optimization-basics.html"><a href="optimization-basics.html#quasi-newton-methods"><i class="fa fa-check"></i><b>4.6.2</b> Quasi-Newton Methods</a></li>
+<li class="chapter" data-level="4.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#definition"><i class="fa fa-check"></i><b>4.1</b> Definition</a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="optimization-basics.html"><a href="optimization-basics.html#first-order-methods"><i class="fa fa-check"></i><b>4.7</b> First-order Methods</a>
+<li class="chapter" data-level="5" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>5</b> Optimization Basics</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="optimization-basics.html"><a href="optimization-basics.html#gradient-descent"><i class="fa fa-check"></i><b>4.7.1</b> Gradient Descent</a></li>
-<li class="chapter" data-level="4.7.2" data-path="optimization-basics.html"><a href="optimization-basics.html#gradient-descent-example-linear-regression"><i class="fa fa-check"></i><b>4.7.2</b> Gradient Descent Example: Linear Regression</a></li>
-</ul></li>
-<li class="chapter" data-level="4.8" data-path="optimization-basics.html"><a href="optimization-basics.html#coordinate"><i class="fa fa-check"></i><b>4.8</b> Coordinate Descent</a>
+<li class="chapter" data-level="5.1" data-path="optimization-basics.html"><a href="optimization-basics.html#basic-concept"><i class="fa fa-check"></i><b>5.1</b> Basic Concept</a></li>
+<li class="chapter" data-level="5.2" data-path="optimization-basics.html"><a href="optimization-basics.html#global_local"><i class="fa fa-check"></i><b>5.2</b> Global vs. Local Optima</a></li>
+<li class="chapter" data-level="5.3" data-path="optimization-basics.html"><a href="optimization-basics.html#example-linear-regression-using-optim"><i class="fa fa-check"></i><b>5.3</b> Example: Linear Regression using <code>optim()</code></a></li>
+<li class="chapter" data-level="5.4" data-path="optimization-basics.html"><a href="optimization-basics.html#first-and-second-order-properties"><i class="fa fa-check"></i><b>5.4</b> First and Second Order Properties</a></li>
+<li class="chapter" data-level="5.5" data-path="optimization-basics.html"><a href="optimization-basics.html#algorithm"><i class="fa fa-check"></i><b>5.5</b> Algorithm</a></li>
+<li class="chapter" data-level="5.6" data-path="optimization-basics.html"><a href="optimization-basics.html#second-order-methods"><i class="fa fa-check"></i><b>5.6</b> Second-order Methods</a>
 <ul>
-<li class="chapter" data-level="4.8.1" data-path="optimization-basics.html"><a href="optimization-basics.html#coordinate-descent-example-linear-regression"><i class="fa fa-check"></i><b>4.8.1</b> Coordinate Descent Example: Linear Regression</a></li>
+<li class="chapter" data-level="5.6.1" data-path="optimization-basics.html"><a href="optimization-basics.html#newtons-method"><i class="fa fa-check"></i><b>5.6.1</b> Newton’s Method</a></li>
+<li class="chapter" data-level="5.6.2" data-path="optimization-basics.html"><a href="optimization-basics.html#quasi-newton-methods"><i class="fa fa-check"></i><b>5.6.2</b> Quasi-Newton Methods</a></li>
 </ul></li>
-<li class="chapter" data-level="4.9" data-path="optimization-basics.html"><a href="optimization-basics.html#stocastic-gradient-descent"><i class="fa fa-check"></i><b>4.9</b> Stocastic Gradient Descent</a>
+<li class="chapter" data-level="5.7" data-path="optimization-basics.html"><a href="optimization-basics.html#first-order-methods"><i class="fa fa-check"></i><b>5.7</b> First-order Methods</a>
 <ul>
-<li class="chapter" data-level="4.9.1" data-path="optimization-basics.html"><a href="optimization-basics.html#mini-batch-stocastic-gradient-descent"><i class="fa fa-check"></i><b>4.9.1</b> Mini-batch Stocastic Gradient Descent</a></li>
+<li class="chapter" data-level="5.7.1" data-path="optimization-basics.html"><a href="optimization-basics.html#gradient-descent"><i class="fa fa-check"></i><b>5.7.1</b> Gradient Descent</a></li>
+<li class="chapter" data-level="5.7.2" data-path="optimization-basics.html"><a href="optimization-basics.html#gradient-descent-example-linear-regression"><i class="fa fa-check"></i><b>5.7.2</b> Gradient Descent Example: Linear Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="4.10" data-path="optimization-basics.html"><a href="optimization-basics.html#lagrangian-multiplier-for-constrained-problems"><i class="fa fa-check"></i><b>4.10</b> Lagrangian Multiplier for Constrained Problems</a></li>
+<li class="chapter" data-level="5.8" data-path="optimization-basics.html"><a href="optimization-basics.html#coordinate"><i class="fa fa-check"></i><b>5.8</b> Coordinate Descent</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="optimization-basics.html"><a href="optimization-basics.html#coordinate-descent-example-linear-regression"><i class="fa fa-check"></i><b>5.8.1</b> Coordinate Descent Example: Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="optimization-basics.html"><a href="optimization-basics.html#stocastic-gradient-descent"><i class="fa fa-check"></i><b>5.9</b> Stocastic Gradient Descent</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="optimization-basics.html"><a href="optimization-basics.html#mini-batch-stocastic-gradient-descent"><i class="fa fa-check"></i><b>5.9.1</b> Mini-batch Stocastic Gradient Descent</a></li>
+</ul></li>
+<li class="chapter" data-level="5.10" data-path="optimization-basics.html"><a href="optimization-basics.html#lagrangian-multiplier-for-constrained-problems"><i class="fa fa-check"></i><b>5.10</b> Lagrangian Multiplier for Constrained Problems</a></li>
 </ul></li>
 <li class="part"><span><b>II Linear and Penalized Linear Models</b></span></li>
-<li class="chapter" data-level="5" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html"><i class="fa fa-check"></i><b>5</b> Linear Regression and Model Selection</a>
+<li class="chapter" data-level="6" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html"><i class="fa fa-check"></i><b>6</b> Linear Regression and Model Selection</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#example-real-estate-data"><i class="fa fa-check"></i><b>5.1</b> Example: real estate data</a></li>
-<li class="chapter" data-level="5.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#notation-and-basic-properties"><i class="fa fa-check"></i><b>5.2</b> Notation and Basic Properties</a></li>
-<li class="chapter" data-level="5.3" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-the-lm-function"><i class="fa fa-check"></i><b>5.3</b> Using the <code>lm()</code> Function</a>
+<li class="chapter" data-level="6.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#example-real-estate-data"><i class="fa fa-check"></i><b>6.1</b> Example: real estate data</a></li>
+<li class="chapter" data-level="6.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#notation-and-basic-properties"><i class="fa fa-check"></i><b>6.2</b> Notation and Basic Properties</a></li>
+<li class="chapter" data-level="6.3" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-the-lm-function"><i class="fa fa-check"></i><b>6.3</b> Using the <code>lm()</code> Function</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#adding-covariates"><i class="fa fa-check"></i><b>5.3.1</b> Adding Covariates</a></li>
-<li class="chapter" data-level="5.3.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#categorical-variables"><i class="fa fa-check"></i><b>5.3.2</b> Categorical Variables</a></li>
+<li class="chapter" data-level="6.3.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#adding-covariates"><i class="fa fa-check"></i><b>6.3.1</b> Adding Covariates</a></li>
+<li class="chapter" data-level="6.3.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#categorical-variables"><i class="fa fa-check"></i><b>6.3.2</b> Categorical Variables</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-criteria"><i class="fa fa-check"></i><b>5.4</b> Model Selection Criteria</a>
+<li class="chapter" data-level="6.4" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-criteria"><i class="fa fa-check"></i><b>6.4</b> Model Selection Criteria</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-marrows-c_p"><i class="fa fa-check"></i><b>5.4.1</b> Using Marrows’ <span class="math inline">\(C_p\)</span></a></li>
-<li class="chapter" data-level="5.4.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-aic-and-bic"><i class="fa fa-check"></i><b>5.4.2</b> Using AIC and BIC</a></li>
+<li class="chapter" data-level="6.4.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-marrows-c_p"><i class="fa fa-check"></i><b>6.4.1</b> Using Marrows’ <span class="math inline">\(C_p\)</span></a></li>
+<li class="chapter" data-level="6.4.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-aic-and-bic"><i class="fa fa-check"></i><b>6.4.2</b> Using AIC and BIC</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-algorithms"><i class="fa fa-check"></i><b>5.5</b> Model Selection Algorithms</a>
+<li class="chapter" data-level="6.5" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-algorithms"><i class="fa fa-check"></i><b>6.5</b> Model Selection Algorithms</a>
 <ul>
-<li class="chapter" data-level="5.5.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#best-subset-selection-with-leaps"><i class="fa fa-check"></i><b>5.5.1</b> Best Subset Selection with <code>leaps</code></a></li>
-<li class="chapter" data-level="5.5.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#step-wise-regression-using-step"><i class="fa fa-check"></i><b>5.5.2</b> Step-wise regression using <code>step()</code></a></li>
+<li class="chapter" data-level="6.5.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#best-subset-selection-with-leaps"><i class="fa fa-check"></i><b>6.5.1</b> Best Subset Selection with <code>leaps</code></a></li>
+<li class="chapter" data-level="6.5.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#step-wise-regression-using-step"><i class="fa fa-check"></i><b>6.5.2</b> Step-wise regression using <code>step()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#marrows-cp"><i class="fa fa-check"></i><b>5.6</b> Derivation of Marrows’ <span class="math inline">\(C_p\)</span></a></li>
+<li class="chapter" data-level="6.6" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#marrows-cp"><i class="fa fa-check"></i><b>6.6</b> Derivation of Marrows’ <span class="math inline">\(C_p\)</span></a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="ridge-regression.html"><a href="ridge-regression.html"><i class="fa fa-check"></i><b>6</b> Ridge Regression</a>
+<li class="chapter" data-level="7" data-path="ridge-regression.html"><a href="ridge-regression.html"><i class="fa fa-check"></i><b>7</b> Ridge Regression</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="ridge-regression.html"><a href="ridge-regression.html#motivation-correlated-variables-and-convexity"><i class="fa fa-check"></i><b>6.1</b> Motivation: Correlated Variables and Convexity</a></li>
-<li class="chapter" data-level="6.2" data-path="ridge-regression.html"><a href="ridge-regression.html#ridge-penalty-and-the-reduced-variation"><i class="fa fa-check"></i><b>6.2</b> Ridge Penalty and the Reduced Variation</a></li>
-<li class="chapter" data-level="6.3" data-path="ridge-regression.html"><a href="ridge-regression.html#bias-and-variance-of-ridge-regression"><i class="fa fa-check"></i><b>6.3</b> Bias and Variance of Ridge Regression</a></li>
-<li class="chapter" data-level="6.4" data-path="ridge-regression.html"><a href="ridge-regression.html#degrees-of-freedom"><i class="fa fa-check"></i><b>6.4</b> Degrees of Freedom</a></li>
-<li class="chapter" data-level="6.5" data-path="ridge-regression.html"><a href="ridge-regression.html#using-the-lm.ridge-function"><i class="fa fa-check"></i><b>6.5</b> Using the <code>lm.ridge()</code> function</a>
+<li class="chapter" data-level="7.1" data-path="ridge-regression.html"><a href="ridge-regression.html#motivation-correlated-variables-and-convexity"><i class="fa fa-check"></i><b>7.1</b> Motivation: Correlated Variables and Convexity</a></li>
+<li class="chapter" data-level="7.2" data-path="ridge-regression.html"><a href="ridge-regression.html#ridge-penalty-and-the-reduced-variation"><i class="fa fa-check"></i><b>7.2</b> Ridge Penalty and the Reduced Variation</a></li>
+<li class="chapter" data-level="7.3" data-path="ridge-regression.html"><a href="ridge-regression.html#bias-and-variance-of-ridge-regression"><i class="fa fa-check"></i><b>7.3</b> Bias and Variance of Ridge Regression</a></li>
+<li class="chapter" data-level="7.4" data-path="ridge-regression.html"><a href="ridge-regression.html#degrees-of-freedom"><i class="fa fa-check"></i><b>7.4</b> Degrees of Freedom</a></li>
+<li class="chapter" data-level="7.5" data-path="ridge-regression.html"><a href="ridge-regression.html#using-the-lm.ridge-function"><i class="fa fa-check"></i><b>7.5</b> Using the <code>lm.ridge()</code> function</a>
 <ul>
-<li class="chapter" data-level="6.5.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue"><i class="fa fa-check"></i><b>6.5.1</b> Scaling Issue</a></li>
-<li class="chapter" data-level="6.5.2" data-path="ridge-regression.html"><a href="ridge-regression.html#multiple-lambda-values"><i class="fa fa-check"></i><b>6.5.2</b> Multiple <span class="math inline">\(\lambda\)</span> values</a></li>
+<li class="chapter" data-level="7.5.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue"><i class="fa fa-check"></i><b>7.5.1</b> Scaling Issue</a></li>
+<li class="chapter" data-level="7.5.2" data-path="ridge-regression.html"><a href="ridge-regression.html#multiple-lambda-values"><i class="fa fa-check"></i><b>7.5.2</b> Multiple <span class="math inline">\(\lambda\)</span> values</a></li>
 </ul></li>
-<li class="chapter" data-level="6.6" data-path="ridge-regression.html"><a href="ridge-regression.html#cross-validation"><i class="fa fa-check"></i><b>6.6</b> Cross-validation</a></li>
-<li class="chapter" data-level="6.7" data-path="ridge-regression.html"><a href="ridge-regression.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>6.7</b> Leave-one-out cross-validation</a>
+<li class="chapter" data-level="7.6" data-path="ridge-regression.html"><a href="ridge-regression.html#cross-validation"><i class="fa fa-check"></i><b>7.6</b> Cross-validation</a></li>
+<li class="chapter" data-level="7.7" data-path="ridge-regression.html"><a href="ridge-regression.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>7.7</b> Leave-one-out cross-validation</a>
 <ul>
-<li class="chapter" data-level="6.7.1" data-path="ridge-regression.html"><a href="ridge-regression.html#generalized-cross-validation"><i class="fa fa-check"></i><b>6.7.1</b> Generalized cross-validation</a></li>
+<li class="chapter" data-level="7.7.1" data-path="ridge-regression.html"><a href="ridge-regression.html#generalized-cross-validation"><i class="fa fa-check"></i><b>7.7.1</b> Generalized cross-validation</a></li>
 </ul></li>
-<li class="chapter" data-level="6.8" data-path="ridge-regression.html"><a href="ridge-regression.html#the-glmnet-package"><i class="fa fa-check"></i><b>6.8</b> The <code>glmnet</code> package</a>
+<li class="chapter" data-level="7.8" data-path="ridge-regression.html"><a href="ridge-regression.html#the-glmnet-package"><i class="fa fa-check"></i><b>7.8</b> The <code>glmnet</code> package</a>
 <ul>
-<li class="chapter" data-level="6.8.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue-1"><i class="fa fa-check"></i><b>6.8.1</b> Scaling Issue</a></li>
+<li class="chapter" data-level="7.8.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue-1"><i class="fa fa-check"></i><b>7.8.1</b> Scaling Issue</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="lasso.html"><a href="lasso.html"><i class="fa fa-check"></i><b>7</b> Lasso</a>
+<li class="chapter" data-level="8" data-path="lasso.html"><a href="lasso.html"><i class="fa fa-check"></i><b>8</b> Lasso</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="lasso.html"><a href="lasso.html#one-variable-lasso-and-shrinkage"><i class="fa fa-check"></i><b>7.1</b> One-Variable Lasso and Shrinkage</a></li>
-<li class="chapter" data-level="7.2" data-path="lasso.html"><a href="lasso.html#constrained-optimization-view"><i class="fa fa-check"></i><b>7.2</b> Constrained Optimization View</a></li>
-<li class="chapter" data-level="7.3" data-path="lasso.html"><a href="lasso.html#the-solution-path"><i class="fa fa-check"></i><b>7.3</b> The Solution Path</a></li>
-<li class="chapter" data-level="7.4" data-path="lasso.html"><a href="lasso.html#path-wise-coordinate-descent"><i class="fa fa-check"></i><b>7.4</b> Path-wise Coordinate Descent</a></li>
-<li class="chapter" data-level="7.5" data-path="lasso.html"><a href="lasso.html#using-the-glmnet-package"><i class="fa fa-check"></i><b>7.5</b> Using the <code>glmnet</code> package</a></li>
-<li class="chapter" data-level="7.6" data-path="lasso.html"><a href="lasso.html#elastic-net"><i class="fa fa-check"></i><b>7.6</b> Elastic-Net</a></li>
+<li class="chapter" data-level="8.1" data-path="lasso.html"><a href="lasso.html#one-variable-lasso-and-shrinkage"><i class="fa fa-check"></i><b>8.1</b> One-Variable Lasso and Shrinkage</a></li>
+<li class="chapter" data-level="8.2" data-path="lasso.html"><a href="lasso.html#constrained-optimization-view"><i class="fa fa-check"></i><b>8.2</b> Constrained Optimization View</a></li>
+<li class="chapter" data-level="8.3" data-path="lasso.html"><a href="lasso.html#the-solution-path"><i class="fa fa-check"></i><b>8.3</b> The Solution Path</a></li>
+<li class="chapter" data-level="8.4" data-path="lasso.html"><a href="lasso.html#path-wise-coordinate-descent"><i class="fa fa-check"></i><b>8.4</b> Path-wise Coordinate Descent</a></li>
+<li class="chapter" data-level="8.5" data-path="lasso.html"><a href="lasso.html#using-the-glmnet-package"><i class="fa fa-check"></i><b>8.5</b> Using the <code>glmnet</code> package</a></li>
+<li class="chapter" data-level="8.6" data-path="lasso.html"><a href="lasso.html#elastic-net"><i class="fa fa-check"></i><b>8.6</b> Elastic-Net</a></li>
 </ul></li>
 <li class="part"><span><b>III Nonparametric Models</b></span></li>
-<li class="chapter" data-level="8" data-path="spline.html"><a href="spline.html"><i class="fa fa-check"></i><b>8</b> Spline</a>
+<li class="chapter" data-level="9" data-path="spline.html"><a href="spline.html"><i class="fa fa-check"></i><b>9</b> Spline</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="spline.html"><a href="spline.html#from-linear-to-nonlinear"><i class="fa fa-check"></i><b>8.1</b> From Linear to Nonlinear</a></li>
-<li class="chapter" data-level="8.2" data-path="spline.html"><a href="spline.html#a-motivating-example-and-polynomials"><i class="fa fa-check"></i><b>8.2</b> A Motivating Example and Polynomials</a></li>
-<li class="chapter" data-level="8.3" data-path="spline.html"><a href="spline.html#piecewise-polynomials"><i class="fa fa-check"></i><b>8.3</b> Piecewise Polynomials</a></li>
-<li class="chapter" data-level="8.4" data-path="spline.html"><a href="spline.html#splines"><i class="fa fa-check"></i><b>8.4</b> Splines</a></li>
-<li class="chapter" data-level="8.5" data-path="spline.html"><a href="spline.html#spline-basis"><i class="fa fa-check"></i><b>8.5</b> Spline Basis</a></li>
-<li class="chapter" data-level="8.6" data-path="spline.html"><a href="spline.html#natural-cubic-spline"><i class="fa fa-check"></i><b>8.6</b> Natural Cubic Spline</a></li>
-<li class="chapter" data-level="8.7" data-path="spline.html"><a href="spline.html#smoothing-spline"><i class="fa fa-check"></i><b>8.7</b> Smoothing Spline</a></li>
-<li class="chapter" data-level="8.8" data-path="spline.html"><a href="spline.html#fitting-smoothing-splines"><i class="fa fa-check"></i><b>8.8</b> Fitting Smoothing Splines</a></li>
-<li class="chapter" data-level="8.9" data-path="spline.html"><a href="spline.html#extending-splines-to-multiple-varibles"><i class="fa fa-check"></i><b>8.9</b> Extending Splines to Multiple Varibles</a></li>
+<li class="chapter" data-level="9.1" data-path="spline.html"><a href="spline.html#from-linear-to-nonlinear"><i class="fa fa-check"></i><b>9.1</b> From Linear to Nonlinear</a></li>
+<li class="chapter" data-level="9.2" data-path="spline.html"><a href="spline.html#a-motivating-example-and-polynomials"><i class="fa fa-check"></i><b>9.2</b> A Motivating Example and Polynomials</a></li>
+<li class="chapter" data-level="9.3" data-path="spline.html"><a href="spline.html#piecewise-polynomials"><i class="fa fa-check"></i><b>9.3</b> Piecewise Polynomials</a></li>
+<li class="chapter" data-level="9.4" data-path="spline.html"><a href="spline.html#splines"><i class="fa fa-check"></i><b>9.4</b> Splines</a></li>
+<li class="chapter" data-level="9.5" data-path="spline.html"><a href="spline.html#spline-basis"><i class="fa fa-check"></i><b>9.5</b> Spline Basis</a></li>
+<li class="chapter" data-level="9.6" data-path="spline.html"><a href="spline.html#natural-cubic-spline"><i class="fa fa-check"></i><b>9.6</b> Natural Cubic Spline</a></li>
+<li class="chapter" data-level="9.7" data-path="spline.html"><a href="spline.html#smoothing-spline"><i class="fa fa-check"></i><b>9.7</b> Smoothing Spline</a></li>
+<li class="chapter" data-level="9.8" data-path="spline.html"><a href="spline.html#fitting-smoothing-splines"><i class="fa fa-check"></i><b>9.8</b> Fitting Smoothing Splines</a></li>
+<li class="chapter" data-level="9.9" data-path="spline.html"><a href="spline.html#extending-splines-to-multiple-varibles"><i class="fa fa-check"></i><b>9.9</b> Extending Splines to Multiple Varibles</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html"><i class="fa fa-check"></i><b>9</b> K-Neariest Neighber</a>
+<li class="chapter" data-level="10" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html"><i class="fa fa-check"></i><b>10</b> K-Neariest Neighber</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#definition-1"><i class="fa fa-check"></i><b>9.1</b> Definition</a></li>
-<li class="chapter" data-level="9.2" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-k"><i class="fa fa-check"></i><b>9.2</b> Tuning <span class="math inline">\(k\)</span></a></li>
-<li class="chapter" data-level="9.3" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#the-bias-variance-trade-off"><i class="fa fa-check"></i><b>9.3</b> The Bias-variance Trade-off</a></li>
-<li class="chapter" data-level="9.4" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#knn-for-classification"><i class="fa fa-check"></i><b>9.4</b> KNN for Classification</a></li>
-<li class="chapter" data-level="9.5" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-1-an-artificial-data"><i class="fa fa-check"></i><b>9.5</b> Example 1: An artificial data</a></li>
-<li class="chapter" data-level="9.6" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-with-the-caret-package"><i class="fa fa-check"></i><b>9.6</b> Tuning with the <code>caret</code> Package</a></li>
-<li class="chapter" data-level="9.7" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#distance-measures"><i class="fa fa-check"></i><b>9.7</b> Distance Measures</a></li>
-<li class="chapter" data-level="9.8" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#nn-error-bound"><i class="fa fa-check"></i><b>9.8</b> 1NN Error Bound</a></li>
-<li class="chapter" data-level="9.9" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-2-handwritten-digit-data"><i class="fa fa-check"></i><b>9.9</b> Example 2: Handwritten Digit Data</a></li>
-<li class="chapter" data-level="9.10" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#curse-of-dimensionality"><i class="fa fa-check"></i><b>9.10</b> Curse of Dimensionality</a></li>
+<li class="chapter" data-level="10.1" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#definition-1"><i class="fa fa-check"></i><b>10.1</b> Definition</a></li>
+<li class="chapter" data-level="10.2" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-k"><i class="fa fa-check"></i><b>10.2</b> Tuning <span class="math inline">\(k\)</span></a></li>
+<li class="chapter" data-level="10.3" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#the-bias-variance-trade-off"><i class="fa fa-check"></i><b>10.3</b> The Bias-variance Trade-off</a></li>
+<li class="chapter" data-level="10.4" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#knn-for-classification"><i class="fa fa-check"></i><b>10.4</b> KNN for Classification</a></li>
+<li class="chapter" data-level="10.5" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-1-an-artificial-data"><i class="fa fa-check"></i><b>10.5</b> Example 1: An artificial data</a></li>
+<li class="chapter" data-level="10.6" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-with-the-caret-package"><i class="fa fa-check"></i><b>10.6</b> Tuning with the <code>caret</code> Package</a></li>
+<li class="chapter" data-level="10.7" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#distance-measures"><i class="fa fa-check"></i><b>10.7</b> Distance Measures</a></li>
+<li class="chapter" data-level="10.8" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#nn-error-bound"><i class="fa fa-check"></i><b>10.8</b> 1NN Error Bound</a></li>
+<li class="chapter" data-level="10.9" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-2-handwritten-digit-data"><i class="fa fa-check"></i><b>10.9</b> Example 2: Handwritten Digit Data</a></li>
+<li class="chapter" data-level="10.10" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#curse-of-dimensionality"><i class="fa fa-check"></i><b>10.10</b> Curse of Dimensionality</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html"><i class="fa fa-check"></i><b>10</b> Kernel Smoothing</a>
+<li class="chapter" data-level="11" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html"><i class="fa fa-check"></i><b>11</b> Kernel Smoothing</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#knn-vs.-kernel"><i class="fa fa-check"></i><b>10.1</b> KNN vs. Kernel</a></li>
-<li class="chapter" data-level="10.2" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#kernel-density-estimations"><i class="fa fa-check"></i><b>10.2</b> Kernel Density Estimations</a></li>
-<li class="chapter" data-level="10.3" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off"><i class="fa fa-check"></i><b>10.3</b> Bias-variance trade-off</a></li>
-<li class="chapter" data-level="10.4" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#gaussian-kernel-regression"><i class="fa fa-check"></i><b>10.4</b> Gaussian Kernel Regression</a>
+<li class="chapter" data-level="11.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#knn-vs.-kernel"><i class="fa fa-check"></i><b>11.1</b> KNN vs. Kernel</a></li>
+<li class="chapter" data-level="11.2" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#kernel-density-estimations"><i class="fa fa-check"></i><b>11.2</b> Kernel Density Estimations</a></li>
+<li class="chapter" data-level="11.3" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off"><i class="fa fa-check"></i><b>11.3</b> Bias-variance trade-off</a></li>
+<li class="chapter" data-level="11.4" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#gaussian-kernel-regression"><i class="fa fa-check"></i><b>11.4</b> Gaussian Kernel Regression</a>
 <ul>
-<li class="chapter" data-level="10.4.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off-1"><i class="fa fa-check"></i><b>10.4.1</b> Bias-variance Trade-off</a></li>
+<li class="chapter" data-level="11.4.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off-1"><i class="fa fa-check"></i><b>11.4.1</b> Bias-variance Trade-off</a></li>
 </ul></li>
-<li class="chapter" data-level="10.5" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#choice-of-kernel-functions"><i class="fa fa-check"></i><b>10.5</b> Choice of Kernel Functions</a></li>
-<li class="chapter" data-level="10.6" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-linear-regression"><i class="fa fa-check"></i><b>10.6</b> Local Linear Regression</a></li>
-<li class="chapter" data-level="10.7" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-polynomial-regression"><i class="fa fa-check"></i><b>10.7</b> Local Polynomial Regression</a></li>
-<li class="chapter" data-level="10.8" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#r-implementations"><i class="fa fa-check"></i><b>10.8</b> R Implementations</a></li>
+<li class="chapter" data-level="11.5" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#choice-of-kernel-functions"><i class="fa fa-check"></i><b>11.5</b> Choice of Kernel Functions</a></li>
+<li class="chapter" data-level="11.6" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-linear-regression"><i class="fa fa-check"></i><b>11.6</b> Local Linear Regression</a></li>
+<li class="chapter" data-level="11.7" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-polynomial-regression"><i class="fa fa-check"></i><b>11.7</b> Local Polynomial Regression</a></li>
+<li class="chapter" data-level="11.8" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#r-implementations"><i class="fa fa-check"></i><b>11.8</b> R Implementations</a></li>
 </ul></li>
 <li class="part"><span><b>IV Classification Models</b></span></li>
-<li class="chapter" data-level="11" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression</a>
+<li class="chapter" data-level="12" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>12</b> Logistic Regression</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="logistic-regression.html"><a href="logistic-regression.html#modeling-binary-outcomes"><i class="fa fa-check"></i><b>11.1</b> Modeling Binary Outcomes</a></li>
-<li class="chapter" data-level="11.2" data-path="logistic-regression.html"><a href="logistic-regression.html#example-cleveland-clinic-heart-disease-data"><i class="fa fa-check"></i><b>11.2</b> Example: Cleveland Clinic Heart Disease Data</a></li>
-<li class="chapter" data-level="11.3" data-path="logistic-regression.html"><a href="logistic-regression.html#interpretation-of-the-parameters"><i class="fa fa-check"></i><b>11.3</b> Interpretation of the Parameters</a></li>
-<li class="chapter" data-level="11.4" data-path="logistic-regression.html"><a href="logistic-regression.html#solving-a-logistic-regression"><i class="fa fa-check"></i><b>11.4</b> Solving a Logistic Regression</a></li>
-<li class="chapter" data-level="11.5" data-path="logistic-regression.html"><a href="logistic-regression.html#example-south-africa-heart-data"><i class="fa fa-check"></i><b>11.5</b> Example: South Africa Heart Data</a></li>
-<li class="chapter" data-level="11.6" data-path="logistic-regression.html"><a href="logistic-regression.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>11.6</b> Penalized Logistic Regression</a></li>
+<li class="chapter" data-level="12.1" data-path="logistic-regression.html"><a href="logistic-regression.html#modeling-binary-outcomes"><i class="fa fa-check"></i><b>12.1</b> Modeling Binary Outcomes</a></li>
+<li class="chapter" data-level="12.2" data-path="logistic-regression.html"><a href="logistic-regression.html#example-cleveland-clinic-heart-disease-data"><i class="fa fa-check"></i><b>12.2</b> Example: Cleveland Clinic Heart Disease Data</a></li>
+<li class="chapter" data-level="12.3" data-path="logistic-regression.html"><a href="logistic-regression.html#interpretation-of-the-parameters"><i class="fa fa-check"></i><b>12.3</b> Interpretation of the Parameters</a></li>
+<li class="chapter" data-level="12.4" data-path="logistic-regression.html"><a href="logistic-regression.html#solving-a-logistic-regression"><i class="fa fa-check"></i><b>12.4</b> Solving a Logistic Regression</a></li>
+<li class="chapter" data-level="12.5" data-path="logistic-regression.html"><a href="logistic-regression.html#example-south-africa-heart-data"><i class="fa fa-check"></i><b>12.5</b> Example: South Africa Heart Data</a></li>
+<li class="chapter" data-level="12.6" data-path="logistic-regression.html"><a href="logistic-regression.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>12.6</b> Penalized Logistic Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>12</b> Discriminant Analysis</a>
+<li class="chapter" data-level="13" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>13</b> Discriminant Analysis</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#bayes-rule"><i class="fa fa-check"></i><b>12.1</b> Bayes Rule</a></li>
-<li class="chapter" data-level="12.2" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>12.2</b> Example: Linear Discriminant Analysis (LDA)</a></li>
-<li class="chapter" data-level="12.3" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#linear-discriminant-analysis"><i class="fa fa-check"></i><b>12.3</b> Linear Discriminant Analysis</a></li>
-<li class="chapter" data-level="12.4" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-quadratic-discriminant-analysis-qda"><i class="fa fa-check"></i><b>12.4</b> Example: Quadratic Discriminant Analysis (QDA)</a></li>
-<li class="chapter" data-level="12.5" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#quadratic-discriminant-analysis"><i class="fa fa-check"></i><b>12.5</b> Quadratic Discriminant Analysis</a></li>
-<li class="chapter" data-level="12.6" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-the-hand-written-digit-data"><i class="fa fa-check"></i><b>12.6</b> Example: the Hand Written Digit Data</a></li>
+<li class="chapter" data-level="13.1" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#bayes-rule"><i class="fa fa-check"></i><b>13.1</b> Bayes Rule</a></li>
+<li class="chapter" data-level="13.2" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>13.2</b> Example: Linear Discriminant Analysis (LDA)</a></li>
+<li class="chapter" data-level="13.3" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#linear-discriminant-analysis"><i class="fa fa-check"></i><b>13.3</b> Linear Discriminant Analysis</a></li>
+<li class="chapter" data-level="13.4" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-quadratic-discriminant-analysis-qda"><i class="fa fa-check"></i><b>13.4</b> Example: Quadratic Discriminant Analysis (QDA)</a></li>
+<li class="chapter" data-level="13.5" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#quadratic-discriminant-analysis"><i class="fa fa-check"></i><b>13.5</b> Quadratic Discriminant Analysis</a></li>
+<li class="chapter" data-level="13.6" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-the-hand-written-digit-data"><i class="fa fa-check"></i><b>13.6</b> Example: the Hand Written Digit Data</a></li>
 </ul></li>
 <li class="part"><span><b>V Machine Learning Algorithms</b></span></li>
-<li class="chapter" data-level="13" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>13</b> Support Vector Machines</a>
+<li class="chapter" data-level="14" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>14</b> Support Vector Machines</a>
 <ul>
-<li class="chapter" data-level="13.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#maximum-margin-classifier"><i class="fa fa-check"></i><b>13.1</b> Maximum-margin Classifier</a></li>
-<li class="chapter" data-level="13.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-separable-svm"><i class="fa fa-check"></i><b>13.2</b> Linearly Separable SVM</a>
+<li class="chapter" data-level="14.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#maximum-margin-classifier"><i class="fa fa-check"></i><b>14.1</b> Maximum-margin Classifier</a></li>
+<li class="chapter" data-level="14.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-separable-svm"><i class="fa fa-check"></i><b>14.2</b> Linearly Separable SVM</a>
 <ul>
-<li class="chapter" data-level="13.2.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#from-primal-to-dual"><i class="fa fa-check"></i><b>13.2.1</b> From Primal to Dual</a></li>
+<li class="chapter" data-level="14.2.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#from-primal-to-dual"><i class="fa fa-check"></i><b>14.2.1</b> From Primal to Dual</a></li>
 </ul></li>
-<li class="chapter" data-level="13.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-non-separable-svm-with-slack-variables"><i class="fa fa-check"></i><b>13.3</b> Linearly Non-separable SVM with Slack Variables</a></li>
-<li class="chapter" data-level="13.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-saheart-data"><i class="fa fa-check"></i><b>13.4</b> Example: <code>SAheart</code> Data</a></li>
-<li class="chapter" data-level="13.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#nonlinear-svm-via-kernel-trick"><i class="fa fa-check"></i><b>13.5</b> Nonlinear SVM via Kernel Trick</a></li>
-<li class="chapter" data-level="13.6" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-mixture.example-data"><i class="fa fa-check"></i><b>13.6</b> Example: <code>mixture.example</code> Data</a></li>
-<li class="chapter" data-level="13.7" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svm-as-a-penalized-model"><i class="fa fa-check"></i><b>13.7</b> SVM as a Penalized Model</a></li>
-<li class="chapter" data-level="13.8" data-path="support-vector-machines.html"><a href="support-vector-machines.html#kernel-and-feature-maps-another-example"><i class="fa fa-check"></i><b>13.8</b> Kernel and Feature Maps: Another Example</a></li>
+<li class="chapter" data-level="14.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-non-separable-svm-with-slack-variables"><i class="fa fa-check"></i><b>14.3</b> Linearly Non-separable SVM with Slack Variables</a></li>
+<li class="chapter" data-level="14.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-saheart-data"><i class="fa fa-check"></i><b>14.4</b> Example: <code>SAheart</code> Data</a></li>
+<li class="chapter" data-level="14.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#nonlinear-svm-via-kernel-trick"><i class="fa fa-check"></i><b>14.5</b> Nonlinear SVM via Kernel Trick</a></li>
+<li class="chapter" data-level="14.6" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-mixture.example-data"><i class="fa fa-check"></i><b>14.6</b> Example: <code>mixture.example</code> Data</a></li>
+<li class="chapter" data-level="14.7" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svm-as-a-penalized-model"><i class="fa fa-check"></i><b>14.7</b> SVM as a Penalized Model</a></li>
+<li class="chapter" data-level="14.8" data-path="support-vector-machines.html"><a href="support-vector-machines.html#kernel-and-feature-maps-another-example"><i class="fa fa-check"></i><b>14.8</b> Kernel and Feature Maps: Another Example</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html"><i class="fa fa-check"></i><b>14</b> Reproducing Kernel Hilbert Space</a>
+<li class="chapter" data-level="15" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html"><i class="fa fa-check"></i><b>15</b> Reproducing Kernel Hilbert Space</a>
 <ul>
-<li class="chapter" data-level="14.1" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#constructing-the-rkhs"><i class="fa fa-check"></i><b>14.1</b> Constructing the RKHS</a></li>
-<li class="chapter" data-level="14.2" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#properties-of-rkhs"><i class="fa fa-check"></i><b>14.2</b> Properties of RKHS</a></li>
-<li class="chapter" data-level="14.3" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-representer-theorem"><i class="fa fa-check"></i><b>14.3</b> The Representer Theorem</a></li>
+<li class="chapter" data-level="15.1" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#constructing-the-rkhs"><i class="fa fa-check"></i><b>15.1</b> Constructing the RKHS</a></li>
+<li class="chapter" data-level="15.2" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#properties-of-rkhs"><i class="fa fa-check"></i><b>15.2</b> Properties of RKHS</a></li>
+<li class="chapter" data-level="15.3" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-representer-theorem"><i class="fa fa-check"></i><b>15.3</b> The Representer Theorem</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html"><i class="fa fa-check"></i><b>15</b> Kernel Ridge Regression</a>
+<li class="chapter" data-level="16" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html"><i class="fa fa-check"></i><b>16</b> Kernel Ridge Regression</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-linear-kernel-and-ridge-regression"><i class="fa fa-check"></i><b>15.1</b> Example: Linear Kernel and Ridge Regression</a></li>
-<li class="chapter" data-level="15.2" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-alternative-view"><i class="fa fa-check"></i><b>15.2</b> Example: Alternative View</a></li>
+<li class="chapter" data-level="16.1" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-linear-kernel-and-ridge-regression"><i class="fa fa-check"></i><b>16.1</b> Example: Linear Kernel and Ridge Regression</a></li>
+<li class="chapter" data-level="16.2" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-alternative-view"><i class="fa fa-check"></i><b>16.2</b> Example: Alternative View</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html"><i class="fa fa-check"></i><b>16</b> Classification and Regression Trees</a>
+<li class="chapter" data-level="17" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html"><i class="fa fa-check"></i><b>17</b> Classification and Regression Trees</a>
 <ul>
-<li class="chapter" data-level="16.1" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#example-classification-tree"><i class="fa fa-check"></i><b>16.1</b> Example: Classification Tree</a></li>
-<li class="chapter" data-level="16.2" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#splitting-a-node"><i class="fa fa-check"></i><b>16.2</b> Splitting a Node</a></li>
-<li class="chapter" data-level="16.3" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#regression-trees"><i class="fa fa-check"></i><b>16.3</b> Regression Trees</a></li>
-<li class="chapter" data-level="16.4" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#predicting-a-target-point"><i class="fa fa-check"></i><b>16.4</b> Predicting a Target Point</a></li>
-<li class="chapter" data-level="16.5" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#tuning-a-tree-model"><i class="fa fa-check"></i><b>16.5</b> Tuning a Tree Model</a></li>
+<li class="chapter" data-level="17.1" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#example-classification-tree"><i class="fa fa-check"></i><b>17.1</b> Example: Classification Tree</a></li>
+<li class="chapter" data-level="17.2" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#splitting-a-node"><i class="fa fa-check"></i><b>17.2</b> Splitting a Node</a></li>
+<li class="chapter" data-level="17.3" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#regression-trees"><i class="fa fa-check"></i><b>17.3</b> Regression Trees</a></li>
+<li class="chapter" data-level="17.4" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#predicting-a-target-point"><i class="fa fa-check"></i><b>17.4</b> Predicting a Target Point</a></li>
+<li class="chapter" data-level="17.5" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#tuning-a-tree-model"><i class="fa fa-check"></i><b>17.5</b> Tuning a Tree Model</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="random-forests.html"><a href="random-forests.html"><i class="fa fa-check"></i><b>17</b> Random Forests</a>
+<li class="chapter" data-level="18" data-path="random-forests.html"><a href="random-forests.html"><i class="fa fa-check"></i><b>18</b> Random Forests</a>
 <ul>
-<li class="chapter" data-level="17.1" data-path="random-forests.html"><a href="random-forests.html#bagging-predictors"><i class="fa fa-check"></i><b>17.1</b> Bagging Predictors</a></li>
-<li class="chapter" data-level="17.2" data-path="random-forests.html"><a href="random-forests.html#random-forests-1"><i class="fa fa-check"></i><b>17.2</b> Random Forests</a></li>
-<li class="chapter" data-level="17.3" data-path="random-forests.html"><a href="random-forests.html#effect-of-mtry"><i class="fa fa-check"></i><b>17.3</b> Effect of <code>mtry</code></a></li>
-<li class="chapter" data-level="17.4" data-path="random-forests.html"><a href="random-forests.html#effect-of-nodesize"><i class="fa fa-check"></i><b>17.4</b> Effect of <code>nodesize</code></a></li>
-<li class="chapter" data-level="17.5" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>17.5</b> Variable Importance</a></li>
-<li class="chapter" data-level="17.6" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forets"><i class="fa fa-check"></i><b>17.6</b> Kernel view of Random Forets</a></li>
+<li class="chapter" data-level="18.1" data-path="random-forests.html"><a href="random-forests.html#bagging-predictors"><i class="fa fa-check"></i><b>18.1</b> Bagging Predictors</a></li>
+<li class="chapter" data-level="18.2" data-path="random-forests.html"><a href="random-forests.html#random-forests-1"><i class="fa fa-check"></i><b>18.2</b> Random Forests</a></li>
+<li class="chapter" data-level="18.3" data-path="random-forests.html"><a href="random-forests.html#effect-of-mtry"><i class="fa fa-check"></i><b>18.3</b> Effect of <code>mtry</code></a></li>
+<li class="chapter" data-level="18.4" data-path="random-forests.html"><a href="random-forests.html#effect-of-nodesize"><i class="fa fa-check"></i><b>18.4</b> Effect of <code>nodesize</code></a></li>
+<li class="chapter" data-level="18.5" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>18.5</b> Variable Importance</a></li>
+<li class="chapter" data-level="18.6" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forets"><i class="fa fa-check"></i><b>18.6</b> Kernel view of Random Forets</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>18</b> Boosting</a>
+<li class="chapter" data-level="19" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>19</b> Boosting</a>
 <ul>
-<li class="chapter" data-level="18.1" data-path="boosting.html"><a href="boosting.html#adaboost"><i class="fa fa-check"></i><b>18.1</b> AdaBoost</a></li>
-<li class="chapter" data-level="18.2" data-path="boosting.html"><a href="boosting.html#training-error-of-adaboost"><i class="fa fa-check"></i><b>18.2</b> Training Error of AdaBoost</a></li>
-<li class="chapter" data-level="18.3" data-path="boosting.html"><a href="boosting.html#tuning-the-number-of-trees"><i class="fa fa-check"></i><b>18.3</b> Tuning the Number of Trees</a></li>
-<li class="chapter" data-level="18.4" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>18.4</b> Gradient Boosting</a></li>
+<li class="chapter" data-level="19.1" data-path="boosting.html"><a href="boosting.html#adaboost"><i class="fa fa-check"></i><b>19.1</b> AdaBoost</a></li>
+<li class="chapter" data-level="19.2" data-path="boosting.html"><a href="boosting.html#training-error-of-adaboost"><i class="fa fa-check"></i><b>19.2</b> Training Error of AdaBoost</a></li>
+<li class="chapter" data-level="19.3" data-path="boosting.html"><a href="boosting.html#tuning-the-number-of-trees"><i class="fa fa-check"></i><b>19.3</b> Tuning the Number of Trees</a></li>
+<li class="chapter" data-level="19.4" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>19.4</b> Gradient Boosting</a></li>
 </ul></li>
 <li class="part"><span><b>VI Unsupervised Learning</b></span></li>
-<li class="chapter" data-level="19" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>19</b> K-Means</a>
+<li class="chapter" data-level="20" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>20</b> K-Means</a>
 <ul>
-<li class="chapter" data-level="19.1" data-path="k-means.html"><a href="k-means.html#basic-concepts"><i class="fa fa-check"></i><b>19.1</b> Basic Concepts</a></li>
-<li class="chapter" data-level="19.2" data-path="k-means.html"><a href="k-means.html#example-1-iris-data"><i class="fa fa-check"></i><b>19.2</b> Example 1: <code>iris</code> data</a></li>
-<li class="chapter" data-level="19.3" data-path="k-means.html"><a href="k-means.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>19.3</b> Example 2: clustering of image pixels</a></li>
+<li class="chapter" data-level="20.1" data-path="k-means.html"><a href="k-means.html#basic-concepts"><i class="fa fa-check"></i><b>20.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="20.2" data-path="k-means.html"><a href="k-means.html#example-1-iris-data"><i class="fa fa-check"></i><b>20.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="20.3" data-path="k-means.html"><a href="k-means.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>20.3</b> Example 2: clustering of image pixels</a></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>20</b> Hierarchical Clustering</a>
+<li class="chapter" data-level="21" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>21</b> Hierarchical Clustering</a>
 <ul>
-<li class="chapter" data-level="20.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>20.1</b> Basic Concepts</a></li>
-<li class="chapter" data-level="20.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>20.2</b> Example 1: <code>iris</code> data</a></li>
-<li class="chapter" data-level="20.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>20.3</b> Example 2: RNA Expression Data</a></li>
+<li class="chapter" data-level="21.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>21.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="21.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>21.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="21.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>21.3</b> Example 2: RNA Expression Data</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html"><i class="fa fa-check"></i><b>21</b> Principle Component Analysis</a>
+<li class="chapter" data-level="22" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html"><i class="fa fa-check"></i><b>22</b> Principle Component Analysis</a>
 <ul>
-<li class="chapter" data-level="21.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>21.1</b> Basic Concepts</a>
+<li class="chapter" data-level="22.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>22.1</b> Basic Concepts</a>
 <ul>
-<li class="chapter" data-level="21.1.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>21.1.1</b> Note: Scaling</a></li>
+<li class="chapter" data-level="22.1.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>22.1.1</b> Note: Scaling</a></li>
 </ul></li>
-<li class="chapter" data-level="21.2" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>21.2</b> Example 1: <code>iris</code> Data</a></li>
-<li class="chapter" data-level="21.3" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>21.3</b> Example 2: Handwritten Digits</a></li>
+<li class="chapter" data-level="22.2" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>22.2</b> Example 1: <code>iris</code> Data</a></li>
+<li class="chapter" data-level="22.3" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>22.3</b> Example 2: Handwritten Digits</a></li>
 </ul></li>
-<li class="chapter" data-level="22" data-path="self-organizing-map.html"><a href="self-organizing-map.html"><i class="fa fa-check"></i><b>22</b> Self-Organizing Map</a>
+<li class="chapter" data-level="23" data-path="self-organizing-map.html"><a href="self-organizing-map.html"><i class="fa fa-check"></i><b>23</b> Self-Organizing Map</a>
 <ul>
-<li class="chapter" data-level="22.1" data-path="self-organizing-map.html"><a href="self-organizing-map.html#basic-concepts-3"><i class="fa fa-check"></i><b>22.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="23.1" data-path="self-organizing-map.html"><a href="self-organizing-map.html#basic-concepts-3"><i class="fa fa-check"></i><b>23.1</b> Basic Concepts</a></li>
 </ul></li>
-<li class="chapter" data-level="23" data-path="spectral-clustering.html"><a href="spectral-clustering.html"><i class="fa fa-check"></i><b>23</b> Spectral Clustering</a>
+<li class="chapter" data-level="24" data-path="spectral-clustering.html"><a href="spectral-clustering.html"><i class="fa fa-check"></i><b>24</b> Spectral Clustering</a>
 <ul>
-<li class="chapter" data-level="23.1" data-path="spectral-clustering.html"><a href="spectral-clustering.html#an-example"><i class="fa fa-check"></i><b>23.1</b> An Example</a></li>
-<li class="chapter" data-level="23.2" data-path="spectral-clustering.html"><a href="spectral-clustering.html#adjacency-matrix"><i class="fa fa-check"></i><b>23.2</b> Adjacency Matrix</a></li>
-<li class="chapter" data-level="23.3" data-path="spectral-clustering.html"><a href="spectral-clustering.html#laplacian-matrix"><i class="fa fa-check"></i><b>23.3</b> Laplacian Matrix</a></li>
-<li class="chapter" data-level="23.4" data-path="spectral-clustering.html"><a href="spectral-clustering.html#feature-embedding"><i class="fa fa-check"></i><b>23.4</b> Feature Embedding</a></li>
-<li class="chapter" data-level="23.5" data-path="spectral-clustering.html"><a href="spectral-clustering.html#clustering-with-embedded-features"><i class="fa fa-check"></i><b>23.5</b> Clustering with Embedded Features</a></li>
-<li class="chapter" data-level="23.6" data-path="spectral-clustering.html"><a href="spectral-clustering.html#normalized-graph-laplacian"><i class="fa fa-check"></i><b>23.6</b> Normalized Graph Laplacian</a></li>
+<li class="chapter" data-level="24.1" data-path="spectral-clustering.html"><a href="spectral-clustering.html#an-example"><i class="fa fa-check"></i><b>24.1</b> An Example</a></li>
+<li class="chapter" data-level="24.2" data-path="spectral-clustering.html"><a href="spectral-clustering.html#adjacency-matrix"><i class="fa fa-check"></i><b>24.2</b> Adjacency Matrix</a></li>
+<li class="chapter" data-level="24.3" data-path="spectral-clustering.html"><a href="spectral-clustering.html#laplacian-matrix"><i class="fa fa-check"></i><b>24.3</b> Laplacian Matrix</a></li>
+<li class="chapter" data-level="24.4" data-path="spectral-clustering.html"><a href="spectral-clustering.html#feature-embedding"><i class="fa fa-check"></i><b>24.4</b> Feature Embedding</a></li>
+<li class="chapter" data-level="24.5" data-path="spectral-clustering.html"><a href="spectral-clustering.html#clustering-with-embedded-features"><i class="fa fa-check"></i><b>24.5</b> Clustering with Embedded Features</a></li>
+<li class="chapter" data-level="24.6" data-path="spectral-clustering.html"><a href="spectral-clustering.html#normalized-graph-laplacian"><i class="fa fa-check"></i><b>24.6</b> Normalized Graph Laplacian</a></li>
 </ul></li>
-<li class="chapter" data-level="24" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html"><i class="fa fa-check"></i><b>24</b> Uniform Manifold Approximation and Projection</a>
+<li class="chapter" data-level="25" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html"><i class="fa fa-check"></i><b>25</b> Uniform Manifold Approximation and Projection</a>
 <ul>
-<li class="chapter" data-level="24.1" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#an-example-1"><i class="fa fa-check"></i><b>24.1</b> An Example</a></li>
-<li class="chapter" data-level="24.2" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#tuning"><i class="fa fa-check"></i><b>24.2</b> Tuning</a></li>
-<li class="chapter" data-level="24.3" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#another-example"><i class="fa fa-check"></i><b>24.3</b> Another Example</a></li>
+<li class="chapter" data-level="25.1" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#an-example-1"><i class="fa fa-check"></i><b>25.1</b> An Example</a></li>
+<li class="chapter" data-level="25.2" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#tuning"><i class="fa fa-check"></i><b>25.2</b> Tuning</a></li>
+<li class="chapter" data-level="25.3" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#another-example"><i class="fa fa-check"></i><b>25.3</b> Another Example</a></li>
 </ul></li>
 <li class="part"><span><b>VII Reference</b></span></li>
-<li class="chapter" data-level="25" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>25</b> Reference</a></li>
+<li class="chapter" data-level="26" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>26</b> Reference</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2022 Ruoqing Zhu</a></li>
 
@@ -470,13 +474,13 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="boosting" class="section level1 hasAnchor" number="18">
-<h1><span class="header-section-number">Chapter 18</span> Boosting<a href="boosting.html#boosting" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="boosting" class="section level1 hasAnchor" number="19">
+<h1><span class="header-section-number">Chapter 19</span> Boosting<a href="boosting.html#boosting" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Boosting is another ensemble model, created in the form of</p>
 <p><span class="math display">\[F_T(x) = \sum_{t = 1}^T \alpha_t f_t(x)\]</span></p>
-<p>However, it is different from random forest, in which each <span class="math inline">\(f_t(x)\)</span> is learned parallelly. These <span class="math inline">\(f_t(x)\)</span>’s are called weak learners and are constructed <strong>sequentially</strong>, with coefficients <span class="math inline">\(\alpha_t\)</span>’s to represent their weights. The most classical model, AdaBoost was proposed by <span class="citation">Freund and Schapire (<a href="#ref-freund1997decision" role="doc-biblioref">1997</a>)</span> for classification problems, and a more statically view of this model called gradient boosting machines <span class="citation">(<a href="#ref-friedman2001greedy" role="doc-biblioref">J. H. Friedman 2001</a>)</span> can handle any loss function we commonly use. We will first introduce AdaBoost and then discuss gradient boosting.</p>
-<div id="adaboost" class="section level2 hasAnchor" number="18.1">
-<h2><span class="header-section-number">18.1</span> AdaBoost<a href="boosting.html#adaboost" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>However, it is different from random forest, in which each <span class="math inline">\(f_t(x)\)</span> is learned parallelly. These <span class="math inline">\(f_t(x)\)</span>’s are called weak learners and are constructed <strong>sequentially</strong>, with coefficients <span class="math inline">\(\alpha_t\)</span>’s to represent their weights. The most classical model, AdaBoost was proposed by <span class="citation">Freund and Schapire (<a href="#ref-freund1997decision">1997</a>)</span> for classification problems, and a more statically view of this model called gradient boosting machines <span class="citation">(<a href="#ref-friedman2001greedy">J. H. Friedman 2001</a>)</span> can handle any loss function we commonly use. We will first introduce AdaBoost and then discuss gradient boosting.</p>
+<div id="adaboost" class="section level2 hasAnchor" number="19.1">
+<h2><span class="header-section-number">19.1</span> AdaBoost<a href="boosting.html#adaboost" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Following our common notation, we observe a set of data <span class="math inline">\(\{\mathbf{x}_i, y_i\}_{i=1}^n\)</span>. Similar to SVM, we code <span class="math inline">\(y_i\)</span>s as <span class="math inline">\(-1\)</span> or <span class="math inline">\(1\)</span>. The AdaBoost works by creating <span class="math inline">\(F_T(x)\)</span> sequentially and use <span class="math inline">\(\text{sign}(F_T(x))\)</span> as the classification rule. The algorithm is given in the following:</p>
 <ul>
 <li>Initiate weights <span class="math inline">\(w_i^{(1)} = 1/n\)</span>, for <span class="math inline">\(i = 1, \ldots, n\)</span></li>
@@ -497,124 +501,124 @@ where <span class="math inline">\(Z_t\)</span> is a normalizing constant make <s
 and the decision rule is <span class="math inline">\(\text{sign}(F_T(x))\)</span>.</li>
 </ul>
 <p>An important mechanism in AdaBoost is the weight update step. We can notice that the weight is increased if <span class="math inline">\(\exp\big\{ - \alpha_t y_i f_t(x_i) \big\}\)</span> is larger than 1. This is simply when <span class="math inline">\(y_i f_t(x_i)\)</span> is negative, i.e., subject <span class="math inline">\(i\)</span> got mis-classified by <span class="math inline">\(f_t\)</span> at this iteration. Hence, during the next iteration <span class="math inline">\(t+1\)</span>, the model <span class="math inline">\(f_{(t+1)}\)</span> will more likely to address this subject. Here, <span class="math inline">\(f_t\)</span> can be any classification model, for example, we could use a tree model. The following figures demonstrate this idea of updating weights and aggregate the learners.</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="boosting.html#cb164-1" aria-hidden="true" tabindex="-1"></a>  x1 <span class="ot">=</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="fl">0.1</span>)</span>
-<span id="cb164-2"><a href="boosting.html#cb164-2" aria-hidden="true" tabindex="-1"></a>  x2 <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.6</span>, <span class="fl">0.7</span>,</span>
-<span id="cb164-3"><a href="boosting.html#cb164-3" aria-hidden="true" tabindex="-1"></a>         <span class="fl">0.8</span>, <span class="fl">0.5</span>, <span class="fl">0.7</span>, <span class="fl">0.8</span>, <span class="fl">0.2</span>)</span>
-<span id="cb164-4"><a href="boosting.html#cb164-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb164-5"><a href="boosting.html#cb164-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the data</span></span>
-<span id="cb164-6"><a href="boosting.html#cb164-6" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, </span>
-<span id="cb164-7"><a href="boosting.html#cb164-7" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb164-8"><a href="boosting.html#cb164-8" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">=</span> <span class="fu">cbind</span>(<span class="st">&quot;x1&quot;</span> <span class="ot">=</span> x1, <span class="st">&quot;x2&quot;</span> <span class="ot">=</span> x2)</span>
-<span id="cb164-9"><a href="boosting.html#cb164-9" aria-hidden="true" tabindex="-1"></a>  xgrid <span class="ot">=</span> <span class="fu">expand.grid</span>(<span class="st">&quot;x1&quot;</span> <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fl">1.1</span>, <span class="fl">0.01</span>), <span class="st">&quot;x2&quot;</span> <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fl">0.9</span>, <span class="fl">0.01</span>))</span>
-<span id="cb164-10"><a href="boosting.html#cb164-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb164-11"><a href="boosting.html#cb164-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot data</span></span>
-<span id="cb164-12"><a href="boosting.html#cb164-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
-<span id="cb164-13"><a href="boosting.html#cb164-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
-<span id="cb164-14"><a href="boosting.html#cb164-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">3</span>)</span>
-<span id="cb164-15"><a href="boosting.html#cb164-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb164-16"><a href="boosting.html#cb164-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># fit gbm with 3 trees</span></span>
-<span id="cb164-17"><a href="boosting.html#cb164-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(gbm)</span>
-<span id="cb164-18"><a href="boosting.html#cb164-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Loaded gbm 2.1.8.1</span></span>
-<span id="cb164-19"><a href="boosting.html#cb164-19" aria-hidden="true" tabindex="-1"></a>  gbm.fit <span class="ot">=</span> <span class="fu">gbm</span>(y <span class="sc">~</span>., <span class="fu">data.frame</span>(x1, x2, <span class="at">y=</span> <span class="fu">as.numeric</span>(y <span class="sc">==</span> <span class="dv">1</span>)), </span>
-<span id="cb164-20"><a href="boosting.html#cb164-20" aria-hidden="true" tabindex="-1"></a>                <span class="at">distribution=</span><span class="st">&quot;adaboost&quot;</span>, <span class="at">interaction.depth =</span> <span class="dv">1</span>, </span>
-<span id="cb164-21"><a href="boosting.html#cb164-21" aria-hidden="true" tabindex="-1"></a>                <span class="at">n.minobsinnode =</span> <span class="dv">1</span>, <span class="at">n.trees =</span> <span class="dv">3</span>, </span>
-<span id="cb164-22"><a href="boosting.html#cb164-22" aria-hidden="true" tabindex="-1"></a>                <span class="at">shrinkage =</span> <span class="dv">1</span>, <span class="at">bag.fraction =</span> <span class="dv">1</span>)</span>
-<span id="cb164-23"><a href="boosting.html#cb164-23" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb164-24"><a href="boosting.html#cb164-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># you may peek into each tree</span></span>
-<span id="cb164-25"><a href="boosting.html#cb164-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pretty.gbm.tree</span>(gbm.fit, <span class="at">i.tree =</span> <span class="dv">1</span>)</span>
-<span id="cb164-26"><a href="boosting.html#cb164-26" aria-hidden="true" tabindex="-1"></a><span class="do">##   SplitVar SplitCodePred LeftNode RightNode MissingNode ErrorReduction Weight Prediction</span></span>
-<span id="cb164-27"><a href="boosting.html#cb164-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 0        0          0.25        1         2           3            2.5     10       0.00</span></span>
-<span id="cb164-28"><a href="boosting.html#cb164-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 1       -1          1.00       -1        -1          -1            0.0      2       1.00</span></span>
-<span id="cb164-29"><a href="boosting.html#cb164-29" aria-hidden="true" tabindex="-1"></a><span class="do">## 2       -1         -0.25       -1        -1          -1            0.0      8      -0.25</span></span>
-<span id="cb164-30"><a href="boosting.html#cb164-30" aria-hidden="true" tabindex="-1"></a><span class="do">## 3       -1          0.00       -1        -1          -1            0.0     10       0.00</span></span>
-<span id="cb164-31"><a href="boosting.html#cb164-31" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb164-32"><a href="boosting.html#cb164-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># we can view the predicted decision rule</span></span>
-<span id="cb164-33"><a href="boosting.html#cb164-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
-<span id="cb164-34"><a href="boosting.html#cb164-34" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
-<span id="cb164-35"><a href="boosting.html#cb164-35" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">3</span>)</span>
-<span id="cb164-36"><a href="boosting.html#cb164-36" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">=</span> <span class="fu">predict</span>(gbm.fit, xgrid)</span>
-<span id="cb164-37"><a href="boosting.html#cb164-37" aria-hidden="true" tabindex="-1"></a><span class="do">## Using 3 trees...</span></span>
-<span id="cb164-38"><a href="boosting.html#cb164-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">col =</span> <span class="fu">ifelse</span>(pred <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), </span>
-<span id="cb164-39"><a href="boosting.html#cb164-39" aria-hidden="true" tabindex="-1"></a>         <span class="at">cex =</span> <span class="fl">0.2</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-237-1.png" width="90%" style="display: block; margin: auto;" /></p>
-<p>Here is a rundown of the algorithm. Let’s initialize all weights as <span class="math inline">\(1/n\)</span>. We only used trees with a single split as weak learners. The first tree is splitting at <span class="math inline">\(X_1 = 0.25\)</span>. After the first split, we need to adjust the weights.</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="boosting.html#cb165-1" aria-hidden="true" tabindex="-1"></a>  w1 <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">10</span>, <span class="dv">10</span>)</span>
-<span id="cb165-2"><a href="boosting.html#cb165-2" aria-hidden="true" tabindex="-1"></a>  f1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">ifelse</span>(x[, <span class="dv">1</span>] <span class="sc">&lt;</span> <span class="fl">0.25</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb165-3"><a href="boosting.html#cb165-3" aria-hidden="true" tabindex="-1"></a>  e1 <span class="ot">=</span> <span class="fu">sum</span>(w1<span class="sc">*</span>(<span class="fu">f1</span>(X) <span class="sc">!=</span> y))</span>
-<span id="cb165-4"><a href="boosting.html#cb165-4" aria-hidden="true" tabindex="-1"></a>  a1 <span class="ot">=</span> <span class="fl">0.5</span><span class="sc">*</span><span class="fu">log</span>((<span class="dv">1</span><span class="sc">-</span>e1)<span class="sc">/</span>e1)</span>
-<span id="cb165-5"><a href="boosting.html#cb165-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb165-6"><a href="boosting.html#cb165-6" aria-hidden="true" tabindex="-1"></a>  w2 <span class="ot">=</span> w1<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span> a1<span class="sc">*</span>y<span class="sc">*</span><span class="fu">f1</span>(X))</span>
-<span id="cb165-7"><a href="boosting.html#cb165-7" aria-hidden="true" tabindex="-1"></a>  w2 <span class="ot">=</span> w2<span class="sc">/</span><span class="fu">sum</span>(w2)</span>
-<span id="cb165-8"><a href="boosting.html#cb165-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb165-9"><a href="boosting.html#cb165-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the first tree</span></span>
-<span id="cb165-10"><a href="boosting.html#cb165-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
-<span id="cb165-11"><a href="boosting.html#cb165-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
-<span id="cb165-12"><a href="boosting.html#cb165-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">3</span>)</span>
-<span id="cb165-13"><a href="boosting.html#cb165-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb165-14"><a href="boosting.html#cb165-14" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">=</span> <span class="fu">f1</span>(xgrid)</span>
-<span id="cb165-15"><a href="boosting.html#cb165-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">col =</span> <span class="fu">ifelse</span>(pred <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), </span>
-<span id="cb165-16"><a href="boosting.html#cb165-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">cex =</span> <span class="fl">0.2</span>)</span>
-<span id="cb165-17"><a href="boosting.html#cb165-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb165-18"><a href="boosting.html#cb165-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># weights after the first tree</span></span>
-<span id="cb165-19"><a href="boosting.html#cb165-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
-<span id="cb165-20"><a href="boosting.html#cb165-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
-<span id="cb165-21"><a href="boosting.html#cb165-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">30</span><span class="sc">*</span>w2)</span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="boosting.html#cb163-1" tabindex="-1"></a>  x1 <span class="ot">=</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="fl">0.1</span>)</span>
+<span id="cb163-2"><a href="boosting.html#cb163-2" tabindex="-1"></a>  x2 <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.6</span>, <span class="fl">0.7</span>,</span>
+<span id="cb163-3"><a href="boosting.html#cb163-3" tabindex="-1"></a>         <span class="fl">0.8</span>, <span class="fl">0.5</span>, <span class="fl">0.7</span>, <span class="fl">0.8</span>, <span class="fl">0.2</span>)</span>
+<span id="cb163-4"><a href="boosting.html#cb163-4" tabindex="-1"></a>  </span>
+<span id="cb163-5"><a href="boosting.html#cb163-5" tabindex="-1"></a>  <span class="co"># the data</span></span>
+<span id="cb163-6"><a href="boosting.html#cb163-6" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, </span>
+<span id="cb163-7"><a href="boosting.html#cb163-7" tabindex="-1"></a>        <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb163-8"><a href="boosting.html#cb163-8" tabindex="-1"></a>  X <span class="ot">=</span> <span class="fu">cbind</span>(<span class="st">&quot;x1&quot;</span> <span class="ot">=</span> x1, <span class="st">&quot;x2&quot;</span> <span class="ot">=</span> x2)</span>
+<span id="cb163-9"><a href="boosting.html#cb163-9" tabindex="-1"></a>  xgrid <span class="ot">=</span> <span class="fu">expand.grid</span>(<span class="st">&quot;x1&quot;</span> <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fl">1.1</span>, <span class="fl">0.01</span>), <span class="st">&quot;x2&quot;</span> <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fl">0.9</span>, <span class="fl">0.01</span>))</span>
+<span id="cb163-10"><a href="boosting.html#cb163-10" tabindex="-1"></a>  </span>
+<span id="cb163-11"><a href="boosting.html#cb163-11" tabindex="-1"></a>  <span class="co"># plot data</span></span>
+<span id="cb163-12"><a href="boosting.html#cb163-12" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
+<span id="cb163-13"><a href="boosting.html#cb163-13" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb163-14"><a href="boosting.html#cb163-14" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">3</span>)</span>
+<span id="cb163-15"><a href="boosting.html#cb163-15" tabindex="-1"></a>  </span>
+<span id="cb163-16"><a href="boosting.html#cb163-16" tabindex="-1"></a>  <span class="co"># fit gbm with 3 trees</span></span>
+<span id="cb163-17"><a href="boosting.html#cb163-17" tabindex="-1"></a>  <span class="fu">library</span>(gbm)</span>
+<span id="cb163-18"><a href="boosting.html#cb163-18" tabindex="-1"></a><span class="do">## Loaded gbm 2.1.8.1</span></span>
+<span id="cb163-19"><a href="boosting.html#cb163-19" tabindex="-1"></a>  gbm.fit <span class="ot">=</span> <span class="fu">gbm</span>(y <span class="sc">~</span>., <span class="fu">data.frame</span>(x1, x2, <span class="at">y=</span> <span class="fu">as.numeric</span>(y <span class="sc">==</span> <span class="dv">1</span>)), </span>
+<span id="cb163-20"><a href="boosting.html#cb163-20" tabindex="-1"></a>                <span class="at">distribution=</span><span class="st">&quot;adaboost&quot;</span>, <span class="at">interaction.depth =</span> <span class="dv">1</span>, </span>
+<span id="cb163-21"><a href="boosting.html#cb163-21" tabindex="-1"></a>                <span class="at">n.minobsinnode =</span> <span class="dv">1</span>, <span class="at">n.trees =</span> <span class="dv">3</span>, </span>
+<span id="cb163-22"><a href="boosting.html#cb163-22" tabindex="-1"></a>                <span class="at">shrinkage =</span> <span class="dv">1</span>, <span class="at">bag.fraction =</span> <span class="dv">1</span>)</span>
+<span id="cb163-23"><a href="boosting.html#cb163-23" tabindex="-1"></a>  </span>
+<span id="cb163-24"><a href="boosting.html#cb163-24" tabindex="-1"></a>  <span class="co"># you may peek into each tree</span></span>
+<span id="cb163-25"><a href="boosting.html#cb163-25" tabindex="-1"></a>  <span class="fu">pretty.gbm.tree</span>(gbm.fit, <span class="at">i.tree =</span> <span class="dv">1</span>)</span>
+<span id="cb163-26"><a href="boosting.html#cb163-26" tabindex="-1"></a><span class="do">##   SplitVar SplitCodePred LeftNode RightNode MissingNode ErrorReduction Weight Prediction</span></span>
+<span id="cb163-27"><a href="boosting.html#cb163-27" tabindex="-1"></a><span class="do">## 0        0          0.25        1         2           3            2.5     10       0.00</span></span>
+<span id="cb163-28"><a href="boosting.html#cb163-28" tabindex="-1"></a><span class="do">## 1       -1          1.00       -1        -1          -1            0.0      2       1.00</span></span>
+<span id="cb163-29"><a href="boosting.html#cb163-29" tabindex="-1"></a><span class="do">## 2       -1         -0.25       -1        -1          -1            0.0      8      -0.25</span></span>
+<span id="cb163-30"><a href="boosting.html#cb163-30" tabindex="-1"></a><span class="do">## 3       -1          0.00       -1        -1          -1            0.0     10       0.00</span></span>
+<span id="cb163-31"><a href="boosting.html#cb163-31" tabindex="-1"></a>  </span>
+<span id="cb163-32"><a href="boosting.html#cb163-32" tabindex="-1"></a>  <span class="co"># we can view the predicted decision rule</span></span>
+<span id="cb163-33"><a href="boosting.html#cb163-33" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
+<span id="cb163-34"><a href="boosting.html#cb163-34" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb163-35"><a href="boosting.html#cb163-35" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">3</span>)</span>
+<span id="cb163-36"><a href="boosting.html#cb163-36" tabindex="-1"></a>  pred <span class="ot">=</span> <span class="fu">predict</span>(gbm.fit, xgrid)</span>
+<span id="cb163-37"><a href="boosting.html#cb163-37" tabindex="-1"></a><span class="do">## Using 3 trees...</span></span>
+<span id="cb163-38"><a href="boosting.html#cb163-38" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">col =</span> <span class="fu">ifelse</span>(pred <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), </span>
+<span id="cb163-39"><a href="boosting.html#cb163-39" tabindex="-1"></a>         <span class="at">cex =</span> <span class="fl">0.2</span>)</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-239-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>Here is a rundown of the algorithm. Let’s initialize all weights as <span class="math inline">\(1/n\)</span>. We only used trees with a single split as weak learners. The first tree is splitting at <span class="math inline">\(X_1 = 0.25\)</span>. After the first split, we need to adjust the weights.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="boosting.html#cb164-1" tabindex="-1"></a>  w1 <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb164-2"><a href="boosting.html#cb164-2" tabindex="-1"></a>  f1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">ifelse</span>(x[, <span class="dv">1</span>] <span class="sc">&lt;</span> <span class="fl">0.25</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb164-3"><a href="boosting.html#cb164-3" tabindex="-1"></a>  e1 <span class="ot">=</span> <span class="fu">sum</span>(w1<span class="sc">*</span>(<span class="fu">f1</span>(X) <span class="sc">!=</span> y))</span>
+<span id="cb164-4"><a href="boosting.html#cb164-4" tabindex="-1"></a>  a1 <span class="ot">=</span> <span class="fl">0.5</span><span class="sc">*</span><span class="fu">log</span>((<span class="dv">1</span><span class="sc">-</span>e1)<span class="sc">/</span>e1)</span>
+<span id="cb164-5"><a href="boosting.html#cb164-5" tabindex="-1"></a>  </span>
+<span id="cb164-6"><a href="boosting.html#cb164-6" tabindex="-1"></a>  w2 <span class="ot">=</span> w1<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span> a1<span class="sc">*</span>y<span class="sc">*</span><span class="fu">f1</span>(X))</span>
+<span id="cb164-7"><a href="boosting.html#cb164-7" tabindex="-1"></a>  w2 <span class="ot">=</span> w2<span class="sc">/</span><span class="fu">sum</span>(w2)</span>
+<span id="cb164-8"><a href="boosting.html#cb164-8" tabindex="-1"></a>  </span>
+<span id="cb164-9"><a href="boosting.html#cb164-9" tabindex="-1"></a>  <span class="co"># the first tree</span></span>
+<span id="cb164-10"><a href="boosting.html#cb164-10" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
+<span id="cb164-11"><a href="boosting.html#cb164-11" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb164-12"><a href="boosting.html#cb164-12" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">3</span>)</span>
+<span id="cb164-13"><a href="boosting.html#cb164-13" tabindex="-1"></a>  </span>
+<span id="cb164-14"><a href="boosting.html#cb164-14" tabindex="-1"></a>  pred <span class="ot">=</span> <span class="fu">f1</span>(xgrid)</span>
+<span id="cb164-15"><a href="boosting.html#cb164-15" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">col =</span> <span class="fu">ifelse</span>(pred <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), </span>
+<span id="cb164-16"><a href="boosting.html#cb164-16" tabindex="-1"></a>         <span class="at">cex =</span> <span class="fl">0.2</span>)</span>
+<span id="cb164-17"><a href="boosting.html#cb164-17" tabindex="-1"></a>  </span>
+<span id="cb164-18"><a href="boosting.html#cb164-18" tabindex="-1"></a>  <span class="co"># weights after the first tree</span></span>
+<span id="cb164-19"><a href="boosting.html#cb164-19" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
+<span id="cb164-20"><a href="boosting.html#cb164-20" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb164-21"><a href="boosting.html#cb164-21" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">30</span><span class="sc">*</span>w2)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-241-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>We can notice that the observations got correctly classified will decrease their weights while those mis-classified will increase the weights.</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="boosting.html#cb166-1" aria-hidden="true" tabindex="-1"></a>  f2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">ifelse</span>(x[, <span class="dv">2</span>] <span class="sc">&gt;</span> <span class="fl">0.65</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb166-2"><a href="boosting.html#cb166-2" aria-hidden="true" tabindex="-1"></a>  e2 <span class="ot">=</span> <span class="fu">sum</span>(w2<span class="sc">*</span>(<span class="fu">f2</span>(X) <span class="sc">!=</span> y))</span>
-<span id="cb166-3"><a href="boosting.html#cb166-3" aria-hidden="true" tabindex="-1"></a>  a2 <span class="ot">=</span> <span class="fl">0.5</span><span class="sc">*</span><span class="fu">log</span>((<span class="dv">1</span><span class="sc">-</span>e2)<span class="sc">/</span>e2)</span>
-<span id="cb166-4"><a href="boosting.html#cb166-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb166-5"><a href="boosting.html#cb166-5" aria-hidden="true" tabindex="-1"></a>  w3 <span class="ot">=</span> w2<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span> a2<span class="sc">*</span>y<span class="sc">*</span><span class="fu">f2</span>(X))</span>
-<span id="cb166-6"><a href="boosting.html#cb166-6" aria-hidden="true" tabindex="-1"></a>  w3 <span class="ot">=</span> w3<span class="sc">/</span><span class="fu">sum</span>(w3)</span>
-<span id="cb166-7"><a href="boosting.html#cb166-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb166-8"><a href="boosting.html#cb166-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the second tree</span></span>
-<span id="cb166-9"><a href="boosting.html#cb166-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
-<span id="cb166-10"><a href="boosting.html#cb166-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
-<span id="cb166-11"><a href="boosting.html#cb166-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">30</span><span class="sc">*</span>w2)</span>
-<span id="cb166-12"><a href="boosting.html#cb166-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb166-13"><a href="boosting.html#cb166-13" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">=</span> <span class="fu">f2</span>(xgrid)</span>
-<span id="cb166-14"><a href="boosting.html#cb166-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">col =</span> <span class="fu">ifelse</span>(pred <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), </span>
-<span id="cb166-15"><a href="boosting.html#cb166-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">cex =</span> <span class="fl">0.2</span>)</span>
-<span id="cb166-16"><a href="boosting.html#cb166-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb166-17"><a href="boosting.html#cb166-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># weights after the second tree</span></span>
-<span id="cb166-18"><a href="boosting.html#cb166-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
-<span id="cb166-19"><a href="boosting.html#cb166-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
-<span id="cb166-20"><a href="boosting.html#cb166-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">30</span><span class="sc">*</span>w3)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-240-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="boosting.html#cb165-1" tabindex="-1"></a>  f2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">ifelse</span>(x[, <span class="dv">2</span>] <span class="sc">&gt;</span> <span class="fl">0.65</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb165-2"><a href="boosting.html#cb165-2" tabindex="-1"></a>  e2 <span class="ot">=</span> <span class="fu">sum</span>(w2<span class="sc">*</span>(<span class="fu">f2</span>(X) <span class="sc">!=</span> y))</span>
+<span id="cb165-3"><a href="boosting.html#cb165-3" tabindex="-1"></a>  a2 <span class="ot">=</span> <span class="fl">0.5</span><span class="sc">*</span><span class="fu">log</span>((<span class="dv">1</span><span class="sc">-</span>e2)<span class="sc">/</span>e2)</span>
+<span id="cb165-4"><a href="boosting.html#cb165-4" tabindex="-1"></a>  </span>
+<span id="cb165-5"><a href="boosting.html#cb165-5" tabindex="-1"></a>  w3 <span class="ot">=</span> w2<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span> a2<span class="sc">*</span>y<span class="sc">*</span><span class="fu">f2</span>(X))</span>
+<span id="cb165-6"><a href="boosting.html#cb165-6" tabindex="-1"></a>  w3 <span class="ot">=</span> w3<span class="sc">/</span><span class="fu">sum</span>(w3)</span>
+<span id="cb165-7"><a href="boosting.html#cb165-7" tabindex="-1"></a>  </span>
+<span id="cb165-8"><a href="boosting.html#cb165-8" tabindex="-1"></a>  <span class="co"># the second tree</span></span>
+<span id="cb165-9"><a href="boosting.html#cb165-9" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
+<span id="cb165-10"><a href="boosting.html#cb165-10" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb165-11"><a href="boosting.html#cb165-11" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">30</span><span class="sc">*</span>w2)</span>
+<span id="cb165-12"><a href="boosting.html#cb165-12" tabindex="-1"></a>  </span>
+<span id="cb165-13"><a href="boosting.html#cb165-13" tabindex="-1"></a>  pred <span class="ot">=</span> <span class="fu">f2</span>(xgrid)</span>
+<span id="cb165-14"><a href="boosting.html#cb165-14" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">col =</span> <span class="fu">ifelse</span>(pred <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), </span>
+<span id="cb165-15"><a href="boosting.html#cb165-15" tabindex="-1"></a>         <span class="at">cex =</span> <span class="fl">0.2</span>)</span>
+<span id="cb165-16"><a href="boosting.html#cb165-16" tabindex="-1"></a>  </span>
+<span id="cb165-17"><a href="boosting.html#cb165-17" tabindex="-1"></a>  <span class="co"># weights after the second tree</span></span>
+<span id="cb165-18"><a href="boosting.html#cb165-18" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
+<span id="cb165-19"><a href="boosting.html#cb165-19" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb165-20"><a href="boosting.html#cb165-20" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">30</span><span class="sc">*</span>w3)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-242-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>And then we have the third step. Combining all three steps and their decision function, we have the final classifier</p>
 <p><span class="math display">\[\begin{align}
 F_3(x) =&amp; \sum_{t=1}^3 \alpha_t f_t(x) \nonumber \\
 =&amp; 0.4236 \cdot f_1(x) + 0.6496 \cdot f_2(x) + 0.9229 \cdot f_3(x)
 \end{align}\]</span></p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="boosting.html#cb167-1" aria-hidden="true" tabindex="-1"></a>  f3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">ifelse</span>(x[, <span class="dv">1</span>] <span class="sc">&lt;</span> <span class="fl">0.85</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb167-2"><a href="boosting.html#cb167-2" aria-hidden="true" tabindex="-1"></a>  e3 <span class="ot">=</span> <span class="fu">sum</span>(w3<span class="sc">*</span>(<span class="fu">f3</span>(X) <span class="sc">!=</span> y))</span>
-<span id="cb167-3"><a href="boosting.html#cb167-3" aria-hidden="true" tabindex="-1"></a>  a3 <span class="ot">=</span> <span class="fl">0.5</span><span class="sc">*</span><span class="fu">log</span>((<span class="dv">1</span><span class="sc">-</span>e3)<span class="sc">/</span>e3)</span>
-<span id="cb167-4"><a href="boosting.html#cb167-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb167-5"><a href="boosting.html#cb167-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the third tree</span></span>
-<span id="cb167-6"><a href="boosting.html#cb167-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
-<span id="cb167-7"><a href="boosting.html#cb167-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
-<span id="cb167-8"><a href="boosting.html#cb167-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">30</span><span class="sc">*</span>w3)</span>
-<span id="cb167-9"><a href="boosting.html#cb167-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb167-10"><a href="boosting.html#cb167-10" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">=</span> <span class="fu">f3</span>(xgrid)</span>
-<span id="cb167-11"><a href="boosting.html#cb167-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">col =</span> <span class="fu">ifelse</span>(pred <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), </span>
-<span id="cb167-12"><a href="boosting.html#cb167-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">cex =</span> <span class="fl">0.2</span>)</span>
-<span id="cb167-13"><a href="boosting.html#cb167-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb167-14"><a href="boosting.html#cb167-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the final decision rule </span></span>
-<span id="cb167-15"><a href="boosting.html#cb167-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
-<span id="cb167-16"><a href="boosting.html#cb167-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
-<span id="cb167-17"><a href="boosting.html#cb167-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">3</span>)</span>
-<span id="cb167-18"><a href="boosting.html#cb167-18" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb167-19"><a href="boosting.html#cb167-19" aria-hidden="true" tabindex="-1"></a>  pred <span class="ot">=</span> a1<span class="sc">*</span><span class="fu">f1</span>(xgrid) <span class="sc">+</span> a2<span class="sc">*</span><span class="fu">f2</span>(xgrid) <span class="sc">+</span> a3<span class="sc">*</span><span class="fu">f3</span>(xgrid)</span>
-<span id="cb167-20"><a href="boosting.html#cb167-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">col =</span> <span class="fu">ifelse</span>(pred <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), </span>
-<span id="cb167-21"><a href="boosting.html#cb167-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">cex =</span> <span class="fl">0.2</span>)</span>
-<span id="cb167-22"><a href="boosting.html#cb167-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">0.25</span>) <span class="co"># f1</span></span>
-<span id="cb167-23"><a href="boosting.html#cb167-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.65</span>) <span class="co"># f2</span></span>
-<span id="cb167-24"><a href="boosting.html#cb167-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">0.85</span>) <span class="co"># f3</span></span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-241-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="boosting.html#cb166-1" tabindex="-1"></a>  f3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">ifelse</span>(x[, <span class="dv">1</span>] <span class="sc">&lt;</span> <span class="fl">0.85</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb166-2"><a href="boosting.html#cb166-2" tabindex="-1"></a>  e3 <span class="ot">=</span> <span class="fu">sum</span>(w3<span class="sc">*</span>(<span class="fu">f3</span>(X) <span class="sc">!=</span> y))</span>
+<span id="cb166-3"><a href="boosting.html#cb166-3" tabindex="-1"></a>  a3 <span class="ot">=</span> <span class="fl">0.5</span><span class="sc">*</span><span class="fu">log</span>((<span class="dv">1</span><span class="sc">-</span>e3)<span class="sc">/</span>e3)</span>
+<span id="cb166-4"><a href="boosting.html#cb166-4" tabindex="-1"></a>  </span>
+<span id="cb166-5"><a href="boosting.html#cb166-5" tabindex="-1"></a>  <span class="co"># the third tree</span></span>
+<span id="cb166-6"><a href="boosting.html#cb166-6" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
+<span id="cb166-7"><a href="boosting.html#cb166-7" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb166-8"><a href="boosting.html#cb166-8" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">30</span><span class="sc">*</span>w3)</span>
+<span id="cb166-9"><a href="boosting.html#cb166-9" tabindex="-1"></a>  </span>
+<span id="cb166-10"><a href="boosting.html#cb166-10" tabindex="-1"></a>  pred <span class="ot">=</span> <span class="fu">f3</span>(xgrid)</span>
+<span id="cb166-11"><a href="boosting.html#cb166-11" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">col =</span> <span class="fu">ifelse</span>(pred <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), </span>
+<span id="cb166-12"><a href="boosting.html#cb166-12" tabindex="-1"></a>         <span class="at">cex =</span> <span class="fl">0.2</span>)</span>
+<span id="cb166-13"><a href="boosting.html#cb166-13" tabindex="-1"></a>  </span>
+<span id="cb166-14"><a href="boosting.html#cb166-14" tabindex="-1"></a>  <span class="co"># the final decision rule </span></span>
+<span id="cb166-15"><a href="boosting.html#cb166-15" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
+<span id="cb166-16"><a href="boosting.html#cb166-16" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb166-17"><a href="boosting.html#cb166-17" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">3</span>)</span>
+<span id="cb166-18"><a href="boosting.html#cb166-18" tabindex="-1"></a>  </span>
+<span id="cb166-19"><a href="boosting.html#cb166-19" tabindex="-1"></a>  pred <span class="ot">=</span> a1<span class="sc">*</span><span class="fu">f1</span>(xgrid) <span class="sc">+</span> a2<span class="sc">*</span><span class="fu">f2</span>(xgrid) <span class="sc">+</span> a3<span class="sc">*</span><span class="fu">f3</span>(xgrid)</span>
+<span id="cb166-20"><a href="boosting.html#cb166-20" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">col =</span> <span class="fu">ifelse</span>(pred <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), </span>
+<span id="cb166-21"><a href="boosting.html#cb166-21" tabindex="-1"></a>         <span class="at">cex =</span> <span class="fl">0.2</span>)</span>
+<span id="cb166-22"><a href="boosting.html#cb166-22" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">0.25</span>) <span class="co"># f1</span></span>
+<span id="cb166-23"><a href="boosting.html#cb166-23" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.65</span>) <span class="co"># f2</span></span>
+<span id="cb166-24"><a href="boosting.html#cb166-24" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">0.85</span>) <span class="co"># f3</span></span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-243-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="training-error-of-adaboost" class="section level2 hasAnchor" number="18.2">
-<h2><span class="header-section-number">18.2</span> Training Error of AdaBoost<a href="boosting.html#training-error-of-adaboost" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="training-error-of-adaboost" class="section level2 hasAnchor" number="19.2">
+<h2><span class="header-section-number">19.2</span> Training Error of AdaBoost<a href="boosting.html#training-error-of-adaboost" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There is an interesting property about the boosting algorithm that if we can always find a classifier that performs better than random guessing at each iteration <span class="math inline">\(t\)</span>, then the training error will eventually converge to zero. This works by analyzing the weight after the last iteration <span class="math inline">\(T\)</span>:</p>
 <p><span class="math display">\[\begin{align}
 w_i^{(T+1)} =&amp; \frac{1}{Z_T} w_i^{(T)} \exp\big\{ - \alpha_t y_i f_t(x_i) \big\} \nonumber \\
@@ -664,45 +668,45 @@ Z_t =&amp; 2 \sqrt{\epsilon_t(1-\epsilon_t)} \nonumber \\
 \end{align}\]</span></p>
 <p>which converges to 0 as long as <span class="math inline">\(\sum_{t=1}^T \gamma_t^2\)</span> accumulates up to infinite. But of course, in practice, it would increasing difficult find <span class="math inline">\(f_t(x)\)</span> that reduces the training error greatly.</p>
 </div>
-<div id="tuning-the-number-of-trees" class="section level2 hasAnchor" number="18.3">
-<h2><span class="header-section-number">18.3</span> Tuning the Number of Trees<a href="boosting.html#tuning-the-number-of-trees" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="tuning-the-number-of-trees" class="section level2 hasAnchor" number="19.3">
+<h2><span class="header-section-number">19.3</span> Tuning the Number of Trees<a href="boosting.html#tuning-the-number-of-trees" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Although we can get really low training classification error, this is subject to overfitting. The following code demonstrates what an overfitted looks like.</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="boosting.html#cb168-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># One-dimensional classification example</span></span>
-<span id="cb168-2"><a href="boosting.html#cb168-2" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">1000</span>; <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb168-3"><a href="boosting.html#cb168-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> n), <span class="fu">runif</span>(n))</span>
-<span id="cb168-4"><a href="boosting.html#cb168-4" aria-hidden="true" tabindex="-1"></a>  py <span class="ot">=</span> (<span class="fu">sin</span>(<span class="dv">4</span><span class="sc">*</span>pi<span class="sc">*</span>x[, <span class="dv">1</span>]) <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">/</span><span class="dv">2</span></span>
-<span id="cb168-5"><a href="boosting.html#cb168-5" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, py)</span>
-<span id="cb168-6"><a href="boosting.html#cb168-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb168-7"><a href="boosting.html#cb168-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x[, <span class="dv">1</span>], y <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="fl">0.05</span>, <span class="fl">0.05</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.05</span>, <span class="fl">1.05</span>), <span class="at">cex =</span> <span class="fl">0.5</span>,</span>
-<span id="cb168-8"><a href="boosting.html#cb168-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">ifelse</span>(y<span class="sc">==</span><span class="dv">1</span>,<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;P(Y=1 | X=x)&quot;</span>)</span>
-<span id="cb168-9"><a href="boosting.html#cb168-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(x[, <span class="dv">1</span>], py, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-243-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="boosting.html#cb169-1" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb169-2"><a href="boosting.html#cb169-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># fit AdaBoost with bootstrapping, I am using a large shrinkage factor</span></span>
-<span id="cb169-3"><a href="boosting.html#cb169-3" aria-hidden="true" tabindex="-1"></a>  gbm.fit <span class="ot">=</span> <span class="fu">gbm</span>(y<span class="sc">~</span>., <span class="fu">data.frame</span>(x, y), <span class="at">distribution=</span><span class="st">&quot;adaboost&quot;</span>, <span class="at">n.minobsinnode =</span> <span class="dv">2</span>, </span>
-<span id="cb169-4"><a href="boosting.html#cb169-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">n.trees=</span><span class="dv">200</span>, <span class="at">shrinkage =</span> <span class="dv">1</span>, <span class="at">bag.fraction=</span><span class="fl">0.8</span>, <span class="at">cv.folds =</span> <span class="dv">10</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="boosting.html#cb170-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot the decision function (Fx, not sign(Fx))</span></span>
-<span id="cb170-2"><a href="boosting.html#cb170-2" aria-hidden="true" tabindex="-1"></a>  size<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">100</span>)</span>
-<span id="cb170-3"><a href="boosting.html#cb170-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb170-4"><a href="boosting.html#cb170-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb170-5"><a href="boosting.html#cb170-5" aria-hidden="true" tabindex="-1"></a>  {</span>
-<span id="cb170-6"><a href="boosting.html#cb170-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
-<span id="cb170-7"><a href="boosting.html#cb170-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(x[, <span class="dv">1</span>], py, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">ylab =</span> <span class="st">&quot;P(Y=1 | X=x)&quot;</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>)</span>
-<span id="cb170-8"><a href="boosting.html#cb170-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(x[, <span class="dv">1</span>], y <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="fl">0.05</span>, <span class="fl">0.05</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.5</span>, <span class="at">ylim =</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.05</span>, <span class="fl">1.05</span>),</span>
-<span id="cb170-9"><a href="boosting.html#cb170-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="fu">ifelse</span>(y<span class="sc">==</span><span class="dv">1</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>))</span>
-<span id="cb170-10"><a href="boosting.html#cb170-10" aria-hidden="true" tabindex="-1"></a>    Fx <span class="ot">=</span> <span class="fu">predict</span>(gbm.fit, <span class="at">n.trees=</span>size[i]) <span class="co"># this returns the fitted function, but not class</span></span>
-<span id="cb170-11"><a href="boosting.html#cb170-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(x[, <span class="dv">1</span>], <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">*</span>Fx)), <span class="at">lwd =</span> <span class="dv">1</span>)</span>
-<span id="cb170-12"><a href="boosting.html#cb170-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="fu">paste</span>(<span class="st">&quot;# of Iterations = &quot;</span>, size[i]))</span>
-<span id="cb170-13"><a href="boosting.html#cb170-13" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-245-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="boosting.html#cb167-1" tabindex="-1"></a>  <span class="co"># One-dimensional classification example</span></span>
+<span id="cb167-2"><a href="boosting.html#cb167-2" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">1000</span>; <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb167-3"><a href="boosting.html#cb167-3" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">cbind</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> n), <span class="fu">runif</span>(n))</span>
+<span id="cb167-4"><a href="boosting.html#cb167-4" tabindex="-1"></a>  py <span class="ot">=</span> (<span class="fu">sin</span>(<span class="dv">4</span><span class="sc">*</span>pi<span class="sc">*</span>x[, <span class="dv">1</span>]) <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb167-5"><a href="boosting.html#cb167-5" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, py)</span>
+<span id="cb167-6"><a href="boosting.html#cb167-6" tabindex="-1"></a>  </span>
+<span id="cb167-7"><a href="boosting.html#cb167-7" tabindex="-1"></a>  <span class="fu">plot</span>(x[, <span class="dv">1</span>], y <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="fl">0.05</span>, <span class="fl">0.05</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.05</span>, <span class="fl">1.05</span>), <span class="at">cex =</span> <span class="fl">0.5</span>,</span>
+<span id="cb167-8"><a href="boosting.html#cb167-8" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">ifelse</span>(y<span class="sc">==</span><span class="dv">1</span>,<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;P(Y=1 | X=x)&quot;</span>)</span>
+<span id="cb167-9"><a href="boosting.html#cb167-9" tabindex="-1"></a>  <span class="fu">points</span>(x[, <span class="dv">1</span>], py, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-245-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="boosting.html#cb168-1" tabindex="-1"></a>  </span>
+<span id="cb168-2"><a href="boosting.html#cb168-2" tabindex="-1"></a>  <span class="co"># fit AdaBoost with bootstrapping, I am using a large shrinkage factor</span></span>
+<span id="cb168-3"><a href="boosting.html#cb168-3" tabindex="-1"></a>  gbm.fit <span class="ot">=</span> <span class="fu">gbm</span>(y<span class="sc">~</span>., <span class="fu">data.frame</span>(x, y), <span class="at">distribution=</span><span class="st">&quot;adaboost&quot;</span>, <span class="at">n.minobsinnode =</span> <span class="dv">2</span>, </span>
+<span id="cb168-4"><a href="boosting.html#cb168-4" tabindex="-1"></a>                <span class="at">n.trees=</span><span class="dv">200</span>, <span class="at">shrinkage =</span> <span class="dv">1</span>, <span class="at">bag.fraction=</span><span class="fl">0.8</span>, <span class="at">cv.folds =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="boosting.html#cb169-1" tabindex="-1"></a>  <span class="co"># plot the decision function (Fx, not sign(Fx))</span></span>
+<span id="cb169-2"><a href="boosting.html#cb169-2" tabindex="-1"></a>  size<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">100</span>)</span>
+<span id="cb169-3"><a href="boosting.html#cb169-3" tabindex="-1"></a></span>
+<span id="cb169-4"><a href="boosting.html#cb169-4" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb169-5"><a href="boosting.html#cb169-5" tabindex="-1"></a>  {</span>
+<span id="cb169-6"><a href="boosting.html#cb169-6" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
+<span id="cb169-7"><a href="boosting.html#cb169-7" tabindex="-1"></a>    <span class="fu">plot</span>(x[, <span class="dv">1</span>], py, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">ylab =</span> <span class="st">&quot;P(Y=1 | X=x)&quot;</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>)</span>
+<span id="cb169-8"><a href="boosting.html#cb169-8" tabindex="-1"></a>    <span class="fu">points</span>(x[, <span class="dv">1</span>], y <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="fl">0.05</span>, <span class="fl">0.05</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.5</span>, <span class="at">ylim =</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.05</span>, <span class="fl">1.05</span>),</span>
+<span id="cb169-9"><a href="boosting.html#cb169-9" tabindex="-1"></a>           <span class="at">col =</span> <span class="fu">ifelse</span>(y<span class="sc">==</span><span class="dv">1</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>))</span>
+<span id="cb169-10"><a href="boosting.html#cb169-10" tabindex="-1"></a>    Fx <span class="ot">=</span> <span class="fu">predict</span>(gbm.fit, <span class="at">n.trees=</span>size[i]) <span class="co"># this returns the fitted function, but not class</span></span>
+<span id="cb169-11"><a href="boosting.html#cb169-11" tabindex="-1"></a>    <span class="fu">lines</span>(x[, <span class="dv">1</span>], <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">*</span>Fx)), <span class="at">lwd =</span> <span class="dv">1</span>)</span>
+<span id="cb169-12"><a href="boosting.html#cb169-12" tabindex="-1"></a>    <span class="fu">title</span>(<span class="fu">paste</span>(<span class="st">&quot;# of Iterations = &quot;</span>, size[i]))</span>
+<span id="cb169-13"><a href="boosting.html#cb169-13" tabindex="-1"></a>  }</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-247-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Hence, selecting trees is necessary. For this purpose, we can use either the out-of-bag error to estimate the exponential upper bound, or simply do cross-validation.</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="boosting.html#cb171-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># get the best number of trees from cross-validation (or oob if no cv is used)</span></span>
-<span id="cb171-2"><a href="boosting.html#cb171-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gbm.perf</span>(gbm.fit)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-247-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="boosting.html#cb170-1" tabindex="-1"></a>  <span class="co"># get the best number of trees from cross-validation (or oob if no cv is used)</span></span>
+<span id="cb170-2"><a href="boosting.html#cb170-2" tabindex="-1"></a>  <span class="fu">gbm.perf</span>(gbm.fit)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-249-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <pre><code>## [1] 39</code></pre>
 </div>
-<div id="gradient-boosting" class="section level2 hasAnchor" number="18.4">
-<h2><span class="header-section-number">18.4</span> Gradient Boosting<a href="boosting.html#gradient-boosting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="gradient-boosting" class="section level2 hasAnchor" number="19.4">
+<h2><span class="header-section-number">19.4</span> Gradient Boosting<a href="boosting.html#gradient-boosting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s take an alternative view of this problem, we use an additive structure to fit models</p>
 <p><span class="math display">\[F_T(x) = \sum_{t = 1}^T \alpha_t f(x; \boldsymbol \theta_t)\]</span></p>
 <p>by minimizing a loss function</p>
@@ -727,44 +731,44 @@ In this framework, we may choose a loss function <span class="math inline">\(L\)
 <p>We may notice that <span class="math inline">\(r_i\)</span> is in fact the negative gradient of the squared-error loss, as a function of the fitted function:</p>
 <p><span class="math display">\[r_{it} = - \left[ \frac{\partial \, \big(y_i - F(x_i)\big)^2 }{\partial \, F(x_i)} \right]_{F(x_i) = F_{t-1}(x_i)}\]</span>
 and we are essentially fitting a weak leaner <span class="math inline">\(f_t(x)\)</span> to the residuals and update the fitted model <span class="math inline">\(F_t(x)\)</span>. The following example shows the result of using a tree leaner as <span class="math inline">\(f_t(x)\)</span>:</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="boosting.html#cb173-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(gbm)</span>
-<span id="cb173-2"><a href="boosting.html#cb173-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb173-3"><a href="boosting.html#cb173-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># a simple regression problem</span></span>
-<span id="cb173-4"><a href="boosting.html#cb173-4" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb173-5"><a href="boosting.html#cb173-5" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.001</span>)</span>
-<span id="cb173-6"><a href="boosting.html#cb173-6" aria-hidden="true" tabindex="-1"></a>  fx <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">2</span><span class="sc">*</span><span class="fu">sin</span>(<span class="dv">3</span><span class="sc">*</span>pi<span class="sc">*</span>x)</span>
-<span id="cb173-7"><a href="boosting.html#cb173-7" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">fx</span>(x) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x))</span>
-<span id="cb173-8"><a href="boosting.html#cb173-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb173-9"><a href="boosting.html#cb173-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
-<span id="cb173-10"><a href="boosting.html#cb173-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot the true regression line</span></span>
-<span id="cb173-11"><a href="boosting.html#cb173-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(x, <span class="fu">fx</span>(x), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-249-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="boosting.html#cb172-1" tabindex="-1"></a>  <span class="fu">library</span>(gbm)</span>
+<span id="cb172-2"><a href="boosting.html#cb172-2" tabindex="-1"></a></span>
+<span id="cb172-3"><a href="boosting.html#cb172-3" tabindex="-1"></a>  <span class="co"># a simple regression problem</span></span>
+<span id="cb172-4"><a href="boosting.html#cb172-4" tabindex="-1"></a>  p <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb172-5"><a href="boosting.html#cb172-5" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.001</span>)</span>
+<span id="cb172-6"><a href="boosting.html#cb172-6" tabindex="-1"></a>  fx <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">2</span><span class="sc">*</span><span class="fu">sin</span>(<span class="dv">3</span><span class="sc">*</span>pi<span class="sc">*</span>x)</span>
+<span id="cb172-7"><a href="boosting.html#cb172-7" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">fx</span>(x) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x))</span>
+<span id="cb172-8"><a href="boosting.html#cb172-8" tabindex="-1"></a></span>
+<span id="cb172-9"><a href="boosting.html#cb172-9" tabindex="-1"></a>  <span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb172-10"><a href="boosting.html#cb172-10" tabindex="-1"></a>  <span class="co"># plot the true regression line</span></span>
+<span id="cb172-11"><a href="boosting.html#cb172-11" tabindex="-1"></a>  <span class="fu">lines</span>(x, <span class="fu">fx</span>(x), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-251-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>We can see that the fitted model progressively approaximates the true function.</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="boosting.html#cb174-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># fit regression boosting</span></span>
-<span id="cb174-2"><a href="boosting.html#cb174-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># I use a very large shrinkage value for demonstrating the functions</span></span>
-<span id="cb174-3"><a href="boosting.html#cb174-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># in practice you should use 0.1 or even smaller values for stability</span></span>
-<span id="cb174-4"><a href="boosting.html#cb174-4" aria-hidden="true" tabindex="-1"></a>  gbm.fit <span class="ot">=</span> <span class="fu">gbm</span>(y<span class="sc">~</span>x, <span class="at">data =</span> <span class="fu">data.frame</span>(x, y), <span class="at">distribution =</span> <span class="st">&quot;gaussian&quot;</span>,</span>
-<span id="cb174-5"><a href="boosting.html#cb174-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">n.trees=</span><span class="dv">300</span>, <span class="at">shrinkage=</span><span class="fl">0.5</span>, <span class="at">bag.fraction=</span><span class="fl">0.8</span>)</span>
-<span id="cb174-6"><a href="boosting.html#cb174-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb174-7"><a href="boosting.html#cb174-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># somehow, cross-validation for 1 dimensional problem creates error</span></span>
-<span id="cb174-8"><a href="boosting.html#cb174-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># gbm(y ~ ., data = data.frame(x, y), cv.folds = 3) # this produces an error  </span></span>
-<span id="cb174-9"><a href="boosting.html#cb174-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb174-10"><a href="boosting.html#cb174-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># plot the fitted regression function at several iterations</span></span>
-<span id="cb174-11"><a href="boosting.html#cb174-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
-<span id="cb174-12"><a href="boosting.html#cb174-12" aria-hidden="true" tabindex="-1"></a>  size<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">50</span>,<span class="dv">100</span>,<span class="dv">300</span>)</span>
-<span id="cb174-13"><a href="boosting.html#cb174-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb174-14"><a href="boosting.html#cb174-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb174-15"><a href="boosting.html#cb174-15" aria-hidden="true" tabindex="-1"></a>  {</span>
-<span id="cb174-16"><a href="boosting.html#cb174-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
-<span id="cb174-17"><a href="boosting.html#cb174-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
-<span id="cb174-18"><a href="boosting.html#cb174-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(x, <span class="fu">fx</span>(x), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>)</span>
-<span id="cb174-19"><a href="boosting.html#cb174-19" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb174-20"><a href="boosting.html#cb174-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># this returns the fitted function, but not class</span></span>
-<span id="cb174-21"><a href="boosting.html#cb174-21" aria-hidden="true" tabindex="-1"></a>    Fx <span class="ot">=</span> <span class="fu">predict</span>(gbm.fit, <span class="at">n.trees=</span>size[i])</span>
-<span id="cb174-22"><a href="boosting.html#cb174-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(x, Fx, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span>
-<span id="cb174-23"><a href="boosting.html#cb174-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="fu">paste</span>(<span class="st">&quot;# of Iterations = &quot;</span>, size[i]))</span>
-<span id="cb174-24"><a href="boosting.html#cb174-24" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-250-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="boosting.html#cb173-1" tabindex="-1"></a>  <span class="co"># fit regression boosting</span></span>
+<span id="cb173-2"><a href="boosting.html#cb173-2" tabindex="-1"></a>  <span class="co"># I use a very large shrinkage value for demonstrating the functions</span></span>
+<span id="cb173-3"><a href="boosting.html#cb173-3" tabindex="-1"></a>  <span class="co"># in practice you should use 0.1 or even smaller values for stability</span></span>
+<span id="cb173-4"><a href="boosting.html#cb173-4" tabindex="-1"></a>  gbm.fit <span class="ot">=</span> <span class="fu">gbm</span>(y<span class="sc">~</span>x, <span class="at">data =</span> <span class="fu">data.frame</span>(x, y), <span class="at">distribution =</span> <span class="st">&quot;gaussian&quot;</span>,</span>
+<span id="cb173-5"><a href="boosting.html#cb173-5" tabindex="-1"></a>                <span class="at">n.trees=</span><span class="dv">300</span>, <span class="at">shrinkage=</span><span class="fl">0.5</span>, <span class="at">bag.fraction=</span><span class="fl">0.8</span>)</span>
+<span id="cb173-6"><a href="boosting.html#cb173-6" tabindex="-1"></a></span>
+<span id="cb173-7"><a href="boosting.html#cb173-7" tabindex="-1"></a>  <span class="co"># somehow, cross-validation for 1 dimensional problem creates error</span></span>
+<span id="cb173-8"><a href="boosting.html#cb173-8" tabindex="-1"></a>  <span class="co"># gbm(y ~ ., data = data.frame(x, y), cv.folds = 3) # this produces an error  </span></span>
+<span id="cb173-9"><a href="boosting.html#cb173-9" tabindex="-1"></a>  </span>
+<span id="cb173-10"><a href="boosting.html#cb173-10" tabindex="-1"></a>  <span class="co"># plot the fitted regression function at several iterations</span></span>
+<span id="cb173-11"><a href="boosting.html#cb173-11" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb173-12"><a href="boosting.html#cb173-12" tabindex="-1"></a>  size<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">50</span>,<span class="dv">100</span>,<span class="dv">300</span>)</span>
+<span id="cb173-13"><a href="boosting.html#cb173-13" tabindex="-1"></a>  </span>
+<span id="cb173-14"><a href="boosting.html#cb173-14" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb173-15"><a href="boosting.html#cb173-15" tabindex="-1"></a>  {</span>
+<span id="cb173-16"><a href="boosting.html#cb173-16" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
+<span id="cb173-17"><a href="boosting.html#cb173-17" tabindex="-1"></a>    <span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb173-18"><a href="boosting.html#cb173-18" tabindex="-1"></a>    <span class="fu">lines</span>(x, <span class="fu">fx</span>(x), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>)</span>
+<span id="cb173-19"><a href="boosting.html#cb173-19" tabindex="-1"></a>    </span>
+<span id="cb173-20"><a href="boosting.html#cb173-20" tabindex="-1"></a>    <span class="co"># this returns the fitted function, but not class</span></span>
+<span id="cb173-21"><a href="boosting.html#cb173-21" tabindex="-1"></a>    Fx <span class="ot">=</span> <span class="fu">predict</span>(gbm.fit, <span class="at">n.trees=</span>size[i])</span>
+<span id="cb173-22"><a href="boosting.html#cb173-22" tabindex="-1"></a>    <span class="fu">lines</span>(x, Fx, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span>
+<span id="cb173-23"><a href="boosting.html#cb173-23" tabindex="-1"></a>    <span class="fu">title</span>(<span class="fu">paste</span>(<span class="st">&quot;# of Iterations = &quot;</span>, size[i]))</span>
+<span id="cb173-24"><a href="boosting.html#cb173-24" tabindex="-1"></a>  }</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-252-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>This idea can be generalized to any loss function <span class="math inline">\(L\)</span>. This is the <strong>gradient boosting</strong> model:</p>
 <ul>
 <li>At each iteration <span class="math inline">\(t\)</span>, calculate ``pseudo-residuals’’, i.e., the negative gradient for each observation

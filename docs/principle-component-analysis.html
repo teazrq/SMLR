@@ -4,26 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 21 Principle Component Analysis | Statistical Learning and Machine Learning with R</title>
-  <meta name="description" content="A textbook for STAT 542 and 432 at UIUC" />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <title>Chapter 22 Principle Component Analysis | Statistical Learning and Machine Learning with R</title>
+  <meta name="description" content="A Textbook for Statistical Learning Courses at UIUC" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 21 Principle Component Analysis | Statistical Learning and Machine Learning with R" />
+  <meta property="og:title" content="Chapter 22 Principle Component Analysis | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="A textbook for STAT 542 and 432 at UIUC" />
+  <meta property="og:description" content="A Textbook for Statistical Learning Courses at UIUC" />
   <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 21 Principle Component Analysis | Statistical Learning and Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 22 Principle Component Analysis | Statistical Learning and Machine Learning with R" />
   
-  <meta name="twitter:description" content="A textbook for STAT 542 and 432 at UIUC" />
+  <meta name="twitter:description" content="A Textbook for Statistical Learning Courses at UIUC" />
   
 
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2022-11-16" />
+<meta name="date" content="2023-08-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,19 +52,19 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.26/datatables.js"></script>
-<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.28/datatables.js"></script>
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
 <link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
 <script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
 <link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
 <script src="libs/selectize-0.12.0/selectize.min.js"></script>
 <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
@@ -215,241 +215,245 @@ div.csl-indent {
 <li class="chapter" data-level="2.9" data-path="rmarkdown.html"><a href="rmarkdown.html#output-options"><i class="fa fa-check"></i><b>2.9</b> Output Options</a></li>
 <li class="chapter" data-level="2.10" data-path="rmarkdown.html"><a href="rmarkdown.html#try-it"><i class="fa fa-check"></i><b>2.10</b> Try It!</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html"><i class="fa fa-check"></i><b>3</b> Linear Algebra Basics</a>
+<li class="chapter" data-level="3" data-path="visual-studio-code.html"><a href="visual-studio-code.html"><i class="fa fa-check"></i><b>3</b> Visual Studio Code</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#definition"><i class="fa fa-check"></i><b>3.1</b> Definition</a></li>
+<li class="chapter" data-level="3.1" data-path="visual-studio-code.html"><a href="visual-studio-code.html#basics-and-resources-1"><i class="fa fa-check"></i><b>3.1</b> Basics and Resources</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>4</b> Optimization Basics</a>
+<li class="chapter" data-level="4" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html"><i class="fa fa-check"></i><b>4</b> Linear Algebra Basics</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="optimization-basics.html"><a href="optimization-basics.html#basic-concept"><i class="fa fa-check"></i><b>4.1</b> Basic Concept</a></li>
-<li class="chapter" data-level="4.2" data-path="optimization-basics.html"><a href="optimization-basics.html#global_local"><i class="fa fa-check"></i><b>4.2</b> Global vs. Local Optima</a></li>
-<li class="chapter" data-level="4.3" data-path="optimization-basics.html"><a href="optimization-basics.html#example-linear-regression-using-optim"><i class="fa fa-check"></i><b>4.3</b> Example: Linear Regression using <code>optim()</code></a></li>
-<li class="chapter" data-level="4.4" data-path="optimization-basics.html"><a href="optimization-basics.html#first-and-second-order-properties"><i class="fa fa-check"></i><b>4.4</b> First and Second Order Properties</a></li>
-<li class="chapter" data-level="4.5" data-path="optimization-basics.html"><a href="optimization-basics.html#algorithm"><i class="fa fa-check"></i><b>4.5</b> Algorithm</a></li>
-<li class="chapter" data-level="4.6" data-path="optimization-basics.html"><a href="optimization-basics.html#second-order-methods"><i class="fa fa-check"></i><b>4.6</b> Second-order Methods</a>
-<ul>
-<li class="chapter" data-level="4.6.1" data-path="optimization-basics.html"><a href="optimization-basics.html#newtons-method"><i class="fa fa-check"></i><b>4.6.1</b> Newton’s Method</a></li>
-<li class="chapter" data-level="4.6.2" data-path="optimization-basics.html"><a href="optimization-basics.html#quasi-newton-methods"><i class="fa fa-check"></i><b>4.6.2</b> Quasi-Newton Methods</a></li>
+<li class="chapter" data-level="4.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#definition"><i class="fa fa-check"></i><b>4.1</b> Definition</a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="optimization-basics.html"><a href="optimization-basics.html#first-order-methods"><i class="fa fa-check"></i><b>4.7</b> First-order Methods</a>
+<li class="chapter" data-level="5" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>5</b> Optimization Basics</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="optimization-basics.html"><a href="optimization-basics.html#gradient-descent"><i class="fa fa-check"></i><b>4.7.1</b> Gradient Descent</a></li>
-<li class="chapter" data-level="4.7.2" data-path="optimization-basics.html"><a href="optimization-basics.html#gradient-descent-example-linear-regression"><i class="fa fa-check"></i><b>4.7.2</b> Gradient Descent Example: Linear Regression</a></li>
-</ul></li>
-<li class="chapter" data-level="4.8" data-path="optimization-basics.html"><a href="optimization-basics.html#coordinate"><i class="fa fa-check"></i><b>4.8</b> Coordinate Descent</a>
+<li class="chapter" data-level="5.1" data-path="optimization-basics.html"><a href="optimization-basics.html#basic-concept"><i class="fa fa-check"></i><b>5.1</b> Basic Concept</a></li>
+<li class="chapter" data-level="5.2" data-path="optimization-basics.html"><a href="optimization-basics.html#global_local"><i class="fa fa-check"></i><b>5.2</b> Global vs. Local Optima</a></li>
+<li class="chapter" data-level="5.3" data-path="optimization-basics.html"><a href="optimization-basics.html#example-linear-regression-using-optim"><i class="fa fa-check"></i><b>5.3</b> Example: Linear Regression using <code>optim()</code></a></li>
+<li class="chapter" data-level="5.4" data-path="optimization-basics.html"><a href="optimization-basics.html#first-and-second-order-properties"><i class="fa fa-check"></i><b>5.4</b> First and Second Order Properties</a></li>
+<li class="chapter" data-level="5.5" data-path="optimization-basics.html"><a href="optimization-basics.html#algorithm"><i class="fa fa-check"></i><b>5.5</b> Algorithm</a></li>
+<li class="chapter" data-level="5.6" data-path="optimization-basics.html"><a href="optimization-basics.html#second-order-methods"><i class="fa fa-check"></i><b>5.6</b> Second-order Methods</a>
 <ul>
-<li class="chapter" data-level="4.8.1" data-path="optimization-basics.html"><a href="optimization-basics.html#coordinate-descent-example-linear-regression"><i class="fa fa-check"></i><b>4.8.1</b> Coordinate Descent Example: Linear Regression</a></li>
+<li class="chapter" data-level="5.6.1" data-path="optimization-basics.html"><a href="optimization-basics.html#newtons-method"><i class="fa fa-check"></i><b>5.6.1</b> Newton’s Method</a></li>
+<li class="chapter" data-level="5.6.2" data-path="optimization-basics.html"><a href="optimization-basics.html#quasi-newton-methods"><i class="fa fa-check"></i><b>5.6.2</b> Quasi-Newton Methods</a></li>
 </ul></li>
-<li class="chapter" data-level="4.9" data-path="optimization-basics.html"><a href="optimization-basics.html#stocastic-gradient-descent"><i class="fa fa-check"></i><b>4.9</b> Stocastic Gradient Descent</a>
+<li class="chapter" data-level="5.7" data-path="optimization-basics.html"><a href="optimization-basics.html#first-order-methods"><i class="fa fa-check"></i><b>5.7</b> First-order Methods</a>
 <ul>
-<li class="chapter" data-level="4.9.1" data-path="optimization-basics.html"><a href="optimization-basics.html#mini-batch-stocastic-gradient-descent"><i class="fa fa-check"></i><b>4.9.1</b> Mini-batch Stocastic Gradient Descent</a></li>
+<li class="chapter" data-level="5.7.1" data-path="optimization-basics.html"><a href="optimization-basics.html#gradient-descent"><i class="fa fa-check"></i><b>5.7.1</b> Gradient Descent</a></li>
+<li class="chapter" data-level="5.7.2" data-path="optimization-basics.html"><a href="optimization-basics.html#gradient-descent-example-linear-regression"><i class="fa fa-check"></i><b>5.7.2</b> Gradient Descent Example: Linear Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="4.10" data-path="optimization-basics.html"><a href="optimization-basics.html#lagrangian-multiplier-for-constrained-problems"><i class="fa fa-check"></i><b>4.10</b> Lagrangian Multiplier for Constrained Problems</a></li>
+<li class="chapter" data-level="5.8" data-path="optimization-basics.html"><a href="optimization-basics.html#coordinate"><i class="fa fa-check"></i><b>5.8</b> Coordinate Descent</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="optimization-basics.html"><a href="optimization-basics.html#coordinate-descent-example-linear-regression"><i class="fa fa-check"></i><b>5.8.1</b> Coordinate Descent Example: Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="optimization-basics.html"><a href="optimization-basics.html#stocastic-gradient-descent"><i class="fa fa-check"></i><b>5.9</b> Stocastic Gradient Descent</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="optimization-basics.html"><a href="optimization-basics.html#mini-batch-stocastic-gradient-descent"><i class="fa fa-check"></i><b>5.9.1</b> Mini-batch Stocastic Gradient Descent</a></li>
+</ul></li>
+<li class="chapter" data-level="5.10" data-path="optimization-basics.html"><a href="optimization-basics.html#lagrangian-multiplier-for-constrained-problems"><i class="fa fa-check"></i><b>5.10</b> Lagrangian Multiplier for Constrained Problems</a></li>
 </ul></li>
 <li class="part"><span><b>II Linear and Penalized Linear Models</b></span></li>
-<li class="chapter" data-level="5" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html"><i class="fa fa-check"></i><b>5</b> Linear Regression and Model Selection</a>
+<li class="chapter" data-level="6" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html"><i class="fa fa-check"></i><b>6</b> Linear Regression and Model Selection</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#example-real-estate-data"><i class="fa fa-check"></i><b>5.1</b> Example: real estate data</a></li>
-<li class="chapter" data-level="5.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#notation-and-basic-properties"><i class="fa fa-check"></i><b>5.2</b> Notation and Basic Properties</a></li>
-<li class="chapter" data-level="5.3" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-the-lm-function"><i class="fa fa-check"></i><b>5.3</b> Using the <code>lm()</code> Function</a>
+<li class="chapter" data-level="6.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#example-real-estate-data"><i class="fa fa-check"></i><b>6.1</b> Example: real estate data</a></li>
+<li class="chapter" data-level="6.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#notation-and-basic-properties"><i class="fa fa-check"></i><b>6.2</b> Notation and Basic Properties</a></li>
+<li class="chapter" data-level="6.3" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-the-lm-function"><i class="fa fa-check"></i><b>6.3</b> Using the <code>lm()</code> Function</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#adding-covariates"><i class="fa fa-check"></i><b>5.3.1</b> Adding Covariates</a></li>
-<li class="chapter" data-level="5.3.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#categorical-variables"><i class="fa fa-check"></i><b>5.3.2</b> Categorical Variables</a></li>
+<li class="chapter" data-level="6.3.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#adding-covariates"><i class="fa fa-check"></i><b>6.3.1</b> Adding Covariates</a></li>
+<li class="chapter" data-level="6.3.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#categorical-variables"><i class="fa fa-check"></i><b>6.3.2</b> Categorical Variables</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-criteria"><i class="fa fa-check"></i><b>5.4</b> Model Selection Criteria</a>
+<li class="chapter" data-level="6.4" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-criteria"><i class="fa fa-check"></i><b>6.4</b> Model Selection Criteria</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-marrows-c_p"><i class="fa fa-check"></i><b>5.4.1</b> Using Marrows’ <span class="math inline">\(C_p\)</span></a></li>
-<li class="chapter" data-level="5.4.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-aic-and-bic"><i class="fa fa-check"></i><b>5.4.2</b> Using AIC and BIC</a></li>
+<li class="chapter" data-level="6.4.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-marrows-c_p"><i class="fa fa-check"></i><b>6.4.1</b> Using Marrows’ <span class="math inline">\(C_p\)</span></a></li>
+<li class="chapter" data-level="6.4.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-aic-and-bic"><i class="fa fa-check"></i><b>6.4.2</b> Using AIC and BIC</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-algorithms"><i class="fa fa-check"></i><b>5.5</b> Model Selection Algorithms</a>
+<li class="chapter" data-level="6.5" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-algorithms"><i class="fa fa-check"></i><b>6.5</b> Model Selection Algorithms</a>
 <ul>
-<li class="chapter" data-level="5.5.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#best-subset-selection-with-leaps"><i class="fa fa-check"></i><b>5.5.1</b> Best Subset Selection with <code>leaps</code></a></li>
-<li class="chapter" data-level="5.5.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#step-wise-regression-using-step"><i class="fa fa-check"></i><b>5.5.2</b> Step-wise regression using <code>step()</code></a></li>
+<li class="chapter" data-level="6.5.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#best-subset-selection-with-leaps"><i class="fa fa-check"></i><b>6.5.1</b> Best Subset Selection with <code>leaps</code></a></li>
+<li class="chapter" data-level="6.5.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#step-wise-regression-using-step"><i class="fa fa-check"></i><b>6.5.2</b> Step-wise regression using <code>step()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#marrows-cp"><i class="fa fa-check"></i><b>5.6</b> Derivation of Marrows’ <span class="math inline">\(C_p\)</span></a></li>
+<li class="chapter" data-level="6.6" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#marrows-cp"><i class="fa fa-check"></i><b>6.6</b> Derivation of Marrows’ <span class="math inline">\(C_p\)</span></a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="ridge-regression.html"><a href="ridge-regression.html"><i class="fa fa-check"></i><b>6</b> Ridge Regression</a>
+<li class="chapter" data-level="7" data-path="ridge-regression.html"><a href="ridge-regression.html"><i class="fa fa-check"></i><b>7</b> Ridge Regression</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="ridge-regression.html"><a href="ridge-regression.html#motivation-correlated-variables-and-convexity"><i class="fa fa-check"></i><b>6.1</b> Motivation: Correlated Variables and Convexity</a></li>
-<li class="chapter" data-level="6.2" data-path="ridge-regression.html"><a href="ridge-regression.html#ridge-penalty-and-the-reduced-variation"><i class="fa fa-check"></i><b>6.2</b> Ridge Penalty and the Reduced Variation</a></li>
-<li class="chapter" data-level="6.3" data-path="ridge-regression.html"><a href="ridge-regression.html#bias-and-variance-of-ridge-regression"><i class="fa fa-check"></i><b>6.3</b> Bias and Variance of Ridge Regression</a></li>
-<li class="chapter" data-level="6.4" data-path="ridge-regression.html"><a href="ridge-regression.html#degrees-of-freedom"><i class="fa fa-check"></i><b>6.4</b> Degrees of Freedom</a></li>
-<li class="chapter" data-level="6.5" data-path="ridge-regression.html"><a href="ridge-regression.html#using-the-lm.ridge-function"><i class="fa fa-check"></i><b>6.5</b> Using the <code>lm.ridge()</code> function</a>
+<li class="chapter" data-level="7.1" data-path="ridge-regression.html"><a href="ridge-regression.html#motivation-correlated-variables-and-convexity"><i class="fa fa-check"></i><b>7.1</b> Motivation: Correlated Variables and Convexity</a></li>
+<li class="chapter" data-level="7.2" data-path="ridge-regression.html"><a href="ridge-regression.html#ridge-penalty-and-the-reduced-variation"><i class="fa fa-check"></i><b>7.2</b> Ridge Penalty and the Reduced Variation</a></li>
+<li class="chapter" data-level="7.3" data-path="ridge-regression.html"><a href="ridge-regression.html#bias-and-variance-of-ridge-regression"><i class="fa fa-check"></i><b>7.3</b> Bias and Variance of Ridge Regression</a></li>
+<li class="chapter" data-level="7.4" data-path="ridge-regression.html"><a href="ridge-regression.html#degrees-of-freedom"><i class="fa fa-check"></i><b>7.4</b> Degrees of Freedom</a></li>
+<li class="chapter" data-level="7.5" data-path="ridge-regression.html"><a href="ridge-regression.html#using-the-lm.ridge-function"><i class="fa fa-check"></i><b>7.5</b> Using the <code>lm.ridge()</code> function</a>
 <ul>
-<li class="chapter" data-level="6.5.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue"><i class="fa fa-check"></i><b>6.5.1</b> Scaling Issue</a></li>
-<li class="chapter" data-level="6.5.2" data-path="ridge-regression.html"><a href="ridge-regression.html#multiple-lambda-values"><i class="fa fa-check"></i><b>6.5.2</b> Multiple <span class="math inline">\(\lambda\)</span> values</a></li>
+<li class="chapter" data-level="7.5.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue"><i class="fa fa-check"></i><b>7.5.1</b> Scaling Issue</a></li>
+<li class="chapter" data-level="7.5.2" data-path="ridge-regression.html"><a href="ridge-regression.html#multiple-lambda-values"><i class="fa fa-check"></i><b>7.5.2</b> Multiple <span class="math inline">\(\lambda\)</span> values</a></li>
 </ul></li>
-<li class="chapter" data-level="6.6" data-path="ridge-regression.html"><a href="ridge-regression.html#cross-validation"><i class="fa fa-check"></i><b>6.6</b> Cross-validation</a></li>
-<li class="chapter" data-level="6.7" data-path="ridge-regression.html"><a href="ridge-regression.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>6.7</b> Leave-one-out cross-validation</a>
+<li class="chapter" data-level="7.6" data-path="ridge-regression.html"><a href="ridge-regression.html#cross-validation"><i class="fa fa-check"></i><b>7.6</b> Cross-validation</a></li>
+<li class="chapter" data-level="7.7" data-path="ridge-regression.html"><a href="ridge-regression.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>7.7</b> Leave-one-out cross-validation</a>
 <ul>
-<li class="chapter" data-level="6.7.1" data-path="ridge-regression.html"><a href="ridge-regression.html#generalized-cross-validation"><i class="fa fa-check"></i><b>6.7.1</b> Generalized cross-validation</a></li>
+<li class="chapter" data-level="7.7.1" data-path="ridge-regression.html"><a href="ridge-regression.html#generalized-cross-validation"><i class="fa fa-check"></i><b>7.7.1</b> Generalized cross-validation</a></li>
 </ul></li>
-<li class="chapter" data-level="6.8" data-path="ridge-regression.html"><a href="ridge-regression.html#the-glmnet-package"><i class="fa fa-check"></i><b>6.8</b> The <code>glmnet</code> package</a>
+<li class="chapter" data-level="7.8" data-path="ridge-regression.html"><a href="ridge-regression.html#the-glmnet-package"><i class="fa fa-check"></i><b>7.8</b> The <code>glmnet</code> package</a>
 <ul>
-<li class="chapter" data-level="6.8.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue-1"><i class="fa fa-check"></i><b>6.8.1</b> Scaling Issue</a></li>
+<li class="chapter" data-level="7.8.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue-1"><i class="fa fa-check"></i><b>7.8.1</b> Scaling Issue</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="lasso.html"><a href="lasso.html"><i class="fa fa-check"></i><b>7</b> Lasso</a>
+<li class="chapter" data-level="8" data-path="lasso.html"><a href="lasso.html"><i class="fa fa-check"></i><b>8</b> Lasso</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="lasso.html"><a href="lasso.html#one-variable-lasso-and-shrinkage"><i class="fa fa-check"></i><b>7.1</b> One-Variable Lasso and Shrinkage</a></li>
-<li class="chapter" data-level="7.2" data-path="lasso.html"><a href="lasso.html#constrained-optimization-view"><i class="fa fa-check"></i><b>7.2</b> Constrained Optimization View</a></li>
-<li class="chapter" data-level="7.3" data-path="lasso.html"><a href="lasso.html#the-solution-path"><i class="fa fa-check"></i><b>7.3</b> The Solution Path</a></li>
-<li class="chapter" data-level="7.4" data-path="lasso.html"><a href="lasso.html#path-wise-coordinate-descent"><i class="fa fa-check"></i><b>7.4</b> Path-wise Coordinate Descent</a></li>
-<li class="chapter" data-level="7.5" data-path="lasso.html"><a href="lasso.html#using-the-glmnet-package"><i class="fa fa-check"></i><b>7.5</b> Using the <code>glmnet</code> package</a></li>
-<li class="chapter" data-level="7.6" data-path="lasso.html"><a href="lasso.html#elastic-net"><i class="fa fa-check"></i><b>7.6</b> Elastic-Net</a></li>
+<li class="chapter" data-level="8.1" data-path="lasso.html"><a href="lasso.html#one-variable-lasso-and-shrinkage"><i class="fa fa-check"></i><b>8.1</b> One-Variable Lasso and Shrinkage</a></li>
+<li class="chapter" data-level="8.2" data-path="lasso.html"><a href="lasso.html#constrained-optimization-view"><i class="fa fa-check"></i><b>8.2</b> Constrained Optimization View</a></li>
+<li class="chapter" data-level="8.3" data-path="lasso.html"><a href="lasso.html#the-solution-path"><i class="fa fa-check"></i><b>8.3</b> The Solution Path</a></li>
+<li class="chapter" data-level="8.4" data-path="lasso.html"><a href="lasso.html#path-wise-coordinate-descent"><i class="fa fa-check"></i><b>8.4</b> Path-wise Coordinate Descent</a></li>
+<li class="chapter" data-level="8.5" data-path="lasso.html"><a href="lasso.html#using-the-glmnet-package"><i class="fa fa-check"></i><b>8.5</b> Using the <code>glmnet</code> package</a></li>
+<li class="chapter" data-level="8.6" data-path="lasso.html"><a href="lasso.html#elastic-net"><i class="fa fa-check"></i><b>8.6</b> Elastic-Net</a></li>
 </ul></li>
 <li class="part"><span><b>III Nonparametric Models</b></span></li>
-<li class="chapter" data-level="8" data-path="spline.html"><a href="spline.html"><i class="fa fa-check"></i><b>8</b> Spline</a>
+<li class="chapter" data-level="9" data-path="spline.html"><a href="spline.html"><i class="fa fa-check"></i><b>9</b> Spline</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="spline.html"><a href="spline.html#from-linear-to-nonlinear"><i class="fa fa-check"></i><b>8.1</b> From Linear to Nonlinear</a></li>
-<li class="chapter" data-level="8.2" data-path="spline.html"><a href="spline.html#a-motivating-example-and-polynomials"><i class="fa fa-check"></i><b>8.2</b> A Motivating Example and Polynomials</a></li>
-<li class="chapter" data-level="8.3" data-path="spline.html"><a href="spline.html#piecewise-polynomials"><i class="fa fa-check"></i><b>8.3</b> Piecewise Polynomials</a></li>
-<li class="chapter" data-level="8.4" data-path="spline.html"><a href="spline.html#splines"><i class="fa fa-check"></i><b>8.4</b> Splines</a></li>
-<li class="chapter" data-level="8.5" data-path="spline.html"><a href="spline.html#spline-basis"><i class="fa fa-check"></i><b>8.5</b> Spline Basis</a></li>
-<li class="chapter" data-level="8.6" data-path="spline.html"><a href="spline.html#natural-cubic-spline"><i class="fa fa-check"></i><b>8.6</b> Natural Cubic Spline</a></li>
-<li class="chapter" data-level="8.7" data-path="spline.html"><a href="spline.html#smoothing-spline"><i class="fa fa-check"></i><b>8.7</b> Smoothing Spline</a></li>
-<li class="chapter" data-level="8.8" data-path="spline.html"><a href="spline.html#fitting-smoothing-splines"><i class="fa fa-check"></i><b>8.8</b> Fitting Smoothing Splines</a></li>
-<li class="chapter" data-level="8.9" data-path="spline.html"><a href="spline.html#extending-splines-to-multiple-varibles"><i class="fa fa-check"></i><b>8.9</b> Extending Splines to Multiple Varibles</a></li>
+<li class="chapter" data-level="9.1" data-path="spline.html"><a href="spline.html#from-linear-to-nonlinear"><i class="fa fa-check"></i><b>9.1</b> From Linear to Nonlinear</a></li>
+<li class="chapter" data-level="9.2" data-path="spline.html"><a href="spline.html#a-motivating-example-and-polynomials"><i class="fa fa-check"></i><b>9.2</b> A Motivating Example and Polynomials</a></li>
+<li class="chapter" data-level="9.3" data-path="spline.html"><a href="spline.html#piecewise-polynomials"><i class="fa fa-check"></i><b>9.3</b> Piecewise Polynomials</a></li>
+<li class="chapter" data-level="9.4" data-path="spline.html"><a href="spline.html#splines"><i class="fa fa-check"></i><b>9.4</b> Splines</a></li>
+<li class="chapter" data-level="9.5" data-path="spline.html"><a href="spline.html#spline-basis"><i class="fa fa-check"></i><b>9.5</b> Spline Basis</a></li>
+<li class="chapter" data-level="9.6" data-path="spline.html"><a href="spline.html#natural-cubic-spline"><i class="fa fa-check"></i><b>9.6</b> Natural Cubic Spline</a></li>
+<li class="chapter" data-level="9.7" data-path="spline.html"><a href="spline.html#smoothing-spline"><i class="fa fa-check"></i><b>9.7</b> Smoothing Spline</a></li>
+<li class="chapter" data-level="9.8" data-path="spline.html"><a href="spline.html#fitting-smoothing-splines"><i class="fa fa-check"></i><b>9.8</b> Fitting Smoothing Splines</a></li>
+<li class="chapter" data-level="9.9" data-path="spline.html"><a href="spline.html#extending-splines-to-multiple-varibles"><i class="fa fa-check"></i><b>9.9</b> Extending Splines to Multiple Varibles</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html"><i class="fa fa-check"></i><b>9</b> K-Neariest Neighber</a>
+<li class="chapter" data-level="10" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html"><i class="fa fa-check"></i><b>10</b> K-Neariest Neighber</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#definition-1"><i class="fa fa-check"></i><b>9.1</b> Definition</a></li>
-<li class="chapter" data-level="9.2" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-k"><i class="fa fa-check"></i><b>9.2</b> Tuning <span class="math inline">\(k\)</span></a></li>
-<li class="chapter" data-level="9.3" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#the-bias-variance-trade-off"><i class="fa fa-check"></i><b>9.3</b> The Bias-variance Trade-off</a></li>
-<li class="chapter" data-level="9.4" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#knn-for-classification"><i class="fa fa-check"></i><b>9.4</b> KNN for Classification</a></li>
-<li class="chapter" data-level="9.5" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-1-an-artificial-data"><i class="fa fa-check"></i><b>9.5</b> Example 1: An artificial data</a></li>
-<li class="chapter" data-level="9.6" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-with-the-caret-package"><i class="fa fa-check"></i><b>9.6</b> Tuning with the <code>caret</code> Package</a></li>
-<li class="chapter" data-level="9.7" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#distance-measures"><i class="fa fa-check"></i><b>9.7</b> Distance Measures</a></li>
-<li class="chapter" data-level="9.8" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#nn-error-bound"><i class="fa fa-check"></i><b>9.8</b> 1NN Error Bound</a></li>
-<li class="chapter" data-level="9.9" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-2-handwritten-digit-data"><i class="fa fa-check"></i><b>9.9</b> Example 2: Handwritten Digit Data</a></li>
-<li class="chapter" data-level="9.10" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#curse-of-dimensionality"><i class="fa fa-check"></i><b>9.10</b> Curse of Dimensionality</a></li>
+<li class="chapter" data-level="10.1" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#definition-1"><i class="fa fa-check"></i><b>10.1</b> Definition</a></li>
+<li class="chapter" data-level="10.2" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-k"><i class="fa fa-check"></i><b>10.2</b> Tuning <span class="math inline">\(k\)</span></a></li>
+<li class="chapter" data-level="10.3" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#the-bias-variance-trade-off"><i class="fa fa-check"></i><b>10.3</b> The Bias-variance Trade-off</a></li>
+<li class="chapter" data-level="10.4" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#knn-for-classification"><i class="fa fa-check"></i><b>10.4</b> KNN for Classification</a></li>
+<li class="chapter" data-level="10.5" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-1-an-artificial-data"><i class="fa fa-check"></i><b>10.5</b> Example 1: An artificial data</a></li>
+<li class="chapter" data-level="10.6" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-with-the-caret-package"><i class="fa fa-check"></i><b>10.6</b> Tuning with the <code>caret</code> Package</a></li>
+<li class="chapter" data-level="10.7" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#distance-measures"><i class="fa fa-check"></i><b>10.7</b> Distance Measures</a></li>
+<li class="chapter" data-level="10.8" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#nn-error-bound"><i class="fa fa-check"></i><b>10.8</b> 1NN Error Bound</a></li>
+<li class="chapter" data-level="10.9" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-2-handwritten-digit-data"><i class="fa fa-check"></i><b>10.9</b> Example 2: Handwritten Digit Data</a></li>
+<li class="chapter" data-level="10.10" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#curse-of-dimensionality"><i class="fa fa-check"></i><b>10.10</b> Curse of Dimensionality</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html"><i class="fa fa-check"></i><b>10</b> Kernel Smoothing</a>
+<li class="chapter" data-level="11" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html"><i class="fa fa-check"></i><b>11</b> Kernel Smoothing</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#knn-vs.-kernel"><i class="fa fa-check"></i><b>10.1</b> KNN vs. Kernel</a></li>
-<li class="chapter" data-level="10.2" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#kernel-density-estimations"><i class="fa fa-check"></i><b>10.2</b> Kernel Density Estimations</a></li>
-<li class="chapter" data-level="10.3" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off"><i class="fa fa-check"></i><b>10.3</b> Bias-variance trade-off</a></li>
-<li class="chapter" data-level="10.4" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#gaussian-kernel-regression"><i class="fa fa-check"></i><b>10.4</b> Gaussian Kernel Regression</a>
+<li class="chapter" data-level="11.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#knn-vs.-kernel"><i class="fa fa-check"></i><b>11.1</b> KNN vs. Kernel</a></li>
+<li class="chapter" data-level="11.2" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#kernel-density-estimations"><i class="fa fa-check"></i><b>11.2</b> Kernel Density Estimations</a></li>
+<li class="chapter" data-level="11.3" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off"><i class="fa fa-check"></i><b>11.3</b> Bias-variance trade-off</a></li>
+<li class="chapter" data-level="11.4" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#gaussian-kernel-regression"><i class="fa fa-check"></i><b>11.4</b> Gaussian Kernel Regression</a>
 <ul>
-<li class="chapter" data-level="10.4.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off-1"><i class="fa fa-check"></i><b>10.4.1</b> Bias-variance Trade-off</a></li>
+<li class="chapter" data-level="11.4.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off-1"><i class="fa fa-check"></i><b>11.4.1</b> Bias-variance Trade-off</a></li>
 </ul></li>
-<li class="chapter" data-level="10.5" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#choice-of-kernel-functions"><i class="fa fa-check"></i><b>10.5</b> Choice of Kernel Functions</a></li>
-<li class="chapter" data-level="10.6" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-linear-regression"><i class="fa fa-check"></i><b>10.6</b> Local Linear Regression</a></li>
-<li class="chapter" data-level="10.7" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-polynomial-regression"><i class="fa fa-check"></i><b>10.7</b> Local Polynomial Regression</a></li>
-<li class="chapter" data-level="10.8" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#r-implementations"><i class="fa fa-check"></i><b>10.8</b> R Implementations</a></li>
+<li class="chapter" data-level="11.5" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#choice-of-kernel-functions"><i class="fa fa-check"></i><b>11.5</b> Choice of Kernel Functions</a></li>
+<li class="chapter" data-level="11.6" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-linear-regression"><i class="fa fa-check"></i><b>11.6</b> Local Linear Regression</a></li>
+<li class="chapter" data-level="11.7" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-polynomial-regression"><i class="fa fa-check"></i><b>11.7</b> Local Polynomial Regression</a></li>
+<li class="chapter" data-level="11.8" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#r-implementations"><i class="fa fa-check"></i><b>11.8</b> R Implementations</a></li>
 </ul></li>
 <li class="part"><span><b>IV Classification Models</b></span></li>
-<li class="chapter" data-level="11" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression</a>
+<li class="chapter" data-level="12" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>12</b> Logistic Regression</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="logistic-regression.html"><a href="logistic-regression.html#modeling-binary-outcomes"><i class="fa fa-check"></i><b>11.1</b> Modeling Binary Outcomes</a></li>
-<li class="chapter" data-level="11.2" data-path="logistic-regression.html"><a href="logistic-regression.html#example-cleveland-clinic-heart-disease-data"><i class="fa fa-check"></i><b>11.2</b> Example: Cleveland Clinic Heart Disease Data</a></li>
-<li class="chapter" data-level="11.3" data-path="logistic-regression.html"><a href="logistic-regression.html#interpretation-of-the-parameters"><i class="fa fa-check"></i><b>11.3</b> Interpretation of the Parameters</a></li>
-<li class="chapter" data-level="11.4" data-path="logistic-regression.html"><a href="logistic-regression.html#solving-a-logistic-regression"><i class="fa fa-check"></i><b>11.4</b> Solving a Logistic Regression</a></li>
-<li class="chapter" data-level="11.5" data-path="logistic-regression.html"><a href="logistic-regression.html#example-south-africa-heart-data"><i class="fa fa-check"></i><b>11.5</b> Example: South Africa Heart Data</a></li>
-<li class="chapter" data-level="11.6" data-path="logistic-regression.html"><a href="logistic-regression.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>11.6</b> Penalized Logistic Regression</a></li>
+<li class="chapter" data-level="12.1" data-path="logistic-regression.html"><a href="logistic-regression.html#modeling-binary-outcomes"><i class="fa fa-check"></i><b>12.1</b> Modeling Binary Outcomes</a></li>
+<li class="chapter" data-level="12.2" data-path="logistic-regression.html"><a href="logistic-regression.html#example-cleveland-clinic-heart-disease-data"><i class="fa fa-check"></i><b>12.2</b> Example: Cleveland Clinic Heart Disease Data</a></li>
+<li class="chapter" data-level="12.3" data-path="logistic-regression.html"><a href="logistic-regression.html#interpretation-of-the-parameters"><i class="fa fa-check"></i><b>12.3</b> Interpretation of the Parameters</a></li>
+<li class="chapter" data-level="12.4" data-path="logistic-regression.html"><a href="logistic-regression.html#solving-a-logistic-regression"><i class="fa fa-check"></i><b>12.4</b> Solving a Logistic Regression</a></li>
+<li class="chapter" data-level="12.5" data-path="logistic-regression.html"><a href="logistic-regression.html#example-south-africa-heart-data"><i class="fa fa-check"></i><b>12.5</b> Example: South Africa Heart Data</a></li>
+<li class="chapter" data-level="12.6" data-path="logistic-regression.html"><a href="logistic-regression.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>12.6</b> Penalized Logistic Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>12</b> Discriminant Analysis</a>
+<li class="chapter" data-level="13" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>13</b> Discriminant Analysis</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#bayes-rule"><i class="fa fa-check"></i><b>12.1</b> Bayes Rule</a></li>
-<li class="chapter" data-level="12.2" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>12.2</b> Example: Linear Discriminant Analysis (LDA)</a></li>
-<li class="chapter" data-level="12.3" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#linear-discriminant-analysis"><i class="fa fa-check"></i><b>12.3</b> Linear Discriminant Analysis</a></li>
-<li class="chapter" data-level="12.4" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-quadratic-discriminant-analysis-qda"><i class="fa fa-check"></i><b>12.4</b> Example: Quadratic Discriminant Analysis (QDA)</a></li>
-<li class="chapter" data-level="12.5" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#quadratic-discriminant-analysis"><i class="fa fa-check"></i><b>12.5</b> Quadratic Discriminant Analysis</a></li>
-<li class="chapter" data-level="12.6" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-the-hand-written-digit-data"><i class="fa fa-check"></i><b>12.6</b> Example: the Hand Written Digit Data</a></li>
+<li class="chapter" data-level="13.1" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#bayes-rule"><i class="fa fa-check"></i><b>13.1</b> Bayes Rule</a></li>
+<li class="chapter" data-level="13.2" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>13.2</b> Example: Linear Discriminant Analysis (LDA)</a></li>
+<li class="chapter" data-level="13.3" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#linear-discriminant-analysis"><i class="fa fa-check"></i><b>13.3</b> Linear Discriminant Analysis</a></li>
+<li class="chapter" data-level="13.4" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-quadratic-discriminant-analysis-qda"><i class="fa fa-check"></i><b>13.4</b> Example: Quadratic Discriminant Analysis (QDA)</a></li>
+<li class="chapter" data-level="13.5" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#quadratic-discriminant-analysis"><i class="fa fa-check"></i><b>13.5</b> Quadratic Discriminant Analysis</a></li>
+<li class="chapter" data-level="13.6" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-the-hand-written-digit-data"><i class="fa fa-check"></i><b>13.6</b> Example: the Hand Written Digit Data</a></li>
 </ul></li>
 <li class="part"><span><b>V Machine Learning Algorithms</b></span></li>
-<li class="chapter" data-level="13" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>13</b> Support Vector Machines</a>
+<li class="chapter" data-level="14" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>14</b> Support Vector Machines</a>
 <ul>
-<li class="chapter" data-level="13.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#maximum-margin-classifier"><i class="fa fa-check"></i><b>13.1</b> Maximum-margin Classifier</a></li>
-<li class="chapter" data-level="13.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-separable-svm"><i class="fa fa-check"></i><b>13.2</b> Linearly Separable SVM</a>
+<li class="chapter" data-level="14.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#maximum-margin-classifier"><i class="fa fa-check"></i><b>14.1</b> Maximum-margin Classifier</a></li>
+<li class="chapter" data-level="14.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-separable-svm"><i class="fa fa-check"></i><b>14.2</b> Linearly Separable SVM</a>
 <ul>
-<li class="chapter" data-level="13.2.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#from-primal-to-dual"><i class="fa fa-check"></i><b>13.2.1</b> From Primal to Dual</a></li>
+<li class="chapter" data-level="14.2.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#from-primal-to-dual"><i class="fa fa-check"></i><b>14.2.1</b> From Primal to Dual</a></li>
 </ul></li>
-<li class="chapter" data-level="13.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-non-separable-svm-with-slack-variables"><i class="fa fa-check"></i><b>13.3</b> Linearly Non-separable SVM with Slack Variables</a></li>
-<li class="chapter" data-level="13.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-saheart-data"><i class="fa fa-check"></i><b>13.4</b> Example: <code>SAheart</code> Data</a></li>
-<li class="chapter" data-level="13.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#nonlinear-svm-via-kernel-trick"><i class="fa fa-check"></i><b>13.5</b> Nonlinear SVM via Kernel Trick</a></li>
-<li class="chapter" data-level="13.6" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-mixture.example-data"><i class="fa fa-check"></i><b>13.6</b> Example: <code>mixture.example</code> Data</a></li>
-<li class="chapter" data-level="13.7" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svm-as-a-penalized-model"><i class="fa fa-check"></i><b>13.7</b> SVM as a Penalized Model</a></li>
-<li class="chapter" data-level="13.8" data-path="support-vector-machines.html"><a href="support-vector-machines.html#kernel-and-feature-maps-another-example"><i class="fa fa-check"></i><b>13.8</b> Kernel and Feature Maps: Another Example</a></li>
+<li class="chapter" data-level="14.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-non-separable-svm-with-slack-variables"><i class="fa fa-check"></i><b>14.3</b> Linearly Non-separable SVM with Slack Variables</a></li>
+<li class="chapter" data-level="14.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-saheart-data"><i class="fa fa-check"></i><b>14.4</b> Example: <code>SAheart</code> Data</a></li>
+<li class="chapter" data-level="14.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#nonlinear-svm-via-kernel-trick"><i class="fa fa-check"></i><b>14.5</b> Nonlinear SVM via Kernel Trick</a></li>
+<li class="chapter" data-level="14.6" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-mixture.example-data"><i class="fa fa-check"></i><b>14.6</b> Example: <code>mixture.example</code> Data</a></li>
+<li class="chapter" data-level="14.7" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svm-as-a-penalized-model"><i class="fa fa-check"></i><b>14.7</b> SVM as a Penalized Model</a></li>
+<li class="chapter" data-level="14.8" data-path="support-vector-machines.html"><a href="support-vector-machines.html#kernel-and-feature-maps-another-example"><i class="fa fa-check"></i><b>14.8</b> Kernel and Feature Maps: Another Example</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html"><i class="fa fa-check"></i><b>14</b> Reproducing Kernel Hilbert Space</a>
+<li class="chapter" data-level="15" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html"><i class="fa fa-check"></i><b>15</b> Reproducing Kernel Hilbert Space</a>
 <ul>
-<li class="chapter" data-level="14.1" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#constructing-the-rkhs"><i class="fa fa-check"></i><b>14.1</b> Constructing the RKHS</a></li>
-<li class="chapter" data-level="14.2" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#properties-of-rkhs"><i class="fa fa-check"></i><b>14.2</b> Properties of RKHS</a></li>
-<li class="chapter" data-level="14.3" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-representer-theorem"><i class="fa fa-check"></i><b>14.3</b> The Representer Theorem</a></li>
+<li class="chapter" data-level="15.1" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#constructing-the-rkhs"><i class="fa fa-check"></i><b>15.1</b> Constructing the RKHS</a></li>
+<li class="chapter" data-level="15.2" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#properties-of-rkhs"><i class="fa fa-check"></i><b>15.2</b> Properties of RKHS</a></li>
+<li class="chapter" data-level="15.3" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-representer-theorem"><i class="fa fa-check"></i><b>15.3</b> The Representer Theorem</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html"><i class="fa fa-check"></i><b>15</b> Kernel Ridge Regression</a>
+<li class="chapter" data-level="16" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html"><i class="fa fa-check"></i><b>16</b> Kernel Ridge Regression</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-linear-kernel-and-ridge-regression"><i class="fa fa-check"></i><b>15.1</b> Example: Linear Kernel and Ridge Regression</a></li>
-<li class="chapter" data-level="15.2" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-alternative-view"><i class="fa fa-check"></i><b>15.2</b> Example: Alternative View</a></li>
+<li class="chapter" data-level="16.1" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-linear-kernel-and-ridge-regression"><i class="fa fa-check"></i><b>16.1</b> Example: Linear Kernel and Ridge Regression</a></li>
+<li class="chapter" data-level="16.2" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-alternative-view"><i class="fa fa-check"></i><b>16.2</b> Example: Alternative View</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html"><i class="fa fa-check"></i><b>16</b> Classification and Regression Trees</a>
+<li class="chapter" data-level="17" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html"><i class="fa fa-check"></i><b>17</b> Classification and Regression Trees</a>
 <ul>
-<li class="chapter" data-level="16.1" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#example-classification-tree"><i class="fa fa-check"></i><b>16.1</b> Example: Classification Tree</a></li>
-<li class="chapter" data-level="16.2" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#splitting-a-node"><i class="fa fa-check"></i><b>16.2</b> Splitting a Node</a></li>
-<li class="chapter" data-level="16.3" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#regression-trees"><i class="fa fa-check"></i><b>16.3</b> Regression Trees</a></li>
-<li class="chapter" data-level="16.4" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#predicting-a-target-point"><i class="fa fa-check"></i><b>16.4</b> Predicting a Target Point</a></li>
-<li class="chapter" data-level="16.5" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#tuning-a-tree-model"><i class="fa fa-check"></i><b>16.5</b> Tuning a Tree Model</a></li>
+<li class="chapter" data-level="17.1" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#example-classification-tree"><i class="fa fa-check"></i><b>17.1</b> Example: Classification Tree</a></li>
+<li class="chapter" data-level="17.2" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#splitting-a-node"><i class="fa fa-check"></i><b>17.2</b> Splitting a Node</a></li>
+<li class="chapter" data-level="17.3" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#regression-trees"><i class="fa fa-check"></i><b>17.3</b> Regression Trees</a></li>
+<li class="chapter" data-level="17.4" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#predicting-a-target-point"><i class="fa fa-check"></i><b>17.4</b> Predicting a Target Point</a></li>
+<li class="chapter" data-level="17.5" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#tuning-a-tree-model"><i class="fa fa-check"></i><b>17.5</b> Tuning a Tree Model</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="random-forests.html"><a href="random-forests.html"><i class="fa fa-check"></i><b>17</b> Random Forests</a>
+<li class="chapter" data-level="18" data-path="random-forests.html"><a href="random-forests.html"><i class="fa fa-check"></i><b>18</b> Random Forests</a>
 <ul>
-<li class="chapter" data-level="17.1" data-path="random-forests.html"><a href="random-forests.html#bagging-predictors"><i class="fa fa-check"></i><b>17.1</b> Bagging Predictors</a></li>
-<li class="chapter" data-level="17.2" data-path="random-forests.html"><a href="random-forests.html#random-forests-1"><i class="fa fa-check"></i><b>17.2</b> Random Forests</a></li>
-<li class="chapter" data-level="17.3" data-path="random-forests.html"><a href="random-forests.html#effect-of-mtry"><i class="fa fa-check"></i><b>17.3</b> Effect of <code>mtry</code></a></li>
-<li class="chapter" data-level="17.4" data-path="random-forests.html"><a href="random-forests.html#effect-of-nodesize"><i class="fa fa-check"></i><b>17.4</b> Effect of <code>nodesize</code></a></li>
-<li class="chapter" data-level="17.5" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>17.5</b> Variable Importance</a></li>
-<li class="chapter" data-level="17.6" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forets"><i class="fa fa-check"></i><b>17.6</b> Kernel view of Random Forets</a></li>
+<li class="chapter" data-level="18.1" data-path="random-forests.html"><a href="random-forests.html#bagging-predictors"><i class="fa fa-check"></i><b>18.1</b> Bagging Predictors</a></li>
+<li class="chapter" data-level="18.2" data-path="random-forests.html"><a href="random-forests.html#random-forests-1"><i class="fa fa-check"></i><b>18.2</b> Random Forests</a></li>
+<li class="chapter" data-level="18.3" data-path="random-forests.html"><a href="random-forests.html#effect-of-mtry"><i class="fa fa-check"></i><b>18.3</b> Effect of <code>mtry</code></a></li>
+<li class="chapter" data-level="18.4" data-path="random-forests.html"><a href="random-forests.html#effect-of-nodesize"><i class="fa fa-check"></i><b>18.4</b> Effect of <code>nodesize</code></a></li>
+<li class="chapter" data-level="18.5" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>18.5</b> Variable Importance</a></li>
+<li class="chapter" data-level="18.6" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forets"><i class="fa fa-check"></i><b>18.6</b> Kernel view of Random Forets</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>18</b> Boosting</a>
+<li class="chapter" data-level="19" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>19</b> Boosting</a>
 <ul>
-<li class="chapter" data-level="18.1" data-path="boosting.html"><a href="boosting.html#adaboost"><i class="fa fa-check"></i><b>18.1</b> AdaBoost</a></li>
-<li class="chapter" data-level="18.2" data-path="boosting.html"><a href="boosting.html#training-error-of-adaboost"><i class="fa fa-check"></i><b>18.2</b> Training Error of AdaBoost</a></li>
-<li class="chapter" data-level="18.3" data-path="boosting.html"><a href="boosting.html#tuning-the-number-of-trees"><i class="fa fa-check"></i><b>18.3</b> Tuning the Number of Trees</a></li>
-<li class="chapter" data-level="18.4" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>18.4</b> Gradient Boosting</a></li>
+<li class="chapter" data-level="19.1" data-path="boosting.html"><a href="boosting.html#adaboost"><i class="fa fa-check"></i><b>19.1</b> AdaBoost</a></li>
+<li class="chapter" data-level="19.2" data-path="boosting.html"><a href="boosting.html#training-error-of-adaboost"><i class="fa fa-check"></i><b>19.2</b> Training Error of AdaBoost</a></li>
+<li class="chapter" data-level="19.3" data-path="boosting.html"><a href="boosting.html#tuning-the-number-of-trees"><i class="fa fa-check"></i><b>19.3</b> Tuning the Number of Trees</a></li>
+<li class="chapter" data-level="19.4" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>19.4</b> Gradient Boosting</a></li>
 </ul></li>
 <li class="part"><span><b>VI Unsupervised Learning</b></span></li>
-<li class="chapter" data-level="19" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>19</b> K-Means</a>
+<li class="chapter" data-level="20" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>20</b> K-Means</a>
 <ul>
-<li class="chapter" data-level="19.1" data-path="k-means.html"><a href="k-means.html#basic-concepts"><i class="fa fa-check"></i><b>19.1</b> Basic Concepts</a></li>
-<li class="chapter" data-level="19.2" data-path="k-means.html"><a href="k-means.html#example-1-iris-data"><i class="fa fa-check"></i><b>19.2</b> Example 1: <code>iris</code> data</a></li>
-<li class="chapter" data-level="19.3" data-path="k-means.html"><a href="k-means.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>19.3</b> Example 2: clustering of image pixels</a></li>
+<li class="chapter" data-level="20.1" data-path="k-means.html"><a href="k-means.html#basic-concepts"><i class="fa fa-check"></i><b>20.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="20.2" data-path="k-means.html"><a href="k-means.html#example-1-iris-data"><i class="fa fa-check"></i><b>20.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="20.3" data-path="k-means.html"><a href="k-means.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>20.3</b> Example 2: clustering of image pixels</a></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>20</b> Hierarchical Clustering</a>
+<li class="chapter" data-level="21" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>21</b> Hierarchical Clustering</a>
 <ul>
-<li class="chapter" data-level="20.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>20.1</b> Basic Concepts</a></li>
-<li class="chapter" data-level="20.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>20.2</b> Example 1: <code>iris</code> data</a></li>
-<li class="chapter" data-level="20.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>20.3</b> Example 2: RNA Expression Data</a></li>
+<li class="chapter" data-level="21.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>21.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="21.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>21.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="21.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>21.3</b> Example 2: RNA Expression Data</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html"><i class="fa fa-check"></i><b>21</b> Principle Component Analysis</a>
+<li class="chapter" data-level="22" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html"><i class="fa fa-check"></i><b>22</b> Principle Component Analysis</a>
 <ul>
-<li class="chapter" data-level="21.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>21.1</b> Basic Concepts</a>
+<li class="chapter" data-level="22.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>22.1</b> Basic Concepts</a>
 <ul>
-<li class="chapter" data-level="21.1.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>21.1.1</b> Note: Scaling</a></li>
+<li class="chapter" data-level="22.1.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>22.1.1</b> Note: Scaling</a></li>
 </ul></li>
-<li class="chapter" data-level="21.2" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>21.2</b> Example 1: <code>iris</code> Data</a></li>
-<li class="chapter" data-level="21.3" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>21.3</b> Example 2: Handwritten Digits</a></li>
+<li class="chapter" data-level="22.2" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>22.2</b> Example 1: <code>iris</code> Data</a></li>
+<li class="chapter" data-level="22.3" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>22.3</b> Example 2: Handwritten Digits</a></li>
 </ul></li>
-<li class="chapter" data-level="22" data-path="self-organizing-map.html"><a href="self-organizing-map.html"><i class="fa fa-check"></i><b>22</b> Self-Organizing Map</a>
+<li class="chapter" data-level="23" data-path="self-organizing-map.html"><a href="self-organizing-map.html"><i class="fa fa-check"></i><b>23</b> Self-Organizing Map</a>
 <ul>
-<li class="chapter" data-level="22.1" data-path="self-organizing-map.html"><a href="self-organizing-map.html#basic-concepts-3"><i class="fa fa-check"></i><b>22.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="23.1" data-path="self-organizing-map.html"><a href="self-organizing-map.html#basic-concepts-3"><i class="fa fa-check"></i><b>23.1</b> Basic Concepts</a></li>
 </ul></li>
-<li class="chapter" data-level="23" data-path="spectral-clustering.html"><a href="spectral-clustering.html"><i class="fa fa-check"></i><b>23</b> Spectral Clustering</a>
+<li class="chapter" data-level="24" data-path="spectral-clustering.html"><a href="spectral-clustering.html"><i class="fa fa-check"></i><b>24</b> Spectral Clustering</a>
 <ul>
-<li class="chapter" data-level="23.1" data-path="spectral-clustering.html"><a href="spectral-clustering.html#an-example"><i class="fa fa-check"></i><b>23.1</b> An Example</a></li>
-<li class="chapter" data-level="23.2" data-path="spectral-clustering.html"><a href="spectral-clustering.html#adjacency-matrix"><i class="fa fa-check"></i><b>23.2</b> Adjacency Matrix</a></li>
-<li class="chapter" data-level="23.3" data-path="spectral-clustering.html"><a href="spectral-clustering.html#laplacian-matrix"><i class="fa fa-check"></i><b>23.3</b> Laplacian Matrix</a></li>
-<li class="chapter" data-level="23.4" data-path="spectral-clustering.html"><a href="spectral-clustering.html#feature-embedding"><i class="fa fa-check"></i><b>23.4</b> Feature Embedding</a></li>
-<li class="chapter" data-level="23.5" data-path="spectral-clustering.html"><a href="spectral-clustering.html#clustering-with-embedded-features"><i class="fa fa-check"></i><b>23.5</b> Clustering with Embedded Features</a></li>
-<li class="chapter" data-level="23.6" data-path="spectral-clustering.html"><a href="spectral-clustering.html#normalized-graph-laplacian"><i class="fa fa-check"></i><b>23.6</b> Normalized Graph Laplacian</a></li>
+<li class="chapter" data-level="24.1" data-path="spectral-clustering.html"><a href="spectral-clustering.html#an-example"><i class="fa fa-check"></i><b>24.1</b> An Example</a></li>
+<li class="chapter" data-level="24.2" data-path="spectral-clustering.html"><a href="spectral-clustering.html#adjacency-matrix"><i class="fa fa-check"></i><b>24.2</b> Adjacency Matrix</a></li>
+<li class="chapter" data-level="24.3" data-path="spectral-clustering.html"><a href="spectral-clustering.html#laplacian-matrix"><i class="fa fa-check"></i><b>24.3</b> Laplacian Matrix</a></li>
+<li class="chapter" data-level="24.4" data-path="spectral-clustering.html"><a href="spectral-clustering.html#feature-embedding"><i class="fa fa-check"></i><b>24.4</b> Feature Embedding</a></li>
+<li class="chapter" data-level="24.5" data-path="spectral-clustering.html"><a href="spectral-clustering.html#clustering-with-embedded-features"><i class="fa fa-check"></i><b>24.5</b> Clustering with Embedded Features</a></li>
+<li class="chapter" data-level="24.6" data-path="spectral-clustering.html"><a href="spectral-clustering.html#normalized-graph-laplacian"><i class="fa fa-check"></i><b>24.6</b> Normalized Graph Laplacian</a></li>
 </ul></li>
-<li class="chapter" data-level="24" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html"><i class="fa fa-check"></i><b>24</b> Uniform Manifold Approximation and Projection</a>
+<li class="chapter" data-level="25" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html"><i class="fa fa-check"></i><b>25</b> Uniform Manifold Approximation and Projection</a>
 <ul>
-<li class="chapter" data-level="24.1" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#an-example-1"><i class="fa fa-check"></i><b>24.1</b> An Example</a></li>
-<li class="chapter" data-level="24.2" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#tuning"><i class="fa fa-check"></i><b>24.2</b> Tuning</a></li>
-<li class="chapter" data-level="24.3" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#another-example"><i class="fa fa-check"></i><b>24.3</b> Another Example</a></li>
+<li class="chapter" data-level="25.1" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#an-example-1"><i class="fa fa-check"></i><b>25.1</b> An Example</a></li>
+<li class="chapter" data-level="25.2" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#tuning"><i class="fa fa-check"></i><b>25.2</b> Tuning</a></li>
+<li class="chapter" data-level="25.3" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#another-example"><i class="fa fa-check"></i><b>25.3</b> Another Example</a></li>
 </ul></li>
 <li class="part"><span><b>VII Reference</b></span></li>
-<li class="chapter" data-level="25" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>25</b> Reference</a></li>
+<li class="chapter" data-level="26" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>26</b> Reference</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2022 Ruoqing Zhu</a></li>
 
@@ -470,65 +474,65 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="principle-component-analysis" class="section level1 hasAnchor" number="21">
-<h1><span class="header-section-number">Chapter 21</span> Principle Component Analysis<a href="principle-component-analysis.html#principle-component-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="basic-concepts-2" class="section level2 hasAnchor" number="21.1">
-<h2><span class="header-section-number">21.1</span> Basic Concepts<a href="principle-component-analysis.html#basic-concepts-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="principle-component-analysis" class="section level1 hasAnchor" number="22">
+<h1><span class="header-section-number">Chapter 22</span> Principle Component Analysis<a href="principle-component-analysis.html#principle-component-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="basic-concepts-2" class="section level2 hasAnchor" number="22.1">
+<h2><span class="header-section-number">22.1</span> Basic Concepts<a href="principle-component-analysis.html#basic-concepts-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Principle Component Analysis (PCA) is arguably the most commonly used approach for dimension reduction and visualization. The idea is to capture major signals of variation in a dataset. A nice demonstration of the search of direction is provided at this <a href="https://www.r-bloggers.com/principal-component-analysis-in-r/">r-bloggers</a> site:</p>
 <center>
 <img src="images/PCA2.gif" />
 </center>
 <p>Let’s look at a two-dimensional case, we are trying to find a line (direction) on this plain, such that if all points are projected onto this line, their coordinates have the largest variance, compared with any other line. The following code is used to generate a set of observations.</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="principle-component-analysis.html#cb190-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># generate some random data from a 2-dimensional normal distribution. </span></span>
-<span id="cb190-2"><a href="principle-component-analysis.html#cb190-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(MASS)</span>
-<span id="cb190-3"><a href="principle-component-analysis.html#cb190-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb190-4"><a href="principle-component-analysis.html#cb190-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb190-5"><a href="principle-component-analysis.html#cb190-5" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">100</span></span>
-<span id="cb190-6"><a href="principle-component-analysis.html#cb190-6" aria-hidden="true" tabindex="-1"></a>  Sigma <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.5</span>, <span class="sc">-</span><span class="fl">0.65</span>, <span class="sc">-</span><span class="fl">0.65</span>, <span class="dv">1</span>), <span class="dv">2</span>, <span class="dv">2</span>)</span>
-<span id="cb190-7"><a href="principle-component-analysis.html#cb190-7" aria-hidden="true" tabindex="-1"></a>  x_org <span class="ot">=</span> <span class="fu">mvrnorm</span>(n, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), Sigma)</span>
-<span id="cb190-8"><a href="principle-component-analysis.html#cb190-8" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">scale</span>(x_org, <span class="at">scale =</span> <span class="cn">FALSE</span>, <span class="at">center =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="principle-component-analysis.html#cb191-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">ylim=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), </span>
-<span id="cb191-2"><a href="principle-component-analysis.html#cb191-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.75</span>)</span>
-<span id="cb191-3"><a href="principle-component-analysis.html#cb191-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb191-4"><a href="principle-component-analysis.html#cb191-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-286-1.png" width="40%" style="display: block; margin: auto;" /></p>
-<p>Let’ start with finding a direction to project all the observations onto. And we want this projection to have the largest variation. Of course the direction that goes along the spread of the data would be the best choice for the purpose of large variance.</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="principle-component-analysis.html#cb192-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">ylim=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.75</span>)</span>
-<span id="cb192-2"><a href="principle-component-analysis.html#cb192-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb192-3"><a href="principle-component-analysis.html#cb192-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb192-4"><a href="principle-component-analysis.html#cb192-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb192-5"><a href="principle-component-analysis.html#cb192-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This line is obtained from performing PCA</span></span>
-<span id="cb192-6"><a href="principle-component-analysis.html#cb192-6" aria-hidden="true" tabindex="-1"></a>  pc1 <span class="ot">=</span> <span class="fu">princomp</span>(x)<span class="sc">$</span>loadings[,<span class="dv">1</span>]</span>
-<span id="cb192-7"><a href="principle-component-analysis.html#cb192-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> pc1[<span class="dv">2</span>]<span class="sc">/</span>pc1[<span class="dv">1</span>], <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-287-1.png" width="40%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="principle-component-analysis.html#cb193-1" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb193-2"><a href="principle-component-analysis.html#cb193-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The direction </span></span>
-<span id="cb193-3"><a href="principle-component-analysis.html#cb193-3" aria-hidden="true" tabindex="-1"></a>  pc1</span>
-<span id="cb193-4"><a href="principle-component-analysis.html#cb193-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  0.5659608 -0.8244322</span></span></code></pre></div>
-<p>Once we have the first direction, we can also remove the projection from the original covariates, and search for a direction <span class="math inline">\(\mathbf{v}_2\)</span> that is orthogonal to <span class="math inline">\(\mathbf{v}_1\)</span>, with <span class="math inline">\(\mathbf{v}_1^\text{T}\mathbf{v}_2 = 0\)</span>, such that it contains large variation of <span class="math inline">\(\mathbf{X}\)</span>.</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="principle-component-analysis.html#cb194-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>))</span>
-<span id="cb194-2"><a href="principle-component-analysis.html#cb194-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>), <span class="at">ylim=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
-<span id="cb194-3"><a href="principle-component-analysis.html#cb194-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb194-4"><a href="principle-component-analysis.html#cb194-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb194-5"><a href="principle-component-analysis.html#cb194-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb194-6"><a href="principle-component-analysis.html#cb194-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># largest PC </span></span>
-<span id="cb194-7"><a href="principle-component-analysis.html#cb194-7" aria-hidden="true" tabindex="-1"></a>  pc1 <span class="ot">=</span> <span class="fu">princomp</span>(x)<span class="sc">$</span>loadings[,<span class="dv">1</span>]</span>
-<span id="cb194-8"><a href="principle-component-analysis.html#cb194-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> pc1[<span class="dv">2</span>]<span class="sc">/</span>pc1[<span class="dv">1</span>], <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span>
-<span id="cb194-9"><a href="principle-component-analysis.html#cb194-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb194-10"><a href="principle-component-analysis.html#cb194-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># second largest PC</span></span>
-<span id="cb194-11"><a href="principle-component-analysis.html#cb194-11" aria-hidden="true" tabindex="-1"></a>  pc2 <span class="ot">=</span> <span class="fu">princomp</span>(x)<span class="sc">$</span>loadings[,<span class="dv">2</span>]</span>
-<span id="cb194-12"><a href="principle-component-analysis.html#cb194-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> pc2[<span class="dv">2</span>]<span class="sc">/</span>pc2[<span class="dv">1</span>], <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="principle-component-analysis.html#cb189-1" tabindex="-1"></a>  <span class="co"># generate some random data from a 2-dimensional normal distribution. </span></span>
+<span id="cb189-2"><a href="principle-component-analysis.html#cb189-2" tabindex="-1"></a>  <span class="fu">library</span>(MASS)</span>
+<span id="cb189-3"><a href="principle-component-analysis.html#cb189-3" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb189-4"><a href="principle-component-analysis.html#cb189-4" tabindex="-1"></a>  </span>
+<span id="cb189-5"><a href="principle-component-analysis.html#cb189-5" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">100</span></span>
+<span id="cb189-6"><a href="principle-component-analysis.html#cb189-6" tabindex="-1"></a>  Sigma <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.5</span>, <span class="sc">-</span><span class="fl">0.65</span>, <span class="sc">-</span><span class="fl">0.65</span>, <span class="dv">1</span>), <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb189-7"><a href="principle-component-analysis.html#cb189-7" tabindex="-1"></a>  x_org <span class="ot">=</span> <span class="fu">mvrnorm</span>(n, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), Sigma)</span>
+<span id="cb189-8"><a href="principle-component-analysis.html#cb189-8" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">scale</span>(x_org, <span class="at">scale =</span> <span class="cn">FALSE</span>, <span class="at">center =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="principle-component-analysis.html#cb190-1" tabindex="-1"></a>  <span class="fu">plot</span>(x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">ylim=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), </span>
+<span id="cb190-2"><a href="principle-component-analysis.html#cb190-2" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.75</span>)</span>
+<span id="cb190-3"><a href="principle-component-analysis.html#cb190-3" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb190-4"><a href="principle-component-analysis.html#cb190-4" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-288-1.png" width="40%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="principle-component-analysis.html#cb195-1" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb195-2"><a href="principle-component-analysis.html#cb195-2" aria-hidden="true" tabindex="-1"></a>  pc2</span>
-<span id="cb195-3"><a href="principle-component-analysis.html#cb195-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.8244322 0.5659608</span></span>
-<span id="cb195-4"><a href="principle-component-analysis.html#cb195-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>(pc1) <span class="sc">%*%</span> pc2</span>
-<span id="cb195-5"><a href="principle-component-analysis.html#cb195-5" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1]</span></span>
-<span id="cb195-6"><a href="principle-component-analysis.html#cb195-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    0</span></span></code></pre></div>
+<p>Let’ start with finding a direction to project all the observations onto. And we want this projection to have the largest variation. Of course the direction that goes along the spread of the data would be the best choice for the purpose of large variance.</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="principle-component-analysis.html#cb191-1" tabindex="-1"></a>  <span class="fu">plot</span>(x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">ylim=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.75</span>)</span>
+<span id="cb191-2"><a href="principle-component-analysis.html#cb191-2" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb191-3"><a href="principle-component-analysis.html#cb191-3" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb191-4"><a href="principle-component-analysis.html#cb191-4" tabindex="-1"></a></span>
+<span id="cb191-5"><a href="principle-component-analysis.html#cb191-5" tabindex="-1"></a>  <span class="co"># This line is obtained from performing PCA</span></span>
+<span id="cb191-6"><a href="principle-component-analysis.html#cb191-6" tabindex="-1"></a>  pc1 <span class="ot">=</span> <span class="fu">princomp</span>(x)<span class="sc">$</span>loadings[,<span class="dv">1</span>]</span>
+<span id="cb191-7"><a href="principle-component-analysis.html#cb191-7" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> pc1[<span class="dv">2</span>]<span class="sc">/</span>pc1[<span class="dv">1</span>], <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-289-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="principle-component-analysis.html#cb192-1" tabindex="-1"></a>  </span>
+<span id="cb192-2"><a href="principle-component-analysis.html#cb192-2" tabindex="-1"></a>  <span class="co"># The direction </span></span>
+<span id="cb192-3"><a href="principle-component-analysis.html#cb192-3" tabindex="-1"></a>  pc1</span>
+<span id="cb192-4"><a href="principle-component-analysis.html#cb192-4" tabindex="-1"></a><span class="do">## [1]  0.5659608 -0.8244322</span></span></code></pre></div>
+<p>Once we have the first direction, we can also remove the projection from the original covariates, and search for a direction <span class="math inline">\(\mathbf{v}_2\)</span> that is orthogonal to <span class="math inline">\(\mathbf{v}_1\)</span>, with <span class="math inline">\(\mathbf{v}_1^\text{T}\mathbf{v}_2 = 0\)</span>, such that it contains large variation of <span class="math inline">\(\mathbf{X}\)</span>.</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="principle-component-analysis.html#cb193-1" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>))</span>
+<span id="cb193-2"><a href="principle-component-analysis.html#cb193-2" tabindex="-1"></a>  <span class="fu">plot</span>(x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>), <span class="at">ylim=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb193-3"><a href="principle-component-analysis.html#cb193-3" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb193-4"><a href="principle-component-analysis.html#cb193-4" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb193-5"><a href="principle-component-analysis.html#cb193-5" tabindex="-1"></a></span>
+<span id="cb193-6"><a href="principle-component-analysis.html#cb193-6" tabindex="-1"></a>  <span class="co"># largest PC </span></span>
+<span id="cb193-7"><a href="principle-component-analysis.html#cb193-7" tabindex="-1"></a>  pc1 <span class="ot">=</span> <span class="fu">princomp</span>(x)<span class="sc">$</span>loadings[,<span class="dv">1</span>]</span>
+<span id="cb193-8"><a href="principle-component-analysis.html#cb193-8" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> pc1[<span class="dv">2</span>]<span class="sc">/</span>pc1[<span class="dv">1</span>], <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span>
+<span id="cb193-9"><a href="principle-component-analysis.html#cb193-9" tabindex="-1"></a></span>
+<span id="cb193-10"><a href="principle-component-analysis.html#cb193-10" tabindex="-1"></a>  <span class="co"># second largest PC</span></span>
+<span id="cb193-11"><a href="principle-component-analysis.html#cb193-11" tabindex="-1"></a>  pc2 <span class="ot">=</span> <span class="fu">princomp</span>(x)<span class="sc">$</span>loadings[,<span class="dv">2</span>]</span>
+<span id="cb193-12"><a href="principle-component-analysis.html#cb193-12" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> pc2[<span class="dv">2</span>]<span class="sc">/</span>pc2[<span class="dv">1</span>], <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-290-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="principle-component-analysis.html#cb194-1" tabindex="-1"></a>  </span>
+<span id="cb194-2"><a href="principle-component-analysis.html#cb194-2" tabindex="-1"></a>  pc2</span>
+<span id="cb194-3"><a href="principle-component-analysis.html#cb194-3" tabindex="-1"></a><span class="do">## [1] 0.8244322 0.5659608</span></span>
+<span id="cb194-4"><a href="principle-component-analysis.html#cb194-4" tabindex="-1"></a>  <span class="fu">t</span>(pc1) <span class="sc">%*%</span> pc2</span>
+<span id="cb194-5"><a href="principle-component-analysis.html#cb194-5" tabindex="-1"></a><span class="do">##      [,1]</span></span>
+<span id="cb194-6"><a href="principle-component-analysis.html#cb194-6" tabindex="-1"></a><span class="do">## [1,]    0</span></span></code></pre></div>
 <p>We can also see how much variation these two directions accounts for in the original data. The following shows the corresponding standard deviation.</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="principle-component-analysis.html#cb196-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">princomp</span>(x)<span class="sc">$</span>sdev</span>
-<span id="cb196-2"><a href="principle-component-analysis.html#cb196-2" aria-hidden="true" tabindex="-1"></a><span class="do">##    Comp.1    Comp.2 </span></span>
-<span id="cb196-3"><a href="principle-component-analysis.html#cb196-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 1.0748243 0.2206133</span></span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="principle-component-analysis.html#cb195-1" tabindex="-1"></a>  <span class="fu">princomp</span>(x)<span class="sc">$</span>sdev</span>
+<span id="cb195-2"><a href="principle-component-analysis.html#cb195-2" tabindex="-1"></a><span class="do">##    Comp.1    Comp.2 </span></span>
+<span id="cb195-3"><a href="principle-component-analysis.html#cb195-3" tabindex="-1"></a><span class="do">## 1.0748243 0.2206133</span></span></code></pre></div>
 <p>Formally, we can generalized this to <span class="math inline">\(\mathbf{X}\)</span> with any dimensions. And the key tool is to perform the singular value decomposition (SVD):</p>
 <p><span class="math display">\[\mathbf{X}= \mathbf{U}\mathbf{D}\mathbf{V}^\text{T}\]</span>
 The <span class="math inline">\(\mathbf{V}\)</span> matrix here corresponds to the directions we found. Hence, <span class="math inline">\(\mathbf{v}_1\)</span> is its first column, <span class="math inline">\(\mathbf{v}_1\)</span> is its second column, etc.. <span class="math inline">\(\mathbf{D}\)</span> is a diagonal matrix ordered from the largest to the smallest values, correspond to the standard deviation of the spreads. And <span class="math inline">\(\mathbf{U}\)</span> represents the coordinates once we project <span class="math inline">\(\mathbf{X}\)</span> onto those directions. An alternative way to understand this is by matrix approximation, if we want to find a rank-1 matrix that best approximate <span class="math inline">\(\mathbf{X}\)</span> with the Frobenius norm, we optimize</p>
@@ -536,117 +540,117 @@ The <span class="math inline">\(\mathbf{V}\)</span> matrix here corresponds to t
 <p>This can be generalized into any dimensional problem. Another alternative formulation is to use eigen-decomposition of <span class="math inline">\(\mathbf{X}^\text{T}\mathbf{X}\)</span>, which can be written as</p>
 <p><span class="math display">\[\mathbf{X}^\text{T}\mathbf{X}= \mathbf{V}\mathbf{D}\mathbf{U}^\text{T}\mathbf{U}\mathbf{D}\mathbf{V}^\text{T}= \mathbf{V}\mathbf{D}^2 \mathbf{V}^\text{T}\]</span></p>
 <p>But one thing we usually need to take care of is the centering issue. This is why we used <code>scale()</code> function at the beginning. However, we only center, but not scale the data. If we do not center, then the first principle component (PC) could be a direction that points to the center of the data. Note that when <span class="math inline">\(\mathbf{X}\)</span> is already centered, <span class="math inline">\(\mathbf{X}^\text{T}\mathbf{X}\)</span> is the covariance matrix. Hence PCA is also performing eigen-decomposition to the covariance matrix.</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="principle-component-analysis.html#cb197-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(x_org, <span class="at">main =</span> <span class="st">&quot;Before Centering&quot;</span>, </span>
-<span id="cb197-2"><a href="principle-component-analysis.html#cb197-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">ylim=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
-<span id="cb197-3"><a href="principle-component-analysis.html#cb197-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb197-4"><a href="principle-component-analysis.html#cb197-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb197-5"><a href="principle-component-analysis.html#cb197-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb197-6"><a href="principle-component-analysis.html#cb197-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="fl">0.3</span>))</span>
-<span id="cb197-7"><a href="principle-component-analysis.html#cb197-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(x, <span class="at">main =</span> <span class="st">&quot;After Centering&quot;</span>, </span>
-<span id="cb197-8"><a href="principle-component-analysis.html#cb197-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">ylim=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
-<span id="cb197-9"><a href="principle-component-analysis.html#cb197-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb197-10"><a href="principle-component-analysis.html#cb197-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)    </span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-291-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="principle-component-analysis.html#cb196-1" tabindex="-1"></a>    <span class="fu">plot</span>(x_org, <span class="at">main =</span> <span class="st">&quot;Before Centering&quot;</span>, </span>
+<span id="cb196-2"><a href="principle-component-analysis.html#cb196-2" tabindex="-1"></a>         <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">ylim=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb196-3"><a href="principle-component-analysis.html#cb196-3" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb196-4"><a href="principle-component-analysis.html#cb196-4" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb196-5"><a href="principle-component-analysis.html#cb196-5" tabindex="-1"></a>    </span>
+<span id="cb196-6"><a href="principle-component-analysis.html#cb196-6" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="fl">0.3</span>))</span>
+<span id="cb196-7"><a href="principle-component-analysis.html#cb196-7" tabindex="-1"></a>    <span class="fu">plot</span>(x, <span class="at">main =</span> <span class="st">&quot;After Centering&quot;</span>, </span>
+<span id="cb196-8"><a href="principle-component-analysis.html#cb196-8" tabindex="-1"></a>         <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">ylim=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb196-9"><a href="principle-component-analysis.html#cb196-9" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb196-10"><a href="principle-component-analysis.html#cb196-10" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)    </span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-293-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Finally, for any dimensional data <span class="math inline">\(\mathbf{X}\)</span>, we usually visualize them in the first two directions, or three. Note that the coordinates on the PC’s can be obtained using either the <code>scores</code> (<span class="math inline">\(\mathbf{U}\)</span>) in the fitted object of <code>princomp</code>, or simply multiply the original data matrix by the loading matrix <span class="math inline">\(\mathbf{V}\)</span>.</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="principle-component-analysis.html#cb198-1" aria-hidden="true" tabindex="-1"></a>    pcafit <span class="ot">&lt;-</span> <span class="fu">princomp</span>(x)</span>
-<span id="cb198-2"><a href="principle-component-analysis.html#cb198-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb198-3"><a href="principle-component-analysis.html#cb198-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># the new coordinates on PC&#39;s</span></span>
-<span id="cb198-4"><a href="principle-component-analysis.html#cb198-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(pcafit<span class="sc">$</span>scores)</span>
-<span id="cb198-5"><a href="principle-component-analysis.html#cb198-5" aria-hidden="true" tabindex="-1"></a><span class="do">##           Comp.1      Comp.2</span></span>
-<span id="cb198-6"><a href="principle-component-analysis.html#cb198-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]  0.88434533  0.13503607</span></span>
-<span id="cb198-7"><a href="principle-component-analysis.html#cb198-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] -0.08990294 -0.01851954</span></span>
-<span id="cb198-8"><a href="principle-component-analysis.html#cb198-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]  1.13589963  0.20234582</span></span>
-<span id="cb198-9"><a href="principle-component-analysis.html#cb198-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] -1.78763374 -0.04571218</span></span>
-<span id="cb198-10"><a href="principle-component-analysis.html#cb198-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [5,] -0.26536435  0.14271170</span></span>
-<span id="cb198-11"><a href="principle-component-analysis.html#cb198-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [6,]  1.11779894 -0.41759594</span></span>
-<span id="cb198-12"><a href="principle-component-analysis.html#cb198-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb198-13"><a href="principle-component-analysis.html#cb198-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># direct calculation based on projection </span></span>
-<span id="cb198-14"><a href="principle-component-analysis.html#cb198-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(x <span class="sc">%*%</span> pcafit<span class="sc">$</span>loadings)</span>
-<span id="cb198-15"><a href="principle-component-analysis.html#cb198-15" aria-hidden="true" tabindex="-1"></a><span class="do">##           Comp.1      Comp.2</span></span>
-<span id="cb198-16"><a href="principle-component-analysis.html#cb198-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]  0.88434533  0.13503607</span></span>
-<span id="cb198-17"><a href="principle-component-analysis.html#cb198-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] -0.08990294 -0.01851954</span></span>
-<span id="cb198-18"><a href="principle-component-analysis.html#cb198-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]  1.13589963  0.20234582</span></span>
-<span id="cb198-19"><a href="principle-component-analysis.html#cb198-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] -1.78763374 -0.04571218</span></span>
-<span id="cb198-20"><a href="principle-component-analysis.html#cb198-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [5,] -0.26536435  0.14271170</span></span>
-<span id="cb198-21"><a href="principle-component-analysis.html#cb198-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [6,]  1.11779894 -0.41759594</span></span>
-<span id="cb198-22"><a href="principle-component-analysis.html#cb198-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb198-23"><a href="principle-component-analysis.html#cb198-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># visualize the data on the PCs</span></span>
-<span id="cb198-24"><a href="principle-component-analysis.html#cb198-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Note that the both axies are scaled </span></span>
-<span id="cb198-25"><a href="principle-component-analysis.html#cb198-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>, <span class="fl">4.2</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>))</span>
-<span id="cb198-26"><a href="principle-component-analysis.html#cb198-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(pcafit<span class="sc">$</span>scores[,<span class="dv">1</span>], pcafit<span class="sc">$</span>scores[,<span class="dv">2</span>], <span class="at">xlab =</span> <span class="st">&quot;First PC&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Second PC&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex.lab =</span> <span class="fl">1.5</span>)</span>
-<span id="cb198-27"><a href="principle-component-analysis.html#cb198-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span>
-<span id="cb198-28"><a href="principle-component-analysis.html#cb198-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-293-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="principle-component-analysis.html#cb197-1" tabindex="-1"></a>    pcafit <span class="ot">&lt;-</span> <span class="fu">princomp</span>(x)</span>
+<span id="cb197-2"><a href="principle-component-analysis.html#cb197-2" tabindex="-1"></a></span>
+<span id="cb197-3"><a href="principle-component-analysis.html#cb197-3" tabindex="-1"></a>    <span class="co"># the new coordinates on PC&#39;s</span></span>
+<span id="cb197-4"><a href="principle-component-analysis.html#cb197-4" tabindex="-1"></a>    <span class="fu">head</span>(pcafit<span class="sc">$</span>scores)</span>
+<span id="cb197-5"><a href="principle-component-analysis.html#cb197-5" tabindex="-1"></a><span class="do">##           Comp.1      Comp.2</span></span>
+<span id="cb197-6"><a href="principle-component-analysis.html#cb197-6" tabindex="-1"></a><span class="do">## [1,]  0.88434533  0.13503607</span></span>
+<span id="cb197-7"><a href="principle-component-analysis.html#cb197-7" tabindex="-1"></a><span class="do">## [2,] -0.08990294 -0.01851954</span></span>
+<span id="cb197-8"><a href="principle-component-analysis.html#cb197-8" tabindex="-1"></a><span class="do">## [3,]  1.13589963  0.20234582</span></span>
+<span id="cb197-9"><a href="principle-component-analysis.html#cb197-9" tabindex="-1"></a><span class="do">## [4,] -1.78763374 -0.04571218</span></span>
+<span id="cb197-10"><a href="principle-component-analysis.html#cb197-10" tabindex="-1"></a><span class="do">## [5,] -0.26536435  0.14271170</span></span>
+<span id="cb197-11"><a href="principle-component-analysis.html#cb197-11" tabindex="-1"></a><span class="do">## [6,]  1.11779894 -0.41759594</span></span>
+<span id="cb197-12"><a href="principle-component-analysis.html#cb197-12" tabindex="-1"></a>    </span>
+<span id="cb197-13"><a href="principle-component-analysis.html#cb197-13" tabindex="-1"></a>    <span class="co"># direct calculation based on projection </span></span>
+<span id="cb197-14"><a href="principle-component-analysis.html#cb197-14" tabindex="-1"></a>    <span class="fu">head</span>(x <span class="sc">%*%</span> pcafit<span class="sc">$</span>loadings)</span>
+<span id="cb197-15"><a href="principle-component-analysis.html#cb197-15" tabindex="-1"></a><span class="do">##           Comp.1      Comp.2</span></span>
+<span id="cb197-16"><a href="principle-component-analysis.html#cb197-16" tabindex="-1"></a><span class="do">## [1,]  0.88434533  0.13503607</span></span>
+<span id="cb197-17"><a href="principle-component-analysis.html#cb197-17" tabindex="-1"></a><span class="do">## [2,] -0.08990294 -0.01851954</span></span>
+<span id="cb197-18"><a href="principle-component-analysis.html#cb197-18" tabindex="-1"></a><span class="do">## [3,]  1.13589963  0.20234582</span></span>
+<span id="cb197-19"><a href="principle-component-analysis.html#cb197-19" tabindex="-1"></a><span class="do">## [4,] -1.78763374 -0.04571218</span></span>
+<span id="cb197-20"><a href="principle-component-analysis.html#cb197-20" tabindex="-1"></a><span class="do">## [5,] -0.26536435  0.14271170</span></span>
+<span id="cb197-21"><a href="principle-component-analysis.html#cb197-21" tabindex="-1"></a><span class="do">## [6,]  1.11779894 -0.41759594</span></span>
+<span id="cb197-22"><a href="principle-component-analysis.html#cb197-22" tabindex="-1"></a></span>
+<span id="cb197-23"><a href="principle-component-analysis.html#cb197-23" tabindex="-1"></a>    <span class="co"># visualize the data on the PCs</span></span>
+<span id="cb197-24"><a href="principle-component-analysis.html#cb197-24" tabindex="-1"></a>    <span class="co"># Note that the both axies are scaled </span></span>
+<span id="cb197-25"><a href="principle-component-analysis.html#cb197-25" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>, <span class="fl">4.2</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>))</span>
+<span id="cb197-26"><a href="principle-component-analysis.html#cb197-26" tabindex="-1"></a>    <span class="fu">plot</span>(pcafit<span class="sc">$</span>scores[,<span class="dv">1</span>], pcafit<span class="sc">$</span>scores[,<span class="dv">2</span>], <span class="at">xlab =</span> <span class="st">&quot;First PC&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Second PC&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex.lab =</span> <span class="fl">1.5</span>)</span>
+<span id="cb197-27"><a href="principle-component-analysis.html#cb197-27" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span>
+<span id="cb197-28"><a href="principle-component-analysis.html#cb197-28" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-295-1.png" width="40%" style="display: block; margin: auto;" /></p>
 <p>There are many different functions in <code>R</code> that performs PCA. <code>princomp</code> and <code>prcomp</code> are the most popular ones.</p>
-<div id="note-scaling" class="section level3 hasAnchor" number="21.1.1">
-<h3><span class="header-section-number">21.1.1</span> Note: Scaling<a href="principle-component-analysis.html#note-scaling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="note-scaling" class="section level3 hasAnchor" number="22.1.1">
+<h3><span class="header-section-number">22.1.1</span> Note: Scaling<a href="principle-component-analysis.html#note-scaling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You should always center the variables when performing PCA, however, whether to use scaling (force each variable to have a standard deviation of 1) depends on the particular application. When you have variables that are extremely disproportionate, e.g., age vs. RNA expression, scaling should be used. This is to prevent some variables from dominating the PC loadings due to their large scales. When all the variables are of the similar type, e.g., color intensities of pixels in a figure, it is better to use the original scale. This is because the variables with larger variations may carry more signal. Scaling may lose that information.</p>
 </div>
 </div>
-<div id="example-1-iris-data-2" class="section level2 hasAnchor" number="21.2">
-<h2><span class="header-section-number">21.2</span> Example 1: <code>iris</code> Data<a href="principle-component-analysis.html#example-1-iris-data-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="example-1-iris-data-2" class="section level2 hasAnchor" number="22.2">
+<h2><span class="header-section-number">22.2</span> Example 1: <code>iris</code> Data<a href="principle-component-analysis.html#example-1-iris-data-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We use the <code>iris</code> data again. All four variables are considered in this analysis. We plot the first and second PC directions.</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="principle-component-analysis.html#cb199-1" aria-hidden="true" tabindex="-1"></a>    iris_pc <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(iris[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span>
-<span id="cb199-2"><a href="principle-component-analysis.html#cb199-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(ggplot2)</span>
-<span id="cb199-3"><a href="principle-component-analysis.html#cb199-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(iris_pc<span class="sc">$</span>x), <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC2)) <span class="sc">+</span> </span>
-<span id="cb199-4"><a href="principle-component-analysis.html#cb199-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">color=</span><span class="fu">c</span>(<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>)[iris<span class="sc">$</span>Species], <span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-294-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<p>One may be interested in plotting all pair-wise direction to see if lower PC’s provide useful information.</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="principle-component-analysis.html#cb200-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pairs</span>(iris_pc<span class="sc">$</span>x, <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>)[iris<span class="sc">$</span>Species], <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-295-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<p>However, usually, the lower PC’s are less informative. This can also be speculated from the eigenvalue plot, which shows how influential each PC is.</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="principle-component-analysis.html#cb201-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(iris_pc, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">main =</span> <span class="st">&quot;Iris PCA Variance&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="principle-component-analysis.html#cb198-1" tabindex="-1"></a>    iris_pc <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(iris[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span>
+<span id="cb198-2"><a href="principle-component-analysis.html#cb198-2" tabindex="-1"></a>    <span class="fu">library</span>(ggplot2)</span>
+<span id="cb198-3"><a href="principle-component-analysis.html#cb198-3" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(iris_pc<span class="sc">$</span>x), <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC2)) <span class="sc">+</span> </span>
+<span id="cb198-4"><a href="principle-component-analysis.html#cb198-4" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">color=</span><span class="fu">c</span>(<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>)[iris<span class="sc">$</span>Species], <span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-296-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<p>Feature contributions to the PC can be accessed through the magnitude of the loadings. This table shows that <code>Petal.Length</code> is the most influential variable on the first PC, with loading <span class="math inline">\(\approx 0.8567\)</span>.</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="principle-component-analysis.html#cb202-1" aria-hidden="true" tabindex="-1"></a>    iris_pc<span class="sc">$</span>rotation</span>
-<span id="cb202-2"><a href="principle-component-analysis.html#cb202-2" aria-hidden="true" tabindex="-1"></a><span class="do">##                      PC1         PC2         PC3        PC4</span></span>
-<span id="cb202-3"><a href="principle-component-analysis.html#cb202-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Sepal.Length  0.36138659 -0.65658877  0.58202985  0.3154872</span></span>
-<span id="cb202-4"><a href="principle-component-analysis.html#cb202-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Sepal.Width  -0.08452251 -0.73016143 -0.59791083 -0.3197231</span></span>
-<span id="cb202-5"><a href="principle-component-analysis.html#cb202-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Petal.Length  0.85667061  0.17337266 -0.07623608 -0.4798390</span></span>
-<span id="cb202-6"><a href="principle-component-analysis.html#cb202-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Petal.Width   0.35828920  0.07548102 -0.54583143  0.7536574</span></span></code></pre></div>
-<p>We can further visualize this on a plot. This can be helpful when the number of variables is large.</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="principle-component-analysis.html#cb203-1" aria-hidden="true" tabindex="-1"></a>    features <span class="ot">=</span> <span class="fu">row.names</span>(iris_pc<span class="sc">$</span>rotation)</span>
-<span id="cb203-2"><a href="principle-component-analysis.html#cb203-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(iris_pc<span class="sc">$</span>rotation), <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC2, <span class="at">label=</span>features,<span class="at">color=</span>features)) <span class="sc">+</span> </span>
-<span id="cb203-3"><a href="principle-component-analysis.html#cb203-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">geom_text</span>(<span class="at">size=</span><span class="dv">3</span>)</span></code></pre></div>
+<p>One may be interested in plotting all pair-wise direction to see if lower PC’s provide useful information.</p>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="principle-component-analysis.html#cb199-1" tabindex="-1"></a>    <span class="fu">pairs</span>(iris_pc<span class="sc">$</span>x, <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>)[iris<span class="sc">$</span>Species], <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-297-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>However, usually, the lower PC’s are less informative. This can also be speculated from the eigenvalue plot, which shows how influential each PC is.</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="principle-component-analysis.html#cb200-1" tabindex="-1"></a>    <span class="fu">plot</span>(iris_pc, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">main =</span> <span class="st">&quot;Iris PCA Variance&quot;</span>)</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-298-1.png" width="45%" style="display: block; margin: auto;" /></p>
-</div>
-<div id="example-2-handwritten-digits" class="section level2 hasAnchor" number="21.3">
-<h2><span class="header-section-number">21.3</span> Example 2: Handwritten Digits<a href="principle-component-analysis.html#example-2-handwritten-digits" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The handwritten zip code digits data contains 7291 training data and 2007 testing data. Each image is a <span class="math inline">\(16 \times 16\)</span>-pixel gray-scale image. Hence they are converted to a vector of 256 variables.</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="principle-component-analysis.html#cb204-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(ElemStatLearn)</span>
-<span id="cb204-2"><a href="principle-component-analysis.html#cb204-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Handwritten Digit Recognition Data</span></span>
-<span id="cb204-3"><a href="principle-component-analysis.html#cb204-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># the first column is the true digit</span></span>
-<span id="cb204-4"><a href="principle-component-analysis.html#cb204-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dim</span>(zip.train)</span>
-<span id="cb204-5"><a href="principle-component-analysis.html#cb204-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 7291  257</span></span></code></pre></div>
-<p>Here is a sample of some images:</p>
+<p>Feature contributions to the PC can be accessed through the magnitude of the loadings. This table shows that <code>Petal.Length</code> is the most influential variable on the first PC, with loading <span class="math inline">\(\approx 0.8567\)</span>.</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="principle-component-analysis.html#cb201-1" tabindex="-1"></a>    iris_pc<span class="sc">$</span>rotation</span>
+<span id="cb201-2"><a href="principle-component-analysis.html#cb201-2" tabindex="-1"></a><span class="do">##                      PC1         PC2         PC3        PC4</span></span>
+<span id="cb201-3"><a href="principle-component-analysis.html#cb201-3" tabindex="-1"></a><span class="do">## Sepal.Length  0.36138659 -0.65658877  0.58202985  0.3154872</span></span>
+<span id="cb201-4"><a href="principle-component-analysis.html#cb201-4" tabindex="-1"></a><span class="do">## Sepal.Width  -0.08452251 -0.73016143 -0.59791083 -0.3197231</span></span>
+<span id="cb201-5"><a href="principle-component-analysis.html#cb201-5" tabindex="-1"></a><span class="do">## Petal.Length  0.85667061  0.17337266 -0.07623608 -0.4798390</span></span>
+<span id="cb201-6"><a href="principle-component-analysis.html#cb201-6" tabindex="-1"></a><span class="do">## Petal.Width   0.35828920  0.07548102 -0.54583143  0.7536574</span></span></code></pre></div>
+<p>We can further visualize this on a plot. This can be helpful when the number of variables is large.</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="principle-component-analysis.html#cb202-1" tabindex="-1"></a>    features <span class="ot">=</span> <span class="fu">row.names</span>(iris_pc<span class="sc">$</span>rotation)</span>
+<span id="cb202-2"><a href="principle-component-analysis.html#cb202-2" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(iris_pc<span class="sc">$</span>rotation), <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC2, <span class="at">label=</span>features,<span class="at">color=</span>features)) <span class="sc">+</span> </span>
+<span id="cb202-3"><a href="principle-component-analysis.html#cb202-3" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">geom_text</span>(<span class="at">size=</span><span class="dv">3</span>)</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-300-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<p>Let’s do a simpler task, using just three letters: 1, 4 and 8.</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="principle-component-analysis.html#cb205-1" aria-hidden="true" tabindex="-1"></a>    zip.sub <span class="ot">=</span> zip.train[zip.train[,<span class="dv">1</span>] <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">8</span>), <span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb205-2"><a href="principle-component-analysis.html#cb205-2" aria-hidden="true" tabindex="-1"></a>    zip.sub.truth <span class="ot">=</span> <span class="fu">as.factor</span>(zip.train[zip.train[,<span class="dv">1</span>] <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">8</span>), <span class="dv">1</span>])</span>
-<span id="cb205-3"><a href="principle-component-analysis.html#cb205-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dim</span>(zip.sub)</span>
-<span id="cb205-4"><a href="principle-component-analysis.html#cb205-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2199  256</span></span>
-<span id="cb205-5"><a href="principle-component-analysis.html#cb205-5" aria-hidden="true" tabindex="-1"></a>    zip_pc <span class="ot">=</span> <span class="fu">prcomp</span>(zip.sub)</span>
-<span id="cb205-6"><a href="principle-component-analysis.html#cb205-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(zip_pc, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">main =</span> <span class="st">&quot;Digits 1, 4, and 8: PCA Variance&quot;</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-301-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<p>The eigenvalue results suggest that the first two principal components are much more influential than the rest. A pair-wise PC plot of the first four PC’s may further confirm that speculation.</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="principle-component-analysis.html#cb206-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pairs</span>(zip_pc<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>)[zip.sub.truth], <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
+</div>
+<div id="example-2-handwritten-digits" class="section level2 hasAnchor" number="22.3">
+<h2><span class="header-section-number">22.3</span> Example 2: Handwritten Digits<a href="principle-component-analysis.html#example-2-handwritten-digits" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The handwritten zip code digits data contains 7291 training data and 2007 testing data. Each image is a <span class="math inline">\(16 \times 16\)</span>-pixel gray-scale image. Hence they are converted to a vector of 256 variables.</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="principle-component-analysis.html#cb203-1" tabindex="-1"></a>    <span class="fu">library</span>(ElemStatLearn)</span>
+<span id="cb203-2"><a href="principle-component-analysis.html#cb203-2" tabindex="-1"></a>    <span class="co"># Handwritten Digit Recognition Data</span></span>
+<span id="cb203-3"><a href="principle-component-analysis.html#cb203-3" tabindex="-1"></a>    <span class="co"># the first column is the true digit</span></span>
+<span id="cb203-4"><a href="principle-component-analysis.html#cb203-4" tabindex="-1"></a>    <span class="fu">dim</span>(zip.train)</span>
+<span id="cb203-5"><a href="principle-component-analysis.html#cb203-5" tabindex="-1"></a><span class="do">## [1] 7291  257</span></span></code></pre></div>
+<p>Here is a sample of some images:</p>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-302-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<p>Let’s look at the first two PCs more closely. Even without knowing the true class (no colors) we can still vaguely see 3 clusters.</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="principle-component-analysis.html#cb207-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(ggplot2)</span>
-<span id="cb207-2"><a href="principle-component-analysis.html#cb207-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(zip_pc<span class="sc">$</span>x), <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC2)) <span class="sc">+</span> </span>
-<span id="cb207-3"><a href="principle-component-analysis.html#cb207-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p>Let’s do a simpler task, using just three letters: 1, 4 and 8.</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="principle-component-analysis.html#cb204-1" tabindex="-1"></a>    zip.sub <span class="ot">=</span> zip.train[zip.train[,<span class="dv">1</span>] <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">8</span>), <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb204-2"><a href="principle-component-analysis.html#cb204-2" tabindex="-1"></a>    zip.sub.truth <span class="ot">=</span> <span class="fu">as.factor</span>(zip.train[zip.train[,<span class="dv">1</span>] <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">8</span>), <span class="dv">1</span>])</span>
+<span id="cb204-3"><a href="principle-component-analysis.html#cb204-3" tabindex="-1"></a>    <span class="fu">dim</span>(zip.sub)</span>
+<span id="cb204-4"><a href="principle-component-analysis.html#cb204-4" tabindex="-1"></a><span class="do">## [1] 2199  256</span></span>
+<span id="cb204-5"><a href="principle-component-analysis.html#cb204-5" tabindex="-1"></a>    zip_pc <span class="ot">=</span> <span class="fu">prcomp</span>(zip.sub)</span>
+<span id="cb204-6"><a href="principle-component-analysis.html#cb204-6" tabindex="-1"></a>    <span class="fu">plot</span>(zip_pc, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">main =</span> <span class="st">&quot;Digits 1, 4, and 8: PCA Variance&quot;</span>)</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-303-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<p>Finally, let’s briefly look at the results of PCA for all 10 different digits. Of course, more PC’s are needed for this task. You can also plot other PC’s to get more information.</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="principle-component-analysis.html#cb208-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(colorspace)</span>
-<span id="cb208-2"><a href="principle-component-analysis.html#cb208-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb208-3"><a href="principle-component-analysis.html#cb208-3" aria-hidden="true" tabindex="-1"></a>    zip_pc <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(zip.train)</span>
-<span id="cb208-4"><a href="principle-component-analysis.html#cb208-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb208-5"><a href="principle-component-analysis.html#cb208-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(zip_pc, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">main =</span> <span class="st">&quot;All Digits: PCA Variance&quot;</span>)</span></code></pre></div>
+<p>The eigenvalue results suggest that the first two principal components are much more influential than the rest. A pair-wise PC plot of the first four PC’s may further confirm that speculation.</p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="principle-component-analysis.html#cb205-1" tabindex="-1"></a>    <span class="fu">pairs</span>(zip_pc<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>)[zip.sub.truth], <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-304-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="principle-component-analysis.html#cb209-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb209-2"><a href="principle-component-analysis.html#cb209-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="fu">prcomp</span>(zip.train)<span class="sc">$</span>x), <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC2)) <span class="sc">+</span> </span>
-<span id="cb209-3"><a href="principle-component-analysis.html#cb209-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="fu">rainbow_hcl</span>(<span class="dv">10</span>)[zip.train[,<span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>], <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-304-2.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>Let’s look at the first two PCs more closely. Even without knowing the true class (no colors) we can still vaguely see 3 clusters.</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="principle-component-analysis.html#cb206-1" tabindex="-1"></a>    <span class="fu">library</span>(ggplot2)</span>
+<span id="cb206-2"><a href="principle-component-analysis.html#cb206-2" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(zip_pc<span class="sc">$</span>x), <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC2)) <span class="sc">+</span> </span>
+<span id="cb206-3"><a href="principle-component-analysis.html#cb206-3" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-305-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>Finally, let’s briefly look at the results of PCA for all 10 different digits. Of course, more PC’s are needed for this task. You can also plot other PC’s to get more information.</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="principle-component-analysis.html#cb207-1" tabindex="-1"></a>    <span class="fu">library</span>(colorspace)</span>
+<span id="cb207-2"><a href="principle-component-analysis.html#cb207-2" tabindex="-1"></a></span>
+<span id="cb207-3"><a href="principle-component-analysis.html#cb207-3" tabindex="-1"></a>    zip_pc <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(zip.train)</span>
+<span id="cb207-4"><a href="principle-component-analysis.html#cb207-4" tabindex="-1"></a></span>
+<span id="cb207-5"><a href="principle-component-analysis.html#cb207-5" tabindex="-1"></a>    <span class="fu">plot</span>(zip_pc, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">main =</span> <span class="st">&quot;All Digits: PCA Variance&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-306-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="principle-component-analysis.html#cb208-1" tabindex="-1"></a></span>
+<span id="cb208-2"><a href="principle-component-analysis.html#cb208-2" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="fu">prcomp</span>(zip.train)<span class="sc">$</span>x), <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC2)) <span class="sc">+</span> </span>
+<span id="cb208-3"><a href="principle-component-analysis.html#cb208-3" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="fu">rainbow_hcl</span>(<span class="dv">10</span>)[zip.train[,<span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>], <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-306-2.png" width="45%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

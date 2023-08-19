@@ -4,26 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 16 Classification and Regression Trees | Statistical Learning and Machine Learning with R</title>
-  <meta name="description" content="A textbook for STAT 542 and 432 at UIUC" />
+  <title>Chapter 17 Classification and Regression Trees | Statistical Learning and Machine Learning with R</title>
+  <meta name="description" content="A Textbook for Statistical Learning Courses at UIUC" />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 16 Classification and Regression Trees | Statistical Learning and Machine Learning with R" />
+  <meta property="og:title" content="Chapter 17 Classification and Regression Trees | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="A textbook for STAT 542 and 432 at UIUC" />
+  <meta property="og:description" content="A Textbook for Statistical Learning Courses at UIUC" />
   <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 16 Classification and Regression Trees | Statistical Learning and Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 17 Classification and Regression Trees | Statistical Learning and Machine Learning with R" />
   
-  <meta name="twitter:description" content="A textbook for STAT 542 and 432 at UIUC" />
+  <meta name="twitter:description" content="A Textbook for Statistical Learning Courses at UIUC" />
   
 
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2023-04-13" />
+<meta name="date" content="2023-08-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,22 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.28/datatables.js"></script>
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -199,241 +215,245 @@ div.csl-indent {
 <li class="chapter" data-level="2.9" data-path="rmarkdown.html"><a href="rmarkdown.html#output-options"><i class="fa fa-check"></i><b>2.9</b> Output Options</a></li>
 <li class="chapter" data-level="2.10" data-path="rmarkdown.html"><a href="rmarkdown.html#try-it"><i class="fa fa-check"></i><b>2.10</b> Try It!</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html"><i class="fa fa-check"></i><b>3</b> Linear Algebra Basics</a>
+<li class="chapter" data-level="3" data-path="visual-studio-code.html"><a href="visual-studio-code.html"><i class="fa fa-check"></i><b>3</b> Visual Studio Code</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#definition"><i class="fa fa-check"></i><b>3.1</b> Definition</a></li>
+<li class="chapter" data-level="3.1" data-path="visual-studio-code.html"><a href="visual-studio-code.html#basics-and-resources-1"><i class="fa fa-check"></i><b>3.1</b> Basics and Resources</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>4</b> Optimization Basics</a>
+<li class="chapter" data-level="4" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html"><i class="fa fa-check"></i><b>4</b> Linear Algebra Basics</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="optimization-basics.html"><a href="optimization-basics.html#basic-concept"><i class="fa fa-check"></i><b>4.1</b> Basic Concept</a></li>
-<li class="chapter" data-level="4.2" data-path="optimization-basics.html"><a href="optimization-basics.html#global_local"><i class="fa fa-check"></i><b>4.2</b> Global vs. Local Optima</a></li>
-<li class="chapter" data-level="4.3" data-path="optimization-basics.html"><a href="optimization-basics.html#example-linear-regression-using-optim"><i class="fa fa-check"></i><b>4.3</b> Example: Linear Regression using <code>optim()</code></a></li>
-<li class="chapter" data-level="4.4" data-path="optimization-basics.html"><a href="optimization-basics.html#first-and-second-order-properties"><i class="fa fa-check"></i><b>4.4</b> First and Second Order Properties</a></li>
-<li class="chapter" data-level="4.5" data-path="optimization-basics.html"><a href="optimization-basics.html#algorithm"><i class="fa fa-check"></i><b>4.5</b> Algorithm</a></li>
-<li class="chapter" data-level="4.6" data-path="optimization-basics.html"><a href="optimization-basics.html#second-order-methods"><i class="fa fa-check"></i><b>4.6</b> Second-order Methods</a>
-<ul>
-<li class="chapter" data-level="4.6.1" data-path="optimization-basics.html"><a href="optimization-basics.html#newtons-method"><i class="fa fa-check"></i><b>4.6.1</b> Newton’s Method</a></li>
-<li class="chapter" data-level="4.6.2" data-path="optimization-basics.html"><a href="optimization-basics.html#quasi-newton-methods"><i class="fa fa-check"></i><b>4.6.2</b> Quasi-Newton Methods</a></li>
+<li class="chapter" data-level="4.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#definition"><i class="fa fa-check"></i><b>4.1</b> Definition</a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="optimization-basics.html"><a href="optimization-basics.html#first-order-methods"><i class="fa fa-check"></i><b>4.7</b> First-order Methods</a>
+<li class="chapter" data-level="5" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>5</b> Optimization Basics</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="optimization-basics.html"><a href="optimization-basics.html#gradient-descent"><i class="fa fa-check"></i><b>4.7.1</b> Gradient Descent</a></li>
-<li class="chapter" data-level="4.7.2" data-path="optimization-basics.html"><a href="optimization-basics.html#gradient-descent-example-linear-regression"><i class="fa fa-check"></i><b>4.7.2</b> Gradient Descent Example: Linear Regression</a></li>
-</ul></li>
-<li class="chapter" data-level="4.8" data-path="optimization-basics.html"><a href="optimization-basics.html#coordinate"><i class="fa fa-check"></i><b>4.8</b> Coordinate Descent</a>
+<li class="chapter" data-level="5.1" data-path="optimization-basics.html"><a href="optimization-basics.html#basic-concept"><i class="fa fa-check"></i><b>5.1</b> Basic Concept</a></li>
+<li class="chapter" data-level="5.2" data-path="optimization-basics.html"><a href="optimization-basics.html#global_local"><i class="fa fa-check"></i><b>5.2</b> Global vs. Local Optima</a></li>
+<li class="chapter" data-level="5.3" data-path="optimization-basics.html"><a href="optimization-basics.html#example-linear-regression-using-optim"><i class="fa fa-check"></i><b>5.3</b> Example: Linear Regression using <code>optim()</code></a></li>
+<li class="chapter" data-level="5.4" data-path="optimization-basics.html"><a href="optimization-basics.html#first-and-second-order-properties"><i class="fa fa-check"></i><b>5.4</b> First and Second Order Properties</a></li>
+<li class="chapter" data-level="5.5" data-path="optimization-basics.html"><a href="optimization-basics.html#algorithm"><i class="fa fa-check"></i><b>5.5</b> Algorithm</a></li>
+<li class="chapter" data-level="5.6" data-path="optimization-basics.html"><a href="optimization-basics.html#second-order-methods"><i class="fa fa-check"></i><b>5.6</b> Second-order Methods</a>
 <ul>
-<li class="chapter" data-level="4.8.1" data-path="optimization-basics.html"><a href="optimization-basics.html#coordinate-descent-example-linear-regression"><i class="fa fa-check"></i><b>4.8.1</b> Coordinate Descent Example: Linear Regression</a></li>
+<li class="chapter" data-level="5.6.1" data-path="optimization-basics.html"><a href="optimization-basics.html#newtons-method"><i class="fa fa-check"></i><b>5.6.1</b> Newton’s Method</a></li>
+<li class="chapter" data-level="5.6.2" data-path="optimization-basics.html"><a href="optimization-basics.html#quasi-newton-methods"><i class="fa fa-check"></i><b>5.6.2</b> Quasi-Newton Methods</a></li>
 </ul></li>
-<li class="chapter" data-level="4.9" data-path="optimization-basics.html"><a href="optimization-basics.html#stocastic-gradient-descent"><i class="fa fa-check"></i><b>4.9</b> Stocastic Gradient Descent</a>
+<li class="chapter" data-level="5.7" data-path="optimization-basics.html"><a href="optimization-basics.html#first-order-methods"><i class="fa fa-check"></i><b>5.7</b> First-order Methods</a>
 <ul>
-<li class="chapter" data-level="4.9.1" data-path="optimization-basics.html"><a href="optimization-basics.html#mini-batch-stocastic-gradient-descent"><i class="fa fa-check"></i><b>4.9.1</b> Mini-batch Stocastic Gradient Descent</a></li>
+<li class="chapter" data-level="5.7.1" data-path="optimization-basics.html"><a href="optimization-basics.html#gradient-descent"><i class="fa fa-check"></i><b>5.7.1</b> Gradient Descent</a></li>
+<li class="chapter" data-level="5.7.2" data-path="optimization-basics.html"><a href="optimization-basics.html#gradient-descent-example-linear-regression"><i class="fa fa-check"></i><b>5.7.2</b> Gradient Descent Example: Linear Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="4.10" data-path="optimization-basics.html"><a href="optimization-basics.html#lagrangian-multiplier-for-constrained-problems"><i class="fa fa-check"></i><b>4.10</b> Lagrangian Multiplier for Constrained Problems</a></li>
+<li class="chapter" data-level="5.8" data-path="optimization-basics.html"><a href="optimization-basics.html#coordinate"><i class="fa fa-check"></i><b>5.8</b> Coordinate Descent</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="optimization-basics.html"><a href="optimization-basics.html#coordinate-descent-example-linear-regression"><i class="fa fa-check"></i><b>5.8.1</b> Coordinate Descent Example: Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="optimization-basics.html"><a href="optimization-basics.html#stocastic-gradient-descent"><i class="fa fa-check"></i><b>5.9</b> Stocastic Gradient Descent</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="optimization-basics.html"><a href="optimization-basics.html#mini-batch-stocastic-gradient-descent"><i class="fa fa-check"></i><b>5.9.1</b> Mini-batch Stocastic Gradient Descent</a></li>
+</ul></li>
+<li class="chapter" data-level="5.10" data-path="optimization-basics.html"><a href="optimization-basics.html#lagrangian-multiplier-for-constrained-problems"><i class="fa fa-check"></i><b>5.10</b> Lagrangian Multiplier for Constrained Problems</a></li>
 </ul></li>
 <li class="part"><span><b>II Linear and Penalized Linear Models</b></span></li>
-<li class="chapter" data-level="5" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html"><i class="fa fa-check"></i><b>5</b> Linear Regression and Model Selection</a>
+<li class="chapter" data-level="6" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html"><i class="fa fa-check"></i><b>6</b> Linear Regression and Model Selection</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#example-real-estate-data"><i class="fa fa-check"></i><b>5.1</b> Example: real estate data</a></li>
-<li class="chapter" data-level="5.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#notation-and-basic-properties"><i class="fa fa-check"></i><b>5.2</b> Notation and Basic Properties</a></li>
-<li class="chapter" data-level="5.3" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-the-lm-function"><i class="fa fa-check"></i><b>5.3</b> Using the <code>lm()</code> Function</a>
+<li class="chapter" data-level="6.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#example-real-estate-data"><i class="fa fa-check"></i><b>6.1</b> Example: real estate data</a></li>
+<li class="chapter" data-level="6.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#notation-and-basic-properties"><i class="fa fa-check"></i><b>6.2</b> Notation and Basic Properties</a></li>
+<li class="chapter" data-level="6.3" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-the-lm-function"><i class="fa fa-check"></i><b>6.3</b> Using the <code>lm()</code> Function</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#adding-covariates"><i class="fa fa-check"></i><b>5.3.1</b> Adding Covariates</a></li>
-<li class="chapter" data-level="5.3.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#categorical-variables"><i class="fa fa-check"></i><b>5.3.2</b> Categorical Variables</a></li>
+<li class="chapter" data-level="6.3.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#adding-covariates"><i class="fa fa-check"></i><b>6.3.1</b> Adding Covariates</a></li>
+<li class="chapter" data-level="6.3.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#categorical-variables"><i class="fa fa-check"></i><b>6.3.2</b> Categorical Variables</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-criteria"><i class="fa fa-check"></i><b>5.4</b> Model Selection Criteria</a>
+<li class="chapter" data-level="6.4" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-criteria"><i class="fa fa-check"></i><b>6.4</b> Model Selection Criteria</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-marrows-c_p"><i class="fa fa-check"></i><b>5.4.1</b> Using Marrows’ <span class="math inline">\(C_p\)</span></a></li>
-<li class="chapter" data-level="5.4.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-aic-and-bic"><i class="fa fa-check"></i><b>5.4.2</b> Using AIC and BIC</a></li>
+<li class="chapter" data-level="6.4.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-marrows-c_p"><i class="fa fa-check"></i><b>6.4.1</b> Using Marrows’ <span class="math inline">\(C_p\)</span></a></li>
+<li class="chapter" data-level="6.4.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-aic-and-bic"><i class="fa fa-check"></i><b>6.4.2</b> Using AIC and BIC</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-algorithms"><i class="fa fa-check"></i><b>5.5</b> Model Selection Algorithms</a>
+<li class="chapter" data-level="6.5" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-algorithms"><i class="fa fa-check"></i><b>6.5</b> Model Selection Algorithms</a>
 <ul>
-<li class="chapter" data-level="5.5.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#best-subset-selection-with-leaps"><i class="fa fa-check"></i><b>5.5.1</b> Best Subset Selection with <code>leaps</code></a></li>
-<li class="chapter" data-level="5.5.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#step-wise-regression-using-step"><i class="fa fa-check"></i><b>5.5.2</b> Step-wise regression using <code>step()</code></a></li>
+<li class="chapter" data-level="6.5.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#best-subset-selection-with-leaps"><i class="fa fa-check"></i><b>6.5.1</b> Best Subset Selection with <code>leaps</code></a></li>
+<li class="chapter" data-level="6.5.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#step-wise-regression-using-step"><i class="fa fa-check"></i><b>6.5.2</b> Step-wise regression using <code>step()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#marrows-cp"><i class="fa fa-check"></i><b>5.6</b> Derivation of Marrows’ <span class="math inline">\(C_p\)</span></a></li>
+<li class="chapter" data-level="6.6" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#marrows-cp"><i class="fa fa-check"></i><b>6.6</b> Derivation of Marrows’ <span class="math inline">\(C_p\)</span></a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="ridge-regression.html"><a href="ridge-regression.html"><i class="fa fa-check"></i><b>6</b> Ridge Regression</a>
+<li class="chapter" data-level="7" data-path="ridge-regression.html"><a href="ridge-regression.html"><i class="fa fa-check"></i><b>7</b> Ridge Regression</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="ridge-regression.html"><a href="ridge-regression.html#motivation-correlated-variables-and-convexity"><i class="fa fa-check"></i><b>6.1</b> Motivation: Correlated Variables and Convexity</a></li>
-<li class="chapter" data-level="6.2" data-path="ridge-regression.html"><a href="ridge-regression.html#ridge-penalty-and-the-reduced-variation"><i class="fa fa-check"></i><b>6.2</b> Ridge Penalty and the Reduced Variation</a></li>
-<li class="chapter" data-level="6.3" data-path="ridge-regression.html"><a href="ridge-regression.html#bias-and-variance-of-ridge-regression"><i class="fa fa-check"></i><b>6.3</b> Bias and Variance of Ridge Regression</a></li>
-<li class="chapter" data-level="6.4" data-path="ridge-regression.html"><a href="ridge-regression.html#degrees-of-freedom"><i class="fa fa-check"></i><b>6.4</b> Degrees of Freedom</a></li>
-<li class="chapter" data-level="6.5" data-path="ridge-regression.html"><a href="ridge-regression.html#using-the-lm.ridge-function"><i class="fa fa-check"></i><b>6.5</b> Using the <code>lm.ridge()</code> function</a>
+<li class="chapter" data-level="7.1" data-path="ridge-regression.html"><a href="ridge-regression.html#motivation-correlated-variables-and-convexity"><i class="fa fa-check"></i><b>7.1</b> Motivation: Correlated Variables and Convexity</a></li>
+<li class="chapter" data-level="7.2" data-path="ridge-regression.html"><a href="ridge-regression.html#ridge-penalty-and-the-reduced-variation"><i class="fa fa-check"></i><b>7.2</b> Ridge Penalty and the Reduced Variation</a></li>
+<li class="chapter" data-level="7.3" data-path="ridge-regression.html"><a href="ridge-regression.html#bias-and-variance-of-ridge-regression"><i class="fa fa-check"></i><b>7.3</b> Bias and Variance of Ridge Regression</a></li>
+<li class="chapter" data-level="7.4" data-path="ridge-regression.html"><a href="ridge-regression.html#degrees-of-freedom"><i class="fa fa-check"></i><b>7.4</b> Degrees of Freedom</a></li>
+<li class="chapter" data-level="7.5" data-path="ridge-regression.html"><a href="ridge-regression.html#using-the-lm.ridge-function"><i class="fa fa-check"></i><b>7.5</b> Using the <code>lm.ridge()</code> function</a>
 <ul>
-<li class="chapter" data-level="6.5.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue"><i class="fa fa-check"></i><b>6.5.1</b> Scaling Issue</a></li>
-<li class="chapter" data-level="6.5.2" data-path="ridge-regression.html"><a href="ridge-regression.html#multiple-lambda-values"><i class="fa fa-check"></i><b>6.5.2</b> Multiple <span class="math inline">\(\lambda\)</span> values</a></li>
+<li class="chapter" data-level="7.5.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue"><i class="fa fa-check"></i><b>7.5.1</b> Scaling Issue</a></li>
+<li class="chapter" data-level="7.5.2" data-path="ridge-regression.html"><a href="ridge-regression.html#multiple-lambda-values"><i class="fa fa-check"></i><b>7.5.2</b> Multiple <span class="math inline">\(\lambda\)</span> values</a></li>
 </ul></li>
-<li class="chapter" data-level="6.6" data-path="ridge-regression.html"><a href="ridge-regression.html#cross-validation"><i class="fa fa-check"></i><b>6.6</b> Cross-validation</a></li>
-<li class="chapter" data-level="6.7" data-path="ridge-regression.html"><a href="ridge-regression.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>6.7</b> Leave-one-out cross-validation</a>
+<li class="chapter" data-level="7.6" data-path="ridge-regression.html"><a href="ridge-regression.html#cross-validation"><i class="fa fa-check"></i><b>7.6</b> Cross-validation</a></li>
+<li class="chapter" data-level="7.7" data-path="ridge-regression.html"><a href="ridge-regression.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>7.7</b> Leave-one-out cross-validation</a>
 <ul>
-<li class="chapter" data-level="6.7.1" data-path="ridge-regression.html"><a href="ridge-regression.html#generalized-cross-validation"><i class="fa fa-check"></i><b>6.7.1</b> Generalized cross-validation</a></li>
+<li class="chapter" data-level="7.7.1" data-path="ridge-regression.html"><a href="ridge-regression.html#generalized-cross-validation"><i class="fa fa-check"></i><b>7.7.1</b> Generalized cross-validation</a></li>
 </ul></li>
-<li class="chapter" data-level="6.8" data-path="ridge-regression.html"><a href="ridge-regression.html#the-glmnet-package"><i class="fa fa-check"></i><b>6.8</b> The <code>glmnet</code> package</a>
+<li class="chapter" data-level="7.8" data-path="ridge-regression.html"><a href="ridge-regression.html#the-glmnet-package"><i class="fa fa-check"></i><b>7.8</b> The <code>glmnet</code> package</a>
 <ul>
-<li class="chapter" data-level="6.8.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue-1"><i class="fa fa-check"></i><b>6.8.1</b> Scaling Issue</a></li>
+<li class="chapter" data-level="7.8.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue-1"><i class="fa fa-check"></i><b>7.8.1</b> Scaling Issue</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="lasso.html"><a href="lasso.html"><i class="fa fa-check"></i><b>7</b> Lasso</a>
+<li class="chapter" data-level="8" data-path="lasso.html"><a href="lasso.html"><i class="fa fa-check"></i><b>8</b> Lasso</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="lasso.html"><a href="lasso.html#one-variable-lasso-and-shrinkage"><i class="fa fa-check"></i><b>7.1</b> One-Variable Lasso and Shrinkage</a></li>
-<li class="chapter" data-level="7.2" data-path="lasso.html"><a href="lasso.html#constrained-optimization-view"><i class="fa fa-check"></i><b>7.2</b> Constrained Optimization View</a></li>
-<li class="chapter" data-level="7.3" data-path="lasso.html"><a href="lasso.html#the-solution-path"><i class="fa fa-check"></i><b>7.3</b> The Solution Path</a></li>
-<li class="chapter" data-level="7.4" data-path="lasso.html"><a href="lasso.html#path-wise-coordinate-descent"><i class="fa fa-check"></i><b>7.4</b> Path-wise Coordinate Descent</a></li>
-<li class="chapter" data-level="7.5" data-path="lasso.html"><a href="lasso.html#using-the-glmnet-package"><i class="fa fa-check"></i><b>7.5</b> Using the <code>glmnet</code> package</a></li>
-<li class="chapter" data-level="7.6" data-path="lasso.html"><a href="lasso.html#elastic-net"><i class="fa fa-check"></i><b>7.6</b> Elastic-Net</a></li>
+<li class="chapter" data-level="8.1" data-path="lasso.html"><a href="lasso.html#one-variable-lasso-and-shrinkage"><i class="fa fa-check"></i><b>8.1</b> One-Variable Lasso and Shrinkage</a></li>
+<li class="chapter" data-level="8.2" data-path="lasso.html"><a href="lasso.html#constrained-optimization-view"><i class="fa fa-check"></i><b>8.2</b> Constrained Optimization View</a></li>
+<li class="chapter" data-level="8.3" data-path="lasso.html"><a href="lasso.html#the-solution-path"><i class="fa fa-check"></i><b>8.3</b> The Solution Path</a></li>
+<li class="chapter" data-level="8.4" data-path="lasso.html"><a href="lasso.html#path-wise-coordinate-descent"><i class="fa fa-check"></i><b>8.4</b> Path-wise Coordinate Descent</a></li>
+<li class="chapter" data-level="8.5" data-path="lasso.html"><a href="lasso.html#using-the-glmnet-package"><i class="fa fa-check"></i><b>8.5</b> Using the <code>glmnet</code> package</a></li>
+<li class="chapter" data-level="8.6" data-path="lasso.html"><a href="lasso.html#elastic-net"><i class="fa fa-check"></i><b>8.6</b> Elastic-Net</a></li>
 </ul></li>
 <li class="part"><span><b>III Nonparametric Models</b></span></li>
-<li class="chapter" data-level="8" data-path="spline.html"><a href="spline.html"><i class="fa fa-check"></i><b>8</b> Spline</a>
+<li class="chapter" data-level="9" data-path="spline.html"><a href="spline.html"><i class="fa fa-check"></i><b>9</b> Spline</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="spline.html"><a href="spline.html#from-linear-to-nonlinear"><i class="fa fa-check"></i><b>8.1</b> From Linear to Nonlinear</a></li>
-<li class="chapter" data-level="8.2" data-path="spline.html"><a href="spline.html#a-motivating-example-and-polynomials"><i class="fa fa-check"></i><b>8.2</b> A Motivating Example and Polynomials</a></li>
-<li class="chapter" data-level="8.3" data-path="spline.html"><a href="spline.html#piecewise-polynomials"><i class="fa fa-check"></i><b>8.3</b> Piecewise Polynomials</a></li>
-<li class="chapter" data-level="8.4" data-path="spline.html"><a href="spline.html#splines"><i class="fa fa-check"></i><b>8.4</b> Splines</a></li>
-<li class="chapter" data-level="8.5" data-path="spline.html"><a href="spline.html#spline-basis"><i class="fa fa-check"></i><b>8.5</b> Spline Basis</a></li>
-<li class="chapter" data-level="8.6" data-path="spline.html"><a href="spline.html#natural-cubic-spline"><i class="fa fa-check"></i><b>8.6</b> Natural Cubic Spline</a></li>
-<li class="chapter" data-level="8.7" data-path="spline.html"><a href="spline.html#smoothing-spline"><i class="fa fa-check"></i><b>8.7</b> Smoothing Spline</a></li>
-<li class="chapter" data-level="8.8" data-path="spline.html"><a href="spline.html#fitting-smoothing-splines"><i class="fa fa-check"></i><b>8.8</b> Fitting Smoothing Splines</a></li>
-<li class="chapter" data-level="8.9" data-path="spline.html"><a href="spline.html#extending-splines-to-multiple-varibles"><i class="fa fa-check"></i><b>8.9</b> Extending Splines to Multiple Varibles</a></li>
+<li class="chapter" data-level="9.1" data-path="spline.html"><a href="spline.html#from-linear-to-nonlinear"><i class="fa fa-check"></i><b>9.1</b> From Linear to Nonlinear</a></li>
+<li class="chapter" data-level="9.2" data-path="spline.html"><a href="spline.html#a-motivating-example-and-polynomials"><i class="fa fa-check"></i><b>9.2</b> A Motivating Example and Polynomials</a></li>
+<li class="chapter" data-level="9.3" data-path="spline.html"><a href="spline.html#piecewise-polynomials"><i class="fa fa-check"></i><b>9.3</b> Piecewise Polynomials</a></li>
+<li class="chapter" data-level="9.4" data-path="spline.html"><a href="spline.html#splines"><i class="fa fa-check"></i><b>9.4</b> Splines</a></li>
+<li class="chapter" data-level="9.5" data-path="spline.html"><a href="spline.html#spline-basis"><i class="fa fa-check"></i><b>9.5</b> Spline Basis</a></li>
+<li class="chapter" data-level="9.6" data-path="spline.html"><a href="spline.html#natural-cubic-spline"><i class="fa fa-check"></i><b>9.6</b> Natural Cubic Spline</a></li>
+<li class="chapter" data-level="9.7" data-path="spline.html"><a href="spline.html#smoothing-spline"><i class="fa fa-check"></i><b>9.7</b> Smoothing Spline</a></li>
+<li class="chapter" data-level="9.8" data-path="spline.html"><a href="spline.html#fitting-smoothing-splines"><i class="fa fa-check"></i><b>9.8</b> Fitting Smoothing Splines</a></li>
+<li class="chapter" data-level="9.9" data-path="spline.html"><a href="spline.html#extending-splines-to-multiple-varibles"><i class="fa fa-check"></i><b>9.9</b> Extending Splines to Multiple Varibles</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html"><i class="fa fa-check"></i><b>9</b> K-Neariest Neighber</a>
+<li class="chapter" data-level="10" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html"><i class="fa fa-check"></i><b>10</b> K-Neariest Neighber</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#definition-1"><i class="fa fa-check"></i><b>9.1</b> Definition</a></li>
-<li class="chapter" data-level="9.2" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-k"><i class="fa fa-check"></i><b>9.2</b> Tuning <span class="math inline">\(k\)</span></a></li>
-<li class="chapter" data-level="9.3" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#the-bias-variance-trade-off"><i class="fa fa-check"></i><b>9.3</b> The Bias-variance Trade-off</a></li>
-<li class="chapter" data-level="9.4" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#knn-for-classification"><i class="fa fa-check"></i><b>9.4</b> KNN for Classification</a></li>
-<li class="chapter" data-level="9.5" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-1-an-artificial-data"><i class="fa fa-check"></i><b>9.5</b> Example 1: An artificial data</a></li>
-<li class="chapter" data-level="9.6" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-with-the-caret-package"><i class="fa fa-check"></i><b>9.6</b> Tuning with the <code>caret</code> Package</a></li>
-<li class="chapter" data-level="9.7" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#distance-measures"><i class="fa fa-check"></i><b>9.7</b> Distance Measures</a></li>
-<li class="chapter" data-level="9.8" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#nn-error-bound"><i class="fa fa-check"></i><b>9.8</b> 1NN Error Bound</a></li>
-<li class="chapter" data-level="9.9" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-2-handwritten-digit-data"><i class="fa fa-check"></i><b>9.9</b> Example 2: Handwritten Digit Data</a></li>
-<li class="chapter" data-level="9.10" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#curse-of-dimensionality"><i class="fa fa-check"></i><b>9.10</b> Curse of Dimensionality</a></li>
+<li class="chapter" data-level="10.1" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#definition-1"><i class="fa fa-check"></i><b>10.1</b> Definition</a></li>
+<li class="chapter" data-level="10.2" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-k"><i class="fa fa-check"></i><b>10.2</b> Tuning <span class="math inline">\(k\)</span></a></li>
+<li class="chapter" data-level="10.3" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#the-bias-variance-trade-off"><i class="fa fa-check"></i><b>10.3</b> The Bias-variance Trade-off</a></li>
+<li class="chapter" data-level="10.4" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#knn-for-classification"><i class="fa fa-check"></i><b>10.4</b> KNN for Classification</a></li>
+<li class="chapter" data-level="10.5" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-1-an-artificial-data"><i class="fa fa-check"></i><b>10.5</b> Example 1: An artificial data</a></li>
+<li class="chapter" data-level="10.6" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-with-the-caret-package"><i class="fa fa-check"></i><b>10.6</b> Tuning with the <code>caret</code> Package</a></li>
+<li class="chapter" data-level="10.7" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#distance-measures"><i class="fa fa-check"></i><b>10.7</b> Distance Measures</a></li>
+<li class="chapter" data-level="10.8" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#nn-error-bound"><i class="fa fa-check"></i><b>10.8</b> 1NN Error Bound</a></li>
+<li class="chapter" data-level="10.9" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-2-handwritten-digit-data"><i class="fa fa-check"></i><b>10.9</b> Example 2: Handwritten Digit Data</a></li>
+<li class="chapter" data-level="10.10" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#curse-of-dimensionality"><i class="fa fa-check"></i><b>10.10</b> Curse of Dimensionality</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html"><i class="fa fa-check"></i><b>10</b> Kernel Smoothing</a>
+<li class="chapter" data-level="11" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html"><i class="fa fa-check"></i><b>11</b> Kernel Smoothing</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#knn-vs.-kernel"><i class="fa fa-check"></i><b>10.1</b> KNN vs. Kernel</a></li>
-<li class="chapter" data-level="10.2" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#kernel-density-estimations"><i class="fa fa-check"></i><b>10.2</b> Kernel Density Estimations</a></li>
-<li class="chapter" data-level="10.3" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off"><i class="fa fa-check"></i><b>10.3</b> Bias-variance trade-off</a></li>
-<li class="chapter" data-level="10.4" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#gaussian-kernel-regression"><i class="fa fa-check"></i><b>10.4</b> Gaussian Kernel Regression</a>
+<li class="chapter" data-level="11.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#knn-vs.-kernel"><i class="fa fa-check"></i><b>11.1</b> KNN vs. Kernel</a></li>
+<li class="chapter" data-level="11.2" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#kernel-density-estimations"><i class="fa fa-check"></i><b>11.2</b> Kernel Density Estimations</a></li>
+<li class="chapter" data-level="11.3" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off"><i class="fa fa-check"></i><b>11.3</b> Bias-variance trade-off</a></li>
+<li class="chapter" data-level="11.4" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#gaussian-kernel-regression"><i class="fa fa-check"></i><b>11.4</b> Gaussian Kernel Regression</a>
 <ul>
-<li class="chapter" data-level="10.4.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off-1"><i class="fa fa-check"></i><b>10.4.1</b> Bias-variance Trade-off</a></li>
+<li class="chapter" data-level="11.4.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off-1"><i class="fa fa-check"></i><b>11.4.1</b> Bias-variance Trade-off</a></li>
 </ul></li>
-<li class="chapter" data-level="10.5" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#choice-of-kernel-functions"><i class="fa fa-check"></i><b>10.5</b> Choice of Kernel Functions</a></li>
-<li class="chapter" data-level="10.6" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-linear-regression"><i class="fa fa-check"></i><b>10.6</b> Local Linear Regression</a></li>
-<li class="chapter" data-level="10.7" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-polynomial-regression"><i class="fa fa-check"></i><b>10.7</b> Local Polynomial Regression</a></li>
-<li class="chapter" data-level="10.8" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#r-implementations"><i class="fa fa-check"></i><b>10.8</b> R Implementations</a></li>
+<li class="chapter" data-level="11.5" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#choice-of-kernel-functions"><i class="fa fa-check"></i><b>11.5</b> Choice of Kernel Functions</a></li>
+<li class="chapter" data-level="11.6" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-linear-regression"><i class="fa fa-check"></i><b>11.6</b> Local Linear Regression</a></li>
+<li class="chapter" data-level="11.7" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-polynomial-regression"><i class="fa fa-check"></i><b>11.7</b> Local Polynomial Regression</a></li>
+<li class="chapter" data-level="11.8" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#r-implementations"><i class="fa fa-check"></i><b>11.8</b> R Implementations</a></li>
 </ul></li>
 <li class="part"><span><b>IV Classification Models</b></span></li>
-<li class="chapter" data-level="11" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>11</b> Logistic Regression</a>
+<li class="chapter" data-level="12" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>12</b> Logistic Regression</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="logistic-regression.html"><a href="logistic-regression.html#modeling-binary-outcomes"><i class="fa fa-check"></i><b>11.1</b> Modeling Binary Outcomes</a></li>
-<li class="chapter" data-level="11.2" data-path="logistic-regression.html"><a href="logistic-regression.html#example-cleveland-clinic-heart-disease-data"><i class="fa fa-check"></i><b>11.2</b> Example: Cleveland Clinic Heart Disease Data</a></li>
-<li class="chapter" data-level="11.3" data-path="logistic-regression.html"><a href="logistic-regression.html#interpretation-of-the-parameters"><i class="fa fa-check"></i><b>11.3</b> Interpretation of the Parameters</a></li>
-<li class="chapter" data-level="11.4" data-path="logistic-regression.html"><a href="logistic-regression.html#solving-a-logistic-regression"><i class="fa fa-check"></i><b>11.4</b> Solving a Logistic Regression</a></li>
-<li class="chapter" data-level="11.5" data-path="logistic-regression.html"><a href="logistic-regression.html#example-south-africa-heart-data"><i class="fa fa-check"></i><b>11.5</b> Example: South Africa Heart Data</a></li>
-<li class="chapter" data-level="11.6" data-path="logistic-regression.html"><a href="logistic-regression.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>11.6</b> Penalized Logistic Regression</a></li>
+<li class="chapter" data-level="12.1" data-path="logistic-regression.html"><a href="logistic-regression.html#modeling-binary-outcomes"><i class="fa fa-check"></i><b>12.1</b> Modeling Binary Outcomes</a></li>
+<li class="chapter" data-level="12.2" data-path="logistic-regression.html"><a href="logistic-regression.html#example-cleveland-clinic-heart-disease-data"><i class="fa fa-check"></i><b>12.2</b> Example: Cleveland Clinic Heart Disease Data</a></li>
+<li class="chapter" data-level="12.3" data-path="logistic-regression.html"><a href="logistic-regression.html#interpretation-of-the-parameters"><i class="fa fa-check"></i><b>12.3</b> Interpretation of the Parameters</a></li>
+<li class="chapter" data-level="12.4" data-path="logistic-regression.html"><a href="logistic-regression.html#solving-a-logistic-regression"><i class="fa fa-check"></i><b>12.4</b> Solving a Logistic Regression</a></li>
+<li class="chapter" data-level="12.5" data-path="logistic-regression.html"><a href="logistic-regression.html#example-south-africa-heart-data"><i class="fa fa-check"></i><b>12.5</b> Example: South Africa Heart Data</a></li>
+<li class="chapter" data-level="12.6" data-path="logistic-regression.html"><a href="logistic-regression.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>12.6</b> Penalized Logistic Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>12</b> Discriminant Analysis</a>
+<li class="chapter" data-level="13" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>13</b> Discriminant Analysis</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#bayes-rule"><i class="fa fa-check"></i><b>12.1</b> Bayes Rule</a></li>
-<li class="chapter" data-level="12.2" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>12.2</b> Example: Linear Discriminant Analysis (LDA)</a></li>
-<li class="chapter" data-level="12.3" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#linear-discriminant-analysis"><i class="fa fa-check"></i><b>12.3</b> Linear Discriminant Analysis</a></li>
-<li class="chapter" data-level="12.4" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-quadratic-discriminant-analysis-qda"><i class="fa fa-check"></i><b>12.4</b> Example: Quadratic Discriminant Analysis (QDA)</a></li>
-<li class="chapter" data-level="12.5" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#quadratic-discriminant-analysis"><i class="fa fa-check"></i><b>12.5</b> Quadratic Discriminant Analysis</a></li>
-<li class="chapter" data-level="12.6" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-the-hand-written-digit-data"><i class="fa fa-check"></i><b>12.6</b> Example: the Hand Written Digit Data</a></li>
+<li class="chapter" data-level="13.1" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#bayes-rule"><i class="fa fa-check"></i><b>13.1</b> Bayes Rule</a></li>
+<li class="chapter" data-level="13.2" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>13.2</b> Example: Linear Discriminant Analysis (LDA)</a></li>
+<li class="chapter" data-level="13.3" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#linear-discriminant-analysis"><i class="fa fa-check"></i><b>13.3</b> Linear Discriminant Analysis</a></li>
+<li class="chapter" data-level="13.4" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-quadratic-discriminant-analysis-qda"><i class="fa fa-check"></i><b>13.4</b> Example: Quadratic Discriminant Analysis (QDA)</a></li>
+<li class="chapter" data-level="13.5" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#quadratic-discriminant-analysis"><i class="fa fa-check"></i><b>13.5</b> Quadratic Discriminant Analysis</a></li>
+<li class="chapter" data-level="13.6" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-the-hand-written-digit-data"><i class="fa fa-check"></i><b>13.6</b> Example: the Hand Written Digit Data</a></li>
 </ul></li>
 <li class="part"><span><b>V Machine Learning Algorithms</b></span></li>
-<li class="chapter" data-level="13" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>13</b> Support Vector Machines</a>
+<li class="chapter" data-level="14" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>14</b> Support Vector Machines</a>
 <ul>
-<li class="chapter" data-level="13.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#maximum-margin-classifier"><i class="fa fa-check"></i><b>13.1</b> Maximum-margin Classifier</a></li>
-<li class="chapter" data-level="13.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-separable-svm"><i class="fa fa-check"></i><b>13.2</b> Linearly Separable SVM</a>
+<li class="chapter" data-level="14.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#maximum-margin-classifier"><i class="fa fa-check"></i><b>14.1</b> Maximum-margin Classifier</a></li>
+<li class="chapter" data-level="14.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-separable-svm"><i class="fa fa-check"></i><b>14.2</b> Linearly Separable SVM</a>
 <ul>
-<li class="chapter" data-level="13.2.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#from-primal-to-dual"><i class="fa fa-check"></i><b>13.2.1</b> From Primal to Dual</a></li>
+<li class="chapter" data-level="14.2.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#from-primal-to-dual"><i class="fa fa-check"></i><b>14.2.1</b> From Primal to Dual</a></li>
 </ul></li>
-<li class="chapter" data-level="13.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-non-separable-svm-with-slack-variables"><i class="fa fa-check"></i><b>13.3</b> Linearly Non-separable SVM with Slack Variables</a></li>
-<li class="chapter" data-level="13.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-saheart-data"><i class="fa fa-check"></i><b>13.4</b> Example: <code>SAheart</code> Data</a></li>
-<li class="chapter" data-level="13.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#nonlinear-svm-via-kernel-trick"><i class="fa fa-check"></i><b>13.5</b> Nonlinear SVM via Kernel Trick</a></li>
-<li class="chapter" data-level="13.6" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-mixture.example-data"><i class="fa fa-check"></i><b>13.6</b> Example: <code>mixture.example</code> Data</a></li>
-<li class="chapter" data-level="13.7" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svm-as-a-penalized-model"><i class="fa fa-check"></i><b>13.7</b> SVM as a Penalized Model</a></li>
-<li class="chapter" data-level="13.8" data-path="support-vector-machines.html"><a href="support-vector-machines.html#kernel-and-feature-maps-another-example"><i class="fa fa-check"></i><b>13.8</b> Kernel and Feature Maps: Another Example</a></li>
+<li class="chapter" data-level="14.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-non-separable-svm-with-slack-variables"><i class="fa fa-check"></i><b>14.3</b> Linearly Non-separable SVM with Slack Variables</a></li>
+<li class="chapter" data-level="14.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-saheart-data"><i class="fa fa-check"></i><b>14.4</b> Example: <code>SAheart</code> Data</a></li>
+<li class="chapter" data-level="14.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#nonlinear-svm-via-kernel-trick"><i class="fa fa-check"></i><b>14.5</b> Nonlinear SVM via Kernel Trick</a></li>
+<li class="chapter" data-level="14.6" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-mixture.example-data"><i class="fa fa-check"></i><b>14.6</b> Example: <code>mixture.example</code> Data</a></li>
+<li class="chapter" data-level="14.7" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svm-as-a-penalized-model"><i class="fa fa-check"></i><b>14.7</b> SVM as a Penalized Model</a></li>
+<li class="chapter" data-level="14.8" data-path="support-vector-machines.html"><a href="support-vector-machines.html#kernel-and-feature-maps-another-example"><i class="fa fa-check"></i><b>14.8</b> Kernel and Feature Maps: Another Example</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html"><i class="fa fa-check"></i><b>14</b> Reproducing Kernel Hilbert Space</a>
+<li class="chapter" data-level="15" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html"><i class="fa fa-check"></i><b>15</b> Reproducing Kernel Hilbert Space</a>
 <ul>
-<li class="chapter" data-level="14.1" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#constructing-the-rkhs"><i class="fa fa-check"></i><b>14.1</b> Constructing the RKHS</a></li>
-<li class="chapter" data-level="14.2" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#properties-of-rkhs"><i class="fa fa-check"></i><b>14.2</b> Properties of RKHS</a></li>
-<li class="chapter" data-level="14.3" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-representer-theorem"><i class="fa fa-check"></i><b>14.3</b> The Representer Theorem</a></li>
+<li class="chapter" data-level="15.1" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#constructing-the-rkhs"><i class="fa fa-check"></i><b>15.1</b> Constructing the RKHS</a></li>
+<li class="chapter" data-level="15.2" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#properties-of-rkhs"><i class="fa fa-check"></i><b>15.2</b> Properties of RKHS</a></li>
+<li class="chapter" data-level="15.3" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-representer-theorem"><i class="fa fa-check"></i><b>15.3</b> The Representer Theorem</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html"><i class="fa fa-check"></i><b>15</b> Kernel Ridge Regression</a>
+<li class="chapter" data-level="16" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html"><i class="fa fa-check"></i><b>16</b> Kernel Ridge Regression</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-linear-kernel-and-ridge-regression"><i class="fa fa-check"></i><b>15.1</b> Example: Linear Kernel and Ridge Regression</a></li>
-<li class="chapter" data-level="15.2" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-alternative-view"><i class="fa fa-check"></i><b>15.2</b> Example: Alternative View</a></li>
+<li class="chapter" data-level="16.1" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-linear-kernel-and-ridge-regression"><i class="fa fa-check"></i><b>16.1</b> Example: Linear Kernel and Ridge Regression</a></li>
+<li class="chapter" data-level="16.2" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-alternative-view"><i class="fa fa-check"></i><b>16.2</b> Example: Alternative View</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html"><i class="fa fa-check"></i><b>16</b> Classification and Regression Trees</a>
+<li class="chapter" data-level="17" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html"><i class="fa fa-check"></i><b>17</b> Classification and Regression Trees</a>
 <ul>
-<li class="chapter" data-level="16.1" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#example-classification-tree"><i class="fa fa-check"></i><b>16.1</b> Example: Classification Tree</a></li>
-<li class="chapter" data-level="16.2" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#splitting-a-node"><i class="fa fa-check"></i><b>16.2</b> Splitting a Node</a></li>
-<li class="chapter" data-level="16.3" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#regression-trees"><i class="fa fa-check"></i><b>16.3</b> Regression Trees</a></li>
-<li class="chapter" data-level="16.4" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#predicting-a-target-point"><i class="fa fa-check"></i><b>16.4</b> Predicting a Target Point</a></li>
-<li class="chapter" data-level="16.5" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#tuning-a-tree-model"><i class="fa fa-check"></i><b>16.5</b> Tuning a Tree Model</a></li>
+<li class="chapter" data-level="17.1" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#example-classification-tree"><i class="fa fa-check"></i><b>17.1</b> Example: Classification Tree</a></li>
+<li class="chapter" data-level="17.2" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#splitting-a-node"><i class="fa fa-check"></i><b>17.2</b> Splitting a Node</a></li>
+<li class="chapter" data-level="17.3" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#regression-trees"><i class="fa fa-check"></i><b>17.3</b> Regression Trees</a></li>
+<li class="chapter" data-level="17.4" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#predicting-a-target-point"><i class="fa fa-check"></i><b>17.4</b> Predicting a Target Point</a></li>
+<li class="chapter" data-level="17.5" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#tuning-a-tree-model"><i class="fa fa-check"></i><b>17.5</b> Tuning a Tree Model</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="random-forests.html"><a href="random-forests.html"><i class="fa fa-check"></i><b>17</b> Random Forests</a>
+<li class="chapter" data-level="18" data-path="random-forests.html"><a href="random-forests.html"><i class="fa fa-check"></i><b>18</b> Random Forests</a>
 <ul>
-<li class="chapter" data-level="17.1" data-path="random-forests.html"><a href="random-forests.html#bagging-predictors"><i class="fa fa-check"></i><b>17.1</b> Bagging Predictors</a></li>
-<li class="chapter" data-level="17.2" data-path="random-forests.html"><a href="random-forests.html#random-forests-1"><i class="fa fa-check"></i><b>17.2</b> Random Forests</a></li>
-<li class="chapter" data-level="17.3" data-path="random-forests.html"><a href="random-forests.html#effect-of-mtry"><i class="fa fa-check"></i><b>17.3</b> Effect of <code>mtry</code></a></li>
-<li class="chapter" data-level="17.4" data-path="random-forests.html"><a href="random-forests.html#effect-of-nodesize"><i class="fa fa-check"></i><b>17.4</b> Effect of <code>nodesize</code></a></li>
-<li class="chapter" data-level="17.5" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>17.5</b> Variable Importance</a></li>
-<li class="chapter" data-level="17.6" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forets"><i class="fa fa-check"></i><b>17.6</b> Kernel view of Random Forets</a></li>
+<li class="chapter" data-level="18.1" data-path="random-forests.html"><a href="random-forests.html#bagging-predictors"><i class="fa fa-check"></i><b>18.1</b> Bagging Predictors</a></li>
+<li class="chapter" data-level="18.2" data-path="random-forests.html"><a href="random-forests.html#random-forests-1"><i class="fa fa-check"></i><b>18.2</b> Random Forests</a></li>
+<li class="chapter" data-level="18.3" data-path="random-forests.html"><a href="random-forests.html#effect-of-mtry"><i class="fa fa-check"></i><b>18.3</b> Effect of <code>mtry</code></a></li>
+<li class="chapter" data-level="18.4" data-path="random-forests.html"><a href="random-forests.html#effect-of-nodesize"><i class="fa fa-check"></i><b>18.4</b> Effect of <code>nodesize</code></a></li>
+<li class="chapter" data-level="18.5" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>18.5</b> Variable Importance</a></li>
+<li class="chapter" data-level="18.6" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forets"><i class="fa fa-check"></i><b>18.6</b> Kernel view of Random Forets</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>18</b> Boosting</a>
+<li class="chapter" data-level="19" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>19</b> Boosting</a>
 <ul>
-<li class="chapter" data-level="18.1" data-path="boosting.html"><a href="boosting.html#adaboost"><i class="fa fa-check"></i><b>18.1</b> AdaBoost</a></li>
-<li class="chapter" data-level="18.2" data-path="boosting.html"><a href="boosting.html#training-error-of-adaboost"><i class="fa fa-check"></i><b>18.2</b> Training Error of AdaBoost</a></li>
-<li class="chapter" data-level="18.3" data-path="boosting.html"><a href="boosting.html#tuning-the-number-of-trees"><i class="fa fa-check"></i><b>18.3</b> Tuning the Number of Trees</a></li>
-<li class="chapter" data-level="18.4" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>18.4</b> Gradient Boosting</a></li>
+<li class="chapter" data-level="19.1" data-path="boosting.html"><a href="boosting.html#adaboost"><i class="fa fa-check"></i><b>19.1</b> AdaBoost</a></li>
+<li class="chapter" data-level="19.2" data-path="boosting.html"><a href="boosting.html#training-error-of-adaboost"><i class="fa fa-check"></i><b>19.2</b> Training Error of AdaBoost</a></li>
+<li class="chapter" data-level="19.3" data-path="boosting.html"><a href="boosting.html#tuning-the-number-of-trees"><i class="fa fa-check"></i><b>19.3</b> Tuning the Number of Trees</a></li>
+<li class="chapter" data-level="19.4" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>19.4</b> Gradient Boosting</a></li>
 </ul></li>
 <li class="part"><span><b>VI Unsupervised Learning</b></span></li>
-<li class="chapter" data-level="19" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>19</b> K-Means</a>
+<li class="chapter" data-level="20" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>20</b> K-Means</a>
 <ul>
-<li class="chapter" data-level="19.1" data-path="k-means.html"><a href="k-means.html#basic-concepts"><i class="fa fa-check"></i><b>19.1</b> Basic Concepts</a></li>
-<li class="chapter" data-level="19.2" data-path="k-means.html"><a href="k-means.html#example-1-iris-data"><i class="fa fa-check"></i><b>19.2</b> Example 1: <code>iris</code> data</a></li>
-<li class="chapter" data-level="19.3" data-path="k-means.html"><a href="k-means.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>19.3</b> Example 2: clustering of image pixels</a></li>
+<li class="chapter" data-level="20.1" data-path="k-means.html"><a href="k-means.html#basic-concepts"><i class="fa fa-check"></i><b>20.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="20.2" data-path="k-means.html"><a href="k-means.html#example-1-iris-data"><i class="fa fa-check"></i><b>20.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="20.3" data-path="k-means.html"><a href="k-means.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>20.3</b> Example 2: clustering of image pixels</a></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>20</b> Hierarchical Clustering</a>
+<li class="chapter" data-level="21" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>21</b> Hierarchical Clustering</a>
 <ul>
-<li class="chapter" data-level="20.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>20.1</b> Basic Concepts</a></li>
-<li class="chapter" data-level="20.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>20.2</b> Example 1: <code>iris</code> data</a></li>
-<li class="chapter" data-level="20.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>20.3</b> Example 2: RNA Expression Data</a></li>
+<li class="chapter" data-level="21.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>21.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="21.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>21.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="21.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>21.3</b> Example 2: RNA Expression Data</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html"><i class="fa fa-check"></i><b>21</b> Principle Component Analysis</a>
+<li class="chapter" data-level="22" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html"><i class="fa fa-check"></i><b>22</b> Principle Component Analysis</a>
 <ul>
-<li class="chapter" data-level="21.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>21.1</b> Basic Concepts</a>
+<li class="chapter" data-level="22.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>22.1</b> Basic Concepts</a>
 <ul>
-<li class="chapter" data-level="21.1.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>21.1.1</b> Note: Scaling</a></li>
+<li class="chapter" data-level="22.1.1" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>22.1.1</b> Note: Scaling</a></li>
 </ul></li>
-<li class="chapter" data-level="21.2" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>21.2</b> Example 1: <code>iris</code> Data</a></li>
-<li class="chapter" data-level="21.3" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>21.3</b> Example 2: Handwritten Digits</a></li>
+<li class="chapter" data-level="22.2" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>22.2</b> Example 1: <code>iris</code> Data</a></li>
+<li class="chapter" data-level="22.3" data-path="principle-component-analysis.html"><a href="principle-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>22.3</b> Example 2: Handwritten Digits</a></li>
 </ul></li>
-<li class="chapter" data-level="22" data-path="self-organizing-map.html"><a href="self-organizing-map.html"><i class="fa fa-check"></i><b>22</b> Self-Organizing Map</a>
+<li class="chapter" data-level="23" data-path="self-organizing-map.html"><a href="self-organizing-map.html"><i class="fa fa-check"></i><b>23</b> Self-Organizing Map</a>
 <ul>
-<li class="chapter" data-level="22.1" data-path="self-organizing-map.html"><a href="self-organizing-map.html#basic-concepts-3"><i class="fa fa-check"></i><b>22.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="23.1" data-path="self-organizing-map.html"><a href="self-organizing-map.html#basic-concepts-3"><i class="fa fa-check"></i><b>23.1</b> Basic Concepts</a></li>
 </ul></li>
-<li class="chapter" data-level="23" data-path="spectral-clustering.html"><a href="spectral-clustering.html"><i class="fa fa-check"></i><b>23</b> Spectral Clustering</a>
+<li class="chapter" data-level="24" data-path="spectral-clustering.html"><a href="spectral-clustering.html"><i class="fa fa-check"></i><b>24</b> Spectral Clustering</a>
 <ul>
-<li class="chapter" data-level="23.1" data-path="spectral-clustering.html"><a href="spectral-clustering.html#an-example"><i class="fa fa-check"></i><b>23.1</b> An Example</a></li>
-<li class="chapter" data-level="23.2" data-path="spectral-clustering.html"><a href="spectral-clustering.html#adjacency-matrix"><i class="fa fa-check"></i><b>23.2</b> Adjacency Matrix</a></li>
-<li class="chapter" data-level="23.3" data-path="spectral-clustering.html"><a href="spectral-clustering.html#laplacian-matrix"><i class="fa fa-check"></i><b>23.3</b> Laplacian Matrix</a></li>
-<li class="chapter" data-level="23.4" data-path="spectral-clustering.html"><a href="spectral-clustering.html#feature-embedding"><i class="fa fa-check"></i><b>23.4</b> Feature Embedding</a></li>
-<li class="chapter" data-level="23.5" data-path="spectral-clustering.html"><a href="spectral-clustering.html#clustering-with-embedded-features"><i class="fa fa-check"></i><b>23.5</b> Clustering with Embedded Features</a></li>
-<li class="chapter" data-level="23.6" data-path="spectral-clustering.html"><a href="spectral-clustering.html#normalized-graph-laplacian"><i class="fa fa-check"></i><b>23.6</b> Normalized Graph Laplacian</a></li>
+<li class="chapter" data-level="24.1" data-path="spectral-clustering.html"><a href="spectral-clustering.html#an-example"><i class="fa fa-check"></i><b>24.1</b> An Example</a></li>
+<li class="chapter" data-level="24.2" data-path="spectral-clustering.html"><a href="spectral-clustering.html#adjacency-matrix"><i class="fa fa-check"></i><b>24.2</b> Adjacency Matrix</a></li>
+<li class="chapter" data-level="24.3" data-path="spectral-clustering.html"><a href="spectral-clustering.html#laplacian-matrix"><i class="fa fa-check"></i><b>24.3</b> Laplacian Matrix</a></li>
+<li class="chapter" data-level="24.4" data-path="spectral-clustering.html"><a href="spectral-clustering.html#feature-embedding"><i class="fa fa-check"></i><b>24.4</b> Feature Embedding</a></li>
+<li class="chapter" data-level="24.5" data-path="spectral-clustering.html"><a href="spectral-clustering.html#clustering-with-embedded-features"><i class="fa fa-check"></i><b>24.5</b> Clustering with Embedded Features</a></li>
+<li class="chapter" data-level="24.6" data-path="spectral-clustering.html"><a href="spectral-clustering.html#normalized-graph-laplacian"><i class="fa fa-check"></i><b>24.6</b> Normalized Graph Laplacian</a></li>
 </ul></li>
-<li class="chapter" data-level="24" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html"><i class="fa fa-check"></i><b>24</b> Uniform Manifold Approximation and Projection</a>
+<li class="chapter" data-level="25" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html"><i class="fa fa-check"></i><b>25</b> Uniform Manifold Approximation and Projection</a>
 <ul>
-<li class="chapter" data-level="24.1" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#an-example-1"><i class="fa fa-check"></i><b>24.1</b> An Example</a></li>
-<li class="chapter" data-level="24.2" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#tuning"><i class="fa fa-check"></i><b>24.2</b> Tuning</a></li>
-<li class="chapter" data-level="24.3" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#another-example"><i class="fa fa-check"></i><b>24.3</b> Another Example</a></li>
+<li class="chapter" data-level="25.1" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#an-example-1"><i class="fa fa-check"></i><b>25.1</b> An Example</a></li>
+<li class="chapter" data-level="25.2" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#tuning"><i class="fa fa-check"></i><b>25.2</b> Tuning</a></li>
+<li class="chapter" data-level="25.3" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#another-example"><i class="fa fa-check"></i><b>25.3</b> Another Example</a></li>
 </ul></li>
 <li class="part"><span><b>VII Reference</b></span></li>
-<li class="chapter" data-level="25" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>25</b> Reference</a></li>
+<li class="chapter" data-level="26" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>26</b> Reference</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2022 Ruoqing Zhu</a></li>
 
@@ -454,68 +474,68 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="classification-and-regression-trees" class="section level1 hasAnchor" number="16">
-<h1><span class="header-section-number">Chapter 16</span> Classification and Regression Trees<a href="classification-and-regression-trees.html#classification-and-regression-trees" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="classification-and-regression-trees" class="section level1 hasAnchor" number="17">
+<h1><span class="header-section-number">Chapter 17</span> Classification and Regression Trees<a href="classification-and-regression-trees.html#classification-and-regression-trees" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>A tree model is very simple to fit and enjoys interpretability. It is also the core component of random forest and boosting. Both trees and random forests can be used for classification and regression problems, although trees are not ideal for regressions problems due to its large bias. There are two main stream of tree models, Classification and Regression Trees (CART, <span class="citation">Breiman et al. (<a href="#ref-breiman1984classification">1984</a>)</span>) and C4.5 <span class="citation">(<a href="#ref-quinlan1993c4">Quinlan 1993</a>)</span>, which is an improvement of the ID3 (Iterative Dichotomiser 3) algorithm. The main difference is to use binary or multiple splits and the criteria of the splitting rule. In fact the splitting rule criteria is probably the most essential part of a tree.</p>
-<div id="example-classification-tree" class="section level2 hasAnchor" number="16.1">
-<h2><span class="header-section-number">16.1</span> Example: Classification Tree<a href="classification-and-regression-trees.html#example-classification-tree" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="example-classification-tree" class="section level2 hasAnchor" number="17.1">
+<h2><span class="header-section-number">17.1</span> Example: Classification Tree<a href="classification-and-regression-trees.html#example-classification-tree" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s generate a model with nonlinear classification rule.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="classification-and-regression-trees.html#cb1-1" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb1-2"><a href="classification-and-regression-trees.html#cb1-2" tabindex="-1"></a>    n <span class="ot">=</span> <span class="dv">500</span></span>
-<span id="cb1-3"><a href="classification-and-regression-trees.html#cb1-3" tabindex="-1"></a>    x1 <span class="ot">=</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb1-4"><a href="classification-and-regression-trees.html#cb1-4" tabindex="-1"></a>    x2 <span class="ot">=</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb1-5"><a href="classification-and-regression-trees.html#cb1-5" tabindex="-1"></a>    y <span class="ot">=</span> <span class="fu">rbinom</span>(n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fu">ifelse</span>(x1<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> x2<span class="sc">^</span><span class="dv">2</span> <span class="sc">&lt;</span> <span class="fl">0.6</span>, <span class="fl">0.9</span>, <span class="fl">0.1</span>))</span>
-<span id="cb1-6"><a href="classification-and-regression-trees.html#cb1-6" tabindex="-1"></a>    </span>
-<span id="cb1-7"><a href="classification-and-regression-trees.html#cb1-7" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">2</span>,<span class="dv">4</span>))</span>
-<span id="cb1-8"><a href="classification-and-regression-trees.html#cb1-8" tabindex="-1"></a>    <span class="fu">plot</span>(x1, x2, <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), <span class="at">pch =</span> <span class="dv">19</span>)</span>
-<span id="cb1-9"><a href="classification-and-regression-trees.html#cb1-9" tabindex="-1"></a>    <span class="fu">symbols</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">circles =</span> <span class="fu">sqrt</span>(<span class="fl">0.6</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">inches =</span> <span class="cn">FALSE</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-3-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="classification-and-regression-trees.html#cb149-1" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb149-2"><a href="classification-and-regression-trees.html#cb149-2" tabindex="-1"></a>    n <span class="ot">=</span> <span class="dv">500</span></span>
+<span id="cb149-3"><a href="classification-and-regression-trees.html#cb149-3" tabindex="-1"></a>    x1 <span class="ot">=</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb149-4"><a href="classification-and-regression-trees.html#cb149-4" tabindex="-1"></a>    x2 <span class="ot">=</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb149-5"><a href="classification-and-regression-trees.html#cb149-5" tabindex="-1"></a>    y <span class="ot">=</span> <span class="fu">rbinom</span>(n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fu">ifelse</span>(x1<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> x2<span class="sc">^</span><span class="dv">2</span> <span class="sc">&lt;</span> <span class="fl">0.6</span>, <span class="fl">0.9</span>, <span class="fl">0.1</span>))</span>
+<span id="cb149-6"><a href="classification-and-regression-trees.html#cb149-6" tabindex="-1"></a>    </span>
+<span id="cb149-7"><a href="classification-and-regression-trees.html#cb149-7" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">2</span>,<span class="dv">4</span>))</span>
+<span id="cb149-8"><a href="classification-and-regression-trees.html#cb149-8" tabindex="-1"></a>    <span class="fu">plot</span>(x1, x2, <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), <span class="at">pch =</span> <span class="dv">19</span>)</span>
+<span id="cb149-9"><a href="classification-and-regression-trees.html#cb149-9" tabindex="-1"></a>    <span class="fu">symbols</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">circles =</span> <span class="fu">sqrt</span>(<span class="fl">0.6</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">inches =</span> <span class="cn">FALSE</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-215-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>A classification tree model is recursively splitting the feature space such that eventually each region is dominated by one class. We will use <code>rpart</code> as an example to fit trees, which stands for recursively partitioning.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="classification-and-regression-trees.html#cb2-1" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb2-2"><a href="classification-and-regression-trees.html#cb2-2" tabindex="-1"></a>    <span class="fu">library</span>(rpart)</span>
-<span id="cb2-3"><a href="classification-and-regression-trees.html#cb2-3" tabindex="-1"></a>    rpart.fit <span class="ot">=</span> <span class="fu">rpart</span>(<span class="fu">as.factor</span>(y)<span class="sc">~</span>x1<span class="sc">+</span>x2, <span class="at">data =</span> <span class="fu">data.frame</span>(x1, x2, y))</span>
-<span id="cb2-4"><a href="classification-and-regression-trees.html#cb2-4" tabindex="-1"></a>    </span>
-<span id="cb2-5"><a href="classification-and-regression-trees.html#cb2-5" tabindex="-1"></a>    <span class="co"># the tree structure    </span></span>
-<span id="cb2-6"><a href="classification-and-regression-trees.html#cb2-6" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="dv">4</span>))</span>
-<span id="cb2-7"><a href="classification-and-regression-trees.html#cb2-7" tabindex="-1"></a>    <span class="fu">plot</span>(rpart.fit)</span>
-<span id="cb2-8"><a href="classification-and-regression-trees.html#cb2-8" tabindex="-1"></a>    <span class="fu">text</span>(rpart.fit)    </span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-4-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="classification-and-regression-trees.html#cb3-1" tabindex="-1"></a></span>
-<span id="cb3-2"><a href="classification-and-regression-trees.html#cb3-2" tabindex="-1"></a>    <span class="co"># if you want to peek into the tree </span></span>
-<span id="cb3-3"><a href="classification-and-regression-trees.html#cb3-3" tabindex="-1"></a>    <span class="co"># note that we set cp = 0.041, which is a tuning parameter</span></span>
-<span id="cb3-4"><a href="classification-and-regression-trees.html#cb3-4" tabindex="-1"></a>    <span class="co"># we will discuss this later</span></span>
-<span id="cb3-5"><a href="classification-and-regression-trees.html#cb3-5" tabindex="-1"></a>    rpart.fit<span class="sc">$</span>cptable</span>
-<span id="cb3-6"><a href="classification-and-regression-trees.html#cb3-6" tabindex="-1"></a><span class="do">##           CP nsplit rel error    xerror       xstd</span></span>
-<span id="cb3-7"><a href="classification-and-regression-trees.html#cb3-7" tabindex="-1"></a><span class="do">## 1 0.17040359      0 1.0000000 1.0000000 0.04984280</span></span>
-<span id="cb3-8"><a href="classification-and-regression-trees.html#cb3-8" tabindex="-1"></a><span class="do">## 2 0.14798206      3 0.4843049 0.7264574 0.04692735</span></span>
-<span id="cb3-9"><a href="classification-and-regression-trees.html#cb3-9" tabindex="-1"></a><span class="do">## 3 0.01121076      4 0.3363229 0.4484305 0.04010884</span></span>
-<span id="cb3-10"><a href="classification-and-regression-trees.html#cb3-10" tabindex="-1"></a><span class="do">## 4 0.01000000      7 0.3004484 0.4035874 0.03852329</span></span>
-<span id="cb3-11"><a href="classification-and-regression-trees.html#cb3-11" tabindex="-1"></a>    <span class="fu">prune</span>(rpart.fit, <span class="at">cp =</span> <span class="fl">0.041</span>)</span>
-<span id="cb3-12"><a href="classification-and-regression-trees.html#cb3-12" tabindex="-1"></a><span class="do">## n= 500 </span></span>
-<span id="cb3-13"><a href="classification-and-regression-trees.html#cb3-13" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb3-14"><a href="classification-and-regression-trees.html#cb3-14" tabindex="-1"></a><span class="do">## node), split, n, loss, yval, (yprob)</span></span>
-<span id="cb3-15"><a href="classification-and-regression-trees.html#cb3-15" tabindex="-1"></a><span class="do">##       * denotes terminal node</span></span>
-<span id="cb3-16"><a href="classification-and-regression-trees.html#cb3-16" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb3-17"><a href="classification-and-regression-trees.html#cb3-17" tabindex="-1"></a><span class="do">##  1) root 500 223 0 (0.55400000 0.44600000)  </span></span>
-<span id="cb3-18"><a href="classification-and-regression-trees.html#cb3-18" tabindex="-1"></a><span class="do">##    2) x2&lt; -0.6444322 90   6 0 (0.93333333 0.06666667) *</span></span>
-<span id="cb3-19"><a href="classification-and-regression-trees.html#cb3-19" tabindex="-1"></a><span class="do">##    3) x2&gt;=-0.6444322 410 193 1 (0.47073171 0.52926829)  </span></span>
-<span id="cb3-20"><a href="classification-and-regression-trees.html#cb3-20" tabindex="-1"></a><span class="do">##      6) x1&gt;=0.6941279 68   8 0 (0.88235294 0.11764706) *</span></span>
-<span id="cb3-21"><a href="classification-and-regression-trees.html#cb3-21" tabindex="-1"></a><span class="do">##      7) x1&lt; 0.6941279 342 133 1 (0.38888889 0.61111111)  </span></span>
-<span id="cb3-22"><a href="classification-and-regression-trees.html#cb3-22" tabindex="-1"></a><span class="do">##       14) x2&gt;=0.7484327 53   7 0 (0.86792453 0.13207547) *</span></span>
-<span id="cb3-23"><a href="classification-and-regression-trees.html#cb3-23" tabindex="-1"></a><span class="do">##       15) x2&lt; 0.7484327 289  87 1 (0.30103806 0.69896194)  </span></span>
-<span id="cb3-24"><a href="classification-and-regression-trees.html#cb3-24" tabindex="-1"></a><span class="do">##         30) x1&lt; -0.6903174 51   9 0 (0.82352941 0.17647059) *</span></span>
-<span id="cb3-25"><a href="classification-and-regression-trees.html#cb3-25" tabindex="-1"></a><span class="do">##         31) x1&gt;=-0.6903174 238  45 1 (0.18907563 0.81092437) *</span></span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="classification-and-regression-trees.html#cb150-1" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb150-2"><a href="classification-and-regression-trees.html#cb150-2" tabindex="-1"></a>    <span class="fu">library</span>(rpart)</span>
+<span id="cb150-3"><a href="classification-and-regression-trees.html#cb150-3" tabindex="-1"></a>    rpart.fit <span class="ot">=</span> <span class="fu">rpart</span>(<span class="fu">as.factor</span>(y)<span class="sc">~</span>x1<span class="sc">+</span>x2, <span class="at">data =</span> <span class="fu">data.frame</span>(x1, x2, y))</span>
+<span id="cb150-4"><a href="classification-and-regression-trees.html#cb150-4" tabindex="-1"></a>    </span>
+<span id="cb150-5"><a href="classification-and-regression-trees.html#cb150-5" tabindex="-1"></a>    <span class="co"># the tree structure    </span></span>
+<span id="cb150-6"><a href="classification-and-regression-trees.html#cb150-6" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="dv">4</span>))</span>
+<span id="cb150-7"><a href="classification-and-regression-trees.html#cb150-7" tabindex="-1"></a>    <span class="fu">plot</span>(rpart.fit)</span>
+<span id="cb150-8"><a href="classification-and-regression-trees.html#cb150-8" tabindex="-1"></a>    <span class="fu">text</span>(rpart.fit)    </span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-216-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="classification-and-regression-trees.html#cb151-1" tabindex="-1"></a></span>
+<span id="cb151-2"><a href="classification-and-regression-trees.html#cb151-2" tabindex="-1"></a>    <span class="co"># if you want to peek into the tree </span></span>
+<span id="cb151-3"><a href="classification-and-regression-trees.html#cb151-3" tabindex="-1"></a>    <span class="co"># note that we set cp = 0.041, which is a tuning parameter</span></span>
+<span id="cb151-4"><a href="classification-and-regression-trees.html#cb151-4" tabindex="-1"></a>    <span class="co"># we will discuss this later</span></span>
+<span id="cb151-5"><a href="classification-and-regression-trees.html#cb151-5" tabindex="-1"></a>    rpart.fit<span class="sc">$</span>cptable</span>
+<span id="cb151-6"><a href="classification-and-regression-trees.html#cb151-6" tabindex="-1"></a><span class="do">##           CP nsplit rel error    xerror       xstd</span></span>
+<span id="cb151-7"><a href="classification-and-regression-trees.html#cb151-7" tabindex="-1"></a><span class="do">## 1 0.17040359      0 1.0000000 1.0000000 0.04984280</span></span>
+<span id="cb151-8"><a href="classification-and-regression-trees.html#cb151-8" tabindex="-1"></a><span class="do">## 2 0.14798206      3 0.4843049 0.7264574 0.04692735</span></span>
+<span id="cb151-9"><a href="classification-and-regression-trees.html#cb151-9" tabindex="-1"></a><span class="do">## 3 0.01121076      4 0.3363229 0.4484305 0.04010884</span></span>
+<span id="cb151-10"><a href="classification-and-regression-trees.html#cb151-10" tabindex="-1"></a><span class="do">## 4 0.01000000      7 0.3004484 0.4035874 0.03852329</span></span>
+<span id="cb151-11"><a href="classification-and-regression-trees.html#cb151-11" tabindex="-1"></a>    <span class="fu">prune</span>(rpart.fit, <span class="at">cp =</span> <span class="fl">0.041</span>)</span>
+<span id="cb151-12"><a href="classification-and-regression-trees.html#cb151-12" tabindex="-1"></a><span class="do">## n= 500 </span></span>
+<span id="cb151-13"><a href="classification-and-regression-trees.html#cb151-13" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb151-14"><a href="classification-and-regression-trees.html#cb151-14" tabindex="-1"></a><span class="do">## node), split, n, loss, yval, (yprob)</span></span>
+<span id="cb151-15"><a href="classification-and-regression-trees.html#cb151-15" tabindex="-1"></a><span class="do">##       * denotes terminal node</span></span>
+<span id="cb151-16"><a href="classification-and-regression-trees.html#cb151-16" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb151-17"><a href="classification-and-regression-trees.html#cb151-17" tabindex="-1"></a><span class="do">##  1) root 500 223 0 (0.55400000 0.44600000)  </span></span>
+<span id="cb151-18"><a href="classification-and-regression-trees.html#cb151-18" tabindex="-1"></a><span class="do">##    2) x2&lt; -0.6444322 90   6 0 (0.93333333 0.06666667) *</span></span>
+<span id="cb151-19"><a href="classification-and-regression-trees.html#cb151-19" tabindex="-1"></a><span class="do">##    3) x2&gt;=-0.6444322 410 193 1 (0.47073171 0.52926829)  </span></span>
+<span id="cb151-20"><a href="classification-and-regression-trees.html#cb151-20" tabindex="-1"></a><span class="do">##      6) x1&gt;=0.6941279 68   8 0 (0.88235294 0.11764706) *</span></span>
+<span id="cb151-21"><a href="classification-and-regression-trees.html#cb151-21" tabindex="-1"></a><span class="do">##      7) x1&lt; 0.6941279 342 133 1 (0.38888889 0.61111111)  </span></span>
+<span id="cb151-22"><a href="classification-and-regression-trees.html#cb151-22" tabindex="-1"></a><span class="do">##       14) x2&gt;=0.7484327 53   7 0 (0.86792453 0.13207547) *</span></span>
+<span id="cb151-23"><a href="classification-and-regression-trees.html#cb151-23" tabindex="-1"></a><span class="do">##       15) x2&lt; 0.7484327 289  87 1 (0.30103806 0.69896194)  </span></span>
+<span id="cb151-24"><a href="classification-and-regression-trees.html#cb151-24" tabindex="-1"></a><span class="do">##         30) x1&lt; -0.6903174 51   9 0 (0.82352941 0.17647059) *</span></span>
+<span id="cb151-25"><a href="classification-and-regression-trees.html#cb151-25" tabindex="-1"></a><span class="do">##         31) x1&gt;=-0.6903174 238  45 1 (0.18907563 0.81092437) *</span></span></code></pre></div>
 <p>The model proceed with the following steps. Note that steps 5 and 6 may not be really beneficial (consider that we know the true model).</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-217-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Alternatively, there are many other packages that can perform the same analysis. For example, the <code>tree</code> package. However, be careful that this package uses a different splitting rule by default If you want to match the result, use <code>split = "gini"</code>. Note that this plot is very crowded because it will split until pretty much only one class in each terminal node. Hence, you can imaging that there will be a tuning parameter issue. We will discuss this later.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="classification-and-regression-trees.html#cb4-1" tabindex="-1"></a>    <span class="fu">library</span>(tree)</span>
-<span id="cb4-2"><a href="classification-and-regression-trees.html#cb4-2" tabindex="-1"></a>    tree.fit <span class="ot">=</span> <span class="fu">tree</span>(<span class="fu">as.factor</span>(y)<span class="sc">~</span>x1<span class="sc">+</span>x2, <span class="at">data =</span> <span class="fu">data.frame</span>(x1, x2, y), <span class="at">split =</span> <span class="st">&quot;gini&quot;</span>)</span>
-<span id="cb4-3"><a href="classification-and-regression-trees.html#cb4-3" tabindex="-1"></a>    <span class="fu">plot</span>(tree.fit)</span>
-<span id="cb4-4"><a href="classification-and-regression-trees.html#cb4-4" tabindex="-1"></a>    <span class="fu">text</span>(tree.fit)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-7-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="classification-and-regression-trees.html#cb152-1" tabindex="-1"></a>    <span class="fu">library</span>(tree)</span>
+<span id="cb152-2"><a href="classification-and-regression-trees.html#cb152-2" tabindex="-1"></a>    tree.fit <span class="ot">=</span> <span class="fu">tree</span>(<span class="fu">as.factor</span>(y)<span class="sc">~</span>x1<span class="sc">+</span>x2, <span class="at">data =</span> <span class="fu">data.frame</span>(x1, x2, y), <span class="at">split =</span> <span class="st">&quot;gini&quot;</span>)</span>
+<span id="cb152-3"><a href="classification-and-regression-trees.html#cb152-3" tabindex="-1"></a>    <span class="fu">plot</span>(tree.fit)</span>
+<span id="cb152-4"><a href="classification-and-regression-trees.html#cb152-4" tabindex="-1"></a>    <span class="fu">text</span>(tree.fit)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-219-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="splitting-a-node" class="section level2 hasAnchor" number="16.2">
-<h2><span class="header-section-number">16.2</span> Splitting a Node<a href="classification-and-regression-trees.html#splitting-a-node" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="splitting-a-node" class="section level2 hasAnchor" number="17.2">
+<h2><span class="header-section-number">17.2</span> Splitting a Node<a href="classification-and-regression-trees.html#splitting-a-node" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In a tree model, the splitting mechanism performs in the following way, which is just comparing all possible splits on all variables. For simplicity, we will assume that a binary splitting rule is used, i.e., we split the current node into to two child nodes, and apply the procedure recursively.</p>
 <ul>
 <li>At the current node, go through each variable to find the best cut-off point that splits the node.</li>
@@ -535,7 +555,7 @@ The Shannon theory is defined as</p>
 And the classification error simply adds up all mis-classified portions if we predict the population into the most prevalent one:</p>
 <p><span class="math display">\[ 1 - \underset{k = 1, \ldots, K}{\max} \,\, p_k\]</span>
 The following plot shows all three quantities as a function of <span class="math inline">\(p\)</span>, when there are only two classes, i.e., <span class="math inline">\(K = 2\)</span>.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-8-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-220-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>For each quantity, smaller value means that the node is more “pure”, hence, there is a higher certainty when we predict a new value. The idea of splitting a node is that, we want the two resulting child node to contain less variation. In other words, we want each child node to be as “pure” as possible. Hence, the idea is to calculate this error criterion both before and after the split and see what cut-off point gives us the best reduction of error. Of course, all of these quantities will be calculated based on the sample version, instead of the truth. For example, if we use the Gini impurity to compare different splits, we use the following quantity for an <strong>internal node</strong> <span class="math inline">\({\cal A}\)</span>:</p>
 <p><span class="math display">\[\begin{align}
 \text{score}(j, c) = \text{Gini}({\cal A}) - \left( \frac{N_{{\cal A}_L}}{N_{{\cal A}}} \text{Gini}({\cal A}_L) + \frac{N_{{\cal A}_R}}{N_{{\cal A}}} \text{Gini}({\cal A}_R)  \right).
@@ -548,23 +568,23 @@ Then <span class="math inline">\(N_{\cal A}\)</span>, <span class="math inline">
 <p><span class="math display">\[\underset{j \, , \, c}{\arg\max} \,\, \text{score}(j, c)\]</span></p>
 <p>and then work on each child node separately using the same procedure.</p>
 </div>
-<div id="regression-trees" class="section level2 hasAnchor" number="16.3">
-<h2><span class="header-section-number">16.3</span> Regression Trees<a href="classification-and-regression-trees.html#regression-trees" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="regression-trees" class="section level2 hasAnchor" number="17.3">
+<h2><span class="header-section-number">17.3</span> Regression Trees<a href="classification-and-regression-trees.html#regression-trees" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The basic procedure for a regression tree is pretty much the same as a classification tree, except that we will use a different way to evaluate how good a potential split is. Note that the variance is a simple quantity to describe the noise within a node, we can use</p>
 <p><span class="math display">\[\begin{align}
 \text{score}(j, c) = \text{Var}({\cal A}) - \left( \frac{N_{{\cal A}_L}}{N_{{\cal A}}} \text{Var}({\cal A}_L) + \frac{N_{{\cal A}_R}}{N_{{\cal A}}} \text{Var}({\cal A}_R)  \right).
 \end{align}\]</span></p>
 </div>
-<div id="predicting-a-target-point" class="section level2 hasAnchor" number="16.4">
-<h2><span class="header-section-number">16.4</span> Predicting a Target Point<a href="classification-and-regression-trees.html#predicting-a-target-point" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="predicting-a-target-point" class="section level2 hasAnchor" number="17.4">
+<h2><span class="header-section-number">17.4</span> Predicting a Target Point<a href="classification-and-regression-trees.html#predicting-a-target-point" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>When we have a new target point <span class="math inline">\(\mathbf{x}_0\)</span> to predict, the basic strategy is to “drop it down the tree”. This is simply starting from the root node and following the splitting rule to see which terminal node it ends up with. Note that a fitted tree will have a collection of terminal nodes, say, <span class="math inline">\(\{{\cal A}_1, {\cal A}_2, \ldots, {\cal A}_M\}\)</span>, then suppose <span class="math inline">\(\mathbf{x}_0\)</span> falls into terminal node <span class="math inline">\({\cal A}_m\)</span>, we use <span class="math inline">\(\bar{y}_{{\cal A}_m}\)</span>, the average of original training data that falls into this node, as the prediction. The final prediction can be written as</p>
 <p><span class="math display">\[\begin{align}
 \widehat{f}(\mathbf{x}_0) =&amp; \sum_{m = 1}^M \bar{y}_{{\cal A}_m} \mathbf{1}\{\mathbf{x}_0 \in {\cal A}_m\} \\
 =&amp; \sum_{m = 1}^M \frac{\sum_{i=1}^n y_i \mathbf{1}\{\mathbf{x}_i \in {\cal A}_m\}}{\sum_{i=1}^n \mathbf{1}\{\mathbf{x}_i \in {\cal A}_m\}} \mathbf{1}\{\mathbf{x}_0 \in {\cal A}_m\}.
 \end{align}\]</span></p>
 </div>
-<div id="tuning-a-tree-model" class="section level2 hasAnchor" number="16.5">
-<h2><span class="header-section-number">16.5</span> Tuning a Tree Model<a href="classification-and-regression-trees.html#tuning-a-tree-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="tuning-a-tree-model" class="section level2 hasAnchor" number="17.5">
+<h2><span class="header-section-number">17.5</span> Tuning a Tree Model<a href="classification-and-regression-trees.html#tuning-a-tree-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Tree tuning is essentially about when to stop splitting. Or we could look at this reversely by first fitting a very large tree, then see if we could remove some branches of a tree to make it simpler without sacrificing much accuracy. One approach is called the <strong>cost-complexity pruning</strong>. This is another penalized framework that we use the accuracy as the loss function, and use the tree-size as the penalty part for complexity. Formally, if we have any tree model <span class="math inline">\({\cal T}\)</span>, consider this can be written as</p>
 <p><span class="math display">\[\begin{align}
 C_\alpha({\cal T}) =&amp;~ \sum_{\text{all terminal nodes $t$ in ${\cal T}$}} N_t \cdot \text{Impurity}(t) + \alpha |{\cal T}| \nonumber \\
@@ -580,27 +600,27 @@ Note that <span class="math inline">\(|{\cal T}_t| - 1\)</span> is the size diff
 <li>Try all internal nodes <span class="math inline">\(t\)</span>, and cut the branch <span class="math inline">\(t\)</span> that has the smallest value on the right hand side. This gives the smallest <span class="math inline">\(\alpha\)</span> value to remove some branches. Then iterate the procedure based on this reduced tree.</li>
 </ul>
 <p>Note that the <span class="math inline">\(\alpha\)</span> values will get larger as we move more branches. Hence this produces a solution path. Now this is very similar to the Lasso solution path idea, and we could use cross-validation to select the best tuning. By default, the <code>rpart</code> function uses a 10-fold cross-validation. This can be controlled using the <code>rpart.control()</code> function and specify the <code>xval</code> argument. For details, please see the <a href="https://cran.r-project.org/web/packages/rpart/rpart.pdf">documentation</a>. The following plot using <code>plotcp()</code> in the <code>rpart</code> package gives a visualization of the relative cross-validation error. It also produces a horizontal line (the dotted line). It suggests the lowest (plus certain variation) that we could achieve. Hence, we will select the best <code>cp</code> value (<span class="math inline">\(alpha\)</span>) that is above this line. The way that this is constructed is similar to the <code>lambda.1se</code> choice in <code>glmnet</code>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="classification-and-regression-trees.html#cb5-1" tabindex="-1"></a>  <span class="co"># and the tuning parameter </span></span>
-<span id="cb5-2"><a href="classification-and-regression-trees.html#cb5-2" tabindex="-1"></a>  <span class="fu">plotcp</span>(rpart.fit)  </span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-9-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="classification-and-regression-trees.html#cb6-1" tabindex="-1"></a>  <span class="fu">printcp</span>(rpart.fit)</span>
-<span id="cb6-2"><a href="classification-and-regression-trees.html#cb6-2" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb6-3"><a href="classification-and-regression-trees.html#cb6-3" tabindex="-1"></a><span class="do">## Classification tree:</span></span>
-<span id="cb6-4"><a href="classification-and-regression-trees.html#cb6-4" tabindex="-1"></a><span class="do">## rpart(formula = as.factor(y) ~ x1 + x2, data = data.frame(x1, </span></span>
-<span id="cb6-5"><a href="classification-and-regression-trees.html#cb6-5" tabindex="-1"></a><span class="do">##     x2, y))</span></span>
-<span id="cb6-6"><a href="classification-and-regression-trees.html#cb6-6" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb6-7"><a href="classification-and-regression-trees.html#cb6-7" tabindex="-1"></a><span class="do">## Variables actually used in tree construction:</span></span>
-<span id="cb6-8"><a href="classification-and-regression-trees.html#cb6-8" tabindex="-1"></a><span class="do">## [1] x1 x2</span></span>
-<span id="cb6-9"><a href="classification-and-regression-trees.html#cb6-9" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb6-10"><a href="classification-and-regression-trees.html#cb6-10" tabindex="-1"></a><span class="do">## Root node error: 223/500 = 0.446</span></span>
-<span id="cb6-11"><a href="classification-and-regression-trees.html#cb6-11" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb6-12"><a href="classification-and-regression-trees.html#cb6-12" tabindex="-1"></a><span class="do">## n= 500 </span></span>
-<span id="cb6-13"><a href="classification-and-regression-trees.html#cb6-13" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb6-14"><a href="classification-and-regression-trees.html#cb6-14" tabindex="-1"></a><span class="do">##         CP nsplit rel error  xerror     xstd</span></span>
-<span id="cb6-15"><a href="classification-and-regression-trees.html#cb6-15" tabindex="-1"></a><span class="do">## 1 0.170404      0   1.00000 1.00000 0.049843</span></span>
-<span id="cb6-16"><a href="classification-and-regression-trees.html#cb6-16" tabindex="-1"></a><span class="do">## 2 0.147982      3   0.48430 0.72646 0.046927</span></span>
-<span id="cb6-17"><a href="classification-and-regression-trees.html#cb6-17" tabindex="-1"></a><span class="do">## 3 0.011211      4   0.33632 0.44843 0.040109</span></span>
-<span id="cb6-18"><a href="classification-and-regression-trees.html#cb6-18" tabindex="-1"></a><span class="do">## 4 0.010000      7   0.30045 0.40359 0.038523</span></span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="classification-and-regression-trees.html#cb153-1" tabindex="-1"></a>  <span class="co"># and the tuning parameter </span></span>
+<span id="cb153-2"><a href="classification-and-regression-trees.html#cb153-2" tabindex="-1"></a>  <span class="fu">plotcp</span>(rpart.fit)  </span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-221-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="classification-and-regression-trees.html#cb154-1" tabindex="-1"></a>  <span class="fu">printcp</span>(rpart.fit)</span>
+<span id="cb154-2"><a href="classification-and-regression-trees.html#cb154-2" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb154-3"><a href="classification-and-regression-trees.html#cb154-3" tabindex="-1"></a><span class="do">## Classification tree:</span></span>
+<span id="cb154-4"><a href="classification-and-regression-trees.html#cb154-4" tabindex="-1"></a><span class="do">## rpart(formula = as.factor(y) ~ x1 + x2, data = data.frame(x1, </span></span>
+<span id="cb154-5"><a href="classification-and-regression-trees.html#cb154-5" tabindex="-1"></a><span class="do">##     x2, y))</span></span>
+<span id="cb154-6"><a href="classification-and-regression-trees.html#cb154-6" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb154-7"><a href="classification-and-regression-trees.html#cb154-7" tabindex="-1"></a><span class="do">## Variables actually used in tree construction:</span></span>
+<span id="cb154-8"><a href="classification-and-regression-trees.html#cb154-8" tabindex="-1"></a><span class="do">## [1] x1 x2</span></span>
+<span id="cb154-9"><a href="classification-and-regression-trees.html#cb154-9" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb154-10"><a href="classification-and-regression-trees.html#cb154-10" tabindex="-1"></a><span class="do">## Root node error: 223/500 = 0.446</span></span>
+<span id="cb154-11"><a href="classification-and-regression-trees.html#cb154-11" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb154-12"><a href="classification-and-regression-trees.html#cb154-12" tabindex="-1"></a><span class="do">## n= 500 </span></span>
+<span id="cb154-13"><a href="classification-and-regression-trees.html#cb154-13" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb154-14"><a href="classification-and-regression-trees.html#cb154-14" tabindex="-1"></a><span class="do">##         CP nsplit rel error  xerror     xstd</span></span>
+<span id="cb154-15"><a href="classification-and-regression-trees.html#cb154-15" tabindex="-1"></a><span class="do">## 1 0.170404      0   1.00000 1.00000 0.049843</span></span>
+<span id="cb154-16"><a href="classification-and-regression-trees.html#cb154-16" tabindex="-1"></a><span class="do">## 2 0.147982      3   0.48430 0.72646 0.046927</span></span>
+<span id="cb154-17"><a href="classification-and-regression-trees.html#cb154-17" tabindex="-1"></a><span class="do">## 3 0.011211      4   0.33632 0.44843 0.040109</span></span>
+<span id="cb154-18"><a href="classification-and-regression-trees.html#cb154-18" tabindex="-1"></a><span class="do">## 4 0.010000      7   0.30045 0.40359 0.038523</span></span></code></pre></div>
 
 </div>
 </div>

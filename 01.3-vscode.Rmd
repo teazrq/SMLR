@@ -1,0 +1,32 @@
+```{r include = FALSE}
+  options(width = 100)
+  knitr::opts_knit$set(global.par = TRUE)
+  knitr::opts_chunk$set(collapse = TRUE, fig.dim = c(6, 6), 
+                        out.width = "45%", fig.align = 'center')
+```
+```{r include = FALSE}
+  par(bg="transparent")
+  par(mar=c(2,2,2,2))
+```
+
+# Visual Studio Code
+
+## Basics and Resources
+
+Visual Studio Code (VS Code) is another popular IDE for programming in pretty much all languages. With the recent development of GitHub Copilot (X), it makes VS Code a very attractive platform. Here is a place to get things started. Please note that in Windows, running the applications as Administrator is probably needed to install related components. 
+
+  * [Official Overview](https://code.visualstudio.com/docs/languages/r)
+
+To get things working, you only need to
+
+  * Install R
+  * Install VS Code
+  * Install R Extension in VS Code
+  * Install the `languageserver` package `install.packages("languageserver")`
+
+To install `radian` (for interactive R terminal), you need to 
+
+  * Install Python and [pip](https://pip.pypa.io/en/stable/installation/) (if you have Anaconda, that should be included already)
+  * Use `pip3 install -U radian` to install `radian`
+  * Go to settings in VS Code, and find `r.path`, add your `radian.exe` file path to it
+  
