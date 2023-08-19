@@ -30,6 +30,12 @@ visual-studio-code
 basics-and-resources-1
 linear-algebra-basics
 definition
+linear-regression
+matrix-inversion
+rank-one-update
+rank-k-update
+times-2-block-matrix-inversion
+matrix-norms
 optimization-basics
 basic-concept
 global_local

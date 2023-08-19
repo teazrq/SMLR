@@ -5,15 +5,18 @@
 \def\cH{{\cal H}}
 \def\bA{\mathbf{A}}
 \def\bB{\mathbf{B}}
+\def\bC{\mathbf{C}}
+\def\bD{\mathbf{D}}
 \def\bX{\mathbf{X}}
 \def\bH{\mathbf{H}}
 \def\bI{\mathbf{I}}
 \def\bU{\mathbf{U}}
-\def\bD{\mathbf{D}}
 \def\bV{\mathbf{V}}
 \def\bS{\mathbf{S}}
 \def\bW{\mathbf{W}}
 \def\bK{\mathbf{K}}
+\def\bP{\mathbf{P}}
+\def\bM{\mathbf{M}}
 \def\bx{\mathbf{x}}
 \def\by{\mathbf{y}}
 \def\bs{\mathbf{s}}
@@ -57,6 +60,7 @@
 
 You should already be familiar with some basic linear algebra concepts such as matrix and vector multiplications. Here we review some basic concepts and properties that will be used in this course. For the most part, they are used in deriving linear regression results. 
 
+
 ## Definition
 
 We usually use $\bX$ to denote an $n \times p$ dimensional design matrix, where $n$ is the number of observations and $p$ is the number of variables. The columns of $\bx$ are denoted as $\bx_1, \ldots, \bx_p$:
@@ -78,8 +82,114 @@ $$c_1 \bx_1 + c_2 \bx_2 + \cdots c_p \bx_p.$$
 This is also called the __span__ of these vectors, $\text{span}(\bx_1, \bx_2, \ldots, \bx_p)$. Its orthogonal space is 
 
 $$\{\bv: \bX^\T \bv = 0\}.$$
-A projection matrix $\bP$ is a matrix such that 
 
+## Linear Regression
+
+In many cases, we will be using linear regression as an example. This concerns regressing a vector of outcome $\by$ onto the column space of $\bX$. Or in other words, finding a set of coefficients $(c_1, \ldots, c_p)$ such that the Euclidean distance between $c_1 \bx_1 + c_2 \bx_2 + \cdots c_p \bx_p$ and $\by$ is minimized. One way to view this problem is to project the vector $\by$ onto this space $\cal{C}(\bX)$. This can be done through a linear operator, called the projection matrix $\bP$, defined as 
+
+$$ \bX (\bX^\T \bX)^{-1} \bX^\T, $$
+provided that $\bX$ has full column rank. Hence, the projection can be obtained as 
+
+$$ \bP \by = \bX (\bX^\T \bX)^{-1} \bX^\T \by$$
+Notice that this is a linear combination of the columns of $\bX$ since $(\bX^\T \bX)^{-1} \bX^\T \by$ is a $p-$vector, which is the vector $(c_1, \ldots, c_p)^\T$. And if you are familiar with the solution from a linear regression, this is $(\bX^\T \bX)^{-1} \bX^\T \by$ is the solution, while $\bP \by$ is the fitted value. On the other hand, $\by - \bP \by$ is the residual vector. 
+
+There are some useful properties of a projection matrix $\bP$ 
+
+  * **Idempotent:** A projection matrix is idempotent, which means that multiplying it by itself leaves it unchanged:
+   $\bP^2 = \bP$
+  * **Symmetry (for Orthogonal Projections):** If the projection is orthogonal, the matrix is symmetric:
+   $\bP = \bP^T$
+  * **Spectrum:** The eigenvalues of a projection matrix are either 0 or 1. The number of eigenvalues equal to 1 is the rank of the matrix.
+  * **Rank and Nullity:** If $\bP$ is a projection onto a subspace of dimension $k$, then the rank of $\bP$ is $k$, and the nullity (dimension of the null space) is $n - k$, where $n$ is the dimension of the space onto which $\bP$ projects.
+  * **Orthogonal Complement:** If $\bP$ is the projection onto a subspace $U$, then $(I - \bP)$ is the projection onto the orthogonal complement of $U$.
+
+These properties make projection matrices useful in various applications, including least squares regression, signal processing, and many areas of machine learning and statistics.
+
+## Matrix Inversion
+
+### Rank-one Update
+
+The __Sherman-Morrison formula__ is a helpful result in linear algebra, especially in the context of statistical computations. It provides an expression for the inverse of a rank-one perturbation of a given invertible matrix. Here's the formula in LaTeX form:
+
+$$
+(\bA + \bu\bv^T)^{-1} = \bA^{-1} - \frac{\bA^{-1}\bu\bv^T \bA^{-1}}{1 + \bv^T \bA^{-1}\bu}
+$$
+
+Here, $\bA$ is an $n \times n$ invertible matrix, and $\mathbf{u}$ and $ \mathbf{v} $ are $n \times 1$ vectors. The denominator in the expression ensures that the resulting matrix is well-defined, and it has many applications in statistical computations, optimization, and other areas.
+
+### Rank-$k$ Update
+
+The __Woodbury Matrix Identity__ is another powerful result used in statistical computations and relates to the inversion of a rank-k correction of a matrix:
+
+$$
+(\bA + \bU\bC\bV^T)^{-1} = \bA^{-1} - \bA^{-1}\bU(\bC^{-1} + \bV^T\bA^{-1}\bU)^{-1}\bV^T\bA^{-1}
+$$
+
+This can be seen as an extension of the Sherman-Morrison formula and can be particularly useful when dealing with high-dimensional data or large-scale computations.
+
+### 2 $\times$ 2 Block Matrix Inversion
+
+A general 2x2 block matrix can be represented as:
+
+$$
+\bM = \begin{bmatrix} \bA & \bB \\ \bC & \bD \end{bmatrix}
+$$
+
+If the matrix is invertible, its inverse can be expressed as:
+
+$$
+\bM^{-1} = \begin{bmatrix} \bA^{-1} + \bA^{-1}\bB(\bD - \bC\bA^{-1}\bB)^{-1}\bC\bA^{-1} & -\bA^{-1}\bB(\bD - \bC\bA^{-1}\bB)^{-1} \\ -(\bD - \bC\bA^{-1}\bB)^{-1}\bC\bA^{-1} & (\bD - \bC\bA^{-1}\bB)^{-1} \end{bmatrix}
+$$
+
+This formula assumes that the required inverses exist.
+
+
+## Matrix norms
+
+Here are several commonly used Matrix norms
+
+  * **Frobenius Norm:**
+    \[
+    \| \bA \|_F = \sqrt{\sum_{i=1}^{m}\sum_{j=1}^{n} |a_{ij}|^2}
+    \]
+  * **1-Norm (Column Sum Norm):**
+    \[
+    \| \bA \|_1 = \max_{1 \leq j \leq n} \sum_{i=1}^{m} |a_{ij}|
+    \]
+  * **Infinity Norm (Row Sum Norm):**
+    \[
+    \| \bA \|_\infty = \max_{1 \leq i \leq m} \sum_{j=1}^{n} |a_{ij}|
+    \]
+  * **2-Norm (Spectral Norm):**
+    \[
+    \| \bA \|_2 = \sigma_{\text{max}}(\bA) = \sqrt{\lambda_{\text{max}}(\bA^T \bA)}
+    \]
+  * **p-Norm:**
+    \[
+    \| \bA \|_p = \left( \sum_{i=1}^{\min(m,n)} \sigma_i^p \right)^{1/p}
+    \]
+  * **Operator Norm:**
+    \[
+    \| \bA \| = \max_{\bx \neq \mathbf{0}} \frac{\| \bA \bx \|}{\| \bx \|}
+    \]
+
+And some of their relationships
+
+  * Relationship between 1-Norm, 2-Norm, and Infinity Norm
+    \[
+    \| \bA \|_2 \leq \| \bA \|_1^{1/2} \| \bA \|_\infty^{1/2}
+    \]
+    \[
+    \| \bA \|_\infty \leq \| \bA \|_1
+    \]   
+    \[
+    \| \bA \|_2 \leq \| \bA \|_1 \leq \sqrt{n} \| \bA \|_2
+    \]
+
+  * Relationship between Frobenius Norm and 2-Norm
+    \[
+    \| \bA \|_2 \leq \| \bA \|_F \leq \sqrt{\min\{m,n\}} \| \bA \|_2
+    \]
 
 
 

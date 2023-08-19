@@ -222,6 +222,14 @@ div.csl-indent {
 <li class="chapter" data-level="4" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html"><i class="fa fa-check"></i><b>4</b> Linear Algebra Basics</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#definition"><i class="fa fa-check"></i><b>4.1</b> Definition</a></li>
+<li class="chapter" data-level="4.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linear-regression"><i class="fa fa-check"></i><b>4.2</b> Linear Regression</a></li>
+<li class="chapter" data-level="4.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-inversion"><i class="fa fa-check"></i><b>4.3</b> Matrix Inversion</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-one-update"><i class="fa fa-check"></i><b>4.3.1</b> Rank-one Update</a></li>
+<li class="chapter" data-level="4.3.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-k-update"><i class="fa fa-check"></i><b>4.3.2</b> Rank-<span class="math inline">\(k\)</span> Update</a></li>
+<li class="chapter" data-level="4.3.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#times-2-block-matrix-inversion"><i class="fa fa-check"></i><b>4.3.3</b> 2 <span class="math inline">\(\times\)</span> 2 Block Matrix Inversion</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-norms"><i class="fa fa-check"></i><b>4.4</b> Matrix norms</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>5</b> Optimization Basics</a>
 <ul>
@@ -494,8 +502,104 @@ x_{m1} &amp; x_{n2} &amp; \cdots &amp; x_{np}\\
 The <strong>column space</strong>, <span class="math inline">\(\cal{C}(\mathbf{X})\)</span> of <span class="math inline">\(\mathbf{X}\)</span> is the set of all linear combinations of <span class="math inline">\(\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_p\)</span>, i.e.,</p>
 <p><span class="math display">\[c_1 \mathbf{x}_1 + c_2 \mathbf{x}_2 + \cdots c_p \mathbf{x}_p.\]</span>
 This is also called the <strong>span</strong> of these vectors, <span class="math inline">\(\text{span}(\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_p)\)</span>. Its orthogonal space is</p>
-<p><span class="math display">\[\{\mathbf{v}: \mathbf{X}^\text{T}\mathbf{v}= 0\}.\]</span>
-A projection matrix <span class="math inline">\(\bP\)</span> is a matrix such that</p>
+<p><span class="math display">\[\{\mathbf{v}: \mathbf{X}^\text{T}\mathbf{v}= 0\}.\]</span></p>
+</div>
+<div id="linear-regression" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Linear Regression<a href="linear-algebra-basics.html#linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In many cases, we will be using linear regression as an example. This concerns regressing a vector of outcome <span class="math inline">\(\mathbf{y}\)</span> onto the column space of <span class="math inline">\(\mathbf{X}\)</span>. Or in other words, finding a set of coefficients <span class="math inline">\((c_1, \ldots, c_p)\)</span> such that the Euclidean distance between <span class="math inline">\(c_1 \mathbf{x}_1 + c_2 \mathbf{x}_2 + \cdots c_p \mathbf{x}_p\)</span> and <span class="math inline">\(\mathbf{y}\)</span> is minimized. One way to view this problem is to project the vector <span class="math inline">\(\mathbf{y}\)</span> onto this space <span class="math inline">\(\cal{C}(\mathbf{X})\)</span>. This can be done through a linear operator, called the projection matrix <span class="math inline">\(\mathbf{P}\)</span>, defined as</p>
+<p><span class="math display">\[ \mathbf{X}(\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}^\text{T}, \]</span>
+provided that <span class="math inline">\(\mathbf{X}\)</span> has full column rank. Hence, the projection can be obtained as</p>
+<p><span class="math display">\[ \mathbf{P}\mathbf{y}= \mathbf{X}(\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}^\text{T}\mathbf{y}\]</span>
+Notice that this is a linear combination of the columns of <span class="math inline">\(\mathbf{X}\)</span> since <span class="math inline">\((\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}^\text{T}\mathbf{y}\)</span> is a <span class="math inline">\(p-\)</span>vector, which is the vector <span class="math inline">\((c_1, \ldots, c_p)^\text{T}\)</span>. And if you are familiar with the solution from a linear regression, this is <span class="math inline">\((\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}^\text{T}\mathbf{y}\)</span> is the solution, while <span class="math inline">\(\mathbf{P}\mathbf{y}\)</span> is the fitted value. On the other hand, <span class="math inline">\(\mathbf{y}- \mathbf{P}\mathbf{y}\)</span> is the residual vector.</p>
+<p>There are some useful properties of a projection matrix <span class="math inline">\(\mathbf{P}\)</span></p>
+<ul>
+<li><strong>Idempotent:</strong> A projection matrix is idempotent, which means that multiplying it by itself leaves it unchanged:
+<span class="math inline">\(\mathbf{P}^2 = \mathbf{P}\)</span></li>
+<li><strong>Symmetry (for Orthogonal Projections):</strong> If the projection is orthogonal, the matrix is symmetric:
+<span class="math inline">\(\mathbf{P}= \mathbf{P}^T\)</span></li>
+<li><strong>Spectrum:</strong> The eigenvalues of a projection matrix are either 0 or 1. The number of eigenvalues equal to 1 is the rank of the matrix.</li>
+<li><strong>Rank and Nullity:</strong> If <span class="math inline">\(\mathbf{P}\)</span> is a projection onto a subspace of dimension <span class="math inline">\(k\)</span>, then the rank of <span class="math inline">\(\mathbf{P}\)</span> is <span class="math inline">\(k\)</span>, and the nullity (dimension of the null space) is <span class="math inline">\(n - k\)</span>, where <span class="math inline">\(n\)</span> is the dimension of the space onto which <span class="math inline">\(\mathbf{P}\)</span> projects.</li>
+<li><strong>Orthogonal Complement:</strong> If <span class="math inline">\(\mathbf{P}\)</span> is the projection onto a subspace <span class="math inline">\(U\)</span>, then <span class="math inline">\((I - \mathbf{P})\)</span> is the projection onto the orthogonal complement of <span class="math inline">\(U\)</span>.</li>
+</ul>
+<p>These properties make projection matrices useful in various applications, including least squares regression, signal processing, and many areas of machine learning and statistics.</p>
+</div>
+<div id="matrix-inversion" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Matrix Inversion<a href="linear-algebra-basics.html#matrix-inversion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="rank-one-update" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Rank-one Update<a href="linear-algebra-basics.html#rank-one-update" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <strong>Sherman-Morrison formula</strong> is a helpful result in linear algebra, especially in the context of statistical computations. It provides an expression for the inverse of a rank-one perturbation of a given invertible matrix. Here’s the formula in LaTeX form:</p>
+<p><span class="math display">\[
+(\mathbf{A}+ \mathbf{u}\mathbf{v}^T)^{-1} = \mathbf{A}^{-1} - \frac{\mathbf{A}^{-1}\mathbf{u}\mathbf{v}^T \mathbf{A}^{-1}}{1 + \mathbf{v}^T \mathbf{A}^{-1}\mathbf{u}}
+\]</span></p>
+<p>Here, <span class="math inline">\(\mathbf{A}\)</span> is an <span class="math inline">\(n \times n\)</span> invertible matrix, and <span class="math inline">\(\mathbf{u}\)</span> and $ $ are <span class="math inline">\(n \times 1\)</span> vectors. The denominator in the expression ensures that the resulting matrix is well-defined, and it has many applications in statistical computations, optimization, and other areas.</p>
+</div>
+<div id="rank-k-update" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Rank-<span class="math inline">\(k\)</span> Update<a href="linear-algebra-basics.html#rank-k-update" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <strong>Woodbury Matrix Identity</strong> is another powerful result used in statistical computations and relates to the inversion of a rank-k correction of a matrix:</p>
+<p><span class="math display">\[
+(\mathbf{A}+ \mathbf{U}\mathbf{C}\mathbf{V}^T)^{-1} = \mathbf{A}^{-1} - \mathbf{A}^{-1}\mathbf{U}(\mathbf{C}^{-1} + \mathbf{V}^T\mathbf{A}^{-1}\mathbf{U})^{-1}\mathbf{V}^T\mathbf{A}^{-1}
+\]</span></p>
+<p>This can be seen as an extension of the Sherman-Morrison formula and can be particularly useful when dealing with high-dimensional data or large-scale computations.</p>
+</div>
+<div id="times-2-block-matrix-inversion" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> 2 <span class="math inline">\(\times\)</span> 2 Block Matrix Inversion<a href="linear-algebra-basics.html#times-2-block-matrix-inversion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A general 2x2 block matrix can be represented as:</p>
+<p><span class="math display">\[
+\mathbf{M}= \begin{bmatrix} \mathbf{A}&amp; \mathbf{B}\\ \mathbf{C}&amp; \mathbf{D}\end{bmatrix}
+\]</span></p>
+<p>If the matrix is invertible, its inverse can be expressed as:</p>
+<p><span class="math display">\[
+\mathbf{M}^{-1} = \begin{bmatrix} \mathbf{A}^{-1} + \mathbf{A}^{-1}\mathbf{B}(\mathbf{D}- \mathbf{C}\mathbf{A}^{-1}\mathbf{B})^{-1}\mathbf{C}\mathbf{A}^{-1} &amp; -\mathbf{A}^{-1}\mathbf{B}(\mathbf{D}- \mathbf{C}\mathbf{A}^{-1}\mathbf{B})^{-1} \\ -(\mathbf{D}- \mathbf{C}\mathbf{A}^{-1}\mathbf{B})^{-1}\mathbf{C}\mathbf{A}^{-1} &amp; (\mathbf{D}- \mathbf{C}\mathbf{A}^{-1}\mathbf{B})^{-1} \end{bmatrix}
+\]</span></p>
+<p>This formula assumes that the required inverses exist.</p>
+</div>
+</div>
+<div id="matrix-norms" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Matrix norms<a href="linear-algebra-basics.html#matrix-norms" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Here are several commonly used Matrix norms</p>
+<ul>
+<li><strong>Frobenius Norm:</strong>
+<span class="math display">\[
+\| \mathbf{A}\|_F = \sqrt{\sum_{i=1}^{m}\sum_{j=1}^{n} |a_{ij}|^2}
+\]</span></li>
+<li><strong>1-Norm (Column Sum Norm):</strong>
+<span class="math display">\[
+\| \mathbf{A}\|_1 = \max_{1 \leq j \leq n} \sum_{i=1}^{m} |a_{ij}|
+\]</span></li>
+<li><strong>Infinity Norm (Row Sum Norm):</strong>
+<span class="math display">\[
+\| \mathbf{A}\|_\infty = \max_{1 \leq i \leq m} \sum_{j=1}^{n} |a_{ij}|
+\]</span></li>
+<li><strong>2-Norm (Spectral Norm):</strong>
+<span class="math display">\[
+\| \mathbf{A}\|_2 = \sigma_{\text{max}}(\mathbf{A}) = \sqrt{\lambda_{\text{max}}(\mathbf{A}^T \mathbf{A})}
+\]</span></li>
+<li><strong>p-Norm:</strong>
+<span class="math display">\[
+\| \mathbf{A}\|_p = \left( \sum_{i=1}^{\min(m,n)} \sigma_i^p \right)^{1/p}
+\]</span></li>
+<li><strong>Operator Norm:</strong>
+<span class="math display">\[
+\| \mathbf{A}\| = \max_{\mathbf{x}\neq \mathbf{0}} \frac{\| \mathbf{A}\mathbf{x}\|}{\| \mathbf{x}\|}
+\]</span></li>
+</ul>
+<p>And some of their relationships</p>
+<ul>
+<li><p>Relationship between 1-Norm, 2-Norm, and Infinity Norm
+<span class="math display">\[
+\| \mathbf{A}\|_2 \leq \| \mathbf{A}\|_1^{1/2} \| \mathbf{A}\|_\infty^{1/2}
+\]</span>
+<span class="math display">\[
+\| \mathbf{A}\|_\infty \leq \| \mathbf{A}\|_1
+\]</span><br />
+<span class="math display">\[
+\| \mathbf{A}\|_2 \leq \| \mathbf{A}\|_1 \leq \sqrt{n} \| \mathbf{A}\|_2
+\]</span></p></li>
+<li><p>Relationship between Frobenius Norm and 2-Norm
+<span class="math display">\[
+\| \mathbf{A}\|_2 \leq \| \mathbf{A}\|_F \leq \sqrt{\min\{m,n\}} \| \mathbf{A}\|_2
+\]</span></p></li>
+</ul>
 
 </div>
 </div>
