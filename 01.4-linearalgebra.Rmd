@@ -65,7 +65,7 @@ You should already be familiar with some basic linear algebra concepts such as m
 
 We usually use $\bX$ to denote an $n \times p$ dimensional design matrix, where $n$ is the number of observations and $p$ is the number of variables. The columns of $\bx$ are denoted as $\bx_1, \ldots, \bx_p$:
 
-$$
+\[
 \bX = \begin{pmatrix}
 x_{11} & x_{12} & \cdots & x_{1p}\\
 x_{21} & x_{22} & \cdots & x_{2p}\\
@@ -75,23 +75,27 @@ x_{m1} & x_{n2} & \cdots & x_{np}\\
 \begin{pmatrix}
 \bx_1 & \bx_2 & \cdots & \bx_p\\
 \end{pmatrix}
-$$
+\]
+
 The __column space__, $\cal{C}(\bX)$ of $\bX$ is the set of all linear combinations of $\bx_1, \bx_2, \ldots, \bx_p$, i.e., 
 
-$$c_1 \bx_1 + c_2 \bx_2 + \cdots c_p \bx_p.$$
+\[c_1 \bx_1 + c_2 \bx_2 + \cdots c_p \bx_p.\]
+
 This is also called the __span__ of these vectors, $\text{span}(\bx_1, \bx_2, \ldots, \bx_p)$. Its orthogonal space is 
 
-$$\{\bv: \bX^\T \bv = 0\}.$$
+\[\{\bv: \bX^\T \bv = 0\}.\]
 
 ## Linear Regression
 
 In many cases, we will be using linear regression as an example. This concerns regressing a vector of outcome $\by$ onto the column space of $\bX$. Or in other words, finding a set of coefficients $(c_1, \ldots, c_p)$ such that the Euclidean distance between $c_1 \bx_1 + c_2 \bx_2 + \cdots c_p \bx_p$ and $\by$ is minimized. One way to view this problem is to project the vector $\by$ onto this space $\cal{C}(\bX)$. This can be done through a linear operator, called the projection matrix $\bP$, defined as 
 
-$$ \bX (\bX^\T \bX)^{-1} \bX^\T, $$
+\[ \bX (\bX^\T \bX)^{-1} \bX^\T, \]
+
 provided that $\bX$ has full column rank. Hence, the projection can be obtained as 
 
-$$ \bP \by = \bX (\bX^\T \bX)^{-1} \bX^\T \by$$
-Notice that this is a linear combination of the columns of $\bX$ since $(\bX^\T \bX)^{-1} \bX^\T \by$ is a $p-$vector, which is the vector $(c_1, \ldots, c_p)^\T$. And if you are familiar with the solution from a linear regression, this is $(\bX^\T \bX)^{-1} \bX^\T \by$ is the solution, while $\bP \by$ is the fitted value. On the other hand, $\by - \bP \by$ is the residual vector. 
+\[ \bP \by = \bX (\bX^\T \bX)^{-1} \bX^\T \by/ \]
+
+Noticing that this is a linear combination of the columns of $\bX$ since $(\bX^\T \bX)^{-1} \bX^\T \by$ is a $p-$vector, which is the vector $(c_1, \ldots, c_p)^\T$. And if you are familiar with the solution from a linear regression, this is $(\bX^\T \bX)^{-1} \bX^\T \by$ is the solution, while $\bP \by$ is the fitted value. On the other hand, $\by - \bP \by$ is the residual vector. 
 
 There are some useful properties of a projection matrix $\bP$ 
 
@@ -181,7 +185,7 @@ And some of their relationships
     \]
     \[
     \| \bA \|_\infty \leq \| \bA \|_1
-    \]   
+    \]
     \[
     \| \bA \|_2 \leq \| \bA \|_1 \leq \sqrt{n} \| \bA \|_2
     \]

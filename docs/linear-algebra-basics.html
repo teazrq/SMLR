@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Linear Algebra Basics | Statistical Learning and Machine Learning with R</title>
   <meta name="description" content="A Textbook for Statistical Learning Courses at UIUC" />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Linear Algebra Basics | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2023-08-19" />
+<meta name="date" content="2023-09-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -135,6 +135,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -498,19 +502,19 @@ x_{m1} &amp; x_{n2} &amp; \cdots &amp; x_{np}\\
 \begin{pmatrix}
 \mathbf{x}_1 &amp; \mathbf{x}_2 &amp; \cdots &amp; \mathbf{x}_p\\
 \end{pmatrix}
-\]</span>
-The <strong>column space</strong>, <span class="math inline">\(\cal{C}(\mathbf{X})\)</span> of <span class="math inline">\(\mathbf{X}\)</span> is the set of all linear combinations of <span class="math inline">\(\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_p\)</span>, i.e.,</p>
-<p><span class="math display">\[c_1 \mathbf{x}_1 + c_2 \mathbf{x}_2 + \cdots c_p \mathbf{x}_p.\]</span>
-This is also called the <strong>span</strong> of these vectors, <span class="math inline">\(\text{span}(\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_p)\)</span>. Its orthogonal space is</p>
+\]</span></p>
+<p>The <strong>column space</strong>, <span class="math inline">\(\cal{C}(\mathbf{X})\)</span> of <span class="math inline">\(\mathbf{X}\)</span> is the set of all linear combinations of <span class="math inline">\(\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_p\)</span>, i.e.,</p>
+<p><span class="math display">\[c_1 \mathbf{x}_1 + c_2 \mathbf{x}_2 + \cdots c_p \mathbf{x}_p.\]</span></p>
+<p>This is also called the <strong>span</strong> of these vectors, <span class="math inline">\(\text{span}(\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_p)\)</span>. Its orthogonal space is</p>
 <p><span class="math display">\[\{\mathbf{v}: \mathbf{X}^\text{T}\mathbf{v}= 0\}.\]</span></p>
 </div>
 <div id="linear-regression" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Linear Regression<a href="linear-algebra-basics.html#linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In many cases, we will be using linear regression as an example. This concerns regressing a vector of outcome <span class="math inline">\(\mathbf{y}\)</span> onto the column space of <span class="math inline">\(\mathbf{X}\)</span>. Or in other words, finding a set of coefficients <span class="math inline">\((c_1, \ldots, c_p)\)</span> such that the Euclidean distance between <span class="math inline">\(c_1 \mathbf{x}_1 + c_2 \mathbf{x}_2 + \cdots c_p \mathbf{x}_p\)</span> and <span class="math inline">\(\mathbf{y}\)</span> is minimized. One way to view this problem is to project the vector <span class="math inline">\(\mathbf{y}\)</span> onto this space <span class="math inline">\(\cal{C}(\mathbf{X})\)</span>. This can be done through a linear operator, called the projection matrix <span class="math inline">\(\mathbf{P}\)</span>, defined as</p>
-<p><span class="math display">\[ \mathbf{X}(\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}^\text{T}, \]</span>
-provided that <span class="math inline">\(\mathbf{X}\)</span> has full column rank. Hence, the projection can be obtained as</p>
-<p><span class="math display">\[ \mathbf{P}\mathbf{y}= \mathbf{X}(\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}^\text{T}\mathbf{y}\]</span>
-Notice that this is a linear combination of the columns of <span class="math inline">\(\mathbf{X}\)</span> since <span class="math inline">\((\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}^\text{T}\mathbf{y}\)</span> is a <span class="math inline">\(p-\)</span>vector, which is the vector <span class="math inline">\((c_1, \ldots, c_p)^\text{T}\)</span>. And if you are familiar with the solution from a linear regression, this is <span class="math inline">\((\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}^\text{T}\mathbf{y}\)</span> is the solution, while <span class="math inline">\(\mathbf{P}\mathbf{y}\)</span> is the fitted value. On the other hand, <span class="math inline">\(\mathbf{y}- \mathbf{P}\mathbf{y}\)</span> is the residual vector.</p>
+<p><span class="math display">\[ \mathbf{X}(\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}^\text{T}, \]</span></p>
+<p>provided that <span class="math inline">\(\mathbf{X}\)</span> has full column rank. Hence, the projection can be obtained as</p>
+<p><span class="math display">\[ \mathbf{P}\mathbf{y}= \mathbf{X}(\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}^\text{T}\mathbf{y}/ \]</span></p>
+<p>Noticing that this is a linear combination of the columns of <span class="math inline">\(\mathbf{X}\)</span> since <span class="math inline">\((\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}^\text{T}\mathbf{y}\)</span> is a <span class="math inline">\(p-\)</span>vector, which is the vector <span class="math inline">\((c_1, \ldots, c_p)^\text{T}\)</span>. And if you are familiar with the solution from a linear regression, this is <span class="math inline">\((\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}^\text{T}\mathbf{y}\)</span> is the solution, while <span class="math inline">\(\mathbf{P}\mathbf{y}\)</span> is the fitted value. On the other hand, <span class="math inline">\(\mathbf{y}- \mathbf{P}\mathbf{y}\)</span> is the residual vector.</p>
 <p>There are some useful properties of a projection matrix <span class="math inline">\(\mathbf{P}\)</span></p>
 <ul>
 <li><strong>Idempotent:</strong> A projection matrix is idempotent, which means that multiplying it by itself leaves it unchanged:
@@ -591,7 +595,7 @@ Notice that this is a linear combination of the columns of <span class="math inl
 \]</span>
 <span class="math display">\[
 \| \mathbf{A}\|_\infty \leq \| \mathbf{A}\|_1
-\]</span><br />
+\]</span>
 <span class="math display">\[
 \| \mathbf{A}\|_2 \leq \| \mathbf{A}\|_1 \leq \sqrt{n} \| \mathbf{A}\|_2
 \]</span></p></li>

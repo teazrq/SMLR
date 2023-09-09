@@ -172,6 +172,55 @@ We can see from the left penal of the following figure that, the Lasso penalty i
 ![From online sources](images/lassoridge2.png){width=100%} Figure from online sources.
 </center>
 
+
+The equivalence of these two forms in a Ridge regression setting can be seen from the Lagrangian and the Karush-Kuhn-Tucker (KKT, [@boyd2004convex]) conditions. The constrained form can be written as:
+
+\[
+\begin{aligned}
+\min_{\bbeta} \quad & \frac{1}{2} \|\by - \bX\bbeta\|_2^2 \\
+\text{s.t.} \quad & \|\bbeta\|_2^2 \leq t
+\end{aligned}
+\]
+
+The Lagrangian for the constrained form is:
+
+\[
+\mathcal{L}(\bbeta, \alpha) = \frac{1}{2} \|\by - \bX\bbeta\|_2^2 + \alpha \left( \|\bbeta\|_2^2 - t \right)
+\]
+
+The KKT conditions are as follows:
+
+1. **Stationarity Conditions**:
+
+   \[
+   \nabla_\bbeta \mathcal{L} = -\bX^T(\by - \bX\bbeta) + \alpha \bbeta = 0
+   \]
+   
+   \[
+   \Rightarrow \bbeta^* = (\bX^T \bX + \alpha I)^{-1} \bX^T \by
+   \]
+   
+2. **Primal Feasibility**:
+
+   \[
+   \|\bbeta^*\|_2^2 \leq t
+   \]
+
+3. **Dual Feasibility**:
+
+   \[
+   \alpha \geq 0
+   \]
+
+4. **Complementary Slackness**:
+
+   \[
+   \alpha (\|\bbeta^*\|_2^2 - t) = 0
+   \]
+
+
+Noticing that from the penalized form, we know that the solution of a Ridge regression is $\beta = (\bX^T \bX + \lambda \bI)^{-1} \bX^T \by$. The penalized and constrained forms are equivalent in that for each value of \( \lambda \) in the penalized form, there exists a corresponding value of \( t \) in the constrained form, such that both yield the same optimal \( \bbeta \). The KKT conditions play a crucial role in establishing the equivalence. The **Primal Feasibility** condition ensures that the optimized \( \bbeta^* \) adheres to the constraint \( \|\bbeta^*\|_2^2 \leq t \), affirming the legitimacy of the solution within the defined problem space. On the other hand, the **Dual Feasibility** condition \( \alpha \geq 0 \) guarantees that the Lagrange multiplier is non-negative, which is a requisite for the constrained optimization problem to have a dual. Finally, the **Complementary Slackness** condition \( \alpha (\|\bbeta^*\|_2^2 - t) = 0 \) essentially ties the primal and dual problems together. It indicates that if the constraint \( \|\bbeta^*\|_2^2 \leq t \) is strictly met (not at the boundary), then \( \alpha \) must be zero; conversely, if \( \alpha > 0 \), then the constraint must be "binding," meaning \( \|\bbeta^*\|_2^2 = t \). These conditions collectively affirm the equivalence of the penalized and constrained forms by establishing a one-to-one correspondence between their solutions for given values of \( \lambda \) and \( t \).
+
 ## The Solution Path
 
 We are interested in getting the fitted model with a given $\lambda$ value, however, for selecting the tuning parameter, it would be much more stable to obtain the solution on a sequence of $\lambda$ values. The corresponding $\bbeta$ parameter estimates are called the solution path, i.e., the path how parameter changes as $\lambda$ changes. We have seen an example of this with the Ridge regression. For Lasso, the the solution path has an interpretation as the __forward-stagewise__ regression. This is different than the forward stepwise model we introduced before. A forward stagewise regression works in the following way:
@@ -260,6 +309,7 @@ Prediction can be done using the `predict()` function.
     # training error
     mean((pred - prostate$lpsa)^2)
 ```
+
 ## Elastic-Net
 
 Lasso may suffer in the case where two variables are strongly correlated. The situation is similar to OLS, however, in Lasso, it would only select one out of the two, instead of letting both parameter estimates to be large. This is not preferred in some practical situations such as genetic studies because expressions of genes from the same pathway may have large correlation, but biologist want to identify all of them instead of just one. The Ridge penalty may help in this case because it naturally considers the correlation structure. Hence the __Elastic-Net__ [@zou2005regularization] penalty has been proposed to address this issue: the data contains many correlated variables and we want to select them together if they are important for prediction. The `glmnet` package uses the following definition of an Elastic-Net penalty, which is a mixture of $\ell_1$ and $\ell_2$ penalties:
