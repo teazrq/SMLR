@@ -184,83 +184,165 @@ Random forests model provides a way to evaluate the importance of each variable.
   importance(rf.fit)
 ```
 
-## Kernel view of Random Forets
+## Kernel view of Random Forests
 
-```{r echo = FALSE}
-  # define a function to extract kernel
-  rf.kernel.weights <- function(rffit, x, testx)
-  {
-      if (ncol(x) != length(testx))
-          stop("dimention of x and test differ.")
-      
-      if (is.null(rffit$inbag))
-          stop("the random forest fitting must contain inbag information")
-      
-      register = matrix(NA, nrow(x), rffit$ntree)
-      
-      for (i in 1:nrow(x))
-          register[i, ] = attributes(predict(rffit, x[i,], node = TRUE))$nodes
-      
-      regi = attributes(predict(rffit, testx, node = TRUE))$nodes
-      
-      return(rowSums( sweep(register, 2, regi, FUN = "==")*rffit$inbag ))
-  }
+For this part, we need to install a new package `RLT`. This is a package in development. But you can install the current version from GitHub (ver $\geq$ 4.2.6). Please note that the current CRAN version (ver. 3.2.5) does not work for this part. Use the following code to install the package.
 
-  plotRFKernel <- function(rffit, x, onex)
+```{r eval = FALSE}
+  # install.packages("devtools")
+  devtools::install_github("teazrq/RLT")
+```
+
+If you are using MacOS, then you need to follow [this guild](https://teazrq.github.io/random-forests-tutorial/rlab/basics/packages.html) to install the package.
+
+## Kernel Function Induced from Random Forest
+
+Similar as a tree model, random forest can also be viewed as kernel estimator. Essentially its a stacking of kernels induced from all trees. The idea has been illustrated in @scornet2016random. However, since random forest is a random algorithm, each tree can be slightly different from each other. To incorporate this, denote the randomness of a tree estimator by \(\eta\), which can affect how the tree is constructed. Suppose we fit \(B\) trees in a random forest, with each tree denoted as \( {\cal T_b} \), then a random forest estimator can be expressed as 
+
+\[
+\hat{f}(x) = \frac{1}{B} \sum_{b = 1}^B \frac{\sum_i K_{\cal T_b}(x, x_i; \eta_b) y_i}{ \sum_i K_{\cal T_b}(x, x_i; \eta_b) }.
+\]
+
+Note that in this expression, the denominators in each tree estimator are different. However, by the design of the algorithm, each terminal nodes are roughly the same size. Hence, we could also consider an alternative kernel induced from random forest, which aligns with traditional kernel estimators.
+
+\[
+\hat{f}(x) = \frac{ \sum_i y_i \sum_{b = 1}^B K_{\cal T_b}(x, x_i) }{ \sum_i \sum_{b = 1}^B K_{\cal T_b}(x, x_i) }.
+\]
+
+In this case, the kernel function 
+
+\[
+K_\text{RF}(x, x_i) = \sum_{b = 1}^B K_{\cal T_b}(x, x_i),
+\]
+
+which counts how many times \(x\) falls into the same terminal node as observation \(x_i\). Hence, this kernel representation can be incorporated into many machine learning algorithms. For example, if we are interested in a supervised clustering setting, we can first fit a random forest model and perform spectral clustering using the induced kernel matrix. We can also use the kernel ridge regression with the kernel induced. Let’s generate a new dataset with 5 continuous variables. The true model depends on just the first two variables.
+
+```{r}
+  # generate data
+  n = 1000; p = 5
+  X = matrix(runif(n*p), n, p)
+  y = X[, 1] + X[, 2] + rnorm(n)
+```
+
+If we fit just one tree, there could be different variations based on the randomness.
+
+```{r fig.dim = c(12, 8), out.width='90%'}
+  library(RLT)
+  par(mfrow=c(2, 3))
+
+  for (i in 1:6)
   {
-      wt = rf.kernel.weights(rffit, x, onex)
-      wt = wt/max(wt)
+    
+    # fit a model with one tree
+    RLTfit <- RLT(X, y, ntrees = 1, nmin = 30, mtry = 5,
+                  split.gen = "best", resample.prob = 0.9,
+                  resample.replace = FALSE,
+                  param.control = list("resample.track" = TRUE))
+  
+    # target point 1
+    newX = matrix(c(0.25, 0.75, 0.5, 0.5, 0.5), 
+                  1, 5)
+    
+    KernelW = forest.kernel(RLTfit, X1 = newX, X2 = X, vs.train = TRUE)$Kernel
       
-      contour(seq(-1, 1, 0.01), seq(-1, 1, 0.01), pred, levels=0.5, labels="",axes=FALSE)
-      points(x1, x2, cex = 4*wt^(2/3), pch = 1, cex.axis=1.25, lwd = 2)
-      points(x1, x2, col = ifelse(y == 1, "deepskyblue", "darkorange"), pch = 19, cex = 0.75, yaxt="n", xaxt = "n")
-      points(xgrid, pch=".", cex=1.2, col=ifelse(pred, "deepskyblue", "darkorange"))
-      points(onex[1], onex[2], pch = 4, col = "red", cex =4, lwd = 6)        
-      box()
+    par(mar = c(2, 2, 2, 2))
+    plot(X[, 1], X[, 2], col = "deepskyblue", pch = 19, cex = 0.5)
+    points(X[, 1], X[, 2], col = "darkorange", pch = 19, cex = KernelW>0, lwd = 2)
+    points(newX[1], newX[2], col = "black", pch = 4, cex = 3, lwd = 5)  
   }
 ```
 
-I wrote a small function that will extract the kernel weights from a random forests for predicting a testing point $x$. This is essentially the counts for how many times a training data falls into the same terminal node as $x$. Since the prediction on $x$ are essentially the average of them in a weighted fashion, this is basically a kernel averaging approach. However, the kernel weights are adaptive to the true structure. 
+If we stack all of them, we obtain a random forest kernel.
 
-```{r fig.dim=c(12,6), out.width = '90%'}
-  # generate the 2 dimensional case
+```{r fig.dim = c(10, 5), out.width='90%'}
+  RLTfit <- RLT(X, y, ntrees = 500, nmin = 4, mtry = 5,
+                split.gen = "best", resample.prob = 0.8,
+                resample.replace = FALSE,
+                param.control = list("resample.track" = TRUE))
+
+  par(mfrow=c(1, 2))
+  
+  # target point 1
+  newX = matrix(c(0.25, 0.75, 0.5, 0.5, 0.5), 
+                1, 5)
+  
+  KernelW = forest.kernel(RLTfit, X1 = newX, X2 = X, vs.train = TRUE)$Kernel
+    
+  par(mar = c(2, 2, 2, 2))
+  plot(X[, 1], X[, 2], col = "deepskyblue", pch = 19, cex = 0.5)
+  points(X[, 1], X[, 2], col = "darkorange", cex = 10*sqrt(KernelW/sqrt(sum(KernelW^2))), lwd = 2)
+  points(newX[1], newX[2], col = "black", pch = 4, cex = 4, lwd = 5)  
+  legend("bottomright", "Target Point", pch = 4, col = "black", 
+         lwd = 5, lty = NA, cex = 1.5)
+  
+  
+  # target point 2 
+  newX = matrix(c(0.5, 0.3, 0.5, 0.5, 0.5), 
+                1, 5)
+  
+  KernelW = forest.kernel(RLTfit, X1 = newX, X2 = X, vs.train = TRUE)$Kernel
+  
+  par(mar = c(2, 2, 2, 2))
+  plot(X[, 1], X[, 2], col = "deepskyblue", pch = 19, cex = 0.5)
+  points(X[, 1], X[, 2], col = "darkorange", cex = 10*sqrt(KernelW/sqrt(sum(KernelW^2))), lwd = 2)
+  points(newX[1], newX[2], col = "black", pch = 4, cex = 4, lwd = 5)
+  legend("bottomright", "Target Point", pch = 4, col = "black", 
+         lwd = 5, lty = NA, cex = 1.5)
+```
+
+## Adaptiveness of Random Forest Kernel
+
+However, random forest can adapt pretty well in a high-dimensional, especially sparse setting. This is because of the greedy splitting rule selection. The adaptiveness works in a way that, it tends to ignore covariates that are not effective on explaining the variation of \(Y\). Hence, making the model similar to a kernel method on a low-dimensional space. The following example illustrate this effect in a two-dimensional case. We can see that the outcome is only related to the first dimension. Hence, when setting `mtry = 2`, we will almost always prefer to split on the first variable, making its neighbors very close to the target prediction point \( (0, 0)^T\). 
+
+```{r echo = FALSE} 
+    par(mfrow=c(1, 1), mar=c(0.5, 0.5, 2, 0.5))
+```
+
+```{r class.source = "samplecode"}
+  # generate some data 
   set.seed(2)
-  n = 1000
+  n = 400
   x1 = runif(n, -1, 1)
   x2 = runif(n, -1, 1)
-  y = rbinom(n, size = 1, prob = ifelse((x1 + x2 > -0.5) & (x1 + x2 < 0.5) , 0.8, 0.2))
+  y = 2*x1 + 0.2*rnorm(n)
   xgrid = expand.grid(x1 = seq(-1, 1, 0.01), x2 = seq(-1, 1, 0.01))
   
-  # fit a random forest model
-  rf.fit = randomForest(cbind(x1, x2), as.factor(y), ntree = 300, 
-                        mtry = 1, nodesize = 20, keep.inbag = TRUE)
-  pred = matrix(predict(rf.fit, xgrid) == 1, 201, 201)
+  # fit forest
+  rf.fit = RLT(x = data.frame(x1, x2), y = y, model = "regression",
+               mtry = 2, nmin = 40, param.control = list(resample.track = TRUE))
   
-  par(mfrow=c(1,2), mar=c(0.5, 0.5, 2, 0.5))
-
-  # check the kernel weight at different points
-  plotRFKernel(rf.fit, data.frame(cbind(x1, x2)), c(-0.1, 0.4))
-  plotRFKernel(rf.fit, data.frame(cbind(x1, x2)), c(0, 0.6))
+  # calculate kernel
+  rf.kernel = forest.kernel(rf.fit, X1 = data.frame("x1" = 0, "x2" = 0), 
+                            X2 = data.frame(x1, x2), vs.train = TRUE)$Kernel
+  
+  # kernel weights
+  plot(x1, x2, pch = 19, yaxt="n", xaxt = "n", cex = (rf.kernel + 1)^0.15 - 0.7)
+  points(0, 0, col = "red", pch = 18, cex = 3)
 ```
 
-As contrast, here is the regular Gaussian kernel weights (after some tuning). This effect will play an important role when $p$ is large. 
+The tuning parameter `mtry` has a very strong effect on controlling this greediness. When `mtry` is large, we will be very greedy on selecting the true signal variable to split. In a high-dimensional setting, we may only use a few variables before reaching a terminal node, making the model only rely a few dimensions. When we use a very small `mtry`, the model behaves similarly to a regular kernel estimator with good smoothing (small variance) property. However, since it is effectively randomly selecting a dimension to split, the bandwidth on each dimension would also be similar but large since we can only afford a few splits before the node size becomes too small. This can be seen from the following example, with `mtry = 1`.
 
-```{r echo = FALSE}
-  par(mfrow=c(1,1))
+```{r echo = FALSE} 
+    par(mfrow=c(1, 1), mar=c(0.5, 0.5, 2, 0.5))
 ```
 
-```{r fig.dim=c(6, 6), out.width = '45%'}
-  # Gaussian kernel weights
-  onex = c(-0.1, 0.4)
-  h = 0.2
-  wt = exp(-0.5*rowSums(sweep(cbind(x1, x2), 2, onex, FUN = "-")^2)/h^2)
-  contour(seq(-1, 1, 0.01), seq(-1, 1, 0.01), pred, 
-          levels=0.5, labels="",axes=FALSE)
-  points(x1, x2, cex = 4*wt^(2/3), pch = 1, cex.axis=1.25, lwd = 2)
-  points(x1, x2, col = ifelse(y == 1, "deepskyblue", "darkorange"), 
-         pch = 19, cex = 0.75, yaxt="n", xaxt = "n")
-  points(xgrid, pch=".", cex=1.2, 
-         col=ifelse(pred, "deepskyblue", "darkorange"))
-  points(onex[1], onex[2], pch = 4, col = "red", cex =4, lwd = 6)
-  box()
+```{r class.source = "samplecode"}
+  # fit forest
+  rf.fit = RLT(x = data.frame(x1, x2), y = y, model = "regression",
+               mtry = 1, nmin = 40, param.control = list(resample.track = TRUE))
+  
+  # calculate kernel
+  rf.kernel = forest.kernel(rf.fit, X1 = data.frame("x1" = 0, "x2" = 0), 
+                            X2 = data.frame(x1, x2), vs.train = TRUE)$Kernel
+  
+  # kernel weights
+  plot(x1, x2, pch = 19, yaxt="n", xaxt = "n", cex = (rf.kernel + 1)^0.15 - 0.7)
+  points(0, 0, col = "red", pch = 18, cex = 3)
 ```
+
+
+
+
+
+
+

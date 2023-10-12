@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 25 Uniform Manifold Approximation and Projection | Statistical Learning and Machine Learning with R</title>
+  <title>Chapter 22 Principal Component Analysis | Statistical Learning and Machine Learning with R</title>
   <meta name="description" content="A Textbook for Statistical Learning Courses at UIUC" />
   <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 25 Uniform Manifold Approximation and Projection | Statistical Learning and Machine Learning with R" />
+  <meta property="og:title" content="Chapter 22 Principal Component Analysis | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A Textbook for Statistical Learning Courses at UIUC" />
   <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 25 Uniform Manifold Approximation and Projection | Statistical Learning and Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 22 Principal Component Analysis | Statistical Learning and Machine Learning with R" />
   
   <meta name="twitter:description" content="A Textbook for Statistical Learning Courses at UIUC" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="spectral-clustering.html"/>
-<link rel="next" href="reference.html"/>
+<link rel="prev" href="hierarchical-clustering.html"/>
+<link rel="next" href="self-organizing-map.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -488,105 +488,184 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="uniform-manifold-approximation-and-projection" class="section level1 hasAnchor" number="25">
-<h1><span class="header-section-number">Chapter 25</span> Uniform Manifold Approximation and Projection<a href="uniform-manifold-approximation-and-projection.html#uniform-manifold-approximation-and-projection" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Uniform Manifold Approximation and Projection (UMAP, <span class="citation">McInnes, Healy, and Melville (<a href="#ref-mcinnes2018umap">2018</a>)</span>) becomes a very popular feature embedding / dimension reduction algorithm. If you have finished the spectral clustering section, then these concepts shouldn’t be new. In fact, PCA is also a similar approach, but its just linear in terms of the original features.</p>
-<p>There are two methods that are worth to mention here, t-SNE <span class="citation">(<a href="#ref-van2008visualizing">Van der Maaten and Hinton 2008</a>)</span> and spectral embedding (the embedding step in spectral clustering). All of these methods are graph-based, meaning that they are trying to learn an embedding space such that the pair-wise geometric distances among subjects in this embedding space is “similar” to the graph defined in the original data. Here, an example of the graph is the k-nearest neighbor graph (for spectral clustering), which counts 1 if two subjects are within each others neighbors. But for t-SNE, the graph values are proportional to the kernel density function between two points with a t-distribution density function.</p>
-<p>The difference among these method is mainly on how do they define “similar”. In UMAP, this similarity is defined by a type of cross-entropy, while for spectral clustering, its the eigen-values, meaning the matrix approximation, and for t-SNE, its based on the Kullback-Leibler divergence.</p>
-<div id="an-example-1" class="section level2 hasAnchor" number="25.1">
-<h2><span class="header-section-number">25.1</span> An Example<a href="uniform-manifold-approximation-and-projection.html#an-example-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Let’s consider our example from the spectral clustering lecture.</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="uniform-manifold-approximation-and-projection.html#cb226-1" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb226-2"><a href="uniform-manifold-approximation-and-projection.html#cb226-2" tabindex="-1"></a></span>
-<span id="cb226-3"><a href="uniform-manifold-approximation-and-projection.html#cb226-3" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">200</span></span>
-<span id="cb226-4"><a href="uniform-manifold-approximation-and-projection.html#cb226-4" tabindex="-1"></a>  </span>
-<span id="cb226-5"><a href="uniform-manifold-approximation-and-projection.html#cb226-5" tabindex="-1"></a>  r <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, n), <span class="fu">rep</span>(<span class="dv">2</span>, n), <span class="fu">rep</span>(<span class="dv">3</span>, n)) <span class="sc">+</span> <span class="fu">runif</span>(n<span class="sc">*</span><span class="dv">3</span>, <span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>)</span>
-<span id="cb226-6"><a href="uniform-manifold-approximation-and-projection.html#cb226-6" tabindex="-1"></a>  theta <span class="ot">=</span> <span class="fu">runif</span>(n) <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> pi</span>
-<span id="cb226-7"><a href="uniform-manifold-approximation-and-projection.html#cb226-7" tabindex="-1"></a></span>
-<span id="cb226-8"><a href="uniform-manifold-approximation-and-projection.html#cb226-8" tabindex="-1"></a>  x1 <span class="ot">=</span> r <span class="sc">*</span> <span class="fu">cos</span>(theta)</span>
-<span id="cb226-9"><a href="uniform-manifold-approximation-and-projection.html#cb226-9" tabindex="-1"></a>  x2 <span class="ot">=</span> r <span class="sc">*</span> <span class="fu">sin</span>(theta)</span>
-<span id="cb226-10"><a href="uniform-manifold-approximation-and-projection.html#cb226-10" tabindex="-1"></a>  X <span class="ot">=</span> <span class="fu">cbind</span>(x1, x2)</span>
-<span id="cb226-11"><a href="uniform-manifold-approximation-and-projection.html#cb226-11" tabindex="-1"></a>  </span>
-<span id="cb226-12"><a href="uniform-manifold-approximation-and-projection.html#cb226-12" tabindex="-1"></a>  <span class="fu">plot</span>(X)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-326-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="uniform-manifold-approximation-and-projection.html#cb227-1" tabindex="-1"></a>  circle.labels <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, n), <span class="fu">rep</span>(<span class="dv">2</span>, n), <span class="fu">rep</span>(<span class="dv">3</span>, n))</span></code></pre></div>
-<p>We can perform UMAP using the default tuning. This will create a two-dimensional embedding.</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="uniform-manifold-approximation-and-projection.html#cb228-1" tabindex="-1"></a>  <span class="fu">library</span>(umap)</span>
-<span id="cb228-2"><a href="uniform-manifold-approximation-and-projection.html#cb228-2" tabindex="-1"></a>  circles.umap <span class="ot">=</span> <span class="fu">umap</span>(X)</span>
-<span id="cb228-3"><a href="uniform-manifold-approximation-and-projection.html#cb228-3" tabindex="-1"></a>  circles.umap</span>
-<span id="cb228-4"><a href="uniform-manifold-approximation-and-projection.html#cb228-4" tabindex="-1"></a><span class="do">## umap embedding of 600 items in 2 dimensions</span></span>
-<span id="cb228-5"><a href="uniform-manifold-approximation-and-projection.html#cb228-5" tabindex="-1"></a><span class="do">## object components: layout, data, knn, config</span></span>
-<span id="cb228-6"><a href="uniform-manifold-approximation-and-projection.html#cb228-6" tabindex="-1"></a>  </span>
-<span id="cb228-7"><a href="uniform-manifold-approximation-and-projection.html#cb228-7" tabindex="-1"></a>  <span class="fu">plot</span>(circles.umap<span class="sc">$</span>layout, <span class="at">col =</span> circle.labels)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-327-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<p>We can see that UMAP learns these new features, which groups similar observations together. Its reasonable to expect that if we perform any clustering algorithm on these new embedded features, we will recover the truth.</p>
+<div id="principal-component-analysis" class="section level1 hasAnchor" number="22">
+<h1><span class="header-section-number">Chapter 22</span> Principal Component Analysis<a href="principal-component-analysis.html#principal-component-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="basic-concepts-2" class="section level2 hasAnchor" number="22.1">
+<h2><span class="header-section-number">22.1</span> Basic Concepts<a href="principal-component-analysis.html#basic-concepts-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Principal Component Analysis (PCA) is arguably the most commonly used approach for dimension reduction and visualization. The idea is to capture major signals of variation in a dataset. A nice demonstration of the search of direction is provided at this <a href="https://www.r-bloggers.com/principal-component-analysis-in-r/">r-bloggers</a> site:</p>
+<center>
+<img src="images/PCA2.gif" />
+</center>
+<p>Let’s look at a two-dimensional case, we are trying to find a line (direction) on this plain, such that if all points are projected onto this line, their coordinates have the largest variance, compared with any other line. The following code is used to generate a set of observations.</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="principal-component-analysis.html#cb194-1" tabindex="-1"></a>  <span class="co"># generate some random data from a 2-dimensional normal distribution. </span></span>
+<span id="cb194-2"><a href="principal-component-analysis.html#cb194-2" tabindex="-1"></a>  <span class="fu">library</span>(MASS)</span>
+<span id="cb194-3"><a href="principal-component-analysis.html#cb194-3" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb194-4"><a href="principal-component-analysis.html#cb194-4" tabindex="-1"></a>  </span>
+<span id="cb194-5"><a href="principal-component-analysis.html#cb194-5" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">100</span></span>
+<span id="cb194-6"><a href="principal-component-analysis.html#cb194-6" tabindex="-1"></a>  Sigma <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.5</span>, <span class="sc">-</span><span class="fl">0.65</span>, <span class="sc">-</span><span class="fl">0.65</span>, <span class="dv">1</span>), <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb194-7"><a href="principal-component-analysis.html#cb194-7" tabindex="-1"></a>  x_org <span class="ot">=</span> <span class="fu">mvrnorm</span>(n, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), Sigma)</span>
+<span id="cb194-8"><a href="principal-component-analysis.html#cb194-8" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">scale</span>(x_org, <span class="at">scale =</span> <span class="cn">FALSE</span>, <span class="at">center =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="principal-component-analysis.html#cb195-1" tabindex="-1"></a>  <span class="fu">plot</span>(x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">ylim=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), </span>
+<span id="cb195-2"><a href="principal-component-analysis.html#cb195-2" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.75</span>)</span>
+<span id="cb195-3"><a href="principal-component-analysis.html#cb195-3" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb195-4"><a href="principal-component-analysis.html#cb195-4" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-292-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<p>Let’ start with finding a direction to project all the observations onto. And we want this projection to have the largest variation. Of course the direction that goes along the spread of the data would be the best choice for the purpose of large variance.</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="principal-component-analysis.html#cb196-1" tabindex="-1"></a>  <span class="fu">plot</span>(x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">ylim=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.75</span>)</span>
+<span id="cb196-2"><a href="principal-component-analysis.html#cb196-2" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb196-3"><a href="principal-component-analysis.html#cb196-3" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb196-4"><a href="principal-component-analysis.html#cb196-4" tabindex="-1"></a></span>
+<span id="cb196-5"><a href="principal-component-analysis.html#cb196-5" tabindex="-1"></a>  <span class="co"># This line is obtained from performing PCA</span></span>
+<span id="cb196-6"><a href="principal-component-analysis.html#cb196-6" tabindex="-1"></a>  pc1 <span class="ot">=</span> <span class="fu">princomp</span>(x)<span class="sc">$</span>loadings[,<span class="dv">1</span>]</span>
+<span id="cb196-7"><a href="principal-component-analysis.html#cb196-7" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> pc1[<span class="dv">2</span>]<span class="sc">/</span>pc1[<span class="dv">1</span>], <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-293-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="principal-component-analysis.html#cb197-1" tabindex="-1"></a>  </span>
+<span id="cb197-2"><a href="principal-component-analysis.html#cb197-2" tabindex="-1"></a>  <span class="co"># The direction </span></span>
+<span id="cb197-3"><a href="principal-component-analysis.html#cb197-3" tabindex="-1"></a>  pc1</span>
+<span id="cb197-4"><a href="principal-component-analysis.html#cb197-4" tabindex="-1"></a><span class="do">## [1]  0.5659608 -0.8244322</span></span></code></pre></div>
+<p>Once we have the first direction, we can also remove the projection from the original covariates, and search for a direction <span class="math inline">\(\mathbf{v}_2\)</span> that is orthogonal to <span class="math inline">\(\mathbf{v}_1\)</span>, with <span class="math inline">\(\mathbf{v}_1^\text{T}\mathbf{v}_2 = 0\)</span>, such that it contains large variation of <span class="math inline">\(\mathbf{X}\)</span>.</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="principal-component-analysis.html#cb198-1" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>))</span>
+<span id="cb198-2"><a href="principal-component-analysis.html#cb198-2" tabindex="-1"></a>  <span class="fu">plot</span>(x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>), <span class="at">ylim=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb198-3"><a href="principal-component-analysis.html#cb198-3" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb198-4"><a href="principal-component-analysis.html#cb198-4" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb198-5"><a href="principal-component-analysis.html#cb198-5" tabindex="-1"></a></span>
+<span id="cb198-6"><a href="principal-component-analysis.html#cb198-6" tabindex="-1"></a>  <span class="co"># largest PC </span></span>
+<span id="cb198-7"><a href="principal-component-analysis.html#cb198-7" tabindex="-1"></a>  pc1 <span class="ot">=</span> <span class="fu">princomp</span>(x)<span class="sc">$</span>loadings[,<span class="dv">1</span>]</span>
+<span id="cb198-8"><a href="principal-component-analysis.html#cb198-8" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> pc1[<span class="dv">2</span>]<span class="sc">/</span>pc1[<span class="dv">1</span>], <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span>
+<span id="cb198-9"><a href="principal-component-analysis.html#cb198-9" tabindex="-1"></a></span>
+<span id="cb198-10"><a href="principal-component-analysis.html#cb198-10" tabindex="-1"></a>  <span class="co"># second largest PC</span></span>
+<span id="cb198-11"><a href="principal-component-analysis.html#cb198-11" tabindex="-1"></a>  pc2 <span class="ot">=</span> <span class="fu">princomp</span>(x)<span class="sc">$</span>loadings[,<span class="dv">2</span>]</span>
+<span id="cb198-12"><a href="principal-component-analysis.html#cb198-12" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> pc2[<span class="dv">2</span>]<span class="sc">/</span>pc2[<span class="dv">1</span>], <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-294-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="principal-component-analysis.html#cb199-1" tabindex="-1"></a>  </span>
+<span id="cb199-2"><a href="principal-component-analysis.html#cb199-2" tabindex="-1"></a>  pc2</span>
+<span id="cb199-3"><a href="principal-component-analysis.html#cb199-3" tabindex="-1"></a><span class="do">## [1] 0.8244322 0.5659608</span></span>
+<span id="cb199-4"><a href="principal-component-analysis.html#cb199-4" tabindex="-1"></a>  <span class="fu">t</span>(pc1) <span class="sc">%*%</span> pc2</span>
+<span id="cb199-5"><a href="principal-component-analysis.html#cb199-5" tabindex="-1"></a><span class="do">##      [,1]</span></span>
+<span id="cb199-6"><a href="principal-component-analysis.html#cb199-6" tabindex="-1"></a><span class="do">## [1,]    0</span></span></code></pre></div>
+<p>We can also see how much variation these two directions accounts for in the original data. The following shows the corresponding standard deviation.</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="principal-component-analysis.html#cb200-1" tabindex="-1"></a>  <span class="fu">princomp</span>(x)<span class="sc">$</span>sdev</span>
+<span id="cb200-2"><a href="principal-component-analysis.html#cb200-2" tabindex="-1"></a><span class="do">##    Comp.1    Comp.2 </span></span>
+<span id="cb200-3"><a href="principal-component-analysis.html#cb200-3" tabindex="-1"></a><span class="do">## 1.0748243 0.2206133</span></span></code></pre></div>
+<p>Formally, we can generalized this to <span class="math inline">\(\mathbf{X}\)</span> with any dimensions. And the key tool is to perform the singular value decomposition (SVD):</p>
+<p><span class="math display">\[\mathbf{X}= \mathbf{U}\mathbf{D}\mathbf{V}^\text{T}\]</span>
+The <span class="math inline">\(\mathbf{V}\)</span> matrix here corresponds to the directions we found. Hence, <span class="math inline">\(\mathbf{v}_1\)</span> is its first column, <span class="math inline">\(\mathbf{v}_1\)</span> is its second column, etc.. <span class="math inline">\(\mathbf{D}\)</span> is a diagonal matrix ordered from the largest to the smallest values, correspond to the standard deviation of the spreads. And <span class="math inline">\(\mathbf{U}\)</span> represents the coordinates once we project <span class="math inline">\(\mathbf{X}\)</span> onto those directions. An alternative way to understand this is by matrix approximation, if we want to find a rank-1 matrix that best approximate <span class="math inline">\(\mathbf{X}\)</span> with the Frobenius norm, we optimize</p>
+<p><span class="math display">\[\text{minimize} \quad \lVert \mathbf{X}- \mathbf{u}_1 d_1 \mathbf{v}_1^\text{T}\rVert_2^2\]</span></p>
+<p>This can be generalized into any dimensional problem. Another alternative formulation is to use eigen-decomposition of <span class="math inline">\(\mathbf{X}^\text{T}\mathbf{X}\)</span>, which can be written as</p>
+<p><span class="math display">\[\mathbf{X}^\text{T}\mathbf{X}= \mathbf{V}\mathbf{D}\mathbf{U}^\text{T}\mathbf{U}\mathbf{D}\mathbf{V}^\text{T}= \mathbf{V}\mathbf{D}^2 \mathbf{V}^\text{T}\]</span></p>
+<p>But one thing we usually need to take care of is the centering issue. This is why we used <code>scale()</code> function at the beginning. However, we only center, but not scale the data. If we do not center, then the first principal component (PC) could be a direction that points to the center of the data. Note that when <span class="math inline">\(\mathbf{X}\)</span> is already centered, <span class="math inline">\(\mathbf{X}^\text{T}\mathbf{X}\)</span> is the covariance matrix. Hence PCA is also performing eigen-decomposition to the covariance matrix.</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="principal-component-analysis.html#cb201-1" tabindex="-1"></a>    <span class="fu">plot</span>(x_org, <span class="at">main =</span> <span class="st">&quot;Before Centering&quot;</span>, </span>
+<span id="cb201-2"><a href="principal-component-analysis.html#cb201-2" tabindex="-1"></a>         <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">ylim=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb201-3"><a href="principal-component-analysis.html#cb201-3" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb201-4"><a href="principal-component-analysis.html#cb201-4" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb201-5"><a href="principal-component-analysis.html#cb201-5" tabindex="-1"></a>    </span>
+<span id="cb201-6"><a href="principal-component-analysis.html#cb201-6" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="fl">0.3</span>))</span>
+<span id="cb201-7"><a href="principal-component-analysis.html#cb201-7" tabindex="-1"></a>    <span class="fu">plot</span>(x, <span class="at">main =</span> <span class="st">&quot;After Centering&quot;</span>, </span>
+<span id="cb201-8"><a href="principal-component-analysis.html#cb201-8" tabindex="-1"></a>         <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">ylim=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb201-9"><a href="principal-component-analysis.html#cb201-9" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb201-10"><a href="principal-component-analysis.html#cb201-10" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)    </span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-297-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Finally, for any dimensional data <span class="math inline">\(\mathbf{X}\)</span>, we usually visualize them in the first two directions, or three. Note that the coordinates on the PC’s can be obtained using either the <code>scores</code> (<span class="math inline">\(\mathbf{U}\)</span>) in the fitted object of <code>princomp</code>, or simply multiply the original data matrix by the loading matrix <span class="math inline">\(\mathbf{V}\)</span>.</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="principal-component-analysis.html#cb202-1" tabindex="-1"></a>    pcafit <span class="ot">&lt;-</span> <span class="fu">princomp</span>(x)</span>
+<span id="cb202-2"><a href="principal-component-analysis.html#cb202-2" tabindex="-1"></a></span>
+<span id="cb202-3"><a href="principal-component-analysis.html#cb202-3" tabindex="-1"></a>    <span class="co"># the new coordinates on PC&#39;s</span></span>
+<span id="cb202-4"><a href="principal-component-analysis.html#cb202-4" tabindex="-1"></a>    <span class="fu">head</span>(pcafit<span class="sc">$</span>scores)</span>
+<span id="cb202-5"><a href="principal-component-analysis.html#cb202-5" tabindex="-1"></a><span class="do">##           Comp.1      Comp.2</span></span>
+<span id="cb202-6"><a href="principal-component-analysis.html#cb202-6" tabindex="-1"></a><span class="do">## [1,]  0.88434533  0.13503607</span></span>
+<span id="cb202-7"><a href="principal-component-analysis.html#cb202-7" tabindex="-1"></a><span class="do">## [2,] -0.08990294 -0.01851954</span></span>
+<span id="cb202-8"><a href="principal-component-analysis.html#cb202-8" tabindex="-1"></a><span class="do">## [3,]  1.13589963  0.20234582</span></span>
+<span id="cb202-9"><a href="principal-component-analysis.html#cb202-9" tabindex="-1"></a><span class="do">## [4,] -1.78763374 -0.04571218</span></span>
+<span id="cb202-10"><a href="principal-component-analysis.html#cb202-10" tabindex="-1"></a><span class="do">## [5,] -0.26536435  0.14271170</span></span>
+<span id="cb202-11"><a href="principal-component-analysis.html#cb202-11" tabindex="-1"></a><span class="do">## [6,]  1.11779894 -0.41759594</span></span>
+<span id="cb202-12"><a href="principal-component-analysis.html#cb202-12" tabindex="-1"></a>    </span>
+<span id="cb202-13"><a href="principal-component-analysis.html#cb202-13" tabindex="-1"></a>    <span class="co"># direct calculation based on projection </span></span>
+<span id="cb202-14"><a href="principal-component-analysis.html#cb202-14" tabindex="-1"></a>    <span class="fu">head</span>(x <span class="sc">%*%</span> pcafit<span class="sc">$</span>loadings)</span>
+<span id="cb202-15"><a href="principal-component-analysis.html#cb202-15" tabindex="-1"></a><span class="do">##           Comp.1      Comp.2</span></span>
+<span id="cb202-16"><a href="principal-component-analysis.html#cb202-16" tabindex="-1"></a><span class="do">## [1,]  0.88434533  0.13503607</span></span>
+<span id="cb202-17"><a href="principal-component-analysis.html#cb202-17" tabindex="-1"></a><span class="do">## [2,] -0.08990294 -0.01851954</span></span>
+<span id="cb202-18"><a href="principal-component-analysis.html#cb202-18" tabindex="-1"></a><span class="do">## [3,]  1.13589963  0.20234582</span></span>
+<span id="cb202-19"><a href="principal-component-analysis.html#cb202-19" tabindex="-1"></a><span class="do">## [4,] -1.78763374 -0.04571218</span></span>
+<span id="cb202-20"><a href="principal-component-analysis.html#cb202-20" tabindex="-1"></a><span class="do">## [5,] -0.26536435  0.14271170</span></span>
+<span id="cb202-21"><a href="principal-component-analysis.html#cb202-21" tabindex="-1"></a><span class="do">## [6,]  1.11779894 -0.41759594</span></span>
+<span id="cb202-22"><a href="principal-component-analysis.html#cb202-22" tabindex="-1"></a></span>
+<span id="cb202-23"><a href="principal-component-analysis.html#cb202-23" tabindex="-1"></a>    <span class="co"># visualize the data on the PCs</span></span>
+<span id="cb202-24"><a href="principal-component-analysis.html#cb202-24" tabindex="-1"></a>    <span class="co"># Note that the both axies are scaled </span></span>
+<span id="cb202-25"><a href="principal-component-analysis.html#cb202-25" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>, <span class="fl">4.2</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>))</span>
+<span id="cb202-26"><a href="principal-component-analysis.html#cb202-26" tabindex="-1"></a>    <span class="fu">plot</span>(pcafit<span class="sc">$</span>scores[,<span class="dv">1</span>], pcafit<span class="sc">$</span>scores[,<span class="dv">2</span>], <span class="at">xlab =</span> <span class="st">&quot;First PC&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Second PC&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex.lab =</span> <span class="fl">1.5</span>)</span>
+<span id="cb202-27"><a href="principal-component-analysis.html#cb202-27" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span>
+<span id="cb202-28"><a href="principal-component-analysis.html#cb202-28" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-299-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<p>There are many different functions in <code>R</code> that performs PCA. <code>princomp</code> and <code>prcomp</code> are the most popular ones.</p>
+<div id="note-scaling" class="section level3 hasAnchor" number="22.1.1">
+<h3><span class="header-section-number">22.1.1</span> Note: Scaling<a href="principal-component-analysis.html#note-scaling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You should always center the variables when performing PCA, however, whether to use scaling (force each variable to have a standard deviation of 1) depends on the particular application. When you have variables that are extremely disproportionate, e.g., age vs. RNA expression, scaling should be used. This is to prevent some variables from dominating the PC loadings due to their large scales. When all the variables are of the similar type, e.g., color intensities of pixels in a figure, it is better to use the original scale. This is because the variables with larger variations may carry more signal. Scaling may lose that information.</p>
 </div>
-<div id="tuning" class="section level2 hasAnchor" number="25.2">
-<h2><span class="header-section-number">25.2</span> Tuning<a href="uniform-manifold-approximation-and-projection.html#tuning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>UMAP involves a lot of tuning parameters and the most significant one concerns about how we create the (KNN) graph in the first step. You can see the summary of all tuning parameters:</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="uniform-manifold-approximation-and-projection.html#cb229-1" tabindex="-1"></a>  umap.defaults</span>
-<span id="cb229-2"><a href="uniform-manifold-approximation-and-projection.html#cb229-2" tabindex="-1"></a><span class="do">## umap configuration parameters</span></span>
-<span id="cb229-3"><a href="uniform-manifold-approximation-and-projection.html#cb229-3" tabindex="-1"></a><span class="do">##            n_neighbors: 15</span></span>
-<span id="cb229-4"><a href="uniform-manifold-approximation-and-projection.html#cb229-4" tabindex="-1"></a><span class="do">##           n_components: 2</span></span>
-<span id="cb229-5"><a href="uniform-manifold-approximation-and-projection.html#cb229-5" tabindex="-1"></a><span class="do">##                 metric: euclidean</span></span>
-<span id="cb229-6"><a href="uniform-manifold-approximation-and-projection.html#cb229-6" tabindex="-1"></a><span class="do">##               n_epochs: 200</span></span>
-<span id="cb229-7"><a href="uniform-manifold-approximation-and-projection.html#cb229-7" tabindex="-1"></a><span class="do">##                  input: data</span></span>
-<span id="cb229-8"><a href="uniform-manifold-approximation-and-projection.html#cb229-8" tabindex="-1"></a><span class="do">##                   init: spectral</span></span>
-<span id="cb229-9"><a href="uniform-manifold-approximation-and-projection.html#cb229-9" tabindex="-1"></a><span class="do">##               min_dist: 0.1</span></span>
-<span id="cb229-10"><a href="uniform-manifold-approximation-and-projection.html#cb229-10" tabindex="-1"></a><span class="do">##       set_op_mix_ratio: 1</span></span>
-<span id="cb229-11"><a href="uniform-manifold-approximation-and-projection.html#cb229-11" tabindex="-1"></a><span class="do">##     local_connectivity: 1</span></span>
-<span id="cb229-12"><a href="uniform-manifold-approximation-and-projection.html#cb229-12" tabindex="-1"></a><span class="do">##              bandwidth: 1</span></span>
-<span id="cb229-13"><a href="uniform-manifold-approximation-and-projection.html#cb229-13" tabindex="-1"></a><span class="do">##                  alpha: 1</span></span>
-<span id="cb229-14"><a href="uniform-manifold-approximation-and-projection.html#cb229-14" tabindex="-1"></a><span class="do">##                  gamma: 1</span></span>
-<span id="cb229-15"><a href="uniform-manifold-approximation-and-projection.html#cb229-15" tabindex="-1"></a><span class="do">##   negative_sample_rate: 5</span></span>
-<span id="cb229-16"><a href="uniform-manifold-approximation-and-projection.html#cb229-16" tabindex="-1"></a><span class="do">##                      a: NA</span></span>
-<span id="cb229-17"><a href="uniform-manifold-approximation-and-projection.html#cb229-17" tabindex="-1"></a><span class="do">##                      b: NA</span></span>
-<span id="cb229-18"><a href="uniform-manifold-approximation-and-projection.html#cb229-18" tabindex="-1"></a><span class="do">##                 spread: 1</span></span>
-<span id="cb229-19"><a href="uniform-manifold-approximation-and-projection.html#cb229-19" tabindex="-1"></a><span class="do">##           random_state: NA</span></span>
-<span id="cb229-20"><a href="uniform-manifold-approximation-and-projection.html#cb229-20" tabindex="-1"></a><span class="do">##        transform_state: NA</span></span>
-<span id="cb229-21"><a href="uniform-manifold-approximation-and-projection.html#cb229-21" tabindex="-1"></a><span class="do">##                    knn: NA</span></span>
-<span id="cb229-22"><a href="uniform-manifold-approximation-and-projection.html#cb229-22" tabindex="-1"></a><span class="do">##            knn_repeats: 1</span></span>
-<span id="cb229-23"><a href="uniform-manifold-approximation-and-projection.html#cb229-23" tabindex="-1"></a><span class="do">##                verbose: FALSE</span></span>
-<span id="cb229-24"><a href="uniform-manifold-approximation-and-projection.html#cb229-24" tabindex="-1"></a><span class="do">##        umap_learn_args: NA</span></span></code></pre></div>
-<p>To change the default value, we can do the following</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="uniform-manifold-approximation-and-projection.html#cb230-1" tabindex="-1"></a>  myumap.tuning <span class="ot">=</span> umap.defaults</span>
-<span id="cb230-2"><a href="uniform-manifold-approximation-and-projection.html#cb230-2" tabindex="-1"></a>  umap.defaults<span class="sc">$</span>n_neighbors <span class="ot">=</span> <span class="dv">5</span></span>
-<span id="cb230-3"><a href="uniform-manifold-approximation-and-projection.html#cb230-3" tabindex="-1"></a>  </span>
-<span id="cb230-4"><a href="uniform-manifold-approximation-and-projection.html#cb230-4" tabindex="-1"></a>  circles.umap <span class="ot">=</span> <span class="fu">umap</span>(X, umap.defaults)</span>
-<span id="cb230-5"><a href="uniform-manifold-approximation-and-projection.html#cb230-5" tabindex="-1"></a></span>
-<span id="cb230-6"><a href="uniform-manifold-approximation-and-projection.html#cb230-6" tabindex="-1"></a>  <span class="fu">plot</span>(circles.umap<span class="sc">$</span>layout, <span class="at">col =</span> circle.labels)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-329-1.png" width="45%" style="display: block; margin: auto;" />
-You can see that the result is not as perfect as we wanted. It seems that there are more groups, although each group only involves one type of data. There are other parameter you may consider tuning. For example <code>n_components</code> controls how many dimensions you reduced data should have. Usually we don’t use values larger than three, but this is very problem specific.</p>
 </div>
-<div id="another-example" class="section level2 hasAnchor" number="25.3">
-<h2><span class="header-section-number">25.3</span> Another Example<a href="uniform-manifold-approximation-and-projection.html#another-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Let’s use UMAP on a larger data, the hand written digit data. We will perform clustering on just the pixels. We can also predict the embedding feature values for future observations. We can see that both recovers the true labels pretty well.</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="uniform-manifold-approximation-and-projection.html#cb231-1" tabindex="-1"></a>  <span class="fu">library</span>(ElemStatLearn)</span>
-<span id="cb231-2"><a href="uniform-manifold-approximation-and-projection.html#cb231-2" tabindex="-1"></a>  <span class="fu">dim</span>(zip.train)</span>
-<span id="cb231-3"><a href="uniform-manifold-approximation-and-projection.html#cb231-3" tabindex="-1"></a><span class="do">## [1] 7291  257</span></span>
-<span id="cb231-4"><a href="uniform-manifold-approximation-and-projection.html#cb231-4" tabindex="-1"></a>  <span class="fu">dim</span>(zip.test)</span>
-<span id="cb231-5"><a href="uniform-manifold-approximation-and-projection.html#cb231-5" tabindex="-1"></a><span class="do">## [1] 2007  257</span></span>
-<span id="cb231-6"><a href="uniform-manifold-approximation-and-projection.html#cb231-6" tabindex="-1"></a>  </span>
-<span id="cb231-7"><a href="uniform-manifold-approximation-and-projection.html#cb231-7" tabindex="-1"></a>  zip.umap <span class="ot">=</span> <span class="fu">umap</span>(zip.train[, <span class="sc">-</span><span class="dv">1</span>])</span>
-<span id="cb231-8"><a href="uniform-manifold-approximation-and-projection.html#cb231-8" tabindex="-1"></a>  zip.pred <span class="ot">=</span> <span class="fu">predict</span>(zip.umap, zip.test[, <span class="sc">-</span><span class="dv">1</span>])</span>
-<span id="cb231-9"><a href="uniform-manifold-approximation-and-projection.html#cb231-9" tabindex="-1"></a>  </span>
-<span id="cb231-10"><a href="uniform-manifold-approximation-and-projection.html#cb231-10" tabindex="-1"></a>  <span class="fu">plot</span>(zip.umap<span class="sc">$</span>layout, <span class="at">col =</span> zip.train[, <span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.2</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-330-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="uniform-manifold-approximation-and-projection.html#cb232-1" tabindex="-1"></a>  <span class="fu">plot</span>(zip.pred, <span class="at">col =</span> zip.test[, <span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.2</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-330-2.png" width="45%" style="display: block; margin: auto;" /></p>
+<div id="example-1-iris-data-2" class="section level2 hasAnchor" number="22.2">
+<h2><span class="header-section-number">22.2</span> Example 1: <code>iris</code> Data<a href="principal-component-analysis.html#example-1-iris-data-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We use the <code>iris</code> data again. All four variables are considered in this analysis. We plot the first and second PC directions.</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="principal-component-analysis.html#cb203-1" tabindex="-1"></a>    iris_pc <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(iris[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span>
+<span id="cb203-2"><a href="principal-component-analysis.html#cb203-2" tabindex="-1"></a>    <span class="fu">library</span>(ggplot2)</span>
+<span id="cb203-3"><a href="principal-component-analysis.html#cb203-3" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(iris_pc<span class="sc">$</span>x), <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC2)) <span class="sc">+</span> </span>
+<span id="cb203-4"><a href="principal-component-analysis.html#cb203-4" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">color=</span><span class="fu">c</span>(<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>)[iris<span class="sc">$</span>Species], <span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-300-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>One may be interested in plotting all pair-wise direction to see if lower PC’s provide useful information.</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="principal-component-analysis.html#cb204-1" tabindex="-1"></a>    <span class="fu">pairs</span>(iris_pc<span class="sc">$</span>x, <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>)[iris<span class="sc">$</span>Species], <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-301-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>However, usually, the lower PC’s are less informative. This can also be speculated from the eigenvalue plot, which shows how influential each PC is.</p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="principal-component-analysis.html#cb205-1" tabindex="-1"></a>    <span class="fu">plot</span>(iris_pc, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">main =</span> <span class="st">&quot;Iris PCA Variance&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-302-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>Feature contributions to the PC can be accessed through the magnitude of the loadings. This table shows that <code>Petal.Length</code> is the most influential variable on the first PC, with loading <span class="math inline">\(\approx 0.8567\)</span>.</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="principal-component-analysis.html#cb206-1" tabindex="-1"></a>    iris_pc<span class="sc">$</span>rotation</span>
+<span id="cb206-2"><a href="principal-component-analysis.html#cb206-2" tabindex="-1"></a><span class="do">##                      PC1         PC2         PC3        PC4</span></span>
+<span id="cb206-3"><a href="principal-component-analysis.html#cb206-3" tabindex="-1"></a><span class="do">## Sepal.Length  0.36138659 -0.65658877  0.58202985  0.3154872</span></span>
+<span id="cb206-4"><a href="principal-component-analysis.html#cb206-4" tabindex="-1"></a><span class="do">## Sepal.Width  -0.08452251 -0.73016143 -0.59791083 -0.3197231</span></span>
+<span id="cb206-5"><a href="principal-component-analysis.html#cb206-5" tabindex="-1"></a><span class="do">## Petal.Length  0.85667061  0.17337266 -0.07623608 -0.4798390</span></span>
+<span id="cb206-6"><a href="principal-component-analysis.html#cb206-6" tabindex="-1"></a><span class="do">## Petal.Width   0.35828920  0.07548102 -0.54583143  0.7536574</span></span></code></pre></div>
+<p>We can further visualize this on a plot. This can be helpful when the number of variables is large.</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="principal-component-analysis.html#cb207-1" tabindex="-1"></a>    features <span class="ot">=</span> <span class="fu">row.names</span>(iris_pc<span class="sc">$</span>rotation)</span>
+<span id="cb207-2"><a href="principal-component-analysis.html#cb207-2" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(iris_pc<span class="sc">$</span>rotation), <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC2, <span class="at">label=</span>features,<span class="at">color=</span>features)) <span class="sc">+</span> </span>
+<span id="cb207-3"><a href="principal-component-analysis.html#cb207-3" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">geom_text</span>(<span class="at">size=</span><span class="dv">3</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-304-1.png" width="45%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="example-2-handwritten-digits" class="section level2 hasAnchor" number="22.3">
+<h2><span class="header-section-number">22.3</span> Example 2: Handwritten Digits<a href="principal-component-analysis.html#example-2-handwritten-digits" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The handwritten zip code digits data contains 7291 training data and 2007 testing data. Each image is a <span class="math inline">\(16 \times 16\)</span>-pixel gray-scale image. Hence they are converted to a vector of 256 variables.</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="principal-component-analysis.html#cb208-1" tabindex="-1"></a>    <span class="fu">library</span>(ElemStatLearn)</span>
+<span id="cb208-2"><a href="principal-component-analysis.html#cb208-2" tabindex="-1"></a>    <span class="co"># Handwritten Digit Recognition Data</span></span>
+<span id="cb208-3"><a href="principal-component-analysis.html#cb208-3" tabindex="-1"></a>    <span class="co"># the first column is the true digit</span></span>
+<span id="cb208-4"><a href="principal-component-analysis.html#cb208-4" tabindex="-1"></a>    <span class="fu">dim</span>(zip.train)</span>
+<span id="cb208-5"><a href="principal-component-analysis.html#cb208-5" tabindex="-1"></a><span class="do">## [1] 7291  257</span></span></code></pre></div>
+<p>Here is a sample of some images:</p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-306-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>Let’s do a simpler task, using just three letters: 1, 4 and 8.</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="principal-component-analysis.html#cb209-1" tabindex="-1"></a>    zip.sub <span class="ot">=</span> zip.train[zip.train[,<span class="dv">1</span>] <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">8</span>), <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb209-2"><a href="principal-component-analysis.html#cb209-2" tabindex="-1"></a>    zip.sub.truth <span class="ot">=</span> <span class="fu">as.factor</span>(zip.train[zip.train[,<span class="dv">1</span>] <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">8</span>), <span class="dv">1</span>])</span>
+<span id="cb209-3"><a href="principal-component-analysis.html#cb209-3" tabindex="-1"></a>    <span class="fu">dim</span>(zip.sub)</span>
+<span id="cb209-4"><a href="principal-component-analysis.html#cb209-4" tabindex="-1"></a><span class="do">## [1] 2199  256</span></span>
+<span id="cb209-5"><a href="principal-component-analysis.html#cb209-5" tabindex="-1"></a>    zip_pc <span class="ot">=</span> <span class="fu">prcomp</span>(zip.sub)</span>
+<span id="cb209-6"><a href="principal-component-analysis.html#cb209-6" tabindex="-1"></a>    <span class="fu">plot</span>(zip_pc, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">main =</span> <span class="st">&quot;Digits 1, 4, and 8: PCA Variance&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-307-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>The eigenvalue results suggest that the first two principal components are much more influential than the rest. A pair-wise PC plot of the first four PC’s may further confirm that speculation.</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="principal-component-analysis.html#cb210-1" tabindex="-1"></a>    <span class="fu">pairs</span>(zip_pc<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>)[zip.sub.truth], <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-308-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>Let’s look at the first two PCs more closely. Even without knowing the true class (no colors) we can still vaguely see 3 clusters.</p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="principal-component-analysis.html#cb211-1" tabindex="-1"></a>    <span class="fu">library</span>(ggplot2)</span>
+<span id="cb211-2"><a href="principal-component-analysis.html#cb211-2" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(zip_pc<span class="sc">$</span>x), <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC2)) <span class="sc">+</span> </span>
+<span id="cb211-3"><a href="principal-component-analysis.html#cb211-3" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-309-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>Finally, let’s briefly look at the results of PCA for all 10 different digits. Of course, more PC’s are needed for this task. You can also plot other PC’s to get more information.</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="principal-component-analysis.html#cb212-1" tabindex="-1"></a>    <span class="fu">library</span>(colorspace)</span>
+<span id="cb212-2"><a href="principal-component-analysis.html#cb212-2" tabindex="-1"></a></span>
+<span id="cb212-3"><a href="principal-component-analysis.html#cb212-3" tabindex="-1"></a>    zip_pc <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(zip.train)</span>
+<span id="cb212-4"><a href="principal-component-analysis.html#cb212-4" tabindex="-1"></a></span>
+<span id="cb212-5"><a href="principal-component-analysis.html#cb212-5" tabindex="-1"></a>    <span class="fu">plot</span>(zip_pc, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">main =</span> <span class="st">&quot;All Digits: PCA Variance&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-310-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="principal-component-analysis.html#cb213-1" tabindex="-1"></a></span>
+<span id="cb213-2"><a href="principal-component-analysis.html#cb213-2" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="fu">prcomp</span>(zip.train)<span class="sc">$</span>x), <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC2)) <span class="sc">+</span> </span>
+<span id="cb213-3"><a href="principal-component-analysis.html#cb213-3" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="fu">rainbow_hcl</span>(<span class="dv">10</span>)[zip.train[,<span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>], <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-310-2.png" width="45%" style="display: block; margin: auto;" /></p>
 
-</div>
-</div>
-
-
-
-<h3> Reference<a href="reference.html#reference" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-mcinnes2018umap" class="csl-entry">
-McInnes, Leland, John Healy, and James Melville. 2018. <span>“Umap: Uniform Manifold Approximation and Projection for Dimension Reduction.”</span> <em>arXiv Preprint arXiv:1802.03426</em>.
-</div>
-<div id="ref-van2008visualizing" class="csl-entry">
-Van der Maaten, Laurens, and Geoffrey Hinton. 2008. <span>“Visualizing Data Using t-SNE.”</span> <em>Journal of Machine Learning Research</em> 9 (11).
 </div>
 </div>
             </section>
@@ -594,8 +673,8 @@ Van der Maaten, Laurens, and Geoffrey Hinton. 2008. <span>“Visualizing Data Us
           </div>
         </div>
       </div>
-<a href="spectral-clustering.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="reference.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="hierarchical-clustering.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="self-organizing-map.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -277,9 +277,9 @@ This bias-variance breakdown formula will appear multiple times. Now, plug-in th
 =& \frac{2}{(1+\lambda)^3} \left[ \lambda \beta^2 - \Var(\widehat{\beta}^\text{ols}) \right]
 \end{align}
 
-Note that when the derivative is negative, increasing $\lambda$ would decrease the MSE. This implies that we can reduce the MSE by choosing a small $\lambda$. Of course the situation is much more involving when the columns in $\bX$ are not orthogonal. However, the following analysis helps to understand a non-orthogonal case. It is essentially re-organizing the columns of $\bX$ into its principle components so that they are still orthogonal. 
+Note that when the derivative is negative, increasing $\lambda$ would decrease the MSE. This implies that we can reduce the MSE by choosing a small $\lambda$. Of course the situation is much more involving when the columns in $\bX$ are not orthogonal. However, the following analysis helps to understand a non-orthogonal case. It is essentially re-organizing the columns of $\bX$ into its principal components so that they are still orthogonal. 
 
-Let's first take a singular value decomposition (SVD) of $\bX$, with $\bX = \bU \bD \bV^\T$, then the columns in $\bU$ form an orthonormal basis and columns in $\bU \bD$ are the __principal components__ and $\bV$ defines the principle directions. In addition, we have $n \widehat{\boldsymbol \Sigma} = \bX^\T \bX = \bV \bD^2 \bV^\T$. Assuming that $p < n$, and $\bX$ has full column ranks, then the Ridge estimator fitted $\by$ value can be decomposed as
+Let's first take a singular value decomposition (SVD) of $\bX$, with $\bX = \bU \bD \bV^\T$, then the columns in $\bU$ form an orthonormal basis and columns in $\bU \bD$ are the __principal components__ and $\bV$ defines the principal directions. In addition, we have $n \widehat{\boldsymbol \Sigma} = \bX^\T \bX = \bV \bD^2 \bV^\T$. Assuming that $p < n$, and $\bX$ has full column ranks, then the Ridge estimator fitted $\by$ value can be decomposed as
 
 \begin{align}
 \widehat{\by}^\text{ridge} =& \bX \widehat{\beta}^\text{ridge} \\ 

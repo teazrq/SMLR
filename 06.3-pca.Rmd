@@ -53,11 +53,11 @@
   par(mfrow=c(1,1))
 ```
 
-# Principle Component Analysis
+# Principal Component Analysis
 
 ## Basic Concepts
 
-Principle Component Analysis (PCA) is arguably the most commonly used approach for dimension reduction and visualization. The idea is to capture major signals of variation in a dataset. A nice demonstration of the search of direction is provided at this [r-bloggers](https://www.r-bloggers.com/principal-component-analysis-in-r/) site:
+Principal Component Analysis (PCA) is arguably the most commonly used approach for dimension reduction and visualization. The idea is to capture major signals of variation in a dataset. A nice demonstration of the search of direction is provided at this [r-bloggers](https://www.r-bloggers.com/principal-component-analysis-in-r/) site:
 
 <center>
 ![](images/PCA2.gif)
@@ -136,7 +136,7 @@ This can be generalized into any dimensional problem. Another alternative formul
 
 $$\bX^\T \bX = \bV \bD \bU^\T \bU \bD \bV^\T = \bV \bD^2 \bV^\T$$
 
-But one thing we usually need to take care of is the centering issue. This is why we used `scale()` function at the beginning. However, we only center, but not scale the data. If we do not center, then the first principle component (PC) could be a direction that points to the center of the data. Note that when $\bX$ is already centered, $\bX^\T \bX$ is the covariance matrix. Hence PCA is also performing eigen-decomposition to the covariance matrix. 
+But one thing we usually need to take care of is the centering issue. This is why we used `scale()` function at the beginning. However, we only center, but not scale the data. If we do not center, then the first principal component (PC) could be a direction that points to the center of the data. Note that when $\bX$ is already centered, $\bX^\T \bX$ is the covariance matrix. Hence PCA is also performing eigen-decomposition to the covariance matrix. 
 
 ```{r include = FALSE}
     par(mfrow=c(1,2))

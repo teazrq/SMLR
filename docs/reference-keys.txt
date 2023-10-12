@@ -160,7 +160,9 @@ random-forests-1
 effect-of-mtry
 effect-of-nodesize
 variable-importance
-kernel-view-of-random-forets
+kernel-view-of-random-forests
+kernel-function-induced-from-random-forest
+adaptiveness-of-random-forest-kernel
 boosting
 adaboost
 training-error-of-adaboost
@@ -174,7 +176,7 @@ hierarchical-clustering
 basic-concepts-1
 example-1-iris-data-1
 example-2-rna-expression-data
-principle-component-analysis
+principal-component-analysis
 basic-concepts-2
 note-scaling
 example-1-iris-data-2
