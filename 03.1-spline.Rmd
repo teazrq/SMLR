@@ -1,46 +1,106 @@
+% Macros
+\def\cA{{\cal A}}
+\def\cB{{\cal B}}
+\def\cC{{\cal C}}
 \def\cD{{\cal D}}
-\def\cL{{\cal L}}
-\def\cX{{\cal X}}
+\def\cE{{\cal E}}
 \def\cF{{\cal F}}
+\def\cG{{\cal G}}
 \def\cH{{\cal H}}
+\def\cI{{\cal I}}
+\def\cJ{{\cal J}}
+\def\cK{{\cal K}}
+\def\cL{{\cal L}}
+\def\cM{{\cal M}}
+\def\cN{{\cal N}}
+\def\cO{{\cal O}}
+\def\cP{{\cal P}}
+\def\cQ{{\cal Q}}
+\def\cR{{\cal R}}
+\def\cS{{\cal S}}
+\def\cT{{\cal T}}
+\def\cU{{\cal U}}
+\def\cV{{\cal V}}
+\def\cW{{\cal W}}
+\def\cX{{\cal X}}
+\def\cY{{\cal Y}}
+\def\cZ{{\cal Z}}
+
 \def\bA{\mathbf{A}}
 \def\bB{\mathbf{B}}
-\def\bX{\mathbf{X}}
+\def\bC{\mathbf{C}}
+\def\bD{\mathbf{D}}
+\def\bE{\mathbf{E}}
+\def\bF{\mathbf{F}}
+\def\bG{\mathbf{G}}
 \def\bH{\mathbf{H}}
 \def\bI{\mathbf{I}}
-\def\bU{\mathbf{U}}
-\def\bD{\mathbf{D}}
-\def\bV{\mathbf{V}}
-\def\bS{\mathbf{S}}
-\def\bW{\mathbf{W}}
+\def\bJ{\mathbf{J}}
 \def\bK{\mathbf{K}}
+\def\bL{\mathbf{L}}
+\def\bM{\mathbf{M}}
+\def\bN{\mathbf{N}}
+\def\bO{\mathbf{O}}
+\def\bP{\mathbf{P}}
+\def\bQ{\mathbf{Q}}
+\def\bR{\mathbf{R}}
+\def\bS{\mathbf{S}}
+\def\bT{\mathbf{T}}
+\def\bU{\mathbf{U}}
+\def\bV{\mathbf{V}}
+\def\bW{\mathbf{W}}
+\def\bX{\mathbf{X}}
+\def\bY{\mathbf{Y}}
+\def\bZ{\mathbf{Z}}
+
+\def\ba{\mathbf{a}}
+\def\bb{\mathbf{b}}
+\def\bc{\mathbf{c}}
+\def\bd{\mathbf{d}}
+\def\be{\mathbf{e}}
+% conflict \def\bf{\mathbf{f}} 
+\def\bg{\mathbf{g}}
+\def\bh{\mathbf{h}}
+\def\bi{\mathbf{i}}
+\def\bj{\mathbf{j}}
+\def\bk{\mathbf{k}}
+\def\bl{\mathbf{l}}
+\def\bm{\mathbf{m}}
+\def\bn{\mathbf{n}}
+\def\bo{\mathbf{o}}
+\def\bp{\mathbf{p}}
+\def\bq{\mathbf{q}}
+\def\br{\mathbf{r}}
+\def\bs{\mathbf{s}}
+\def\bt{\mathbf{t}}
+\def\bu{\mathbf{u}}
+\def\bv{\mathbf{v}}
+\def\bw{\mathbf{w}}
 \def\bx{\mathbf{x}}
 \def\by{\mathbf{y}}
-\def\bs{\mathbf{s}}
-\def\br{\mathbf{r}}
-\def\bu{\mathbf{u}}
-\def\be{\mathbf{e}}
-\def\bv{\mathbf{v}}
-\def\bp{\mathbf{p}}
-\def\bw{\mathbf{w}}
 \def\bz{\mathbf{z}}
-\def\bzero{\mathbf{0}}
-\def\balpha{\boldsymbol \alpha}
-\def\bbeta{\boldsymbol \beta}
-\def\btheta{\boldsymbol \theta}
-\def\bxi{\boldsymbol \xi}
-\def\bmu{\boldsymbol \mu}
-\def\bepsilon{\boldsymbol \epsilon}
-\def\T{\text{T}}
-\def\Trace{\text{Trace}}
-\def\Cov{\text{Cov}}
-\def\Var{\text{Var}}
-\def\E{\text{E}}
-\def\pr{\text{pr}}
-\def\Prob{\text{P}}
-\def\argmin{\arg\min}
-\def\argmax{\arg\max}
-\usepackage{amsmath}
+
+% Bold Symbols
+\newcommand{\bzero}{\mathbf{0}}
+\newcommand{\balpha}{\boldsymbol{\alpha}}
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bxi}{\boldsymbol{\xi}}
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bepsilon}{\boldsymbol{\epsilon}}
+
+% Matrix and Transpose
+\newcommand{\T}{\text{T}}
+
+% Mathematical Operations
+\newcommand{\Trace}{\text{Trace}}
+\newcommand{\Cov}{\text{Cov}}
+\newcommand{\Var}{\text{Var}}
+\newcommand{\E}{\text{E}}
+\newcommand{\pr}{\text{pr}}
+\newcommand{\Prob}{\text{P}}
+\newcommand{\argmin}{\arg\min}
+\newcommand{\argmax}{\arg\max}
 
 ```{r include = FALSE}
   options(width = 100)
@@ -108,7 +168,9 @@ These fittings do not seem to perform very well. How about we take a different a
 
 The method is called a histogram regression. Suppose the interval that contains a given testing point $x$ is $\phi(x)$, then, we are fitting a model with 
 
-$$\widehat{f}(x) = \frac{\sum_{i=1}^n Y_i \,\, I\{X_i \in \phi(x)\} }{ \sum_{i=1}^n I\{X_i \in \phi(x)\}}$$
+\[
+\widehat{f}(x) = \frac{\sum_{i=1}^n Y_i \,\, I\{X_i \in \phi(x)\} }{ \sum_{i=1}^n I\{X_i \in \phi(x)\}}
+\]
 
 You may know the word histogram from the plotting the density of a set of observations. Yes, these two are actually motivated by the same philosophy. We will discuss the connection later on. For the purpose of fitting a regression function, the histogram regression does not seem to perform ideally since there will be jumps at the edge of an interval. Hence we need a more flexible framework. 
 
@@ -282,9 +344,11 @@ Hence this motivates us to consider setting additional constrains that forces th
 
 The motivation is to trying to solve the knots selection issue. Instead, let's start with a "horrible" idea, by putting knots at all each observed data point $(x_1, x_2, \ldots, x_n)$. Then, we can create $n$ natural cubic spline basis. However, we also know that this leads to over-fitting since there are too many parameters. Let's utilize the ridge regression idea by adding some penalties. This leads to the objective function
 
+
 \begin{equation}
 \underset{\bbeta}{\text{min}} \,\, \lVert \by - \bF \bbeta \rVert^2 + \lambda \bbeta^\T \Omega \bbeta, (\#eq:penalized)
 \end{equation}
+
 where $\bF$ is the matrix of all $n$ natural cubic spline basis, and $\Omega$ is some covariance matrix that takes care of some form of relationship among different basis, which we will define later, and $\lambda$ is similar to the ridge regression. The question is, will this type of regression problem provide a good solution with nice properties? 
 
 Let's consider fitting a regression model by solving a regression function $g(x)$ with the following penalized criteria:
