@@ -111,13 +111,13 @@ Let's compare the decision rule of CART and Bagging. For CART, the decision line
 
 ## Random Forests
 
-Random forests are equipped with this Bootstrapping strategy, but also with other things, which are mentioned previously. They are controlled by several key parameters: 
+Random forests are equipped with this bootstrapping strategy, but also with other randomness and mechanism. A Random forest can be controlled by several key parameters: 
 
-  * `ntree`: number of trees
-  * `sampsize`: how many samples to use when fitting each tree
-  * `mtry`: number of randomly sampled variable to consider at each internal node
-  * `nodesize`: stop splitting when the node sample size is no larger than `nodesize`
-  
+  * `ntree`: Number of trees, many controls the stability. We typically want to fit a large number of trees. 
+  * `sampsize`: How many samples to use when fitting each tree. In practice, we often use the training sample size if sampled with replacement.
+  * `mtry`: Number of randomly sampled variable to consider at each internal node. This need to be tuned for adaptiveness to sparse signal (large `mtry`) or highly correlated features (small `mtry`).
+  * `nodesize`: Stop splitting when the node sample size is no larger than `nodesize`. This works similar to \(k\) in a KNN model. However, its effect can be greatly affected by other tuning parameters. 
+
 Using the `randomForest` package, we can fit the model. It is difficult to visualize this when `p > 2`. But we can look at the testing error. 
 
 ```{r echo = FALSE} 
@@ -154,62 +154,28 @@ Instead of generating a set of testing samples labels, let's directly compare wi
   mean( (predict(rf.fit, Xtest) == "1") == BayesRule )
 ```
 
-## Effect of `mtry`
-
-In the two dimensional setting, we probably won't see much difference by using random forests, since the only effective change is `mtry = 1`, which is not really different than `mtry = 2` (the CART choice). You can try this by yourself.
-However, the difference would be significant in higher dimensional settings, in our case $p=10$. This is again an issue of bias-variance trade-off. The intuition is that, when we use a small `mtry`, and when $p$ is large, we may by chance randomly select some irrelevant variables that has nothing to do with the outcome. Then this particular split would be wasted. Missing the true variable may cause larger bias. On the other hand, when we use a large `mtry`, we will be greedy for signals since we compare many different variables and pick the best one. But this is also as the risk of over-fitting. Hence, tuning is necessary. 
-
-Just as an example, let's try a small `mtry`:
-
-```{r}
-  rf.fit = randomForest(X, as.factor(y), ntree = 1000, 
-                        mtry = 1, nodesize = 10, sampsize = 800)
-
-  mean( (predict(rf.fit, Xtest) == "1") == BayesRule )
-```
-
-## Effect of `nodesize`
-
-When we use a small `nodesize`, we are at the risk of over-fitting. This is similar to the 1NN example. When we use large `nodesize`, there could be under-fitting. 
-
-## Variable Importance 
-
-Random forests model provides a way to evaluate the importance of each variable. This can be done by specifying the `importance` argument. We usually use the `MeanDecreaseAccuracy` or `MeanDecreaseGini` column as the summary of the importance of each variable. 
-
-```{r fig.dim=c(6,6), out.width = '45%'}
-  rf.fit = randomForest(X, as.factor(y), ntree = 1000, 
-                        mtry = 7, nodesize = 10, sampsize = 800,
-                        importance=TRUE)
-
-  importance(rf.fit)
-```
-
 ## Kernel view of Random Forests
 
-For this part, we need to install a new package `RLT`. This is a package in development. But you can install the current version from GitHub (ver $\geq$ 4.2.6). Please note that the current CRAN version (ver. 3.2.5) does not work for this part. Use the following code to install the package.
+For this part, we need to install a new package `RLT`. This is a package in development. But you can install the current version from GitHub [(ver $\geq$ 4.2.6)](https://github.com/teazrq/RLT). Please note that the current CRAN version (ver. 3.2.5) does not work for this part. Use the following code to install the package. If you are using MacOS, then you need to follow [this guild](https://teazrq.github.io/random-forests-tutorial/rlab/basics/packages.html) to install the package for OpenMP.
 
 ```{r eval = FALSE}
   # install.packages("devtools")
   devtools::install_github("teazrq/RLT")
 ```
 
-If you are using MacOS, then you need to follow [this guild](https://teazrq.github.io/random-forests-tutorial/rlab/basics/packages.html) to install the package.
-
-## Kernel Function Induced from Random Forest
-
-Similar as a tree model, random forest can also be viewed as kernel estimator. Essentially its a stacking of kernels induced from all trees. The idea has been illustrated in @scornet2016random. However, since random forest is a random algorithm, each tree can be slightly different from each other. To incorporate this, denote the randomness of a tree estimator by \(\eta\), which can affect how the tree is constructed. Suppose we fit \(B\) trees in a random forest, with each tree denoted as \( {\cal T_b} \), then a random forest estimator can be expressed as 
+Similar to a tree model, random forest can also be viewed as kernel estimator. Essentially its a stacking of kernels induced from all trees. The idea has been illustrated in @scornet2016random. However, since random forest is a random algorithm, each tree can be slightly different from each other. To incorporate this, denote the randomness of a tree estimator by \(\eta\), which can affect how the tree is constructed. Suppose we fit \(B\) trees in a random forest, with each tree denoted as \( {\cal T_b} \), then a random forest estimator can be expressed as 
 
 \[
 \hat{f}(x) = \frac{1}{B} \sum_{b = 1}^B \frac{\sum_i K_{\cal T_b}(x, x_i; \eta_b) y_i}{ \sum_i K_{\cal T_b}(x, x_i; \eta_b) }.
 \]
 
-Note that in this expression, the denominators in each tree estimator are different. However, by the design of the algorithm, each terminal nodes are roughly the same size. Hence, we could also consider an alternative kernel induced from random forest, which aligns with traditional kernel estimators.
+Note that in this expression, the denominators in each tree estimator are different since we may randomly end-up with some sample size smaller than the `nodesize` after a split. However, we can still think each terminal nodes as having roughly the same size. Hence, we could also consider an alternative kernel induced from random forest, which aligns with traditional kernel estimators.
 
 \[
 \hat{f}(x) = \frac{ \sum_i y_i \sum_{b = 1}^B K_{\cal T_b}(x, x_i) }{ \sum_i \sum_{b = 1}^B K_{\cal T_b}(x, x_i) }.
 \]
 
-In this case, the kernel function 
+In this case, the kernel function is
 
 \[
 K_\text{RF}(x, x_i) = \sum_{b = 1}^B K_{\cal T_b}(x, x_i),
@@ -224,7 +190,7 @@ which counts how many times \(x\) falls into the same terminal node as observati
   y = X[, 1] + X[, 2] + rnorm(n)
 ```
 
-If we fit just one tree, there could be different variations based on the randomness.
+If we fit just one tree, there could be different variations based on the randomness. Please note that the name of these parameters can be different in the `RLT` package. 
 
 ```{r fig.dim = c(12, 8), out.width='90%'}
   library(RLT)
@@ -232,11 +198,10 @@ If we fit just one tree, there could be different variations based on the random
 
   for (i in 1:6)
   {
-    
     # fit a model with one tree
     RLTfit <- RLT(X, y, ntrees = 1, nmin = 30, mtry = 5,
-                  split.gen = "best", resample.prob = 0.9,
-                  resample.replace = FALSE,
+                  split.gen = "best", resample.prob = 1,
+                  resample.replace = TRUE,
                   param.control = list("resample.track" = TRUE))
   
     # target point 1
@@ -255,9 +220,9 @@ If we fit just one tree, there could be different variations based on the random
 If we stack all of them, we obtain a random forest kernel.
 
 ```{r fig.dim = c(10, 5), out.width='90%'}
-  RLTfit <- RLT(X, y, ntrees = 500, nmin = 4, mtry = 5,
-                split.gen = "best", resample.prob = 0.8,
-                resample.replace = FALSE,
+  RLTfit <- RLT(X, y, ntrees = 1000, nmin = 10, mtry = 5,
+                split.gen = "best", resample.prob = 1,
+                resample.replace = TRUE, 
                 param.control = list("resample.track" = TRUE))
 
   par(mfrow=c(1, 2))
@@ -267,10 +232,10 @@ If we stack all of them, we obtain a random forest kernel.
                 1, 5)
   
   KernelW = forest.kernel(RLTfit, X1 = newX, X2 = X, vs.train = TRUE)$Kernel
-    
+  
   par(mar = c(2, 2, 2, 2))
   plot(X[, 1], X[, 2], col = "deepskyblue", pch = 19, cex = 0.5)
-  points(X[, 1], X[, 2], col = "darkorange", cex = 10*sqrt(KernelW/sqrt(sum(KernelW^2))), lwd = 2)
+  points(X[, 1], X[, 2], col = "darkorange", cex = 10*KernelW/1000, lwd = 2)
   points(newX[1], newX[2], col = "black", pch = 4, cex = 4, lwd = 5)  
   legend("bottomright", "Target Point", pch = 4, col = "black", 
          lwd = 5, lty = NA, cex = 1.5)
@@ -284,11 +249,31 @@ If we stack all of them, we obtain a random forest kernel.
   
   par(mar = c(2, 2, 2, 2))
   plot(X[, 1], X[, 2], col = "deepskyblue", pch = 19, cex = 0.5)
-  points(X[, 1], X[, 2], col = "darkorange", cex = 10*sqrt(KernelW/sqrt(sum(KernelW^2))), lwd = 2)
+  points(X[, 1], X[, 2], col = "darkorange", cex = 10*KernelW/1000, lwd = 2)
   points(newX[1], newX[2], col = "black", pch = 4, cex = 4, lwd = 5)
   legend("bottomright", "Target Point", pch = 4, col = "black", 
          lwd = 5, lty = NA, cex = 1.5)
 ```
+
+## Variable Importance 
+
+The idea of variable importance is to identify which features (or variables) are most influential in predicting the outcome based on the fitted model. Variable importance is typically assessed through techniques like mean decrease accuracy, which measures the decrease in model accuracy when a variable’s values are permuted across the out-of-bag samples, thereby disrupting the relationship between that variable and the target. Alternatively, it can also be measured using the mean decrease impurity, which calculates the total reduction in the criterion (Gini impurity, entropy, or mean squared error) that each variable provides when used in trees, averaged over all trees in the forest. The calculation can be summarized by the following steps:
+
+  * Train the Random Forest: Fit a random forest model to your data using all available variables.
+  * Out-of-Bag Evaluation: For each tree in the forest, predict the outcome for the out-of-bag (OOB) samples—these are the samples not used in the construction of that particular tree. Compute the OOB accuracy (or another relevant metric like AUC for classification, MSE for regression) for these predictions.
+  * Permute Variable & Re-evaluate: For each variable of interest, randomly permute its values among the OOB samples. Then, use the same tree to make predictions on these “shuffled” data and compute the accuracy (or other metrics) again.
+  * Calculate Decrease in Accuracy: Compare the accuracy obtained from the permuted data to the original OOB accuracy for each tree. The difference is a measure of the importance of the variable for that specific tree.
+  * Average Over All Trees: Aggregate these importance measures across all trees in the forest to get a single importance score for each variable.
+
+
+```{r fig.dim=c(6,6), out.width = '45%', eval=FALSE}
+    rf.fit = randomForest(x = X, y = y, ntree = 1000, 
+                      nodesize = 10, mtry = 20, importance = TRUE)
+
+    # variable importance for %IncMSE (1st column)
+    rf.fit$importance
+```
+
 
 ## Adaptiveness of Random Forest Kernel
 

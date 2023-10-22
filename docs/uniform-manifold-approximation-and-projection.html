@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2023-10-12" />
+<meta name="date" content="2023-10-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -411,12 +411,9 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="18.1" data-path="random-forests.html"><a href="random-forests.html#bagging-predictors"><i class="fa fa-check"></i><b>18.1</b> Bagging Predictors</a></li>
 <li class="chapter" data-level="18.2" data-path="random-forests.html"><a href="random-forests.html#random-forests-1"><i class="fa fa-check"></i><b>18.2</b> Random Forests</a></li>
-<li class="chapter" data-level="18.3" data-path="random-forests.html"><a href="random-forests.html#effect-of-mtry"><i class="fa fa-check"></i><b>18.3</b> Effect of <code>mtry</code></a></li>
-<li class="chapter" data-level="18.4" data-path="random-forests.html"><a href="random-forests.html#effect-of-nodesize"><i class="fa fa-check"></i><b>18.4</b> Effect of <code>nodesize</code></a></li>
-<li class="chapter" data-level="18.5" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>18.5</b> Variable Importance</a></li>
-<li class="chapter" data-level="18.6" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forests"><i class="fa fa-check"></i><b>18.6</b> Kernel view of Random Forests</a></li>
-<li class="chapter" data-level="18.7" data-path="random-forests.html"><a href="random-forests.html#kernel-function-induced-from-random-forest"><i class="fa fa-check"></i><b>18.7</b> Kernel Function Induced from Random Forest</a></li>
-<li class="chapter" data-level="18.8" data-path="random-forests.html"><a href="random-forests.html#adaptiveness-of-random-forest-kernel"><i class="fa fa-check"></i><b>18.8</b> Adaptiveness of Random Forest Kernel</a></li>
+<li class="chapter" data-level="18.3" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forests"><i class="fa fa-check"></i><b>18.3</b> Kernel view of Random Forests</a></li>
+<li class="chapter" data-level="18.4" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>18.4</b> Variable Importance</a></li>
+<li class="chapter" data-level="18.5" data-path="random-forests.html"><a href="random-forests.html#adaptiveness-of-random-forest-kernel"><i class="fa fa-check"></i><b>18.5</b> Adaptiveness of Random Forest Kernel</a></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>19</b> Boosting</a>
 <ul>
@@ -496,84 +493,84 @@ div.csl-indent {
 <div id="an-example-1" class="section level2 hasAnchor" number="25.1">
 <h2><span class="header-section-number">25.1</span> An Example<a href="uniform-manifold-approximation-and-projection.html#an-example-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s consider our example from the spectral clustering lecture.</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="uniform-manifold-approximation-and-projection.html#cb226-1" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb226-2"><a href="uniform-manifold-approximation-and-projection.html#cb226-2" tabindex="-1"></a></span>
-<span id="cb226-3"><a href="uniform-manifold-approximation-and-projection.html#cb226-3" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">200</span></span>
-<span id="cb226-4"><a href="uniform-manifold-approximation-and-projection.html#cb226-4" tabindex="-1"></a>  </span>
-<span id="cb226-5"><a href="uniform-manifold-approximation-and-projection.html#cb226-5" tabindex="-1"></a>  r <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, n), <span class="fu">rep</span>(<span class="dv">2</span>, n), <span class="fu">rep</span>(<span class="dv">3</span>, n)) <span class="sc">+</span> <span class="fu">runif</span>(n<span class="sc">*</span><span class="dv">3</span>, <span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>)</span>
-<span id="cb226-6"><a href="uniform-manifold-approximation-and-projection.html#cb226-6" tabindex="-1"></a>  theta <span class="ot">=</span> <span class="fu">runif</span>(n) <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> pi</span>
-<span id="cb226-7"><a href="uniform-manifold-approximation-and-projection.html#cb226-7" tabindex="-1"></a></span>
-<span id="cb226-8"><a href="uniform-manifold-approximation-and-projection.html#cb226-8" tabindex="-1"></a>  x1 <span class="ot">=</span> r <span class="sc">*</span> <span class="fu">cos</span>(theta)</span>
-<span id="cb226-9"><a href="uniform-manifold-approximation-and-projection.html#cb226-9" tabindex="-1"></a>  x2 <span class="ot">=</span> r <span class="sc">*</span> <span class="fu">sin</span>(theta)</span>
-<span id="cb226-10"><a href="uniform-manifold-approximation-and-projection.html#cb226-10" tabindex="-1"></a>  X <span class="ot">=</span> <span class="fu">cbind</span>(x1, x2)</span>
-<span id="cb226-11"><a href="uniform-manifold-approximation-and-projection.html#cb226-11" tabindex="-1"></a>  </span>
-<span id="cb226-12"><a href="uniform-manifold-approximation-and-projection.html#cb226-12" tabindex="-1"></a>  <span class="fu">plot</span>(X)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-326-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="uniform-manifold-approximation-and-projection.html#cb227-1" tabindex="-1"></a>  circle.labels <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, n), <span class="fu">rep</span>(<span class="dv">2</span>, n), <span class="fu">rep</span>(<span class="dv">3</span>, n))</span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="uniform-manifold-approximation-and-projection.html#cb225-1" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb225-2"><a href="uniform-manifold-approximation-and-projection.html#cb225-2" tabindex="-1"></a></span>
+<span id="cb225-3"><a href="uniform-manifold-approximation-and-projection.html#cb225-3" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">200</span></span>
+<span id="cb225-4"><a href="uniform-manifold-approximation-and-projection.html#cb225-4" tabindex="-1"></a>  </span>
+<span id="cb225-5"><a href="uniform-manifold-approximation-and-projection.html#cb225-5" tabindex="-1"></a>  r <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, n), <span class="fu">rep</span>(<span class="dv">2</span>, n), <span class="fu">rep</span>(<span class="dv">3</span>, n)) <span class="sc">+</span> <span class="fu">runif</span>(n<span class="sc">*</span><span class="dv">3</span>, <span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>)</span>
+<span id="cb225-6"><a href="uniform-manifold-approximation-and-projection.html#cb225-6" tabindex="-1"></a>  theta <span class="ot">=</span> <span class="fu">runif</span>(n) <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> pi</span>
+<span id="cb225-7"><a href="uniform-manifold-approximation-and-projection.html#cb225-7" tabindex="-1"></a></span>
+<span id="cb225-8"><a href="uniform-manifold-approximation-and-projection.html#cb225-8" tabindex="-1"></a>  x1 <span class="ot">=</span> r <span class="sc">*</span> <span class="fu">cos</span>(theta)</span>
+<span id="cb225-9"><a href="uniform-manifold-approximation-and-projection.html#cb225-9" tabindex="-1"></a>  x2 <span class="ot">=</span> r <span class="sc">*</span> <span class="fu">sin</span>(theta)</span>
+<span id="cb225-10"><a href="uniform-manifold-approximation-and-projection.html#cb225-10" tabindex="-1"></a>  X <span class="ot">=</span> <span class="fu">cbind</span>(x1, x2)</span>
+<span id="cb225-11"><a href="uniform-manifold-approximation-and-projection.html#cb225-11" tabindex="-1"></a>  </span>
+<span id="cb225-12"><a href="uniform-manifold-approximation-and-projection.html#cb225-12" tabindex="-1"></a>  <span class="fu">plot</span>(X)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-325-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="uniform-manifold-approximation-and-projection.html#cb226-1" tabindex="-1"></a>  circle.labels <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, n), <span class="fu">rep</span>(<span class="dv">2</span>, n), <span class="fu">rep</span>(<span class="dv">3</span>, n))</span></code></pre></div>
 <p>We can perform UMAP using the default tuning. This will create a two-dimensional embedding.</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="uniform-manifold-approximation-and-projection.html#cb228-1" tabindex="-1"></a>  <span class="fu">library</span>(umap)</span>
-<span id="cb228-2"><a href="uniform-manifold-approximation-and-projection.html#cb228-2" tabindex="-1"></a>  circles.umap <span class="ot">=</span> <span class="fu">umap</span>(X)</span>
-<span id="cb228-3"><a href="uniform-manifold-approximation-and-projection.html#cb228-3" tabindex="-1"></a>  circles.umap</span>
-<span id="cb228-4"><a href="uniform-manifold-approximation-and-projection.html#cb228-4" tabindex="-1"></a><span class="do">## umap embedding of 600 items in 2 dimensions</span></span>
-<span id="cb228-5"><a href="uniform-manifold-approximation-and-projection.html#cb228-5" tabindex="-1"></a><span class="do">## object components: layout, data, knn, config</span></span>
-<span id="cb228-6"><a href="uniform-manifold-approximation-and-projection.html#cb228-6" tabindex="-1"></a>  </span>
-<span id="cb228-7"><a href="uniform-manifold-approximation-and-projection.html#cb228-7" tabindex="-1"></a>  <span class="fu">plot</span>(circles.umap<span class="sc">$</span>layout, <span class="at">col =</span> circle.labels)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-327-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="uniform-manifold-approximation-and-projection.html#cb227-1" tabindex="-1"></a>  <span class="fu">library</span>(umap)</span>
+<span id="cb227-2"><a href="uniform-manifold-approximation-and-projection.html#cb227-2" tabindex="-1"></a>  circles.umap <span class="ot">=</span> <span class="fu">umap</span>(X)</span>
+<span id="cb227-3"><a href="uniform-manifold-approximation-and-projection.html#cb227-3" tabindex="-1"></a>  circles.umap</span>
+<span id="cb227-4"><a href="uniform-manifold-approximation-and-projection.html#cb227-4" tabindex="-1"></a><span class="do">## umap embedding of 600 items in 2 dimensions</span></span>
+<span id="cb227-5"><a href="uniform-manifold-approximation-and-projection.html#cb227-5" tabindex="-1"></a><span class="do">## object components: layout, data, knn, config</span></span>
+<span id="cb227-6"><a href="uniform-manifold-approximation-and-projection.html#cb227-6" tabindex="-1"></a>  </span>
+<span id="cb227-7"><a href="uniform-manifold-approximation-and-projection.html#cb227-7" tabindex="-1"></a>  <span class="fu">plot</span>(circles.umap<span class="sc">$</span>layout, <span class="at">col =</span> circle.labels)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-326-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>We can see that UMAP learns these new features, which groups similar observations together. Its reasonable to expect that if we perform any clustering algorithm on these new embedded features, we will recover the truth.</p>
 </div>
 <div id="tuning" class="section level2 hasAnchor" number="25.2">
 <h2><span class="header-section-number">25.2</span> Tuning<a href="uniform-manifold-approximation-and-projection.html#tuning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>UMAP involves a lot of tuning parameters and the most significant one concerns about how we create the (KNN) graph in the first step. You can see the summary of all tuning parameters:</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="uniform-manifold-approximation-and-projection.html#cb229-1" tabindex="-1"></a>  umap.defaults</span>
-<span id="cb229-2"><a href="uniform-manifold-approximation-and-projection.html#cb229-2" tabindex="-1"></a><span class="do">## umap configuration parameters</span></span>
-<span id="cb229-3"><a href="uniform-manifold-approximation-and-projection.html#cb229-3" tabindex="-1"></a><span class="do">##            n_neighbors: 15</span></span>
-<span id="cb229-4"><a href="uniform-manifold-approximation-and-projection.html#cb229-4" tabindex="-1"></a><span class="do">##           n_components: 2</span></span>
-<span id="cb229-5"><a href="uniform-manifold-approximation-and-projection.html#cb229-5" tabindex="-1"></a><span class="do">##                 metric: euclidean</span></span>
-<span id="cb229-6"><a href="uniform-manifold-approximation-and-projection.html#cb229-6" tabindex="-1"></a><span class="do">##               n_epochs: 200</span></span>
-<span id="cb229-7"><a href="uniform-manifold-approximation-and-projection.html#cb229-7" tabindex="-1"></a><span class="do">##                  input: data</span></span>
-<span id="cb229-8"><a href="uniform-manifold-approximation-and-projection.html#cb229-8" tabindex="-1"></a><span class="do">##                   init: spectral</span></span>
-<span id="cb229-9"><a href="uniform-manifold-approximation-and-projection.html#cb229-9" tabindex="-1"></a><span class="do">##               min_dist: 0.1</span></span>
-<span id="cb229-10"><a href="uniform-manifold-approximation-and-projection.html#cb229-10" tabindex="-1"></a><span class="do">##       set_op_mix_ratio: 1</span></span>
-<span id="cb229-11"><a href="uniform-manifold-approximation-and-projection.html#cb229-11" tabindex="-1"></a><span class="do">##     local_connectivity: 1</span></span>
-<span id="cb229-12"><a href="uniform-manifold-approximation-and-projection.html#cb229-12" tabindex="-1"></a><span class="do">##              bandwidth: 1</span></span>
-<span id="cb229-13"><a href="uniform-manifold-approximation-and-projection.html#cb229-13" tabindex="-1"></a><span class="do">##                  alpha: 1</span></span>
-<span id="cb229-14"><a href="uniform-manifold-approximation-and-projection.html#cb229-14" tabindex="-1"></a><span class="do">##                  gamma: 1</span></span>
-<span id="cb229-15"><a href="uniform-manifold-approximation-and-projection.html#cb229-15" tabindex="-1"></a><span class="do">##   negative_sample_rate: 5</span></span>
-<span id="cb229-16"><a href="uniform-manifold-approximation-and-projection.html#cb229-16" tabindex="-1"></a><span class="do">##                      a: NA</span></span>
-<span id="cb229-17"><a href="uniform-manifold-approximation-and-projection.html#cb229-17" tabindex="-1"></a><span class="do">##                      b: NA</span></span>
-<span id="cb229-18"><a href="uniform-manifold-approximation-and-projection.html#cb229-18" tabindex="-1"></a><span class="do">##                 spread: 1</span></span>
-<span id="cb229-19"><a href="uniform-manifold-approximation-and-projection.html#cb229-19" tabindex="-1"></a><span class="do">##           random_state: NA</span></span>
-<span id="cb229-20"><a href="uniform-manifold-approximation-and-projection.html#cb229-20" tabindex="-1"></a><span class="do">##        transform_state: NA</span></span>
-<span id="cb229-21"><a href="uniform-manifold-approximation-and-projection.html#cb229-21" tabindex="-1"></a><span class="do">##                    knn: NA</span></span>
-<span id="cb229-22"><a href="uniform-manifold-approximation-and-projection.html#cb229-22" tabindex="-1"></a><span class="do">##            knn_repeats: 1</span></span>
-<span id="cb229-23"><a href="uniform-manifold-approximation-and-projection.html#cb229-23" tabindex="-1"></a><span class="do">##                verbose: FALSE</span></span>
-<span id="cb229-24"><a href="uniform-manifold-approximation-and-projection.html#cb229-24" tabindex="-1"></a><span class="do">##        umap_learn_args: NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="uniform-manifold-approximation-and-projection.html#cb228-1" tabindex="-1"></a>  umap.defaults</span>
+<span id="cb228-2"><a href="uniform-manifold-approximation-and-projection.html#cb228-2" tabindex="-1"></a><span class="do">## umap configuration parameters</span></span>
+<span id="cb228-3"><a href="uniform-manifold-approximation-and-projection.html#cb228-3" tabindex="-1"></a><span class="do">##            n_neighbors: 15</span></span>
+<span id="cb228-4"><a href="uniform-manifold-approximation-and-projection.html#cb228-4" tabindex="-1"></a><span class="do">##           n_components: 2</span></span>
+<span id="cb228-5"><a href="uniform-manifold-approximation-and-projection.html#cb228-5" tabindex="-1"></a><span class="do">##                 metric: euclidean</span></span>
+<span id="cb228-6"><a href="uniform-manifold-approximation-and-projection.html#cb228-6" tabindex="-1"></a><span class="do">##               n_epochs: 200</span></span>
+<span id="cb228-7"><a href="uniform-manifold-approximation-and-projection.html#cb228-7" tabindex="-1"></a><span class="do">##                  input: data</span></span>
+<span id="cb228-8"><a href="uniform-manifold-approximation-and-projection.html#cb228-8" tabindex="-1"></a><span class="do">##                   init: spectral</span></span>
+<span id="cb228-9"><a href="uniform-manifold-approximation-and-projection.html#cb228-9" tabindex="-1"></a><span class="do">##               min_dist: 0.1</span></span>
+<span id="cb228-10"><a href="uniform-manifold-approximation-and-projection.html#cb228-10" tabindex="-1"></a><span class="do">##       set_op_mix_ratio: 1</span></span>
+<span id="cb228-11"><a href="uniform-manifold-approximation-and-projection.html#cb228-11" tabindex="-1"></a><span class="do">##     local_connectivity: 1</span></span>
+<span id="cb228-12"><a href="uniform-manifold-approximation-and-projection.html#cb228-12" tabindex="-1"></a><span class="do">##              bandwidth: 1</span></span>
+<span id="cb228-13"><a href="uniform-manifold-approximation-and-projection.html#cb228-13" tabindex="-1"></a><span class="do">##                  alpha: 1</span></span>
+<span id="cb228-14"><a href="uniform-manifold-approximation-and-projection.html#cb228-14" tabindex="-1"></a><span class="do">##                  gamma: 1</span></span>
+<span id="cb228-15"><a href="uniform-manifold-approximation-and-projection.html#cb228-15" tabindex="-1"></a><span class="do">##   negative_sample_rate: 5</span></span>
+<span id="cb228-16"><a href="uniform-manifold-approximation-and-projection.html#cb228-16" tabindex="-1"></a><span class="do">##                      a: NA</span></span>
+<span id="cb228-17"><a href="uniform-manifold-approximation-and-projection.html#cb228-17" tabindex="-1"></a><span class="do">##                      b: NA</span></span>
+<span id="cb228-18"><a href="uniform-manifold-approximation-and-projection.html#cb228-18" tabindex="-1"></a><span class="do">##                 spread: 1</span></span>
+<span id="cb228-19"><a href="uniform-manifold-approximation-and-projection.html#cb228-19" tabindex="-1"></a><span class="do">##           random_state: NA</span></span>
+<span id="cb228-20"><a href="uniform-manifold-approximation-and-projection.html#cb228-20" tabindex="-1"></a><span class="do">##        transform_state: NA</span></span>
+<span id="cb228-21"><a href="uniform-manifold-approximation-and-projection.html#cb228-21" tabindex="-1"></a><span class="do">##                    knn: NA</span></span>
+<span id="cb228-22"><a href="uniform-manifold-approximation-and-projection.html#cb228-22" tabindex="-1"></a><span class="do">##            knn_repeats: 1</span></span>
+<span id="cb228-23"><a href="uniform-manifold-approximation-and-projection.html#cb228-23" tabindex="-1"></a><span class="do">##                verbose: FALSE</span></span>
+<span id="cb228-24"><a href="uniform-manifold-approximation-and-projection.html#cb228-24" tabindex="-1"></a><span class="do">##        umap_learn_args: NA</span></span></code></pre></div>
 <p>To change the default value, we can do the following</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="uniform-manifold-approximation-and-projection.html#cb230-1" tabindex="-1"></a>  myumap.tuning <span class="ot">=</span> umap.defaults</span>
-<span id="cb230-2"><a href="uniform-manifold-approximation-and-projection.html#cb230-2" tabindex="-1"></a>  umap.defaults<span class="sc">$</span>n_neighbors <span class="ot">=</span> <span class="dv">5</span></span>
-<span id="cb230-3"><a href="uniform-manifold-approximation-and-projection.html#cb230-3" tabindex="-1"></a>  </span>
-<span id="cb230-4"><a href="uniform-manifold-approximation-and-projection.html#cb230-4" tabindex="-1"></a>  circles.umap <span class="ot">=</span> <span class="fu">umap</span>(X, umap.defaults)</span>
-<span id="cb230-5"><a href="uniform-manifold-approximation-and-projection.html#cb230-5" tabindex="-1"></a></span>
-<span id="cb230-6"><a href="uniform-manifold-approximation-and-projection.html#cb230-6" tabindex="-1"></a>  <span class="fu">plot</span>(circles.umap<span class="sc">$</span>layout, <span class="at">col =</span> circle.labels)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-329-1.png" width="45%" style="display: block; margin: auto;" />
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="uniform-manifold-approximation-and-projection.html#cb229-1" tabindex="-1"></a>  myumap.tuning <span class="ot">=</span> umap.defaults</span>
+<span id="cb229-2"><a href="uniform-manifold-approximation-and-projection.html#cb229-2" tabindex="-1"></a>  umap.defaults<span class="sc">$</span>n_neighbors <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb229-3"><a href="uniform-manifold-approximation-and-projection.html#cb229-3" tabindex="-1"></a>  </span>
+<span id="cb229-4"><a href="uniform-manifold-approximation-and-projection.html#cb229-4" tabindex="-1"></a>  circles.umap <span class="ot">=</span> <span class="fu">umap</span>(X, umap.defaults)</span>
+<span id="cb229-5"><a href="uniform-manifold-approximation-and-projection.html#cb229-5" tabindex="-1"></a></span>
+<span id="cb229-6"><a href="uniform-manifold-approximation-and-projection.html#cb229-6" tabindex="-1"></a>  <span class="fu">plot</span>(circles.umap<span class="sc">$</span>layout, <span class="at">col =</span> circle.labels)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-328-1.png" width="45%" style="display: block; margin: auto;" />
 You can see that the result is not as perfect as we wanted. It seems that there are more groups, although each group only involves one type of data. There are other parameter you may consider tuning. For example <code>n_components</code> controls how many dimensions you reduced data should have. Usually we don’t use values larger than three, but this is very problem specific.</p>
 </div>
 <div id="another-example" class="section level2 hasAnchor" number="25.3">
 <h2><span class="header-section-number">25.3</span> Another Example<a href="uniform-manifold-approximation-and-projection.html#another-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s use UMAP on a larger data, the hand written digit data. We will perform clustering on just the pixels. We can also predict the embedding feature values for future observations. We can see that both recovers the true labels pretty well.</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="uniform-manifold-approximation-and-projection.html#cb231-1" tabindex="-1"></a>  <span class="fu">library</span>(ElemStatLearn)</span>
-<span id="cb231-2"><a href="uniform-manifold-approximation-and-projection.html#cb231-2" tabindex="-1"></a>  <span class="fu">dim</span>(zip.train)</span>
-<span id="cb231-3"><a href="uniform-manifold-approximation-and-projection.html#cb231-3" tabindex="-1"></a><span class="do">## [1] 7291  257</span></span>
-<span id="cb231-4"><a href="uniform-manifold-approximation-and-projection.html#cb231-4" tabindex="-1"></a>  <span class="fu">dim</span>(zip.test)</span>
-<span id="cb231-5"><a href="uniform-manifold-approximation-and-projection.html#cb231-5" tabindex="-1"></a><span class="do">## [1] 2007  257</span></span>
-<span id="cb231-6"><a href="uniform-manifold-approximation-and-projection.html#cb231-6" tabindex="-1"></a>  </span>
-<span id="cb231-7"><a href="uniform-manifold-approximation-and-projection.html#cb231-7" tabindex="-1"></a>  zip.umap <span class="ot">=</span> <span class="fu">umap</span>(zip.train[, <span class="sc">-</span><span class="dv">1</span>])</span>
-<span id="cb231-8"><a href="uniform-manifold-approximation-and-projection.html#cb231-8" tabindex="-1"></a>  zip.pred <span class="ot">=</span> <span class="fu">predict</span>(zip.umap, zip.test[, <span class="sc">-</span><span class="dv">1</span>])</span>
-<span id="cb231-9"><a href="uniform-manifold-approximation-and-projection.html#cb231-9" tabindex="-1"></a>  </span>
-<span id="cb231-10"><a href="uniform-manifold-approximation-and-projection.html#cb231-10" tabindex="-1"></a>  <span class="fu">plot</span>(zip.umap<span class="sc">$</span>layout, <span class="at">col =</span> zip.train[, <span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.2</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-330-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="uniform-manifold-approximation-and-projection.html#cb232-1" tabindex="-1"></a>  <span class="fu">plot</span>(zip.pred, <span class="at">col =</span> zip.test[, <span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.2</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-330-2.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="uniform-manifold-approximation-and-projection.html#cb230-1" tabindex="-1"></a>  <span class="fu">library</span>(ElemStatLearn)</span>
+<span id="cb230-2"><a href="uniform-manifold-approximation-and-projection.html#cb230-2" tabindex="-1"></a>  <span class="fu">dim</span>(zip.train)</span>
+<span id="cb230-3"><a href="uniform-manifold-approximation-and-projection.html#cb230-3" tabindex="-1"></a><span class="do">## [1] 7291  257</span></span>
+<span id="cb230-4"><a href="uniform-manifold-approximation-and-projection.html#cb230-4" tabindex="-1"></a>  <span class="fu">dim</span>(zip.test)</span>
+<span id="cb230-5"><a href="uniform-manifold-approximation-and-projection.html#cb230-5" tabindex="-1"></a><span class="do">## [1] 2007  257</span></span>
+<span id="cb230-6"><a href="uniform-manifold-approximation-and-projection.html#cb230-6" tabindex="-1"></a>  </span>
+<span id="cb230-7"><a href="uniform-manifold-approximation-and-projection.html#cb230-7" tabindex="-1"></a>  zip.umap <span class="ot">=</span> <span class="fu">umap</span>(zip.train[, <span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb230-8"><a href="uniform-manifold-approximation-and-projection.html#cb230-8" tabindex="-1"></a>  zip.pred <span class="ot">=</span> <span class="fu">predict</span>(zip.umap, zip.test[, <span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb230-9"><a href="uniform-manifold-approximation-and-projection.html#cb230-9" tabindex="-1"></a>  </span>
+<span id="cb230-10"><a href="uniform-manifold-approximation-and-projection.html#cb230-10" tabindex="-1"></a>  <span class="fu">plot</span>(zip.umap<span class="sc">$</span>layout, <span class="at">col =</span> zip.train[, <span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-329-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="uniform-manifold-approximation-and-projection.html#cb231-1" tabindex="-1"></a>  <span class="fu">plot</span>(zip.pred, <span class="at">col =</span> zip.test[, <span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-329-2.png" width="45%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

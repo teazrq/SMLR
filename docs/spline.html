@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2023-10-12" />
+<meta name="date" content="2023-10-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -411,12 +411,9 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="18.1" data-path="random-forests.html"><a href="random-forests.html#bagging-predictors"><i class="fa fa-check"></i><b>18.1</b> Bagging Predictors</a></li>
 <li class="chapter" data-level="18.2" data-path="random-forests.html"><a href="random-forests.html#random-forests-1"><i class="fa fa-check"></i><b>18.2</b> Random Forests</a></li>
-<li class="chapter" data-level="18.3" data-path="random-forests.html"><a href="random-forests.html#effect-of-mtry"><i class="fa fa-check"></i><b>18.3</b> Effect of <code>mtry</code></a></li>
-<li class="chapter" data-level="18.4" data-path="random-forests.html"><a href="random-forests.html#effect-of-nodesize"><i class="fa fa-check"></i><b>18.4</b> Effect of <code>nodesize</code></a></li>
-<li class="chapter" data-level="18.5" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>18.5</b> Variable Importance</a></li>
-<li class="chapter" data-level="18.6" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forests"><i class="fa fa-check"></i><b>18.6</b> Kernel view of Random Forests</a></li>
-<li class="chapter" data-level="18.7" data-path="random-forests.html"><a href="random-forests.html#kernel-function-induced-from-random-forest"><i class="fa fa-check"></i><b>18.7</b> Kernel Function Induced from Random Forest</a></li>
-<li class="chapter" data-level="18.8" data-path="random-forests.html"><a href="random-forests.html#adaptiveness-of-random-forest-kernel"><i class="fa fa-check"></i><b>18.8</b> Adaptiveness of Random Forest Kernel</a></li>
+<li class="chapter" data-level="18.3" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forests"><i class="fa fa-check"></i><b>18.3</b> Kernel view of Random Forests</a></li>
+<li class="chapter" data-level="18.4" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>18.4</b> Variable Importance</a></li>
+<li class="chapter" data-level="18.5" data-path="random-forests.html"><a href="random-forests.html#adaptiveness-of-random-forest-kernel"><i class="fa fa-check"></i><b>18.5</b> Adaptiveness of Random Forest Kernel</a></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>19</b> Boosting</a>
 <ul>
@@ -668,8 +665,8 @@ div.csl-indent {
 <span id="cb101-5"><a href="spline.html#cb101-5" tabindex="-1"></a>         <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">1900</span>, <span class="dv">2020</span>), <span class="at">xlab =</span> <span class="st">&quot;year&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;rate&quot;</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)   </span>
 <span id="cb101-6"><a href="spline.html#cb101-6" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">1900</span>, <span class="dv">2020</span>), <span class="fu">predict</span>(fit.bs, <span class="fu">data.frame</span>(<span class="st">&quot;Year&quot;</span><span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">1900</span>, <span class="dv">2020</span>))),</span>
 <span id="cb101-7"><a href="spline.html#cb101-7" tabindex="-1"></a>          <span class="at">col=</span><span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">3</span>)    </span>
-<span id="cb101-8"><a href="spline.html#cb101-8" tabindex="-1"></a><span class="do">## Warning in bs(Year, degree = 3L, knots = c(1938.5, 1960, 1981.5), Boundary.knots = c(1917L, : some</span></span>
-<span id="cb101-9"><a href="spline.html#cb101-9" tabindex="-1"></a><span class="do">## &#39;x&#39; values beyond boundary knots may cause ill-conditioned bases</span></span>
+<span id="cb101-8"><a href="spline.html#cb101-8" tabindex="-1"></a><span class="do">## Warning in bs(Year, degree = 3L, knots = c(`25%` = 1938.5, `50%` = 1960, : some &#39;x&#39; values beyond</span></span>
+<span id="cb101-9"><a href="spline.html#cb101-9" tabindex="-1"></a><span class="do">## boundary knots may cause ill-conditioned bases</span></span>
 <span id="cb101-10"><a href="spline.html#cb101-10" tabindex="-1"></a>    </span>
 <span id="cb101-11"><a href="spline.html#cb101-11" tabindex="-1"></a>    fit.ns <span class="ot">=</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> <span class="fu">ns</span>(Year, <span class="at">df=</span><span class="dv">6</span>), <span class="at">data=</span>birthrates)    </span>
 <span id="cb101-12"><a href="spline.html#cb101-12" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">1900</span>, <span class="dv">2020</span>), <span class="fu">predict</span>(fit.ns, <span class="fu">data.frame</span>(<span class="st">&quot;Year&quot;</span><span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">1900</span>, <span class="dv">2020</span>))), </span>

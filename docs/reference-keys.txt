@@ -157,11 +157,8 @@ tuning-a-tree-model
 random-forests
 bagging-predictors
 random-forests-1
-effect-of-mtry
-effect-of-nodesize
-variable-importance
 kernel-view-of-random-forests
-kernel-function-induced-from-random-forest
+variable-importance
 adaptiveness-of-random-forest-kernel
 boosting
 adaboost

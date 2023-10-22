@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2023-10-12" />
+<meta name="date" content="2023-10-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -411,12 +411,9 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="18.1" data-path="random-forests.html"><a href="random-forests.html#bagging-predictors"><i class="fa fa-check"></i><b>18.1</b> Bagging Predictors</a></li>
 <li class="chapter" data-level="18.2" data-path="random-forests.html"><a href="random-forests.html#random-forests-1"><i class="fa fa-check"></i><b>18.2</b> Random Forests</a></li>
-<li class="chapter" data-level="18.3" data-path="random-forests.html"><a href="random-forests.html#effect-of-mtry"><i class="fa fa-check"></i><b>18.3</b> Effect of <code>mtry</code></a></li>
-<li class="chapter" data-level="18.4" data-path="random-forests.html"><a href="random-forests.html#effect-of-nodesize"><i class="fa fa-check"></i><b>18.4</b> Effect of <code>nodesize</code></a></li>
-<li class="chapter" data-level="18.5" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>18.5</b> Variable Importance</a></li>
-<li class="chapter" data-level="18.6" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forests"><i class="fa fa-check"></i><b>18.6</b> Kernel view of Random Forests</a></li>
-<li class="chapter" data-level="18.7" data-path="random-forests.html"><a href="random-forests.html#kernel-function-induced-from-random-forest"><i class="fa fa-check"></i><b>18.7</b> Kernel Function Induced from Random Forest</a></li>
-<li class="chapter" data-level="18.8" data-path="random-forests.html"><a href="random-forests.html#adaptiveness-of-random-forest-kernel"><i class="fa fa-check"></i><b>18.8</b> Adaptiveness of Random Forest Kernel</a></li>
+<li class="chapter" data-level="18.3" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forests"><i class="fa fa-check"></i><b>18.3</b> Kernel view of Random Forests</a></li>
+<li class="chapter" data-level="18.4" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>18.4</b> Variable Importance</a></li>
+<li class="chapter" data-level="18.5" data-path="random-forests.html"><a href="random-forests.html#adaptiveness-of-random-forest-kernel"><i class="fa fa-check"></i><b>18.5</b> Adaptiveness of Random Forest Kernel</a></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>19</b> Boosting</a>
 <ul>
@@ -523,20 +520,24 @@ P(Y = 1 | X = \mathbf{x}) = \eta(\mathbf{x}^\text{T}\boldsymbol \beta) &amp;= \f
 <span id="cb126-4"><a href="logistic-regression.html#cb126-4" tabindex="-1"></a><span class="do">## Call:</span></span>
 <span id="cb126-5"><a href="logistic-regression.html#cb126-5" tabindex="-1"></a><span class="do">## glm(formula = Y ~ age, family = binomial, data = heart)</span></span>
 <span id="cb126-6"><a href="logistic-regression.html#cb126-6" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb126-7"><a href="logistic-regression.html#cb126-7" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb126-8"><a href="logistic-regression.html#cb126-8" tabindex="-1"></a><span class="do">##             Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
-<span id="cb126-9"><a href="logistic-regression.html#cb126-9" tabindex="-1"></a><span class="do">## (Intercept) -3.00591    0.75913  -3.960  7.5e-05 ***</span></span>
-<span id="cb126-10"><a href="logistic-regression.html#cb126-10" tabindex="-1"></a><span class="do">## age          0.05199    0.01367   3.803 0.000143 ***</span></span>
-<span id="cb126-11"><a href="logistic-regression.html#cb126-11" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb126-12"><a href="logistic-regression.html#cb126-12" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb126-13"><a href="logistic-regression.html#cb126-13" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb126-14"><a href="logistic-regression.html#cb126-14" tabindex="-1"></a><span class="do">## (Dispersion parameter for binomial family taken to be 1)</span></span>
-<span id="cb126-15"><a href="logistic-regression.html#cb126-15" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb126-16"><a href="logistic-regression.html#cb126-16" tabindex="-1"></a><span class="do">##     Null deviance: 417.98  on 302  degrees of freedom</span></span>
-<span id="cb126-17"><a href="logistic-regression.html#cb126-17" tabindex="-1"></a><span class="do">## Residual deviance: 402.54  on 301  degrees of freedom</span></span>
-<span id="cb126-18"><a href="logistic-regression.html#cb126-18" tabindex="-1"></a><span class="do">## AIC: 406.54</span></span>
+<span id="cb126-7"><a href="logistic-regression.html#cb126-7" tabindex="-1"></a><span class="do">## Deviance Residuals: </span></span>
+<span id="cb126-8"><a href="logistic-regression.html#cb126-8" tabindex="-1"></a><span class="do">##    Min      1Q  Median      3Q     Max  </span></span>
+<span id="cb126-9"><a href="logistic-regression.html#cb126-9" tabindex="-1"></a><span class="do">## -1.596  -1.073  -0.835   1.173   1.705  </span></span>
+<span id="cb126-10"><a href="logistic-regression.html#cb126-10" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb126-11"><a href="logistic-regression.html#cb126-11" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
+<span id="cb126-12"><a href="logistic-regression.html#cb126-12" tabindex="-1"></a><span class="do">##             Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
+<span id="cb126-13"><a href="logistic-regression.html#cb126-13" tabindex="-1"></a><span class="do">## (Intercept) -3.00591    0.75913  -3.960  7.5e-05 ***</span></span>
+<span id="cb126-14"><a href="logistic-regression.html#cb126-14" tabindex="-1"></a><span class="do">## age          0.05199    0.01367   3.803 0.000143 ***</span></span>
+<span id="cb126-15"><a href="logistic-regression.html#cb126-15" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb126-16"><a href="logistic-regression.html#cb126-16" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb126-17"><a href="logistic-regression.html#cb126-17" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb126-18"><a href="logistic-regression.html#cb126-18" tabindex="-1"></a><span class="do">## (Dispersion parameter for binomial family taken to be 1)</span></span>
 <span id="cb126-19"><a href="logistic-regression.html#cb126-19" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb126-20"><a href="logistic-regression.html#cb126-20" tabindex="-1"></a><span class="do">## Number of Fisher Scoring iterations: 4</span></span></code></pre></div>
+<span id="cb126-20"><a href="logistic-regression.html#cb126-20" tabindex="-1"></a><span class="do">##     Null deviance: 417.98  on 302  degrees of freedom</span></span>
+<span id="cb126-21"><a href="logistic-regression.html#cb126-21" tabindex="-1"></a><span class="do">## Residual deviance: 402.54  on 301  degrees of freedom</span></span>
+<span id="cb126-22"><a href="logistic-regression.html#cb126-22" tabindex="-1"></a><span class="do">## AIC: 406.54</span></span>
+<span id="cb126-23"><a href="logistic-regression.html#cb126-23" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb126-24"><a href="logistic-regression.html#cb126-24" tabindex="-1"></a><span class="do">## Number of Fisher Scoring iterations: 4</span></span></code></pre></div>
 <p>The result is similar to a linear regression, with some differences. The parameter estimate of age is 0.05199. It is positive, meaning that increasing age would increase the change of having heart disease. However, this does not mean that 1 year older would increase the change by 0.05. Since, by our previous formula, the probably is not directly expressed as <span class="math inline">\(\mathbf{x}^\text{T}\boldsymbol \beta\)</span>.</p>
 <p>This calculation can be realized when predicting a new target point. Let’s consider a new subject with <code>Age = 55</code>. What is the predicted probability of heart disease? Based on our formula, we have</p>
 <p><span class="math display">\[\beta_0 + \beta_1 X = -3.00591 + 0.05199 \times 55 = -0.14646\]</span>
