@@ -515,29 +515,29 @@ div.csl-indent {
 <h2><span class="header-section-number">6.2</span> Notation and Basic Properties<a href="linear-regression-and-model-selection.html#notation-and-basic-properties" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We usually denote the observed covariates data as the design matrix <span class="math inline">\(\mathbf{X}\)</span>, with dimension <span class="math inline">\(n \times p\)</span>. Hence in this case, the dimension of <span class="math inline">\(\mathbf{X}\)</span> is <span class="math inline">\(414 \times 7\)</span>. The <span class="math inline">\(j\)</span>th variable is simply the <span class="math inline">\(j\)</span>th column of this matrix, which is denoted as <span class="math inline">\(\mathbf{x}_j\)</span>. The outcome <span class="math inline">\(\mathbf{y}\)</span> (<code>price</code>) is a vector of length <span class="math inline">\(414\)</span>. Please note that we usually use a “bold” symbol to represent a vector, while for a single element (scalar), such as the <span class="math inline">\(j\)</span>th variable of subject <span class="math inline">\(i\)</span>, we use <span class="math inline">\(x_{ij}\)</span>.</p>
 <p>A linear regression concerns modeling the relationship (in matrix form)</p>
-<p><span class="math display">\[\mathbf{y}_{n \times 1} = \mathbf{X}_{n \times p} \boldsymbol \beta_{p \times 1} + \boldsymbol \epsilon_{n \times 1}\]</span>
+<p><span class="math display">\[\mathbf{y}_{n \times 1} = \mathbf{X}_{n \times p} \boldsymbol{\beta}_{p \times 1} + \boldsymbol{\epsilon}_{n \times 1}\]</span>
 And we know that the solution is obtained by minimizing the residual sum of squares (RSS):</p>
 <p><span class="math display">\[
 \begin{align}
-\widehat{\boldsymbol \beta} &amp;= \underset{\boldsymbol \beta}{\arg\min} \sum_{i=1}^n \left(y_i - x_i^\text{T}\boldsymbol \beta\right)^2 \\
-&amp;= \underset{\boldsymbol \beta}{\arg\min} \big( \mathbf y - \mathbf{X} \boldsymbol \beta \big)^\text{T}\big( \mathbf y - \mathbf{X} \boldsymbol \beta \big)
+\widehat{\boldsymbol{\beta}} &amp;= \underset{\boldsymbol{\beta}}{\arg\min} \sum_{i=1}^n \left(y_i - x_i^\text{T}\boldsymbol{\beta}\right)^2 \\
+&amp;= \underset{\boldsymbol{\beta}}{\arg\min} \big( \mathbf y - \mathbf{X} \boldsymbol \beta \big)^\text{T}\big( \mathbf y - \mathbf{X} \boldsymbol \beta \big)
 \end{align}
 \]</span>
-Classic solution can be obtained by taking the derivative of RSS w.r.t <span class="math inline">\(\boldsymbol \beta\)</span> and set it to zero. This leads to the well known normal equation:</p>
+Classic solution can be obtained by taking the derivative of RSS w.r.t <span class="math inline">\(\boldsymbol{\beta}\)</span> and set it to zero. This leads to the well known normal equation:</p>
 <p><span class="math display">\[
 \begin{align}
-    \frac{\partial \text{RSS}}{\partial \boldsymbol \beta} &amp;= -2 \mathbf{X}^\text{T}(\mathbf{y}- \mathbf{X}\boldsymbol \beta) \doteq 0 \\
-    \Longrightarrow \quad \mathbf{X}^\text{T}\mathbf{y}&amp;= \mathbf{X}^\text{T}\mathbf{X}\boldsymbol \beta
+    \frac{\partial \text{RSS}}{\partial \boldsymbol{\beta}} &amp;= -2 \mathbf{X}^\text{T}(\mathbf{y}- \mathbf{X}\boldsymbol{\beta}) \doteq 0 \\
+    \Longrightarrow \quad \mathbf{X}^\text{T}\mathbf{y}&amp;= \mathbf{X}^\text{T}\mathbf{X}\boldsymbol{\beta}
 \end{align}
 \]</span>
 Assuming that <span class="math inline">\(\mathbf{X}\)</span> is full rank, then <span class="math inline">\(\mathbf{X}^\text{T}\mathbf{X}\)</span> is invertible. Then, we have</p>
 <p><span class="math display">\[
-\widehat{\boldsymbol \beta} = (\mathbf{X}^\text{T}\mathbf{X})^{-1}\mathbf{X}^\text{T}\mathbf{y}
+\widehat{\boldsymbol{\beta}} = (\mathbf{X}^\text{T}\mathbf{X})^{-1}\mathbf{X}^\text{T}\mathbf{y}
 \]</span>
 Some additional concepts are frequently used. The fitted values <span class="math inline">\(\widehat{\mathbf{y}}\)</span> are essentially the prediction of the original <span class="math inline">\(n\)</span> training data points:</p>
 <p><span class="math display">\[
 \begin{align}
-\widehat{\mathbf{y}} =&amp; \mathbf{X}\boldsymbol \beta\\
+\widehat{\mathbf{y}} =&amp; \mathbf{X}\boldsymbol{\beta}\\
 =&amp; \underbrace{\mathbf{X}(\mathbf{X}^\text{T}\mathbf{X})^{-1}\mathbf{X}^\text{T}}_{\mathbf{H}} \mathbf{y}\\
 \doteq&amp; \mathbf{H}_{n \times n} \mathbf{y}
 \end{align}
@@ -553,12 +553,12 @@ From the properties of a projection matrix, we also know that <span class="math 
 <p><span class="math display">\[\mathbf{X}^\text{T}\mathbf{r}= \mathbf{0}_{p \times 1}\]</span></p>
 <p>The residuals is also used to estimate the error variance:</p>
 <p><span class="math display">\[\widehat\sigma^2 = \frac{1}{n-p} \sum_{i=1}^n r_i^2 = \frac{\text{RSS}}{n-p}\]</span>
-When the data are indeed generated from a linear model, and with suitable conditions on the design matrix and random errors <span class="math inline">\(\boldsymbol \epsilon\)</span>, we can conclude that <span class="math inline">\(\widehat{\boldsymbol \beta}\)</span> is an <strong>unbiased</strong> estimator of <span class="math inline">\(\boldsymbol \beta\)</span>. Its variance-covariance matrix satisfies</p>
+When the data are indeed generated from a linear model, and with suitable conditions on the design matrix and random errors <span class="math inline">\(\boldsymbol{\epsilon}\)</span>, we can conclude that <span class="math inline">\(\widehat{\boldsymbol{\beta}}\)</span> is an <strong>unbiased</strong> estimator of <span class="math inline">\(\boldsymbol{\beta}\)</span>. Its variance-covariance matrix satisfies</p>
 <p><span class="math display">\[
 \begin{align}
-    \text{Var}(\widehat{\boldsymbol \beta}) &amp;= \text{Var}\big( (\mathbf{X}^\text{T}\mathbf{X})^{-1}\mathbf{X}^\text{T}\mathbf{y}\big) \nonumber \\
-    &amp;= \text{Var}\big( (\mathbf{X}^\text{T}\mathbf{X})^{-1}\mathbf{X}^\text{T}(\mathbf{X}\boldsymbol \beta+ \boldsymbol \epsilon) \big) \nonumber \\
-    &amp;= \text{Var}\big( (\mathbf{X}^\text{T}\mathbf{X})^{-1}\mathbf{X}^\text{T}\boldsymbol \epsilon) \big) \nonumber \\
+    \text{Var}(\widehat{\boldsymbol{\beta}}) &amp;= \text{Var}\big( (\mathbf{X}^\text{T}\mathbf{X})^{-1}\mathbf{X}^\text{T}\mathbf{y}\big) \nonumber \\
+    &amp;= \text{Var}\big( (\mathbf{X}^\text{T}\mathbf{X})^{-1}\mathbf{X}^\text{T}(\mathbf{X}\boldsymbol{\beta}+ \boldsymbol{\epsilon}) \big) \nonumber \\
+    &amp;= \text{Var}\big( (\mathbf{X}^\text{T}\mathbf{X})^{-1}\mathbf{X}^\text{T}\boldsymbol{\epsilon}) \big) \nonumber \\
     &amp;= (\mathbf{X}^\text{T}\mathbf{X})^{-1}\mathbf{X}^\text{T}\mathbf{X}(\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{I}\sigma^2 \nonumber \\
     &amp;= (\mathbf{X}^\text{T}\mathbf{X})^{-1}\sigma^2
 \end{align}
@@ -1033,16 +1033,16 @@ while the BIC score is given by</p>
 <div id="marrows-cp" class="section level2 hasAnchor" number="6.6">
 <h2><span class="header-section-number">6.6</span> Derivation of Marrows’ <span class="math inline">\(C_p\)</span><a href="linear-regression-and-model-selection.html#marrows-cp" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Suppose we have a set of training data <span class="math inline">\({\cal D}_n = \{x_i, \color{DodgerBlue}{y_i}\}_{i=1}^n\)</span> and a set of testing data, with the same covariates <span class="math inline">\({\cal D}_n^\ast = \{x_i, \color{OrangeRed}{y_i^\ast}\}_{i=1}^n\)</span>. Hence, this is an <strong>in-sample prediction</strong> problem. However, the <span class="math inline">\(\color{OrangeRed}{y_i^\ast}\)</span>s are newly observed. Assuming that the data are generated from a linear model, i.e., in vector form,</p>
-<p><span class="math display">\[\color{DodgerBlue}{\mathbf{y}}= \boldsymbol \mu+ \color{DodgerBlue}{\mathbf{e}}= \mathbf{X}\boldsymbol \beta+ \color{DodgerBlue}{\mathbf{e}},\]</span>
+<p><span class="math display">\[\color{DodgerBlue}{\mathbf{y}}= \boldsymbol{\mu}+ \color{DodgerBlue}{\mathbf{e}}= \mathbf{X}\boldsymbol{\beta}+ \color{DodgerBlue}{\mathbf{e}},\]</span>
 and
-<span class="math display">\[\color{OrangeRed}{\mathbf{y}^\ast}= \boldsymbol \mu+ \color{OrangeRed}{\mathbf{e}^\ast}= \mathbf{X}\boldsymbol \beta+ \color{OrangeRed}{\mathbf{e}^\ast},\]</span>
+<span class="math display">\[\color{OrangeRed}{\mathbf{y}^\ast}= \boldsymbol{\mu}+ \color{OrangeRed}{\mathbf{e}^\ast}= \mathbf{X}\boldsymbol{\beta}+ \color{OrangeRed}{\mathbf{e}^\ast},\]</span>
 where the error terms are i.i.d with mean 0 and variance <span class="math inline">\(\sigma^2\)</span>. We want to know what is the best model that predicts <span class="math inline">\(\color{OrangeRed}{\mathbf{y}^\ast}\)</span>. Let’s look at the testing error first:</p>
 <p><span class="math display">\[\begin{align}
-\text{E}[\color{OrangeRed}{\text{Testing Error}}] =&amp; ~\text{E}\lVert \color{OrangeRed}{\mathbf{y}^\ast}- \mathbf{X}\color{DodgerBlue}{\widehat{\boldsymbol \beta}}\rVert^2 \\
-=&amp; ~\text{E}\lVert (\color{OrangeRed}{\mathbf{y}^\ast}- \mathbf{X}\boldsymbol \beta) + (\mathbf{X}\boldsymbol \beta- \mathbf{X}\color{DodgerBlue}{\widehat{\boldsymbol \beta}}) \rVert^2 \\
-=&amp; ~\text{E}\lVert \color{OrangeRed}{\mathbf{e}^\ast}\rVert^2 + \text{E}\lVert \mathbf{X}(\color{DodgerBlue}{\widehat{\boldsymbol \beta}}- \boldsymbol \beta) \rVert^2 \\
-=&amp; ~\color{OrangeRed}{n \sigma^2} + \text{E}\big[ \text{Trace}\big( (\color{DodgerBlue}{\widehat{\boldsymbol \beta}}- \boldsymbol \beta)^\text{T}\mathbf{X}^\text{T}\mathbf{X}(\color{DodgerBlue}{\widehat{\boldsymbol \beta}}- \boldsymbol \beta) \big) \big] \\
-=&amp; ~\color{OrangeRed}{n \sigma^2} + \text{Trace}\big(\mathbf{X}^\text{T}\mathbf{X}\text{Cov}(\color{DodgerBlue}{\widehat{\boldsymbol \beta}})\big) \\
+\text{E}[\color{OrangeRed}{\text{Testing Error}}] =&amp; ~\text{E}\lVert \color{OrangeRed}{\mathbf{y}^\ast}- \mathbf{X}\color{DodgerBlue}{\widehat{\boldsymbol{\beta}}}\rVert^2 \\
+=&amp; ~\text{E}\lVert (\color{OrangeRed}{\mathbf{y}^\ast}- \mathbf{X}\boldsymbol{\beta}) + (\mathbf{X}\boldsymbol{\beta}- \mathbf{X}\color{DodgerBlue}{\widehat{\boldsymbol{\beta}}}) \rVert^2 \\
+=&amp; ~\text{E}\lVert \color{OrangeRed}{\mathbf{e}^\ast}\rVert^2 + \text{E}\lVert \mathbf{X}(\color{DodgerBlue}{\widehat{\boldsymbol{\beta}}}- \boldsymbol{\beta}) \rVert^2 \\
+=&amp; ~\color{OrangeRed}{n \sigma^2} + \text{E}\big[ \text{Trace}\big( (\color{DodgerBlue}{\widehat{\boldsymbol{\beta}}}- \boldsymbol{\beta})^\text{T}\mathbf{X}^\text{T}\mathbf{X}(\color{DodgerBlue}{\widehat{\boldsymbol{\beta}}}- \boldsymbol{\beta}) \big) \big] \\
+=&amp; ~\color{OrangeRed}{n \sigma^2} + \text{Trace}\big(\mathbf{X}^\text{T}\mathbf{X}\text{Cov}(\color{DodgerBlue}{\widehat{\boldsymbol{\beta}}})\big) \\
 =&amp; ~\color{OrangeRed}{n \sigma^2} + \color{DodgerBlue}{p \sigma^2}.
 \end{align}\]</span></p>
 <p>In the above, we used properties</p>
@@ -1053,7 +1053,7 @@ where the error terms are i.i.d with mean 0 and variance <span class="math inlin
 <p>On the other hand, the training error is</p>
 <p><span class="math display">\[\begin{align}
 \text{E}[\color{DodgerBlue}{\text{Training Error}}] =&amp; ~\text{E}\lVert \mathbf{y}- \color{DodgerBlue}{\mathbf{y}}\rVert^2 \\
-=&amp; ~\text{E}\lVert (\mathbf{I}- \mathbf{H})(\mathbf{X}\boldsymbol \beta+ \color{DodgerBlue}{\mathbf{e}}) \rVert^2 \\
+=&amp; ~\text{E}\lVert (\mathbf{I}- \mathbf{H})(\mathbf{X}\boldsymbol{\beta}+ \color{DodgerBlue}{\mathbf{e}}) \rVert^2 \\
 =&amp; ~\text{E}\lVert (\mathbf{I}- \mathbf{H})\color{DodgerBlue}{\mathbf{e}}\rVert^2 \\
 =&amp; ~\text{E}[\text{Trace}(\color{DodgerBlue}{\mathbf{e}}^\text{T}(\mathbf{I}- \mathbf{H})^\text{T}(\mathbf{I}- \mathbf{H}) \color{DodgerBlue}{\mathbf{e}})]\\
 =&amp; ~\text{Trace}((\mathbf{I}- \mathbf{H})^\text{T}(\mathbf{I}- \mathbf{H}) \text{Cov}(\color{DodgerBlue}{\mathbf{e}})]\\
@@ -1066,24 +1066,24 @@ where the error terms are i.i.d with mean 0 and variance <span class="math inlin
 </ul>
 <p>If we contrast the two results above, the difference between the training and testing errors is <span class="math inline">\(2 p \sigma^2\)</span>. Hence, if we can obtain a valid estimation of <span class="math inline">\(\sigma^2\)</span>, then the training error plus <span class="math inline">\(2 p \widehat{\sigma}^2\)</span> is a good approximation of the testing error, which we want to minimize. And that is exactly what Marrows’ <span class="math inline">\(C_p\)</span> does.</p>
 <p>We can also generalize this result to the case when the underlying model is not a linear model. Assume that</p>
-<p><span class="math display">\[\color{DodgerBlue}{\mathbf{y}}= f(\mathbf{X}) + \color{DodgerBlue}{\mathbf{e}}= \boldsymbol \mu+ \color{DodgerBlue}{\mathbf{e}},\]</span>
+<p><span class="math display">\[\color{DodgerBlue}{\mathbf{y}}= f(\mathbf{X}) + \color{DodgerBlue}{\mathbf{e}}= \boldsymbol{\mu}+ \color{DodgerBlue}{\mathbf{e}},\]</span>
 and
-<span class="math display">\[\color{OrangeRed}{\mathbf{y}^\ast}= f(\mathbf{X}) + \color{OrangeRed}{\mathbf{e}^\ast}= \boldsymbol \mu+ \color{OrangeRed}{\mathbf{e}^\ast}.\]</span>
-In this case, a linear model would not estimate <span class="math inline">\(\boldsymbol \mu\)</span>. Instead, it is only capable to produce the best linear approximation of <span class="math inline">\(\boldsymbol \mu\)</span> using the columns in <span class="math inline">\(\mathbf{X}\)</span>, which is <span class="math inline">\(\mathbf{H}\boldsymbol \mu\)</span>, the projection of <span class="math inline">\(\boldsymbol \mu\)</span> on the column space of <span class="math inline">\(\mathbf{X}\)</span>. In general, <span class="math inline">\(\mathbf{H}\boldsymbol \mu\neq \boldsymbol \mu\)</span>, and the remaining part <span class="math inline">\(\boldsymbol \mu- \mathbf{H}\boldsymbol \mu\)</span> is called <strong>bias</strong>. This is a new concept that will appear frequently in this book. Selection variables will essentially trade between bias and variance of a model. The following derivation shows this phenomenon:</p>
+<span class="math display">\[\color{OrangeRed}{\mathbf{y}^\ast}= f(\mathbf{X}) + \color{OrangeRed}{\mathbf{e}^\ast}= \boldsymbol{\mu}+ \color{OrangeRed}{\mathbf{e}^\ast}.\]</span>
+In this case, a linear model would not estimate <span class="math inline">\(\boldsymbol{\mu}\)</span>. Instead, it is only capable to produce the best linear approximation of <span class="math inline">\(\boldsymbol{\mu}\)</span> using the columns in <span class="math inline">\(\mathbf{X}\)</span>, which is <span class="math inline">\(\mathbf{H}\boldsymbol{\mu}\)</span>, the projection of <span class="math inline">\(\boldsymbol{\mu}\)</span> on the column space of <span class="math inline">\(\mathbf{X}\)</span>. In general, <span class="math inline">\(\mathbf{H}\boldsymbol{\mu}\neq \boldsymbol{\mu}\)</span>, and the remaining part <span class="math inline">\(\boldsymbol{\mu}- \mathbf{H}\boldsymbol{\mu}\)</span> is called <strong>bias</strong>. This is a new concept that will appear frequently in this book. Selection variables will essentially trade between bias and variance of a model. The following derivation shows this phenomenon:</p>
 <p><span class="math display">\[\begin{align}
-\text{E}[\color{OrangeRed}{\text{Testing Error}}] =&amp; ~\text{E}\lVert \color{OrangeRed}{\mathbf{y}^\ast}- \mathbf{X}\color{DodgerBlue}{\widehat{\boldsymbol \beta}}\rVert^2 \\
+\text{E}[\color{OrangeRed}{\text{Testing Error}}] =&amp; ~\text{E}\lVert \color{OrangeRed}{\mathbf{y}^\ast}- \mathbf{X}\color{DodgerBlue}{\widehat{\boldsymbol{\beta}}}\rVert^2 \\
 =&amp; ~\text{E}\lVert \color{OrangeRed}{\mathbf{y}^\ast}- \mathbf{H}\color{DodgerBlue}{\mathbf{y}}\rVert^2 \\
-=&amp; ~\text{E}\lVert (\color{OrangeRed}{\mathbf{y}^\ast}- \boldsymbol \mu) + (\boldsymbol \mu- \mathbf{H}\boldsymbol \mu) + (\mathbf{H}\boldsymbol \mu- \mathbf{H}\color{DodgerBlue}{\mathbf{y}}) \rVert^2 \\
-=&amp; ~\text{E}\lVert \color{OrangeRed}{\mathbf{y}^\ast}- \boldsymbol \mu\rVert^2 + \text{E}\lVert \boldsymbol \mu- \mathbf{H}\boldsymbol \mu\rVert^2 + \text{E}\lVert \mathbf{H}\boldsymbol \mu- \mathbf{H}\color{DodgerBlue}{\mathbf{y}}\rVert^2 \\
-=&amp; ~\text{E}\lVert \color{OrangeRed}{\mathbf{e}^\ast}\rVert^2 + \text{E}\lVert \boldsymbol \mu- \mathbf{H}\boldsymbol \mu\rVert^2 + \text{E}\lVert \mathbf{H}\color{DodgerBlue}{\mathbf{e}}\rVert^2 \\
+=&amp; ~\text{E}\lVert (\color{OrangeRed}{\mathbf{y}^\ast}- \boldsymbol{\mu}) + (\boldsymbol{\mu}- \mathbf{H}\boldsymbol{\mu}) + (\mathbf{H}\boldsymbol{\mu}- \mathbf{H}\color{DodgerBlue}{\mathbf{y}}) \rVert^2 \\
+=&amp; ~\text{E}\lVert \color{OrangeRed}{\mathbf{y}^\ast}- \boldsymbol{\mu}\rVert^2 + \text{E}\lVert \boldsymbol{\mu}- \mathbf{H}\boldsymbol{\mu}\rVert^2 + \text{E}\lVert \mathbf{H}\boldsymbol{\mu}- \mathbf{H}\color{DodgerBlue}{\mathbf{y}}\rVert^2 \\
+=&amp; ~\text{E}\lVert \color{OrangeRed}{\mathbf{e}^\ast}\rVert^2 + \text{E}\lVert \boldsymbol{\mu}- \mathbf{H}\boldsymbol{\mu}\rVert^2 + \text{E}\lVert \mathbf{H}\color{DodgerBlue}{\mathbf{e}}\rVert^2 \\
 =&amp; ~\color{OrangeRed}{n \sigma^2} + \text{Bias}^2 + \color{DodgerBlue}{p \sigma^2},
 \end{align}\]</span></p>
 <p>while the training error is</p>
 <p><span class="math display">\[\begin{align}
-\text{E}[\color{DodgerBlue}{\text{Training Error}}] =&amp; ~\text{E}\lVert \color{DodgerBlue}{\mathbf{y}}- \mathbf{X}\color{DodgerBlue}{\widehat{\boldsymbol \beta}}\rVert^2 \\
+\text{E}[\color{DodgerBlue}{\text{Training Error}}] =&amp; ~\text{E}\lVert \color{DodgerBlue}{\mathbf{y}}- \mathbf{X}\color{DodgerBlue}{\widehat{\boldsymbol{\beta}}}\rVert^2 \\
 =&amp; ~\text{E}\lVert \color{DodgerBlue}{\mathbf{y}}- \mathbf{H}\color{DodgerBlue}{\mathbf{y}}\rVert^2 \\
-=&amp; ~\text{E}\lVert (\mathbf{I}- \mathbf{H})(\boldsymbol \mu+ \color{DodgerBlue}{\mathbf{e}}) \rVert^2 \\
-=&amp; ~\text{E}\lVert (\mathbf{I}- \mathbf{H})\boldsymbol \mu\rVert^2 + \text{E}\lVert (\mathbf{I}- \mathbf{H})\color{DodgerBlue}{\mathbf{e}}\rVert^2\\
+=&amp; ~\text{E}\lVert (\mathbf{I}- \mathbf{H})(\boldsymbol{\mu}+ \color{DodgerBlue}{\mathbf{e}}) \rVert^2 \\
+=&amp; ~\text{E}\lVert (\mathbf{I}- \mathbf{H})\boldsymbol{\mu}\rVert^2 + \text{E}\lVert (\mathbf{I}- \mathbf{H})\color{DodgerBlue}{\mathbf{e}}\rVert^2\\
 =&amp; ~\text{Bias}^2 + \color{DodgerBlue}{(n - p) \sigma^2}.
 \end{align}\]</span></p>
 <p>We can notice again that the difference is <span class="math inline">\(2p\sigma^2\)</span>. Note that this is regardless of whether the linear model is correct or not.</p>

@@ -689,7 +689,7 @@ div.csl-indent {
 <h2><span class="header-section-number">9.7</span> Smoothing Spline<a href="spline.html#smoothing-spline" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The motivation is to trying to solve the knots selection issue. Instead, let’s start with a “horrible” idea, by putting knots at all each observed data point <span class="math inline">\((x_1, x_2, \ldots, x_n)\)</span>. Then, we can create <span class="math inline">\(n\)</span> natural cubic spline basis. However, we also know that this leads to over-fitting since there are too many parameters. Let’s utilize the ridge regression idea by adding some penalties. This leads to the objective function</p>
 <p><span class="math display" id="eq:penalized">\[\begin{equation}
-\underset{\boldsymbol \beta}{\text{min}} \,\, \lVert \mathbf{y}- \mathbf{F}\boldsymbol \beta\rVert^2 + \lambda \boldsymbol \beta^\text{T}\Omega \boldsymbol \beta, \tag{9.1}
+\underset{\boldsymbol{\beta}}{\text{min}} \,\, \lVert \mathbf{y}- \mathbf{F}\boldsymbol{\beta}\rVert^2 + \lambda \boldsymbol{\beta}^\text{T}\Omega \boldsymbol{\beta}, \tag{9.1}
 \end{equation}\]</span></p>
 <p>where <span class="math inline">\(\mathbf{F}\)</span> is the matrix of all <span class="math inline">\(n\)</span> natural cubic spline basis, and <span class="math inline">\(\Omega\)</span> is some covariance matrix that takes care of some form of relationship among different basis, which we will define later, and <span class="math inline">\(\lambda\)</span> is similar to the ridge regression. The question is, will this type of regression problem provide a good solution with nice properties?</p>
 <p>Let’s consider fitting a regression model by solving a regression function <span class="math inline">\(g(x)\)</span> with the following penalized criteria:</p>
@@ -718,10 +718,10 @@ The first and second term on the right hand side are both non-negative. Hence, o
 <p>where <span class="math inline">\(N_j\)</span>’s are a set of natural cubic spline basis functions with knots at each of the unique <span class="math inline">\(x\)</span> values. Then Equation <a href="spline.html#eq:roughness">(9.2)</a> becomes</p>
 <p><span class="math display">\[\begin{align}
 &amp; \lVert \mathbf{y}- \sum_{j=1}^n \beta_j N_j(x) \rVert^2 + \int \Big( \sum_{j=1}^n \beta_j N_j&#39;&#39;(x)\Big)^2 dx \\
-=&amp; \lVert \mathbf{y}- \mathbf{F}\boldsymbol \beta\rVert^2 + \boldsymbol \beta^\text{T}\Omega \boldsymbol \beta,
+=&amp; \lVert \mathbf{y}- \mathbf{F}\boldsymbol{\beta}\rVert^2 + \boldsymbol{\beta}^\text{T}\Omega \boldsymbol{\beta},
 \end{align}\]</span></p>
 <p>where <span class="math inline">\(\mathbf{F}\)</span> is the design matrix corresponds to the <span class="math inline">\(n\)</span> NCS basis <span class="math inline">\(N_j\)</span>’s, and <span class="math inline">\(\Omega\)</span> is an <span class="math inline">\(n \times n\)</span> matrix with <span class="math inline">\(\Omega_{ij} = \int N_i&#39;&#39;(x) N_j(x) dx.\)</span> The solution is essentially a ridge solution:</p>
-<p><span class="math display">\[\widehat{\boldsymbol \beta} = (\mathbf{F}^\text{T}\mathbf{F}+ \lambda \Omega)^{-1} \mathbf{F}^\text{T}\mathbf{y}.\]</span>
+<p><span class="math display">\[\widehat{\boldsymbol{\beta}} = (\mathbf{F}^\text{T}\mathbf{F}+ \lambda \Omega)^{-1} \mathbf{F}^\text{T}\mathbf{y}.\]</span>
 and the penalty <span class="math inline">\(\lambda\)</span> can be tuned using GCV.</p>
 </div>
 <div id="fitting-smoothing-splines" class="section level2 hasAnchor" number="9.8">

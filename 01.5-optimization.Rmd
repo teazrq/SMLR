@@ -81,26 +81,26 @@
 \def\bz{\mathbf{z}}
 
 % Bold Symbols
-\newcommand{\bzero}{\mathbf{0}}
-\newcommand{\balpha}{\boldsymbol{\alpha}}
-\newcommand{\bbeta}{\boldsymbol{\beta}}
-\newcommand{\btheta}{\boldsymbol{\theta}}
-\newcommand{\bxi}{\boldsymbol{\xi}}
-\newcommand{\bmu}{\boldsymbol{\mu}}
-\newcommand{\bepsilon}{\boldsymbol{\epsilon}}
+\def\bzero{\mathbf{0}}
+\def\balpha{\boldsymbol{\alpha}}
+\def\bbeta{\boldsymbol{\beta}}
+\def\btheta{\boldsymbol{\theta}}
+\def\bxi{\boldsymbol{\xi}}
+\def\bmu{\boldsymbol{\mu}}
+\def\bepsilon{\boldsymbol{\epsilon}}
 
 % Matrix and Transpose
-\newcommand{\T}{\text{T}}
+\def\T{\text{T}}
 
 % Mathematical Operations
-\newcommand{\Trace}{\text{Trace}}
-\newcommand{\Cov}{\text{Cov}}
-\newcommand{\Var}{\text{Var}}
-\newcommand{\E}{\text{E}}
-\newcommand{\pr}{\text{pr}}
-\newcommand{\Prob}{\text{P}}
-\newcommand{\argmin}{\arg\min}
-\newcommand{\argmax}{\arg\max}
+\def\Trace{\text{Trace}}
+\def\Cov{\text{Cov}}
+\def\Var{\text{Var}}
+\def\E{\text{E}}
+\def\pr{\text{pr}}
+\def\Prob{\text{P}}
+\def\argmin{\arg\min}
+\def\argmax{\arg\max}
 
 ```{r include = FALSE}
   options(width = 100)
