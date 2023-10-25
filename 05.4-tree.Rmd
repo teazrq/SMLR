@@ -1,38 +1,92 @@
-\def\cD{{\cal D}}
-\def\cL{{\cal L}}
-\def\cX{{\cal X}}
-\def\cF{{\cal F}}
-\def\cH{{\cal H}}
 \def\cA{{\cal A}}
+\def\cB{{\cal B}}
+\def\cC{{\cal C}}
+\def\cD{{\cal D}}
+\def\cE{{\cal E}}
+\def\cF{{\cal F}}
+\def\cG{{\cal G}}
+\def\cH{{\cal H}}
+\def\cI{{\cal I}}
+\def\cJ{{\cal J}}
+\def\cK{{\cal K}}
+\def\cL{{\cal L}}
+\def\cM{{\cal M}}
+\def\cN{{\cal N}}
+\def\cO{{\cal O}}
+\def\cP{{\cal P}}
+\def\cQ{{\cal Q}}
+\def\cR{{\cal R}}
+\def\cS{{\cal S}}
 \def\cT{{\cal T}}
+\def\cU{{\cal U}}
+\def\cV{{\cal V}}
+\def\cW{{\cal W}}
+\def\cX{{\cal X}}
+\def\cY{{\cal Y}}
+\def\cZ{{\cal Z}}
+
 \def\bA{\mathbf{A}}
 \def\bB{\mathbf{B}}
-\def\bX{\mathbf{X}}
+\def\bC{\mathbf{C}}
+\def\bD{\mathbf{D}}
+\def\bE{\mathbf{E}}
+\def\bF{\mathbf{F}}
+\def\bG{\mathbf{G}}
 \def\bH{\mathbf{H}}
 \def\bI{\mathbf{I}}
-\def\bU{\mathbf{U}}
-\def\bD{\mathbf{D}}
-\def\bV{\mathbf{V}}
-\def\bS{\mathbf{S}}
-\def\bW{\mathbf{W}}
+\def\bJ{\mathbf{J}}
 \def\bK{\mathbf{K}}
+\def\bL{\mathbf{L}}
+\def\bM{\mathbf{M}}
+\def\bN{\mathbf{N}}
+\def\bO{\mathbf{O}}
+\def\bP{\mathbf{P}}
+\def\bQ{\mathbf{Q}}
+\def\bR{\mathbf{R}}
+\def\bS{\mathbf{S}}
+\def\bT{\mathbf{T}}
+\def\bU{\mathbf{U}}
+\def\bV{\mathbf{V}}
+\def\bW{\mathbf{W}}
+\def\bX{\mathbf{X}}
+\def\bY{\mathbf{Y}}
+\def\bZ{\mathbf{Z}}
+
+\def\ba{\mathbf{a}}
+\def\bb{\mathbf{b}}
+\def\bc{\mathbf{c}}
+\def\bd{\mathbf{d}}
+\def\be{\mathbf{e}}
+<!-- Conflict \def\bf{\mathbf{f}} -->
+\def\bg{\mathbf{g}}
+\def\bh{\mathbf{h}}
+\def\bi{\mathbf{i}}
+\def\bj{\mathbf{j}}
+\def\bk{\mathbf{k}}
+\def\bl{\mathbf{l}}
+\def\bm{\mathbf{m}}
+\def\bn{\mathbf{n}}
+\def\bo{\mathbf{o}}
+\def\bp{\mathbf{p}}
+\def\bq{\mathbf{q}}
+\def\br{\mathbf{r}}
+\def\bs{\mathbf{s}}
+\def\bt{\mathbf{t}}
+\def\bu{\mathbf{u}}
+\def\bv{\mathbf{v}}
+\def\bw{\mathbf{w}}
 \def\bx{\mathbf{x}}
 \def\by{\mathbf{y}}
-\def\bs{\mathbf{s}}
-\def\br{\mathbf{r}}
-\def\bu{\mathbf{u}}
-\def\be{\mathbf{e}}
-\def\bv{\mathbf{v}}
-\def\bp{\mathbf{p}}
-\def\bw{\mathbf{w}}
 \def\bz{\mathbf{z}}
+
 \def\bzero{\mathbf{0}}
-\def\balpha{\boldsymbol \alpha}
-\def\bbeta{\boldsymbol \beta}
-\def\btheta{\boldsymbol \theta}
-\def\bxi{\boldsymbol \xi}
-\def\bmu{\boldsymbol \mu}
-\def\bepsilon{\boldsymbol \epsilon}
+\def\balpha{\boldsymbol{\alpha}}
+\def\bbeta{\boldsymbol{\beta}}
+\def\btheta{\boldsymbol{\theta}}
+\def\bxi{\boldsymbol{\xi}}
+\def\bmu{\boldsymbol{\mu}}
+\def\bepsilon{\boldsymbol{\epsilon}}
+
 \def\T{\text{T}}
 \def\Trace{\text{Trace}}
 \def\Cov{\text{Cov}}

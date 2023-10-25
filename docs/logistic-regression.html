@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 12 Logistic Regression | Statistical Learning and Machine Learning with R</title>
   <meta name="description" content="A Textbook for Statistical Learning Courses at UIUC" />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 12 Logistic Regression | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2023-10-23" />
+<meta name="date" content="2023-10-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,7 +54,7 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.28/datatables.js"></script>
+<script src="libs/datatables-binding-0.30/datatables.js"></script>
 <link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
@@ -64,7 +64,7 @@
 <script src="libs/selectize-0.12.0/selectize.min.js"></script>
 <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
+<script src="libs/plotly-binding-4.10.3/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
@@ -492,15 +492,15 @@ div.csl-indent {
 <p>To model binary outcomes using a logistic regression, we will use the 0/1 coding of <span class="math inline">\(Y\)</span>. We need to set its connection with covariates. Recall in a linear regression, the outcome is continuous, and we set</p>
 <p><span class="math display">\[Y = \beta_0 + \beta_1 X + \epsilon\]</span>
 However, this does not work for classification since <span class="math inline">\(Y\)</span> can only be 0 or 1. Hence we turn to consider modeling the probability <span class="math inline">\(P(Y = 1 | X = \mathbf{x})\)</span>. Hence, <span class="math inline">\(Y\)</span> is a Bernoulli random variable given <span class="math inline">\(X\)</span>, and this is modeled by a function of <span class="math inline">\(X\)</span>:</p>
-<p><span class="math display">\[ P(Y = 1 | X = \mathbf{x}) = \frac{\exp(\mathbf{x}^\text{T}\boldsymbol \beta)}{1 + \exp(\mathbf{x}^\text{T}\boldsymbol \beta)}\]</span>
-Note that although <span class="math inline">\(\mathbf{x}^\text{T}\boldsymbol \beta\)</span> may ranges from 0 to infinity as <span class="math inline">\(X\)</span> changes, the probability will still be bounded between 0 and 1. This is an example of <strong>Generalized Linear Models</strong>. The relationship is still represented using a linear function of <span class="math inline">\(\mathbf{x}\)</span>, <span class="math inline">\(\mathbf{x}^\text{T}\boldsymbol \beta\)</span>. This is called a <strong>logit link</strong> function (a function to connect the conditional expectation of <span class="math inline">\(Y\)</span> with <span class="math inline">\(\boldsymbol \beta^\text{T}\mathbf{x}\)</span>):</p>
+<p><span class="math display">\[ P(Y = 1 | X = \mathbf{x}) = \frac{\exp(\mathbf{x}^\text{T}\boldsymbol{\beta})}{1 + \exp(\mathbf{x}^\text{T}\boldsymbol{\beta})}\]</span>
+Note that although <span class="math inline">\(\mathbf{x}^\text{T}\boldsymbol{\beta}\)</span> may ranges from 0 to infinity as <span class="math inline">\(X\)</span> changes, the probability will still be bounded between 0 and 1. This is an example of <strong>Generalized Linear Models</strong>. The relationship is still represented using a linear function of <span class="math inline">\(\mathbf{x}\)</span>, <span class="math inline">\(\mathbf{x}^\text{T}\boldsymbol{\beta}\)</span>. This is called a <strong>logit link</strong> function (a function to connect the conditional expectation of <span class="math inline">\(Y\)</span> with <span class="math inline">\(\boldsymbol{\beta}^\text{T}\mathbf{x}\)</span>):</p>
 <p><span class="math display">\[\eta(a) = \frac{\exp(a)}{1 + \exp(a)}\]</span>
-Hence, <span class="math inline">\(P(Y = 1 | X = \mathbf{x}) = \eta(\mathbf{x}^\text{T}\boldsymbol \beta)\)</span>. We can reversely solve this and get</p>
+Hence, <span class="math inline">\(P(Y = 1 | X = \mathbf{x}) = \eta(\mathbf{x}^\text{T}\boldsymbol{\beta})\)</span>. We can reversely solve this and get</p>
 <span class="math display">\[\begin{aligned}
-P(Y = 1 | X = \mathbf{x}) = \eta(\mathbf{x}^\text{T}\boldsymbol \beta) &amp;= \frac{\exp(\mathbf{x}^\text{T}\boldsymbol \beta)}{1 + \exp(\mathbf{x}^\text{T}\boldsymbol \beta)}\\
-1 - \eta(\mathbf{x}^\text{T}\boldsymbol \beta) &amp;= \frac{1}{1 + \exp(\mathbf{x}^\text{T}\boldsymbol \beta)} \\
-\text{Odds} = \frac{\eta(\mathbf{x}^\text{T}\boldsymbol \beta)}{1-\eta(\mathbf{x}^\text{T}\boldsymbol \beta)} &amp;= \exp(\mathbf{x}^\text{T}\boldsymbol \beta)\\
-\log(\text{Odds}) = \mathbf{x}^\text{T}\boldsymbol \beta
+P(Y = 1 | X = \mathbf{x}) = \eta(\mathbf{x}^\text{T}\boldsymbol{\beta}) &amp;= \frac{\exp(\mathbf{x}^\text{T}\boldsymbol{\beta})}{1 + \exp(\mathbf{x}^\text{T}\boldsymbol{\beta})}\\
+1 - \eta(\mathbf{x}^\text{T}\boldsymbol{\beta}) &amp;= \frac{1}{1 + \exp(\mathbf{x}^\text{T}\boldsymbol{\beta})} \\
+\text{Odds} = \frac{\eta(\mathbf{x}^\text{T}\boldsymbol{\beta})}{1-\eta(\mathbf{x}^\text{T}\boldsymbol{\beta})} &amp;= \exp(\mathbf{x}^\text{T}\boldsymbol{\beta})\\
+\log(\text{Odds}) = \mathbf{x}^\text{T}\boldsymbol{\beta}
 \end{aligned}\]</span>
 <p>Hence, the parameters in a logistic regression is explained as <strong>log odds</strong>. Let’s look at a concrete example.</p>
 </div>
@@ -538,7 +538,7 @@ P(Y = 1 | X = \mathbf{x}) = \eta(\mathbf{x}^\text{T}\boldsymbol \beta) &amp;= \f
 <span id="cb126-22"><a href="logistic-regression.html#cb126-22" tabindex="-1"></a><span class="do">## AIC: 406.54</span></span>
 <span id="cb126-23"><a href="logistic-regression.html#cb126-23" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb126-24"><a href="logistic-regression.html#cb126-24" tabindex="-1"></a><span class="do">## Number of Fisher Scoring iterations: 4</span></span></code></pre></div>
-<p>The result is similar to a linear regression, with some differences. The parameter estimate of age is 0.05199. It is positive, meaning that increasing age would increase the change of having heart disease. However, this does not mean that 1 year older would increase the change by 0.05. Since, by our previous formula, the probably is not directly expressed as <span class="math inline">\(\mathbf{x}^\text{T}\boldsymbol \beta\)</span>.</p>
+<p>The result is similar to a linear regression, with some differences. The parameter estimate of age is 0.05199. It is positive, meaning that increasing age would increase the change of having heart disease. However, this does not mean that 1 year older would increase the change by 0.05. Since, by our previous formula, the probably is not directly expressed as <span class="math inline">\(\mathbf{x}^\text{T}\boldsymbol{\beta}\)</span>.</p>
 <p>This calculation can be realized when predicting a new target point. Let’s consider a new subject with <code>Age = 55</code>. What is the predicted probability of heart disease? Based on our formula, we have</p>
 <p><span class="math display">\[\beta_0 + \beta_1 X = -3.00591 + 0.05199 \times 55 = -0.14646\]</span>
 And the estimated probability is</p>
@@ -555,7 +555,7 @@ Hence, the estimated probability for this subject is 46.3%. This can be done usi
 </div>
 <div id="interpretation-of-the-parameters" class="section level2 hasAnchor" number="12.3">
 <h2><span class="header-section-number">12.3</span> Interpretation of the Parameters<a href="logistic-regression.html#interpretation-of-the-parameters" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Recall that <span class="math inline">\(\mathbf{x}^\text{T}\boldsymbol \beta\)</span> is the log odds, we can further interpret the effect of a single variable. Let’s define the following two, with an arbitrary age value <span class="math inline">\(a\)</span>:</p>
+<p>Recall that <span class="math inline">\(\mathbf{x}^\text{T}\boldsymbol{\beta}\)</span> is the log odds, we can further interpret the effect of a single variable. Let’s define the following two, with an arbitrary age value <span class="math inline">\(a\)</span>:</p>
 <ul>
 <li>A subject with <code>age</code> <span class="math inline">\(= a\)</span></li>
 <li>A subject with <code>age</code> <span class="math inline">\(= a + 1\)</span></li>
@@ -579,19 +579,19 @@ Hence, the estimated probability for this subject is 46.3%. This can be done usi
 <div id="solving-a-logistic-regression" class="section level2 hasAnchor" number="12.4">
 <h2><span class="header-section-number">12.4</span> Solving a Logistic Regression<a href="logistic-regression.html#solving-a-logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The logistic regression is solved by maximizing the log-likelihood function. Note that the log-likelihood is given by</p>
-<p><span class="math display">\[\ell(\boldsymbol \beta) = \sum_{i=1}^n \log \, p(y_i | x_i, \boldsymbol \beta).\]</span>
+<p><span class="math display">\[\ell(\boldsymbol{\beta}) = \sum_{i=1}^n \log \, p(y_i | x_i, \boldsymbol{\beta}).\]</span>
 Using the probabilities of Bernoulli distribution, we have</p>
 <p><span class="math display">\[\begin{align}
-\ell(\boldsymbol \beta) =&amp; \sum_{i=1}^n \log \left\{ \eta(\mathbf{x}_i)^{y_i} [1-\eta(\mathbf{x}_i)]^{1-y_i} \right\}\\
+\ell(\boldsymbol{\beta}) =&amp; \sum_{i=1}^n \log \left\{ \eta(\mathbf{x}_i)^{y_i} [1-\eta(\mathbf{x}_i)]^{1-y_i} \right\}\\
     =&amp; \sum_{i=1}^n y_i \log \frac{\eta(\mathbf{x}_i)}{1-\eta(\mathbf{x}_i)} + \log [1-\eta(\mathbf{x}_i)] \\
-    =&amp; \sum_{i=1}^n y_i \mathbf{x}_i^\text{T}\boldsymbol \beta- \log [ 1 + \exp(\mathbf{x}_i^\text{T}\boldsymbol \beta)]
+    =&amp; \sum_{i=1}^n y_i \mathbf{x}_i^\text{T}\boldsymbol{\beta}- \log [ 1 + \exp(\mathbf{x}_i^\text{T}\boldsymbol{\beta})]
 \end{align}\]</span></p>
 <p>Since this objective function is relatively simple, we can use Newton’s method to update. The gradient is given by</p>
-<p><span class="math display">\[\frac{\partial \ell(\boldsymbol \beta)}{\partial \boldsymbol \beta} =~ \sum_{i=1}^n y_i \mathbf{x}_i^\text{T}- \sum_{i=1}^n \frac{\exp(\mathbf{x}_i^\text{T}\boldsymbol \beta) \mathbf{x}_i^\text{T}}{1 + \exp(\mathbf{x}_i^\text{T}\boldsymbol \beta)},\]</span></p>
+<p><span class="math display">\[\frac{\partial \ell(\boldsymbol{\beta})}{\partial \boldsymbol{\beta}} =~ \sum_{i=1}^n y_i \mathbf{x}_i^\text{T}- \sum_{i=1}^n \frac{\exp(\mathbf{x}_i^\text{T}\boldsymbol{\beta}) \mathbf{x}_i^\text{T}}{1 + \exp(\mathbf{x}_i^\text{T}\boldsymbol{\beta})},\]</span></p>
 <p>and the Hessian matrix is given by</p>
-<p><span class="math display">\[\frac{\partial^2 \ell(\boldsymbol \beta)}{\partial \boldsymbol \beta\partial \boldsymbol \beta^\text{T}} =~ - \sum_{i=1}^n \mathbf{x}_i \mathbf{x}_i^\text{T}\eta(\mathbf{x}_i) [1- \eta(\mathbf{x}_i)].\]</span>
+<p><span class="math display">\[\frac{\partial^2 \ell(\boldsymbol{\beta})}{\partial \boldsymbol{\beta}\partial \boldsymbol{\beta}^\text{T}} =~ - \sum_{i=1}^n \mathbf{x}_i \mathbf{x}_i^\text{T}\eta(\mathbf{x}_i) [1- \eta(\mathbf{x}_i)].\]</span>
 This leads to the update</p>
-<p><span class="math display">\[\boldsymbol \beta^{\,\text{new}} = \boldsymbol \beta^{\,\text{old}} - \left[\frac{\partial^2 \ell(\boldsymbol \beta)}{\partial \boldsymbol \beta\partial \boldsymbol \beta^\text{T}}\right]^{-1} \frac{\partial \ell(\boldsymbol \beta)}{\partial \boldsymbol \beta}\]</span></p>
+<p><span class="math display">\[\boldsymbol{\beta}^{\,\text{new}} = \boldsymbol{\beta}^{\,\text{old}} - \left[\frac{\partial^2 \ell(\boldsymbol{\beta})}{\partial \boldsymbol{\beta}\partial \boldsymbol{\beta}^\text{T}}\right]^{-1} \frac{\partial \ell(\boldsymbol{\beta})}{\partial \boldsymbol{\beta}}\]</span></p>
 </div>
 <div id="example-south-africa-heart-data" class="section level2 hasAnchor" number="12.5">
 <h2><span class="header-section-number">12.5</span> Example: South Africa Heart Data<a href="logistic-regression.html#example-south-africa-heart-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -750,7 +750,7 @@ This leads to the update</p>
 <div id="penalized-logistic-regression" class="section level2 hasAnchor" number="12.6">
 <h2><span class="header-section-number">12.6</span> Penalized Logistic Regression<a href="logistic-regression.html#penalized-logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Similar to a linear regression, we can also apply penalties to a logistic regression to address collinearity problems or select variables in a high-dimensional setting. For example, if we use the Lasso penalty, the objective function is</p>
-<p><span class="math display">\[\sum_{i=1}^n \log \, p(y_i | x_i, \boldsymbol \beta) + \lambda |\boldsymbol \beta|_1\]</span>
+<p><span class="math display">\[\sum_{i=1}^n \log \, p(y_i | x_i, \boldsymbol{\beta}) + \lambda |\boldsymbol{\beta}|_1\]</span>
 This can be done using the <code>glmnet</code> package. Specifying <code>family = "binomial"</code> will ensure that a logistic regression is used, even your <code>y</code> is not a factor (but as numerical 0/1).</p>
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="logistic-regression.html#cb134-1" tabindex="-1"></a>  <span class="fu">library</span>(glmnet)</span>
 <span id="cb134-2"><a href="logistic-regression.html#cb134-2" tabindex="-1"></a>  lasso.fit <span class="ot">=</span> <span class="fu">cv.glmnet</span>(<span class="at">x =</span> <span class="fu">data.matrix</span>(SAheart[, <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>]), <span class="at">y =</span> SAheart[,<span class="dv">10</span>], </span>
@@ -773,6 +773,7 @@ This can be done using the <code>glmnet</code> package. Specifying <code>family 
 <span id="cb135-12"><a href="logistic-regression.html#cb135-12" tabindex="-1"></a><span class="do">## alcohol      .          </span></span>
 <span id="cb135-13"><a href="logistic-regression.html#cb135-13" tabindex="-1"></a><span class="do">## age          0.042535589</span></span></code></pre></div>
 
+<!-- Conflict \def\bf{\mathbf{f}} -->
 </div>
 </div>
             </section>

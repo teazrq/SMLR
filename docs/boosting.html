@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 19 Boosting | Statistical Learning and Machine Learning with R</title>
   <meta name="description" content="A Textbook for Statistical Learning Courses at UIUC" />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 19 Boosting | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2023-10-23" />
+<meta name="date" content="2023-10-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,7 +54,7 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.28/datatables.js"></script>
+<script src="libs/datatables-binding-0.30/datatables.js"></script>
 <link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
@@ -64,7 +64,7 @@
 <script src="libs/selectize-0.12.0/selectize.min.js"></script>
 <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
+<script src="libs/plotly-binding-4.10.3/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
@@ -719,21 +719,21 @@ Z_t =&amp; 2 \sqrt{\epsilon_t(1-\epsilon_t)} \nonumber \\
 <div id="gradient-boosting" class="section level2 hasAnchor" number="19.4">
 <h2><span class="header-section-number">19.4</span> Gradient Boosting<a href="boosting.html#gradient-boosting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s take an alternative view of this problem, we use an additive structure to fit models</p>
-<p><span class="math display">\[F_T(x) = \sum_{t = 1}^T \alpha_t f(x; \boldsymbol \theta_t)\]</span></p>
+<p><span class="math display">\[F_T(x) = \sum_{t = 1}^T \alpha_t f(x; \boldsymbol{\theta}_t)\]</span></p>
 <p>by minimizing a loss function</p>
-<p><span class="math display">\[\underset{\{\alpha_t, \boldsymbol \theta_t\}_{t=1}^T}{\min} \sum_{i=1}^n L\big(y_i, F_T(x_i)\big)\]</span>
-In this framework, we may choose a loss function <span class="math inline">\(L\)</span> that is suitable for the problem, and also choose the base learner <span class="math inline">\(f(x; \boldsymbol \theta)\)</span> with parameter <span class="math inline">\(\boldsymbol \theta\)</span>. Examples of this include linear function, spline, tree, etc.. While it maybe difficult to minimize over all parameters <span class="math inline">\(\{\alpha_t, \boldsymbol \theta_t\}_{t=1}^T\)</span>, we may consider doing this in a stage-wise fashion. The algorithm could work in the following way:</p>
+<p><span class="math display">\[\underset{\{\alpha_t, \boldsymbol{\theta}_t\}_{t=1}^T}{\min} \sum_{i=1}^n L\big(y_i, F_T(x_i)\big)\]</span>
+In this framework, we may choose a loss function <span class="math inline">\(L\)</span> that is suitable for the problem, and also choose the base learner <span class="math inline">\(f(x; \boldsymbol{\theta})\)</span> with parameter <span class="math inline">\(\boldsymbol{\theta}\)</span>. Examples of this include linear function, spline, tree, etc.. While it maybe difficult to minimize over all parameters <span class="math inline">\(\{\alpha_t, \boldsymbol{\theta}_t\}_{t=1}^T\)</span>, we may consider doing this in a stage-wise fashion. The algorithm could work in the following way:</p>
 <ul>
 <li>Set <span class="math inline">\(F_0(x) = 0\)</span></li>
 <li>For <span class="math inline">\(t = 1, \ldots, T\)</span>
 <ul>
-<li>Choose <span class="math inline">\((\alpha_t, \boldsymbol \theta_t)\)</span> to minimize the loss
-<span class="math display">\[\underset{\alpha, \boldsymbol \theta}{\min} \,\, \sum_{i=1}^n L\big(y_i, F_{t-1}(x_i) + \alpha f(x_i; \boldsymbol \theta)\big)\]</span></li>
-<li>Update <span class="math inline">\(F_t(x) = F_{t-1}(x) + \alpha_t f(x; \boldsymbol \theta_t)\)</span></li>
+<li>Choose <span class="math inline">\((\alpha_t, \boldsymbol{\theta}_t)\)</span> to minimize the loss
+<span class="math display">\[\underset{\alpha, \boldsymbol{\theta}}{\min} \,\, \sum_{i=1}^n L\big(y_i, F_{t-1}(x_i) + \alpha f(x_i; \boldsymbol{\theta})\big)\]</span></li>
+<li>Update <span class="math inline">\(F_t(x) = F_{t-1}(x) + \alpha_t f(x; \boldsymbol{\theta}_t)\)</span></li>
 </ul></li>
 <li>Output <span class="math inline">\(F_T(x)\)</span> as the final model</li>
 </ul>
-<p>The previous AdaBoost example is using exponential loss function. Also, it doesn’t pick an optimal <span class="math inline">\(f(x; \boldsymbol \theta)\)</span> at each step. We just need a model that is better than random. The step size <span class="math inline">\(\alpha_t\)</span> is optimized at each <span class="math inline">\(t\)</span> given the fitted <span class="math inline">\(f(x; \boldsymbol \theta_t)\)</span>.</p>
+<p>The previous AdaBoost example is using exponential loss function. Also, it doesn’t pick an optimal <span class="math inline">\(f(x; \boldsymbol{\theta})\)</span> at each step. We just need a model that is better than random. The step size <span class="math inline">\(\alpha_t\)</span> is optimized at each <span class="math inline">\(t\)</span> given the fitted <span class="math inline">\(f(x; \boldsymbol{\theta}_t)\)</span>.</p>
 <p>Another example is the forward stage-wise linear regression. In this case, we fit a single variable linear model at each step <span class="math inline">\(t\)</span>:</p>
 <p><span class="math display">\[f(x, j) = \text{sign}\big(\text{Cor}(X_j, \mathbf{r})\big) X_j\]</span>
 * <span class="math inline">\(\mathbf{r}\)</span> is the residual, as <span class="math inline">\(r_i = y_i - F_{t-1}(x_i)\)</span>
@@ -784,10 +784,10 @@ and we are essentially fitting a weak leaner <span class="math inline">\(f_t(x)\
 <ul>
 <li>At each iteration <span class="math inline">\(t\)</span>, calculate ``pseudo-residuals’’, i.e., the negative gradient for each observation
 <span class="math display">\[g_{it} = - \left[ \frac{\partial L(y_i, F(x_i))}{\partial F(x_i)} \right]_{F(x_i) = F_{t-1}(x_i)}\]</span></li>
-<li>Fit <span class="math inline">\(f_t(x, \boldsymbol \theta_t)\)</span> to pseudo-residual <span class="math inline">\(g_{it}\)</span>’s</li>
+<li>Fit <span class="math inline">\(f_t(x, \boldsymbol{\theta}_t)\)</span> to pseudo-residual <span class="math inline">\(g_{it}\)</span>’s</li>
 <li>Search for the best
-<span class="math display">\[\alpha_t = \underset{\alpha}{\arg\min} \sum_{i=1}^n L\big(y_i, F_{t-1}(x_i) + \alpha f(x_i; \boldsymbol \theta_t)\big)\]</span></li>
-<li>Update <span class="math inline">\(F_t(x) = F_{t-1}(x) + \alpha_t f(x; \boldsymbol \theta_t)\)</span></li>
+<span class="math display">\[\alpha_t = \underset{\alpha}{\arg\min} \sum_{i=1}^n L\big(y_i, F_{t-1}(x_i) + \alpha f(x_i; \boldsymbol{\theta}_t)\big)\]</span></li>
+<li>Update <span class="math inline">\(F_t(x) = F_{t-1}(x) + \alpha_t f(x; \boldsymbol{\theta}_t)\)</span></li>
 </ul>
 <p>Hence, the only change when modeling different outcomes is to choose the loss function <span class="math inline">\(L\)</span>, and derive the pseudo-residuals</p>
 <ul>
@@ -796,6 +796,7 @@ and we are essentially fitting a weak leaner <span class="math inline">\(f_t(x)\
 <li>For classification, we can use the deviance <span class="math inline">\(y\log(p) + (1-y)\log(1-p)\)</span>, and express <span class="math inline">\(p\)</span> as the log-odds of a scale predictor, i.e., <span class="math inline">\(f = \log(p/(1-p))\)</span>. Then the pseudo-residual is <span class="math inline">\(y_i - p(x_i)\)</span></li>
 </ul>
 
+<!-- Conflict \def\bf{\mathbf{f}} -->
 </div>
 </div>
 

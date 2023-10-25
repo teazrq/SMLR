@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 14 Support Vector Machines | Statistical Learning and Machine Learning with R</title>
   <meta name="description" content="A Textbook for Statistical Learning Courses at UIUC" />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 14 Support Vector Machines | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2023-10-23" />
+<meta name="date" content="2023-10-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,7 +54,7 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.28/datatables.js"></script>
+<script src="libs/datatables-binding-0.30/datatables.js"></script>
 <link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
@@ -64,7 +64,7 @@
 <script src="libs/selectize-0.12.0/selectize.min.js"></script>
 <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
+<script src="libs/plotly-binding-4.10.3/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
@@ -490,7 +490,7 @@ div.csl-indent {
 <p>Support Vector Machine (SVM) is one of the most popular classification models. The original SVM was proposed by Vladimir Vapnik and Alexey Chervonenkis in 1963. Then two important improvements was developed in the 90’s: the soft margin version <span class="citation">(<a href="#ref-cortes1995support">Cortes and Vapnik 1995</a>)</span> and the nonlinear SVM using the kernel trick <span class="citation">(<a href="#ref-boser1992training">Boser, Guyon, and Vapnik 1992</a>)</span>. We will start with the hard margin version, and then introduce all other techniques.</p>
 <div id="maximum-margin-classifier" class="section level2 hasAnchor" number="14.1">
 <h2><span class="header-section-number">14.1</span> Maximum-margin Classifier<a href="support-vector-machines.html#maximum-margin-classifier" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This is the original SVM proposed in 1963. It shares similarities with the perception algorithm, but in certain sense is a stable version. We observe the training data <span class="math inline">\({\cal D}_n = \{\mathbf{x}_i, y_i\}_{i=1}^n\)</span>, where we code <span class="math inline">\(y_i\)</span> as a binary outcome from <span class="math inline">\(\{-1, 1\}\)</span>. The advantages of using this coding instead of <span class="math inline">\(0/1\)</span> will be seen later. The goal is to find a linear classification rule <span class="math inline">\(f(\mathbf{x}) = \beta_0 + \mathbf{x}^\text{T}\boldsymbol \beta\)</span> such that the classification rule is the sign of <span class="math inline">\(f(\mathbf{x})\)</span>:</p>
+<p>This is the original SVM proposed in 1963. It shares similarities with the perception algorithm, but in certain sense is a stable version. We observe the training data <span class="math inline">\({\cal D}_n = \{\mathbf{x}_i, y_i\}_{i=1}^n\)</span>, where we code <span class="math inline">\(y_i\)</span> as a binary outcome from <span class="math inline">\(\{-1, 1\}\)</span>. The advantages of using this coding instead of <span class="math inline">\(0/1\)</span> will be seen later. The goal is to find a linear classification rule <span class="math inline">\(f(\mathbf{x}) = \beta_0 + \mathbf{x}^\text{T}\boldsymbol{\beta}\)</span> such that the classification rule is the sign of <span class="math inline">\(f(\mathbf{x})\)</span>:</p>
 <p><span class="math display">\[
 \hat{y} =
 \begin{cases}
@@ -550,96 +550,96 @@ Hence, a correct classification would satisfy <span class="math inline">\(y_i f(
 </div>
 <div id="linearly-separable-svm" class="section level2 hasAnchor" number="14.2">
 <h2><span class="header-section-number">14.2</span> Linearly Separable SVM<a href="support-vector-machines.html#linearly-separable-svm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In linearly SVM, <span class="math inline">\(f(\mathbf{x}) = \beta_0 + \mathbf{x}^\text{T}\boldsymbol \beta\)</span>. When <span class="math inline">\(f(\mathbf{x}) = 0\)</span>, it corresponds to a hyperplane that separates the two classes:</p>
+<p>In linearly SVM, <span class="math inline">\(f(\mathbf{x}) = \beta_0 + \mathbf{x}^\text{T}\boldsymbol{\beta}\)</span>. When <span class="math inline">\(f(\mathbf{x}) = 0\)</span>, it corresponds to a hyperplane that separates the two classes:</p>
 <p><span class="math display">\[\{ \mathbf{x}: \beta_0 + \mathbf{x}^\text{T} \boldsymbol \beta = 0 \}\]</span></p>
 <p>Hence, for this separable case, all observations with <span class="math inline">\(y_i = 1\)</span> are on one side <span class="math inline">\(f(\mathbf{x}) &gt; 0\)</span>, and observations with <span class="math inline">\(y_i = -1\)</span> are on the other side.</p>
 <center>
 <img src="images/SVMdist.png" style="width:40.0%" />
 </center>
-<p>First, let’s calculate the <strong>distance from any point <span class="math inline">\(\mathbf{x}\)</span> to this hyperplane</strong>. We can first find a point <span class="math inline">\(\mathbf{x}_0\)</span> on the hyperplane, such that <span class="math inline">\(\mathbf{x}_0^\text{T}\boldsymbol \beta= - \beta_0\)</span>. By taking the difference between <span class="math inline">\(\mathbf{x}\)</span> and <span class="math inline">\(\mathbf{x}_0\)</span>, and project this vector to the direction of <span class="math inline">\(\boldsymbol \beta\)</span>, we have that the distance from <span class="math inline">\(\mathbf{x}\)</span> to the hyperplane is the projection of <span class="math inline">\(\mathbf{x}- \mathbf{x}_0\)</span> onto the normed vector <span class="math inline">\(\frac{\boldsymbol \beta}{\lVert \boldsymbol \beta\lVert}\)</span>:</p>
+<p>First, let’s calculate the <strong>distance from any point <span class="math inline">\(\mathbf{x}\)</span> to this hyperplane</strong>. We can first find a point <span class="math inline">\(\mathbf{x}_0\)</span> on the hyperplane, such that <span class="math inline">\(\mathbf{x}_0^\text{T}\boldsymbol{\beta}= - \beta_0\)</span>. By taking the difference between <span class="math inline">\(\mathbf{x}\)</span> and <span class="math inline">\(\mathbf{x}_0\)</span>, and project this vector to the direction of <span class="math inline">\(\boldsymbol{\beta}\)</span>, we have that the distance from <span class="math inline">\(\mathbf{x}\)</span> to the hyperplane is the projection of <span class="math inline">\(\mathbf{x}- \mathbf{x}_0\)</span> onto the normed vector <span class="math inline">\(\frac{\boldsymbol{\beta}}{\lVert \boldsymbol{\beta}\lVert}\)</span>:</p>
 <p><span class="math display">\[\begin{align}
-&amp; \left \langle  \frac{\boldsymbol \beta}{\lVert \boldsymbol \beta\lVert}, \mathbf{x}- \mathbf{x}_0 \right \rangle \\
-=&amp; \frac{1}{\lVert \boldsymbol \beta\lVert} (\mathbf{x}- \mathbf{x}_0)^\text{T}\boldsymbol \beta\\
-=&amp; \frac{1}{\lVert \boldsymbol \beta\lVert} (\mathbf{x}^\text{T}\boldsymbol \beta+ \beta_0) \\
-=&amp; \frac{1}{\lVert \boldsymbol \beta\lVert} f(\mathbf{x}) \\
+&amp; \left \langle  \frac{\boldsymbol{\beta}}{\lVert \boldsymbol{\beta}\lVert}, \mathbf{x}- \mathbf{x}_0 \right \rangle \\
+=&amp; \frac{1}{\lVert \boldsymbol{\beta}\lVert} (\mathbf{x}- \mathbf{x}_0)^\text{T}\boldsymbol{\beta}\\
+=&amp; \frac{1}{\lVert \boldsymbol{\beta}\lVert} (\mathbf{x}^\text{T}\boldsymbol{\beta}+ \beta_0) \\
+=&amp; \frac{1}{\lVert \boldsymbol{\beta}\lVert} f(\mathbf{x}) \\
 \end{align}\]</span></p>
-<p>Since the goal of SVM is to create the maximum margin, let’s denote this as <span class="math inline">\(M\)</span>. Then we want all observations to be lied on the correct side, with at least an margin <span class="math inline">\(M\)</span>. This means <span class="math inline">\(y_i (\mathbf{x}_i^\text{T}\boldsymbol \beta+ \beta_0) \geq M\)</span>. But the scale of <span class="math inline">\(\boldsymbol \beta\)</span> is also playing a role in calculating the margin. Hence, we will use the normed version. Then, the linearly separable SVM is to solve this constrained optimization problem:</p>
+<p>Since the goal of SVM is to create the maximum margin, let’s denote this as <span class="math inline">\(M\)</span>. Then we want all observations to be lied on the correct side, with at least an margin <span class="math inline">\(M\)</span>. This means <span class="math inline">\(y_i (\mathbf{x}_i^\text{T}\boldsymbol{\beta}+ \beta_0) \geq M\)</span>. But the scale of <span class="math inline">\(\boldsymbol{\beta}\)</span> is also playing a role in calculating the margin. Hence, we will use the normed version. Then, the linearly separable SVM is to solve this constrained optimization problem:</p>
 <p><span class="math display">\[\begin{align}
-\underset{\boldsymbol \beta, \beta_0}{\text{max}} \quad &amp; M \\
-\text{subject to} \quad &amp; \frac{1}{\lVert \boldsymbol \beta\lVert} y_i(\mathbf{x}^\text{T}\boldsymbol \beta+ \beta_0) \geq M, \,\, i = 1, \ldots, n.
+\underset{\boldsymbol{\beta}, \beta_0}{\text{max}} \quad &amp; M \\
+\text{subject to} \quad &amp; \frac{1}{\lVert \boldsymbol{\beta}\lVert} y_i(\mathbf{x}^\text{T}\boldsymbol{\beta}+ \beta_0) \geq M, \,\, i = 1, \ldots, n.
 \end{align}\]</span></p>
-<p>Note that the scale of <span class="math inline">\(\boldsymbol \beta\)</span> can be arbitrary, let’s set it as <span class="math inline">\(\lVert \boldsymbol \beta\rVert = 1/M\)</span>. The maximization becomes minimization, and its equivalent to minimizing <span class="math inline">\(\frac{1}{2} \lVert \boldsymbol \beta\rVert^2\)</span>. Then we have the <strong>primal form</strong> of the SVM optimization problem.</p>
+<p>Note that the scale of <span class="math inline">\(\boldsymbol{\beta}\)</span> can be arbitrary, let’s set it as <span class="math inline">\(\lVert \boldsymbol{\beta}\rVert = 1/M\)</span>. The maximization becomes minimization, and its equivalent to minimizing <span class="math inline">\(\frac{1}{2} \lVert \boldsymbol{\beta}\rVert^2\)</span>. Then we have the <strong>primal form</strong> of the SVM optimization problem.</p>
 <p><span class="math display">\[\begin{align}
-\text{min} \quad &amp; \frac{1}{2} \lVert \boldsymbol \beta\rVert^2 \\
-\text{subject to} \quad &amp; y_i(\mathbf{x}^\text{T}\boldsymbol \beta+ \beta_0) \geq 1, \,\, i = 1, \ldots, n.
+\text{min} \quad &amp; \frac{1}{2} \lVert \boldsymbol{\beta}\rVert^2 \\
+\text{subject to} \quad &amp; y_i(\mathbf{x}^\text{T}\boldsymbol{\beta}+ \beta_0) \geq 1, \,\, i = 1, \ldots, n.
 \end{align}\]</span></p>
 <div id="from-primal-to-dual" class="section level3 hasAnchor" number="14.2.1">
 <h3><span class="header-section-number">14.2.1</span> From Primal to Dual<a href="support-vector-machines.html#from-primal-to-dual" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This is a general inequality constrained optimization problem.</p>
 <p><span class="math display">\[\begin{align}
-\text{min} \quad &amp; g(\boldsymbol \theta) \\
-\text{subject to} \quad &amp; h(\boldsymbol \theta) \leq 0, \,\, i = 1, \ldots, n.
+\text{min} \quad &amp; g(\boldsymbol{\theta}) \\
+\text{subject to} \quad &amp; h(\boldsymbol{\theta}) \leq 0, \,\, i = 1, \ldots, n.
 \end{align}\]</span></p>
 <p>We can consider the corresponding Lagrangian (with all <span class="math inline">\(\alpha_i\)</span>’s positive):</p>
-<p><span class="math display">\[{\cal L}(\boldsymbol \theta, \boldsymbol \alpha) = g(\boldsymbol \theta) + \sum_{i = 1}^n \alpha_i h_i(\boldsymbol \theta)\]</span>
-Then there can be two ways to optimize this. If we maximize <span class="math inline">\(\alpha_i\)</span>’s first, for any fixed <span class="math inline">\(\boldsymbol \theta\)</span>, then for any <span class="math inline">\(\boldsymbol \theta\)</span> that violates the constraint, i.e., <span class="math inline">\(h_i(\boldsymbol \theta) &gt; 0\)</span> for some <span class="math inline">\(i\)</span>, we can always choose an extremely large <span class="math inline">\(\alpha_i\)</span> so that <span class="math inline">\(\cal{L}(\boldsymbol \theta, \boldsymbol \alpha)\)</span> is infinity. Hence the solution of this <strong>primal form</strong> must satisfy the constraint.</p>
-<p><span class="math display">\[\underset{\boldsymbol \theta}{\min} \underset{\boldsymbol \alpha\succeq 0}{\max} {\cal L}(\boldsymbol \theta, \boldsymbol \alpha)\]</span>
-On the other hand, if we minimize <span class="math inline">\(\boldsymbol \theta\)</span> first, then maximize for <span class="math inline">\(\boldsymbol \alpha\)</span>, we have the <strong>dual form</strong>:</p>
-<p><span class="math display">\[\underset{\boldsymbol \alpha\succeq 0}{\max} \underset{\boldsymbol \theta}{\min} {\cal L}(\boldsymbol \theta, \boldsymbol \alpha)\]</span>
+<p><span class="math display">\[{\cal L}(\boldsymbol{\theta}, \boldsymbol{\alpha}) = g(\boldsymbol{\theta}) + \sum_{i = 1}^n \alpha_i h_i(\boldsymbol{\theta})\]</span>
+Then there can be two ways to optimize this. If we maximize <span class="math inline">\(\alpha_i\)</span>’s first, for any fixed <span class="math inline">\(\boldsymbol{\theta}\)</span>, then for any <span class="math inline">\(\boldsymbol{\theta}\)</span> that violates the constraint, i.e., <span class="math inline">\(h_i(\boldsymbol{\theta}) &gt; 0\)</span> for some <span class="math inline">\(i\)</span>, we can always choose an extremely large <span class="math inline">\(\alpha_i\)</span> so that <span class="math inline">\(\cal{L}(\boldsymbol{\theta}, \boldsymbol{\alpha})\)</span> is infinity. Hence the solution of this <strong>primal form</strong> must satisfy the constraint.</p>
+<p><span class="math display">\[\underset{\boldsymbol{\theta}}{\min} \underset{\boldsymbol{\alpha}\succeq 0}{\max} {\cal L}(\boldsymbol{\theta}, \boldsymbol{\alpha})\]</span>
+On the other hand, if we minimize <span class="math inline">\(\boldsymbol{\theta}\)</span> first, then maximize for <span class="math inline">\(\boldsymbol{\alpha}\)</span>, we have the <strong>dual form</strong>:</p>
+<p><span class="math display">\[\underset{\boldsymbol{\alpha}\succeq 0}{\max} \underset{\boldsymbol{\theta}}{\min} {\cal L}(\boldsymbol{\theta}, \boldsymbol{\alpha})\]</span>
 In general, the two are not the same:</p>
-<p><span class="math display">\[\underbrace{\underset{\boldsymbol \alpha\succeq 0}{\max} \underset{\boldsymbol \theta}{\min} {\cal L}(\boldsymbol \theta, \boldsymbol \alpha)}_{\text{duel}} \leq \underbrace{\underset{\boldsymbol \theta}{\min} \underset{\boldsymbol \alpha\succeq 0}{\max} {\cal L}(\boldsymbol \theta, \boldsymbol \alpha)}_{\text{primal}}\]</span>
+<p><span class="math display">\[\underbrace{\underset{\boldsymbol{\alpha}\succeq 0}{\max} \underset{\boldsymbol{\theta}}{\min} {\cal L}(\boldsymbol{\theta}, \boldsymbol{\alpha})}_{\text{duel}} \leq \underbrace{\underset{\boldsymbol{\theta}}{\min} \underset{\boldsymbol{\alpha}\succeq 0}{\max} {\cal L}(\boldsymbol{\theta}, \boldsymbol{\alpha})}_{\text{primal}}\]</span>
 But a sufficient condition is that if both <span class="math inline">\(g\)</span> and <span class="math inline">\(h_i\)</span>’s are convex and also the constraints <span class="math inline">\(h_i\)</span>’s are feasible. We will use this technique to solve the SVM problem.</p>
 <p>First, rewrite the problem as</p>
 <p><span class="math display">\[\begin{align}
-\text{min} \quad &amp; \frac{1}{2} \lVert \boldsymbol \beta\rVert^2 \\
-\text{subject to} \quad &amp; - \{ y_i(\mathbf{x}^\text{T}\boldsymbol \beta+ \beta_0) - 1\} \leq 0, i = 1, \ldots, n.
+\text{min} \quad &amp; \frac{1}{2} \lVert \boldsymbol{\beta}\rVert^2 \\
+\text{subject to} \quad &amp; - \{ y_i(\mathbf{x}^\text{T}\boldsymbol{\beta}+ \beta_0) - 1\} \leq 0, i = 1, \ldots, n.
 \end{align}\]</span></p>
 <p>Then the Lagrangian is</p>
-<p><span class="math display">\[{\cal L}(\boldsymbol \beta, \beta_0, \boldsymbol \alpha) = \frac{1}{2} \lVert \boldsymbol \beta\rVert^2 - \sum_{i = 1}^n \alpha_i \big\{ y_i(\mathbf{x}_i^\text{T}\boldsymbol \beta+ \beta_0) - 1 \big\}\]</span>
-To solve this using the dual form, we first find the optimizer of <span class="math inline">\(\boldsymbol \beta\)</span> and <span class="math inline">\(\beta_0\)</span>. We take derivatives with respect to them:</p>
+<p><span class="math display">\[{\cal L}(\boldsymbol{\beta}, \beta_0, \boldsymbol{\alpha}) = \frac{1}{2} \lVert \boldsymbol{\beta}\rVert^2 - \sum_{i = 1}^n \alpha_i \big\{ y_i(\mathbf{x}_i^\text{T}\boldsymbol{\beta}+ \beta_0) - 1 \big\}\]</span>
+To solve this using the dual form, we first find the optimizer of <span class="math inline">\(\boldsymbol{\beta}\)</span> and <span class="math inline">\(\beta_0\)</span>. We take derivatives with respect to them:</p>
 <p><span class="math display">\[\begin{align}
-    \boldsymbol \beta- \sum_{i = 1}^n \alpha_i y_i \mathbf{x}_i  =&amp;~ 0 \quad (\nabla_\boldsymbol \beta{\cal L}= 0 ) \\
+    \boldsymbol{\beta}- \sum_{i = 1}^n \alpha_i y_i \mathbf{x}_i  =&amp;~ 0 \quad (\nabla_\boldsymbol{\beta}{\cal L}= 0 ) \\
     \sum_{i = 1}^n \alpha_i y_i =&amp;~ 0 \quad (\nabla_{\beta_0} {\cal L}= 0 )
 \end{align}\]</span></p>
 <p>Take these solution and plug them back into the Lagrangian, we have</p>
-<p><span class="math display">\[{\cal L}(\boldsymbol \beta, \beta_0, \boldsymbol \alpha) = \sum_{i = 1}^n \alpha_i - \frac{1}{2} \sum_{i, j = 1}^n y_i y_j \alpha_i\alpha_j \mathbf{x}_i^\text{T}\mathbf{x}_j\]</span>
+<p><span class="math display">\[{\cal L}(\boldsymbol{\beta}, \beta_0, \boldsymbol{\alpha}) = \sum_{i = 1}^n \alpha_i - \frac{1}{2} \sum_{i, j = 1}^n y_i y_j \alpha_i\alpha_j \mathbf{x}_i^\text{T}\mathbf{x}_j\]</span>
 Hence, the dual optimization problem is</p>
 <p><span class="math display">\[\begin{align}
-\underset{\boldsymbol \alpha}{\max} \quad &amp; \sum_{i = 1}^n \alpha_i - \frac{1}{2} \sum_{i, j = 1}^n y_i y_j \alpha_i\alpha_j \mathbf{x}_i^\text{T}\mathbf{x}_j \nonumber \\
+\underset{\boldsymbol{\alpha}}{\max} \quad &amp; \sum_{i = 1}^n \alpha_i - \frac{1}{2} \sum_{i, j = 1}^n y_i y_j \alpha_i\alpha_j \mathbf{x}_i^\text{T}\mathbf{x}_j \nonumber \\
 \text{subject to} \quad &amp; \alpha_i \geq 0, \,\, i = 1, \ldots, n. \nonumber \\
 &amp; \sum_{i = 1}^n \alpha_i y_i = 0
 \end{align}\]</span></p>
 <p>Compared with the original primal form, this version has a trivial feasible solution with all <span class="math inline">\(\alpha_i\)</span>’s being 0. One can start from this solution to search for the optimizer while maintaining within the contained region. However, the primal form is difficult since there is no apparent way to satisfy the constraint.</p>
-<p>After solving the dual form, we have all the <span class="math inline">\(\alpha_i\)</span> values. The ones with <span class="math inline">\(\alpha_i &gt; 0\)</span> are called the support vectors. Based on our previous analysis, <span class="math inline">\(\widehat{\boldsymbol \beta} = \sum_{i = 1}^n \alpha_i y_i x_i\)</span>, and we can also obtain <span class="math inline">\(\beta_0\)</span> by calculating the midpoint of two “closest” support vectors to the separating hyperplane:</p>
-<p><span class="math display">\[\widehat{\beta}_0 = - \,\, \frac{\max_{i: y_i = -1} \mathbf{x}_i^\text{T}\widehat{\boldsymbol \beta} + \min_{i: y_i = 1} \mathbf{x}_i^\text{T}\widehat{\boldsymbol \beta} }{2}\]</span>
-And the decision is <span class="math inline">\(\text{sign}(\mathbf{x}^\text{T}\widehat{\boldsymbol \beta} + \widehat{\beta}_0)\)</span>. An example has been demonstrated previously with the <code>e1071</code> package.</p>
+<p>After solving the dual form, we have all the <span class="math inline">\(\alpha_i\)</span> values. The ones with <span class="math inline">\(\alpha_i &gt; 0\)</span> are called the support vectors. Based on our previous analysis, <span class="math inline">\(\widehat{\boldsymbol{\beta}} = \sum_{i = 1}^n \alpha_i y_i x_i\)</span>, and we can also obtain <span class="math inline">\(\beta_0\)</span> by calculating the midpoint of two “closest” support vectors to the separating hyperplane:</p>
+<p><span class="math display">\[\widehat{\beta}_0 = - \,\, \frac{\max_{i: y_i = -1} \mathbf{x}_i^\text{T}\widehat{\boldsymbol{\beta}} + \min_{i: y_i = 1} \mathbf{x}_i^\text{T}\widehat{\boldsymbol{\beta}} }{2}\]</span>
+And the decision is <span class="math inline">\(\text{sign}(\mathbf{x}^\text{T}\widehat{\boldsymbol{\beta}} + \widehat{\beta}_0)\)</span>. An example has been demonstrated previously with the <code>e1071</code> package.</p>
 </div>
 </div>
 <div id="linearly-non-separable-svm-with-slack-variables" class="section level2 hasAnchor" number="14.3">
 <h2><span class="header-section-number">14.3</span> Linearly Non-separable SVM with Slack Variables<a href="support-vector-machines.html#linearly-non-separable-svm-with-slack-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>When we cannot have a perfect separation of the two classes, the original SVM cannot find a solution. Hence, a slack was introduce to incorporate such observations:</p>
-<p><span class="math display">\[y_i (\mathbf{x}_i^\text{T}\boldsymbol \beta+ \beta_0) \geq (1 - \xi_i)\]</span>
+<p><span class="math display">\[y_i (\mathbf{x}_i^\text{T}\boldsymbol{\beta}+ \beta_0) \geq (1 - \xi_i)\]</span>
 for a positive <span class="math inline">\(\xi\)</span>. Note that when <span class="math inline">\(\xi = 0\)</span>, the observation is lying at the correct side, with enough margin. When <span class="math inline">\(1 &gt; \xi &gt; 0\)</span>, the observation is lying at the correct side, but the margin is not sufficiently large. When <span class="math inline">\(\xi &gt; 1\)</span>, the observation is lying on the wrong side of the separation hyperplane.</p>
 <center>
 <img src="images/SVMslack.png" style="width:40.0%" />
 </center>
 <p>This new optimization problem can be formulated as</p>
 <p><span class="math display">\[\begin{align}
-\text{min} \quad &amp; \frac{1}{2}\lVert \boldsymbol \beta\rVert^2 + C \sum_{i=1}^n \xi_i \\
-\text{subject to} \quad &amp; y_i (\mathbf{x}_i^\text{T}\boldsymbol \beta+ \beta_0) \geq (1 - \xi_i), \,\, i = 1, \ldots, n, \\
+\text{min} \quad &amp; \frac{1}{2}\lVert \boldsymbol{\beta}\rVert^2 + C \sum_{i=1}^n \xi_i \\
+\text{subject to} \quad &amp; y_i (\mathbf{x}_i^\text{T}\boldsymbol{\beta}+ \beta_0) \geq (1 - \xi_i), \,\, i = 1, \ldots, n, \\
 \text{and} \quad &amp; \xi_i \geq 0, \,\, i = 1, \ldots, n,
 \end{align}\]</span></p>
-<p>where <span class="math inline">\(C\)</span> is a tuning parameter that controls the emphasis on the slack variable. Large <span class="math inline">\(C\)</span> will be less tolerable on having positive slacks. We can again write the Lagrangian primal <span class="math inline">\({\cal L}(\boldsymbol \beta, \beta_0, \boldsymbol \alpha, \boldsymbol \xi)\)</span> as</p>
-<p><span class="math display">\[\frac{1}{2} \lVert \boldsymbol \beta\rVert^2 + C \sum_{i=1}^n \xi_i - \sum_{i = 1}^n \alpha_i \big\{ y_i(x_i^\text{T}\boldsymbol \beta+ \beta_0) - (1 - \xi_i) \big\} - \sum_{i = 1}^n \gamma_i \xi_i,\]</span>
-where <span class="math inline">\(\alpha_i\)</span>’s and <span class="math inline">\(\gamma_i\)</span>’s are all positive. We can similarly obtain the solution corresponding to <span class="math inline">\(\boldsymbol \beta\)</span>, <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\boldsymbol \xi\)</span>:</p>
+<p>where <span class="math inline">\(C\)</span> is a tuning parameter that controls the emphasis on the slack variable. Large <span class="math inline">\(C\)</span> will be less tolerable on having positive slacks. We can again write the Lagrangian primal <span class="math inline">\({\cal L}(\boldsymbol{\beta}, \beta_0, \boldsymbol{\alpha}, \boldsymbol{\xi})\)</span> as</p>
+<p><span class="math display">\[\frac{1}{2} \lVert \boldsymbol{\beta}\rVert^2 + C \sum_{i=1}^n \xi_i - \sum_{i = 1}^n \alpha_i \big\{ y_i(x_i^\text{T}\boldsymbol{\beta}+ \beta_0) - (1 - \xi_i) \big\} - \sum_{i = 1}^n \gamma_i \xi_i,\]</span>
+where <span class="math inline">\(\alpha_i\)</span>’s and <span class="math inline">\(\gamma_i\)</span>’s are all positive. We can similarly obtain the solution corresponding to <span class="math inline">\(\boldsymbol{\beta}\)</span>, <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\boldsymbol{\xi}\)</span>:</p>
 <p><span class="math display">\[\begin{align}
-\boldsymbol \beta- \sum_{i = 1}^n \alpha_i y_i x_i  =&amp;~ 0 \quad (\nabla_\boldsymbol \beta{\cal L}= 0 ) \\
+\boldsymbol{\beta}- \sum_{i = 1}^n \alpha_i y_i x_i  =&amp;~ 0 \quad (\nabla_\boldsymbol{\beta}{\cal L}= 0 ) \\
 \sum_{i = 1}^n \alpha_i y_i =&amp;~ 0 \quad (\nabla_{\beta_0} {\cal L}= 0 ) \\
 C - \alpha_i - \gamma_i =&amp;~ 0 \quad (\nabla_{\xi_i} {\cal L}= 0 )
 \end{align}\]</span></p>
 <p>Substituting them back into the Lagrangian, we have the dual form:</p>
 <p><span class="math display">\[\begin{align}
-\underset{\boldsymbol \alpha}{\max} \quad &amp; \sum_{i = 1}^n \alpha_i - \frac{1}{2} \sum_{i, j = 1}^n y_i y_j \alpha_i\alpha_j \color{OrangeRed}{\langle \mathbf{x}_i, \mathbf{x}_j \rangle} \\
+\underset{\boldsymbol{\alpha}}{\max} \quad &amp; \sum_{i = 1}^n \alpha_i - \frac{1}{2} \sum_{i, j = 1}^n y_i y_j \alpha_i\alpha_j \color{OrangeRed}{\langle \mathbf{x}_i, \mathbf{x}_j \rangle} \\
 \text{subject to} \quad &amp; 0 \leq \alpha_i \leq C, \,\, i = 1, \ldots, n, \\
 \text{and} \quad &amp; \sum_{i = 1}^n \alpha_i y_i = 0.
 \end{align}\]</span></p>
@@ -758,12 +758,12 @@ C - \alpha_i - \gamma_i =&amp;~ 0 \quad (\nabla_{\xi_i} {\cal L}= 0 )
 <p>The essential idea of kernel trick can be summarized as using the kernel function of two observations <span class="math inline">\(\mathbf{x}\)</span> and <span class="math inline">\(\mathbf{z}\)</span> to replace the inner product between some feature mapping of the two covariate vectors. In other words, if we want to create some nonlinear features of <span class="math inline">\(\mathbf{x}\)</span>, such as <span class="math inline">\(x_1^2\)</span>, <span class="math inline">\(\exp(x_2)\)</span>, <span class="math inline">\(\sqrt{x_3}\)</span>, etc., we may in general write them as</p>
 <p><span class="math display">\[\Phi : {\cal X}\rightarrow {\cal F}, \,\,\, \Phi(\mathbf{x}) = (\phi_1(\mathbf{x}), \phi_2(\mathbf{x}), \ldots ),\]</span>
 where <span class="math inline">\({\cal F}\)</span> has either finite or infinite dimensions. Then, we can still treat this as a linear SVM by constructing the decision rule as</p>
-<p><span class="math display">\[f(x) = \langle \Phi(\mathbf{x}), \boldsymbol \beta\rangle = \Phi(\mathbf{x})^\text{T}\boldsymbol \beta.\]</span>
+<p><span class="math display">\[f(x) = \langle \Phi(\mathbf{x}), \boldsymbol{\beta}\rangle = \Phi(\mathbf{x})^\text{T}\boldsymbol{\beta}.\]</span>
 This is why we used the <span class="math inline">\(\langle \cdot, \cdot\rangle\)</span> operator in the previous example. Now, the kernel trick is essentially skipping the explicit calculation of <span class="math inline">\(\Phi(\mathbf{x})\)</span> by utilizing the property that</p>
 <p><span class="math display">\[K(\mathbf{x}, \mathbf{z}) = \langle \Phi(\mathbf{x}), \Phi(\mathbf{z}) \rangle\]</span>
 for some kernel function <span class="math inline">\(K(\mathbf{x}, \mathbf{z})\)</span>. Since <span class="math inline">\(\langle \Phi(\mathbf{x}), \Phi(\mathbf{z}) \rangle\)</span> is all we need in the dual form, we can simply replace it by <span class="math inline">\(K(\mathbf{x}, \mathbf{z})\)</span>, which gives the kernel form:</p>
 <p><span class="math display">\[\begin{align}
-\underset{\boldsymbol \alpha}{\max} \quad &amp; \sum_{i = 1}^n \alpha_i - \frac{1}{2} \sum_{i, j = 1}^n y_i y_j \alpha_i\alpha_j \color{OrangeRed}{K(\mathbf{x}_i, \mathbf{x}_j)} \\
+\underset{\boldsymbol{\alpha}}{\max} \quad &amp; \sum_{i = 1}^n \alpha_i - \frac{1}{2} \sum_{i, j = 1}^n y_i y_j \alpha_i\alpha_j \color{OrangeRed}{K(\mathbf{x}_i, \mathbf{x}_j)} \\
 \text{subject to} \quad &amp; 0 \leq \alpha_i \leq C, \,\, i = 1, \ldots, n, \\
 \text{and} \quad &amp; \sum_{i = 1}^n \alpha_i y_i = 0.
 \end{align}\]</span></p>
@@ -891,9 +891,9 @@ K(\mathbf{x}, \mathbf{z}) &amp;=~ \left(\sum_{k=1}^p x_k z_k\right) \left(\sum_{
 </div>
 <div id="svm-as-a-penalized-model" class="section level2 hasAnchor" number="14.7">
 <h2><span class="header-section-number">14.7</span> SVM as a Penalized Model<a href="support-vector-machines.html#svm-as-a-penalized-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Recall that in SVM, we need <span class="math inline">\(y_i f(\mathbf{x}_i)\)</span> to be at least <span class="math inline">\(1 - \xi_i\)</span>, this implies that we would prefer <span class="math inline">\(1 - y_i f(\mathbf{x}_i)\)</span> to be negative or 0. And observation with <span class="math inline">\(1 - y_i f(\mathbf{x}_i)\)</span> should be penalized. Hence, recall that the objective function of dual form in SVM is <span class="math inline">\(\frac{1}{2}\lVert \boldsymbol \beta\rVert^2 + C \sum_{i=1}^n \xi_i\)</span>, we may rewrite this as a new version:</p>
-<p><span class="math display">\[\min \,\, \sum_{i=1}^n \big[ 1 - y_i f(\mathbf{x}_i) \big]_{+} \, +\, \lambda \lVert \boldsymbol \beta\rVert^2.\]</span>
-Here, we converted <span class="math inline">\(1/(2C)\)</span> to <span class="math inline">\(\lambda\)</span>. And this resembles a familiar form of “Loss <span class="math inline">\(+\)</span> Penalty”, where the slack variables becomes the loss and the norm of <span class="math inline">\(\boldsymbol \beta\)</span> is the penalty. This particular loss function is called the <strong>Hinge loss</strong>, with</p>
+<p>Recall that in SVM, we need <span class="math inline">\(y_i f(\mathbf{x}_i)\)</span> to be at least <span class="math inline">\(1 - \xi_i\)</span>, this implies that we would prefer <span class="math inline">\(1 - y_i f(\mathbf{x}_i)\)</span> to be negative or 0. And observation with <span class="math inline">\(1 - y_i f(\mathbf{x}_i)\)</span> should be penalized. Hence, recall that the objective function of dual form in SVM is <span class="math inline">\(\frac{1}{2}\lVert \boldsymbol{\beta}\rVert^2 + C \sum_{i=1}^n \xi_i\)</span>, we may rewrite this as a new version:</p>
+<p><span class="math display">\[\min \,\, \sum_{i=1}^n \big[ 1 - y_i f(\mathbf{x}_i) \big]_{+} \, +\, \lambda \lVert \boldsymbol{\beta}\rVert^2.\]</span>
+Here, we converted <span class="math inline">\(1/(2C)\)</span> to <span class="math inline">\(\lambda\)</span>. And this resembles a familiar form of “Loss <span class="math inline">\(+\)</span> Penalty”, where the slack variables becomes the loss and the norm of <span class="math inline">\(\boldsymbol{\beta}\)</span> is the penalty. This particular loss function is called the <strong>Hinge loss</strong>, with</p>
 <p><span class="math display">\[L(y, f(\mathbf{x})) = [1 - yf(\mathbf{x})]_+ = \max(0, 1 - yf(\mathbf{x}))\]</span>
 However, the Hinge loss is not differentiable. There are some other loss functions that can be used as substitute:</p>
 <ul>
@@ -924,10 +924,10 @@ However, the Hinge loss is not differentiable. There are some other loss functio
 <span id="cb149-16"><a href="support-vector-machines.html#cb149-16" tabindex="-1"></a>         <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>), </span>
 <span id="cb149-17"><a href="support-vector-machines.html#cb149-17" tabindex="-1"></a>         <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-205-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<p>For linear decision rules, with <span class="math inline">\(f(\mathbf{x}) = \beta_0 + \mathbf{x}^\text{T}\boldsymbol \beta\)</span>, this should be trivial to solve. However, we also want to consider nonlinear decision functions. But the above form does not contain a kernel function to use the kernel trick. The <strong>Representer Theorem</strong> <span class="citation">(<a href="#ref-kimeldorf1970correspondence">Kimeldorf and Wahba 1970</a>)</span> can help us in this case. This theorem was originally developed for in the setting of Chebyshev splines, but later on generalized. The theorem ensures that if we solve the function <span class="math inline">\(f\)</span> with regularization with respect to the norm in the RKHS induced from a kernel function <span class="math inline">\(K\)</span>, then the solution must admits a finite representation of the form (although the space <span class="math inline">\({\cal H}\)</span> we search for the solution is infinite):</p>
+<p>For linear decision rules, with <span class="math inline">\(f(\mathbf{x}) = \beta_0 + \mathbf{x}^\text{T}\boldsymbol{\beta}\)</span>, this should be trivial to solve. However, we also want to consider nonlinear decision functions. But the above form does not contain a kernel function to use the kernel trick. The <strong>Representer Theorem</strong> <span class="citation">(<a href="#ref-kimeldorf1970correspondence">Kimeldorf and Wahba 1970</a>)</span> can help us in this case. This theorem was originally developed for in the setting of Chebyshev splines, but later on generalized. The theorem ensures that if we solve the function <span class="math inline">\(f\)</span> with regularization with respect to the norm in the RKHS induced from a kernel function <span class="math inline">\(K\)</span>, then the solution must admits a finite representation of the form (although the space <span class="math inline">\({\cal H}\)</span> we search for the solution is infinite):</p>
 <p><span class="math display">\[\widehat{f}(\mathbf{x}) = \sum_{i = 1}^n \beta_i K(\mathbf{x}, \mathbf{x}_i).\]</span>
 This suggests that the optimization problem becomes</p>
-<p><span class="math display">\[\sum_{i=1}^n L(y_i, \mathbf{K}_i^\text{T}\boldsymbol \beta) + \lambda \boldsymbol \beta^\text{T}\mathbf{K}\boldsymbol \beta,\]</span>
+<p><span class="math display">\[\sum_{i=1}^n L(y_i, \mathbf{K}_i^\text{T}\boldsymbol{\beta}) + \lambda \boldsymbol{\beta}^\text{T}\mathbf{K}\boldsymbol{\beta},\]</span>
 where <span class="math inline">\(\mathbf{K}_{n \times n}\)</span> is the kernel matrix with <span class="math inline">\(\mathbf{K}_{ij} = K(x_i, x_j)\)</span>, and <span class="math inline">\(\mathbf{K}_i\)</span> is the <span class="math inline">\(i\)</span> the column of <span class="math inline">\(\mathbf{K}\)</span>. This is an unconstrained optimization problem that can be solved using gradient decent if <span class="math inline">\(L\)</span> is differentiable. More details will be presented in the next Chapter.</p>
 </div>
 <div id="kernel-and-feature-maps-another-example" class="section level2 hasAnchor" number="14.8">
@@ -942,6 +942,7 @@ where <span class="math inline">\(\mathbf{K}_{n \times n}\)</span> is the kernel
 <p><span class="math display">\[e^{-\gamma \lVert \mathbf{x}\rVert} \bigg[ 1, \sqrt{\frac{2\gamma}{1!}} \mathbf{x}^\text{T}, \sqrt{\frac{(2\gamma)^2}{2!}} \Phi_2^\text{T}(\mathbf{x}), \sqrt{\frac{(2\gamma)^3}{3!}} \Phi_3^\text{T}(\mathbf{x}), \cdots \bigg]\]</span></p>
 <p>This shows the Gaussian kernel is corresponding to all polynomials with a scaling factor of <span class="math inline">\(e^{-\gamma \lVert \mathbf{x}\rVert}\)</span></p>
 
+<!-- Conflict \def\bf{\mathbf{f}} -->
 </div>
 </div>
 <h3> Reference<a href="reference.html#reference" class="anchor-section" aria-label="Anchor link to header"></a></h3>

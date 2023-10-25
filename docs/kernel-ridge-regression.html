@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 16 Kernel Ridge Regression | Statistical Learning and Machine Learning with R</title>
   <meta name="description" content="A Textbook for Statistical Learning Courses at UIUC" />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 16 Kernel Ridge Regression | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2023-10-23" />
+<meta name="date" content="2023-10-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,7 +54,7 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.28/datatables.js"></script>
+<script src="libs/datatables-binding-0.30/datatables.js"></script>
 <link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
@@ -64,7 +64,7 @@
 <script src="libs/selectize-0.12.0/selectize.min.js"></script>
 <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
+<script src="libs/plotly-binding-4.10.3/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
@@ -492,73 +492,74 @@ div.csl-indent {
 Since we know that the solution has to take the form</p>
 <p><span class="math display">\[\widehat f = \sum_{i=1}^n \alpha_i K(x_i, \cdot),\]</span>
 we can instead solve the problem as a ridge regression type of problem:</p>
-<p><span class="math display">\[\widehat f = \underset{f \in {\cal H}}{\arg\min} \,\, \frac{1}{n} \big\lVert \mathbf{y}- \mathbf{K}\boldsymbol \alpha\big\rVert^2 + \lambda \lVert f \rVert_{\cal H}^2,\]</span>
+<p><span class="math display">\[\widehat f = \underset{f \in {\cal H}}{\arg\min} \,\, \frac{1}{n} \big\lVert \mathbf{y}- \mathbf{K}\boldsymbol{\alpha}\big\rVert^2 + \lambda \lVert f \rVert_{\cal H}^2,\]</span>
 where <span class="math inline">\(\mathbf{K}\)</span> is an <span class="math inline">\(n \times n\)</span> matrix with <span class="math inline">\(K(x_i, x_j)\)</span> at its <span class="math inline">\((i,j)\)</span>th element. With some simple calculation, we also have</p>
 <p><span class="math display">\[\begin{align}
 \lVert f \rVert_{\cal H}^2 =&amp; \langle f, f \rangle \nonumber \\
 =&amp; \langle \sum_{i=1}^n \alpha_i K(x_i, \cdot), \sum_{j=1}^n \alpha_j K(x_j, \cdot) \rangle \nonumber \\
 =&amp; \sum_{i, j} \alpha_i \alpha_j \big\langle K(x_i, \cdot), K(x_j, \cdot) \big\rangle \nonumber \\
 =&amp; \sum_{i, j} \alpha_i \alpha_j K(x_i, x_j) \nonumber \\
-=&amp; \boldsymbol \alpha^\text{T}\mathbf{K}\boldsymbol \alpha
+=&amp; \boldsymbol{\alpha}^\text{T}\mathbf{K}\boldsymbol{\alpha}
 \end{align}\]</span></p>
 <p>Hence, the problem becomes</p>
-<p><span class="math display">\[\widehat f = \underset{f \in {\cal H}}{\arg\min} \,\, \frac{1}{n} \big\lVert \mathbf{y}- \mathbf{K}\boldsymbol \alpha\big\rVert^2 + \lambda \boldsymbol \alpha^\text{T}\mathbf{K}\boldsymbol \alpha.\]</span>
-By taking the derivative with respect to <span class="math inline">\(\boldsymbol \alpha\)</span>, we have (note that <span class="math inline">\(\mathbf{K}\)</span> is symmetric),</p>
+<p><span class="math display">\[\widehat f = \underset{f \in {\cal H}}{\arg\min} \,\, \frac{1}{n} \big\lVert \mathbf{y}- \mathbf{K}\boldsymbol{\alpha}\big\rVert^2 + \lambda \boldsymbol{\alpha}^\text{T}\mathbf{K}\boldsymbol{\alpha}.\]</span>
+By taking the derivative with respect to <span class="math inline">\(\boldsymbol{\alpha}\)</span>, we have (note that <span class="math inline">\(\mathbf{K}\)</span> is symmetric),</p>
 <p><span class="math display">\[\begin{align}
--\frac{1}{n} \mathbf{K}^\text{T}(\mathbf{y}- \mathbf{K}\boldsymbol \alpha) + \lambda \mathbf{K}\boldsymbol \alpha\overset{\text{set}}{=} \mathbf{0} \nonumber \\
-\mathbf{K}(- \mathbf{y}+ \mathbf{K}\boldsymbol \alpha+ n\lambda \boldsymbol \alpha) = \mathbf{0}.
+-\frac{1}{n} \mathbf{K}^\text{T}(\mathbf{y}- \mathbf{K}\boldsymbol{\alpha}) + \lambda \mathbf{K}\boldsymbol{\alpha}\overset{\text{set}}{=} \mathbf{0} \nonumber \\
+\mathbf{K}(- \mathbf{y}+ \mathbf{K}\boldsymbol{\alpha}+ n\lambda \boldsymbol{\alpha}) = \mathbf{0}.
 \end{align}\]</span>
 This implies</p>
-<p><span class="math display">\[ \boldsymbol \alpha= (\mathbf{K}+ n\lambda \mathbf{I})^{-1} \mathbf{y}.\]</span>
+<p><span class="math display">\[ \boldsymbol{\alpha}= (\mathbf{K}+ n\lambda \mathbf{I})^{-1} \mathbf{y}.\]</span>
 and we obtained the solution.</p>
 <div id="example-linear-kernel-and-ridge-regression" class="section level2 hasAnchor" number="16.1">
 <h2><span class="header-section-number">16.1</span> Example: Linear Kernel and Ridge Regression<a href="kernel-ridge-regression.html#example-linear-kernel-and-ridge-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>When <span class="math inline">\(K(\mathbf{x}_i, \mathbf{x}_j) = \mathbf{x}_i^\text{T}\mathbf{x}_j\)</span>, we also have <span class="math inline">\(\mathbf{K}= \mathbf{X}\mathbf{X}^\text{T}\)</span>. We should expect this to match the original ridge regression since this is essentially a linear regression. First, plug this into our previous result, we have</p>
-<p><span class="math display">\[ \boldsymbol \alpha= (\mathbf{X}\mathbf{X}^\text{T}+ n\lambda \mathbf{I})^{-1} \mathbf{y}.\]</span>
+<p><span class="math display">\[ \boldsymbol{\alpha}= (\mathbf{X}\mathbf{X}^\text{T}+ n\lambda \mathbf{I})^{-1} \mathbf{y}.\]</span>
 and the fitted value is</p>
-<p><span class="math display">\[ \widehat{\mathbf{y}} = \mathbf{K}\boldsymbol \alpha= \mathbf{X}\mathbf{X}^\text{T}(\mathbf{X}\mathbf{X}^\text{T}+ n\lambda \mathbf{I})^{-1} \mathbf{y}\]</span>
+<p><span class="math display">\[ \widehat{\mathbf{y}} = \mathbf{K}\boldsymbol{\alpha}= \mathbf{X}\mathbf{X}^\text{T}(\mathbf{X}\mathbf{X}^\text{T}+ n\lambda \mathbf{I})^{-1} \mathbf{y}\]</span>
 Using a matrix identity <span class="math inline">\((\mathbf{P}\mathbf{Q}+ \mathbf{I})^{-1}\mathbf{P}= \mathbf{P}(\mathbf{Q}\mathbf{P}+ \mathbf{I})^{-1}\)</span>, and let <span class="math inline">\(\mathbf{Q}= \mathbf{X}= \mathbf{P}^\text{T}\)</span>, we have</p>
-<p><span class="math display">\[ \widehat{\mathbf{y}} = \mathbf{K}\boldsymbol \alpha= \mathbf{X}(\mathbf{X}^\text{T}\mathbf{X}+ n\lambda \mathbf{I})^{-1} \mathbf{X}^\text{T}\mathbf{y}\]</span>
+<p><span class="math display">\[ \widehat{\mathbf{y}} = \mathbf{K}\boldsymbol{\alpha}= \mathbf{X}(\mathbf{X}^\text{T}\mathbf{X}+ n\lambda \mathbf{I})^{-1} \mathbf{X}^\text{T}\mathbf{y}\]</span>
 and</p>
-<p><span class="math display">\[ \widehat{\mathbf{y}} = \mathbf{X}\underbrace{\big[ \mathbf{X}^\text{T}\boldsymbol \alpha\big]}_{\boldsymbol \beta} = \mathbf{X}\underbrace{\big[ (\mathbf{X}^\text{T}\mathbf{X}+ n\lambda \mathbf{I})^{-1} \mathbf{X}^\text{T}\mathbf{y}\big]}_{\boldsymbol \beta}\]</span></p>
-<p>which is simply the Ridge regression solution, and also the corresponding linear regression solution <span class="math inline">\(\widehat{\boldsymbol \beta} = \mathbf{X}^\text{T}\widehat{\boldsymbol \alpha}\)</span>. This makes the penalty term <span class="math inline">\(\boldsymbol \alpha^\text{T}\mathbf{K}\boldsymbol \alpha= \boldsymbol \alpha^\text{T}\mathbf{X}\mathbf{X}^\text{T}\boldsymbol \alpha= \boldsymbol \beta^\text{T}\boldsymbol \beta\)</span>, which maps every thing back to the ridge regression form.</p>
+<p><span class="math display">\[ \widehat{\mathbf{y}} = \mathbf{X}\underbrace{\big[ \mathbf{X}^\text{T}\boldsymbol{\alpha}\big]}_{\boldsymbol{\beta}} = \mathbf{X}\underbrace{\big[ (\mathbf{X}^\text{T}\mathbf{X}+ n\lambda \mathbf{I})^{-1} \mathbf{X}^\text{T}\mathbf{y}\big]}_{\boldsymbol{\beta}}\]</span></p>
+<p>which is simply the Ridge regression solution, and also the corresponding linear regression solution <span class="math inline">\(\widehat{\boldsymbol{\beta}} = \mathbf{X}^\text{T}\widehat{\boldsymbol{\alpha}}\)</span>. This makes the penalty term <span class="math inline">\(\boldsymbol{\alpha}^\text{T}\mathbf{K}\boldsymbol{\alpha}= \boldsymbol{\alpha}^\text{T}\mathbf{X}\mathbf{X}^\text{T}\boldsymbol{\alpha}= \boldsymbol{\beta}^\text{T}\boldsymbol{\beta}\)</span>, which maps every thing back to the ridge regression form.</p>
 </div>
 <div id="example-alternative-view" class="section level2 hasAnchor" number="16.2">
 <h2><span class="header-section-number">16.2</span> Example: Alternative View<a href="kernel-ridge-regression.html#example-alternative-view" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This example is motivated from an alternative derivation provided by Prof. Max Welling on his kernel ridge regression lecture note. This understanding matches the SVM primal to dual derivation, but is performed on a linear regression. We can then again switch things to the kernel version (through kernel trick).</p>
 <p>Consider a linear regression</p>
-<p><span class="math display">\[\underset{\boldsymbol \beta}{\text{minimize}} \,\, \frac{1}{n} \lVert \mathbf{y}- \mathbf{X}\boldsymbol \beta\rVert^2 + \lambda \lVert \boldsymbol \beta\rVert^2\]</span></p>
+<p><span class="math display">\[\underset{\boldsymbol{\beta}}{\text{minimize}} \,\, \frac{1}{n} \lVert \mathbf{y}- \mathbf{X}\boldsymbol{\beta}\rVert^2 + \lambda \lVert \boldsymbol{\beta}\rVert^2\]</span></p>
 <p>Introduce a new set of variables</p>
-<p><span class="math display">\[z_i = y_i - \mathbf{x}_i^\text{T}\boldsymbol \beta,\]</span>
+<p><span class="math display">\[z_i = y_i - \mathbf{x}_i^\text{T}\boldsymbol{\beta},\]</span>
 for <span class="math inline">\(i = 1, \ldots, n\)</span>. Then The original problem becomes</p>
 <p><span class="math display">\[\begin{align}
-\underset{\boldsymbol \beta, \mathbf{z}}{\text{minimize}} \quad &amp; \frac{1}{2n\lambda} \lVert \mathbf{z}\rVert^2 + \frac{1}{2} \lVert \boldsymbol \beta\rVert^2 \nonumber \\
-\text{subj. to} \quad &amp; z_i = y_i - \mathbf{x}_i^\text{T}\boldsymbol \beta, \,\, i = 1, \ldots, n.
+\underset{\boldsymbol{\beta}, \mathbf{z}}{\text{minimize}} \quad &amp; \frac{1}{2n\lambda} \lVert \mathbf{z}\rVert^2 + \frac{1}{2} \lVert \boldsymbol{\beta}\rVert^2 \nonumber \\
+\text{subj. to} \quad &amp; z_i = y_i - \mathbf{x}_i^\text{T}\boldsymbol{\beta}, \,\, i = 1, \ldots, n.
 \end{align}\]</span></p>
 <p>If we use the same strategy from the SVM derivation, we have the Lagrangian</p>
-<p><span class="math display">\[{\cal L} = \frac{1}{2n\lambda} \lVert \mathbf{z}\rVert^2 + \frac{1}{2} \lVert \boldsymbol \beta\rVert^2 + \sum_{i=1}^n \alpha_i (y_i - \mathbf{x}_i^\text{T}\boldsymbol \beta- z_i)\]</span>
-with <span class="math inline">\(\alpha_i \in \mathbb{R}\)</span>. Switching from primal to dual, by taking derivative w.r.t. <span class="math inline">\(\boldsymbol \beta\)</span> and <span class="math inline">\(\mathbf{z}\)</span>, we have</p>
+<p><span class="math display">\[{\cal L} = \frac{1}{2n\lambda} \lVert \mathbf{z}\rVert^2 + \frac{1}{2} \lVert \boldsymbol{\beta}\rVert^2 + \sum_{i=1}^n \alpha_i (y_i - \mathbf{x}_i^\text{T}\boldsymbol{\beta}- z_i)\]</span>
+with <span class="math inline">\(\alpha_i \in \mathbb{R}\)</span>. Switching from primal to dual, by taking derivative w.r.t. <span class="math inline">\(\boldsymbol{\beta}\)</span> and <span class="math inline">\(\mathbf{z}\)</span>, we have</p>
 <p><span class="math display">\[\begin{align}
 \frac{\partial \cal L}{\partial z_i} =&amp;\, \frac{1}{n\lambda}z_i - \alpha_i = 0, \quad \text{for} \,\, i = 1, \ldots, n, \nonumber \\
-\text{and}\,\, \frac{\partial \cal L}{\partial \boldsymbol \beta} =&amp;\, \boldsymbol \beta- \sum_{i=1}^n \alpha_i \mathbf{x}_i = \mathbf{0}
+\text{and}\,\, \frac{\partial \cal L}{\partial \boldsymbol{\beta}} =&amp;\, \boldsymbol{\beta}- \sum_{i=1}^n \alpha_i \mathbf{x}_i = \mathbf{0}
 \end{align}\]</span></p>
-<p>Hence, we have, the estimated <span class="math inline">\(\widehat{\boldsymbol \beta}\)</span> is <span class="math inline">\(\sum_{i=1}^n \alpha_i \mathbf{x}_i\)</span> that matches our previous understanding. Also, if we view this as a linear kernel solution, the predicted value of at <span class="math inline">\(\mathbf{x}\)</span> is</p>
+<p>Hence, we have, the estimated <span class="math inline">\(\widehat{\boldsymbol{\beta}}\)</span> is <span class="math inline">\(\sum_{i=1}^n \alpha_i \mathbf{x}_i\)</span> that matches our previous understanding. Also, if we view this as a linear kernel solution, the predicted value of at <span class="math inline">\(\mathbf{x}\)</span> is</p>
 <p><span class="math display">\[\begin{align}
-f(\mathbf{x}) =&amp; \,\, \mathbf{x}^\text{T}\boldsymbol \beta\nonumber \\
+f(\mathbf{x}) =&amp; \,\, \mathbf{x}^\text{T}\boldsymbol{\beta}\nonumber \\
 =&amp; \sum_{i=1}^n \alpha_i \mathbf{x}^\text{T}\mathbf{x}_i \nonumber \\
 =&amp; \sum_{i=1}^n \alpha_i K(\mathbf{x}, \mathbf{x}_i).
 \end{align}\]</span></p>
 <p>Now, to complete our dual solution, we plugin these results, and have</p>
 <p><span class="math display">\[\begin{align}
-\underset{\boldsymbol \alpha}{\max} \underset{\mathbf{z}, \boldsymbol \beta}{\min} {\cal L} =&amp; \frac{n\lambda}{2} \boldsymbol \alpha^\text{T}\boldsymbol \alpha+ \frac{1}{2} \sum_{i, j} \alpha_i \alpha_j x_i^\text{T}x_j + \sum_{j} \alpha_j \big(y_j - x_j^\text{T}\sum_i \alpha_i \mathbf{x}_i - n\lambda \alpha_i \big) \nonumber \\
-=&amp; - \frac{n\lambda}{2} \boldsymbol \alpha^\text{T}\boldsymbol \alpha- \frac{1}{2} \sum_{i, j} \alpha_i \alpha_j \langle x_i, x_j \rangle + \sum_{i} \alpha_i y_i \nonumber \\
-=&amp; - \frac{n\lambda}{2} \boldsymbol \alpha^\text{T}\boldsymbol \alpha- \frac{1}{2} \boldsymbol \alpha^\text{T}\mathbf{K}\boldsymbol \alpha+ \boldsymbol \alpha^\text{T}\mathbf{y}
+\underset{\boldsymbol{\alpha}}{\max} \underset{\mathbf{z}, \boldsymbol{\beta}}{\min} {\cal L} =&amp; \frac{n\lambda}{2} \boldsymbol{\alpha}^\text{T}\boldsymbol{\alpha}+ \frac{1}{2} \sum_{i, j} \alpha_i \alpha_j x_i^\text{T}x_j + \sum_{j} \alpha_j \big(y_j - x_j^\text{T}\sum_i \alpha_i \mathbf{x}_i - n\lambda \alpha_i \big) \nonumber \\
+=&amp; - \frac{n\lambda}{2} \boldsymbol{\alpha}^\text{T}\boldsymbol{\alpha}- \frac{1}{2} \sum_{i, j} \alpha_i \alpha_j \langle x_i, x_j \rangle + \sum_{i} \alpha_i y_i \nonumber \\
+=&amp; - \frac{n\lambda}{2} \boldsymbol{\alpha}^\text{T}\boldsymbol{\alpha}- \frac{1}{2} \boldsymbol{\alpha}^\text{T}\mathbf{K}\boldsymbol{\alpha}+ \boldsymbol{\alpha}^\text{T}\mathbf{y}
 \end{align}\]</span></p>
 <p>By again taking derivative w.r.t. <span class="math inline">\(\alpha\)</span>, we have</p>
-<p><span class="math display">\[ - n\lambda \mathbf{I}\boldsymbol \alpha- \mathbf{K}\boldsymbol \alpha+ \mathbf{y}= \mathbf{0},\]</span>
+<p><span class="math display">\[ - n\lambda \mathbf{I}\boldsymbol{\alpha}- \mathbf{K}\boldsymbol{\alpha}+ \mathbf{y}= \mathbf{0},\]</span>
 and the solution is the same as what we had before</p>
-<p><span class="math display">\[\boldsymbol \alpha= (\mathbf{K}+ n\lambda \mathbf{I})^{-1} \mathbf{y}\]</span></p>
+<p><span class="math display">\[\boldsymbol{\alpha}= (\mathbf{K}+ n\lambda \mathbf{I})^{-1} \mathbf{y}\]</span></p>
 
+<!-- Conflict \def\bf{\mathbf{f}} -->
 </div>
 </div>
             </section>
