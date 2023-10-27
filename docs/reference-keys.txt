@@ -165,6 +165,7 @@ adaboost
 training-error-of-adaboost
 tuning-the-number-of-trees
 gradient-boosting
+gradient-boosting-with-logistic-link
 k-means
 basic-concepts
 example-1-iris-data

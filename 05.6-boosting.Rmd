@@ -115,7 +115,7 @@ Boosting is another ensemble model, created in the form of
 
 $$F_T(x) = \sum_{t = 1}^T \alpha_t f_t(x)$$
 
-However, it is different from random forest, in which each $f_t(x)$ is learned parallelly. These $f_t(x)$'s are called weak learners and are constructed __sequentially__, with coefficients $\alpha_t$'s to represent their weights. The most classical model, AdaBoost was proposed by @freund1997decision for classification problems, and a more statically view of this model called gradient boosting machines [@friedman2001greedy] can handle any loss function we commonly use. We will first introduce AdaBoost and then discuss gradient boosting. 
+However, it is different from random forest, in which each $f_t(x)$ is learned parallelly. These $f_t(x)$'s are called weak learners and are constructed __sequentially__, with coefficients $\alpha_t$'s to represent their weights. The most classical model, AdaBoost was proposed by @freund1997decision for classification problems, and a more statically view of this type of model called gradient boosting machines [@friedman2001greedy] can handle any loss function we commonly use. We will first introduce AdaBoost and then discuss gradient boosting. 
 
 ## AdaBoost
 
@@ -483,9 +483,45 @@ This idea can be generalized to any loss function $L$. This is the __gradient bo
 Hence, the only change when modeling different outcomes is to choose the loss function $L$, and derive the pseudo-residuals
 
   * For regression, the loss is $\frac{1}{2} (y  - f(x))^2$, and the pseudo-residual is $y_i - f(x_i)$
-  * For quantile regression to model median, the loss is $|y  - f(x)|$, and the pseudo-residual is sign$(y_i - f(x_i))$ \\
-  * For classification, we can use the deviance $y\log(p) + (1-y)\log(1-p)$, and express $p$ as the log-odds of a scale predictor, i.e., $f = \log(p/(1-p))$. Then the pseudo-residual is $y_i - p(x_i)$
+  * For quantile regression to model median, the loss is $|y  - f(x)|$, and the pseudo-residual is sign$(y_i - f(x_i))$
+  * For classification, we can use the negative log likelihood of a single observation $- [ y\log(p) + (1-y)\log(1-p) ]$, and express $p$ as the log-odds of a scale predictor, i.e., $f = \log(p/(1-p))$. Then the pseudo-residual is $y_i - p(x_i)$
 
+## Gradient Boosting with Logistic Link
+
+To see how the pseudo-residual of a classification model is derived, let's use the logistic link function the predicted probability \( p \) defined as:
+
+\[
+p =  \frac{e^{F(x)}}{1 + e^{F(x)}} = \frac{1}{1 + e^{-F(x)}}
+\]
+
+The negative log-likelihood for the Bernoulli distribution for a single instance is given by:
+
+\[
+L(y, p) = - [y \log(p) + (1 - y) \log(1 - p)]
+\]
+
+Let's first find the partial derivative of this loss function with respect to \( p \):
+
+\[
+\frac{\partial L(y, p)}{\partial p} = -\left[ y \frac{1}{p} - (1-y) \frac{1}{1-p} \right]
+\]
+
+The derivative of \( p \) with respect to \( F(x) \) is:
+
+\[
+\frac{\partial p}{\partial F(x)} = \frac{e^{-F(x)}}{(1 + e^{-F(x)})^2} = p(1-p)
+\]
+
+Hence, the partial derivative of the loss function with respect to \( F \) is:
+
+\begin{align*}
+\frac{\partial L(y, p)}{\partial F(x)} &= \frac{\partial L(y, p)}{\partial p} \cdot \frac{\partial p}{\partial F(x)}\\
+&= -\left[ y \frac{1}{p} - (1-y) \frac{1}{1-p} \right] \cdot p(1-p)\\
+&= -(y - y p + p - y p)\\
+&= -(y - p)
+\end{align*}
+
+Note that we should move \( F(x) \) to the negative gradient, then \( y_i - p_i \) is the pseudo-residual that we use in the boosting algorithm to fit the next tree / linear booster. The sign mainly influences the direction of the adjustment but is accounted for in the optimization process.
 
 
 

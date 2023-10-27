@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2023-10-25" />
+<meta name="date" content="2023-10-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -421,6 +421,7 @@ div.csl-indent {
 <li class="chapter" data-level="19.2" data-path="boosting.html"><a href="boosting.html#training-error-of-adaboost"><i class="fa fa-check"></i><b>19.2</b> Training Error of AdaBoost</a></li>
 <li class="chapter" data-level="19.3" data-path="boosting.html"><a href="boosting.html#tuning-the-number-of-trees"><i class="fa fa-check"></i><b>19.3</b> Tuning the Number of Trees</a></li>
 <li class="chapter" data-level="19.4" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>19.4</b> Gradient Boosting</a></li>
+<li class="chapter" data-level="19.5" data-path="boosting.html"><a href="boosting.html#gradient-boosting-with-logistic-link"><i class="fa fa-check"></i><b>19.5</b> Gradient Boosting with Logistic Link</a></li>
 </ul></li>
 <li class="part"><span><b>VI Unsupervised Learning</b></span></li>
 <li class="chapter" data-level="20" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>20</b> K-Means</a>
@@ -489,7 +490,7 @@ div.csl-indent {
 <h1><span class="header-section-number">Chapter 19</span> Boosting<a href="boosting.html#boosting" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Boosting is another ensemble model, created in the form of</p>
 <p><span class="math display">\[F_T(x) = \sum_{t = 1}^T \alpha_t f_t(x)\]</span></p>
-<p>However, it is different from random forest, in which each <span class="math inline">\(f_t(x)\)</span> is learned parallelly. These <span class="math inline">\(f_t(x)\)</span>’s are called weak learners and are constructed <strong>sequentially</strong>, with coefficients <span class="math inline">\(\alpha_t\)</span>’s to represent their weights. The most classical model, AdaBoost was proposed by <span class="citation">Freund and Schapire (<a href="#ref-freund1997decision">1997</a>)</span> for classification problems, and a more statically view of this model called gradient boosting machines <span class="citation">(<a href="#ref-friedman2001greedy">J. H. Friedman 2001</a>)</span> can handle any loss function we commonly use. We will first introduce AdaBoost and then discuss gradient boosting.</p>
+<p>However, it is different from random forest, in which each <span class="math inline">\(f_t(x)\)</span> is learned parallelly. These <span class="math inline">\(f_t(x)\)</span>’s are called weak learners and are constructed <strong>sequentially</strong>, with coefficients <span class="math inline">\(\alpha_t\)</span>’s to represent their weights. The most classical model, AdaBoost was proposed by <span class="citation">Freund and Schapire (<a href="#ref-freund1997decision">1997</a>)</span> for classification problems, and a more statically view of this type of model called gradient boosting machines <span class="citation">(<a href="#ref-friedman2001greedy">J. H. Friedman 2001</a>)</span> can handle any loss function we commonly use. We will first introduce AdaBoost and then discuss gradient boosting.</p>
 <div id="adaboost" class="section level2 hasAnchor" number="19.1">
 <h2><span class="header-section-number">19.1</span> AdaBoost<a href="boosting.html#adaboost" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Following our common notation, we observe a set of data <span class="math inline">\(\{\mathbf{x}_i, y_i\}_{i=1}^n\)</span>. Similar to SVM, we code <span class="math inline">\(y_i\)</span>s as <span class="math inline">\(-1\)</span> or <span class="math inline">\(1\)</span>. The AdaBoost works by creating <span class="math inline">\(F_T(x)\)</span> sequentially and use <span class="math inline">\(\text{sign}(F_T(x))\)</span> as the classification rule. The algorithm is given in the following:</p>
@@ -792,9 +793,36 @@ and we are essentially fitting a weak leaner <span class="math inline">\(f_t(x)\
 <p>Hence, the only change when modeling different outcomes is to choose the loss function <span class="math inline">\(L\)</span>, and derive the pseudo-residuals</p>
 <ul>
 <li>For regression, the loss is <span class="math inline">\(\frac{1}{2} (y - f(x))^2\)</span>, and the pseudo-residual is <span class="math inline">\(y_i - f(x_i)\)</span></li>
-<li>For quantile regression to model median, the loss is <span class="math inline">\(|y - f(x)|\)</span>, and the pseudo-residual is sign<span class="math inline">\((y_i - f(x_i))\)</span> \</li>
-<li>For classification, we can use the deviance <span class="math inline">\(y\log(p) + (1-y)\log(1-p)\)</span>, and express <span class="math inline">\(p\)</span> as the log-odds of a scale predictor, i.e., <span class="math inline">\(f = \log(p/(1-p))\)</span>. Then the pseudo-residual is <span class="math inline">\(y_i - p(x_i)\)</span></li>
+<li>For quantile regression to model median, the loss is <span class="math inline">\(|y - f(x)|\)</span>, and the pseudo-residual is sign<span class="math inline">\((y_i - f(x_i))\)</span></li>
+<li>For classification, we can use the negative log likelihood of a single observation <span class="math inline">\(- [ y\log(p) + (1-y)\log(1-p) ]\)</span>, and express <span class="math inline">\(p\)</span> as the log-odds of a scale predictor, i.e., <span class="math inline">\(f = \log(p/(1-p))\)</span>. Then the pseudo-residual is <span class="math inline">\(y_i - p(x_i)\)</span></li>
 </ul>
+</div>
+<div id="gradient-boosting-with-logistic-link" class="section level2 hasAnchor" number="19.5">
+<h2><span class="header-section-number">19.5</span> Gradient Boosting with Logistic Link<a href="boosting.html#gradient-boosting-with-logistic-link" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To see how the pseudo-residual of a classification model is derived, let’s use the logistic link function the predicted probability <span class="math inline">\(p\)</span> defined as:</p>
+<p><span class="math display">\[
+p =  \frac{e^{F(x)}}{1 + e^{F(x)}} = \frac{1}{1 + e^{-F(x)}}
+\]</span></p>
+<p>The negative log-likelihood for the Bernoulli distribution for a single instance is given by:</p>
+<p><span class="math display">\[
+L(y, p) = - [y \log(p) + (1 - y) \log(1 - p)]
+\]</span></p>
+<p>Let’s first find the partial derivative of this loss function with respect to <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[
+\frac{\partial L(y, p)}{\partial p} = -\left[ y \frac{1}{p} - (1-y) \frac{1}{1-p} \right]
+\]</span></p>
+<p>The derivative of <span class="math inline">\(p\)</span> with respect to <span class="math inline">\(F(x)\)</span> is:</p>
+<p><span class="math display">\[
+\frac{\partial p}{\partial F(x)} = \frac{e^{-F(x)}}{(1 + e^{-F(x)})^2} = p(1-p)
+\]</span></p>
+<p>Hence, the partial derivative of the loss function with respect to <span class="math inline">\(F\)</span> is:</p>
+<p><span class="math display">\[\begin{align*}
+\frac{\partial L(y, p)}{\partial F(x)} &amp;= \frac{\partial L(y, p)}{\partial p} \cdot \frac{\partial p}{\partial F(x)}\\
+&amp;= -\left[ y \frac{1}{p} - (1-y) \frac{1}{1-p} \right] \cdot p(1-p)\\
+&amp;= -(y - y p + p - y p)\\
+&amp;= -(y - p)
+\end{align*}\]</span></p>
+<p>Note that we should move <span class="math inline">\(F(x)\)</span> to the negative gradient, then <span class="math inline">\(y_i - p_i\)</span> is the pseudo-residual that we use in the boosting algorithm to fit the next tree / linear booster. The sign mainly influences the direction of the adjustment but is accounted for in the optimization process.</p>
 
 <!-- Conflict \def\bf{\mathbf{f}} -->
 </div>
