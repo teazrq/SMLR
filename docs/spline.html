@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 Spline | Statistical Learning and Machine Learning with R</title>
   <meta name="description" content="A Textbook for Statistical Learning Courses at UIUC" />
-  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 Spline | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2023-10-26" />
+<meta name="date" content="2024-08-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,19 +52,20 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.30/datatables.js"></script>
-<link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
 <link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
 <script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
 <link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
 <script src="libs/selectize-0.12.0/selectize.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.10.3/plotly.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
@@ -72,7 +73,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -144,6 +145,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -668,8 +670,8 @@ div.csl-indent {
 <span id="cb101-5"><a href="spline.html#cb101-5" tabindex="-1"></a>         <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">1900</span>, <span class="dv">2020</span>), <span class="at">xlab =</span> <span class="st">&quot;year&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;rate&quot;</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)   </span>
 <span id="cb101-6"><a href="spline.html#cb101-6" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">1900</span>, <span class="dv">2020</span>), <span class="fu">predict</span>(fit.bs, <span class="fu">data.frame</span>(<span class="st">&quot;Year&quot;</span><span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">1900</span>, <span class="dv">2020</span>))),</span>
 <span id="cb101-7"><a href="spline.html#cb101-7" tabindex="-1"></a>          <span class="at">col=</span><span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">3</span>)    </span>
-<span id="cb101-8"><a href="spline.html#cb101-8" tabindex="-1"></a><span class="do">## Warning in bs(Year, degree = 3L, knots = c(`25%` = 1938.5, `50%` = 1960, : some &#39;x&#39; values beyond</span></span>
-<span id="cb101-9"><a href="spline.html#cb101-9" tabindex="-1"></a><span class="do">## boundary knots may cause ill-conditioned bases</span></span>
+<span id="cb101-8"><a href="spline.html#cb101-8" tabindex="-1"></a><span class="do">## Warning in bs(Year, degree = 3L, knots = c(1938.5, 1960, 1981.5), Boundary.knots = c(1917L, : some</span></span>
+<span id="cb101-9"><a href="spline.html#cb101-9" tabindex="-1"></a><span class="do">## &#39;x&#39; values beyond boundary knots may cause ill-conditioned bases</span></span>
 <span id="cb101-10"><a href="spline.html#cb101-10" tabindex="-1"></a>    </span>
 <span id="cb101-11"><a href="spline.html#cb101-11" tabindex="-1"></a>    fit.ns <span class="ot">=</span> <span class="fu">lm</span>(Birthrate <span class="sc">~</span> <span class="fu">ns</span>(Year, <span class="at">df=</span><span class="dv">6</span>), <span class="at">data=</span>birthrates)    </span>
 <span id="cb101-12"><a href="spline.html#cb101-12" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">1900</span>, <span class="dv">2020</span>), <span class="fu">predict</span>(fit.ns, <span class="fu">data.frame</span>(<span class="st">&quot;Year&quot;</span><span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">1900</span>, <span class="dv">2020</span>))), </span>
@@ -767,7 +769,7 @@ where <span class="math inline">\(h_j(x_j)\)</span> is a univariate function for
 <div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="spline.html#cb106-1" tabindex="-1"></a>    <span class="fu">library</span>(ElemStatLearn)</span>
 <span id="cb106-2"><a href="spline.html#cb106-2" tabindex="-1"></a>    <span class="fu">library</span>(gam)</span>
 <span id="cb106-3"><a href="spline.html#cb106-3" tabindex="-1"></a><span class="do">## Loading required package: foreach</span></span>
-<span id="cb106-4"><a href="spline.html#cb106-4" tabindex="-1"></a><span class="do">## Loaded gam 1.22-2</span></span>
+<span id="cb106-4"><a href="spline.html#cb106-4" tabindex="-1"></a><span class="do">## Loaded gam 1.22-4</span></span>
 <span id="cb106-5"><a href="spline.html#cb106-5" tabindex="-1"></a></span>
 <span id="cb106-6"><a href="spline.html#cb106-6" tabindex="-1"></a>    form <span class="ot">=</span> <span class="fu">formula</span>(<span class="st">&quot;chd ~ ns(sbp,df=4) + ns(tobacco,df=4) + </span></span>
 <span id="cb106-7"><a href="spline.html#cb106-7" tabindex="-1"></a><span class="st">                          ns(ldl,df=4) + famhist + ns(obesity,df=4) + </span></span>

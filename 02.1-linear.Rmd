@@ -512,7 +512,7 @@ where the error terms are i.i.d with mean 0 and variance $\sigma^2$. We want to 
 
 In the above, we used properties
 
-  * $\Trace(ABC) = \Trace(CBA)$
+  * $\Trace(ABC) = \Trace(CAB)$
   * $\E[\Trace(A)] = \Trace(\E[A])$
 
 On the other hand, the training error is 
