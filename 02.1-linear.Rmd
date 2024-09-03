@@ -518,7 +518,8 @@ In the above, we used properties
 On the other hand, the training error is 
 
 \begin{align}
-\E[\color{DodgerBlue}{\text{Training Error}}] =& ~\E \lVert \by - \bby \rVert^2 \\
+\E[\color{DodgerBlue}{\text{Training Error}}] =& ~\E \lVert \br \rVert^2 \\
+=& ~\E \lVert (\bI - \bH) \bby \lVert^2 \\
 =& ~\E \lVert (\bI - \bH)(\bX \bbeta + \bbe) \rVert^2 \\
 =& ~\E \lVert (\bI - \bH)\bbe \rVert^2 \\
 =& ~\E [\Trace(\bbe^\T(\bI - \bH)^\T (\bI - \bH) \bbe)]\\
