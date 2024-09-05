@@ -330,7 +330,7 @@ Now, let's discuss several specific methods. One of the oldest one is __Newton's
 $$f(\bx^\ast) \approx f(\bx) + \nabla f(\bx)^\T (\bx^\ast - \bx) + \frac{1}{2} (\bx^\ast - \bx)^\T \bH(\bx) (\bx^\ast - \bx)$$
 Our goal is to find a new stationary point $\bx^\ast$ such that $\nabla f(\bx^\ast) = 0$. By taking derivative of the above equation on both sides, with respect to $\bx^\ast$, we need 
 
-$$0 = \nabla f(\bx^\ast) = 0 + \nabla f(\bx) + (\bx^\ast - \bx)^\T \bH(\bx)$$
+$$0 = \nabla f(\bx^\ast) = 0 + \nabla f(\bx) + \bH(\bx) (\bx^\ast - \bx) $$
 which leads to 
 
 $$\bx^\ast = \bx -  \bH(\bx)^{-1} \nabla f(\bx).$$
