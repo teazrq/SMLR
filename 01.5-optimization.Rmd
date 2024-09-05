@@ -303,7 +303,7 @@ This does rule out some cases, with a higher cost ($f$ needs to be twice continu
 
 __Second-order Sufficient Conditions__: $f$ is twice continuously differentiable in an open neighborhood of $\bx^\ast$. If $\nabla f(\bx^\ast) = \mathbf{0}$ and $\nabla^2 f(\bx^\ast)$ is positive definite, i.e.,
 $$
-\nabla^2 f(\bx) = \left(\frac{\partial^2 f(\bx)}{\partial x_i \partial x_j}\right) = \bH(\bx) \succeq 0
+\nabla^2 f(\bx) = \left(\frac{\partial^2 f(\bx)}{\partial x_i \partial x_j}\right) = \bH(\bx) \succ 0
 $$
 
 then $\bx^\ast$ is a strict local minimizer of $f$. Here $\bH(\bx)$ is called the __Hessian matrix__, which will be frequently used in second-order methods. 
