@@ -309,15 +309,15 @@ It can be easier to analyze a case with $\bX^\T \bX = n \bI$, i.e, with standard
 =& (\bI + \lambda \bI)^{-1}\widehat{\bbeta}^\text{ols}\\
 =& (1 + \lambda)^{-1} \widehat{\bbeta}^\text{ols}\\
 
-\Longrightarrow \beta_j^{\text{ridge}} =& \frac{1}{1 + \lambda} \beta_j^\text{ols}
+\Longrightarrow \widehat{\beta}_j^{\text{ridge}} =& \frac{1}{1 + \lambda} \widehat{\beta}_j^\text{ols}
 \end{align}
 
-Then in this case, the bias and variance of the ridge estimator can be explicitly expressed: 
+Then in this case, the bias and variance of the ridge estimator can be explicitly expressed. Here for the bias term, we assume that the OLS estimator is unbiased, i.e., $\E(\widehat{\beta}_j^\text{ols}) = \beta_j$. Then
 
-  * $\text{Bias}(\beta_j^{\text{ridge}}) = \frac{-\lambda}{1 + \lambda} \beta_j^\text{ols}$ (not zero)
-  * $\text{Var}(\beta_j^{\text{ridge}}) = \frac{1}{(1 + \lambda)^2} \text{Var}(\beta_j^\text{ols})$ (reduced from OLS)
+  * $\text{Bias}(\widehat{\beta}_j^{\text{ridge}}) = E[\widehat{\beta}_j^{\text{ridge}} - \beta_j] = \frac{-\lambda}{1 + \lambda} \beta_j$ (not zero)
+  * $\text{Var}(\widehat{\beta}_j^{\text{ridge}}) = \frac{1}{(1 + \lambda)^2} \text{Var}(\widehat{\beta}_j^\text{ols})$ (reduced from OLS)
 
-Of course, we can ask the question: is it worth it? We could proceed with a simple analysis of the MSE of $\beta$ (dropping $j$):
+Of course, we can ask the question: is it worth it? We could proceed with a simple analysis of the MSE of $\beta$ (dropping $j$ for simplicity). Note that this is also the MSE for predicting the expected value of a subject ($x^\T \beta$) with covariate $x = 1$.
 
 \begin{align}
 \text{MSE}(\beta) &= \E(\widehat{\beta} - \beta)^2 \\
@@ -326,16 +326,16 @@ Of course, we can ask the question: is it worth it? We could proceed with a simp
 &= \Var(\widehat{\beta}) + \text{Bias}^2.
 \end{align}
 
-This bias-variance breakdown formula will appear multiple times. Now, plug-in the results developed earlier based on the orthogonal design matrix, and investigate the derivative of the MSE of the Ridge estimator, we have 
+This bias-variance breakdown formula will appear multiple times in later lectures. Now, plugging in the results developed earlier based on the orthogonal design matrix, and investigate the derivative of the MSE of the Ridge estimator, we have 
 
 \begin{align}
 \frac{\partial \text{MSE}(\widehat{\beta}^\text{ridge})}{ \partial \lambda} =& \frac{\partial}{\partial \lambda} \left[ \frac{1}{(1+\lambda)^2} \Var(\widehat{\beta}^\text{ols}) + \frac{\lambda^2}{(1 + \lambda)^2} \beta^2 \right] \\
 =& \frac{2}{(1+\lambda)^3} \left[ \lambda \beta^2 - \Var(\widehat{\beta}^\text{ols}) \right]
 \end{align}
 
-Note that when the derivative is negative, increasing $\lambda$ would decrease the MSE. This implies that we can reduce the MSE by choosing a small $\lambda$. Of course the situation is much more involving when the columns in $\bX$ are not orthogonal. However, the following analysis helps to understand a non-orthogonal case. It is essentially re-organizing the columns of $\bX$ into its principal components so that they are still orthogonal. 
+Note that when the derivative is negative, increasing $\lambda$ would decrease the MSE. This implies that we can reduce the MSE by choosing a small $\lambda$. However, we are not able to know the best choice of $\lambda$ since the true $\beta$ is unknown. One the other hand, the situation is much more involving when the columns in $\bX$ are not orthogonal. The following analysis helps to understand a non-orthogonal case. It is essentially re-organizing the columns of $\bX$ into its principal components so that they are still orthogonal. 
 
-Let's first take a singular value decomposition (SVD) of $\bX$, with $\bX = \bU \bD \bV^\T$, then the columns in $\bU$ form an orthonormal basis and columns in $\bU \bD$ are the __principal components__ and $\bV$ defines the principal directions. In addition, we have $n \widehat{\boldsymbol \Sigma} = \bX^\T \bX = \bV \bD^2 \bV^\T$. Assuming that $p < n$, and $\bX$ has full column ranks, then the Ridge estimator fitted $\by$ value can be decomposed as
+Let's first take a singular value decomposition (SVD) of $\bX$, with $\bX = \bU \bD \bV^\T$, then the columns in $\bU$ form an orthogonal basis and columns in $\bU \bD$ are the __principal components__ and $\bV$ defines the principal directions. In addition, we have $n \widehat{\boldsymbol \Sigma} = \bX^\T \bX = \bV \bD^2 \bV^\T$. Assuming that $p < n$, and $\bX$ has full column ranks, then the Ridge estimator fitted $\by$ value can be decomposed as
 
 \begin{align}
 \widehat{\by}^\text{ridge} =& \bX \widehat{\beta}^\text{ridge} \\ 
