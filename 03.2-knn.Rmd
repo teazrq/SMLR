@@ -233,7 +233,7 @@ As we can see from the previous example, when $k=1$, the prediction error is abo
 
 ## KNN for Classification 
 
-For classification, kNN is different from the regression model in term of finding neighbers. The only difference is to majority voting instead of averaging. Majority voting means that we look for the most popular class label among its neighbors. For 1NN, it is simply the class of the closest neighbor. The visualization of 1NN is a Voronoi tessellation. The plot on the left is some randomly observed data in $[0, 1]^2$, and the plot on the right is the corresponding 1NN classification model. 
+For classification, KNN is different from the regression model in term of finding neighbers. The only difference is to majority voting instead of averaging. Majority voting means that we look for the most popular class label among its neighbors. For 1NN, it is simply the class of the closest neighbor. The visualization of 1NN is a Voronoi tessellation. The plot on the left is some randomly observed data in $[0, 1]^2$, and the plot on the right is the corresponding 1NN classification model. 
 
 ```{r message=FALSE, fig.dim=c(12, 6), out.width="90%", echo = FALSE}
   # knn for classification: 
