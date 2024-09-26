@@ -359,7 +359,7 @@ Hence, the bias-variance notion can be understood as the trade-off on these deri
 We know that for a linear model, the degrees of freedom (DF) is simply the number of parameters used. There is a formal definition, using 
 
 \begin{align}
-\text{DF}(\widehat{f}) =& \frac{1}{\sigma^2} \Cov(\widehat{y}_i, y_i)\\
+\text{DF}(\widehat{f}) =& \frac{1}{\sigma^2} \sum_{i = 1}^n \Cov(\widehat{y}_i, y_i)\\
 =& \frac{1}{\sigma^2} \Trace[\Cov(\widehat{\by}, \by)]
 \end{align}
 

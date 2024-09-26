@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2024-09-07" />
+<meta name="date" content="2024-09-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -684,7 +684,7 @@ It provides a solution of linear regression when multicollinearity happens, espe
 <h2><span class="header-section-number">7.4</span> Degrees of Freedom<a href="ridge-regression.html#degrees-of-freedom" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We know that for a linear model, the degrees of freedom (DF) is simply the number of parameters used. There is a formal definition, using</p>
 <p><span class="math display">\[\begin{align}
-\text{DF}(\widehat{f}) =&amp; \frac{1}{\sigma^2} \text{Cov}(\widehat{y}_i, y_i)\\
+\text{DF}(\widehat{f}) =&amp; \frac{1}{\sigma^2} \sum_{i = 1}^n \text{Cov}(\widehat{y}_i, y_i)\\
 =&amp; \frac{1}{\sigma^2} \text{Trace}[\text{Cov}(\widehat{\mathbf{y}}, \mathbf{y})]
 \end{align}\]</span></p>
 <p>We can check that for a linear regression (assuming the intercept is already included in <span class="math inline">\(\mathbf{X}\)</span>), the DF is</p>
