@@ -108,11 +108,9 @@
   par(mar=c(2,2,2,2))
 ```
 
-# (PART) Nonparametric Models {-}
-
 # Spline
 
-## From Linear to Nonlinear
+## Using Linear models for Nonlinear Trends
 
 In previous chapters, we mainly focused linear models. Modeling nonlinear trends can still be done with linear model by introducing higher-order terms, or nonlinear transformations. For example, $x^2$, $\log(x)$ are all very commonly used approaches to model nonlinear effects. There is another class of approaches that is more flexible with nice theoretical properties, the splines. In this chapter, we mainly focus on univariate regression problems. 
 
@@ -409,7 +407,7 @@ Fitting a smoothing spline can be done by using the `smooth.spline` package. How
     fit$df
 ```
 
-Let's look at another simulation example, where this method performs resonabaly well. 
+Let's look at another simulation example, where this method performs reasonably well. 
 
 ```{r}
     set.seed(1)

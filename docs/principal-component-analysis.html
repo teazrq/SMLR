@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2024-08-29" />
+<meta name="date" content="2024-09-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -316,10 +316,9 @@ div.csl-indent {
 <li class="chapter" data-level="8.5" data-path="lasso.html"><a href="lasso.html#using-the-glmnet-package"><i class="fa fa-check"></i><b>8.5</b> Using the <code>glmnet</code> package</a></li>
 <li class="chapter" data-level="8.6" data-path="lasso.html"><a href="lasso.html#elastic-net"><i class="fa fa-check"></i><b>8.6</b> Elastic-Net</a></li>
 </ul></li>
-<li class="part"><span><b>III Nonparametric Models</b></span></li>
 <li class="chapter" data-level="9" data-path="spline.html"><a href="spline.html"><i class="fa fa-check"></i><b>9</b> Spline</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="spline.html"><a href="spline.html#from-linear-to-nonlinear"><i class="fa fa-check"></i><b>9.1</b> From Linear to Nonlinear</a></li>
+<li class="chapter" data-level="9.1" data-path="spline.html"><a href="spline.html#using-linear-models-for-nonlinear-trends"><i class="fa fa-check"></i><b>9.1</b> Using Linear models for Nonlinear Trends</a></li>
 <li class="chapter" data-level="9.2" data-path="spline.html"><a href="spline.html#a-motivating-example-and-polynomials"><i class="fa fa-check"></i><b>9.2</b> A Motivating Example and Polynomials</a></li>
 <li class="chapter" data-level="9.3" data-path="spline.html"><a href="spline.html#piecewise-polynomials"><i class="fa fa-check"></i><b>9.3</b> Piecewise Polynomials</a></li>
 <li class="chapter" data-level="9.4" data-path="spline.html"><a href="spline.html#splines"><i class="fa fa-check"></i><b>9.4</b> Splines</a></li>
@@ -329,51 +328,53 @@ div.csl-indent {
 <li class="chapter" data-level="9.8" data-path="spline.html"><a href="spline.html#fitting-smoothing-splines"><i class="fa fa-check"></i><b>9.8</b> Fitting Smoothing Splines</a></li>
 <li class="chapter" data-level="9.9" data-path="spline.html"><a href="spline.html#extending-splines-to-multiple-varibles"><i class="fa fa-check"></i><b>9.9</b> Extending Splines to Multiple Varibles</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html"><i class="fa fa-check"></i><b>10</b> K-Neariest Neighber</a>
+<li class="part"><span><b>III Linear Classification Models</b></span></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#definition-1"><i class="fa fa-check"></i><b>10.1</b> Definition</a></li>
-<li class="chapter" data-level="10.2" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-k"><i class="fa fa-check"></i><b>10.2</b> Tuning <span class="math inline">\(k\)</span></a></li>
-<li class="chapter" data-level="10.3" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#the-bias-variance-trade-off"><i class="fa fa-check"></i><b>10.3</b> The Bias-variance Trade-off</a></li>
-<li class="chapter" data-level="10.4" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#knn-for-classification"><i class="fa fa-check"></i><b>10.4</b> KNN for Classification</a></li>
-<li class="chapter" data-level="10.5" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-1-an-artificial-data"><i class="fa fa-check"></i><b>10.5</b> Example 1: An artificial data</a></li>
-<li class="chapter" data-level="10.6" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-with-the-caret-package"><i class="fa fa-check"></i><b>10.6</b> Tuning with the <code>caret</code> Package</a></li>
-<li class="chapter" data-level="10.7" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#distance-measures"><i class="fa fa-check"></i><b>10.7</b> Distance Measures</a></li>
-<li class="chapter" data-level="10.8" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#nn-error-bound"><i class="fa fa-check"></i><b>10.8</b> 1NN Error Bound</a></li>
-<li class="chapter" data-level="10.9" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-2-handwritten-digit-data"><i class="fa fa-check"></i><b>10.9</b> Example 2: Handwritten Digit Data</a></li>
-<li class="chapter" data-level="10.10" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#curse-of-dimensionality"><i class="fa fa-check"></i><b>10.10</b> Curse of Dimensionality</a></li>
+<li class="chapter" data-level="10.1" data-path="logistic-regression.html"><a href="logistic-regression.html#modeling-binary-outcomes"><i class="fa fa-check"></i><b>10.1</b> Modeling Binary Outcomes</a></li>
+<li class="chapter" data-level="10.2" data-path="logistic-regression.html"><a href="logistic-regression.html#example-cleveland-clinic-heart-disease-data"><i class="fa fa-check"></i><b>10.2</b> Example: Cleveland Clinic Heart Disease Data</a></li>
+<li class="chapter" data-level="10.3" data-path="logistic-regression.html"><a href="logistic-regression.html#interpretation-of-the-parameters"><i class="fa fa-check"></i><b>10.3</b> Interpretation of the Parameters</a></li>
+<li class="chapter" data-level="10.4" data-path="logistic-regression.html"><a href="logistic-regression.html#solving-a-logistic-regression"><i class="fa fa-check"></i><b>10.4</b> Solving a Logistic Regression</a></li>
+<li class="chapter" data-level="10.5" data-path="logistic-regression.html"><a href="logistic-regression.html#example-south-africa-heart-data"><i class="fa fa-check"></i><b>10.5</b> Example: South Africa Heart Data</a></li>
+<li class="chapter" data-level="10.6" data-path="logistic-regression.html"><a href="logistic-regression.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>10.6</b> Penalized Logistic Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html"><i class="fa fa-check"></i><b>11</b> Kernel Smoothing</a>
+<li class="chapter" data-level="11" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>11</b> Discriminant Analysis</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#knn-vs.-kernel"><i class="fa fa-check"></i><b>11.1</b> KNN vs. Kernel</a></li>
-<li class="chapter" data-level="11.2" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#kernel-density-estimations"><i class="fa fa-check"></i><b>11.2</b> Kernel Density Estimations</a></li>
-<li class="chapter" data-level="11.3" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off"><i class="fa fa-check"></i><b>11.3</b> Bias-variance trade-off</a></li>
-<li class="chapter" data-level="11.4" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#gaussian-kernel-regression"><i class="fa fa-check"></i><b>11.4</b> Gaussian Kernel Regression</a>
-<ul>
-<li class="chapter" data-level="11.4.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off-1"><i class="fa fa-check"></i><b>11.4.1</b> Bias-variance Trade-off</a></li>
+<li class="chapter" data-level="11.1" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#bayes-rule"><i class="fa fa-check"></i><b>11.1</b> Bayes Rule</a></li>
+<li class="chapter" data-level="11.2" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>11.2</b> Example: Linear Discriminant Analysis (LDA)</a></li>
+<li class="chapter" data-level="11.3" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#linear-discriminant-analysis"><i class="fa fa-check"></i><b>11.3</b> Linear Discriminant Analysis</a></li>
+<li class="chapter" data-level="11.4" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-quadratic-discriminant-analysis-qda"><i class="fa fa-check"></i><b>11.4</b> Example: Quadratic Discriminant Analysis (QDA)</a></li>
+<li class="chapter" data-level="11.5" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#quadratic-discriminant-analysis"><i class="fa fa-check"></i><b>11.5</b> Quadratic Discriminant Analysis</a></li>
+<li class="chapter" data-level="11.6" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-the-hand-written-digit-data"><i class="fa fa-check"></i><b>11.6</b> Example: the Hand Written Digit Data</a></li>
 </ul></li>
-<li class="chapter" data-level="11.5" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#choice-of-kernel-functions"><i class="fa fa-check"></i><b>11.5</b> Choice of Kernel Functions</a></li>
-<li class="chapter" data-level="11.6" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-linear-regression"><i class="fa fa-check"></i><b>11.6</b> Local Linear Regression</a></li>
-<li class="chapter" data-level="11.7" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-polynomial-regression"><i class="fa fa-check"></i><b>11.7</b> Local Polynomial Regression</a></li>
-<li class="chapter" data-level="11.8" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#r-implementations"><i class="fa fa-check"></i><b>11.8</b> R Implementations</a></li>
-</ul></li>
-<li class="part"><span><b>IV Classification Models</b></span></li>
-<li class="chapter" data-level="12" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>12</b> Logistic Regression</a>
+<li class="part"><span><b>IV Nonparametric Models</b></span></li>
+<li class="chapter" data-level="12" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html"><i class="fa fa-check"></i><b>12</b> K-Neariest Neighber</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="logistic-regression.html"><a href="logistic-regression.html#modeling-binary-outcomes"><i class="fa fa-check"></i><b>12.1</b> Modeling Binary Outcomes</a></li>
-<li class="chapter" data-level="12.2" data-path="logistic-regression.html"><a href="logistic-regression.html#example-cleveland-clinic-heart-disease-data"><i class="fa fa-check"></i><b>12.2</b> Example: Cleveland Clinic Heart Disease Data</a></li>
-<li class="chapter" data-level="12.3" data-path="logistic-regression.html"><a href="logistic-regression.html#interpretation-of-the-parameters"><i class="fa fa-check"></i><b>12.3</b> Interpretation of the Parameters</a></li>
-<li class="chapter" data-level="12.4" data-path="logistic-regression.html"><a href="logistic-regression.html#solving-a-logistic-regression"><i class="fa fa-check"></i><b>12.4</b> Solving a Logistic Regression</a></li>
-<li class="chapter" data-level="12.5" data-path="logistic-regression.html"><a href="logistic-regression.html#example-south-africa-heart-data"><i class="fa fa-check"></i><b>12.5</b> Example: South Africa Heart Data</a></li>
-<li class="chapter" data-level="12.6" data-path="logistic-regression.html"><a href="logistic-regression.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>12.6</b> Penalized Logistic Regression</a></li>
+<li class="chapter" data-level="12.1" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#definition-1"><i class="fa fa-check"></i><b>12.1</b> Definition</a></li>
+<li class="chapter" data-level="12.2" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-k"><i class="fa fa-check"></i><b>12.2</b> Tuning <span class="math inline">\(k\)</span></a></li>
+<li class="chapter" data-level="12.3" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#the-bias-variance-trade-off"><i class="fa fa-check"></i><b>12.3</b> The Bias-variance Trade-off</a></li>
+<li class="chapter" data-level="12.4" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#knn-for-classification"><i class="fa fa-check"></i><b>12.4</b> KNN for Classification</a></li>
+<li class="chapter" data-level="12.5" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-1-an-artificial-data"><i class="fa fa-check"></i><b>12.5</b> Example 1: An artificial data</a></li>
+<li class="chapter" data-level="12.6" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#degrees-of-freedom-1"><i class="fa fa-check"></i><b>12.6</b> Degrees of Freedom</a></li>
+<li class="chapter" data-level="12.7" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-with-the-caret-package"><i class="fa fa-check"></i><b>12.7</b> Tuning with the <code>caret</code> Package</a></li>
+<li class="chapter" data-level="12.8" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#distance-measures"><i class="fa fa-check"></i><b>12.8</b> Distance Measures</a></li>
+<li class="chapter" data-level="12.9" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#nn-error-bound"><i class="fa fa-check"></i><b>12.9</b> 1NN Error Bound</a></li>
+<li class="chapter" data-level="12.10" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-2-handwritten-digit-data"><i class="fa fa-check"></i><b>12.10</b> Example 2: Handwritten Digit Data</a></li>
+<li class="chapter" data-level="12.11" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#curse-of-dimensionality"><i class="fa fa-check"></i><b>12.11</b> Curse of Dimensionality</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>13</b> Discriminant Analysis</a>
+<li class="chapter" data-level="13" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html"><i class="fa fa-check"></i><b>13</b> Kernel Smoothing</a>
 <ul>
-<li class="chapter" data-level="13.1" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#bayes-rule"><i class="fa fa-check"></i><b>13.1</b> Bayes Rule</a></li>
-<li class="chapter" data-level="13.2" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>13.2</b> Example: Linear Discriminant Analysis (LDA)</a></li>
-<li class="chapter" data-level="13.3" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#linear-discriminant-analysis"><i class="fa fa-check"></i><b>13.3</b> Linear Discriminant Analysis</a></li>
-<li class="chapter" data-level="13.4" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-quadratic-discriminant-analysis-qda"><i class="fa fa-check"></i><b>13.4</b> Example: Quadratic Discriminant Analysis (QDA)</a></li>
-<li class="chapter" data-level="13.5" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#quadratic-discriminant-analysis"><i class="fa fa-check"></i><b>13.5</b> Quadratic Discriminant Analysis</a></li>
-<li class="chapter" data-level="13.6" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-the-hand-written-digit-data"><i class="fa fa-check"></i><b>13.6</b> Example: the Hand Written Digit Data</a></li>
+<li class="chapter" data-level="13.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#knn-vs.-kernel"><i class="fa fa-check"></i><b>13.1</b> KNN vs. Kernel</a></li>
+<li class="chapter" data-level="13.2" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#kernel-density-estimations"><i class="fa fa-check"></i><b>13.2</b> Kernel Density Estimations</a></li>
+<li class="chapter" data-level="13.3" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off"><i class="fa fa-check"></i><b>13.3</b> Bias-variance trade-off</a></li>
+<li class="chapter" data-level="13.4" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#gaussian-kernel-regression"><i class="fa fa-check"></i><b>13.4</b> Gaussian Kernel Regression</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off-1"><i class="fa fa-check"></i><b>13.4.1</b> Bias-variance Trade-off</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#choice-of-kernel-functions"><i class="fa fa-check"></i><b>13.5</b> Choice of Kernel Functions</a></li>
+<li class="chapter" data-level="13.6" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-linear-regression"><i class="fa fa-check"></i><b>13.6</b> Local Linear Regression</a></li>
+<li class="chapter" data-level="13.7" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-polynomial-regression"><i class="fa fa-check"></i><b>13.7</b> Local Polynomial Regression</a></li>
+<li class="chapter" data-level="13.8" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#r-implementations"><i class="fa fa-check"></i><b>13.8</b> R Implementations</a></li>
 </ul></li>
 <li class="part"><span><b>V Machine Learning Algorithms</b></span></li>
 <li class="chapter" data-level="14" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>14</b> Support Vector Machines</a>

@@ -109,7 +109,7 @@
   par(mfrow=c(1,1))
 ```
 
-# (PART) Classification Models {-}
+# (PART) Linear Classification Models {-}
 
 # Logistic Regression
 

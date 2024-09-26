@@ -109,9 +109,11 @@
   par(mfrow=c(1,1))
 ```
 
+# (PART) Nonparametric Models {-}
+
 # K-Neariest Neighber
 
-$K$ nearest neighbor (KNN) is a simple nonparametric method. It can be used for both regression and classification problems. However, the idea is quite different from models we introduced before. In a linear model, we have a set of parameters $\bbeta$ and our estimated function value, for any target point $x_0$ is $x_0^\T \bbeta$. In KNN, we don't really specify these parameters. Instead, we directed estimate $f(x_0)$. This is traditionally called __nonparametric models__ in statistics. Usually these models perform a local averaging technique to estimate $f(x_0)$ using observations close to $x_0$. 
+Method we introduced before usually have very clear definition of what the parameters are. In a linear model, we have a set of parameters $\bbeta$ and our estimated function value, for any target point $x_0$ is $x_0^\T \bbeta$. As the model gets more complicated, we may need models that can be even more flexible. An example we saw previously is the smoothing spline, in which the features (knots) are adaptively defined using the observed samples, and there are $n$ parameters. Many of the nonparametric models shares this property. Probably the simplest one of them is the $K$ nearest neighbor (KNN) method, which is based on the idea of local averaging, i.e., we estimate $f(x_0)$ using observations close to $x_0$. KNN can be used for both regression and classification problems. This is traditionally called __nonparametric models__ in statistics. 
 
 ## Definition
 
