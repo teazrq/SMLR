@@ -322,6 +322,16 @@ We can evaluate the in-sample prediction result of this model using a confusion 
   confusionMatrix(xtab)
 ```
 
+## Degrees of Freedom
+
+From our ridge lecture, we have a definition of the degrees of freedom. For a linear model, the degrees of freedom is $p$. For KNN, we can simply verify this by
+
+\begin{align}
+\text{DF}(\widehat{f}) =& \frac{1}{\sigma^2} \sum_{i = 1}^n \Cov(\widehat{y}_i, y_i)\\
+=& \frac{1}{\sigma^2} \sum_{i = 1}^n \frac{\sigma^2}{k}\\
+=& \frac{n}{k}
+\end{align}
+
 ## Tuning with the `caret` Package
 
 The `caret` package has some built-in feature that can tune some popular machine learning models using cross-validation. The cross-validation settings need to be specified using the $trainControl()$ function. 
