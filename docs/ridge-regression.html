@@ -698,7 +698,7 @@ It provides a solution of linear regression when multicollinearity happens, espe
 <p>For the Ridge regression, we can perform the same analysis on ridge regression.</p>
 <p><span class="math display">\[\begin{align}
 \frac{1}{\sigma^2} \text{Trace}[\text{Cov}(\widehat{\mathbf{y}}^\text{ridge}, \mathbf{y})] =&amp; \frac{1}{\sigma^2} \text{Trace}[\text{Cov}(\mathbf{X}(\mathbf{X}^\text{T}\mathbf{X}+ n \lambda \mathbf{I})^{-1} \mathbf{X}^\text{T}\mathbf{y}, \mathbf{y})] \\
-=&amp; \text{Trace}(\mathbf{X}(\mathbf{X}^\text{T}\mathbf{X})^{-1} \mathbf{X}^\text{T}) \\
+=&amp; \text{Trace}(\mathbf{X}(\mathbf{X}^\text{T}\mathbf{X}+ n \lambda \mathbf{I})^{-1} \mathbf{X}^\text{T}) \\
 =&amp; \text{Trace}(\mathbf{U}\mathbf{D}\mathbf{V}^\text{T}( \mathbf{V}\mathbf{D}^2 \mathbf{V}^\text{T}+ n \lambda \mathbf{V}\mathbf{V}^\text{T})^{-1} \mathbf{V}\mathbf{D}\mathbf{U}^\text{T})\\
 =&amp; \sum_{j = 1}^p \frac{d_j^2}{d_j^2 + n\lambda}
 \end{align}\]</span></p>

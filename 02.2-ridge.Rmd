@@ -376,7 +376,7 @@ For the Ridge regression, we can perform the same analysis on ridge regression.
 
 \begin{align}
 \frac{1}{\sigma^2} \Trace[\Cov(\widehat{\by}^\text{ridge}, \by)] =& \frac{1}{\sigma^2} \Trace[\Cov(\bX(\bX^\T\bX + n \lambda \bI)^{-1} \bX^\T \by, \by)] \\
-=& \Trace(\bX(\bX^\T\bX)^{-1} \bX^\T) \\
+=& \Trace(\bX(\bX^\T\bX + n \lambda \bI)^{-1} \bX^\T) \\
 =& \Trace(\bU \bD \bV^\T ( \bV \bD^2 \bV^\T + n \lambda \bV \bV^\T)^{-1} \bV \bD \bU^\T)\\
 =& \sum_{j = 1}^p \frac{d_j^2}{d_j^2 + n\lambda}
 \end{align}
