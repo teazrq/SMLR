@@ -231,11 +231,10 @@ div.csl-indent {
 <li class="chapter" data-level="4.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linear-regression"><i class="fa fa-check"></i><b>4.2</b> Linear Regression</a></li>
 <li class="chapter" data-level="4.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-inversion"><i class="fa fa-check"></i><b>4.3</b> Matrix Inversion</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-one-update"><i class="fa fa-check"></i><b>4.3.1</b> Rank-one Update</a></li>
+<li class="chapter" data-level="4.3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linearalgebra-SM"><i class="fa fa-check"></i><b>4.3.1</b> Rank-one Update</a></li>
 <li class="chapter" data-level="4.3.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-k-update"><i class="fa fa-check"></i><b>4.3.2</b> Rank-<span class="math inline">\(k\)</span> Update</a></li>
 <li class="chapter" data-level="4.3.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#times-2-block-matrix-inversion"><i class="fa fa-check"></i><b>4.3.3</b> 2 <span class="math inline">\(\times\)</span> 2 Block Matrix Inversion</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-norms"><i class="fa fa-check"></i><b>4.4</b> Matrix norms</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>5</b> Optimization Basics</a>
 <ul>
@@ -530,10 +529,10 @@ div.csl-indent {
 <span id="cb213-16"><a href="self-organizing-map.html#cb213-16" tabindex="-1"></a>  zip.SOM <span class="ot">&lt;-</span> <span class="fu">som</span>(zip.train[, <span class="fu">seq</span>(<span class="dv">2</span>, <span class="dv">257</span>, <span class="at">length.out =</span> <span class="dv">10</span>)], </span>
 <span id="cb213-17"><a href="self-organizing-map.html#cb213-17" tabindex="-1"></a>                 <span class="at">grid =</span> <span class="fu">somgrid</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="st">&quot;rectangular&quot;</span>))</span>
 <span id="cb213-18"><a href="self-organizing-map.html#cb213-18" tabindex="-1"></a>  <span class="fu">plot</span>(zip.SOM, <span class="at">type =</span> <span class="st">&quot;dist.neighbours&quot;</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-313-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-331-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="self-organizing-map.html#cb214-1" tabindex="-1"></a>  <span class="fu">plot</span>(zip.SOM, <span class="at">type =</span> <span class="st">&quot;mapping&quot;</span>, <span class="at">pchs =</span> <span class="dv">20</span>, </span>
 <span id="cb214-2"><a href="self-organizing-map.html#cb214-2" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">&quot;Mapping Type SOM&quot;</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-313-2.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-331-2.png" width="45%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="self-organizing-map.html#cb215-1" tabindex="-1"></a>  <span class="co"># plot(zip.SOM, main = &quot;Default SOM Plot&quot;)</span></span>
 <span id="cb215-2"><a href="self-organizing-map.html#cb215-2" tabindex="-1"></a>  </span>
 <span id="cb215-3"><a href="self-organizing-map.html#cb215-3" tabindex="-1"></a>  <span class="co"># you can try using all the pixels</span></span>
@@ -549,9 +548,11 @@ div.csl-indent {
 <span id="cb216-6"><a href="self-organizing-map.html#cb216-6" tabindex="-1"></a>    <span class="fu">plot</span>(zip.SOM2, <span class="at">type =</span> <span class="st">&quot;codes&quot;</span>, <span class="at">main =</span> <span class="fu">c</span>(<span class="st">&quot;Codes X&quot;</span>, <span class="st">&quot;Codes Y&quot;</span>))</span>
 <span id="cb216-7"><a href="self-organizing-map.html#cb216-7" tabindex="-1"></a>    zip.SOM2.hc <span class="ot">&lt;-</span> <span class="fu">cutree</span>(<span class="fu">hclust</span>(<span class="fu">dist</span>(zip.SOM2<span class="sc">$</span>codes[[<span class="dv">2</span>]])), <span class="dv">10</span>)</span>
 <span id="cb216-8"><a href="self-organizing-map.html#cb216-8" tabindex="-1"></a>    <span class="fu">add.cluster.boundaries</span>(zip.SOM2, zip.SOM2.hc)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-314-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-332-1.png" width="45%" style="display: block; margin: auto;" /></p>
 
+<div style="display:none;">
 <!-- Conflict \def\bf{\mathbf{f}} -->
+</div>
 </div>
 </div>
 <h3> Reference<a href="reference.html#reference" class="anchor-section" aria-label="Anchor link to header"></a></h3>

@@ -231,11 +231,10 @@ div.csl-indent {
 <li class="chapter" data-level="4.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linear-regression"><i class="fa fa-check"></i><b>4.2</b> Linear Regression</a></li>
 <li class="chapter" data-level="4.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-inversion"><i class="fa fa-check"></i><b>4.3</b> Matrix Inversion</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-one-update"><i class="fa fa-check"></i><b>4.3.1</b> Rank-one Update</a></li>
+<li class="chapter" data-level="4.3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linearalgebra-SM"><i class="fa fa-check"></i><b>4.3.1</b> Rank-one Update</a></li>
 <li class="chapter" data-level="4.3.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-k-update"><i class="fa fa-check"></i><b>4.3.2</b> Rank-<span class="math inline">\(k\)</span> Update</a></li>
 <li class="chapter" data-level="4.3.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#times-2-block-matrix-inversion"><i class="fa fa-check"></i><b>4.3.3</b> 2 <span class="math inline">\(\times\)</span> 2 Block Matrix Inversion</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-norms"><i class="fa fa-check"></i><b>4.4</b> Matrix norms</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>5</b> Optimization Basics</a>
 <ul>
@@ -494,9 +493,9 @@ div.csl-indent {
 <div id="basic-concepts-1" class="section level2 hasAnchor" number="21.1">
 <h2><span class="header-section-number">21.1</span> Basic Concepts<a href="hierarchical-clustering.html#basic-concepts-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Suppose we have a set of six observations:</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-277-1.png" width="30%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-293-1.png" width="30%" style="display: block; margin: auto;" /></p>
 <p>The goal is to progressively group them together until there is only one group. During this process, we will always choose the closest two groups (some may be individuals) to merge.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-279-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-295-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>If we evaluate the distance between two observations, that would be very easy. For example, the Euclidean distance and Hamming distance can be used. But what about the distance between two groups? Suppose we have two groups of observations <span class="math inline">\(G\)</span> and <span class="math inline">\(H\)</span>, then several distance metric can be considered:</p>
 <ul>
 <li><strong>Complete linkage</strong>: the furthest pair
@@ -517,7 +516,7 @@ div.csl-indent {
 <span id="cb187-8"><a href="hierarchical-clustering.html#cb187-8" tabindex="-1"></a><span class="do">## 5 1.424618 1.9243764 0.4782442 2.4219048 0.0000000 0.4204479</span></span>
 <span id="cb187-9"><a href="hierarchical-clustering.html#cb187-9" tabindex="-1"></a><span class="do">## 6 1.569835 2.2708670 0.2448835 2.6741260 0.4204479 0.0000000</span></span></code></pre></div>
 <p>We use this distance matrix in the hierarchical clustering algorithm <code>hclust()</code>. The <code>plot()</code> function will display the merging process. This should be exactly the same as we demonstrated previously.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-282-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-298-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>The height of each split represents how separated the two subsets are (the distance when they are merged). Selecting the number of clusters is still a tricky problem. Usually, we pick a cutoff where the height of the next split is short. Hence, the above example fits well with two clusters.</p>
 </div>
 <div id="example-1-iris-data-1" class="section level2 hasAnchor" number="21.2">
@@ -525,17 +524,17 @@ div.csl-indent {
 <p>The <code>iris</code> data contains three clusters and four variables. We use all variables in the distance calculation and use the default complete linkage.</p>
 <div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="hierarchical-clustering.html#cb188-1" tabindex="-1"></a>  iris_hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(iris[, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]))</span>
 <span id="cb188-2"><a href="hierarchical-clustering.html#cb188-2" tabindex="-1"></a>  <span class="fu">plot</span>(iris_hc)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-283-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-299-1.png" width="40%" style="display: block; margin: auto;" /></p>
 <p>This does not seem to perform very well, considering that we know the true number of classes is three. This shows that, in practice, the detected clusters can heavily depend on the variables you use. Let’s try some other linkage functions.</p>
 <div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="hierarchical-clustering.html#cb189-1" tabindex="-1"></a>  iris_hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(iris[, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]), <span class="at">method =</span> <span class="st">&quot;average&quot;</span>)</span>
 <span id="cb189-2"><a href="hierarchical-clustering.html#cb189-2" tabindex="-1"></a>  <span class="fu">plot</span>(iris_hc, <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-284-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-300-1.png" width="40%" style="display: block; margin: auto;" /></p>
 <p>This looks better, at least more consistent with the truth. Now we can also consider using other package to plot this result. For example, the <code>ape</code> package provides some interesting choices.</p>
 <div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="hierarchical-clustering.html#cb190-1" tabindex="-1"></a>  <span class="fu">library</span>(ape)</span>
 <span id="cb190-2"><a href="hierarchical-clustering.html#cb190-2" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">as.phylo</span>(iris_hc), <span class="at">type =</span> <span class="st">&quot;unrooted&quot;</span>, <span class="at">cex =</span> <span class="fl">0.6</span>, <span class="at">no.margin =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-285-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-301-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>We can also add the true class colors to the plot. This plot is motivated by the <code>dendextend</code> package vignettes. Of course in a realistic situation, we wouldn’t know what the true class is.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-286-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-302-1.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="example-2-rna-expression-data" class="section level2 hasAnchor" number="21.3">
 <h2><span class="header-section-number">21.3</span> Example 2: RNA Expression Data<a href="hierarchical-clustering.html#example-2-rna-expression-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -556,13 +555,15 @@ div.csl-indent {
 <span id="cb191-14"><a href="hierarchical-clustering.html#cb191-14" tabindex="-1"></a><span class="do">## GSM12067.CEL.gz    4.955245  6.561705    8.589003</span></span>
 <span id="cb191-15"><a href="hierarchical-clustering.html#cb191-15" tabindex="-1"></a><span class="do">## GSM12075.CEL.gz   10.469501  5.880740   13.050554</span></span>
 <span id="cb191-16"><a href="hierarchical-clustering.html#cb191-16" tabindex="-1"></a>    <span class="fu">heatmap</span>(<span class="fu">scale</span>(expression), <span class="at">Rowv =</span> <span class="cn">NA</span>, <span class="at">Colv =</span> <span class="cn">NA</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-287-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-303-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>Hierarchical clustering may help us discover interesting patterns. If we reorganize the columns and rows based on the clusters, then it may reveal underlying subclasses of issues, or subgroups of genes.</p>
 <div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="hierarchical-clustering.html#cb192-1" tabindex="-1"></a>    <span class="fu">heatmap</span>(<span class="fu">scale</span>(expression))</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-288-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-304-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>Note that there are many other <code>R</code> packages that produce more interesting plots. For example, you can try the <a href="https://cran.r-project.org/web/packages/heatmaply/vignettes/heatmaply.html">heatmaply</a> package.</p>
 
+<div style="display:none;">
 <!-- Conflict \def\bf{\mathbf{f}} -->
+</div>
 </div>
 </div>
             </section>

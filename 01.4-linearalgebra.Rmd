@@ -1,101 +1,9 @@
-\def\cA{{\cal A}}
-\def\cB{{\cal B}}
-\def\cC{{\cal C}}
-\def\cD{{\cal D}}
-\def\cE{{\cal E}}
-\def\cF{{\cal F}}
-\def\cG{{\cal G}}
-\def\cH{{\cal H}}
-\def\cI{{\cal I}}
-\def\cJ{{\cal J}}
-\def\cK{{\cal K}}
-\def\cL{{\cal L}}
-\def\cM{{\cal M}}
-\def\cN{{\cal N}}
-\def\cO{{\cal O}}
-\def\cP{{\cal P}}
-\def\cQ{{\cal Q}}
-\def\cR{{\cal R}}
-\def\cS{{\cal S}}
-\def\cT{{\cal T}}
-\def\cU{{\cal U}}
-\def\cV{{\cal V}}
-\def\cW{{\cal W}}
-\def\cX{{\cal X}}
-\def\cY{{\cal Y}}
-\def\cZ{{\cal Z}}
-
-\def\bA{\mathbf{A}}
-\def\bB{\mathbf{B}}
-\def\bC{\mathbf{C}}
-\def\bD{\mathbf{D}}
-\def\bE{\mathbf{E}}
-\def\bF{\mathbf{F}}
-\def\bG{\mathbf{G}}
-\def\bH{\mathbf{H}}
-\def\bI{\mathbf{I}}
-\def\bJ{\mathbf{J}}
-\def\bK{\mathbf{K}}
-\def\bL{\mathbf{L}}
-\def\bM{\mathbf{M}}
-\def\bN{\mathbf{N}}
-\def\bO{\mathbf{O}}
-\def\bP{\mathbf{P}}
-\def\bQ{\mathbf{Q}}
-\def\bR{\mathbf{R}}
-\def\bS{\mathbf{S}}
-\def\bT{\mathbf{T}}
-\def\bU{\mathbf{U}}
-\def\bV{\mathbf{V}}
-\def\bW{\mathbf{W}}
-\def\bX{\mathbf{X}}
-\def\bY{\mathbf{Y}}
-\def\bZ{\mathbf{Z}}
-
-\def\ba{\mathbf{a}}
-\def\bb{\mathbf{b}}
-\def\bc{\mathbf{c}}
-\def\bd{\mathbf{d}}
-\def\be{\mathbf{e}}
-<!-- Conflict \def\bf{\mathbf{f}} -->
-\def\bg{\mathbf{g}}
-\def\bh{\mathbf{h}}
-\def\bi{\mathbf{i}}
-\def\bj{\mathbf{j}}
-\def\bk{\mathbf{k}}
-\def\bl{\mathbf{l}}
-\def\bm{\mathbf{m}}
-\def\bn{\mathbf{n}}
-\def\bo{\mathbf{o}}
-\def\bp{\mathbf{p}}
-\def\bq{\mathbf{q}}
-\def\br{\mathbf{r}}
-\def\bs{\mathbf{s}}
-\def\bt{\mathbf{t}}
-\def\bu{\mathbf{u}}
-\def\bv{\mathbf{v}}
-\def\bw{\mathbf{w}}
-\def\bx{\mathbf{x}}
-\def\by{\mathbf{y}}
-\def\bz{\mathbf{z}}
-
-\def\bzero{\mathbf{0}}
-\def\balpha{\boldsymbol{\alpha}}
-\def\bbeta{\boldsymbol{\beta}}
-\def\btheta{\boldsymbol{\theta}}
-\def\bxi{\boldsymbol{\xi}}
-\def\bmu{\boldsymbol{\mu}}
-\def\bepsilon{\boldsymbol{\epsilon}}
-
-\def\T{\text{T}}
-\def\Trace{\text{Trace}}
-\def\Cov{\text{Cov}}
-\def\Var{\text{Var}}
-\def\E{\text{E}}
-\def\pr{\text{pr}}
-\def\Prob{\text{P}}
-\def\argmin{\arg\min}
-\def\argmax{\arg\max}
+```{r, echo=FALSE, results='asis'}
+  # import macros
+  cat("<div style='display:none;'>")
+  cat(paste(scan("mathjax_header.html", what = character(), sep = "\n", quiet = TRUE), collapse = "\n"))
+  cat("</div>")
+```
 
 ```{r include = FALSE}
   options(width = 100)
@@ -104,6 +12,7 @@
                         fig.width = 6, fig.width = 6,
                         out.width = "45%", fig.align = 'center')
 ```
+
 ```{r include = FALSE}
   par(bg="transparent")
   par(mar=c(2,2,2,2))
@@ -158,13 +67,13 @@ There are some useful properties of a projection matrix $\bP$
    $\bP = \bP^T$
   * **Spectrum:** The eigenvalues of a projection matrix are either 0 or 1. The number of eigenvalues equal to 1 is the rank of the matrix.
   * **Rank and Nullity:** If $\bP$ is a projection onto a subspace of dimension $k$, then the rank of $\bP$ is $k$, and the nullity (dimension of the null space) is $n - k$, where $n$ is the dimension of the space onto which $\bP$ projects.
-  * **Orthogonal Complement:** If $\bP$ is the projection onto a subspace $U$, then $(I - \bP)$ is the projection onto the orthogonal complement of $U$.
+  * **Orthogonal Complement:** If $\bP$ is the projection onto a subspace $U$, then $(\bI - \bP)$ is the projection onto the orthogonal complement of $U$.
 
 These properties make projection matrices useful in various applications, including least squares regression, signal processing, and many areas of machine learning and statistics.
 
 ## Matrix Inversion
 
-### Rank-one Update
+### Rank-one Update {#linearalgebra-SM}
 
 The __Sherman-Morrison formula__ is a helpful result in linear algebra, especially in the context of statistical computations. It provides an expression for the inverse of a rank-one perturbation of a given invertible matrix. Here's the formula in LaTeX form:
 
@@ -199,54 +108,3 @@ $$
 $$
 
 This formula assumes that the required inverses exist.
-
-
-## Matrix norms
-
-Here are several commonly used Matrix norms
-
-  * **Frobenius Norm:**
-    \[
-    \| \bA \|_F = \sqrt{\sum_{i=1}^{m}\sum_{j=1}^{n} |a_{ij}|^2}
-    \]
-  * **1-Norm (Column Sum Norm):**
-    \[
-    \| \bA \|_1 = \max_{1 \leq j \leq n} \sum_{i=1}^{m} |a_{ij}|
-    \]
-  * **Infinity Norm (Row Sum Norm):**
-    \[
-    \| \bA \|_\infty = \max_{1 \leq i \leq m} \sum_{j=1}^{n} |a_{ij}|
-    \]
-  * **2-Norm (Spectral Norm):**
-    \[
-    \| \bA \|_2 = \sigma_{\text{max}}(\bA) = \sqrt{\lambda_{\text{max}}(\bA^T \bA)}
-    \]
-  * **p-Norm:**
-    \[
-    \| \bA \|_p = \left( \sum_{i=1}^{\min(m,n)} \sigma_i^p \right)^{1/p}
-    \]
-  * **Operator Norm:**
-    \[
-    \| \bA \| = \max_{\bx \neq \mathbf{0}} \frac{\| \bA \bx \|}{\| \bx \|}
-    \]
-
-And some of their relationships
-
-  * Relationship between 1-Norm, 2-Norm, and Infinity Norm
-    \[
-    \| \bA \|_2 \leq \| \bA \|_1^{1/2} \| \bA \|_\infty^{1/2}
-    \]
-    \[
-    \| \bA \|_\infty \leq \| \bA \|_1
-    \]
-    \[
-    \| \bA \|_2 \leq \| \bA \|_1 \leq \sqrt{n} \| \bA \|_2
-    \]
-
-  * Relationship between Frobenius Norm and 2-Norm
-    \[
-    \| \bA \|_2 \leq \| \bA \|_F \leq \sqrt{\min\{m,n\}} \| \bA \|_2
-    \]
-
-
-

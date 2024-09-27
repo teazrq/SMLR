@@ -231,11 +231,10 @@ div.csl-indent {
 <li class="chapter" data-level="4.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linear-regression"><i class="fa fa-check"></i><b>4.2</b> Linear Regression</a></li>
 <li class="chapter" data-level="4.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-inversion"><i class="fa fa-check"></i><b>4.3</b> Matrix Inversion</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-one-update"><i class="fa fa-check"></i><b>4.3.1</b> Rank-one Update</a></li>
+<li class="chapter" data-level="4.3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linearalgebra-SM"><i class="fa fa-check"></i><b>4.3.1</b> Rank-one Update</a></li>
 <li class="chapter" data-level="4.3.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-k-update"><i class="fa fa-check"></i><b>4.3.2</b> Rank-<span class="math inline">\(k\)</span> Update</a></li>
 <li class="chapter" data-level="4.3.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#times-2-block-matrix-inversion"><i class="fa fa-check"></i><b>4.3.3</b> 2 <span class="math inline">\(\times\)</span> 2 Block Matrix Inversion</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-norms"><i class="fa fa-check"></i><b>4.4</b> Matrix norms</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>5</b> Optimization Basics</a>
 <ul>
@@ -611,7 +610,7 @@ All of the above mentioned results are already implemented in R through the <cod
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="linear-regression-and-model-selection.html#cb51-1" tabindex="-1"></a>    <span class="fu">plot</span>(lm.fit<span class="sc">$</span>fitted.values, lm.fit<span class="sc">$</span>residuals, </span>
 <span id="cb51-2"><a href="linear-regression-and-model-selection.html#cb51-2" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="st">&quot;Fitted Values&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Residuals&quot;</span>,</span>
 <span id="cb51-3"><a href="linear-regression-and-model-selection.html#cb51-3" tabindex="-1"></a>         <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-68-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-71-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>It seems that the error variance is not constant (as a function of the fitted values), hence additional techniques may be required to handle this issue. However, that is beyond the scope of this book.</p>
 <div id="adding-covariates" class="section level3 hasAnchor" number="6.3.1">
 <h3><span class="header-section-number">6.3.1</span> Adding Covariates<a href="linear-regression-and-model-selection.html#adding-covariates" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -916,7 +915,7 @@ while the BIC score is given by</p>
 <span id="cb65-15"><a href="linear-regression-and-model-selection.html#cb65-15" tabindex="-1"></a>    <span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Cp&quot;</span>, <span class="st">&quot;AIC&quot;</span>, <span class="st">&quot;BIC&quot;</span>),</span>
 <span id="cb65-16"><a href="linear-regression-and-model-selection.html#cb65-16" tabindex="-1"></a>           <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;green4&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;purple&quot;</span>), </span>
 <span id="cb65-17"><a href="linear-regression-and-model-selection.html#cb65-17" tabindex="-1"></a>           <span class="at">lty =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">1.7</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-82-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-85-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="step-wise-regression-using-step" class="section level3 hasAnchor" number="6.5.2">
 <h3><span class="header-section-number">6.5.2</span> Step-wise regression using <code>step()</code><a href="linear-regression-and-model-selection.html#step-wise-regression-using-step" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1093,7 +1092,9 @@ In this case, a linear model would not estimate <span class="math inline">\(\bol
 \end{align}\]</span></p>
 <p>We can notice again that the difference is <span class="math inline">\(2p\sigma^2\)</span>. Note that this is regardless of whether the linear model is correct or not.</p>
 
+<div style="display:none;">
 <!-- Conflict \def\bf{\mathbf{f}} -->
+</div>
 </div>
 </div>
 <h3> Reference<a href="reference.html#reference" class="anchor-section" aria-label="Anchor link to header"></a></h3>

@@ -231,11 +231,10 @@ div.csl-indent {
 <li class="chapter" data-level="4.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linear-regression"><i class="fa fa-check"></i><b>4.2</b> Linear Regression</a></li>
 <li class="chapter" data-level="4.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-inversion"><i class="fa fa-check"></i><b>4.3</b> Matrix Inversion</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-one-update"><i class="fa fa-check"></i><b>4.3.1</b> Rank-one Update</a></li>
+<li class="chapter" data-level="4.3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linearalgebra-SM"><i class="fa fa-check"></i><b>4.3.1</b> Rank-one Update</a></li>
 <li class="chapter" data-level="4.3.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-k-update"><i class="fa fa-check"></i><b>4.3.2</b> Rank-<span class="math inline">\(k\)</span> Update</a></li>
 <li class="chapter" data-level="4.3.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#times-2-block-matrix-inversion"><i class="fa fa-check"></i><b>4.3.3</b> 2 <span class="math inline">\(\times\)</span> 2 Block Matrix Inversion</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-norms"><i class="fa fa-check"></i><b>4.4</b> Matrix norms</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>5</b> Optimization Basics</a>
 <ul>
@@ -504,7 +503,7 @@ div.csl-indent {
 <span id="cb150-7"><a href="classification-and-regression-trees.html#cb150-7" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">2</span>,<span class="dv">4</span>))</span>
 <span id="cb150-8"><a href="classification-and-regression-trees.html#cb150-8" tabindex="-1"></a>    <span class="fu">plot</span>(x1, x2, <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), <span class="at">pch =</span> <span class="dv">19</span>)</span>
 <span id="cb150-9"><a href="classification-and-regression-trees.html#cb150-9" tabindex="-1"></a>    <span class="fu">symbols</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">circles =</span> <span class="fu">sqrt</span>(<span class="fl">0.6</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">inches =</span> <span class="cn">FALSE</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-216-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-228-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>A classification tree model is recursively splitting the feature space such that eventually each region is dominated by one class. We will use <code>rpart</code> as an example to fit trees, which stands for recursively partitioning.</p>
 <div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="classification-and-regression-trees.html#cb151-1" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb151-2"><a href="classification-and-regression-trees.html#cb151-2" tabindex="-1"></a>    <span class="fu">library</span>(rpart)</span>
@@ -514,7 +513,7 @@ div.csl-indent {
 <span id="cb151-6"><a href="classification-and-regression-trees.html#cb151-6" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="dv">4</span>))</span>
 <span id="cb151-7"><a href="classification-and-regression-trees.html#cb151-7" tabindex="-1"></a>    <span class="fu">plot</span>(rpart.fit)</span>
 <span id="cb151-8"><a href="classification-and-regression-trees.html#cb151-8" tabindex="-1"></a>    <span class="fu">text</span>(rpart.fit)    </span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-217-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-229-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="classification-and-regression-trees.html#cb152-1" tabindex="-1"></a></span>
 <span id="cb152-2"><a href="classification-and-regression-trees.html#cb152-2" tabindex="-1"></a>    <span class="co"># if you want to peek into the tree </span></span>
 <span id="cb152-3"><a href="classification-and-regression-trees.html#cb152-3" tabindex="-1"></a>    <span class="co"># note that we set cp = 0.041, which is a tuning parameter</span></span>
@@ -541,13 +540,13 @@ div.csl-indent {
 <span id="cb152-24"><a href="classification-and-regression-trees.html#cb152-24" tabindex="-1"></a><span class="do">##         30) x1&lt; -0.6903174 51   9 0 (0.82352941 0.17647059) *</span></span>
 <span id="cb152-25"><a href="classification-and-regression-trees.html#cb152-25" tabindex="-1"></a><span class="do">##         31) x1&gt;=-0.6903174 238  45 1 (0.18907563 0.81092437) *</span></span></code></pre></div>
 <p>The model proceed with the following steps. Note that steps 5 and 6 may not be really beneficial (consider that we know the true model).</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-218-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-230-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Alternatively, there are many other packages that can perform the same analysis. For example, the <code>tree</code> package. However, be careful that this package uses a different splitting rule by default If you want to match the result, use <code>split = "gini"</code>. Note that this plot is very crowded because it will split until pretty much only one class in each terminal node. Hence, you can imaging that there will be a tuning parameter issue. We will discuss this later.</p>
 <div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="classification-and-regression-trees.html#cb153-1" tabindex="-1"></a>    <span class="fu">library</span>(tree)</span>
 <span id="cb153-2"><a href="classification-and-regression-trees.html#cb153-2" tabindex="-1"></a>    tree.fit <span class="ot">=</span> <span class="fu">tree</span>(<span class="fu">as.factor</span>(y)<span class="sc">~</span>x1<span class="sc">+</span>x2, <span class="at">data =</span> <span class="fu">data.frame</span>(x1, x2, y), <span class="at">split =</span> <span class="st">&quot;gini&quot;</span>)</span>
 <span id="cb153-3"><a href="classification-and-regression-trees.html#cb153-3" tabindex="-1"></a>    <span class="fu">plot</span>(tree.fit)</span>
 <span id="cb153-4"><a href="classification-and-regression-trees.html#cb153-4" tabindex="-1"></a>    <span class="fu">text</span>(tree.fit)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-220-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-232-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="splitting-a-node" class="section level2 hasAnchor" number="17.2">
 <h2><span class="header-section-number">17.2</span> Splitting a Node<a href="classification-and-regression-trees.html#splitting-a-node" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -570,7 +569,7 @@ The Shannon theory is defined as</p>
 And the classification error simply adds up all mis-classified portions if we predict the population into the most prevalent one:</p>
 <p><span class="math display">\[ 1 - \underset{k = 1, \ldots, K}{\max} \,\, p_k\]</span>
 The following plot shows all three quantities as a function of <span class="math inline">\(p\)</span>, when there are only two classes, i.e., <span class="math inline">\(K = 2\)</span>.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-221-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-233-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>For each quantity, smaller value means that the node is more “pure”, hence, there is a higher certainty when we predict a new value. The idea of splitting a node is that, we want the two resulting child node to contain less variation. In other words, we want each child node to be as “pure” as possible. Hence, the idea is to calculate this error criterion both before and after the split and see what cut-off point gives us the best reduction of error. Of course, all of these quantities will be calculated based on the sample version, instead of the truth. For example, if we use the Gini impurity to compare different splits, we use the following quantity for an <strong>internal node</strong> <span class="math inline">\({\cal A}\)</span>:</p>
 <p><span class="math display">\[\begin{align}
 \text{score}(j, c) = \text{Gini}({\cal A}) - \left( \frac{N_{{\cal A}_L}}{N_{{\cal A}}} \text{Gini}({\cal A}_L) + \frac{N_{{\cal A}_R}}{N_{{\cal A}}} \text{Gini}({\cal A}_R)  \right).
@@ -617,7 +616,7 @@ Note that <span class="math inline">\(|{\cal T}_t| - 1\)</span> is the size diff
 <p>Note that the <span class="math inline">\(\alpha\)</span> values will get larger as we move more branches. Hence this produces a solution path. Now this is very similar to the Lasso solution path idea, and we could use cross-validation to select the best tuning. By default, the <code>rpart</code> function uses a 10-fold cross-validation. This can be controlled using the <code>rpart.control()</code> function and specify the <code>xval</code> argument. For details, please see the <a href="https://cran.r-project.org/web/packages/rpart/rpart.pdf">documentation</a>. The following plot using <code>plotcp()</code> in the <code>rpart</code> package gives a visualization of the relative cross-validation error. It also produces a horizontal line (the dotted line). It suggests the lowest (plus certain variation) that we could achieve. Hence, we will select the best <code>cp</code> value (<span class="math inline">\(alpha\)</span>) that is above this line. The way that this is constructed is similar to the <code>lambda.1se</code> choice in <code>glmnet</code>.</p>
 <div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="classification-and-regression-trees.html#cb154-1" tabindex="-1"></a>  <span class="co"># and the tuning parameter </span></span>
 <span id="cb154-2"><a href="classification-and-regression-trees.html#cb154-2" tabindex="-1"></a>  <span class="fu">plotcp</span>(rpart.fit)  </span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-222-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-234-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="classification-and-regression-trees.html#cb155-1" tabindex="-1"></a>  <span class="fu">printcp</span>(rpart.fit)</span>
 <span id="cb155-2"><a href="classification-and-regression-trees.html#cb155-2" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb155-3"><a href="classification-and-regression-trees.html#cb155-3" tabindex="-1"></a><span class="do">## Classification tree:</span></span>
@@ -637,7 +636,9 @@ Note that <span class="math inline">\(|{\cal T}_t| - 1\)</span> is the size diff
 <span id="cb155-17"><a href="classification-and-regression-trees.html#cb155-17" tabindex="-1"></a><span class="do">## 3 0.011211      4   0.33632 0.44843 0.040109</span></span>
 <span id="cb155-18"><a href="classification-and-regression-trees.html#cb155-18" tabindex="-1"></a><span class="do">## 4 0.010000      7   0.30045 0.40359 0.038523</span></span></code></pre></div>
 
+<div style="display:none;">
 <!-- Conflict \def\bf{\mathbf{f}} -->
+</div>
 </div>
 </div>
 <h3> Reference<a href="reference.html#reference" class="anchor-section" aria-label="Anchor link to header"></a></h3>

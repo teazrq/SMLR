@@ -231,11 +231,10 @@ div.csl-indent {
 <li class="chapter" data-level="4.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linear-regression"><i class="fa fa-check"></i><b>4.2</b> Linear Regression</a></li>
 <li class="chapter" data-level="4.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-inversion"><i class="fa fa-check"></i><b>4.3</b> Matrix Inversion</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-one-update"><i class="fa fa-check"></i><b>4.3.1</b> Rank-one Update</a></li>
+<li class="chapter" data-level="4.3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linearalgebra-SM"><i class="fa fa-check"></i><b>4.3.1</b> Rank-one Update</a></li>
 <li class="chapter" data-level="4.3.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-k-update"><i class="fa fa-check"></i><b>4.3.2</b> Rank-<span class="math inline">\(k\)</span> Update</a></li>
 <li class="chapter" data-level="4.3.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#times-2-block-matrix-inversion"><i class="fa fa-check"></i><b>4.3.3</b> 2 <span class="math inline">\(\times\)</span> 2 Block Matrix Inversion</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-norms"><i class="fa fa-check"></i><b>4.4</b> Matrix norms</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>5</b> Optimization Basics</a>
 <ul>
@@ -556,7 +555,7 @@ and the decision rule is <span class="math inline">\(\text{sign}(F_T(x))\)</span
 <span id="cb167-38"><a href="boosting.html#cb167-38" tabindex="-1"></a><span class="do">## Using 3 trees...</span></span>
 <span id="cb167-39"><a href="boosting.html#cb167-39" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">col =</span> <span class="fu">ifelse</span>(pred <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>), </span>
 <span id="cb167-40"><a href="boosting.html#cb167-40" tabindex="-1"></a>         <span class="at">cex =</span> <span class="fl">0.2</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-243-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-257-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Here is a rundown of the algorithm. Let’s initialize all weights as <span class="math inline">\(1/n\)</span>. We only used trees with a single split as weak learners. The first tree is splitting at <span class="math inline">\(X_1 = 0.25\)</span>. After the first split, we need to adjust the weights.</p>
 <div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="boosting.html#cb168-1" tabindex="-1"></a>  w1 <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">10</span>, <span class="dv">10</span>)</span>
 <span id="cb168-2"><a href="boosting.html#cb168-2" tabindex="-1"></a>  f1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">ifelse</span>(x[, <span class="dv">1</span>] <span class="sc">&lt;</span> <span class="fl">0.25</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
@@ -579,7 +578,7 @@ and the decision rule is <span class="math inline">\(\text{sign}(F_T(x))\)</span
 <span id="cb168-19"><a href="boosting.html#cb168-19" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
 <span id="cb168-20"><a href="boosting.html#cb168-20" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
 <span id="cb168-21"><a href="boosting.html#cb168-21" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">30</span><span class="sc">*</span>w2)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-245-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-259-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>We can notice that the observations got correctly classified will decrease their weights while those mis-classified will increase the weights.</p>
 <div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="boosting.html#cb169-1" tabindex="-1"></a>  f2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">ifelse</span>(x[, <span class="dv">2</span>] <span class="sc">&gt;</span> <span class="fl">0.65</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
 <span id="cb169-2"><a href="boosting.html#cb169-2" tabindex="-1"></a>  e2 <span class="ot">=</span> <span class="fu">sum</span>(w2<span class="sc">*</span>(<span class="fu">f2</span>(X) <span class="sc">!=</span> y))</span>
@@ -601,7 +600,7 @@ and the decision rule is <span class="math inline">\(\text{sign}(F_T(x))\)</span
 <span id="cb169-18"><a href="boosting.html#cb169-18" tabindex="-1"></a>  <span class="fu">plot</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>),</span>
 <span id="cb169-19"><a href="boosting.html#cb169-19" tabindex="-1"></a>       <span class="at">pch =</span> <span class="fu">ifelse</span>(y <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">1</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.1</span>), <span class="at">lwd =</span> <span class="dv">3</span>,</span>
 <span id="cb169-20"><a href="boosting.html#cb169-20" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.9</span>), <span class="at">cex =</span> <span class="dv">30</span><span class="sc">*</span>w3)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-246-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-260-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>And then we have the third step. Combining all three steps and their decision function, we have the final classifier</p>
 <p><span class="math display">\[\begin{align}
 F_3(x) =&amp; \sum_{t=1}^3 \alpha_t f_t(x) \nonumber \\
@@ -631,7 +630,7 @@ F_3(x) =&amp; \sum_{t=1}^3 \alpha_t f_t(x) \nonumber \\
 <span id="cb170-22"><a href="boosting.html#cb170-22" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">0.25</span>) <span class="co"># f1</span></span>
 <span id="cb170-23"><a href="boosting.html#cb170-23" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.65</span>) <span class="co"># f2</span></span>
 <span id="cb170-24"><a href="boosting.html#cb170-24" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">0.85</span>) <span class="co"># f3</span></span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-247-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-261-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="training-error-of-adaboost" class="section level2 hasAnchor" number="19.2">
 <h2><span class="header-section-number">19.2</span> Training Error of AdaBoost<a href="boosting.html#training-error-of-adaboost" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -696,7 +695,7 @@ Z_t =&amp; 2 \sqrt{\epsilon_t(1-\epsilon_t)} \nonumber \\
 <span id="cb171-7"><a href="boosting.html#cb171-7" tabindex="-1"></a>  <span class="fu">plot</span>(x[, <span class="dv">1</span>], y <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="fl">0.05</span>, <span class="fl">0.05</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.05</span>, <span class="fl">1.05</span>), <span class="at">cex =</span> <span class="fl">0.5</span>,</span>
 <span id="cb171-8"><a href="boosting.html#cb171-8" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">ifelse</span>(y<span class="sc">==</span><span class="dv">1</span>,<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;P(Y=1 | X=x)&quot;</span>)</span>
 <span id="cb171-9"><a href="boosting.html#cb171-9" tabindex="-1"></a>  <span class="fu">points</span>(x[, <span class="dv">1</span>], py, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-249-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-263-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="boosting.html#cb172-1" tabindex="-1"></a>  </span>
 <span id="cb172-2"><a href="boosting.html#cb172-2" tabindex="-1"></a>  <span class="co"># fit AdaBoost with bootstrapping, I am using a large shrinkage factor</span></span>
 <span id="cb172-3"><a href="boosting.html#cb172-3" tabindex="-1"></a>  gbm.fit <span class="ot">=</span> <span class="fu">gbm</span>(y<span class="sc">~</span>., <span class="fu">data.frame</span>(x, y), <span class="at">distribution=</span><span class="st">&quot;adaboost&quot;</span>, <span class="at">n.minobsinnode =</span> <span class="dv">2</span>, </span>
@@ -714,11 +713,11 @@ Z_t =&amp; 2 \sqrt{\epsilon_t(1-\epsilon_t)} \nonumber \\
 <span id="cb173-11"><a href="boosting.html#cb173-11" tabindex="-1"></a>    <span class="fu">lines</span>(x[, <span class="dv">1</span>], <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">*</span>Fx)), <span class="at">lwd =</span> <span class="dv">1</span>)</span>
 <span id="cb173-12"><a href="boosting.html#cb173-12" tabindex="-1"></a>    <span class="fu">title</span>(<span class="fu">paste</span>(<span class="st">&quot;# of Iterations = &quot;</span>, size[i]))</span>
 <span id="cb173-13"><a href="boosting.html#cb173-13" tabindex="-1"></a>  }</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-251-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-265-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Hence, selecting trees is necessary. For this purpose, we can use either the out-of-bag error to estimate the exponential upper bound, or simply do cross-validation.</p>
 <div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="boosting.html#cb174-1" tabindex="-1"></a>  <span class="co"># get the best number of trees from cross-validation (or oob if no cv is used)</span></span>
 <span id="cb174-2"><a href="boosting.html#cb174-2" tabindex="-1"></a>  <span class="fu">gbm.perf</span>(gbm.fit)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-253-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-267-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <pre><code>## [1] 39</code></pre>
 </div>
 <div id="gradient-boosting" class="section level2 hasAnchor" number="19.4">
@@ -758,7 +757,7 @@ and we are essentially fitting a weak leaner <span class="math inline">\(f_t(x)\
 <span id="cb176-9"><a href="boosting.html#cb176-9" tabindex="-1"></a>  <span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
 <span id="cb176-10"><a href="boosting.html#cb176-10" tabindex="-1"></a>  <span class="co"># plot the true regression line</span></span>
 <span id="cb176-11"><a href="boosting.html#cb176-11" tabindex="-1"></a>  <span class="fu">lines</span>(x, <span class="fu">fx</span>(x), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-255-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-269-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>We can see that the fitted model progressively approaximates the true function.</p>
 <div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="boosting.html#cb177-1" tabindex="-1"></a>  <span class="co"># fit regression boosting</span></span>
 <span id="cb177-2"><a href="boosting.html#cb177-2" tabindex="-1"></a>  <span class="co"># I use a very large shrinkage value for demonstrating the functions</span></span>
@@ -784,7 +783,7 @@ and we are essentially fitting a weak leaner <span class="math inline">\(f_t(x)\
 <span id="cb177-22"><a href="boosting.html#cb177-22" tabindex="-1"></a>    <span class="fu">lines</span>(x, Fx, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span>
 <span id="cb177-23"><a href="boosting.html#cb177-23" tabindex="-1"></a>    <span class="fu">title</span>(<span class="fu">paste</span>(<span class="st">&quot;# of Iterations = &quot;</span>, size[i]))</span>
 <span id="cb177-24"><a href="boosting.html#cb177-24" tabindex="-1"></a>  }</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-256-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-270-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>This idea can be generalized to any loss function <span class="math inline">\(L\)</span>. This is the <strong>gradient boosting</strong> model:</p>
 <ul>
 <li>At each iteration <span class="math inline">\(t\)</span>, calculate ``pseudo-residuals’’, i.e., the negative gradient for each observation
@@ -828,7 +827,9 @@ L(y, p) = - [y \log(p) + (1 - y) \log(1 - p)]
 \end{align*}\]</span></p>
 <p>Note that we should move <span class="math inline">\(F(x)\)</span> to the negative gradient, then <span class="math inline">\(y_i - p_i\)</span> is the pseudo-residual that we use in the boosting algorithm to fit the next tree / linear booster. The sign mainly influences the direction of the adjustment but is accounted for in the optimization process.</p>
 
+<div style="display:none;">
 <!-- Conflict \def\bf{\mathbf{f}} -->
+</div>
 </div>
 </div>
 

@@ -231,11 +231,10 @@ div.csl-indent {
 <li class="chapter" data-level="4.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linear-regression"><i class="fa fa-check"></i><b>4.2</b> Linear Regression</a></li>
 <li class="chapter" data-level="4.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-inversion"><i class="fa fa-check"></i><b>4.3</b> Matrix Inversion</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-one-update"><i class="fa fa-check"></i><b>4.3.1</b> Rank-one Update</a></li>
+<li class="chapter" data-level="4.3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linearalgebra-SM"><i class="fa fa-check"></i><b>4.3.1</b> Rank-one Update</a></li>
 <li class="chapter" data-level="4.3.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-k-update"><i class="fa fa-check"></i><b>4.3.2</b> Rank-<span class="math inline">\(k\)</span> Update</a></li>
 <li class="chapter" data-level="4.3.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#times-2-block-matrix-inversion"><i class="fa fa-check"></i><b>4.3.3</b> 2 <span class="math inline">\(\times\)</span> 2 Block Matrix Inversion</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-norms"><i class="fa fa-check"></i><b>4.4</b> Matrix norms</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>5</b> Optimization Basics</a>
 <ul>
@@ -525,7 +524,7 @@ where <span class="math inline">\(N_k(x_0)\)</span> defines the <span class="mat
 <span id="cb122-26"><a href="k-neariest-neighber.html#cb122-26" tabindex="-1"></a>    <span class="fu">lines</span>(test.x, test.pred, <span class="at">type =</span> <span class="st">&quot;s&quot;</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
 <span id="cb122-27"><a href="k-neariest-neighber.html#cb122-27" tabindex="-1"></a>    <span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;Fitted line&quot;</span>, <span class="st">&quot;True function&quot;</span>), </span>
 <span id="cb122-28"><a href="k-neariest-neighber.html#cb122-28" tabindex="-1"></a>           <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>), <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-158-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-166-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="tuning-k" class="section level2 hasAnchor" number="12.2">
 <h2><span class="header-section-number">12.2</span> Tuning <span class="math inline">\(k\)</span><a href="k-neariest-neighber.html#tuning-k" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -543,7 +542,7 @@ where <span class="math inline">\(N_k(x_0)\)</span> defines the <span class="mat
 <span id="cb123-11"><a href="k-neariest-neighber.html#cb123-11" tabindex="-1"></a>                 <span class="at">test =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> test.x),</span>
 <span id="cb123-12"><a href="k-neariest-neighber.html#cb123-12" tabindex="-1"></a>                 <span class="at">k =</span> <span class="dv">1</span>, <span class="at">kernel =</span> <span class="st">&quot;rectangular&quot;</span>)</span>
 <span id="cb123-13"><a href="k-neariest-neighber.html#cb123-13" tabindex="-1"></a>  test.pred <span class="ot">=</span> knn.fit<span class="sc">$</span>fitted.values</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-160-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-168-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>We can evaluate the prediction error of this model:</p>
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="k-neariest-neighber.html#cb124-1" tabindex="-1"></a>  <span class="co"># prediction error</span></span>
 <span id="cb124-2"><a href="k-neariest-neighber.html#cb124-2" tabindex="-1"></a>  <span class="fu">mean</span>((test.pred <span class="sc">-</span> test.y)<span class="sc">^</span><span class="dv">2</span>)</span>
@@ -555,7 +554,7 @@ where <span class="math inline">\(N_k(x_0)\)</span> defines the <span class="mat
 ## Prediction Error for K = 33 : 1.21589627474692
 ## Prediction Error for K = 66 : 1.37604707375972
 ## Prediction Error for K = 100 : 1.42868908518756</code></pre>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-162-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-170-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>As <span class="math inline">\(k\)</span> increases, we have a more stable model, i.e., smaller variance. However, the bias is also increased. As <span class="math inline">\(k\)</span> decreases, the bias decreases, but the model is less stable.</p>
 </div>
 <div id="the-bias-variance-trade-off" class="section level2 hasAnchor" number="12.3">
@@ -577,7 +576,7 @@ where <span class="math inline">\(N_k(x_0)\)</span> defines the <span class="mat
 <div id="knn-for-classification" class="section level2 hasAnchor" number="12.4">
 <h2><span class="header-section-number">12.4</span> KNN for Classification<a href="k-neariest-neighber.html#knn-for-classification" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>For classification, KNN is different from the regression model in term of finding neighbers. The only difference is to majority voting instead of averaging. Majority voting means that we look for the most popular class label among its neighbors. For 1NN, it is simply the class of the closest neighbor. The visualization of 1NN is a Voronoi tessellation. The plot on the left is some randomly observed data in <span class="math inline">\([0, 1]^2\)</span>, and the plot on the right is the corresponding 1NN classification model.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-163-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-171-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="example-1-an-artificial-data" class="section level2 hasAnchor" number="12.5">
 <h2><span class="header-section-number">12.5</span> Example 1: An artificial data<a href="k-neariest-neighber.html#example-1-an-artificial-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -592,7 +591,7 @@ where <span class="math inline">\(N_k(x_0)\)</span> defines the <span class="mat
 <span id="cb126-8"><a href="k-neariest-neighber.html#cb126-8" tabindex="-1"></a>  <span class="fu">plot</span>(x, <span class="at">col=</span><span class="fu">ifelse</span>(y<span class="sc">==</span><span class="dv">1</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>), </span>
 <span id="cb126-9"><a href="k-neariest-neighber.html#cb126-9" tabindex="-1"></a>       <span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span>
 <span id="cb126-10"><a href="k-neariest-neighber.html#cb126-10" tabindex="-1"></a>  <span class="fu">box</span>()</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-165-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-173-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>The decision boundary is highly nonlinear. We can utilize the <code>contour()</code> function to demonstrate the result.</p>
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="k-neariest-neighber.html#cb127-1" tabindex="-1"></a>  <span class="co"># knn classification </span></span>
 <span id="cb127-2"><a href="k-neariest-neighber.html#cb127-2" tabindex="-1"></a>  k <span class="ot">=</span> <span class="dv">15</span></span>
@@ -608,7 +607,7 @@ where <span class="math inline">\(N_k(x_0)\)</span> defines the <span class="mat
 <span id="cb127-12"><a href="k-neariest-neighber.html#cb127-12" tabindex="-1"></a>  <span class="fu">points</span>(x, <span class="at">col=</span><span class="fu">ifelse</span>(y<span class="sc">==</span><span class="dv">1</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>), <span class="at">pch =</span> <span class="dv">19</span>)</span>
 <span id="cb127-13"><a href="k-neariest-neighber.html#cb127-13" tabindex="-1"></a>  mesh <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(px1, px2)</span>
 <span id="cb127-14"><a href="k-neariest-neighber.html#cb127-14" tabindex="-1"></a>  <span class="fu">points</span>(mesh, <span class="at">pch=</span><span class="st">&quot;.&quot;</span>, <span class="at">cex=</span><span class="fl">1.2</span>, <span class="at">col=</span><span class="fu">ifelse</span>(pred, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>))</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-166-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-174-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>We can evaluate the in-sample prediction result of this model using a confusion matrix:</p>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="k-neariest-neighber.html#cb128-1" tabindex="-1"></a>  <span class="co"># the confusion matrix</span></span>
 <span id="cb128-2"><a href="k-neariest-neighber.html#cb128-2" tabindex="-1"></a>  knn.fit <span class="ot">&lt;-</span> <span class="fu">knn</span>(x, x, y, <span class="at">k =</span> <span class="dv">15</span>)</span>
@@ -668,7 +667,7 @@ where <span class="math inline">\(N_k(x_0)\)</span> defines the <span class="mat
 <span id="cb130-7"><a href="k-neariest-neighber.html#cb130-7" tabindex="-1"></a>  <span class="fu">plot</span>(knn.cvfit<span class="sc">$</span>results<span class="sc">$</span>k, <span class="dv">1</span><span class="sc">-</span>knn.cvfit<span class="sc">$</span>results<span class="sc">$</span>Accuracy,</span>
 <span id="cb130-8"><a href="k-neariest-neighber.html#cb130-8" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;K&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Classification Error&quot;</span>, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>,</span>
 <span id="cb130-9"><a href="k-neariest-neighber.html#cb130-9" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-170-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-178-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>Print out the fitted object, we can see that the best <span class="math inline">\(k\)</span> is 6. And there is a clear “U” shaped pattern that shows the potential bias-variance trade-off.</p>
 </div>
 <div id="distance-measures" class="section level2 hasAnchor" number="12.8">
@@ -687,7 +686,7 @@ where <span class="math inline">\(\Sigma\)</span> is the covariance matrix, and 
 <span id="cb131-5"><a href="k-neariest-neighber.html#cb131-5" tabindex="-1"></a>  <span class="fu">dataEllipse</span>(x, y, <span class="at">levels=</span><span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.9</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>), <span class="at">pch =</span> <span class="dv">19</span>)</span>
 <span id="cb131-6"><a href="k-neariest-neighber.html#cb131-6" tabindex="-1"></a>  <span class="fu">points</span>(<span class="dv">1</span>, <span class="fl">0.5</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">4</span>, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span>
 <span id="cb131-7"><a href="k-neariest-neighber.html#cb131-7" tabindex="-1"></a>  <span class="fu">points</span>(<span class="dv">1</span>, <span class="fl">1.5</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="at">pch =</span> <span class="dv">4</span>, <span class="at">cex =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-171-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-179-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>For categorical variables, the Hamming distance is commonly used:</p>
 <p><span class="math display">\[d(\mathbf{u}, \mathbf{v}) = \sum_{j=1}^p I(u_j \neq v_j).\]</span>
 It simply counts how many entries are not the same.</p>
@@ -719,7 +718,7 @@ It simply counts how many entries are not the same.</p>
 <span id="cb132-10"><a href="k-neariest-neighber.html#cb132-10" tabindex="-1"></a>  <span class="fu">image</span>(<span class="fu">zip2image</span>(zip.train, <span class="dv">1</span>), <span class="at">col=</span><span class="fu">gray</span>(<span class="dv">256</span><span class="sc">:</span><span class="dv">0</span><span class="sc">/</span><span class="dv">256</span>), <span class="at">zlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), </span>
 <span id="cb132-11"><a href="k-neariest-neighber.html#cb132-11" tabindex="-1"></a>        <span class="at">xlab=</span><span class="st">&quot;&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;&quot;</span>, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb132-12"><a href="k-neariest-neighber.html#cb132-12" tabindex="-1"></a><span class="do">## [1] &quot;digit  6  taken&quot;</span></span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-172-1.png" width="20%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-180-1.png" width="20%" style="display: block; margin: auto;" /></p>
 <p>We use 3NN to predict all samples in the testing data. The model is fairly accurate.</p>
 <div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="k-neariest-neighber.html#cb133-1" tabindex="-1"></a>  <span class="co"># fit 3nn model and calculate the error</span></span>
 <span id="cb133-2"><a href="k-neariest-neighber.html#cb133-2" tabindex="-1"></a>  knn.fit <span class="ot">&lt;-</span> <span class="fu">knn</span>(zip.train[, <span class="dv">2</span><span class="sc">:</span><span class="dv">257</span>], zip.test[, <span class="dv">2</span><span class="sc">:</span><span class="dv">257</span>], zip.train[, <span class="dv">1</span>], <span class="at">k=</span><span class="dv">3</span>)</span>
@@ -763,7 +762,9 @@ Try different <span class="math inline">\(p\)</span>, we have</p>
 Image from <span class="citation">Cayton (<a href="#ref-cayton2005algorithms">2005</a>)</span>.
 </center>
 
+<div style="display:none;">
 <!-- Conflict \def\bf{\mathbf{f}} -->
+</div>
 </div>
 </div>
 <h3> Reference<a href="reference.html#reference" class="anchor-section" aria-label="Anchor link to header"></a></h3>

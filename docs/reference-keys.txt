@@ -1,6 +1,6 @@
 eq:penalized
 eq:roughness
-thm:unnamed-chunk-210
+thm:unnamed-chunk-221
 r-and-rstudio
 installing-r-and-rstudio
 r-basic
@@ -32,10 +32,9 @@ linear-algebra-basics
 definition
 linear-regression
 matrix-inversion
-rank-one-update
+linearalgebra-SM
 rank-k-update
 times-2-block-matrix-inversion
-matrix-norms
 optimization-basics
 basic-concept
 global_local

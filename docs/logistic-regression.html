@@ -231,11 +231,10 @@ div.csl-indent {
 <li class="chapter" data-level="4.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linear-regression"><i class="fa fa-check"></i><b>4.2</b> Linear Regression</a></li>
 <li class="chapter" data-level="4.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-inversion"><i class="fa fa-check"></i><b>4.3</b> Matrix Inversion</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-one-update"><i class="fa fa-check"></i><b>4.3.1</b> Rank-one Update</a></li>
+<li class="chapter" data-level="4.3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linearalgebra-SM"><i class="fa fa-check"></i><b>4.3.1</b> Rank-one Update</a></li>
 <li class="chapter" data-level="4.3.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-k-update"><i class="fa fa-check"></i><b>4.3.2</b> Rank-<span class="math inline">\(k\)</span> Update</a></li>
 <li class="chapter" data-level="4.3.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#times-2-block-matrix-inversion"><i class="fa fa-check"></i><b>4.3.3</b> 2 <span class="math inline">\(\times\)</span> 2 Block Matrix Inversion</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-norms"><i class="fa fa-check"></i><b>4.4</b> Matrix norms</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>5</b> Optimization Basics</a>
 <ul>
@@ -757,7 +756,7 @@ This can be done using the <code>glmnet</code> package. Specifying <code>family 
 <span id="cb116-3"><a href="logistic-regression.html#cb116-3" tabindex="-1"></a>                        <span class="at">nfold =</span> <span class="dv">10</span>, <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
 <span id="cb116-4"><a href="logistic-regression.html#cb116-4" tabindex="-1"></a>  </span>
 <span id="cb116-5"><a href="logistic-regression.html#cb116-5" tabindex="-1"></a>  <span class="fu">plot</span>(lasso.fit)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-145-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-151-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>The procedure is essentially the same as in a linear regression. And we could obtain the estimated parameters by selecting the best <span class="math inline">\(\lambda\)</span> value.</p>
 <div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="logistic-regression.html#cb117-1" tabindex="-1"></a>  <span class="fu">coef</span>(lasso.fit, <span class="at">s =</span> <span class="st">&quot;lambda.min&quot;</span>)</span>
 <span id="cb117-2"><a href="logistic-regression.html#cb117-2" tabindex="-1"></a><span class="do">## 10 x 1 sparse Matrix of class &quot;dgCMatrix&quot;</span></span>
@@ -773,7 +772,9 @@ This can be done using the <code>glmnet</code> package. Specifying <code>family 
 <span id="cb117-12"><a href="logistic-regression.html#cb117-12" tabindex="-1"></a><span class="do">## alcohol      .          </span></span>
 <span id="cb117-13"><a href="logistic-regression.html#cb117-13" tabindex="-1"></a><span class="do">## age          0.040806121</span></span></code></pre></div>
 
+<div style="display:none;">
 <!-- Conflict \def\bf{\mathbf{f}} -->
+</div>
 </div>
 </div>
             </section>

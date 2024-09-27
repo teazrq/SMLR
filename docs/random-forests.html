@@ -231,11 +231,10 @@ div.csl-indent {
 <li class="chapter" data-level="4.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linear-regression"><i class="fa fa-check"></i><b>4.2</b> Linear Regression</a></li>
 <li class="chapter" data-level="4.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-inversion"><i class="fa fa-check"></i><b>4.3</b> Matrix Inversion</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-one-update"><i class="fa fa-check"></i><b>4.3.1</b> Rank-one Update</a></li>
+<li class="chapter" data-level="4.3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linearalgebra-SM"><i class="fa fa-check"></i><b>4.3.1</b> Rank-one Update</a></li>
 <li class="chapter" data-level="4.3.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-k-update"><i class="fa fa-check"></i><b>4.3.2</b> Rank-<span class="math inline">\(k\)</span> Update</a></li>
 <li class="chapter" data-level="4.3.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#times-2-block-matrix-inversion"><i class="fa fa-check"></i><b>4.3.3</b> 2 <span class="math inline">\(\times\)</span> 2 Block Matrix Inversion</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-norms"><i class="fa fa-check"></i><b>4.4</b> Matrix norms</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>5</b> Optimization Basics</a>
 <ul>
@@ -532,7 +531,7 @@ div.csl-indent {
 <span id="cb157-21"><a href="random-forests.html#cb157-21" tabindex="-1"></a>  <span class="fu">points</span>(xgrid, <span class="at">pch=</span><span class="st">&quot;.&quot;</span>, <span class="at">cex=</span><span class="fl">1.2</span>, <span class="at">col=</span><span class="fu">ifelse</span>(pred, <span class="st">&quot;deepskyblue&quot;</span>, <span class="st">&quot;darkorange&quot;</span>))</span>
 <span id="cb157-22"><a href="random-forests.html#cb157-22" tabindex="-1"></a>  <span class="fu">box</span>()</span>
 <span id="cb157-23"><a href="random-forests.html#cb157-23" tabindex="-1"></a>  <span class="fu">title</span>(<span class="st">&quot;Bagging&quot;</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-227-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-240-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="random-forests-1" class="section level2 hasAnchor" number="18.2">
 <h2><span class="header-section-number">18.2</span> Random Forests<a href="random-forests.html#random-forests-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -623,7 +622,7 @@ K_\text{RF}(x, x_i) = \sum_{b = 1}^B K_{\cal T_b}(x, x_i),
 <span id="cb162-22"><a href="random-forests.html#cb162-22" tabindex="-1"></a>    <span class="fu">points</span>(X[, <span class="dv">1</span>], X[, <span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> KernelW<span class="sc">&gt;</span><span class="dv">0</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
 <span id="cb162-23"><a href="random-forests.html#cb162-23" tabindex="-1"></a>    <span class="fu">points</span>(newX[<span class="dv">1</span>], newX[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">pch =</span> <span class="dv">4</span>, <span class="at">cex =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">5</span>)  </span>
 <span id="cb162-24"><a href="random-forests.html#cb162-24" tabindex="-1"></a>  }</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-233-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-246-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>If we stack all of them, we obtain a random forest kernel.</p>
 <div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="random-forests.html#cb163-1" tabindex="-1"></a>  RLTfit <span class="ot">&lt;-</span> <span class="fu">RLT</span>(X, y, <span class="at">ntrees =</span> <span class="dv">1000</span>, <span class="at">nmin =</span> <span class="dv">10</span>, <span class="at">mtry =</span> <span class="dv">5</span>,</span>
 <span id="cb163-2"><a href="random-forests.html#cb163-2" tabindex="-1"></a>                <span class="at">split.gen =</span> <span class="st">&quot;best&quot;</span>, <span class="at">resample.prob =</span> <span class="dv">1</span>,</span>
@@ -658,7 +657,7 @@ K_\text{RF}(x, x_i) = \sum_{b = 1}^B K_{\cal T_b}(x, x_i),
 <span id="cb163-31"><a href="random-forests.html#cb163-31" tabindex="-1"></a>  <span class="fu">points</span>(newX[<span class="dv">1</span>], newX[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">pch =</span> <span class="dv">4</span>, <span class="at">cex =</span> <span class="dv">4</span>, <span class="at">lwd =</span> <span class="dv">5</span>)</span>
 <span id="cb163-32"><a href="random-forests.html#cb163-32" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&quot;bottomright&quot;</span>, <span class="st">&quot;Target Point&quot;</span>, <span class="at">pch =</span> <span class="dv">4</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, </span>
 <span id="cb163-33"><a href="random-forests.html#cb163-33" tabindex="-1"></a>         <span class="at">lwd =</span> <span class="dv">5</span>, <span class="at">lty =</span> <span class="cn">NA</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-234-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-247-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="variable-importance" class="section level2 hasAnchor" number="18.4">
 <h2><span class="header-section-number">18.4</span> Variable Importance<a href="random-forests.html#variable-importance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -698,7 +697,7 @@ K_\text{RF}(x, x_i) = \sum_{b = 1}^B K_{\cal T_b}(x, x_i),
 <span id="cb165-17"><a href="random-forests.html#cb165-17" tabindex="-1"></a>  <span class="co"># kernel weights</span></span>
 <span id="cb165-18"><a href="random-forests.html#cb165-18" tabindex="-1"></a>  <span class="fu">plot</span>(x1, x2, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">yaxt=</span><span class="st">&quot;n&quot;</span>, <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="at">cex =</span> (rf.kernel <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">^</span><span class="fl">0.15</span> <span class="sc">-</span> <span class="fl">0.7</span>)</span>
 <span id="cb165-19"><a href="random-forests.html#cb165-19" tabindex="-1"></a>  <span class="fu">points</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">18</span>, <span class="at">cex =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-237-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-250-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>The tuning parameter <code>mtry</code> has a very strong effect on controlling this greediness. When <code>mtry</code> is large, we will be very greedy on selecting the true signal variable to split. In a high-dimensional setting, we may only use a few variables before reaching a terminal node, making the model only rely a few dimensions. When we use a very small <code>mtry</code>, the model behaves similarly to a regular kernel estimator with good smoothing (small variance) property. However, since it is effectively randomly selecting a dimension to split, the bandwidth on each dimension would also be similar but large since we can only afford a few splits before the node size becomes too small. This can be seen from the following example, with <code>mtry = 1</code>.</p>
 <div class="sourceCode" id="cb166"><pre class="sourceCode r samplecode"><code class="sourceCode r"><span id="cb166-1"><a href="random-forests.html#cb166-1" tabindex="-1"></a>  <span class="co"># fit forest</span></span>
 <span id="cb166-2"><a href="random-forests.html#cb166-2" tabindex="-1"></a>  rf.fit <span class="ot">=</span> <span class="fu">RLT</span>(<span class="at">x =</span> <span class="fu">data.frame</span>(x1, x2), <span class="at">y =</span> y, <span class="at">model =</span> <span class="st">&quot;regression&quot;</span>,</span>
@@ -711,9 +710,11 @@ K_\text{RF}(x, x_i) = \sum_{b = 1}^B K_{\cal T_b}(x, x_i),
 <span id="cb166-9"><a href="random-forests.html#cb166-9" tabindex="-1"></a>  <span class="co"># kernel weights</span></span>
 <span id="cb166-10"><a href="random-forests.html#cb166-10" tabindex="-1"></a>  <span class="fu">plot</span>(x1, x2, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">yaxt=</span><span class="st">&quot;n&quot;</span>, <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="at">cex =</span> (rf.kernel <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">^</span><span class="fl">0.15</span> <span class="sc">-</span> <span class="fl">0.7</span>)</span>
 <span id="cb166-11"><a href="random-forests.html#cb166-11" tabindex="-1"></a>  <span class="fu">points</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">18</span>, <span class="at">cex =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-239-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-252-1.png" width="45%" style="display: block; margin: auto;" /></p>
 
+<div style="display:none;">
 <!-- Conflict \def\bf{\mathbf{f}} -->
+</div>
 </div>
 </div>
 <h3> Reference<a href="reference.html#reference" class="anchor-section" aria-label="Anchor link to header"></a></h3>

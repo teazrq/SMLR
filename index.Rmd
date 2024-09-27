@@ -43,7 +43,7 @@ This book currently covers the following topics:
   1. Basic Knowledge
       * R, R Studio and R Markdown
       * Linear regression and linear algebra
-      * Numerical optimization
+      * Numerical optimization basics
   2. Penalized linear models and model selection
   3. Nonlinear and Nonparametric Models
       * Spline
