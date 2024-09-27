@@ -83,7 +83,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -507,12 +507,12 @@ div.csl-indent {
 <span id="cb217-10"><a href="spectral-clustering.html#cb217-10" tabindex="-1"></a>  X <span class="ot">=</span> <span class="fu">cbind</span>(x1, x2)</span>
 <span id="cb217-11"><a href="spectral-clustering.html#cb217-11" tabindex="-1"></a>  </span>
 <span id="cb217-12"><a href="spectral-clustering.html#cb217-12" tabindex="-1"></a>  <span class="fu">plot</span>(X)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-316-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-317-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="spectral-clustering.html#cb218-1" tabindex="-1"></a></span>
 <span id="cb218-2"><a href="spectral-clustering.html#cb218-2" tabindex="-1"></a>  kmeanfit <span class="ot">=</span> <span class="fu">kmeans</span>(X, <span class="at">centers =</span> <span class="dv">3</span>)</span>
 <span id="cb218-3"><a href="spectral-clustering.html#cb218-3" tabindex="-1"></a>  </span>
 <span id="cb218-4"><a href="spectral-clustering.html#cb218-4" tabindex="-1"></a>  <span class="fu">plot</span>(X, <span class="at">col =</span> kmeanfit<span class="sc">$</span>cluster <span class="sc">+</span> <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-316-2.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-317-2.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>Since <span class="math inline">\(k\)</span>-means use Euclidean distance, it is not appropriate for such problems.</p>
 </div>
 <div id="adjacency-matrix" class="section level2 hasAnchor" number="24.2">
@@ -541,7 +541,7 @@ div.csl-indent {
 <p>Let’s use a heatmap to display what the adjacency information look like. Please note that our data are ordered with clusters 1, 2 and 3.</p>
 <div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="spectral-clustering.html#cb220-1" tabindex="-1"></a>  <span class="co"># plot the adjacency matrix</span></span>
 <span id="cb220-2"><a href="spectral-clustering.html#cb220-2" tabindex="-1"></a>  <span class="fu">heatmap</span>(W, <span class="at">Rowv =</span> <span class="cn">NA</span>, <span class="at">Colv=</span><span class="cn">NA</span>, <span class="at">symm =</span> <span class="cn">TRUE</span>, <span class="at">revC =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-318-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-319-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="laplacian-matrix" class="section level2 hasAnchor" number="24.3">
 <h2><span class="header-section-number">24.3</span> Laplacian Matrix<a href="spectral-clustering.html#laplacian-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -561,7 +561,7 @@ where <span class="math inline">\(\mathbf{D}\)</span> is a diagonal matrix with 
 <span id="cb221-11"><a href="spectral-clustering.html#cb221-11" tabindex="-1"></a>  <span class="co"># the smallest one will be zero --- why?</span></span>
 <span id="cb221-12"><a href="spectral-clustering.html#cb221-12" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">rev</span>(f<span class="sc">$</span>values)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">ylab =</span> <span class="st">&quot;eigen-values&quot;</span>, </span>
 <span id="cb221-13"><a href="spectral-clustering.html#cb221-13" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;red&quot;</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="st">&quot;blue&quot;</span>, <span class="dv">17</span>)))</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-319-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-320-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="feature-embedding" class="section level2 hasAnchor" number="24.4">
 <h2><span class="header-section-number">24.4</span> Feature Embedding<a href="spectral-clustering.html#feature-embedding" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -569,7 +569,7 @@ where <span class="math inline">\(\mathbf{D}\)</span> is a diagonal matrix with 
 <div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="spectral-clustering.html#cb222-1" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
 <span id="cb222-2"><a href="spectral-clustering.html#cb222-2" tabindex="-1"></a>  <span class="fu">plot</span>(f<span class="sc">$</span>vectors[, <span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">1</span>], <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;eigen-values&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>))</span>
 <span id="cb222-3"><a href="spectral-clustering.html#cb222-3" tabindex="-1"></a>  <span class="fu">plot</span>(f<span class="sc">$</span>vectors[, <span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">2</span>], <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;eigen-values&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>))</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-320-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-321-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="clustering-with-embedded-features" class="section level2 hasAnchor" number="24.5">
 <h2><span class="header-section-number">24.5</span> Clustering with Embedded Features<a href="spectral-clustering.html#clustering-with-embedded-features" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -577,7 +577,7 @@ where <span class="math inline">\(\mathbf{D}\)</span> is a diagonal matrix with 
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="spectral-clustering.html#cb223-1" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
 <span id="cb223-2"><a href="spectral-clustering.html#cb223-2" tabindex="-1"></a>  scfit <span class="ot">=</span> <span class="fu">kmeans</span>(f<span class="sc">$</span>vectors[, (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">2</span>) <span class="sc">:</span> (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">1</span>) ], <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
 <span id="cb223-3"><a href="spectral-clustering.html#cb223-3" tabindex="-1"></a>  <span class="fu">plot</span>(X, <span class="at">col =</span> scfit<span class="sc">$</span>cluster <span class="sc">+</span> <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-321-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-322-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="normalized-graph-laplacian" class="section level2 hasAnchor" number="24.6">
 <h2><span class="header-section-number">24.6</span> Normalized Graph Laplacian<a href="spectral-clustering.html#normalized-graph-laplacian" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -593,7 +593,7 @@ where <span class="math inline">\(\mathbf{D}\)</span> is a diagonal matrix with 
 <span id="cb224-7"><a href="spectral-clustering.html#cb224-7" tabindex="-1"></a>  <span class="co"># perform clustering</span></span>
 <span id="cb224-8"><a href="spectral-clustering.html#cb224-8" tabindex="-1"></a>  scfit <span class="ot">=</span> <span class="fu">kmeans</span>(f<span class="sc">$</span>vectors[, (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">2</span>) <span class="sc">:</span> (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">1</span>) ], <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
 <span id="cb224-9"><a href="spectral-clustering.html#cb224-9" tabindex="-1"></a>  <span class="fu">plot</span>(X, <span class="at">col =</span> scfit<span class="sc">$</span>cluster <span class="sc">+</span> <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-322-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-323-1.png" width="45%" style="display: block; margin: auto;" /></p>
 
 <!-- Conflict \def\bf{\mathbf{f}} -->
 </div>

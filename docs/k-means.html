@@ -83,7 +83,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -496,11 +496,11 @@ div.csl-indent {
 <p>The <span class="math inline">\(k\)</span>-means clustering algorithm attempts to solve the following optimization problem:</p>
 <p><span class="math display">\[ \underset{C, \, \{m_k\}_{k=1}^K}\min \sum_{k=1}^K \sum_{C(i) = k} \lVert x_i - m_k \rVert^2, \]</span>
 where <span class="math inline">\(C(\cdot): \{1, \ldots, n\} \rightarrow \{1, \ldots, K\}\)</span> is a cluster assignment function, and <span class="math inline">\(m_k\)</span>’s are the cluster means. To solve this problem, <span class="math inline">\(k\)</span>-means uses an iterative approach that updates <span class="math inline">\(C(\cdot)\)</span> and <span class="math inline">\(m_k\)</span>’s alternatively. Suppose we have a set of six observations.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-258-1.png" width="35%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-259-1.png" width="35%" style="display: block; margin: auto;" /></p>
 <p>We first randomly assign them into two clusters (initiate a random <span class="math inline">\(C\)</span> function). Based on this cluster assignment, we can calculate the corresponding cluster mean <span class="math inline">\(m_k\)</span>’s.</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-260-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Then we will assign each observation to the closest cluster mean. In this example, only the blue point on the top will be moved to a new cluster. Then the cluster means can then be recalculated.</p>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-261-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Then we will assign each observation to the closest cluster mean. In this example, only the blue point on the top will be moved to a new cluster. Then the cluster means can then be recalculated.</p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-262-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>When there is nothing to move anymore, the algorithm stops. Keep in mind that we started with a random cluster assignment, and this objective function is not convex. Hence we may obtain different results if started with different values. The solution is to try different starting points and use the best final results. This can be tuned using the <code>nstart</code> parameter in the <code>kmeans()</code> function.</p>
 <div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="k-means.html#cb178-1" tabindex="-1"></a>    <span class="co"># some random data</span></span>
 <span id="cb178-2"><a href="k-means.html#cb178-2" tabindex="-1"></a>    <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
@@ -528,7 +528,7 @@ where <span class="math inline">\(C(\cdot): \{1, \ldots, n\} \rightarrow \{1, \l
 <span id="cb179-9"><a href="k-means.html#cb179-9" tabindex="-1"></a><span class="do">## 6          5.4         3.9          1.7         0.4  setosa</span></span>
 <span id="cb179-10"><a href="k-means.html#cb179-10" tabindex="-1"></a>    <span class="fu">library</span>(ggplot2)</span>
 <span id="cb179-11"><a href="k-means.html#cb179-11" tabindex="-1"></a>    <span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Petal.Length, Petal.Width, <span class="at">color =</span> Species)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-263-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-264-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>The last two variables in the <code>iris</code> data carry more information on separating the three classes. Hence we will only use the <code>Petal.Length</code> and <code>Petal.Width</code>.</p>
 <div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="k-means.html#cb180-1" tabindex="-1"></a>    <span class="fu">library</span>(colorspace)</span>
 <span id="cb180-2"><a href="k-means.html#cb180-2" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>), <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span>
@@ -537,7 +537,7 @@ where <span class="math inline">\(C(\cdot): \{1, \ldots, n\} \rightarrow \{1, \l
 <span id="cb180-5"><a href="k-means.html#cb180-5" tabindex="-1"></a>    <span class="fu">legend</span>(<span class="at">x =</span> <span class="fl">1.2</span>, <span class="at">y =</span> <span class="fl">1.3</span>, <span class="at">cex =</span> <span class="dv">1</span>,</span>
 <span id="cb180-6"><a href="k-means.html#cb180-6" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">as.character</span>(<span class="fu">levels</span>(iris<span class="sc">$</span>Species)),</span>
 <span id="cb180-7"><a href="k-means.html#cb180-7" tabindex="-1"></a>        <span class="at">fill =</span> <span class="fu">rainbow_hcl</span>(<span class="dv">3</span>), <span class="at">horiz =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-265-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-266-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>Let’s perform the <span class="math inline">\(k\)</span>-means clustering</p>
 <div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="k-means.html#cb181-1" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb181-2"><a href="k-means.html#cb181-2" tabindex="-1"></a></span>
@@ -566,7 +566,7 @@ where <span class="math inline">\(C(\cdot): \{1, \ldots, n\} \rightarrow \{1, \l
 <span id="cb181-25"><a href="k-means.html#cb181-25" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span> </span>
 <span id="cb181-26"><a href="k-means.html#cb181-26" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;red&#39;</span>, <span class="st">&#39;green&#39;</span>, <span class="st">&#39;blue&#39;</span>)) <span class="sc">+</span></span>
 <span id="cb181-27"><a href="k-means.html#cb181-27" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;red&quot;</span>)[iris.kmean<span class="sc">$</span>cluster]) <span class="co"># fitted cluster </span></span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-266-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-267-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="example-2-clustering-of-image-pixels" class="section level2 hasAnchor" number="20.3">
 <h2><span class="header-section-number">20.3</span> Example 2: clustering of image pixels<a href="k-means.html#example-2-clustering-of-image-pixels" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -580,7 +580,7 @@ where <span class="math inline">\(C(\cdot): \{1, \ldots, n\} \rightarrow \{1, \l
 <span id="cb182-7"><a href="k-means.html#cb182-7" tabindex="-1"></a>         <span class="at">bty =</span> <span class="st">&#39;n&#39;</span>, <span class="at">pch =</span> <span class="st">&#39;&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;&#39;</span>)</span>
 <span id="cb182-8"><a href="k-means.html#cb182-8" tabindex="-1"></a></span>
 <span id="cb182-9"><a href="k-means.html#cb182-9" tabindex="-1"></a>    <span class="fu">rasterImage</span>(img, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">500</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-267-1.png" width="35%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-268-1.png" width="35%" style="display: block; margin: auto;" /></p>
 <p>For a <code>jpg</code> file, each pixel is stored as a vector with 3 elements — representing red, green and blue intensities. However, by the way, that this objective <code>img</code> being constructed, it is stored as a 3d array. The first two dimensions are the height and width of the figure. We need to vectorize them and treat each pixel as an observation.</p>
 <div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="k-means.html#cb183-1" tabindex="-1"></a>    <span class="fu">dim</span>(img)</span>
 <span id="cb183-2"><a href="k-means.html#cb183-2" tabindex="-1"></a><span class="do">## [1] 500 400   3</span></span>
@@ -601,7 +601,7 @@ where <span class="math inline">\(C(\cdot): \{1, \ldots, n\} \rightarrow \{1, \l
 <span id="cb184-7"><a href="k-means.html#cb184-7" tabindex="-1"></a>                  <span class="at">xlab =</span> <span class="st">&quot;red&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;green&quot;</span>, <span class="at">zlab =</span> <span class="st">&quot;blue&quot;</span>, </span>
 <span id="cb184-8"><a href="k-means.html#cb184-8" tabindex="-1"></a>                  <span class="at">color =</span> <span class="fu">rgb</span>(sub_img_expand[,<span class="dv">1</span>], sub_img_expand[,<span class="dv">2</span>],</span>
 <span id="cb184-9"><a href="k-means.html#cb184-9" tabindex="-1"></a>                              sub_img_expand[,<span class="dv">3</span>]))</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-269-1.png" width="55%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-270-1.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>The next step is to perform the <span class="math inline">\(k\)</span>-mean and obtain the cluster label. For example, let’s try 5 clusters.</p>
 <div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="k-means.html#cb185-1" tabindex="-1"></a>  kmeanfit <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(img_expand, <span class="dv">5</span>)</span>
 <span id="cb185-2"><a href="k-means.html#cb185-2" tabindex="-1"></a></span>
@@ -621,10 +621,10 @@ where <span class="math inline">\(C(\cdot): \{1, \ldots, n\} \rightarrow \{1, \l
 <span id="cb185-16"><a href="k-means.html#cb185-16" tabindex="-1"></a>       <span class="at">pch =</span> <span class="st">&#39;&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;&#39;</span>)</span>
 <span id="cb185-17"><a href="k-means.html#cb185-17" tabindex="-1"></a></span>
 <span id="cb185-18"><a href="k-means.html#cb185-18" tabindex="-1"></a>  <span class="fu">rasterImage</span>(new_img, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">500</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-270-1.png" width="35%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-271-1.png" width="35%" style="display: block; margin: auto;" /></p>
 <p>With this technique, we can easily reproduce results with different <span class="math inline">\(k\)</span> values. Apparently, as <span class="math inline">\(k\)</span> increases, we get better resolution. <span class="math inline">\(k = 30\)</span> seems to recover the original image fairly well.</p>
 <pre><code>## Warning: did not converge in 10 iterations</code></pre>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-272-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-273-1.png" width="100%" style="display: block; margin: auto;" /></p>
 
 <!-- Conflict \def\bf{\mathbf{f}} -->
 </div>

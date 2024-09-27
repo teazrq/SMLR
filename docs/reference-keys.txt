@@ -1,6 +1,6 @@
 eq:penalized
 eq:roughness
-thm:unnamed-chunk-209
+thm:unnamed-chunk-210
 r-and-rstudio
 installing-r-and-rstudio
 r-basic
