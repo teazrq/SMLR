@@ -143,8 +143,8 @@ Since the goal of SVM is to create the maximum margin, let's denote this as $M$.
 Note that the scale of $\bbeta$ can be arbitrary, let's set it as $\lVert \bbeta \rVert = 1/M$. The maximization becomes minimization, and its equivalent to minimizing $\frac{1}{2} \lVert \bbeta \rVert^2$. Then we have the __primal form__ of the SVM optimization problem. 
 
 \begin{align}
-\text{min} \quad & \frac{1}{2} \lVert \bbeta \rVert^2 \\
-\text{subject to} \quad & y_i(\bx^\T \bbeta + \beta_0) \geq 1, \,\, i = 1, \ldots, n.
+\underset{\bbeta, \beta_0}{\text{min}} \quad & \frac{1}{2} \lVert \bbeta \rVert^2 \\
+\text{subject to} \quad & y_i(\bx_i^\T \bbeta + \beta_0) \geq 1, \,\, i = 1, \ldots, n.
 \end{align}
 
 ### From Primal to Dual 
@@ -153,7 +153,7 @@ This is a general inequality constrained optimization problem.
 
 \begin{align}
 \text{min} \quad & g(\btheta) \\
-\text{subject to} \quad & h(\btheta) \leq 0, \,\, i = 1, \ldots, n.
+\text{subject to} \quad & h_i(\btheta) \leq 0, \,\, i = 1, \ldots, n.
 \end{align}
 
 We can consider the corresponding Lagrangian (with all $\alpha_i$'s positive):
@@ -174,7 +174,7 @@ First, rewrite the problem as
 
 \begin{align}
 \text{min} \quad & \frac{1}{2} \lVert \bbeta \rVert^2 \\
-\text{subject to} \quad & - \{ y_i(\bx^\T \bbeta + \beta_0) - 1\} \leq 0, i = 1, \ldots, n.
+\text{subject to} \quad & - \{ y_i(\bx_i^\T \bbeta + \beta_0) - 1\} \leq 0, i = 1, \ldots, n.
 \end{align}
 
 Then the Lagrangian is 
@@ -183,7 +183,7 @@ $$\cL(\bbeta, \beta_0, \balpha) = \frac{1}{2} \lVert \bbeta \rVert^2 - \sum_{i =
 To solve this using the dual form, we first find the optimizer of $\bbeta$ and $\beta_0$. We take derivatives with respect to them:
 
 \begin{align}
-    \bbeta - \sum_{i = 1}^n \alpha_i y_i \bx_i  =&~ 0 \quad (\nabla_\bbeta \cL = 0 ) \\
+    \bbeta - \sum_{i = 1}^n \alpha_i y_i \bx_i^\T  =&~ 0 \quad (\nabla_\bbeta \cL = 0 ) \\
     \sum_{i = 1}^n \alpha_i y_i =&~ 0 \quad (\nabla_{\beta_0} \cL = 0 )
 \end{align}
 
@@ -200,10 +200,10 @@ Hence, the dual optimization problem is
 
 Compared with the original primal form, this version has a trivial feasible solution with all $\alpha_i$'s being 0. One can start from this solution to search for the optimizer while maintaining within the contained region. However, the primal form is difficult since there is no apparent way to satisfy the constraint. 
 
-After solving the dual form, we have all the $\alpha_i$ values. The ones with $\alpha_i > 0$ are called the support vectors. Based on our previous analysis, $\widehat{\bbeta} = \sum_{i = 1}^n \alpha_i y_i x_i$, and we can also obtain $\beta_0$ by calculating the midpoint of two "closest" support vectors to the separating hyperplane:
+After solving the dual form, we have all the $\alpha_i$ values. The ones with $\alpha_i > 0$ are called the support vectors. Based on our previous analysis, $\widehat{\bbeta} = \sum_{i = 1}^n \alpha_i y_i x_i^T$, and we can also obtain $\beta_0$ by calculating the midpoint of two "closest" support vectors to the separating hyperplane:
 
 $$\widehat{\beta}_0 = - \,\, \frac{\max_{i: y_i = -1} \bx_i^\T \widehat{\bbeta} + \min_{i: y_i = 1} \bx_i^\T \widehat{\bbeta} }{2}$$
-And the decision is $\text{sign}(\bx^\T \widehat{\bbeta} + \widehat{\beta}_0)$. An example has been demonstrated previously with the `e1071` package. 
+And the decision is $\text{sign}(\bx_i^\T \widehat{\bbeta} + \widehat{\beta}_0)$. An example has been demonstrated previously with the `e1071` package. 
 
 ## Linearly Non-separable SVM with Slack Variables
 
