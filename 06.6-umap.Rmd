@@ -92,5 +92,3 @@ Let's use UMAP on a larger data, the hand written digit data. We will perform cl
   plot(zip.umap$layout, col = zip.train[, 1]+1, pch = 19, cex = 0.2)
   plot(zip.pred, col = zip.test[, 1]+1, pch = 19, cex = 0.2)
 ```
-
-

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 24 Spectral Clustering | Statistical Learning and Machine Learning with R</title>
+  <title>Chapter 26 Uniform Manifold Approximation and Projection (UMAP): A Technical Analysis | Statistical Learning and Machine Learning with R</title>
   <meta name="description" content="A Textbook for Statistical Learning Courses at UIUC" />
   <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 24 Spectral Clustering | Statistical Learning and Machine Learning with R" />
+  <meta property="og:title" content="Chapter 26 Uniform Manifold Approximation and Projection (UMAP): A Technical Analysis | Statistical Learning and Machine Learning with R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A Textbook for Statistical Learning Courses at UIUC" />
   <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 24 Spectral Clustering | Statistical Learning and Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 26 Uniform Manifold Approximation and Projection (UMAP): A Technical Analysis | Statistical Learning and Machine Learning with R" />
   
   <meta name="twitter:description" content="A Textbook for Statistical Learning Courses at UIUC" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="self-organizing-map.html"/>
-<link rel="next" href="uniform-manifold-approximation-and-projection.html"/>
+<link rel="prev" href="uniform-manifold-approximation-and-projection.html"/>
+<link rel="next" href="reference.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -122,6 +122,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <style type="text/css">
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -427,9 +450,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="25.1" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#an-example-1"><i class="fa fa-check"></i><b>25.1</b> An Example</a></li>
 <li class="chapter" data-level="25.2" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#tuning"><i class="fa fa-check"></i><b>25.2</b> Tuning</a></li>
 <li class="chapter" data-level="25.3" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#another-example"><i class="fa fa-check"></i><b>25.3</b> Another Example</a></li>
+<li class="chapter" data-level="25.4" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#derivation-of-umap"><i class="fa fa-check"></i><b>25.4</b> Derivation of UMAP</a></li>
+</ul></li>
+<li class="chapter" data-level="26" data-path="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html"><a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html"><i class="fa fa-check"></i><b>26</b> Uniform Manifold Approximation and Projection (UMAP): A Technical Analysis</a>
+<ul>
+<li class="chapter" data-level="26.1" data-path="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html"><a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#introduction"><i class="fa fa-check"></i><b>26.1</b> 1. Introduction</a></li>
+<li class="chapter" data-level="26.2" data-path="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html"><a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#theoretical-foundation"><i class="fa fa-check"></i><b>26.2</b> 2. Theoretical Foundation</a>
+<ul>
+<li class="chapter" data-level="26.2.1" data-path="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html"><a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#topological-foundation"><i class="fa fa-check"></i><b>26.2.1</b> 2.1 Topological Foundation</a></li>
+<li class="chapter" data-level="26.2.2" data-path="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html"><a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#fuzzy-set-operations"><i class="fa fa-check"></i><b>26.2.2</b> 2.2 Fuzzy Set Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="26.3" data-path="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html"><a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#algorithm-implementation"><i class="fa fa-check"></i><b>26.3</b> 3. Algorithm Implementation</a>
+<ul>
+<li class="chapter" data-level="26.3.1" data-path="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html"><a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#graph-construction"><i class="fa fa-check"></i><b>26.3.1</b> 3.1 Graph Construction</a></li>
+<li class="chapter" data-level="26.3.2" data-path="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html"><a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#low-dimensional-optimization"><i class="fa fa-check"></i><b>26.3.2</b> 3.2 Low-Dimensional Optimization</a></li>
+</ul></li>
+<li class="chapter" data-level="26.4" data-path="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html"><a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#optimization-process"><i class="fa fa-check"></i><b>26.4</b> 4. Optimization Process</a>
+<ul>
+<li class="chapter" data-level="26.4.1" data-path="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html"><a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#stochastic-gradient-descent"><i class="fa fa-check"></i><b>26.4.1</b> 4.1 Stochastic Gradient Descent</a></li>
+<li class="chapter" data-level="26.4.2" data-path="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html"><a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#convergence-criteria"><i class="fa fa-check"></i><b>26.4.2</b> 4.2 Convergence Criteria</a></li>
+</ul></li>
+<li class="chapter" data-level="26.5" data-path="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html"><a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#key-properties"><i class="fa fa-check"></i><b>26.5</b> 5. Key Properties</a>
+<ul>
+<li class="chapter" data-level="26.5.1" data-path="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html"><a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#mathematical-guarantees"><i class="fa fa-check"></i><b>26.5.1</b> 5.1 Mathematical Guarantees</a></li>
+<li class="chapter" data-level="26.5.2" data-path="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html"><a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#computational-complexity"><i class="fa fa-check"></i><b>26.5.2</b> 5.2 Computational Complexity</a></li>
+</ul></li>
+<li class="chapter" data-level="26.6" data-path="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html"><a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#parameter-sensitivity"><i class="fa fa-check"></i><b>26.6</b> 6. Parameter Sensitivity</a></li>
+<li class="chapter" data-level="26.7" data-path="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html"><a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#conclusion"><i class="fa fa-check"></i><b>26.7</b> 7. Conclusion</a></li>
 </ul></li>
 <li class="part"><span><b>VII Reference</b></span></li>
-<li class="chapter" data-level="26" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>26</b> Reference</a></li>
+<li class="chapter" data-level="27" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>27</b> Reference</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2023 Ruoqing Zhu</a></li>
 
@@ -450,149 +500,132 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="spectral-clustering" class="section level1 hasAnchor" number="24">
-<h1><span class="header-section-number">Chapter 24</span> Spectral Clustering<a href="spectral-clustering.html#spectral-clustering" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Spectral clustering aims at clustering observations based on their proximity information. It essentially consists of two steps. The first step is a feature embedding, or dimension reduction. We first construct the graph Laplacian <span class="math inline">\(\mathbf{L}\)</span> (or normalized version), which represent the proximity information, and perform eigen-decomposition of the matrix. This allows us to use a lower dimensional matrix to represent the proximity information of the original data. Once we have the low-dimensional data, we can perform the regular clustering algorithm, i.e., <span class="math inline">\(k\)</span>-means on the new dataset.</p>
-<div id="an-example" class="section level2 hasAnchor" number="24.1">
-<h2><span class="header-section-number">24.1</span> An Example<a href="spectral-clustering.html#an-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Let’s look at an example that regular <span class="math inline">\(k\)</span>-means would fail.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="spectral-clustering.html#cb1-1" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb1-2"><a href="spectral-clustering.html#cb1-2" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="spectral-clustering.html#cb1-3" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">200</span></span>
-<span id="cb1-4"><a href="spectral-clustering.html#cb1-4" tabindex="-1"></a>  </span>
-<span id="cb1-5"><a href="spectral-clustering.html#cb1-5" tabindex="-1"></a>  r <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, n), <span class="fu">rep</span>(<span class="dv">2</span>, n), <span class="fu">rep</span>(<span class="dv">3</span>, n)) <span class="sc">+</span> <span class="fu">runif</span>(n<span class="sc">*</span><span class="dv">3</span>, <span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>)</span>
-<span id="cb1-6"><a href="spectral-clustering.html#cb1-6" tabindex="-1"></a>  theta <span class="ot">=</span> <span class="fu">runif</span>(n) <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> pi</span>
-<span id="cb1-7"><a href="spectral-clustering.html#cb1-7" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="spectral-clustering.html#cb1-8" tabindex="-1"></a>  x1 <span class="ot">=</span> r <span class="sc">*</span> <span class="fu">cos</span>(theta)</span>
-<span id="cb1-9"><a href="spectral-clustering.html#cb1-9" tabindex="-1"></a>  x2 <span class="ot">=</span> r <span class="sc">*</span> <span class="fu">sin</span>(theta)</span>
-<span id="cb1-10"><a href="spectral-clustering.html#cb1-10" tabindex="-1"></a>  X <span class="ot">=</span> <span class="fu">cbind</span>(x1, x2)</span>
-<span id="cb1-11"><a href="spectral-clustering.html#cb1-11" tabindex="-1"></a>  </span>
-<span id="cb1-12"><a href="spectral-clustering.html#cb1-12" tabindex="-1"></a>  <span class="fu">plot</span>(X)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-4-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="spectral-clustering.html#cb2-1" tabindex="-1"></a></span>
-<span id="cb2-2"><a href="spectral-clustering.html#cb2-2" tabindex="-1"></a>  kmeanfit <span class="ot">=</span> <span class="fu">kmeans</span>(X, <span class="at">centers =</span> <span class="dv">3</span>)</span>
-<span id="cb2-3"><a href="spectral-clustering.html#cb2-3" tabindex="-1"></a>  </span>
-<span id="cb2-4"><a href="spectral-clustering.html#cb2-4" tabindex="-1"></a>  <span class="fu">plot</span>(X, <span class="at">col =</span> kmeanfit<span class="sc">$</span>cluster <span class="sc">+</span> <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-4-2.png" width="45%" style="display: block; margin: auto;" /></p>
-<p>Since <span class="math inline">\(k\)</span>-means use Euclidean distance, it is not appropriate for such problems.</p>
+<div id="uniform-manifold-approximation-and-projection-umap-a-technical-analysis" class="section level1 hasAnchor" number="26">
+<h1><span class="header-section-number">Chapter 26</span> Uniform Manifold Approximation and Projection (UMAP): A Technical Analysis<a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#uniform-manifold-approximation-and-projection-umap-a-technical-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction" class="section level2 hasAnchor" number="26.1">
+<h2><span class="header-section-number">26.1</span> 1. Introduction<a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>UMAP (Uniform Manifold Approximation and Projection) is a dimensionality reduction technique founded on three mathematical domains: Riemannian geometry, algebraic topology, and manifold learning theory. This report provides a detailed mathematical analysis of its foundations and implementation.</p>
 </div>
-<div id="adjacency-matrix" class="section level2 hasAnchor" number="24.2">
-<h2><span class="header-section-number">24.2</span> Adjacency Matrix<a href="spectral-clustering.html#adjacency-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Maybe we should use a nonlinear way to describe the distance/closeness between subjects. For example, let’s define two sample to be close if they are within the k-nearest neighbors of each other. We use <span class="math inline">\(k = 10\)</span>, and create an adjacency matrix <span class="math inline">\(\mathbf{W}\)</span>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="spectral-clustering.html#cb3-1" tabindex="-1"></a>  <span class="fu">library</span>(FNN)</span>
-<span id="cb3-2"><a href="spectral-clustering.html#cb3-2" tabindex="-1"></a>  </span>
-<span id="cb3-3"><a href="spectral-clustering.html#cb3-3" tabindex="-1"></a>  W <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="dv">3</span><span class="sc">*</span>n, <span class="dv">3</span><span class="sc">*</span>n)</span>
-<span id="cb3-4"><a href="spectral-clustering.html#cb3-4" tabindex="-1"></a>  </span>
-<span id="cb3-5"><a href="spectral-clustering.html#cb3-5" tabindex="-1"></a>  <span class="co"># get neighbor index for each observation</span></span>
-<span id="cb3-6"><a href="spectral-clustering.html#cb3-6" tabindex="-1"></a>  nn <span class="ot">=</span> <span class="fu">get.knn</span>(X, <span class="at">k=</span><span class="dv">10</span>)</span>
-<span id="cb3-7"><a href="spectral-clustering.html#cb3-7" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="spectral-clustering.html#cb3-8" tabindex="-1"></a>  <span class="co"># write into W</span></span>
-<span id="cb3-9"><a href="spectral-clustering.html#cb3-9" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(<span class="dv">3</span><span class="sc">*</span>n))</span>
-<span id="cb3-10"><a href="spectral-clustering.html#cb3-10" tabindex="-1"></a>    W[i, nn<span class="sc">$</span>nn.index[i, ]] <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb3-11"><a href="spectral-clustering.html#cb3-11" tabindex="-1"></a>  </span>
-<span id="cb3-12"><a href="spectral-clustering.html#cb3-12" tabindex="-1"></a>  <span class="co"># W is not necessary symmetric</span></span>
-<span id="cb3-13"><a href="spectral-clustering.html#cb3-13" tabindex="-1"></a>  W <span class="ot">=</span> <span class="fl">0.5</span><span class="sc">*</span>(W <span class="sc">+</span> <span class="fu">t</span>(W))</span>
-<span id="cb3-14"><a href="spectral-clustering.html#cb3-14" tabindex="-1"></a>  <span class="co"># we may also use</span></span>
-<span id="cb3-15"><a href="spectral-clustering.html#cb3-15" tabindex="-1"></a>  <span class="co"># W = pmax(W, t(W))</span></span></code></pre></div>
-<p>Let’s use a heatmap to display what the adjacency information look like. Please note that our data are ordered with clusters 1, 2 and 3.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="spectral-clustering.html#cb4-1" tabindex="-1"></a>  <span class="co"># plot the adjacency matrix</span></span>
-<span id="cb4-2"><a href="spectral-clustering.html#cb4-2" tabindex="-1"></a>  <span class="fu">heatmap</span>(W, <span class="at">Rowv =</span> <span class="cn">NA</span>, <span class="at">Colv=</span><span class="cn">NA</span>, <span class="at">symm =</span> <span class="cn">TRUE</span>, <span class="at">revC =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-6-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div id="theoretical-foundation" class="section level2 hasAnchor" number="26.2">
+<h2><span class="header-section-number">26.2</span> 2. Theoretical Foundation<a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#theoretical-foundation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="topological-foundation" class="section level3 hasAnchor" number="26.2.1">
+<h3><span class="header-section-number">26.2.1</span> 2.1 Topological Foundation<a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#topological-foundation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>UMAP’s core foundation lies in the construction of a topological representation of the data using fuzzy simplicial sets. For a metric space <span class="math inline">\((X,d)\)</span>, we define a local fuzzy simplicial set structure through:</p>
+<p><span class="math display">\[\mu_X(x,y) = \exp\left(-\frac{d(x,y) - \rho_x}{\sigma_x}\right)\]</span></p>
+<p>where:
+- <span class="math inline">\(\rho_x\)</span> is the distance to the nearest neighbor
+- <span class="math inline">\(\sigma_x\)</span> is a local connectivity parameter
+- <span class="math inline">\(d(x,y)\)</span> is the distance metric in the ambient space</p>
 </div>
-<div id="laplacian-matrix" class="section level2 hasAnchor" number="24.3">
-<h2><span class="header-section-number">24.3</span> Laplacian Matrix<a href="spectral-clustering.html#laplacian-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The next step is to calculate the Laplacian</p>
-<p><span class="math display">\[\mathbf{L} = \mathbf{D} - \mathbf{W},\]</span>
-where <span class="math inline">\(\mathbf{D}\)</span> is a diagonal matrix with its elements equation to the row sums (or column sums) of <span class="math inline">\(\mathbf{W}\)</span>. We will then perform eigen-decomposition on <span class="math inline">\(\mathbf{L}\)</span> to extract/define some underlying features.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="spectral-clustering.html#cb5-1" tabindex="-1"></a>  <span class="co"># compute the degree of each vertex</span></span>
-<span id="cb5-2"><a href="spectral-clustering.html#cb5-2" tabindex="-1"></a>  d <span class="ot">=</span> <span class="fu">colSums</span>(W)</span>
-<span id="cb5-3"><a href="spectral-clustering.html#cb5-3" tabindex="-1"></a>  </span>
-<span id="cb5-4"><a href="spectral-clustering.html#cb5-4" tabindex="-1"></a>  <span class="co"># the laplacian matrix</span></span>
-<span id="cb5-5"><a href="spectral-clustering.html#cb5-5" tabindex="-1"></a>  L <span class="ot">=</span> <span class="fu">diag</span>(d) <span class="sc">-</span> W</span></code></pre></div>
+<div id="fuzzy-set-operations" class="section level3 hasAnchor" number="26.2.2">
+<h3><span class="header-section-number">26.2.2</span> 2.2 Fuzzy Set Operations<a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#fuzzy-set-operations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The local metrics are combined using a fuzzy set union operation:</p>
+<p><span class="math display">\[\mu_{UMAP}(x,y) = \mu_X(x,y) \oplus \mu_Y(x,y)\]</span></p>
+<p>where <span class="math inline">\(\oplus\)</span> represents the probabilistic t-conorm:</p>
+<p><span class="math display">\[a \oplus b = a + b - ab\]</span></p>
 </div>
-<div id="derivation-of-the-feature-embedding" class="section level2 hasAnchor" number="24.4">
-<h2><span class="header-section-number">24.4</span> Derivation of the Feature Embedding<a href="spectral-clustering.html#derivation-of-the-feature-embedding" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Assuming that we want to create artificial embedded features that reflects the underlying structure of the data, especially the graph structure. This can be done through an eigen-decomposition of the Laplacian matrix. To see this, let’s assume that the new artificial embedded feature would assign a value <span class="math inline">\(f_i\)</span> to each observation <span class="math inline">\(i\)</span>. Hence, we want <span class="math inline">\(f_i\)</span> to be close to <span class="math inline">\(f_j\)</span> if <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are close in the graph, i.e., when <span class="math inline">\(w_{ij}\)</span> is large. This can be achieved by</p>
-<p><span class="math display">\[\underset{f}{\min} \sum_{i,j} w_{ij} (f_i - f_j)^2.\]</span>
-To solve this problem, we start with the following matrix form</p>
-<p><span class="math display">\[\begin{align*}
-f^\text{T}\mathbf{L} f &amp;= f^\text{T}\mathbf{D} f - f^\text{T}\mathbf{W} f \\
-&amp;= \sum_{i} d_{i} f_i^2 - \sum_{i,j} w_{ij} f_i f_j \\
-&amp;= \frac{1}{2} \bigg\{ \sum_{ij} w_{ij} f_i^2 - 2 \sum_{i,j} \mathbf{w}_{ij} f_i f_j + \sum_{ij} w_{ij} f_j^2 \bigg\}\\
-&amp;= \frac{1}{2} \sum_{ij} w_{ij} (f_i - f_j)^2.
-\end{align*}\]</span></p>
-<p>Hence, finding the embedded feature simply becomes an eigen-decomposition problem, i.e., getting the smallest eigen-values of <span class="math inline">\(\mathbf{L}\)</span>. However, it should be noted that when all <span class="math inline">\(f_i\)</span>’s are identical, <span class="math inline">\(f^\text{T}\mathbf{L} f\)</span> would be zero. Hence, we should be using the second smallest eigen-values.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="spectral-clustering.html#cb6-1" tabindex="-1"></a>  <span class="co"># eigen-decomposition</span></span>
-<span id="cb6-2"><a href="spectral-clustering.html#cb6-2" tabindex="-1"></a>  f <span class="ot">=</span> <span class="fu">eigen</span>(L, <span class="at">symmetric =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-3"><a href="spectral-clustering.html#cb6-3" tabindex="-1"></a>  </span>
-<span id="cb6-4"><a href="spectral-clustering.html#cb6-4" tabindex="-1"></a>  <span class="co"># plot the smallest eigen-values </span></span>
-<span id="cb6-5"><a href="spectral-clustering.html#cb6-5" tabindex="-1"></a>  <span class="co"># there are three zero eigen-values, why?</span></span>
-<span id="cb6-6"><a href="spectral-clustering.html#cb6-6" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">rev</span>(f<span class="sc">$</span>values)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">ylab =</span> <span class="st">&quot;eigen-values&quot;</span>, </span>
-<span id="cb6-7"><a href="spectral-clustering.html#cb6-7" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;red&quot;</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="st">&quot;blue&quot;</span>, <span class="dv">17</span>)))</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-8-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="feature-embedding" class="section level2 hasAnchor" number="24.5">
-<h2><span class="header-section-number">24.5</span> Feature Embedding<a href="spectral-clustering.html#feature-embedding" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In fact the smallest eigen-value will always be zero. However, we can use the eigen-vectors associated with the second and third smallest eigen-values. They define some feature embedding or dimension reduction to represent the original data. Since we know the underlying model, two dimensions are enough (to separate three clusters). However, based on the eigen-value plot, there is a big gap between the third and the fourth one. Hence, we only need three. Further removing the smallest one, only two are needed.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="spectral-clustering.html#cb7-1" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb7-2"><a href="spectral-clustering.html#cb7-2" tabindex="-1"></a>  <span class="fu">plot</span>(f<span class="sc">$</span>vectors[, <span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">1</span>], <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;eigen-values&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>))</span>
-<span id="cb7-3"><a href="spectral-clustering.html#cb7-3" tabindex="-1"></a>  <span class="fu">plot</span>(f<span class="sc">$</span>vectors[, <span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">2</span>], <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;eigen-values&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>))</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div id="algorithm-implementation" class="section level2 hasAnchor" number="26.3">
+<h2><span class="header-section-number">26.3</span> 3. Algorithm Implementation<a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#algorithm-implementation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="graph-construction" class="section level3 hasAnchor" number="26.3.1">
+<h3><span class="header-section-number">26.3.1</span> 3.1 Graph Construction<a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#graph-construction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p><strong>Local Connectivity Graph</strong>:
+For each point <span class="math inline">\(x_i\)</span>, construct a local connectivity graph with edge weights:</p>
+<p><span class="math display">\[w_{ij} = \exp\left(-\frac{\max(0, d(x_i,x_j) - \rho_i)}{\sigma_i}\right)\]</span></p></li>
+<li><p><strong>Symmetrization</strong>:
+The graph is symmetrized using:</p>
+<p><span class="math display">\[w_{ij}^{symm} = w_{ij} + w_{ji} - w_{ij}w_{ji}\]</span></p></li>
+</ol>
 </div>
-<div id="clustering-with-embedded-features" class="section level2 hasAnchor" number="24.6">
-<h2><span class="header-section-number">24.6</span> Clustering with Embedded Features<a href="spectral-clustering.html#clustering-with-embedded-features" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We can then perform <span class="math inline">\(k\)</span>-means on these two new features. And it will give us the correct clustering.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="spectral-clustering.html#cb8-1" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb8-2"><a href="spectral-clustering.html#cb8-2" tabindex="-1"></a>  scfit <span class="ot">=</span> <span class="fu">kmeans</span>(f<span class="sc">$</span>vectors[, (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">2</span>) <span class="sc">:</span> (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">1</span>) ], <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
-<span id="cb8-3"><a href="spectral-clustering.html#cb8-3" tabindex="-1"></a>  <span class="fu">plot</span>(X, <span class="at">col =</span> scfit<span class="sc">$</span>cluster <span class="sc">+</span> <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-10-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div id="low-dimensional-optimization" class="section level3 hasAnchor" number="26.3.2">
+<h3><span class="header-section-number">26.3.2</span> 3.2 Low-Dimensional Optimization<a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#low-dimensional-optimization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The optimization objective function is:</p>
+<p><span class="math display">\[\sum_{i,j} w_{ij} \log\left(\frac{w_{ij}}{v_{ij}}\right) + (1-w_{ij})\log\left(\frac{1-w_{ij}}{1-v_{ij}}\right)\]</span></p>
+<p>where:
+- <span class="math inline">\(w_{ij}\)</span> are the high-dimensional weights
+- <span class="math inline">\(v_{ij}\)</span> are the low-dimensional weights defined as:</p>
+<p><span class="math display">\[v_{ij} = (1 + a\|y_i - y_j\|_2^{2b})^{-1}\]</span></p>
+<p>with <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> being hyperparameters.</p>
 </div>
-<div id="normalized-graph-laplacian" class="section level2 hasAnchor" number="24.7">
-<h2><span class="header-section-number">24.7</span> Normalized Graph Laplacian<a href="spectral-clustering.html#normalized-graph-laplacian" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>There are other choices of the Laplacian matrix. For example, a normalized graph Laplacian is defined as
-<span class="math display">\[\mathbf{L}_\text{sym} = \mathbf{I} - \mathbf{D^{-1/2} \mathbf{W} D^{-1/2}}\]</span></p>
-<p>For our problem, it achieves pretty much the same effect.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="spectral-clustering.html#cb9-1" tabindex="-1"></a>  <span class="co"># the normed laplacian matrix</span></span>
-<span id="cb9-2"><a href="spectral-clustering.html#cb9-2" tabindex="-1"></a>  L <span class="ot">=</span> <span class="fu">diag</span>(<span class="fu">nrow</span>(W)) <span class="sc">-</span> <span class="fu">diag</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(d)) <span class="sc">%*%</span> W <span class="sc">%*%</span> <span class="fu">diag</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(d))</span>
-<span id="cb9-3"><a href="spectral-clustering.html#cb9-3" tabindex="-1"></a>  </span>
-<span id="cb9-4"><a href="spectral-clustering.html#cb9-4" tabindex="-1"></a>  <span class="co"># eigen-decomposition</span></span>
-<span id="cb9-5"><a href="spectral-clustering.html#cb9-5" tabindex="-1"></a>  f <span class="ot">=</span> <span class="fu">eigen</span>(L, <span class="at">symmetric =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb9-6"><a href="spectral-clustering.html#cb9-6" tabindex="-1"></a>  </span>
-<span id="cb9-7"><a href="spectral-clustering.html#cb9-7" tabindex="-1"></a>  <span class="co"># perform clustering</span></span>
-<span id="cb9-8"><a href="spectral-clustering.html#cb9-8" tabindex="-1"></a>  scfit <span class="ot">=</span> <span class="fu">kmeans</span>(f<span class="sc">$</span>vectors[, (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">2</span>) <span class="sc">:</span> (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">1</span>) ], <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
-<span id="cb9-9"><a href="spectral-clustering.html#cb9-9" tabindex="-1"></a>  <span class="fu">plot</span>(X, <span class="at">col =</span> scfit<span class="sc">$</span>cluster <span class="sc">+</span> <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-11-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="using-a-different-adjacency-matrix" class="section level2 hasAnchor" number="24.8">
-<h2><span class="header-section-number">24.8</span> Using a Different Adjacency Matrix<a href="spectral-clustering.html#using-a-different-adjacency-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Let’s also try to use the Gaussian kernel to define the adjacency matrix. Here, tuning (the bandwidth parameter in the kernel function) becomes important for the performance.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="spectral-clustering.html#cb10-1" tabindex="-1"></a>  <span class="co"># the Gaussian kernel</span></span>
-<span id="cb10-2"><a href="spectral-clustering.html#cb10-2" tabindex="-1"></a>  W <span class="ot">=</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fu">as.matrix</span>(<span class="fu">dist</span>(X<span class="sc">/</span><span class="fl">0.2</span>))<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb10-3"><a href="spectral-clustering.html#cb10-3" tabindex="-1"></a>  </span>
-<span id="cb10-4"><a href="spectral-clustering.html#cb10-4" tabindex="-1"></a>  <span class="co"># view the adjacency matrix</span></span>
-<span id="cb10-5"><a href="spectral-clustering.html#cb10-5" tabindex="-1"></a>  <span class="fu">heatmap</span>(W, <span class="at">Rowv =</span> <span class="cn">NA</span>, <span class="at">Colv=</span><span class="cn">NA</span>, <span class="at">symm =</span> <span class="cn">TRUE</span>, <span class="at">revC =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-12-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="spectral-clustering.html#cb11-1" tabindex="-1"></a>  </span>
-<span id="cb11-2"><a href="spectral-clustering.html#cb11-2" tabindex="-1"></a>  <span class="co"># the normed laplacian matrix</span></span>
-<span id="cb11-3"><a href="spectral-clustering.html#cb11-3" tabindex="-1"></a>  L <span class="ot">=</span> <span class="fu">diag</span>(<span class="fu">colSums</span>(W)) <span class="sc">-</span> W</span>
-<span id="cb11-4"><a href="spectral-clustering.html#cb11-4" tabindex="-1"></a>  </span>
-<span id="cb11-5"><a href="spectral-clustering.html#cb11-5" tabindex="-1"></a>  <span class="co"># eigen-decomposition</span></span>
-<span id="cb11-6"><a href="spectral-clustering.html#cb11-6" tabindex="-1"></a>  f <span class="ot">=</span> <span class="fu">eigen</span>(L, <span class="at">symmetric =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb11-7"><a href="spectral-clustering.html#cb11-7" tabindex="-1"></a>  </span>
-<span id="cb11-8"><a href="spectral-clustering.html#cb11-8" tabindex="-1"></a>  <span class="co"># perform clustering</span></span>
-<span id="cb11-9"><a href="spectral-clustering.html#cb11-9" tabindex="-1"></a>  scfit <span class="ot">=</span> <span class="fu">kmeans</span>(f<span class="sc">$</span>vectors[, (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">2</span>) <span class="sc">:</span> (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">1</span>) ], <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
-<span id="cb11-10"><a href="spectral-clustering.html#cb11-10" tabindex="-1"></a>  <span class="fu">plot</span>(X, <span class="at">col =</span> scfit<span class="sc">$</span>cluster <span class="sc">+</span> <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-12-2.png" width="45%" style="display: block; margin: auto;" /></p>
+<div id="optimization-process" class="section level2 hasAnchor" number="26.4">
+<h2><span class="header-section-number">26.4</span> 4. Optimization Process<a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#optimization-process" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="stochastic-gradient-descent" class="section level3 hasAnchor" number="26.4.1">
+<h3><span class="header-section-number">26.4.1</span> 4.1 Stochastic Gradient Descent<a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#stochastic-gradient-descent" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The optimization is performed using stochastic gradient descent with the following steps:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Gradient Computation</strong>:
+<span class="math display">\[\frac{\partial}{\partial y_i} = 2ab\sum_j \left(\frac{w_{ij}}{v_{ij}} - \frac{1-w_{ij}}{1-v_{ij}}\right)(1 + a\|y_i - y_j\|_2^{2b})^{-1}(y_i - y_j)\|y_i - y_j\|_2^{2(b-1)}\]</span></p></li>
+<li><p><strong>Update Rule</strong>:
+<span class="math display">\[y_i^{(t+1)} = y_i^{(t)} + \eta\frac{\partial}{\partial y_i}\]</span></p></li>
+</ol>
+<p>where <span class="math inline">\(\eta\)</span> is the learning rate.</p>
+</div>
+<div id="convergence-criteria" class="section level3 hasAnchor" number="26.4.2">
+<h3><span class="header-section-number">26.4.2</span> 4.2 Convergence Criteria<a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#convergence-criteria" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The algorithm converges when either:
+1. The relative change in the objective function falls below a threshold ε
+2. The maximum number of iterations is reached</p>
+</div>
+</div>
+<div id="key-properties" class="section level2 hasAnchor" number="26.5">
+<h2><span class="header-section-number">26.5</span> 5. Key Properties<a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#key-properties" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="mathematical-guarantees" class="section level3 hasAnchor" number="26.5.1">
+<h3><span class="header-section-number">26.5.1</span> 5.1 Mathematical Guarantees<a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#mathematical-guarantees" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p><strong>Topological Preservation</strong>:
+UMAP preserves the topological structure of the data through the fuzzy simplicial set representation.</p></li>
+<li><p><strong>Metric Consistency</strong>:
+The algorithm maintains consistency with the local metric structure defined by:
+<span class="math display">\[d_{local}(x,y) = -\log(\mu_x(y))\]</span></p></li>
+</ol>
+</div>
+<div id="computational-complexity" class="section level3 hasAnchor" number="26.5.2">
+<h3><span class="header-section-number">26.5.2</span> 5.2 Computational Complexity<a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#computational-complexity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Time Complexity: O(n log n) for the nearest neighbor search</li>
+<li>Space Complexity: O(n) for storing the graph structure</li>
+</ul>
+</div>
+</div>
+<div id="parameter-sensitivity" class="section level2 hasAnchor" number="26.6">
+<h2><span class="header-section-number">26.6</span> 6. Parameter Sensitivity<a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#parameter-sensitivity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Key parameters affecting the embedding:</p>
+<ol style="list-style-type: decimal">
+<li><strong>n_neighbors</strong>: Controls the size of local neighborhood
+<ul>
+<li>Larger values: More global structure</li>
+<li>Smaller values: More local structure</li>
+</ul></li>
+<li><strong>min_dist</strong>: Minimum distance between points in the embedding
+<ul>
+<li>Controls the compactness of the clusters</li>
+<li>Affects the balance between local and global structure</li>
+</ul></li>
+<li><strong>metric</strong>: Choice of distance metric in high-dimensional space
+<ul>
+<li>Affects the topology of the resulting manifold</li>
+<li>Common choices: Euclidean, Manhattan, Cosine</li>
+</ul></li>
+</ol>
+</div>
+<div id="conclusion" class="section level2 hasAnchor" number="26.7">
+<h2><span class="header-section-number">26.7</span> 7. Conclusion<a href="uniform-manifold-approximation-and-projection-umap-a-technical-analysis.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>UMAP provides a mathematically rigorous approach to dimensionality reduction, combining elements from topology, manifold learning, and graph theory. Its theoretical guarantees and efficient implementation make it suitable for both visualization and general dimensionality reduction tasks.</p>
 
 </div>
 </div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="self-organizing-map.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="uniform-manifold-approximation-and-projection.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="uniform-manifold-approximation-and-projection.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="reference.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -88,12 +88,30 @@ where $\mathbf{D}$ is a diagonal matrix with its elements equation to the row su
   
   # the laplacian matrix
   L = diag(d) - W
-  
+```
+
+## Derivation of the Feature Embedding
+
+Assuming that we want to create artificial embedded features that reflects the underlying structure of the data, especially the graph structure. This can be done through an eigen-decomposition of the Laplacian matrix. To see this, let's assume that the new artificial embedded feature would assign a value $f_i$ to each observation $i$. Hence, we want $f_i$ to be close to $f_j$ if $i$ and $j$ are close in the graph, i.e., when $w_{ij}$ is large. This can be achieved by 
+
+$$\underset{f}{\min} \sum_{i,j} w_{ij} (f_i - f_j)^2.$$
+To solve this problem, we start with the following matrix form
+
+\begin{align*}
+f^\T \mathbf{L} f &= f^\T \mathbf{D} f - f^\T \mathbf{W} f \\
+&= \sum_{i} d_{i} f_i^2 - \sum_{i,j} w_{ij} f_i f_j \\
+&= \frac{1}{2} \bigg\{ \sum_{ij} w_{ij} f_i^2 - 2 \sum_{i,j} \mathbf{w}_{ij} f_i f_j + \sum_{ij} w_{ij} f_j^2 \bigg\}\\
+&= \frac{1}{2} \sum_{ij} w_{ij} (f_i - f_j)^2.
+\end{align*}
+
+Hence, finding the embedded feature simply becomes an eigen-decomposition problem, i.e., getting the smallest eigen-values of $\mathbf{L}$. However, it should be noted that when all $f_i$'s are identical, $f^\T \mathbf{L} f$ would be zero. Hence, we should be using the second smallest eigen-values.
+
+```{r}
   # eigen-decomposition
   f = eigen(L, symmetric = TRUE)
   
   # plot the smallest eigen-values 
-  # the smallest one will be zero --- why?
+  # there are three zero eigen-values, why?
   plot(rev(f$values)[1:10], pch = 19, ylab = "eigen-values", 
        col = c(rep("red", 3), rep("blue", 17)))
 ```
@@ -138,4 +156,24 @@ For our problem, it achieves pretty much the same effect.
 ```
 
 
+## Using a Different Adjacency Matrix
 
+Let's also try to use the Gaussian kernel to define the adjacency matrix. Here, tuning (the bandwidth parameter in the kernel function) becomes important for the performance. 
+
+```{r}
+  # the Gaussian kernel
+  W = exp(-as.matrix(dist(X/0.2))^2)
+  
+  # view the adjacency matrix
+  heatmap(W, Rowv = NA, Colv=NA, symm = TRUE, revC = TRUE)
+  
+  # the normed laplacian matrix
+  L = diag(colSums(W)) - W
+  
+  # eigen-decomposition
+  f = eigen(L, symmetric = TRUE)
+  
+  # perform clustering
+  scfit = kmeans(f$vectors[, (length(f$values)-2) : (length(f$values)-1) ], centers = 3, nstart = 20)
+  plot(X, col = scfit$cluster + 1, pch = 19)
+```
