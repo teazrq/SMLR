@@ -1,5 +1,5 @@
 --- 
-title: "Statistical Learning and Machine Learning with R"
+title: "Statistical Machine Learning with R"
 author: "[Ruoqing Zhu, PhD](https://sites.google.com/site/teazrq/)"
 date: "`r Sys.Date()`"
 github-repo: teazrq/SMLR
@@ -14,7 +14,7 @@ link-citations: yes
 linkcolor: cyan
 urlcolor: cyan
 always_allow_html: true
-description: "A Textbook for Statistical Learning Courses at UIUC"
+description: "A Textbook for Statistical Machine Learning Courses at UIUC"
 ---
 
 ```{r include = FALSE}
@@ -30,7 +30,7 @@ description: "A Textbook for Statistical Learning Courses at UIUC"
 
 # Preface {-}
 
-Welcome to *Statistical Learning and Machine Learning with R*! I started this project during the summer of 2018 when I was preparing for the Stat 432 course. At that time, our faculty member [Dr. David Dalpiaz](https://daviddalpiaz.org/), had decided to move to The Ohio State University (although he moved back to UIUC later on). David introduced to me this awesome way of publishing website on GitHub, which is a very efficient approach for developing courses. Since I have also taught Stat 542 (Statistical Learning) for several years, I figured it could be beneficial to integrate what I have to this [existing book](https://daviddalpiaz.github.io/r4sl/) by David and use it as the R material for both courses. For Stat 542, the main focus is to learn the numerical optimization behind these learning algorithms, and also be familiar with the theoretical background. As you can tell, I am not being very creative on the name, so `SMLR` it is. You can find the source file of this book on my [GitHub](https://teazrq.github.io/SMLR/).
+Welcome to *Statistical Machine Learning with R*! I started this project during the summer of 2018 when I was preparing for the [Stat 432 course](https://teazrq.github.io/stat432/) (Basics of Statistical Learning). At that time, our faculty member [Dr. David Dalpiaz](https://daviddalpiaz.org/), had decided to move to The Ohio State University (although he moved back to UIUC later on). David introduced to me this awesome way of publishing website on GitHub, which is a very efficient approach for developing course materials. Since I have also taught [Stat 542](https://teazrq.github.io/stat542/index.html) (Statistical Learning) for several years, I figured it could be beneficial to integrate what I have to this [existing book](https://daviddalpiaz.github.io/r4sl/) by David and use it as the `R` material for both courses. For Stat 542, the main focus is to learn the numerical optimization behind these learning algorithms, and also be familiar with the theoretical background. As you can tell, I am not being very creative on the name, so `SMLR` it is. You can find the source file of this book on my [GitHub](https://teazrq.github.io/SMLR/). Recently, I started a new course [Stat 546](https://teazrq.github.io/stat546/index.html) (Machine Learning in Data Science), which focuses more on RKHS, random forests and reinforcement learning, and I am also add more materials to this book.
 
 ## Target Audience {-}
 
@@ -44,21 +44,25 @@ This book currently covers the following topics:
       * R, R Studio and R Markdown
       * Linear regression and linear algebra
       * Numerical optimization basics
-  2. Penalized linear models and model selection
-  3. Nonlinear and Nonparametric Models
+  2. Model Selection and Regularization in Linear Models
+      * Ridge regression
+      * Lasso
       * Spline
+  3. Classification models
+      * Logistic regression
+      * Discriminant analysis      
+  4. Nonparametric Models with Local Smoothing
       * K-nearest neighbor
       * Kernel smoothing
-  4. Classification models
-      * Logistic regression
-      * Discriminant analysis
-  5. Machine Learning Models
+  5. Kernel Methods and RKHS
       * Support vector machine
+      * RKHS
       * Kernel ridge regression
+  6. Tree and Ensemble Models
       * Tree models
       * Random forests
       * Boosting
-  6. Unsupervised Learning
+  7. Unsupervised Learning
       * K-means
       * Hierarchical clustering
       * PCA
@@ -81,16 +85,11 @@ The goal of this book is to introduce not only how to run some of the popular st
     + SVM
     + Spline
 
-For each section, the difficulty will gradually increase from an undergraduate level to a graduate level. 
-
-It will be served as a supplement to [An Introduction to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/) [@james2013introduction] for [STAT 432 - Basics of Statistical Learning](https://go.illinois.edu/stat432) and to [The Elements of 
-Statistical Learning: Data Mining, Inference, and Prediction](https://web.stanford.edu/~hastie/ElemStatLearn/) [@hastie2001elements] for [STAT 542 - Statistical Learning](https://go.illinois.edu/stat542) at the [University of Illinois at Urbana-Champaign](http://illinois.edu/).
-
-**This book is under active development**. Hence, you may encounter errors ranging from typos to broken code, to poorly explained topics. If you do, please let me know! Simply send an email and I will make the changes as soon as possible (`rqzhu AT illinois DOT edu`). Or, if you know `R Markdown` and are familiar with GitHub, [make a pull request and fix an issue yourself](https://github.com/teazrq/SLWR)! These contributions will be acknowledged. 
+**This book is under active development**. Hence, you may encounter errors ranging from typos to broken code, to poorly explained topics. If you do, please let me know! Simply send an email to [rqzhu@illinois.edu](rqzhu@illinois.edu) and I will make the changes as soon as possible. Or, if you know `R Markdown` and are familiar with GitHub, [make a pull request and fix an issue yourself](https://github.com/teazrq/SMLR)! These contributions will be acknowledged. 
 
 ## Acknowledgements {-}
 
-The initial contents  are derived from Dr. David Dalpiaz's book. My STAT 542 course materials are also inspired by [Dr. Feng Liang](https://stat.illinois.edu/directory/profile/liangf) and [Dr. John Marden](https://stat.illinois.edu/directory/profile/jimarden) who developed earlier versions of this course. And I also incorporated many online resources, which I cannot put into a comprehensive list. If you think I missed some references, please let me know. 
+The initial contents are derived from Dr. David Dalpiaz's book. My STAT 542 course materials are also inspired by [Dr. Feng Liang](https://stat.illinois.edu/directory/profile/liangf) and [Dr. John Marden](https://stat.illinois.edu/directory/profile/jimarden) who developed earlier versions of this course. And I also incorporated many online resources, which I cannot put into a comprehensive list. If you think I missed some references, please let me know. 
 
 ## License {-}
 

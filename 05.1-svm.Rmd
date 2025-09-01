@@ -17,7 +17,7 @@
   par(mfrow=c(1,1))
 ```
 
-# (PART) Machine Learning Algorithms {-}
+# (PART) Kernel Machines {-}
 
 # Support Vector Machines
 

@@ -4,26 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 18 Random Forests | Statistical Learning and Machine Learning with R</title>
-  <meta name="description" content="A Textbook for Statistical Learning Courses at UIUC" />
-  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+  <title>Chapter 18 Random Forests | Statistical Machine Learning with R</title>
+  <meta name="description" content="A Textbook for Statistical Machine Learning Courses at UIUC" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 18 Random Forests | Statistical Learning and Machine Learning with R" />
+  <meta property="og:title" content="Chapter 18 Random Forests | Statistical Machine Learning with R" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="A Textbook for Statistical Learning Courses at UIUC" />
+  <meta property="og:description" content="A Textbook for Statistical Machine Learning Courses at UIUC" />
   <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 18 Random Forests | Statistical Learning and Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 18 Random Forests | Statistical Machine Learning with R" />
   
-  <meta name="twitter:description" content="A Textbook for Statistical Learning Courses at UIUC" />
+  <meta name="twitter:description" content="A Textbook for Statistical Machine Learning Courses at UIUC" />
   
 
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2024-09-26" />
+<meta name="date" content="2025-09-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -65,7 +65,7 @@
 <script src="libs/selectize-0.12.0/selectize.min.js"></script>
 <link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/plotly-binding-4.11.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
@@ -177,7 +177,7 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Statistical Learning and Machine Learning with R</a></li>
+<li><a href="./">Statistical Machine Learning with R</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
@@ -375,7 +375,7 @@ div.csl-indent {
 <li class="chapter" data-level="13.7" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-polynomial-regression"><i class="fa fa-check"></i><b>13.7</b> Local Polynomial Regression</a></li>
 <li class="chapter" data-level="13.8" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#r-implementations"><i class="fa fa-check"></i><b>13.8</b> R Implementations</a></li>
 </ul></li>
-<li class="part"><span><b>V Machine Learning Algorithms</b></span></li>
+<li class="part"><span><b>V Kernel Machines</b></span></li>
 <li class="chapter" data-level="14" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>14</b> Support Vector Machines</a>
 <ul>
 <li class="chapter" data-level="14.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#maximum-margin-classifier"><i class="fa fa-check"></i><b>14.1</b> Maximum-margin Classifier</a></li>
@@ -401,6 +401,7 @@ div.csl-indent {
 <li class="chapter" data-level="16.1" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-linear-kernel-and-ridge-regression"><i class="fa fa-check"></i><b>16.1</b> Example: Linear Kernel and Ridge Regression</a></li>
 <li class="chapter" data-level="16.2" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-alternative-view"><i class="fa fa-check"></i><b>16.2</b> Example: Alternative View</a></li>
 </ul></li>
+<li class="part"><span><b>VI Trees and Ensembles</b></span></li>
 <li class="chapter" data-level="17" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html"><i class="fa fa-check"></i><b>17</b> Classification and Regression Trees</a>
 <ul>
 <li class="chapter" data-level="17.1" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#example-classification-tree"><i class="fa fa-check"></i><b>17.1</b> Example: Classification Tree</a></li>
@@ -425,7 +426,7 @@ div.csl-indent {
 <li class="chapter" data-level="19.4" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>19.4</b> Gradient Boosting</a></li>
 <li class="chapter" data-level="19.5" data-path="boosting.html"><a href="boosting.html#gradient-boosting-with-logistic-link"><i class="fa fa-check"></i><b>19.5</b> Gradient Boosting with Logistic Link</a></li>
 </ul></li>
-<li class="part"><span><b>VI Unsupervised Learning</b></span></li>
+<li class="part"><span><b>VII Unsupervised Learning</b></span></li>
 <li class="chapter" data-level="20" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>20</b> K-Means</a>
 <ul>
 <li class="chapter" data-level="20.1" data-path="k-means.html"><a href="k-means.html#basic-concepts"><i class="fa fa-check"></i><b>20.1</b> Basic Concepts</a></li>
@@ -456,9 +457,11 @@ div.csl-indent {
 <li class="chapter" data-level="24.1" data-path="spectral-clustering.html"><a href="spectral-clustering.html#an-example"><i class="fa fa-check"></i><b>24.1</b> An Example</a></li>
 <li class="chapter" data-level="24.2" data-path="spectral-clustering.html"><a href="spectral-clustering.html#adjacency-matrix"><i class="fa fa-check"></i><b>24.2</b> Adjacency Matrix</a></li>
 <li class="chapter" data-level="24.3" data-path="spectral-clustering.html"><a href="spectral-clustering.html#laplacian-matrix"><i class="fa fa-check"></i><b>24.3</b> Laplacian Matrix</a></li>
-<li class="chapter" data-level="24.4" data-path="spectral-clustering.html"><a href="spectral-clustering.html#feature-embedding"><i class="fa fa-check"></i><b>24.4</b> Feature Embedding</a></li>
-<li class="chapter" data-level="24.5" data-path="spectral-clustering.html"><a href="spectral-clustering.html#clustering-with-embedded-features"><i class="fa fa-check"></i><b>24.5</b> Clustering with Embedded Features</a></li>
-<li class="chapter" data-level="24.6" data-path="spectral-clustering.html"><a href="spectral-clustering.html#normalized-graph-laplacian"><i class="fa fa-check"></i><b>24.6</b> Normalized Graph Laplacian</a></li>
+<li class="chapter" data-level="24.4" data-path="spectral-clustering.html"><a href="spectral-clustering.html#derivation-of-the-feature-embedding"><i class="fa fa-check"></i><b>24.4</b> Derivation of the Feature Embedding</a></li>
+<li class="chapter" data-level="24.5" data-path="spectral-clustering.html"><a href="spectral-clustering.html#feature-embedding"><i class="fa fa-check"></i><b>24.5</b> Feature Embedding</a></li>
+<li class="chapter" data-level="24.6" data-path="spectral-clustering.html"><a href="spectral-clustering.html#clustering-with-embedded-features"><i class="fa fa-check"></i><b>24.6</b> Clustering with Embedded Features</a></li>
+<li class="chapter" data-level="24.7" data-path="spectral-clustering.html"><a href="spectral-clustering.html#normalized-graph-laplacian"><i class="fa fa-check"></i><b>24.7</b> Normalized Graph Laplacian</a></li>
+<li class="chapter" data-level="24.8" data-path="spectral-clustering.html"><a href="spectral-clustering.html#using-a-different-adjacency-matrix"><i class="fa fa-check"></i><b>24.8</b> Using a Different Adjacency Matrix</a></li>
 </ul></li>
 <li class="chapter" data-level="25" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html"><i class="fa fa-check"></i><b>25</b> Uniform Manifold Approximation and Projection</a>
 <ul>
@@ -466,7 +469,7 @@ div.csl-indent {
 <li class="chapter" data-level="25.2" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#tuning"><i class="fa fa-check"></i><b>25.2</b> Tuning</a></li>
 <li class="chapter" data-level="25.3" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#another-example"><i class="fa fa-check"></i><b>25.3</b> Another Example</a></li>
 </ul></li>
-<li class="part"><span><b>VII Reference</b></span></li>
+<li class="part"><span><b>VIII Reference</b></span></li>
 <li class="chapter" data-level="26" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>26</b> Reference</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2023 Ruoqing Zhu</a></li>
@@ -480,7 +483,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Learning and Machine Learning with R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Machine Learning with R</a>
           </h1>
         </div>
 
@@ -555,7 +558,7 @@ div.csl-indent {
 <span id="cb158-10"><a href="random-forests.html#cb158-10" tabindex="-1"></a></span>
 <span id="cb158-11"><a href="random-forests.html#cb158-11" tabindex="-1"></a>  <span class="co"># fit random forests with a selected tuning</span></span>
 <span id="cb158-12"><a href="random-forests.html#cb158-12" tabindex="-1"></a>  <span class="fu">library</span>(randomForest)</span>
-<span id="cb158-13"><a href="random-forests.html#cb158-13" tabindex="-1"></a><span class="do">## randomForest 4.7-1.1</span></span>
+<span id="cb158-13"><a href="random-forests.html#cb158-13" tabindex="-1"></a><span class="do">## randomForest 4.7-1.2</span></span>
 <span id="cb158-14"><a href="random-forests.html#cb158-14" tabindex="-1"></a><span class="do">## Type rfNews() to see new features/changes/bug fixes.</span></span>
 <span id="cb158-15"><a href="random-forests.html#cb158-15" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb158-16"><a href="random-forests.html#cb158-16" tabindex="-1"></a><span class="do">## Attaching package: &#39;randomForest&#39;</span></span>
@@ -752,42 +755,42 @@ Scornet, Erwan. 2016. <span>“Random Forests and Kernel Methods.”</span> <em>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "sepia",
-"family": "serif",
-"size": 1
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "section"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "sepia",
+    "family": "serif",
+    "size": 1
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
 });
 });
 </script>

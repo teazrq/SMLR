@@ -4,26 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 24 Spectral Clustering | Statistical Learning and Machine Learning with R</title>
-  <meta name="description" content="A Textbook for Statistical Learning Courses at UIUC" />
-  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+  <title>Chapter 24 Spectral Clustering | Statistical Machine Learning with R</title>
+  <meta name="description" content="A Textbook for Statistical Machine Learning Courses at UIUC" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 24 Spectral Clustering | Statistical Learning and Machine Learning with R" />
+  <meta property="og:title" content="Chapter 24 Spectral Clustering | Statistical Machine Learning with R" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="A Textbook for Statistical Learning Courses at UIUC" />
+  <meta property="og:description" content="A Textbook for Statistical Machine Learning Courses at UIUC" />
   <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 24 Spectral Clustering | Statistical Learning and Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 24 Spectral Clustering | Statistical Machine Learning with R" />
   
-  <meta name="twitter:description" content="A Textbook for Statistical Learning Courses at UIUC" />
+  <meta name="twitter:description" content="A Textbook for Statistical Machine Learning Courses at UIUC" />
   
 
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2024-11-03" />
+<meta name="date" content="2025-09-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,23 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.11.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -123,6 +140,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -137,7 +177,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Statistical Learning and Machine Learning with R</a></li>
+<li><a href="./">Statistical Machine Learning with R</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
@@ -335,7 +375,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.7" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-polynomial-regression"><i class="fa fa-check"></i><b>13.7</b> Local Polynomial Regression</a></li>
 <li class="chapter" data-level="13.8" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#r-implementations"><i class="fa fa-check"></i><b>13.8</b> R Implementations</a></li>
 </ul></li>
-<li class="part"><span><b>V Machine Learning Algorithms</b></span></li>
+<li class="part"><span><b>V Kernel Machines</b></span></li>
 <li class="chapter" data-level="14" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>14</b> Support Vector Machines</a>
 <ul>
 <li class="chapter" data-level="14.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#maximum-margin-classifier"><i class="fa fa-check"></i><b>14.1</b> Maximum-margin Classifier</a></li>
@@ -361,6 +401,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.1" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-linear-kernel-and-ridge-regression"><i class="fa fa-check"></i><b>16.1</b> Example: Linear Kernel and Ridge Regression</a></li>
 <li class="chapter" data-level="16.2" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#example-alternative-view"><i class="fa fa-check"></i><b>16.2</b> Example: Alternative View</a></li>
 </ul></li>
+<li class="part"><span><b>VI Trees and Ensembles</b></span></li>
 <li class="chapter" data-level="17" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html"><i class="fa fa-check"></i><b>17</b> Classification and Regression Trees</a>
 <ul>
 <li class="chapter" data-level="17.1" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#example-classification-tree"><i class="fa fa-check"></i><b>17.1</b> Example: Classification Tree</a></li>
@@ -385,7 +426,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="19.4" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>19.4</b> Gradient Boosting</a></li>
 <li class="chapter" data-level="19.5" data-path="boosting.html"><a href="boosting.html#gradient-boosting-with-logistic-link"><i class="fa fa-check"></i><b>19.5</b> Gradient Boosting with Logistic Link</a></li>
 </ul></li>
-<li class="part"><span><b>VI Unsupervised Learning</b></span></li>
+<li class="part"><span><b>VII Unsupervised Learning</b></span></li>
 <li class="chapter" data-level="20" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>20</b> K-Means</a>
 <ul>
 <li class="chapter" data-level="20.1" data-path="k-means.html"><a href="k-means.html#basic-concepts"><i class="fa fa-check"></i><b>20.1</b> Basic Concepts</a></li>
@@ -428,7 +469,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="25.2" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#tuning"><i class="fa fa-check"></i><b>25.2</b> Tuning</a></li>
 <li class="chapter" data-level="25.3" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#another-example"><i class="fa fa-check"></i><b>25.3</b> Another Example</a></li>
 </ul></li>
-<li class="part"><span><b>VII Reference</b></span></li>
+<li class="part"><span><b>VIII Reference</b></span></li>
 <li class="chapter" data-level="26" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>26</b> Reference</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2023 Ruoqing Zhu</a></li>
@@ -442,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Learning and Machine Learning with R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Machine Learning with R</a>
           </h1>
         </div>
 
@@ -456,59 +497,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="an-example" class="section level2 hasAnchor" number="24.1">
 <h2><span class="header-section-number">24.1</span> An Example<a href="spectral-clustering.html#an-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s look at an example that regular <span class="math inline">\(k\)</span>-means would fail.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="spectral-clustering.html#cb1-1" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb1-2"><a href="spectral-clustering.html#cb1-2" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="spectral-clustering.html#cb1-3" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">200</span></span>
-<span id="cb1-4"><a href="spectral-clustering.html#cb1-4" tabindex="-1"></a>  </span>
-<span id="cb1-5"><a href="spectral-clustering.html#cb1-5" tabindex="-1"></a>  r <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, n), <span class="fu">rep</span>(<span class="dv">2</span>, n), <span class="fu">rep</span>(<span class="dv">3</span>, n)) <span class="sc">+</span> <span class="fu">runif</span>(n<span class="sc">*</span><span class="dv">3</span>, <span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>)</span>
-<span id="cb1-6"><a href="spectral-clustering.html#cb1-6" tabindex="-1"></a>  theta <span class="ot">=</span> <span class="fu">runif</span>(n) <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> pi</span>
-<span id="cb1-7"><a href="spectral-clustering.html#cb1-7" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="spectral-clustering.html#cb1-8" tabindex="-1"></a>  x1 <span class="ot">=</span> r <span class="sc">*</span> <span class="fu">cos</span>(theta)</span>
-<span id="cb1-9"><a href="spectral-clustering.html#cb1-9" tabindex="-1"></a>  x2 <span class="ot">=</span> r <span class="sc">*</span> <span class="fu">sin</span>(theta)</span>
-<span id="cb1-10"><a href="spectral-clustering.html#cb1-10" tabindex="-1"></a>  X <span class="ot">=</span> <span class="fu">cbind</span>(x1, x2)</span>
-<span id="cb1-11"><a href="spectral-clustering.html#cb1-11" tabindex="-1"></a>  </span>
-<span id="cb1-12"><a href="spectral-clustering.html#cb1-12" tabindex="-1"></a>  <span class="fu">plot</span>(X)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-4-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="spectral-clustering.html#cb2-1" tabindex="-1"></a></span>
-<span id="cb2-2"><a href="spectral-clustering.html#cb2-2" tabindex="-1"></a>  kmeanfit <span class="ot">=</span> <span class="fu">kmeans</span>(X, <span class="at">centers =</span> <span class="dv">3</span>)</span>
-<span id="cb2-3"><a href="spectral-clustering.html#cb2-3" tabindex="-1"></a>  </span>
-<span id="cb2-4"><a href="spectral-clustering.html#cb2-4" tabindex="-1"></a>  <span class="fu">plot</span>(X, <span class="at">col =</span> kmeanfit<span class="sc">$</span>cluster <span class="sc">+</span> <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-4-2.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="spectral-clustering.html#cb217-1" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb217-2"><a href="spectral-clustering.html#cb217-2" tabindex="-1"></a></span>
+<span id="cb217-3"><a href="spectral-clustering.html#cb217-3" tabindex="-1"></a>  n <span class="ot">=</span> <span class="dv">200</span></span>
+<span id="cb217-4"><a href="spectral-clustering.html#cb217-4" tabindex="-1"></a>  </span>
+<span id="cb217-5"><a href="spectral-clustering.html#cb217-5" tabindex="-1"></a>  r <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, n), <span class="fu">rep</span>(<span class="dv">2</span>, n), <span class="fu">rep</span>(<span class="dv">3</span>, n)) <span class="sc">+</span> <span class="fu">runif</span>(n<span class="sc">*</span><span class="dv">3</span>, <span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>)</span>
+<span id="cb217-6"><a href="spectral-clustering.html#cb217-6" tabindex="-1"></a>  theta <span class="ot">=</span> <span class="fu">runif</span>(n) <span class="sc">*</span> <span class="dv">2</span> <span class="sc">*</span> pi</span>
+<span id="cb217-7"><a href="spectral-clustering.html#cb217-7" tabindex="-1"></a></span>
+<span id="cb217-8"><a href="spectral-clustering.html#cb217-8" tabindex="-1"></a>  x1 <span class="ot">=</span> r <span class="sc">*</span> <span class="fu">cos</span>(theta)</span>
+<span id="cb217-9"><a href="spectral-clustering.html#cb217-9" tabindex="-1"></a>  x2 <span class="ot">=</span> r <span class="sc">*</span> <span class="fu">sin</span>(theta)</span>
+<span id="cb217-10"><a href="spectral-clustering.html#cb217-10" tabindex="-1"></a>  X <span class="ot">=</span> <span class="fu">cbind</span>(x1, x2)</span>
+<span id="cb217-11"><a href="spectral-clustering.html#cb217-11" tabindex="-1"></a>  </span>
+<span id="cb217-12"><a href="spectral-clustering.html#cb217-12" tabindex="-1"></a>  <span class="fu">plot</span>(X)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-336-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="spectral-clustering.html#cb218-1" tabindex="-1"></a></span>
+<span id="cb218-2"><a href="spectral-clustering.html#cb218-2" tabindex="-1"></a>  kmeanfit <span class="ot">=</span> <span class="fu">kmeans</span>(X, <span class="at">centers =</span> <span class="dv">3</span>)</span>
+<span id="cb218-3"><a href="spectral-clustering.html#cb218-3" tabindex="-1"></a>  </span>
+<span id="cb218-4"><a href="spectral-clustering.html#cb218-4" tabindex="-1"></a>  <span class="fu">plot</span>(X, <span class="at">col =</span> kmeanfit<span class="sc">$</span>cluster <span class="sc">+</span> <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-336-2.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>Since <span class="math inline">\(k\)</span>-means use Euclidean distance, it is not appropriate for such problems.</p>
 </div>
 <div id="adjacency-matrix" class="section level2 hasAnchor" number="24.2">
 <h2><span class="header-section-number">24.2</span> Adjacency Matrix<a href="spectral-clustering.html#adjacency-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Maybe we should use a nonlinear way to describe the distance/closeness between subjects. For example, let’s define two sample to be close if they are within the k-nearest neighbors of each other. We use <span class="math inline">\(k = 10\)</span>, and create an adjacency matrix <span class="math inline">\(\mathbf{W}\)</span>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="spectral-clustering.html#cb3-1" tabindex="-1"></a>  <span class="fu">library</span>(FNN)</span>
-<span id="cb3-2"><a href="spectral-clustering.html#cb3-2" tabindex="-1"></a>  </span>
-<span id="cb3-3"><a href="spectral-clustering.html#cb3-3" tabindex="-1"></a>  W <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="dv">3</span><span class="sc">*</span>n, <span class="dv">3</span><span class="sc">*</span>n)</span>
-<span id="cb3-4"><a href="spectral-clustering.html#cb3-4" tabindex="-1"></a>  </span>
-<span id="cb3-5"><a href="spectral-clustering.html#cb3-5" tabindex="-1"></a>  <span class="co"># get neighbor index for each observation</span></span>
-<span id="cb3-6"><a href="spectral-clustering.html#cb3-6" tabindex="-1"></a>  nn <span class="ot">=</span> <span class="fu">get.knn</span>(X, <span class="at">k=</span><span class="dv">10</span>)</span>
-<span id="cb3-7"><a href="spectral-clustering.html#cb3-7" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="spectral-clustering.html#cb3-8" tabindex="-1"></a>  <span class="co"># write into W</span></span>
-<span id="cb3-9"><a href="spectral-clustering.html#cb3-9" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(<span class="dv">3</span><span class="sc">*</span>n))</span>
-<span id="cb3-10"><a href="spectral-clustering.html#cb3-10" tabindex="-1"></a>    W[i, nn<span class="sc">$</span>nn.index[i, ]] <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb3-11"><a href="spectral-clustering.html#cb3-11" tabindex="-1"></a>  </span>
-<span id="cb3-12"><a href="spectral-clustering.html#cb3-12" tabindex="-1"></a>  <span class="co"># W is not necessary symmetric</span></span>
-<span id="cb3-13"><a href="spectral-clustering.html#cb3-13" tabindex="-1"></a>  W <span class="ot">=</span> <span class="fl">0.5</span><span class="sc">*</span>(W <span class="sc">+</span> <span class="fu">t</span>(W))</span>
-<span id="cb3-14"><a href="spectral-clustering.html#cb3-14" tabindex="-1"></a>  <span class="co"># we may also use</span></span>
-<span id="cb3-15"><a href="spectral-clustering.html#cb3-15" tabindex="-1"></a>  <span class="co"># W = pmax(W, t(W))</span></span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="spectral-clustering.html#cb219-1" tabindex="-1"></a>  <span class="fu">library</span>(FNN)</span>
+<span id="cb219-2"><a href="spectral-clustering.html#cb219-2" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb219-3"><a href="spectral-clustering.html#cb219-3" tabindex="-1"></a><span class="do">## Attaching package: &#39;FNN&#39;</span></span>
+<span id="cb219-4"><a href="spectral-clustering.html#cb219-4" tabindex="-1"></a><span class="do">## The following objects are masked from &#39;package:class&#39;:</span></span>
+<span id="cb219-5"><a href="spectral-clustering.html#cb219-5" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb219-6"><a href="spectral-clustering.html#cb219-6" tabindex="-1"></a><span class="do">##     knn, knn.cv</span></span>
+<span id="cb219-7"><a href="spectral-clustering.html#cb219-7" tabindex="-1"></a>  </span>
+<span id="cb219-8"><a href="spectral-clustering.html#cb219-8" tabindex="-1"></a>  W <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="dv">3</span><span class="sc">*</span>n, <span class="dv">3</span><span class="sc">*</span>n)</span>
+<span id="cb219-9"><a href="spectral-clustering.html#cb219-9" tabindex="-1"></a>  </span>
+<span id="cb219-10"><a href="spectral-clustering.html#cb219-10" tabindex="-1"></a>  <span class="co"># get neighbor index for each observation</span></span>
+<span id="cb219-11"><a href="spectral-clustering.html#cb219-11" tabindex="-1"></a>  nn <span class="ot">=</span> <span class="fu">get.knn</span>(X, <span class="at">k=</span><span class="dv">10</span>)</span>
+<span id="cb219-12"><a href="spectral-clustering.html#cb219-12" tabindex="-1"></a></span>
+<span id="cb219-13"><a href="spectral-clustering.html#cb219-13" tabindex="-1"></a>  <span class="co"># write into W</span></span>
+<span id="cb219-14"><a href="spectral-clustering.html#cb219-14" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(<span class="dv">3</span><span class="sc">*</span>n))</span>
+<span id="cb219-15"><a href="spectral-clustering.html#cb219-15" tabindex="-1"></a>    W[i, nn<span class="sc">$</span>nn.index[i, ]] <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb219-16"><a href="spectral-clustering.html#cb219-16" tabindex="-1"></a>  </span>
+<span id="cb219-17"><a href="spectral-clustering.html#cb219-17" tabindex="-1"></a>  <span class="co"># W is not necessary symmetric</span></span>
+<span id="cb219-18"><a href="spectral-clustering.html#cb219-18" tabindex="-1"></a>  W <span class="ot">=</span> <span class="fl">0.5</span><span class="sc">*</span>(W <span class="sc">+</span> <span class="fu">t</span>(W))</span>
+<span id="cb219-19"><a href="spectral-clustering.html#cb219-19" tabindex="-1"></a>  <span class="co"># we may also use</span></span>
+<span id="cb219-20"><a href="spectral-clustering.html#cb219-20" tabindex="-1"></a>  <span class="co"># W = pmax(W, t(W))</span></span></code></pre></div>
 <p>Let’s use a heatmap to display what the adjacency information look like. Please note that our data are ordered with clusters 1, 2 and 3.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="spectral-clustering.html#cb4-1" tabindex="-1"></a>  <span class="co"># plot the adjacency matrix</span></span>
-<span id="cb4-2"><a href="spectral-clustering.html#cb4-2" tabindex="-1"></a>  <span class="fu">heatmap</span>(W, <span class="at">Rowv =</span> <span class="cn">NA</span>, <span class="at">Colv=</span><span class="cn">NA</span>, <span class="at">symm =</span> <span class="cn">TRUE</span>, <span class="at">revC =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-6-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="spectral-clustering.html#cb220-1" tabindex="-1"></a>  <span class="co"># plot the adjacency matrix</span></span>
+<span id="cb220-2"><a href="spectral-clustering.html#cb220-2" tabindex="-1"></a>  <span class="fu">heatmap</span>(W, <span class="at">Rowv =</span> <span class="cn">NA</span>, <span class="at">Colv=</span><span class="cn">NA</span>, <span class="at">symm =</span> <span class="cn">TRUE</span>, <span class="at">revC =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-338-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="laplacian-matrix" class="section level2 hasAnchor" number="24.3">
 <h2><span class="header-section-number">24.3</span> Laplacian Matrix<a href="spectral-clustering.html#laplacian-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The next step is to calculate the Laplacian</p>
 <p><span class="math display">\[\mathbf{L} = \mathbf{D} - \mathbf{W},\]</span>
 where <span class="math inline">\(\mathbf{D}\)</span> is a diagonal matrix with its elements equation to the row sums (or column sums) of <span class="math inline">\(\mathbf{W}\)</span>. We will then perform eigen-decomposition on <span class="math inline">\(\mathbf{L}\)</span> to extract/define some underlying features.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="spectral-clustering.html#cb5-1" tabindex="-1"></a>  <span class="co"># compute the degree of each vertex</span></span>
-<span id="cb5-2"><a href="spectral-clustering.html#cb5-2" tabindex="-1"></a>  d <span class="ot">=</span> <span class="fu">colSums</span>(W)</span>
-<span id="cb5-3"><a href="spectral-clustering.html#cb5-3" tabindex="-1"></a>  </span>
-<span id="cb5-4"><a href="spectral-clustering.html#cb5-4" tabindex="-1"></a>  <span class="co"># the laplacian matrix</span></span>
-<span id="cb5-5"><a href="spectral-clustering.html#cb5-5" tabindex="-1"></a>  L <span class="ot">=</span> <span class="fu">diag</span>(d) <span class="sc">-</span> W</span></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="spectral-clustering.html#cb221-1" tabindex="-1"></a>  <span class="co"># compute the degree of each vertex</span></span>
+<span id="cb221-2"><a href="spectral-clustering.html#cb221-2" tabindex="-1"></a>  d <span class="ot">=</span> <span class="fu">colSums</span>(W)</span>
+<span id="cb221-3"><a href="spectral-clustering.html#cb221-3" tabindex="-1"></a>  </span>
+<span id="cb221-4"><a href="spectral-clustering.html#cb221-4" tabindex="-1"></a>  <span class="co"># the laplacian matrix</span></span>
+<span id="cb221-5"><a href="spectral-clustering.html#cb221-5" tabindex="-1"></a>  L <span class="ot">=</span> <span class="fu">diag</span>(d) <span class="sc">-</span> W</span></code></pre></div>
 </div>
 <div id="derivation-of-the-feature-embedding" class="section level2 hasAnchor" number="24.4">
 <h2><span class="header-section-number">24.4</span> Derivation of the Feature Embedding<a href="spectral-clustering.html#derivation-of-the-feature-embedding" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -522,68 +568,71 @@ f^\text{T}\mathbf{L} f &amp;= f^\text{T}\mathbf{D} f - f^\text{T}\mathbf{W} f \\
 &amp;= \frac{1}{2} \sum_{ij} w_{ij} (f_i - f_j)^2.
 \end{align*}\]</span></p>
 <p>Hence, finding the embedded feature simply becomes an eigen-decomposition problem, i.e., getting the smallest eigen-values of <span class="math inline">\(\mathbf{L}\)</span>. However, it should be noted that when all <span class="math inline">\(f_i\)</span>’s are identical, <span class="math inline">\(f^\text{T}\mathbf{L} f\)</span> would be zero. Hence, we should be using the second smallest eigen-values.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="spectral-clustering.html#cb6-1" tabindex="-1"></a>  <span class="co"># eigen-decomposition</span></span>
-<span id="cb6-2"><a href="spectral-clustering.html#cb6-2" tabindex="-1"></a>  f <span class="ot">=</span> <span class="fu">eigen</span>(L, <span class="at">symmetric =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-3"><a href="spectral-clustering.html#cb6-3" tabindex="-1"></a>  </span>
-<span id="cb6-4"><a href="spectral-clustering.html#cb6-4" tabindex="-1"></a>  <span class="co"># plot the smallest eigen-values </span></span>
-<span id="cb6-5"><a href="spectral-clustering.html#cb6-5" tabindex="-1"></a>  <span class="co"># there are three zero eigen-values, why?</span></span>
-<span id="cb6-6"><a href="spectral-clustering.html#cb6-6" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">rev</span>(f<span class="sc">$</span>values)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">ylab =</span> <span class="st">&quot;eigen-values&quot;</span>, </span>
-<span id="cb6-7"><a href="spectral-clustering.html#cb6-7" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;red&quot;</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="st">&quot;blue&quot;</span>, <span class="dv">17</span>)))</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-8-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="spectral-clustering.html#cb222-1" tabindex="-1"></a>  <span class="co"># eigen-decomposition</span></span>
+<span id="cb222-2"><a href="spectral-clustering.html#cb222-2" tabindex="-1"></a>  f <span class="ot">=</span> <span class="fu">eigen</span>(L, <span class="at">symmetric =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb222-3"><a href="spectral-clustering.html#cb222-3" tabindex="-1"></a>  </span>
+<span id="cb222-4"><a href="spectral-clustering.html#cb222-4" tabindex="-1"></a>  <span class="co"># plot the smallest eigen-values </span></span>
+<span id="cb222-5"><a href="spectral-clustering.html#cb222-5" tabindex="-1"></a>  <span class="co"># there are three zero eigen-values, why?</span></span>
+<span id="cb222-6"><a href="spectral-clustering.html#cb222-6" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">rev</span>(f<span class="sc">$</span>values)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">ylab =</span> <span class="st">&quot;eigen-values&quot;</span>, </span>
+<span id="cb222-7"><a href="spectral-clustering.html#cb222-7" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;red&quot;</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="st">&quot;blue&quot;</span>, <span class="dv">17</span>)))</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-340-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="feature-embedding" class="section level2 hasAnchor" number="24.5">
 <h2><span class="header-section-number">24.5</span> Feature Embedding<a href="spectral-clustering.html#feature-embedding" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In fact the smallest eigen-value will always be zero. However, we can use the eigen-vectors associated with the second and third smallest eigen-values. They define some feature embedding or dimension reduction to represent the original data. Since we know the underlying model, two dimensions are enough (to separate three clusters). However, based on the eigen-value plot, there is a big gap between the third and the fourth one. Hence, we only need three. Further removing the smallest one, only two are needed.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="spectral-clustering.html#cb7-1" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb7-2"><a href="spectral-clustering.html#cb7-2" tabindex="-1"></a>  <span class="fu">plot</span>(f<span class="sc">$</span>vectors[, <span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">1</span>], <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;eigen-values&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>))</span>
-<span id="cb7-3"><a href="spectral-clustering.html#cb7-3" tabindex="-1"></a>  <span class="fu">plot</span>(f<span class="sc">$</span>vectors[, <span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">2</span>], <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;eigen-values&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>))</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="spectral-clustering.html#cb223-1" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb223-2"><a href="spectral-clustering.html#cb223-2" tabindex="-1"></a>  <span class="fu">plot</span>(f<span class="sc">$</span>vectors[, <span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">1</span>], <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;eigen-values&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>))</span>
+<span id="cb223-3"><a href="spectral-clustering.html#cb223-3" tabindex="-1"></a>  <span class="fu">plot</span>(f<span class="sc">$</span>vectors[, <span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">2</span>], <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;eigen-values&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>))</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-341-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="clustering-with-embedded-features" class="section level2 hasAnchor" number="24.6">
 <h2><span class="header-section-number">24.6</span> Clustering with Embedded Features<a href="spectral-clustering.html#clustering-with-embedded-features" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can then perform <span class="math inline">\(k\)</span>-means on these two new features. And it will give us the correct clustering.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="spectral-clustering.html#cb8-1" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb8-2"><a href="spectral-clustering.html#cb8-2" tabindex="-1"></a>  scfit <span class="ot">=</span> <span class="fu">kmeans</span>(f<span class="sc">$</span>vectors[, (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">2</span>) <span class="sc">:</span> (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">1</span>) ], <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
-<span id="cb8-3"><a href="spectral-clustering.html#cb8-3" tabindex="-1"></a>  <span class="fu">plot</span>(X, <span class="at">col =</span> scfit<span class="sc">$</span>cluster <span class="sc">+</span> <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-10-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="spectral-clustering.html#cb224-1" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb224-2"><a href="spectral-clustering.html#cb224-2" tabindex="-1"></a>  scfit <span class="ot">=</span> <span class="fu">kmeans</span>(f<span class="sc">$</span>vectors[, (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">2</span>) <span class="sc">:</span> (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">1</span>) ], <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
+<span id="cb224-3"><a href="spectral-clustering.html#cb224-3" tabindex="-1"></a>  <span class="fu">plot</span>(X, <span class="at">col =</span> scfit<span class="sc">$</span>cluster <span class="sc">+</span> <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-342-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="normalized-graph-laplacian" class="section level2 hasAnchor" number="24.7">
 <h2><span class="header-section-number">24.7</span> Normalized Graph Laplacian<a href="spectral-clustering.html#normalized-graph-laplacian" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are other choices of the Laplacian matrix. For example, a normalized graph Laplacian is defined as
 <span class="math display">\[\mathbf{L}_\text{sym} = \mathbf{I} - \mathbf{D^{-1/2} \mathbf{W} D^{-1/2}}\]</span></p>
 <p>For our problem, it achieves pretty much the same effect.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="spectral-clustering.html#cb9-1" tabindex="-1"></a>  <span class="co"># the normed laplacian matrix</span></span>
-<span id="cb9-2"><a href="spectral-clustering.html#cb9-2" tabindex="-1"></a>  L <span class="ot">=</span> <span class="fu">diag</span>(<span class="fu">nrow</span>(W)) <span class="sc">-</span> <span class="fu">diag</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(d)) <span class="sc">%*%</span> W <span class="sc">%*%</span> <span class="fu">diag</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(d))</span>
-<span id="cb9-3"><a href="spectral-clustering.html#cb9-3" tabindex="-1"></a>  </span>
-<span id="cb9-4"><a href="spectral-clustering.html#cb9-4" tabindex="-1"></a>  <span class="co"># eigen-decomposition</span></span>
-<span id="cb9-5"><a href="spectral-clustering.html#cb9-5" tabindex="-1"></a>  f <span class="ot">=</span> <span class="fu">eigen</span>(L, <span class="at">symmetric =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb9-6"><a href="spectral-clustering.html#cb9-6" tabindex="-1"></a>  </span>
-<span id="cb9-7"><a href="spectral-clustering.html#cb9-7" tabindex="-1"></a>  <span class="co"># perform clustering</span></span>
-<span id="cb9-8"><a href="spectral-clustering.html#cb9-8" tabindex="-1"></a>  scfit <span class="ot">=</span> <span class="fu">kmeans</span>(f<span class="sc">$</span>vectors[, (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">2</span>) <span class="sc">:</span> (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">1</span>) ], <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
-<span id="cb9-9"><a href="spectral-clustering.html#cb9-9" tabindex="-1"></a>  <span class="fu">plot</span>(X, <span class="at">col =</span> scfit<span class="sc">$</span>cluster <span class="sc">+</span> <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-11-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="spectral-clustering.html#cb225-1" tabindex="-1"></a>  <span class="co"># the normed laplacian matrix</span></span>
+<span id="cb225-2"><a href="spectral-clustering.html#cb225-2" tabindex="-1"></a>  L <span class="ot">=</span> <span class="fu">diag</span>(<span class="fu">nrow</span>(W)) <span class="sc">-</span> <span class="fu">diag</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(d)) <span class="sc">%*%</span> W <span class="sc">%*%</span> <span class="fu">diag</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(d))</span>
+<span id="cb225-3"><a href="spectral-clustering.html#cb225-3" tabindex="-1"></a>  </span>
+<span id="cb225-4"><a href="spectral-clustering.html#cb225-4" tabindex="-1"></a>  <span class="co"># eigen-decomposition</span></span>
+<span id="cb225-5"><a href="spectral-clustering.html#cb225-5" tabindex="-1"></a>  f <span class="ot">=</span> <span class="fu">eigen</span>(L, <span class="at">symmetric =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb225-6"><a href="spectral-clustering.html#cb225-6" tabindex="-1"></a>  </span>
+<span id="cb225-7"><a href="spectral-clustering.html#cb225-7" tabindex="-1"></a>  <span class="co"># perform clustering</span></span>
+<span id="cb225-8"><a href="spectral-clustering.html#cb225-8" tabindex="-1"></a>  scfit <span class="ot">=</span> <span class="fu">kmeans</span>(f<span class="sc">$</span>vectors[, (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">2</span>) <span class="sc">:</span> (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">1</span>) ], <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
+<span id="cb225-9"><a href="spectral-clustering.html#cb225-9" tabindex="-1"></a>  <span class="fu">plot</span>(X, <span class="at">col =</span> scfit<span class="sc">$</span>cluster <span class="sc">+</span> <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-343-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="using-a-different-adjacency-matrix" class="section level2 hasAnchor" number="24.8">
 <h2><span class="header-section-number">24.8</span> Using a Different Adjacency Matrix<a href="spectral-clustering.html#using-a-different-adjacency-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s also try to use the Gaussian kernel to define the adjacency matrix. Here, tuning (the bandwidth parameter in the kernel function) becomes important for the performance.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="spectral-clustering.html#cb10-1" tabindex="-1"></a>  <span class="co"># the Gaussian kernel</span></span>
-<span id="cb10-2"><a href="spectral-clustering.html#cb10-2" tabindex="-1"></a>  W <span class="ot">=</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fu">as.matrix</span>(<span class="fu">dist</span>(X<span class="sc">/</span><span class="fl">0.2</span>))<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb10-3"><a href="spectral-clustering.html#cb10-3" tabindex="-1"></a>  </span>
-<span id="cb10-4"><a href="spectral-clustering.html#cb10-4" tabindex="-1"></a>  <span class="co"># view the adjacency matrix</span></span>
-<span id="cb10-5"><a href="spectral-clustering.html#cb10-5" tabindex="-1"></a>  <span class="fu">heatmap</span>(W, <span class="at">Rowv =</span> <span class="cn">NA</span>, <span class="at">Colv=</span><span class="cn">NA</span>, <span class="at">symm =</span> <span class="cn">TRUE</span>, <span class="at">revC =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-12-1.png" width="45%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="spectral-clustering.html#cb11-1" tabindex="-1"></a>  </span>
-<span id="cb11-2"><a href="spectral-clustering.html#cb11-2" tabindex="-1"></a>  <span class="co"># the normed laplacian matrix</span></span>
-<span id="cb11-3"><a href="spectral-clustering.html#cb11-3" tabindex="-1"></a>  L <span class="ot">=</span> <span class="fu">diag</span>(<span class="fu">colSums</span>(W)) <span class="sc">-</span> W</span>
-<span id="cb11-4"><a href="spectral-clustering.html#cb11-4" tabindex="-1"></a>  </span>
-<span id="cb11-5"><a href="spectral-clustering.html#cb11-5" tabindex="-1"></a>  <span class="co"># eigen-decomposition</span></span>
-<span id="cb11-6"><a href="spectral-clustering.html#cb11-6" tabindex="-1"></a>  f <span class="ot">=</span> <span class="fu">eigen</span>(L, <span class="at">symmetric =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb11-7"><a href="spectral-clustering.html#cb11-7" tabindex="-1"></a>  </span>
-<span id="cb11-8"><a href="spectral-clustering.html#cb11-8" tabindex="-1"></a>  <span class="co"># perform clustering</span></span>
-<span id="cb11-9"><a href="spectral-clustering.html#cb11-9" tabindex="-1"></a>  scfit <span class="ot">=</span> <span class="fu">kmeans</span>(f<span class="sc">$</span>vectors[, (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">2</span>) <span class="sc">:</span> (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">1</span>) ], <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
-<span id="cb11-10"><a href="spectral-clustering.html#cb11-10" tabindex="-1"></a>  <span class="fu">plot</span>(X, <span class="at">col =</span> scfit<span class="sc">$</span>cluster <span class="sc">+</span> <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-12-2.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="spectral-clustering.html#cb226-1" tabindex="-1"></a>  <span class="co"># the Gaussian kernel</span></span>
+<span id="cb226-2"><a href="spectral-clustering.html#cb226-2" tabindex="-1"></a>  W <span class="ot">=</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fu">as.matrix</span>(<span class="fu">dist</span>(X<span class="sc">/</span><span class="fl">0.2</span>))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb226-3"><a href="spectral-clustering.html#cb226-3" tabindex="-1"></a>  </span>
+<span id="cb226-4"><a href="spectral-clustering.html#cb226-4" tabindex="-1"></a>  <span class="co"># view the adjacency matrix</span></span>
+<span id="cb226-5"><a href="spectral-clustering.html#cb226-5" tabindex="-1"></a>  <span class="fu">heatmap</span>(W, <span class="at">Rowv =</span> <span class="cn">NA</span>, <span class="at">Colv=</span><span class="cn">NA</span>, <span class="at">symm =</span> <span class="cn">TRUE</span>, <span class="at">revC =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-344-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="spectral-clustering.html#cb227-1" tabindex="-1"></a>  </span>
+<span id="cb227-2"><a href="spectral-clustering.html#cb227-2" tabindex="-1"></a>  <span class="co"># the normed laplacian matrix</span></span>
+<span id="cb227-3"><a href="spectral-clustering.html#cb227-3" tabindex="-1"></a>  L <span class="ot">=</span> <span class="fu">diag</span>(<span class="fu">colSums</span>(W)) <span class="sc">-</span> W</span>
+<span id="cb227-4"><a href="spectral-clustering.html#cb227-4" tabindex="-1"></a>  </span>
+<span id="cb227-5"><a href="spectral-clustering.html#cb227-5" tabindex="-1"></a>  <span class="co"># eigen-decomposition</span></span>
+<span id="cb227-6"><a href="spectral-clustering.html#cb227-6" tabindex="-1"></a>  f <span class="ot">=</span> <span class="fu">eigen</span>(L, <span class="at">symmetric =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb227-7"><a href="spectral-clustering.html#cb227-7" tabindex="-1"></a>  </span>
+<span id="cb227-8"><a href="spectral-clustering.html#cb227-8" tabindex="-1"></a>  <span class="co"># perform clustering</span></span>
+<span id="cb227-9"><a href="spectral-clustering.html#cb227-9" tabindex="-1"></a>  scfit <span class="ot">=</span> <span class="fu">kmeans</span>(f<span class="sc">$</span>vectors[, (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">2</span>) <span class="sc">:</span> (<span class="fu">length</span>(f<span class="sc">$</span>values)<span class="sc">-</span><span class="dv">1</span>) ], <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">nstart =</span> <span class="dv">20</span>)</span>
+<span id="cb227-10"><a href="spectral-clustering.html#cb227-10" tabindex="-1"></a>  <span class="fu">plot</span>(X, <span class="at">col =</span> scfit<span class="sc">$</span>cluster <span class="sc">+</span> <span class="dv">1</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-344-2.png" width="45%" style="display: block; margin: auto;" /></p>
 
+<div style="display:none;">
+<!-- Conflict \def\bf{\mathbf{f}} -->
+</div>
 </div>
 </div>
             </section>
@@ -606,42 +655,42 @@ f^\text{T}\mathbf{L} f &amp;= f^\text{T}\mathbf{D} f - f^\text{T}\mathbf{W} f \\
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "sepia",
-"family": "serif",
-"size": 1
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "section"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "sepia",
+    "family": "serif",
+    "size": 1
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
 });
 });
 </script>

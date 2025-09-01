@@ -17,6 +17,8 @@
   par(mfrow=c(1,1))
 ```
 
+# (PART) Trees and Ensembles {-}
+
 # Classification and Regression Trees
 
 A tree model is very simple to fit and enjoys interpretability. It is also the core component of random forest and boosting. Both trees and random forests can be used for classification and regression problems, although trees are not ideal for regressions problems due to its large bias. There are two main stream of tree models,  Classification and Regression Trees (CART, @breiman1984classification) and C4.5 [@quinlan1993c4], which is an improvement of the ID3 (Iterative Dichotomiser 3) algorithm. The main difference is to use binary or multiple splits and the criteria of the splitting rule. In fact the splitting rule criteria is probably the most essential part of a tree. 
