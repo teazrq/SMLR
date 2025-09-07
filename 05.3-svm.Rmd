@@ -17,11 +17,9 @@
   par(mfrow=c(1,1))
 ```
 
-# (PART) Kernel Machines {-}
-
 # Support Vector Machines
 
-Support Vector Machine (SVM) is one of the most popular classification models. The original SVM was proposed by Vladimir Vapnik and Alexey Chervonenkis in 1963. Then two important improvements was developed in the 90's: the soft margin version [@cortes1995support] and the nonlinear SVM using the kernel trick [@boser1992training]. We will start with the hard margin version, and then introduce all other techniques. 
+Support Vector Machine (SVM) is one of the most popular classification models. The original SVM was proposed by Vladimir Vapnik and Alexey Chervonenkis in 1963. Then two important improvements was developed in the 90's: the soft margin version [@cortes1995support] and the nonlinear SVM using the kernel trick [@boser1992training]. We will start with the hard margin version, and then introduce all other techniques. This chapter utilizes the kernel trick we introduced in the kernel ridge regression, however, the formulation of SVM can be independent of the results in RKHS if we only consider the linear SVM.
 
 ## Maximum-margin Classifier
 
@@ -359,7 +357,7 @@ K(\bx, \bz) &=~ \left(\sum_{k=1}^p x_k z_k\right) \left(\sum_{l=1}^p x_l z_l\rig
 &=~ \langle \Phi(\bx),  \Phi(\bz) \rangle
 \end{align}
 
-Formally, this property is guaranteed by the __Mercer’s theorem__ that states: The kernel matrix $K$ is positive semi-definite if and only if the function $K(x_i ,x_j)$ is equivalent to some inner product $\langle \Phi(\bx), \Phi(\bz) \rangle$.
+Formally, this property is guaranteed by the __Mercer’s theorem__[@mercer1909xvi] that ensures: The kernel matrix $K$ is positive semi-definite if and only if the function $K(x_i ,x_j)$ is equivalent to some inner product $\langle \Phi(\bx), \Phi(\bz) \rangle$. Although the feature maps produced by Mercer’s theorem may not be unique, it does guarantee the existence of such a feature map.
 
 Besides making the calculation of nonlinear functions easier, using the kernel trick also implies that if we use a proper kernel function, then it defines a space of functions $\cH$ (reproducing kernel Hilbert space, RKHS) that can be represented in the form of $f(x) = \sum_i \alpha_i K(x, x_i)$ for some $x_i$ in $\cX$ (see the Moore–Aronszajn theorem) with a proper definition of inner product. However, this space is of infinite dimension, noticing that $i$ goes from 1 to infinity. However, as long as we search for the solution within $\cH$, and also apply a proper penalty of the estimated function $\widehat{f}(\bx)$, then our computational job will reduce to solving the $\alpha_i$'s that corresponds to the observed $n$ data points, meaning that we only need to solve the solution within a finite space. This is guaranteed by the __Representer theorem__. There are numerous articles on the RKHS. Hence, we will not focus on introducing this technique. However, we will later on use this property in the penalized formulation of SVM. 
 
@@ -501,7 +499,7 @@ where $\bK_{n \times n}$ is the kernel matrix with $\bK_{ij} = K(x_i, x_j)$, and
 
 ## Kernel and Feature Maps: Another Example
 
-We give another example about the equivalence of kernel and the inner product of feature maps, which is ensured by the Mercer's Theorem [@mercer1909xvi]. Consider the Gaussian kernel $e^{-\gamma \lVert \bx - \bz \rVert}$. We can write, using Tayler expansion, 
+We give another example about the equivalence of kernel and the inner product of feature maps. Consider the Gaussian kernel $e^{-\gamma \lVert \bx - \bz \rVert}$. We can write, using Tayler expansion, 
 
 \begin{align}
 &e^{\gamma \lVert \bx - \bz \rVert} \nonumber \\

@@ -25,7 +25,7 @@ We will use a slightly different set of notations in this Chapter so that we are
 
 ## Basic Concept
 
-We usually consider a convex optimization problem (non-convex problems are a bit too involving although we will also see some examples of that), meaning that we optimize (minimize) a convex function in a convex domain. A __*convex function*__ $f(\bx)$ maps some subset $C \in \mathbb{R}^p$ into $\mathbb{R}^p$, but enjoys the property that 
+We usually consider a convex optimization problem (non-convex problems are a bit too involving although we will also see some examples of that), meaning that we optimize (minimize) a convex function in a convex domain. A __*convex function*__ $f(\bx)$ maps some subset $C \in \RR^p$ into $\RR^p$, but enjoys the property that 
 
 $$ f(t \bx_1 + (1 - t) \bx_2) \leq t f(\bx_1) + ( 1- t) f(\bx_2), $$
 for all $t \in [0, 1]$ and any two points $\bx_1$, $\bx_2$ in the domain of $f$. 
@@ -53,7 +53,7 @@ for all $t \in [0, 1]$.
 
 Examples of convex set include
 
-  * Real line: $\mathbb{R}$
+  * Real line: $\RR$
   * Norm ball: $\{ \bx: \lVert \bx \rVert \leq r \}$
   * Hyperplane: $\{ \bx: a^\T \bx = b \}$
 
@@ -69,7 +69,7 @@ Clearly, $f(x_1, x_2)$ is a convex function, and we know that the solution of th
 & & x_1 + x_2 &> -2
 \end{align}
 
-Here the convex set $C = \{x_1, x_2 \in \mathbb{R}: x_1 + x_2 \leq -1 \,\, \text{and} \,\, x_1 + x_2 > -2\}$. And our problem looks like the following, which attains it minimum at $(-0.5, -0.5)$.
+Here the convex set $C = \{x_1, x_2 \in \RR: x_1 + x_2 \leq -1 \,\, \text{and} \,\, x_1 + x_2 > -2\}$. And our problem looks like the following, which attains it minimum at $(-0.5, -0.5)$.
 
 ```{r message=FALSE, echo = FALSE, out.width = "75%"}
   library(plotly)
@@ -132,7 +132,7 @@ Although we would like to deal with convex optimization problems, non-convex pro
 
 ## Example: Linear Regression using `optim()`
 
-Although completely not necessary, we may also view linear regression as an optimization problem. This is of course an unconstrained problem, meaning that $C \in \mathbb{R}^p$. Such problems can be solved using the `optim()` function. Also, let's temporarily switch back to the $\bbeta$ notation of parameters. Hence, if we observe a set of observations $\{\bx_i, y_i\}_{i = 1}^n$, our optimization problem is to minimize the objection function, i.e., residual sum of squares (RSS):
+Although completely not necessary, we may also view linear regression as an optimization problem. This is of course an unconstrained problem, meaning that $C \in \RR^p$. Such problems can be solved using the `optim()` function. Also, let's temporarily switch back to the $\bbeta$ notation of parameters. Hence, if we observe a set of observations $\{\bx_i, y_i\}_{i = 1}^n$, our optimization problem is to minimize the objection function, i.e., residual sum of squares (RSS):
 
 \begin{align}
 \underset{\bbeta}{\text{minimize}} \quad f(\bbeta) = \frac{1}{n} \sum_i (y_i - \bx_i^\T \bbeta)^2 \\

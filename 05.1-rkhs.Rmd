@@ -1,0 +1,378 @@
+```{r, echo=FALSE, results='asis'}
+  # import macros
+  cat("<div style='display:none;'>")
+  cat(paste(scan("mathjax_header.html", what = character(), sep = "\n", quiet = TRUE), collapse = "\n"))
+  cat("</div>")
+```
+
+```{r include = FALSE}
+  options(width = 100)
+  knitr::opts_knit$set(global.par = TRUE)
+  knitr::opts_chunk$set(collapse = TRUE, fig.dim = c(6, 6),
+                        out.width = "45%", fig.align = 'center')
+```
+```{r include = FALSE}
+  par(bg="transparent")
+  par(mar=c(2,2,2,2))
+  par(mfrow=c(1,1))
+```
+
+# (PART) Kernel Machines {-}
+
+# Reproducing Kernel Hilbert Space
+
+In this and several following chapters, we will introduce methods that utilize the Reproducing Kernel Hilbert Space (RKHS) as the function space to search for the optimal solution. This technique enables us reduce a complicated computational problem into a finite-dimensional one, which is much easier to solve. Some concepts related to the RKHS is also the kernel trick, which is widely used in many machine learning methods. Two examples will be provided, one is the kernel ridge regression and another one is the support vector machine (SVM). You can still complete the SVM Chapter without knowing too much about the RKHS. In this chapter, we will introduce the RKHS and its properties. In the next chapter, we will show how to use it in the kernel ridge regression. Finally, in the last chapter, we will prove the representer theorem, which is a key result that guarantees the finite-dimensional representation of the solution.
+
+## The Motivation
+
+Although the spline approach in the previous lecture was successful and with nice theoretical guarantees, it cannot be easily extended to high-dimensional data. If we use the tensor product construction, the number of basis functions will quickly explode with the scale of $m^p$, where $m$ is the number of basis functions in each dimension and $p$ is the number of dimensions. This is known as the curse of dimensionality. But the theoretical results we saw in the smoothing spline seem to indicate that we really only need to put knots on the observed data points, which has $n$ of them, to effectively model the functional curve. That particular example in the Sobolev space may not be easily extended to other situations, as we need to carefully choose the space of functions to work with. 
+
+Can we have a more general framework that can automatically adapt to the data and find a good space of functions to work with? The Reproducing Kernel Hilbert Space (RKHS) is one such method, with many nice properties. Hence the goal of this lecture is to properly define an RKHS. The key result here would be the __Moore–Aronszajn theorem__ which establishes a one-to-one correspondence between __positive-definite kernel functions__ and RKHS. We will also show several examples that could help us understand the construction of an RKHS. 
+
+The development of this lecture is purely technical and it is important for us to understand the details. However, there are two other importance aspects of RKHS that we will cover in this lecture, the __Mercer theorem__ which connects the kernel function to feature maps, commonly known as the kernel trick in machine learning; and the __representer theorem__ which enables the computation of the solution, just as the smoothing spline example. 
+
+## Hilbert Space Preliminaries
+
+A Hilbert space is a complete inner product space (also called a __pre-Hilbert space__ before completion). A typical example is the Euclidean space $\RR^n$ with the standard dot product as the inner product. But when we use a Hilbert space, we are often interested in an infinite-dimensional setting, such functions $f(x)$ with $x \in \RR^p$, where you can think of the output $f(x)$ as having infinite many dimensions as $x$ can take infinitely many different values in $\RR^p$. 
+
+An inner product space equips these functions with a geometric structure, such as distance or angle, described by the inner product $\langle \cdot, \cdot \rangle$. For our purpose, we will only deal with real-values. Hence the inner product is a map
+
+\[
+\langle \cdot, \cdot \rangle: \cH_0 \times \cH_0 \to \RR,
+\]
+
+where $\cH_0$ is some space of functions. Besides containing a set of functions, we should have the following properties of the inner product for $\cH_0$: For any $f, g, h \in \cH$ and $a, b \in \RR$, we have
+
+  1. __Symmetry__: $\langle f, g \rangle = \langle g, f \rangle$ 
+  2. __Linearity__: $\langle a f + b h, g \rangle = a \langle f, g \rangle + b \langle h, g \rangle$
+  3. __Positive-definiteness__: $\langle f, f \rangle \geq 0$ and $\langle f, f \rangle = 0$ if and only if $f = 0$ (the zero function)
+
+The __distance__ between two functions $f$ and $g$ in this space can be defined as
+
+\[
+d(f, g) = \| f - g \| = \sqrt{\langle f - g, f - g \rangle}.
+\]
+
+The last step to make this space a Hilbert space is to ensure that it is __complete__. Completeness means that any Cauchy sequence in this space converges to a limit that is also in this space. A sequence $\{f_n\}$ in $\cH_0$ is called a Cauchy sequence if for any $\epsilon > 0$, there exists an integer $N$ such that for all $m, n > N$, we have
+
+\[
+\| f_n - f_m \| < \epsilon,
+\]
+
+using the norm we defined previously. Completing the pre-Hilbert space $\cH_0$ really just means that we are making it dense by "filling all the holes" in the space. And we denote the completed space as $\cH = \overline{\cH_0}$.
+
+### The Space of Square-Integrable Functions
+
+An example of the Hilbert space is the space of square-integrable functions on the interval $[0, 1]$, denoted as $L_2[0, 1]$. This space is defined as
+
+\[
+L_2[0, 1] = \left\{ f: [0, 1] \rightarrow \RR \quad \text{such that} \int_0^1 f(x)^2 d x < \infty \right\},
+\]
+
+where we require that the function is square-integrable. The inner product on this space is defined as
+
+\[
+\langle f, g \rangle_{L_2} = \int_0^1 f(x) g(x) d x,
+\]
+
+which gives us a norm on the space:
+
+\[
+\| f \|_{L_2} = \sqrt{\langle f, f \rangle_{L_2}}.
+\]
+
+This is a nice space, but it may have some undesirable properties. For example, when two functions are different on only measure zero sets, they are considered the same (zero distance) in this space. Also, the __evaluation functional__ $L_x(f) = f(x)$ is not continuous in this space, which means that small changes in the function (in terms of the $L_2$ norm) may lead to large changes in the function value at a specific point $x$. This is not desirable when we want find some candidates in this class of functions to fit the data.
+
+## A Kernel Function
+
+The first question we may ask is what are these functions $f$ in the space $\cH$? Let's use this following idea to define some functions we might be interested in. First, we always deal with an __input space__ (or domain) $\cX$ from the data that you observe. Elements in this space could be a vector of features in a typical regression problem, but it can also be as complex as an image or a graph. The beauty of RKHS is that it can automatically handle all these complex objects as long as we can define a proper __kernel function__ $K(\cdot, \cdot)$ on the input space. Note that this kernel function has two inputs, and each of them should be an element in the input space $\cX$. In some sense, this kernel function can be thought of as a generalized similarity measure between the two instances from the input space. And we will only talk about real valued functions, but it could be extended to complex valued. Now, lets take a look at the function by fixing one of the inputs to be $x_1$, a particularly chosen point in $\cX$:
+
+$$K(\cdot, x_1) : \cX \to \RR, \quad \text{for any fixed } x_1 \in \cX.$$
+
+By fixing $x_1$, $K(\cdot, x_1)$ becomes a function of the first argument that maps any of an input observation ($\in \cX$) to a real number ($\in \RR$). Hence, this effectively defines a function in the space of functions from $\cX$ to $\RR$. The output could represent a similarity score between the input observation and $x_1$. Now we have one such function, and we can generate many such functions by varying $x_1$ in the input space $\cX$, hence creating a space of functions.
+
+## A Space of Functions
+
+If we consider many of such $x_1$ points in $\cX$, e.g., $x_1, x_2, \ldots, x_n$, then we can construct a space of functions that are linear combinations of these kernel functions centered at $x_1, \ldots, x_n$:
+
+$$\cH_0 = \left\{ f: f(\cdot) = \sum_{i=1}^n \alpha_i K(\cdot, x_i), \quad \alpha_i \in \RR, x_i \in \cX, n \in \NN \right\}.$$
+
+This space contains a quite rich set of functions that we needed. There are $n$ basis functions in this space, and each of them is a kernel function centered at one of the $n$ points in $\cX$. The combination of them can actually be quite flexible and potentially dense as $n$ goes larger. Let's look at an example of this in the two-dimensional space $\cX$:
+
+```{r out.width = '80%', fig.align='center'}
+
+  # pick a grid of points to evaluate the function
+  ngrid = 100
+  grid.points <- seq(-2, 2, length.out = ngrid)
+  
+  # define a Gaussian kernel function
+  gaussian.kernel <- function(x, y, sigma = 0.4) {
+    exp(-sum((x - y)^2) / (2 * sigma^2))
+  }
+  
+  # define a function that calculates the kernel function of a given center 
+  getKernel <- function(center, grid.points, sigma = 0.4) {
+    ngrid <- length(grid.points)
+    K.values <- matrix(0, nrow = ngrid, ncol = ngrid)
+    for (i in 1:ngrid) {
+      for (j in 1:ngrid) {
+        point <- c(grid.points[i], grid.points[j])
+        K.values[i, j] <- gaussian.kernel(point, center, sigma)
+      }
+    }
+    return(K.values)
+  }
+  
+  # calculate the kernel function centered at several different points
+  K1 <- getKernel(center = c(0.2, 0.3), grid.points)
+  K2 <- getKernel(center = c(-0.5, -0.4), grid.points)
+  K3 <- getKernel(center = c(1, -1), grid.points)
+  K4 <- getKernel(center = c(-0.6, 0.3), grid.points)
+  K5 <- getKernel(center = c(0.4, -0.5), grid.points)
+  K6 <- getKernel(center = c(-0.3, -1.3), grid.points)
+  
+  # define a sum of the kernel functions
+  K.sum <- 1.2*K1 + 1.3*K2 + K3 + 1.2*K4 + 1.6*K5 - 1.3*K6
+  
+  # plot the kernel function
+  # define transparent colors
+  opscale = list(
+      c(0, 0),   # z=0 → fully transparent
+      c(0.5, 0.5), # midway → half transparent
+      c(1, 1)    # max → opaque
+  )
+  
+  library(plotly)
+  plot_ly(x = grid.points, y = grid.points, z = K1, type = "surface", 
+          opacityscale = opscale, showscale = FALSE) %>%
+    layout(paper_bgcolor='transparent') %>% 
+    add_surface(z = K2, showscale = FALSE, opacityscale = opscale) %>%
+    add_surface(z = K3, showscale = FALSE, opacityscale = opscale) %>%
+    add_surface(z = K4, showscale = FALSE, opacityscale = opscale) %>%
+    add_surface(z = K5, showscale = FALSE, opacityscale = opscale) %>%
+    add_surface(z = K6, showscale = FALSE, opacityscale = opscale) %>%
+    add_surface(z = K.sum, showscale = FALSE, 
+                surfacecolor = matrix(1, nrow = nrow(K.sum), ncol = ncol(K.sum)),
+                colorscale = list(c(0, "darkred"), c(1, "darkred")),
+                opacity = 0.7) %>%
+    layout(title = "Gaussian Kernel Functions",
+           scene = list(xaxis = list(title = "x1"),
+                        yaxis = list(title = "x2"),
+                        zaxis = list(title = "Kernel Value", range = c(-1.5, 2.5))))
+
+```
+
+The plot above shows six Gaussian kernel functions centered at different points in the two-dimensional space, and their linear combination (in red). To be specific, the red surface is defined as
+
+\begin{align}
+f(\cdot) =& 1.2 K(\cdot, (0.2, 0.3)) + 1.3 K(\cdot, (-0.5, -0.4)) + K(\cdot, (1, -1)) \\
+&+ 1.2 K(\cdot, (-0.6, 0.3)) + 1.6 K(\cdot, (0.4, -0.5)) - 1.3 K(\cdot, (-0.3, -1.3)),
+\end{align}
+
+where $K(\cdot, \cdot)$ is a Gaussian kernel function. As you can see, by combining these kernel functions, we can create a variety of shapes, which all live in this space of functions. And the more kernel functional basis we have, the more flexible the combination could be. 
+
+## The Inner Product
+
+Although we had defined a space of functions, it is not yet a pre-Hilbert space without properly defining the geometric structure, i.e., the __inner product__. The inner product would allow us to measure the length, angles and orthogonality of functions in this space. Working towards our RKHS, we will define the inner product in a way that is closely related to the kernel function itself. For any two functions $f(\cdot) = \sum_{i=1}^n \alpha_i K(\cdot, x_i)$ and $g(\cdot) = \sum_{j=1}^m \beta_j K(\cdot, x_j)$, both in $\cH_0$, we will define the inner product as:
+
+\begin{align}
+\langle f, g \rangle_{\cH_0} &= \left\langle \sum_{i=1}^n \alpha_i K(\cdot, x_i), \sum_{j=1}^m \beta_j K(\cdot, x_j) \right\rangle_{\cH_0} \\
+&\doteq \sum_{i=1}^n \sum_{j=1}^m \alpha_i \beta_j K(x_i, x_j).
+\end{align}
+
+For example, if we look at the basis functions at the beginning of this development, we have
+
+\[
+\langle K(\cdot, x_i), K(\cdot, x_j) \rangle_{\cH_0} = K(x_i, x_j).
+\]
+
+It might be quite puzzling at this point why do we use the kernel function itself to define the inner product. If you are interested in some alternative choices, you may look at a space we have used previously in the spline example, the second order Sobolev space $\cW_2^2$ on the interval $[0, 1]$[^sobolev] or simply the $L2$ space. But the choice we made here is very crucial for making the space an RKHS, as we will see later. But let's first make sure that this is a valid inner product. To do this, we will check our previous required properties
+
+  * First, it is easy to see that the inner product is __symmetric__, as long as we choose a symmetric kernel $K(x_i, x_j) = K(x_j, x_i)$. For example the Gaussian kernel function is symmetric. And any kernel function based on a distance metric $|x_1 - x_2|$ is symmetric.
+  * The __linearity__ property is also trivial to verify since its a special case of our proposed definition.
+
+It now remains to check the positive-definiteness property. Here, we would require our choice of the kernel function to satisfy the following property:
+
+:::mathblock
+**Definition (positive-definite kernel)**  
+
+A symmetric kernel function $K: \cX \times \cX \to \RR$ is called a __positive-definite kernel__ if for any $n \in \NN$, any set of points $\{x_1, x_2, \ldots, x_n\} \subset \cX$, and any set of coefficients $\{\alpha_1, \alpha_2, \ldots, \alpha_n\} \subset \RR$, we have
+
+\[
+\sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j K(x_i, x_j) \geq 0.
+\]
+:::
+
+With this property, we can verify the __positive-definiteness__ of the inner product by choosing $g = f$, i.e., the squared norm. The $\geq 0$ part is trivial, and for the zero function statement, we can see that for any $f$ in $\cH_0$,
+
+\begin{align}
+\langle f, f \rangle_{\cH_0} &= \balpha^T \bK \balpha \\
+\end{align}
+
+where $\balpha = (\alpha_1, \ldots, \alpha_n)^T$ and $\bK$ is the kernel matrix with $K_{ij} = K(x_i, x_j)$. Since $K$ is a positive-definite kernel, which means that $\balpha^T \bK \balpha = 0$ if and only if $\balpha = 0$, which means that $f$ is the zero function. When the space of functions $\cH_0$ is equipped with this inner product, it becomes a __pre-Hilbert space__ or an inner product space.
+
+## The RKHS
+
+Finally, to this this actually a Hilbert space, we need to ensure that this space is __complete__, i.e., any Cauchy sequence in this space converges to a limit that is also in this space. We simply denote the completed space as
+
+\[
+\cH = \overline{\cH_0} = \overline{\text{span}}\{ K(\cdot, x) : x \in \cX \}
+\]
+
+In the following, we will investigate some important properties of this RKHS.
+
+## The Reproducing Property
+
+Now we have the RKHS $\cH$ defined, we can look at one of its most important properties, the __reproducing property__[^riesz]. We will defer why this would happen later. This property states that for any function $f \in \cH$ and any point $x \in \cX$, we have
+
+\[
+f(x) = \langle f, K(\cdot, x) \rangle_{\cH}.
+\]
+
+This means that the value of the function $f$ at any point $x$ can be obtained by taking the inner product of $f$ with the kernel function centered at $x$. Hence __evaluation can be "reproduced" by the inner product__. Let's look at two things: why this is true and why is this important.
+
+Lets take an example $f(\cdot) = \sum_{i=1}^n \alpha_i K(\cdot, x_i) \in \cH_0$, then evaluation this function at $x$ gives
+
+\begin{align}
+f(x) &= \sum_{i=1}^n \alpha_i K(x_i, x) \\
+&= \sum_{i=1}^n \alpha_i \big\langle K(\cdot, x_i), K(\cdot, x) \big\rangle_{\cH_0} \quad \text{(by definition of inner product)} \\
+&= \left\langle \sum_{i=1}^n \alpha_i K(\cdot, x_i), K(\cdot, x) \right\rangle_{\cH_0} \quad \text{(by linearity of inner product)} \\
+&= \big\langle f, K(\cdot, x) \big\rangle_{\cH_0}.
+\end{align}
+
+This shows that the reproducing property holds for any function in the pre-Hilbert space $\cH_0$. Now, for any function $f \in \cH$, since $\cH$ is the closure of $\cH_0$, there exists a sequence of functions $\{f_n\} \subset \cH_0$ such that $f_n \to f$ as $n \to \infty$. By the continuity of the inner product, we have this true for any $f \in \cH$. The reproducing property leads to many nice properties of the RKHS, as we will explore in several lectures. But let's first look at a smoothness property.
+
+## Smoothness
+
+In simple words, it is because that the estimation coming out of the RKHS will be stable (smooth). To see this, for any function $f \in \cH$, we can look at its evaluation at any two points $x, x' \in \cX$:
+
+\begin{align}
+|f(x) - f(x')| &= \big| \big\langle f, K(\cdot, x) \big\rangle_{\cH} - \big\langle f, K(\cdot, x') \big\rangle_{\cH} \big| \quad \text{(by reproducing property)} \\
+&= \big| \big\langle f, K(\cdot, x) - K(\cdot, x') \big\rangle_{\cH} \big| \quad \text{(by linearity of inner product)} \\
+&\leq \big\| f \big\|_{\cH} \cdot \big\| K(\cdot, x) - K(\cdot, x') \big\|_{\cH} \quad \text{(by Cauchy-Schwarz inequality)} \\
+&= \big\| f \big\|_{\cH} \cdot d_K(x, x'),
+\end{align}
+
+where $d_K(x, x') = \sqrt{ K(x, x) + K(x', x') - 2 K(x, x')}$ is a constant that depends on $x$ and the choice of the kernel[^constant] by typically bounded. And $\big\| f \big\|_{\cH}$ is the norm of the function that you are using to approximate the data. This suggests that when we are evaluating a function in an RKHS, say, during the prediction stage, changing a little bit the input $x$ to $x'$ will not change the function value too much, i.e., stable, as long as the norm of the function $\| f \|_{\cH}$ is not too large[^smooth]. Hence, the __norm $\| f \|_{\cH}$ can be used as a measure of the complexity__ of the function, and we can use it as a penalty term in a penalized optimization problem to control the smoothness of the estimated function. This will be demonstrated in the future.
+
+## The Moore–Aronszajn Theorem
+
+The RKHS we defined above is very special, as it has a one-to-one correspondence with the choice of the kernel function. This is established by the __Moore–Aronszajn theorem__ [@aronszajn1950theory]. Sometimes it was stated with only one direction, but here we will state it in both directions.
+
+:::mathblock
+**Theorem (Moore–Aronszajn)**
+For any symmetric positive-definite kernel function $K: \cX \times \cX \to \RR$, there exists a unique RKHS $\cH$ of functions $f: \cX \to \RR$ with reproducing kernel $K$. And conversely, for any RKHS $\cH$ of functions $f: \cX \to \RR$, there exists a unique symmetric positive-definite kernel function $K: \cX \times \cX \to \RR$ that is the reproducing kernel of $\cH$. 
+:::
+
+“$\Longrightarrow$” The forward direction is what commonly refered to as the Moore–Aronszajn theorem, the key results. But it is already we have almost done, i.e., given a kernel function $K$, we can construct a RKHS $\cH$ (through the pre-Hilbert space and completion) with $K$ as its reproducing kernel. The only thing left is to show the __uniqueness of this RKHS__, given a kernel. To show this, consider two RKHS $\cH_1$ and $\cH_2$ with the same reproducing kernel $K$. The two spaces would then contain the same pre-Hilbert space $\cH_0$ and the same inner product, by construction. In fact $\cH_0$ is also dense in both $\cH_1$ and $\cH_2$. Hence, the completion of $\cH_0$ would be the same for both spaces, i.e., $\cH_1 = \cH_2$.
+
+“$\Longleftarrow$” The backward direction is relatively easy. We simply need to define the kernel function as the inner product of $\cH$, i.e., $K(x, x') = \langle K(\cdot, x), K(\cdot, x') \rangle_{\cH}$, which can be shown to be symmetric and positive-definite follows by 
+
+\begin{align}
+\sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j K(x_i, x_j) &= \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j \langle K(\cdot, x_i), K(\cdot, x_j) \rangle_{\cH} \\
+&= \left\langle \sum_{i=1}^n \alpha_i K(\cdot, x_i), \sum_{j=1}^n \alpha_j K(\cdot, x_j) \right\rangle_{\cH} \\
+&= \left\| \sum_{i=1}^n \alpha_i K(\cdot, x_i) \right\|_{\cH}^2 \geq 0,
+\end{align}
+
+which is provided on [Wikipedia](https://en.wikipedia.org/wiki/Reproducing_kernel_Hilbert_space). Again, we need to show the uniqueness, which is left as an exercise.
+
+## Examples
+
+Some examples of the kernel functions are:
+
+  * __Linear kernel__: $k(x_1, x_2) = x_1^T x_2$
+  * __Polynomial kernel__: $k(x_1, x_2) = (x_1^T x_2 + c)^d$, where $c \geq 0$ and $d \in \NN$
+  * __Gaussian (RBF) kernel__: $k(x_1, x_2) = \exp\left(-\frac{\| x_1 - x_2 \|^2}{2 \sigma^2}\right)$, where $\sigma^2 > 0$ is a bandwidth parameter
+
+### Brownian Motion Kernel
+
+But let's look at some other interesting examples. The __Brownian motion kernel__ defined on the interval $[0, 1]$:
+
+\[
+K(x, x') = \min(x, x'), \quad x, x' \in [0, 1].
+\]
+
+The RKHS associated with this kernel is the first order Sobolev space starting from 0, defined as
+
+\[
+\cH = \left\{ f: [0, 1] \rightarrow \RR \quad \text{such that} \,\, f, f' \in L_2[0, 1], f(0) = 0 \right\},
+\]
+
+with the inner product defined as
+
+\[
+\langle f, g \rangle_\cH = \int_0^1 f'(x) g'(x) d x = \langle f', g' \rangle_{L_2}.
+\]
+
+We can check some simple properties from what we have learned. A basis function in this space is $K(\cdot, t) = \min(\cdot, t)$, which is a piecewise linear function with a knot at $x_1$. The derivative of this function is a step function with 1 before $x_1$ and 0 afterwards. The inner product between two such basis functions is the kernel function:
+
+\begin{align}
+\langle K(\cdot, x_1), K(\cdot, x_2) \rangle_\cH = \int_0^1 1_{[0, x_1]}(u) \cdot 1_{[0, x_2]}(u) d u = \min(x_1, x_2) = K(x_1, x_2).
+\end{align}
+
+The reproducing property also holds:
+
+\begin{align}
+\langle f, K(\cdot, x) \rangle_\cH &= \int_0^1 f'(u) \frac{\partial}{\partial u} K(u, x) d u \\
+&= \int_0^1 f'(u) 1_{[0, x]}(u) d x \\
+&= \int_0^x f'(u) d u = f(x) - f(0) = f(x).
+\end{align}
+
+### Non-positive Definite Kernel
+
+Not all kernels are positive-definite. For example the hyperbolic tangent kernel [@ong2004learning]:
+
+\[
+K(x, x') = \tanh(\alpha x^T x' + \beta),
+\]
+
+where $\alpha > 0$ and $\beta < 0$. and $\tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}$. This kernel is in-definite meaning that it contains both positive and negative eigenvalues. However, in practice, it often works well. Maybe the RKHS is not the right framework to understand this kernel. In fact the [Krein space](https://en.wikipedia.org/wiki/Indefinite_inner_product_space) is a more general framework that can handle in-definite kernels. The idea is to decompose the kernel into two positive-definite kernels, one with positive eigenvalues and the other with negative eigenvalues. Then any function in the space can be decomposed as 
+
+\[
+f = f_+ + f_-,
+\]
+
+where $f_+$ is in the RKHS associated with a positive-definite kernel, with its space $\cH_+$ and $f_-$ is in the RKHS $\cH_-$ associated with the negative-definite kernel. 
+
+### Defining New Kernels
+
+In practice, we may want to define new kernels for our specific problems. There are several ways to do this:
+
+  * __Adding Kernels__: If $K_1$ and $K_2$ are two positive-definite kernels, then their sum $K(x, x') = K_1(x, x') + K_2(x, x')$ is a valid positive-definite kernel. 
+  * __Product of Kernels__: Similarly, their product $K(x, x') = K_1(x, x') \cdot K_2(x, x')$ is also a positive-definite kernel.
+
+
+
+
+[^sobolev]: The second order Sobolev space $\cW_2^2[0, 1]$ is defined as $$\cW_2^2[0, 1] = \left\{ f: [0, 1] \rightarrow \RR \quad \text{such that} \,\, f, f', f'' \in L_2[0, 1] \right\},$$
+where $L_2[0, 1] = \left\{ f: [0, 1] \rightarrow \RR \quad \text{such that} \int_0^1 f(x)^2 d x < \infty \right\}$ is the space of square-integrable functions on the interval $[0, 1]$. Hence, we require that the function itself and its first two derivatives are all square-integrable. The inner product on this space is defined as
+\begin{aligned}
+\langle f, g \rangle_{\cW_2^2} =& \sum_{k = 0}^{2} \int_0^1 f^{(k)}(x) g^{(k)}(x) d x\\
+=& \sum_{k = 0}^{2} \langle f^{(k)}, g^{(k)} \rangle_{L_2}
+\end{aligned}
+which is the sum of $L_2$ inner products of the functions and their first two derivatives, with 
+\[
+\langle f, g \rangle_{L_2} = \int_0^1 f(x) g(x) d x
+\]
+And this also gives us a norm on the space:
+\[
+\| f \|_{\cW_2^2} = \sqrt{\langle f, f \rangle_{\cW_2^2}}.
+\]
+
+[^constant]: For the Gaussian kernel, $1 \geq K(x, x') \geq 0$. Hence $d_K(x, x')$ is at most $\sqrt{2}$
+
+[^smooth]: In the Hilbert space \(L^2([0,1])\), the evaluation functional \(L_x(f)=f(x)\) is *not* necessarily continuous. For example, define a sequence of functions
+\[
+f_n(t) = \begin{cases}
+n^{1/3}(1 - nt), & 0 \le t \le \tfrac{1}{n},\\
+0, & \tfrac{1}{n} < t \le 1.
+\end{cases}
+\]
+All such functions are continuous. And \(\|f_n - 0\|_{L^2}^2 \leq \int_0^{1/n} n^{2/3} \, dt = n^{-1/3} \to 0\), so \(f_n \to 0\) in \(L^2\). But at the point \(t=0\), \(f_n(0)=n^{1/3} \to \infty\). Thus, convergence in the \(L^2\)-norm does **not** imply point-wise stability of function values. This shows why boundedness of RKHS is useful.
+
+[^riesz]: The reproducing property of RKHS is a direct consequence of the [**Riesz representation theorem**](https://en.wikipedia.org/wiki/Riesz_representation_theorem). In a Hilbert space, any continuous linear functional can be written as an inner product with a unique element of the space. In an RKHS, the evaluation functional \(L_x(f) = f(x)\) is continuous by definition, so by Riesz there must exist a unique representer \(K(\cdot, x)\) such that  
+\[
+f(x) = \langle f, K(\cdot, x) \rangle_{\mathcal{H}}.
+\]  
+This explains why kernels arise naturally as “representers” of evaluation in RKHS. The continuity guaranteed by Riesz is also what makes pointwise evaluation *stable*: small changes in the input cannot cause arbitrarily large changes in the output, which underlies the smoothness property we emphasized above.
+

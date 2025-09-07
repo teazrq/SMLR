@@ -21,7 +21,7 @@
 
 When we model the probability of $Y$ given $X$, such as using a logistic regression, the approach is often called a soft classification, meaning that we do not directly produce the class label for prediction. However, we can also view the task as finding a function, with 0/1 as the output. In this case, the function is called a __classifier__:
 
-$$f : \mathbb{R}^p \longrightarrow \{0, 1\}$$
+$$f : \RR^p \longrightarrow \{0, 1\}$$
 In this case, we can directly evaluate the prediction error, which is calculated from the __0-1 loss__:
 
 $$L\big(f(\bx), y \big) = \begin{cases}
