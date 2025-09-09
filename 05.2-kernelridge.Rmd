@@ -93,7 +93,7 @@ $$\balpha = (\bK + n\lambda \bI)^{-1} \by$$
 
 With our understandings of the RKHS and the representer theorem (introduced in the next Chapter), we can say that for any regression function models, if we want the solution to be more flexible, we may solve it within a RKHS. This is essentially change the linear kernel previously into any other kernel function. In general, we consider the following regression problem:
 
-$$\widehat f = \underset{f \in \cH}{\arg\min} \,\, \frac{1}{n} \sum_{i=1}^n \Big(y_i - \widehat f(x_i) \Big)^2 + \lambda \lVert f \rVert_\cH^2$$
+$$\widehat f = \underset{f \in \cH}{\arg\min} \,\, \frac{1}{n} \sum_{i=1}^n \Big(y_i - f(x_i) \Big)^2 + \lambda \lVert f \rVert_\cH^2$$
 Since we know that the solution has to take the form 
 
 $$\widehat f = \sum_{i=1}^n \alpha_i K(x_i, \cdot),$$

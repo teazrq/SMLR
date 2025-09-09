@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2025-09-07" />
+<meta name="date" content="2025-09-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -567,7 +567,7 @@ and the solution is the same as what we had before</p>
 <div id="the-kernel-ridge-regression" class="section level2 hasAnchor" number="15.2">
 <h2><span class="header-section-number">15.2</span> The Kernel Ridge Regression<a href="kernel-ridge-regression.html#the-kernel-ridge-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>With our understandings of the RKHS and the representer theorem (introduced in the next Chapter), we can say that for any regression function models, if we want the solution to be more flexible, we may solve it within a RKHS. This is essentially change the linear kernel previously into any other kernel function. In general, we consider the following regression problem:</p>
-<p><span class="math display">\[\widehat f = \underset{f \in {\cal H}}{\arg\min} \,\, \frac{1}{n} \sum_{i=1}^n \Big(y_i - \widehat f(x_i) \Big)^2 + \lambda \lVert f \rVert_{\cal H}^2\]</span>
+<p><span class="math display">\[\widehat f = \underset{f \in {\cal H}}{\arg\min} \,\, \frac{1}{n} \sum_{i=1}^n \Big(y_i - f(x_i) \Big)^2 + \lambda \lVert f \rVert_{\cal H}^2\]</span>
 Since we know that the solution has to take the form</p>
 <p><span class="math display">\[\widehat f = \sum_{i=1}^n \alpha_i K(x_i, \cdot),\]</span>
 we can instead solve the problem as a ridge regression type of problem:</p>
