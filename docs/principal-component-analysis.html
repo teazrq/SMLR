@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 23 Principal Component Analysis | Statistical Machine Learning with R</title>
+  <title>Chapter 24 Principal Component Analysis | Statistical Machine Learning with R</title>
   <meta name="description" content="A Textbook for Statistical Machine Learning Courses at UIUC" />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 23 Principal Component Analysis | Statistical Machine Learning with R" />
+  <meta property="og:title" content="Chapter 24 Principal Component Analysis | Statistical Machine Learning with R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A Textbook for Statistical Machine Learning Courses at UIUC" />
   <meta name="github-repo" content="teazrq/SMLR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 23 Principal Component Analysis | Statistical Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 24 Principal Component Analysis | Statistical Machine Learning with R" />
   
   <meta name="twitter:description" content="A Textbook for Statistical Machine Learning Courses at UIUC" />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2025-09-09" />
+<meta name="date" content="2025-09-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -365,133 +365,140 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="13.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#knn-vs.-kernel"><i class="fa fa-check"></i><b>13.1</b> KNN vs. Kernel</a></li>
 <li class="chapter" data-level="13.2" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#kernel-density-estimations"><i class="fa fa-check"></i><b>13.2</b> Kernel Density Estimations</a></li>
-<li class="chapter" data-level="13.3" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off"><i class="fa fa-check"></i><b>13.3</b> Bias-variance trade-off</a></li>
+<li class="chapter" data-level="13.3" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#expectation-of-the-parzen-estimator"><i class="fa fa-check"></i><b>13.3</b> Expectation of the Parzen estimator</a></li>
 <li class="chapter" data-level="13.4" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#gaussian-kernel-regression"><i class="fa fa-check"></i><b>13.4</b> Gaussian Kernel Regression</a>
 <ul>
-<li class="chapter" data-level="13.4.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off-1"><i class="fa fa-check"></i><b>13.4.1</b> Bias-variance Trade-off</a></li>
+<li class="chapter" data-level="13.4.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off"><i class="fa fa-check"></i><b>13.4.1</b> Bias-variance Trade-off</a></li>
 </ul></li>
 <li class="chapter" data-level="13.5" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#choice-of-kernel-functions"><i class="fa fa-check"></i><b>13.5</b> Choice of Kernel Functions</a></li>
 <li class="chapter" data-level="13.6" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-linear-regression"><i class="fa fa-check"></i><b>13.6</b> Local Linear Regression</a></li>
 <li class="chapter" data-level="13.7" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-polynomial-regression"><i class="fa fa-check"></i><b>13.7</b> Local Polynomial Regression</a></li>
 <li class="chapter" data-level="13.8" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#r-implementations"><i class="fa fa-check"></i><b>13.8</b> R Implementations</a></li>
 </ul></li>
+<li class="chapter" data-level="14" data-path="nonpara.html"><a href="nonpara.html"><i class="fa fa-check"></i><b>14</b> Nonparemetric Estimation Rates</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="nonpara.html"><a href="nonpara.html#kernel-density-estimation"><i class="fa fa-check"></i><b>14.1</b> Kernel Density Estimation</a></li>
+<li class="chapter" data-level="14.2" data-path="nonpara.html"><a href="nonpara.html#the-effect-of-smoothness"><i class="fa fa-check"></i><b>14.2</b> The Effect of Smoothness</a></li>
+<li class="chapter" data-level="14.3" data-path="nonpara.html"><a href="nonpara.html#the-effect-of-dimensionality"><i class="fa fa-check"></i><b>14.3</b> The Effect of Dimensionality</a></li>
+<li class="chapter" data-level="14.4" data-path="nonpara.html"><a href="nonpara.html#nadaraya-watson-regression-estimator"><i class="fa fa-check"></i><b>14.4</b> Nadaraya-Watson Regression Estimator</a></li>
+</ul></li>
 <li class="part"><span><b>V Kernel Machines</b></span></li>
-<li class="chapter" data-level="14" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html"><i class="fa fa-check"></i><b>14</b> Reproducing Kernel Hilbert Space</a>
+<li class="chapter" data-level="15" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html"><i class="fa fa-check"></i><b>15</b> Reproducing Kernel Hilbert Space</a>
 <ul>
-<li class="chapter" data-level="14.1" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-motivation"><i class="fa fa-check"></i><b>14.1</b> The Motivation</a></li>
-<li class="chapter" data-level="14.2" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#hilbert-space-preliminaries"><i class="fa fa-check"></i><b>14.2</b> Hilbert Space Preliminaries</a>
+<li class="chapter" data-level="15.1" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-motivation"><i class="fa fa-check"></i><b>15.1</b> The Motivation</a></li>
+<li class="chapter" data-level="15.2" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#hilbert-space-preliminaries"><i class="fa fa-check"></i><b>15.2</b> Hilbert Space Preliminaries</a>
 <ul>
-<li class="chapter" data-level="14.2.1" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-space-of-square-integrable-functions"><i class="fa fa-check"></i><b>14.2.1</b> The Space of Square-Integrable Functions</a></li>
+<li class="chapter" data-level="15.2.1" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-space-of-square-integrable-functions"><i class="fa fa-check"></i><b>15.2.1</b> The Space of Square-Integrable Functions</a></li>
 </ul></li>
-<li class="chapter" data-level="14.3" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#a-kernel-function"><i class="fa fa-check"></i><b>14.3</b> A Kernel Function</a></li>
-<li class="chapter" data-level="14.4" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#a-space-of-functions"><i class="fa fa-check"></i><b>14.4</b> A Space of Functions</a></li>
-<li class="chapter" data-level="14.5" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-inner-product"><i class="fa fa-check"></i><b>14.5</b> The Inner Product</a></li>
-<li class="chapter" data-level="14.6" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-rkhs"><i class="fa fa-check"></i><b>14.6</b> The RKHS</a></li>
-<li class="chapter" data-level="14.7" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-reproducing-property"><i class="fa fa-check"></i><b>14.7</b> The Reproducing Property</a></li>
-<li class="chapter" data-level="14.8" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#smoothness"><i class="fa fa-check"></i><b>14.8</b> Smoothness</a></li>
-<li class="chapter" data-level="14.9" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-moorearonszajn-theorem"><i class="fa fa-check"></i><b>14.9</b> The Moore–Aronszajn Theorem</a></li>
-<li class="chapter" data-level="14.10" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#examples"><i class="fa fa-check"></i><b>14.10</b> Examples</a>
+<li class="chapter" data-level="15.3" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#a-kernel-function"><i class="fa fa-check"></i><b>15.3</b> A Kernel Function</a></li>
+<li class="chapter" data-level="15.4" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#a-space-of-functions"><i class="fa fa-check"></i><b>15.4</b> A Space of Functions</a></li>
+<li class="chapter" data-level="15.5" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-inner-product"><i class="fa fa-check"></i><b>15.5</b> The Inner Product</a></li>
+<li class="chapter" data-level="15.6" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-rkhs"><i class="fa fa-check"></i><b>15.6</b> The RKHS</a></li>
+<li class="chapter" data-level="15.7" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-reproducing-property"><i class="fa fa-check"></i><b>15.7</b> The Reproducing Property</a></li>
+<li class="chapter" data-level="15.8" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#smoothness"><i class="fa fa-check"></i><b>15.8</b> Smoothness</a></li>
+<li class="chapter" data-level="15.9" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-moorearonszajn-theorem"><i class="fa fa-check"></i><b>15.9</b> The Moore–Aronszajn Theorem</a></li>
+<li class="chapter" data-level="15.10" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#examples"><i class="fa fa-check"></i><b>15.10</b> Examples</a>
 <ul>
-<li class="chapter" data-level="14.10.1" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#brownian-motion-kernel"><i class="fa fa-check"></i><b>14.10.1</b> Brownian Motion Kernel</a></li>
-<li class="chapter" data-level="14.10.2" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#non-positive-definite-kernel"><i class="fa fa-check"></i><b>14.10.2</b> Non-positive Definite Kernel</a></li>
-<li class="chapter" data-level="14.10.3" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#defining-new-kernels"><i class="fa fa-check"></i><b>14.10.3</b> Defining New Kernels</a></li>
+<li class="chapter" data-level="15.10.1" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#brownian-motion-kernel"><i class="fa fa-check"></i><b>15.10.1</b> Brownian Motion Kernel</a></li>
+<li class="chapter" data-level="15.10.2" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#non-positive-definite-kernel"><i class="fa fa-check"></i><b>15.10.2</b> Non-positive Definite Kernel</a></li>
+<li class="chapter" data-level="15.10.3" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#defining-new-kernels"><i class="fa fa-check"></i><b>15.10.3</b> Defining New Kernels</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html"><i class="fa fa-check"></i><b>15</b> Kernel Ridge Regression</a>
+<li class="chapter" data-level="16" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html"><i class="fa fa-check"></i><b>16</b> Kernel Ridge Regression</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#linear-regression-as-a-constraint-optimization"><i class="fa fa-check"></i><b>15.1</b> Linear Regression as a Constraint Optimization</a></li>
-<li class="chapter" data-level="15.2" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#the-kernel-ridge-regression"><i class="fa fa-check"></i><b>15.2</b> The Kernel Ridge Regression</a></li>
-<li class="chapter" data-level="15.3" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#ridge-regression-as-a-linear-kernel-model"><i class="fa fa-check"></i><b>15.3</b> Ridge Regression as a Linear Kernel Model</a></li>
+<li class="chapter" data-level="16.1" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#linear-regression-as-a-constraint-optimization"><i class="fa fa-check"></i><b>16.1</b> Linear Regression as a Constraint Optimization</a></li>
+<li class="chapter" data-level="16.2" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#the-kernel-ridge-regression"><i class="fa fa-check"></i><b>16.2</b> The Kernel Ridge Regression</a></li>
+<li class="chapter" data-level="16.3" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#ridge-regression-as-a-linear-kernel-model"><i class="fa fa-check"></i><b>16.3</b> Ridge Regression as a Linear Kernel Model</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>16</b> Support Vector Machines</a>
+<li class="chapter" data-level="17" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>17</b> Support Vector Machines</a>
 <ul>
-<li class="chapter" data-level="16.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#maximum-margin-classifier"><i class="fa fa-check"></i><b>16.1</b> Maximum-margin Classifier</a></li>
-<li class="chapter" data-level="16.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-separable-svm"><i class="fa fa-check"></i><b>16.2</b> Linearly Separable SVM</a>
+<li class="chapter" data-level="17.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#maximum-margin-classifier"><i class="fa fa-check"></i><b>17.1</b> Maximum-margin Classifier</a></li>
+<li class="chapter" data-level="17.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-separable-svm"><i class="fa fa-check"></i><b>17.2</b> Linearly Separable SVM</a>
 <ul>
-<li class="chapter" data-level="16.2.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#from-primal-to-dual"><i class="fa fa-check"></i><b>16.2.1</b> From Primal to Dual</a></li>
+<li class="chapter" data-level="17.2.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#from-primal-to-dual"><i class="fa fa-check"></i><b>17.2.1</b> From Primal to Dual</a></li>
 </ul></li>
-<li class="chapter" data-level="16.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-non-separable-svm-with-slack-variables"><i class="fa fa-check"></i><b>16.3</b> Linearly Non-separable SVM with Slack Variables</a></li>
-<li class="chapter" data-level="16.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-saheart-data"><i class="fa fa-check"></i><b>16.4</b> Example: <code>SAheart</code> Data</a></li>
-<li class="chapter" data-level="16.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#nonlinear-svm-via-kernel-trick"><i class="fa fa-check"></i><b>16.5</b> Nonlinear SVM via Kernel Trick</a></li>
-<li class="chapter" data-level="16.6" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-mixture.example-data"><i class="fa fa-check"></i><b>16.6</b> Example: <code>mixture.example</code> Data</a></li>
-<li class="chapter" data-level="16.7" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svm-as-a-penalized-model"><i class="fa fa-check"></i><b>16.7</b> SVM as a Penalized Model</a></li>
-<li class="chapter" data-level="16.8" data-path="support-vector-machines.html"><a href="support-vector-machines.html#kernel-and-feature-maps-another-example"><i class="fa fa-check"></i><b>16.8</b> Kernel and Feature Maps: Another Example</a></li>
+<li class="chapter" data-level="17.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-non-separable-svm-with-slack-variables"><i class="fa fa-check"></i><b>17.3</b> Linearly Non-separable SVM with Slack Variables</a></li>
+<li class="chapter" data-level="17.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-saheart-data"><i class="fa fa-check"></i><b>17.4</b> Example: <code>SAheart</code> Data</a></li>
+<li class="chapter" data-level="17.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#nonlinear-svm-via-kernel-trick"><i class="fa fa-check"></i><b>17.5</b> Nonlinear SVM via Kernel Trick</a></li>
+<li class="chapter" data-level="17.6" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-mixture.example-data"><i class="fa fa-check"></i><b>17.6</b> Example: <code>mixture.example</code> Data</a></li>
+<li class="chapter" data-level="17.7" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svm-as-a-penalized-model"><i class="fa fa-check"></i><b>17.7</b> SVM as a Penalized Model</a></li>
+<li class="chapter" data-level="17.8" data-path="support-vector-machines.html"><a href="support-vector-machines.html#kernel-and-feature-maps-another-example"><i class="fa fa-check"></i><b>17.8</b> Kernel and Feature Maps: Another Example</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="the-representer-theorem.html"><a href="the-representer-theorem.html"><i class="fa fa-check"></i><b>17</b> The Representer Theorem</a>
+<li class="chapter" data-level="18" data-path="the-representer-theorem.html"><a href="the-representer-theorem.html"><i class="fa fa-check"></i><b>18</b> The Representer Theorem</a>
 <ul>
-<li class="chapter" data-level="17.1" data-path="the-representer-theorem.html"><a href="the-representer-theorem.html#the-representer-theorem-1"><i class="fa fa-check"></i><b>17.1</b> The Representer Theorem</a></li>
-<li class="chapter" data-level="17.2" data-path="the-representer-theorem.html"><a href="the-representer-theorem.html#notes-on-application"><i class="fa fa-check"></i><b>17.2</b> Notes on Application</a></li>
+<li class="chapter" data-level="18.1" data-path="the-representer-theorem.html"><a href="the-representer-theorem.html#the-representer-theorem-1"><i class="fa fa-check"></i><b>18.1</b> The Representer Theorem</a></li>
+<li class="chapter" data-level="18.2" data-path="the-representer-theorem.html"><a href="the-representer-theorem.html#notes-on-application"><i class="fa fa-check"></i><b>18.2</b> Notes on Application</a></li>
 </ul></li>
 <li class="part"><span><b>VI Trees and Ensembles</b></span></li>
-<li class="chapter" data-level="18" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html"><i class="fa fa-check"></i><b>18</b> Classification and Regression Trees</a>
+<li class="chapter" data-level="19" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html"><i class="fa fa-check"></i><b>19</b> Classification and Regression Trees</a>
 <ul>
-<li class="chapter" data-level="18.1" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#example-classification-tree"><i class="fa fa-check"></i><b>18.1</b> Example: Classification Tree</a></li>
-<li class="chapter" data-level="18.2" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#splitting-a-node"><i class="fa fa-check"></i><b>18.2</b> Splitting a Node</a></li>
-<li class="chapter" data-level="18.3" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#regression-trees"><i class="fa fa-check"></i><b>18.3</b> Regression Trees</a></li>
-<li class="chapter" data-level="18.4" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#predicting-a-target-point"><i class="fa fa-check"></i><b>18.4</b> Predicting a Target Point</a></li>
-<li class="chapter" data-level="18.5" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#tuning-a-tree-model"><i class="fa fa-check"></i><b>18.5</b> Tuning a Tree Model</a></li>
+<li class="chapter" data-level="19.1" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#example-classification-tree"><i class="fa fa-check"></i><b>19.1</b> Example: Classification Tree</a></li>
+<li class="chapter" data-level="19.2" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#splitting-a-node"><i class="fa fa-check"></i><b>19.2</b> Splitting a Node</a></li>
+<li class="chapter" data-level="19.3" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#regression-trees"><i class="fa fa-check"></i><b>19.3</b> Regression Trees</a></li>
+<li class="chapter" data-level="19.4" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#predicting-a-target-point"><i class="fa fa-check"></i><b>19.4</b> Predicting a Target Point</a></li>
+<li class="chapter" data-level="19.5" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#tuning-a-tree-model"><i class="fa fa-check"></i><b>19.5</b> Tuning a Tree Model</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="random-forests.html"><a href="random-forests.html"><i class="fa fa-check"></i><b>19</b> Random Forests</a>
+<li class="chapter" data-level="20" data-path="random-forests.html"><a href="random-forests.html"><i class="fa fa-check"></i><b>20</b> Random Forests</a>
 <ul>
-<li class="chapter" data-level="19.1" data-path="random-forests.html"><a href="random-forests.html#bagging-predictors"><i class="fa fa-check"></i><b>19.1</b> Bagging Predictors</a></li>
-<li class="chapter" data-level="19.2" data-path="random-forests.html"><a href="random-forests.html#random-forests-1"><i class="fa fa-check"></i><b>19.2</b> Random Forests</a></li>
-<li class="chapter" data-level="19.3" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forests"><i class="fa fa-check"></i><b>19.3</b> Kernel view of Random Forests</a></li>
-<li class="chapter" data-level="19.4" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>19.4</b> Variable Importance</a></li>
-<li class="chapter" data-level="19.5" data-path="random-forests.html"><a href="random-forests.html#adaptiveness-of-random-forest-kernel"><i class="fa fa-check"></i><b>19.5</b> Adaptiveness of Random Forest Kernel</a></li>
+<li class="chapter" data-level="20.1" data-path="random-forests.html"><a href="random-forests.html#bagging-predictors"><i class="fa fa-check"></i><b>20.1</b> Bagging Predictors</a></li>
+<li class="chapter" data-level="20.2" data-path="random-forests.html"><a href="random-forests.html#random-forests-1"><i class="fa fa-check"></i><b>20.2</b> Random Forests</a></li>
+<li class="chapter" data-level="20.3" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forests"><i class="fa fa-check"></i><b>20.3</b> Kernel view of Random Forests</a></li>
+<li class="chapter" data-level="20.4" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>20.4</b> Variable Importance</a></li>
+<li class="chapter" data-level="20.5" data-path="random-forests.html"><a href="random-forests.html#adaptiveness-of-random-forest-kernel"><i class="fa fa-check"></i><b>20.5</b> Adaptiveness of Random Forest Kernel</a></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>20</b> Boosting</a>
+<li class="chapter" data-level="21" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>21</b> Boosting</a>
 <ul>
-<li class="chapter" data-level="20.1" data-path="boosting.html"><a href="boosting.html#adaboost"><i class="fa fa-check"></i><b>20.1</b> AdaBoost</a></li>
-<li class="chapter" data-level="20.2" data-path="boosting.html"><a href="boosting.html#training-error-of-adaboost"><i class="fa fa-check"></i><b>20.2</b> Training Error of AdaBoost</a></li>
-<li class="chapter" data-level="20.3" data-path="boosting.html"><a href="boosting.html#tuning-the-number-of-trees"><i class="fa fa-check"></i><b>20.3</b> Tuning the Number of Trees</a></li>
-<li class="chapter" data-level="20.4" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>20.4</b> Gradient Boosting</a></li>
-<li class="chapter" data-level="20.5" data-path="boosting.html"><a href="boosting.html#gradient-boosting-with-logistic-link"><i class="fa fa-check"></i><b>20.5</b> Gradient Boosting with Logistic Link</a></li>
+<li class="chapter" data-level="21.1" data-path="boosting.html"><a href="boosting.html#adaboost"><i class="fa fa-check"></i><b>21.1</b> AdaBoost</a></li>
+<li class="chapter" data-level="21.2" data-path="boosting.html"><a href="boosting.html#training-error-of-adaboost"><i class="fa fa-check"></i><b>21.2</b> Training Error of AdaBoost</a></li>
+<li class="chapter" data-level="21.3" data-path="boosting.html"><a href="boosting.html#tuning-the-number-of-trees"><i class="fa fa-check"></i><b>21.3</b> Tuning the Number of Trees</a></li>
+<li class="chapter" data-level="21.4" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>21.4</b> Gradient Boosting</a></li>
+<li class="chapter" data-level="21.5" data-path="boosting.html"><a href="boosting.html#gradient-boosting-with-logistic-link"><i class="fa fa-check"></i><b>21.5</b> Gradient Boosting with Logistic Link</a></li>
 </ul></li>
 <li class="part"><span><b>VII Unsupervised Learning</b></span></li>
-<li class="chapter" data-level="21" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>21</b> K-Means</a>
+<li class="chapter" data-level="22" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>22</b> K-Means</a>
 <ul>
-<li class="chapter" data-level="21.1" data-path="k-means.html"><a href="k-means.html#basic-concepts"><i class="fa fa-check"></i><b>21.1</b> Basic Concepts</a></li>
-<li class="chapter" data-level="21.2" data-path="k-means.html"><a href="k-means.html#example-1-iris-data"><i class="fa fa-check"></i><b>21.2</b> Example 1: <code>iris</code> data</a></li>
-<li class="chapter" data-level="21.3" data-path="k-means.html"><a href="k-means.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>21.3</b> Example 2: clustering of image pixels</a></li>
+<li class="chapter" data-level="22.1" data-path="k-means.html"><a href="k-means.html#basic-concepts"><i class="fa fa-check"></i><b>22.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="22.2" data-path="k-means.html"><a href="k-means.html#example-1-iris-data"><i class="fa fa-check"></i><b>22.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="22.3" data-path="k-means.html"><a href="k-means.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>22.3</b> Example 2: clustering of image pixels</a></li>
 </ul></li>
-<li class="chapter" data-level="22" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>22</b> Hierarchical Clustering</a>
+<li class="chapter" data-level="23" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>23</b> Hierarchical Clustering</a>
 <ul>
-<li class="chapter" data-level="22.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>22.1</b> Basic Concepts</a></li>
-<li class="chapter" data-level="22.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>22.2</b> Example 1: <code>iris</code> data</a></li>
-<li class="chapter" data-level="22.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>22.3</b> Example 2: RNA Expression Data</a></li>
+<li class="chapter" data-level="23.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>23.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="23.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>23.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="23.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>23.3</b> Example 2: RNA Expression Data</a></li>
 </ul></li>
-<li class="chapter" data-level="23" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>23</b> Principal Component Analysis</a>
+<li class="chapter" data-level="24" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>24</b> Principal Component Analysis</a>
 <ul>
-<li class="chapter" data-level="23.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>23.1</b> Basic Concepts</a>
+<li class="chapter" data-level="24.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>24.1</b> Basic Concepts</a>
 <ul>
-<li class="chapter" data-level="23.1.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>23.1.1</b> Note: Scaling</a></li>
+<li class="chapter" data-level="24.1.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>24.1.1</b> Note: Scaling</a></li>
 </ul></li>
-<li class="chapter" data-level="23.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>23.2</b> Example 1: <code>iris</code> Data</a></li>
-<li class="chapter" data-level="23.3" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>23.3</b> Example 2: Handwritten Digits</a></li>
+<li class="chapter" data-level="24.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>24.2</b> Example 1: <code>iris</code> Data</a></li>
+<li class="chapter" data-level="24.3" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>24.3</b> Example 2: Handwritten Digits</a></li>
 </ul></li>
-<li class="chapter" data-level="24" data-path="self-organizing-map.html"><a href="self-organizing-map.html"><i class="fa fa-check"></i><b>24</b> Self-Organizing Map</a>
+<li class="chapter" data-level="25" data-path="self-organizing-map.html"><a href="self-organizing-map.html"><i class="fa fa-check"></i><b>25</b> Self-Organizing Map</a>
 <ul>
-<li class="chapter" data-level="24.1" data-path="self-organizing-map.html"><a href="self-organizing-map.html#basic-concepts-3"><i class="fa fa-check"></i><b>24.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="25.1" data-path="self-organizing-map.html"><a href="self-organizing-map.html#basic-concepts-3"><i class="fa fa-check"></i><b>25.1</b> Basic Concepts</a></li>
 </ul></li>
-<li class="chapter" data-level="25" data-path="spectral-clustering.html"><a href="spectral-clustering.html"><i class="fa fa-check"></i><b>25</b> Spectral Clustering</a>
+<li class="chapter" data-level="26" data-path="spectral-clustering.html"><a href="spectral-clustering.html"><i class="fa fa-check"></i><b>26</b> Spectral Clustering</a>
 <ul>
-<li class="chapter" data-level="25.1" data-path="spectral-clustering.html"><a href="spectral-clustering.html#an-example"><i class="fa fa-check"></i><b>25.1</b> An Example</a></li>
-<li class="chapter" data-level="25.2" data-path="spectral-clustering.html"><a href="spectral-clustering.html#adjacency-matrix"><i class="fa fa-check"></i><b>25.2</b> Adjacency Matrix</a></li>
-<li class="chapter" data-level="25.3" data-path="spectral-clustering.html"><a href="spectral-clustering.html#laplacian-matrix"><i class="fa fa-check"></i><b>25.3</b> Laplacian Matrix</a></li>
-<li class="chapter" data-level="25.4" data-path="spectral-clustering.html"><a href="spectral-clustering.html#derivation-of-the-feature-embedding"><i class="fa fa-check"></i><b>25.4</b> Derivation of the Feature Embedding</a></li>
-<li class="chapter" data-level="25.5" data-path="spectral-clustering.html"><a href="spectral-clustering.html#feature-embedding"><i class="fa fa-check"></i><b>25.5</b> Feature Embedding</a></li>
-<li class="chapter" data-level="25.6" data-path="spectral-clustering.html"><a href="spectral-clustering.html#clustering-with-embedded-features"><i class="fa fa-check"></i><b>25.6</b> Clustering with Embedded Features</a></li>
-<li class="chapter" data-level="25.7" data-path="spectral-clustering.html"><a href="spectral-clustering.html#normalized-graph-laplacian"><i class="fa fa-check"></i><b>25.7</b> Normalized Graph Laplacian</a></li>
-<li class="chapter" data-level="25.8" data-path="spectral-clustering.html"><a href="spectral-clustering.html#using-a-different-adjacency-matrix"><i class="fa fa-check"></i><b>25.8</b> Using a Different Adjacency Matrix</a></li>
+<li class="chapter" data-level="26.1" data-path="spectral-clustering.html"><a href="spectral-clustering.html#an-example"><i class="fa fa-check"></i><b>26.1</b> An Example</a></li>
+<li class="chapter" data-level="26.2" data-path="spectral-clustering.html"><a href="spectral-clustering.html#adjacency-matrix"><i class="fa fa-check"></i><b>26.2</b> Adjacency Matrix</a></li>
+<li class="chapter" data-level="26.3" data-path="spectral-clustering.html"><a href="spectral-clustering.html#laplacian-matrix"><i class="fa fa-check"></i><b>26.3</b> Laplacian Matrix</a></li>
+<li class="chapter" data-level="26.4" data-path="spectral-clustering.html"><a href="spectral-clustering.html#derivation-of-the-feature-embedding"><i class="fa fa-check"></i><b>26.4</b> Derivation of the Feature Embedding</a></li>
+<li class="chapter" data-level="26.5" data-path="spectral-clustering.html"><a href="spectral-clustering.html#feature-embedding"><i class="fa fa-check"></i><b>26.5</b> Feature Embedding</a></li>
+<li class="chapter" data-level="26.6" data-path="spectral-clustering.html"><a href="spectral-clustering.html#clustering-with-embedded-features"><i class="fa fa-check"></i><b>26.6</b> Clustering with Embedded Features</a></li>
+<li class="chapter" data-level="26.7" data-path="spectral-clustering.html"><a href="spectral-clustering.html#normalized-graph-laplacian"><i class="fa fa-check"></i><b>26.7</b> Normalized Graph Laplacian</a></li>
+<li class="chapter" data-level="26.8" data-path="spectral-clustering.html"><a href="spectral-clustering.html#using-a-different-adjacency-matrix"><i class="fa fa-check"></i><b>26.8</b> Using a Different Adjacency Matrix</a></li>
 </ul></li>
-<li class="chapter" data-level="26" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html"><i class="fa fa-check"></i><b>26</b> Uniform Manifold Approximation and Projection</a>
+<li class="chapter" data-level="27" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html"><i class="fa fa-check"></i><b>27</b> Uniform Manifold Approximation and Projection</a>
 <ul>
-<li class="chapter" data-level="26.1" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#an-example-1"><i class="fa fa-check"></i><b>26.1</b> An Example</a></li>
-<li class="chapter" data-level="26.2" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#tuning"><i class="fa fa-check"></i><b>26.2</b> Tuning</a></li>
-<li class="chapter" data-level="26.3" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#another-example"><i class="fa fa-check"></i><b>26.3</b> Another Example</a></li>
+<li class="chapter" data-level="27.1" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#an-example-1"><i class="fa fa-check"></i><b>27.1</b> An Example</a></li>
+<li class="chapter" data-level="27.2" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#tuning"><i class="fa fa-check"></i><b>27.2</b> Tuning</a></li>
+<li class="chapter" data-level="27.3" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#another-example"><i class="fa fa-check"></i><b>27.3</b> Another Example</a></li>
 </ul></li>
 <li class="part"><span><b>VIII Reference</b></span></li>
-<li class="chapter" data-level="27" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>27</b> Reference</a></li>
+<li class="chapter" data-level="28" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>28</b> Reference</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2023 Ruoqing Zhu</a></li>
 
@@ -512,10 +519,10 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="principal-component-analysis" class="section level1 hasAnchor" number="23">
-<h1><span class="header-section-number">Chapter 23</span> Principal Component Analysis<a href="principal-component-analysis.html#principal-component-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="basic-concepts-2" class="section level2 hasAnchor" number="23.1">
-<h2><span class="header-section-number">23.1</span> Basic Concepts<a href="principal-component-analysis.html#basic-concepts-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="principal-component-analysis" class="section level1 hasAnchor" number="24">
+<h1><span class="header-section-number">Chapter 24</span> Principal Component Analysis<a href="principal-component-analysis.html#principal-component-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="basic-concepts-2" class="section level2 hasAnchor" number="24.1">
+<h2><span class="header-section-number">24.1</span> Basic Concepts<a href="principal-component-analysis.html#basic-concepts-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Principal Component Analysis (PCA) is arguably the most commonly used approach for dimension reduction and visualization. The idea is to capture major signals of variation in a dataset. A nice demonstration of the search of direction is provided at this <a href="https://www.r-bloggers.com/principal-component-analysis-in-r/">r-bloggers</a> site:</p>
 <center>
 <img src="images/PCA2.gif" />
@@ -533,7 +540,7 @@ div.csl-indent {
 <span id="cb195-2"><a href="principal-component-analysis.html#cb195-2" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.75</span>)</span>
 <span id="cb195-3"><a href="principal-component-analysis.html#cb195-3" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
 <span id="cb195-4"><a href="principal-component-analysis.html#cb195-4" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-311-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-314-1.png" width="40%" style="display: block; margin: auto;" /></p>
 <p>Let’ start with finding a direction to project all the observations onto. And we want this projection to have the largest variation. Of course the direction that goes along the spread of the data would be the best choice for the purpose of large variance.</p>
 <div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="principal-component-analysis.html#cb196-1" tabindex="-1"></a>  <span class="fu">plot</span>(x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">ylim=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.75</span>)</span>
 <span id="cb196-2"><a href="principal-component-analysis.html#cb196-2" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
@@ -542,7 +549,7 @@ div.csl-indent {
 <span id="cb196-5"><a href="principal-component-analysis.html#cb196-5" tabindex="-1"></a>  <span class="co"># This line is obtained from performing PCA</span></span>
 <span id="cb196-6"><a href="principal-component-analysis.html#cb196-6" tabindex="-1"></a>  pc1 <span class="ot">=</span> <span class="fu">princomp</span>(x)<span class="sc">$</span>loadings[,<span class="dv">1</span>]</span>
 <span id="cb196-7"><a href="principal-component-analysis.html#cb196-7" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> pc1[<span class="dv">2</span>]<span class="sc">/</span>pc1[<span class="dv">1</span>], <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-312-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-315-1.png" width="40%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="principal-component-analysis.html#cb197-1" tabindex="-1"></a>  </span>
 <span id="cb197-2"><a href="principal-component-analysis.html#cb197-2" tabindex="-1"></a>  <span class="co"># The direction </span></span>
 <span id="cb197-3"><a href="principal-component-analysis.html#cb197-3" tabindex="-1"></a>  pc1</span>
@@ -560,7 +567,7 @@ div.csl-indent {
 <span id="cb198-10"><a href="principal-component-analysis.html#cb198-10" tabindex="-1"></a>  <span class="co"># second largest PC</span></span>
 <span id="cb198-11"><a href="principal-component-analysis.html#cb198-11" tabindex="-1"></a>  pc2 <span class="ot">=</span> <span class="fu">princomp</span>(x)<span class="sc">$</span>loadings[,<span class="dv">2</span>]</span>
 <span id="cb198-12"><a href="principal-component-analysis.html#cb198-12" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> pc2[<span class="dv">2</span>]<span class="sc">/</span>pc2[<span class="dv">1</span>], <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-313-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-316-1.png" width="40%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="principal-component-analysis.html#cb199-1" tabindex="-1"></a>  </span>
 <span id="cb199-2"><a href="principal-component-analysis.html#cb199-2" tabindex="-1"></a>  pc2</span>
 <span id="cb199-3"><a href="principal-component-analysis.html#cb199-3" tabindex="-1"></a><span class="do">## [1] 0.8244322 0.5659608</span></span>
@@ -588,7 +595,7 @@ The <span class="math inline">\(\mathbf{V}\)</span> matrix here corresponds to t
 <span id="cb201-8"><a href="principal-component-analysis.html#cb201-8" tabindex="-1"></a>         <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">ylim=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
 <span id="cb201-9"><a href="principal-component-analysis.html#cb201-9" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
 <span id="cb201-10"><a href="principal-component-analysis.html#cb201-10" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)    </span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-316-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-319-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Finally, for any dimensional data <span class="math inline">\(\mathbf{X}\)</span>, we usually visualize them in the first two directions, or three. Note that the coordinates on the PC’s can be obtained using either the <code>scores</code> (<span class="math inline">\(\mathbf{U}\)</span>) in the fitted object of <code>princomp</code>, or simply multiply the original data matrix by the loading matrix <span class="math inline">\(\mathbf{V}\)</span>.</p>
 <div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="principal-component-analysis.html#cb202-1" tabindex="-1"></a>    pcafit <span class="ot">&lt;-</span> <span class="fu">princomp</span>(x)</span>
 <span id="cb202-2"><a href="principal-component-analysis.html#cb202-2" tabindex="-1"></a></span>
@@ -618,27 +625,27 @@ The <span class="math inline">\(\mathbf{V}\)</span> matrix here corresponds to t
 <span id="cb202-26"><a href="principal-component-analysis.html#cb202-26" tabindex="-1"></a>    <span class="fu">plot</span>(pcafit<span class="sc">$</span>scores[,<span class="dv">1</span>], pcafit<span class="sc">$</span>scores[,<span class="dv">2</span>], <span class="at">xlab =</span> <span class="st">&quot;First PC&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Second PC&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">cex.lab =</span> <span class="fl">1.5</span>)</span>
 <span id="cb202-27"><a href="principal-component-analysis.html#cb202-27" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span>
 <span id="cb202-28"><a href="principal-component-analysis.html#cb202-28" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-318-1.png" width="40%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-321-1.png" width="40%" style="display: block; margin: auto;" /></p>
 <p>There are many different functions in <code>R</code> that performs PCA. <code>princomp</code> and <code>prcomp</code> are the most popular ones.</p>
-<div id="note-scaling" class="section level3 hasAnchor" number="23.1.1">
-<h3><span class="header-section-number">23.1.1</span> Note: Scaling<a href="principal-component-analysis.html#note-scaling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="note-scaling" class="section level3 hasAnchor" number="24.1.1">
+<h3><span class="header-section-number">24.1.1</span> Note: Scaling<a href="principal-component-analysis.html#note-scaling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You should always center the variables when performing PCA, however, whether to use scaling (force each variable to have a standard deviation of 1) depends on the particular application. When you have variables that are extremely disproportionate, e.g., age vs. RNA expression, scaling should be used. This is to prevent some variables from dominating the PC loadings due to their large scales. When all the variables are of the similar type, e.g., color intensities of pixels in a figure, it is better to use the original scale. This is because the variables with larger variations may carry more signal. Scaling may lose that information.</p>
 </div>
 </div>
-<div id="example-1-iris-data-2" class="section level2 hasAnchor" number="23.2">
-<h2><span class="header-section-number">23.2</span> Example 1: <code>iris</code> Data<a href="principal-component-analysis.html#example-1-iris-data-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="example-1-iris-data-2" class="section level2 hasAnchor" number="24.2">
+<h2><span class="header-section-number">24.2</span> Example 1: <code>iris</code> Data<a href="principal-component-analysis.html#example-1-iris-data-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We use the <code>iris</code> data again. All four variables are considered in this analysis. We plot the first and second PC directions.</p>
 <div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="principal-component-analysis.html#cb203-1" tabindex="-1"></a>    iris_pc <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(iris[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span>
 <span id="cb203-2"><a href="principal-component-analysis.html#cb203-2" tabindex="-1"></a>    <span class="fu">library</span>(ggplot2)</span>
 <span id="cb203-3"><a href="principal-component-analysis.html#cb203-3" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(iris_pc<span class="sc">$</span>x), <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC2)) <span class="sc">+</span> </span>
 <span id="cb203-4"><a href="principal-component-analysis.html#cb203-4" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">color=</span><span class="fu">c</span>(<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>)[iris<span class="sc">$</span>Species], <span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-319-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-322-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>One may be interested in plotting all pair-wise direction to see if lower PC’s provide useful information.</p>
 <div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="principal-component-analysis.html#cb204-1" tabindex="-1"></a>    <span class="fu">pairs</span>(iris_pc<span class="sc">$</span>x, <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>)[iris<span class="sc">$</span>Species], <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-320-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-323-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>However, usually, the lower PC’s are less informative. This can also be speculated from the eigenvalue plot, which shows how influential each PC is.</p>
 <div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="principal-component-analysis.html#cb205-1" tabindex="-1"></a>    <span class="fu">plot</span>(iris_pc, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">main =</span> <span class="st">&quot;Iris PCA Variance&quot;</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-321-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-324-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>Feature contributions to the PC can be accessed through the magnitude of the loadings. This table shows that <code>Petal.Length</code> is the most influential variable on the first PC, with loading <span class="math inline">\(\approx 0.8567\)</span>.</p>
 <div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="principal-component-analysis.html#cb206-1" tabindex="-1"></a>    iris_pc<span class="sc">$</span>rotation</span>
 <span id="cb206-2"><a href="principal-component-analysis.html#cb206-2" tabindex="-1"></a><span class="do">##                      PC1         PC2         PC3        PC4</span></span>
@@ -650,10 +657,10 @@ The <span class="math inline">\(\mathbf{V}\)</span> matrix here corresponds to t
 <div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="principal-component-analysis.html#cb207-1" tabindex="-1"></a>    features <span class="ot">=</span> <span class="fu">row.names</span>(iris_pc<span class="sc">$</span>rotation)</span>
 <span id="cb207-2"><a href="principal-component-analysis.html#cb207-2" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(iris_pc<span class="sc">$</span>rotation), <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC2, <span class="at">label=</span>features,<span class="at">color=</span>features)) <span class="sc">+</span> </span>
 <span id="cb207-3"><a href="principal-component-analysis.html#cb207-3" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">geom_text</span>(<span class="at">size=</span><span class="dv">3</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-323-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-326-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="example-2-handwritten-digits" class="section level2 hasAnchor" number="23.3">
-<h2><span class="header-section-number">23.3</span> Example 2: Handwritten Digits<a href="principal-component-analysis.html#example-2-handwritten-digits" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="example-2-handwritten-digits" class="section level2 hasAnchor" number="24.3">
+<h2><span class="header-section-number">24.3</span> Example 2: Handwritten Digits<a href="principal-component-analysis.html#example-2-handwritten-digits" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The handwritten zip code digits data contains 7291 training data and 2007 testing data. Each image is a <span class="math inline">\(16 \times 16\)</span>-pixel gray-scale image. Hence they are converted to a vector of 256 variables.</p>
 <div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="principal-component-analysis.html#cb208-1" tabindex="-1"></a>    <span class="fu">library</span>(ElemStatLearn)</span>
 <span id="cb208-2"><a href="principal-component-analysis.html#cb208-2" tabindex="-1"></a>    <span class="co"># Handwritten Digit Recognition Data</span></span>
@@ -661,7 +668,7 @@ The <span class="math inline">\(\mathbf{V}\)</span> matrix here corresponds to t
 <span id="cb208-4"><a href="principal-component-analysis.html#cb208-4" tabindex="-1"></a>    <span class="fu">dim</span>(zip.train)</span>
 <span id="cb208-5"><a href="principal-component-analysis.html#cb208-5" tabindex="-1"></a><span class="do">## [1] 7291  257</span></span></code></pre></div>
 <p>Here is a sample of some images:</p>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-325-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-328-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>Let’s do a simpler task, using just three letters: 1, 4 and 8.</p>
 <div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="principal-component-analysis.html#cb209-1" tabindex="-1"></a>    zip.sub <span class="ot">=</span> zip.train[zip.train[,<span class="dv">1</span>] <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">8</span>), <span class="sc">-</span><span class="dv">1</span>]</span>
 <span id="cb209-2"><a href="principal-component-analysis.html#cb209-2" tabindex="-1"></a>    zip.sub.truth <span class="ot">=</span> <span class="fu">as.factor</span>(zip.train[zip.train[,<span class="dv">1</span>] <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">8</span>), <span class="dv">1</span>])</span>
@@ -669,26 +676,26 @@ The <span class="math inline">\(\mathbf{V}\)</span> matrix here corresponds to t
 <span id="cb209-4"><a href="principal-component-analysis.html#cb209-4" tabindex="-1"></a><span class="do">## [1] 2199  256</span></span>
 <span id="cb209-5"><a href="principal-component-analysis.html#cb209-5" tabindex="-1"></a>    zip_pc <span class="ot">=</span> <span class="fu">prcomp</span>(zip.sub)</span>
 <span id="cb209-6"><a href="principal-component-analysis.html#cb209-6" tabindex="-1"></a>    <span class="fu">plot</span>(zip_pc, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">main =</span> <span class="st">&quot;Digits 1, 4, and 8: PCA Variance&quot;</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-326-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-329-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>The eigenvalue results suggest that the first two principal components are much more influential than the rest. A pair-wise PC plot of the first four PC’s may further confirm that speculation.</p>
 <div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="principal-component-analysis.html#cb210-1" tabindex="-1"></a>    <span class="fu">pairs</span>(zip_pc<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;chartreuse4&quot;</span>, <span class="st">&quot;darkorange&quot;</span>, <span class="st">&quot;deepskyblue&quot;</span>)[zip.sub.truth], <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-327-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-330-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>Let’s look at the first two PCs more closely. Even without knowing the true class (no colors) we can still vaguely see 3 clusters.</p>
 <div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="principal-component-analysis.html#cb211-1" tabindex="-1"></a>    <span class="fu">library</span>(ggplot2)</span>
 <span id="cb211-2"><a href="principal-component-analysis.html#cb211-2" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(zip_pc<span class="sc">$</span>x), <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC2)) <span class="sc">+</span> </span>
 <span id="cb211-3"><a href="principal-component-analysis.html#cb211-3" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-328-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-331-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>Finally, let’s briefly look at the results of PCA for all 10 different digits. Of course, more PC’s are needed for this task. You can also plot other PC’s to get more information.</p>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="principal-component-analysis.html#cb212-1" tabindex="-1"></a>    <span class="fu">library</span>(colorspace)</span>
 <span id="cb212-2"><a href="principal-component-analysis.html#cb212-2" tabindex="-1"></a></span>
 <span id="cb212-3"><a href="principal-component-analysis.html#cb212-3" tabindex="-1"></a>    zip_pc <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(zip.train)</span>
 <span id="cb212-4"><a href="principal-component-analysis.html#cb212-4" tabindex="-1"></a></span>
 <span id="cb212-5"><a href="principal-component-analysis.html#cb212-5" tabindex="-1"></a>    <span class="fu">plot</span>(zip_pc, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">main =</span> <span class="st">&quot;All Digits: PCA Variance&quot;</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-329-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-332-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="principal-component-analysis.html#cb213-1" tabindex="-1"></a></span>
 <span id="cb213-2"><a href="principal-component-analysis.html#cb213-2" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="fu">prcomp</span>(zip.train)<span class="sc">$</span>x), <span class="fu">aes</span>(<span class="at">x=</span>PC1, <span class="at">y=</span>PC2)) <span class="sc">+</span> </span>
 <span id="cb213-3"><a href="principal-component-analysis.html#cb213-3" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="fu">rainbow_hcl</span>(<span class="dv">10</span>)[zip.train[,<span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>], <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-329-2.png" width="45%" style="display: block; margin: auto;" /></p>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-332-2.png" width="45%" style="display: block; margin: auto;" /></p>
 
 <div style="display:none;">
 <!-- Conflict \def\bf{\mathbf{f}} -->

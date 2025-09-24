@@ -1,0 +1,286 @@
+```{r, echo=FALSE, results='asis'}
+  # import macros
+  cat("<div style='display:none;'>")
+  cat(paste(scan("mathjax_header.html", what = character(), sep = "\n", quiet = TRUE), collapse = "\n"))
+  cat("</div>")
+```
+```{r include = FALSE}
+  options(width = 100)
+  knitr::opts_knit$set(global.par = TRUE)
+  knitr::opts_chunk$set(collapse = TRUE, fig.dim = c(6, 6),
+                        out.width = "45%", fig.align = 'center')
+```
+```{r include = FALSE}
+  par(bg="transparent")
+  par(mar=c(2,2,2,2))
+  par(mfrow=c(1,1))
+```
+
+# Nonparemetric Estimation Rates{#nonpara}
+
+In this chapter, we will analyze the convergence rates of some nonparametric estimators. We will start with the Parzen kernel density estimator on one dimension, with second-order smoothness, and then extend the analysis to higher dimensions and other smoothness assumptions. Lastly, we use the Parzen estimator as a building block to analyze the Nadaraya-Watson regression estimator.
+
+## Kernel Density Estimation
+
+We had a brief analysis of the convergence of Parzen kernel density estimator [@parzen1962estimation] in the previous lecture. We can extend the understanding to further break down the bias and variance. Recall that the kernel density estimator is defined as
+
+\[
+\widehat f(x) = \frac{1}{nh} \sum_{i=1}^n K\big( \frac{x - x_i}{h} \big)
+\]
+
+We make the following conditions: 
+
+  * $K$ is a valid density function, i.e., $\int K(t) dt = 1$.
+  * $K$ is symmetric around 0, i.e., $\int K(t) t dt = 0$.
+  * $K$ has a finite second moment, i.e., $\sigma_K^2 = \int K(t) t^2 dt < \infty$.
+  * $\int K^2(t) dt < \infty$.
+  * $f$ has a bounded second derivative.
+  
+First look at the bias term, which was analyzed from our previous analysis:
+
+\[
+\begin{align}
+    \E\big[ \widehat f(x) \big] &= \E\left[ \frac{1}{h} K\left( \frac{x - x_1}{h} \right) \right] \\
+    &= \int_{-\infty}^\infty \frac{1}{h} K\left(\frac{x-x_1}{h}\right) f(x_1) d x_1 \\
+    &= \int_{\infty}^{-\infty} \frac{1}{h} K(t) f(x - th) d (x-th) \\
+    &= \int_{-\infty}^\infty K(t) f(x - th) dt \\
+    (\text{Taylor expansion}) \quad &= f(x) - h f'(x) \int K(t) t dt + \frac{h^2}{2} f''(x) \int_{-\infty}^\infty K(t) t^2 dt + o(h^2) \\
+\end{align}
+\]
+
+We know that as $h \to 0$, the bias goes to 0. More specifically, since we have the kernel function is symmetric, $\int K(t) t dt = 0$, the $h f'(x) \int K(t) t dt$ term vanishes, and the leading term of the bias is in the order of $h^2$. Since the density is over the entire domain, we can define the integrated Bias$^2$:
+
+\[
+\begin{align}
+\text{Bias}^2 &= \int \left( \E[\widehat f(x)] - f(x)\right)^2 dx \\
+    &\approx \frac{h^4 \sigma_K^4}{4} \int \big[ f''(x)\big]^2 dx
+\end{align}
+\]
+
+where $\sigma_K^2 = \int_{-\infty}^\infty K(t) t^2 dt$. On the other hand, the variance term is 
+
+\[
+\begin{align}
+  \Var\big[ \widehat f(x) \big] &= \frac{1}{n} \Var \Big[\frac{1}{h}K\big( \frac{x - x_1}{h} \big) \Big] \\
+  &= \frac{1}{n} \E \bigg[ \frac{1}{h^2} K^2\big( \frac{x - x_1}{h}\big) \bigg] - \frac{1}{n}\Big(\E\Big[ \frac{1}{h} K\big( \frac{x - x_1}{h} \big)\Big]\Big)^2 \\
+  &= \frac{1}{n} \Big[ \int \frac{1}{h^2} K^2\!\Big( \frac{x - x_1}{h} \Big) f(x_1) dx_1 + O(1) \Big] \\
+  &= \frac{1}{n} \Big[ \frac{1}{h} \int K^2( t ) f(x - th) dt + O(1) \Big] \\
+  &\approx \frac{f(x)}{nh} \int K^2( u ) du 
+\end{align}
+\]
+
+with the integrated variance being 
+
+\[
+\frac{1}{nh} \int K^2( u ) du .
+\]
+
+Hence, the __asymptotic mean integrated squared error__ (AMISE)
+
+\[
+\begin{align}
+\text{AIMSE} &= \int \E\big[ \widehat f(x) - f(x) \big]^2 dx \\
+&= \text{Bias}^2 + \text{Variance} \\
+&\approx \frac{h^4 \sigma_K^4}{4} \int \big[ f''(x)\big]^2 dx + \frac{1}{nh} \int K^2( u ) du
+\end{align}
+\]
+
+To minimize the AMISE, we take the derivative with respect to $h$ and set it to 0:
+
+\[
+\frac{d \text{AMISE}}{dh} = h^3 \sigma_K^4 \int \big[ f''(x)\big]^2 dx - \frac{1}{nh^2} \int K^2( u ) du \overset{\text{set}}{=} 0
+\]
+
+Solving for $h$, we have the optimal bandwidth
+
+\[
+h^\text{opt} = \bigg[ \frac{\int K^2(u)du}{ \sigma_K^4 \int (f''(x))^2 dx} \bigg]^{1/5} n^{-1/5},
+\]
+
+and the optimal AMISE is in the order of $\mathcal{O}(n^{-4/5})$.
+
+## The Effect of Smoothness
+
+The above analysis assumes that the density function has a bounded second derivative. If we only assume Lipschitz continuity, i.e., there exists a constant $L$ such that for any $x$ and $z$,
+\[
+|f(x) - f(z)| \le L |x - z|,
+\]
+then we need to modify the bias term. Define the first absolute moment of the kernel $M_1(K) := \int |t|\,|K(t)|\,dt < \infty$. Then the bias term can be bounded as
+
+\[
+\begin{aligned}
+\E\big[ \widehat f_h(x) \big]
+&= \int_{-\infty}^\infty K(t)\, f(x - th)\, dt,\\
+\big|\E\big[ \widehat f_h(x) \big] - f(x)\big|
+&= \Big| \int K(t)\,\big(f(x - th) - f(x)\big)\, dt \Big| \\
+&\le \int |K(t)|\,\big|f(x - th) - f(x)\big|\, dt \\
+&\le L h \int |t|\,|K(t)|\, dt \\
+&= L h\, M_1(K).
+\end{aligned}
+\]
+
+Hence the pointwise bias is of order $h$. Under a mild integrability condition (e.g., $f$ absolutely continuous with $f' \in L_2$), the integrated squared bias satisfies
+
+\[
+\int \big(\text{Bias}(\widehat f_h(x))\big)^2\,dx \;\le\; h^2\, M_1(K)^2\, \|f'\|_2^2 \;=\; O(h^2).
+\]
+
+The variance term remains the same, since the effective local sample size is still of order $nh$:
+
+\[
+\int \Var\big[\widehat f_h(x)\big]\,dx \approx \frac{1}{nh}\int K^2(u)\,du = O\Big(\frac{1}{nh}\Big).
+\]
+
+Therefore, the AMISE becomes
+
+\[
+\text{AMISE}(h) \;\approx\; O(h^2) + O\Big(\frac{1}{n h}\Big),
+\]
+
+with optimal bandwidth
+
+\[
+h^{\text{opt}} \;=\; n^{-1/3},
+\]
+
+and the optimal AMISE of order $O(n^{-2/3})$. Overall, if we assume Holder continuity of order $s$ then the optimal bandwidth is of order $n^{-1/(2s+1)}$ and the optimal AMISE is of order $n^{-2s/(2s+1)}$.
+
+## The Effect of Dimensionality
+
+We can extend the above analysis to higher dimensions. The kernel density estimator in $d$ dimensions is defined as
+
+\[
+\widehat f(x) = \frac{1}{n h^d} \sum_{i=1}^n K\big( \tfrac{x - x_i}{h} \big),
+\]
+
+where $K: \mathbb{R}^d \to \mathbb{R}$ is a valid multivariate kernel function. With similar assumptions on the kernel and the density function, we can derive the bias as 
+
+\[
+\begin{align}
+    \E\big[ \widehat f(x) \big] &= \E\left[ \frac{1}{h^d} K\left( \frac{x - x_1}{h} \right) \right] \\
+    &= \int_{\mathbb{R}^d} \frac{1}{h^d} K\!\left(\frac{x-x_1}{h}\right) f(x_1)\, d x_1 \\
+    &= \int_{\mathbb{R}^d} K(t)\, f(x - h t)\, dt \\
+    &= f(x) + \int_{\mathbb{R}^d} K(t)\,\big(f(x - h t)-f(x)\big)\, dt .
+\end{align}
+\]
+
+If we only assume Lipschitz continuity in $\mathbb{R}^d$, i.e., there exists $L>0$ such that $|f(x)-f(z)|\le L \|x-z\|_2$, then
+
+\[
+\begin{aligned}
+\big| \E[ \widehat f(x) ] - f(x) \big|
+&= \Big| \int K(t)\,\big(f(x - h t)-f(x)\big)\, dt \Big| \\
+&\le \int |K(t)|\,\big|f(x - h t)-f(x)\big|\, dt \\
+&\le L h \int_{\mathbb{R}^d} \|t\|_2\, |K(t)|\, dt ,
+\end{aligned}
+\]
+
+so the pointwise bias is of order $h$ in any dimension $d$. With suitable integrability conditions, the integrated squared bias is of order $h^2$. On the other hand, the variance term scales with the effective local sample size $n h^d$:
+
+\[
+\begin{aligned}
+\Var\big[ \widehat f(x) \big]
+&= \frac{1}{n} \Var\!\Big( \frac{1}{h^d} K\!\big( \tfrac{x - X_1}{h} \big) \Big) \\
+&= \frac{1}{n} \Big[ \frac{1}{h^d} \int_{\mathbb{R}^d} K(t)^2\, f(x - h t)\, dt \Big] - \frac{1}{n}\big(\E[\widehat f(x)]\big)^2 \\
+&\approx \frac{f(x)}{n h^{d}} \int_{\mathbb{R}^d} K(t)^2\, dt .
+\end{aligned}
+\]
+
+Combining the two pieces, and if we only care about the rate, the IMSE in $d$ dimensions takes the generic form
+\[
+\text{IMSE}(h) \;\approx\; C_b\, h^{2s} \;+\; \frac{C_v}{n h^{d}},
+\]
+where $s=1$ under Lipschitz continuity and $s=2$ when $f\in C^2$ with a second-order kernel, and more generally, as long as we can pair up the order of the kernel such that the $s$-th order term is the leading term in the Taylor expansion of the bias. The constants $C_b$ and $C_v$ depend on the kernel and the density function but not on $n$ or $h$. Optimizing over $h$ gives
+\[
+h^{\text{opt}} \;\asymp\; n^{-1/(2s + d)}, 
+\qquad
+\text{IMSE}\big(h^{\text{opt}}\big) \;\asymp\; n^{-2s/(2s + d)}.
+\]
+
+In particular, for the two cases we analyzed, we have
+
+\[
+\begin{aligned}
+&\text{Lipschitz }( s=1): && h^{\text{opt}} \asymp n^{-1/(2+d)}, \quad && \text{IMSE} \asymp n^{-2/(2+d)}, \\
+&f\in C^2 \text{ with second-order kernel }(s=2): && h^{\text{opt}} \asymp n^{-1/(4+d)}, \quad && \text{IMSE} \asymp n^{-4/(4+d)}.
+\end{aligned}
+\]
+
+
+## Nadaraya-Watson Regression Estimator
+
+We now consider nonparametric regression with the Nadaraya--Watson (NW) estimator [@nadaraya1964estimating] in one dimension. Let $(X_i,Y_i)_{i=1}^n$ be i.i.d. with
+\[
+Y_i \;=\; m(X_i) + \varepsilon_i,\qquad \varepsilon_i \perp X_i,\qquad \E[\varepsilon_i]=0,\qquad \Var(\varepsilon_i)=\sigma^2,
+\]
+and let $f$ denote the density of $X$. The NW estimator is
+\[
+\widehat m_h(x) \;=\; \frac{\sum_{i=1}^n K\!\big( \tfrac{x - X_i}{h} \big)\, Y_i}{\sum_{i=1}^n K\!\big( \tfrac{x - X_i}{h} \big)}
+\;=\; \frac{\widehat g_h(x)}{\widehat f_h(x)},
+\quad
+\widehat g_h(x)=\frac{1}{n h}\sum_{i=1}^n K\!\big( \tfrac{x - X_i}{h} \big) Y_i,\quad
+\widehat f_h(x)=\frac{1}{n h}\sum_{i=1}^n K\!\big( \tfrac{x - X_i}{h} \big).
+\]
+
+We make the following conditions:
+
+  * $K$ is a valid kernel on $\mathbb{R}$: $\int K(t)\,dt=1$, $\int t\,K(t)\,dt=0$, and $R(K):=\int K(t)^2\,dt<\infty$.
+  * The design density $f$ is bounded and bounded away from $0$ near $x$.
+  * The regression function $m$ and the density $f$ are twice continuously differentiable near $x$ (interior point).
+
+First look at the bias term. Write $g(x)=m(x)f(x)$. As in the KDE section, both $\widehat f_h$ and $\widehat g_h$ are kernel smoothers, and for a symmetric kernel with finite second moment we have (interior point)
+\[
+\begin{aligned}
+\E\big[\widehat f_h(x)\big] &= f(x) + O(h^2),\\
+\E\big[\widehat g_h(x)\big] &= g(x) + O(h^2).
+\end{aligned}
+\]
+Using the ratio form and a first-order \emph{delta method} expansion at $(g,f)$,
+\[
+\widehat m_h(x) - m(x)
+\;\approx\; \frac{\widehat g_h(x)-g(x)}{f(x)} \;-\; \frac{g(x)}{f(x)^2}\,\big(\widehat f_h(x)-f(x)\big),
+\]
+so taking expectations and substituting the two Taylor expansions above,
+\[
+\E\big[\widehat m_h(x)\big] - m(x) \;=\; O(h^2).
+\]
+
+On the other hand, for the variance we again use the delta method [@newey1994kernel]. Let
+\[
+\nabla\phi(g,f)=\Big(\tfrac{1}{f(x)},\; -\tfrac{g(x)}{f(x)^2}\Big),\qquad \phi(u,v)=u/v.
+\]
+A direct calculation (as in the KDE variance derivation) yields
+\[
+\begin{aligned}
+\Var\!\big(\widehat f_h(x)\big) &\approx \frac{R(K)}{n h}\, f(x), \\
+\Var\!\big(\widehat g_h(x)\big) &\approx \frac{R(K)}{n h}\, f(x)\big(m(x)^2+\sigma^2\big),\\
+\Cov\!\big(\widehat g_h(x),\widehat f_h(x)\big) &\approx \frac{R(K)}{n h}\, f(x)\, m(x).
+\end{aligned}
+\]
+Therefore,
+\[
+\Var\!\big(\widehat m_h(x)\big)
+\;\approx\; \nabla\phi^\top
+\begin{pmatrix}
+\Var(\widehat g_h) & \Cov(\widehat g_h,\widehat f_h)\\
+\Cov(\widehat g_h,\widehat f_h) & \Var(\widehat f_h)
+\end{pmatrix}
+\nabla\phi
+\;=\; \frac{R(K)}{n h}\,\frac{\sigma^2}{f(x)}.
+\]
+
+Finally, consider the integrated mean squared error with respect to the design measure $f(x)\,dx$:
+\[
+\text{IMSE}_{\text{reg}}(h) \;:=\; \int \E\!\left[ \big(\widehat m_h(x)-m(x)\big)^2 \right] f(x)\, dx
+\;\approx\; C_b\, h^{4} \;+\; \frac{R(K)\,\sigma^2}{n h},
+\]
+where $C_b$ is a constant depending on the second derivatives of $m$ and $f$ (its exact form is not needed here). Minimizing in $h$ gives
+\[
+h^{\text{opt}} \;=\; \Big(\frac{R(K)\,\sigma^2}{4\,C_b}\Big)^{\!1/5} n^{-1/5},
+\qquad
+\text{IMSE}_{\text{reg}}\big(h^{\text{opt}}\big) \;\asymp\; n^{-4/5}.
+\]
+
+Thus, the optimal rate is the same as the kernel density estimator with second-order smoothness. In generate, the optimal rate of the NW estimator with $s$-th order smoothness is still $n^{-2s/(2s+d)}$ with suitable conditions. 
+
+

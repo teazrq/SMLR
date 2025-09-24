@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 14 Nonparemetric Estimation Rates | Statistical Machine Learning with R</title>
+  <meta name="description" content="A Textbook for Statistical Machine Learning Courses at UIUC" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 14 Nonparemetric Estimation Rates | Statistical Machine Learning with R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A Textbook for Statistical Machine Learning Courses at UIUC" />
+  <meta name="github-repo" content="teazrq/SMLR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 14 Nonparemetric Estimation Rates | Statistical Machine Learning with R" />
+  
+  <meta name="twitter:description" content="A Textbook for Statistical Machine Learning Courses at UIUC" />
+  
+
+<meta name="author" content="Ruoqing Zhu, PhD" />
+
+
+<meta name="date" content="2025-09-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="prev" href="kernel-smoothing.html"/>
+<link rel="next" href="reproducing-kernel-hilbert-space.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.11.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Statistical Machine Learning with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#target-audience"><i class="fa fa-check"></i>Target Audience</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#whats-covered"><i class="fa fa-check"></i>What’s Covered?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#license"><i class="fa fa-check"></i>License</a></li>
+</ul></li>
+<li class="part"><span><b>I Basics Knowledge</b></span></li>
+<li class="chapter" data-level="1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> R and RStudio</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> Installing R and RStudio</a></li>
+<li class="chapter" data-level="1.2" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#r-basic"><i class="fa fa-check"></i><b>1.2</b> Resources and Guides</a></li>
+<li class="chapter" data-level="1.3" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#basic-mathematical-operations"><i class="fa fa-check"></i><b>1.3</b> Basic Mathematical Operations</a></li>
+<li class="chapter" data-level="1.4" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#data-objects"><i class="fa fa-check"></i><b>1.4</b> Data Objects</a></li>
+<li class="chapter" data-level="1.5" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#readin-and-save-data"><i class="fa fa-check"></i><b>1.5</b> Readin and save data</a></li>
+<li class="chapter" data-level="1.6" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#using-and-defining-functions"><i class="fa fa-check"></i><b>1.6</b> Using and defining functions</a></li>
+<li class="chapter" data-level="1.7" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#distribution-and-random-numbers"><i class="fa fa-check"></i><b>1.7</b> Distribution and random numbers</a></li>
+<li class="chapter" data-level="1.8" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#using-packages-and-other-resources"><i class="fa fa-check"></i><b>1.8</b> Using packages and other resources</a></li>
+<li class="chapter" data-level="1.9" data-path="r-and-rstudio.html"><a href="r-and-rstudio.html#practice-questions"><i class="fa fa-check"></i><b>1.9</b> Practice questions</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="rmarkdown.html"><a href="rmarkdown.html"><i class="fa fa-check"></i><b>2</b> RMarkdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="rmarkdown.html"><a href="rmarkdown.html#basics-and-resources"><i class="fa fa-check"></i><b>2.1</b> Basics and Resources</a></li>
+<li class="chapter" data-level="2.2" data-path="rmarkdown.html"><a href="rmarkdown.html#formatting-text"><i class="fa fa-check"></i><b>2.2</b> Formatting Text</a></li>
+<li class="chapter" data-level="2.3" data-path="rmarkdown.html"><a href="rmarkdown.html#adding-r-code"><i class="fa fa-check"></i><b>2.3</b> Adding <code>R</code> Code</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="rmarkdown.html"><a href="rmarkdown.html#r-chunks"><i class="fa fa-check"></i><b>2.3.1</b> <code>R</code> Chunks</a></li>
+<li class="chapter" data-level="2.3.2" data-path="rmarkdown.html"><a href="rmarkdown.html#inline-r"><i class="fa fa-check"></i><b>2.3.2</b> Inline <code>R</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="rmarkdown.html"><a href="rmarkdown.html#importing-data"><i class="fa fa-check"></i><b>2.4</b> Importing Data</a></li>
+<li class="chapter" data-level="2.5" data-path="rmarkdown.html"><a href="rmarkdown.html#working-directory"><i class="fa fa-check"></i><b>2.5</b> Working Directory</a></li>
+<li class="chapter" data-level="2.6" data-path="rmarkdown.html"><a href="rmarkdown.html#plotting"><i class="fa fa-check"></i><b>2.6</b> Plotting</a></li>
+<li class="chapter" data-level="2.7" data-path="rmarkdown.html"><a href="rmarkdown.html#chunk-options"><i class="fa fa-check"></i><b>2.7</b> Chunk Options</a></li>
+<li class="chapter" data-level="2.8" data-path="rmarkdown.html"><a href="rmarkdown.html#adding-math-with-latex"><i class="fa fa-check"></i><b>2.8</b> Adding Math with LaTeX</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="rmarkdown.html"><a href="rmarkdown.html#displaystyle-latex"><i class="fa fa-check"></i><b>2.8.1</b> Displaystyle LaTeX</a></li>
+<li class="chapter" data-level="2.8.2" data-path="rmarkdown.html"><a href="rmarkdown.html#inline-latex"><i class="fa fa-check"></i><b>2.8.2</b> Inline LaTex</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="rmarkdown.html"><a href="rmarkdown.html#output-options"><i class="fa fa-check"></i><b>2.9</b> Output Options</a></li>
+<li class="chapter" data-level="2.10" data-path="rmarkdown.html"><a href="rmarkdown.html#try-it"><i class="fa fa-check"></i><b>2.10</b> Try It!</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="visual-studio-code.html"><a href="visual-studio-code.html"><i class="fa fa-check"></i><b>3</b> Visual Studio Code</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="visual-studio-code.html"><a href="visual-studio-code.html#basics-and-resources-1"><i class="fa fa-check"></i><b>3.1</b> Basics and Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html"><i class="fa fa-check"></i><b>4</b> Linear Algebra Basics</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#definition"><i class="fa fa-check"></i><b>4.1</b> Definition</a></li>
+<li class="chapter" data-level="4.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linear-regression"><i class="fa fa-check"></i><b>4.2</b> Linear Regression</a></li>
+<li class="chapter" data-level="4.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#matrix-inversion"><i class="fa fa-check"></i><b>4.3</b> Matrix Inversion</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#linearalgebra-SM"><i class="fa fa-check"></i><b>4.3.1</b> Rank-one Update</a></li>
+<li class="chapter" data-level="4.3.2" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#rank-k-update"><i class="fa fa-check"></i><b>4.3.2</b> Rank-<span class="math inline">\(k\)</span> Update</a></li>
+<li class="chapter" data-level="4.3.3" data-path="linear-algebra-basics.html"><a href="linear-algebra-basics.html#times-2-block-matrix-inversion"><i class="fa fa-check"></i><b>4.3.3</b> 2 <span class="math inline">\(\times\)</span> 2 Block Matrix Inversion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="optimization-basics.html"><a href="optimization-basics.html"><i class="fa fa-check"></i><b>5</b> Optimization Basics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="optimization-basics.html"><a href="optimization-basics.html#basic-concept"><i class="fa fa-check"></i><b>5.1</b> Basic Concept</a></li>
+<li class="chapter" data-level="5.2" data-path="optimization-basics.html"><a href="optimization-basics.html#global_local"><i class="fa fa-check"></i><b>5.2</b> Global vs. Local Optima</a></li>
+<li class="chapter" data-level="5.3" data-path="optimization-basics.html"><a href="optimization-basics.html#example-linear-regression-using-optim"><i class="fa fa-check"></i><b>5.3</b> Example: Linear Regression using <code>optim()</code></a></li>
+<li class="chapter" data-level="5.4" data-path="optimization-basics.html"><a href="optimization-basics.html#first-and-second-order-properties"><i class="fa fa-check"></i><b>5.4</b> First and Second Order Properties</a></li>
+<li class="chapter" data-level="5.5" data-path="optimization-basics.html"><a href="optimization-basics.html#algorithm"><i class="fa fa-check"></i><b>5.5</b> Algorithm</a></li>
+<li class="chapter" data-level="5.6" data-path="optimization-basics.html"><a href="optimization-basics.html#second-order-methods"><i class="fa fa-check"></i><b>5.6</b> Second-order Methods</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="optimization-basics.html"><a href="optimization-basics.html#newtons-method"><i class="fa fa-check"></i><b>5.6.1</b> Newton’s Method</a></li>
+<li class="chapter" data-level="5.6.2" data-path="optimization-basics.html"><a href="optimization-basics.html#quasi-newton-methods"><i class="fa fa-check"></i><b>5.6.2</b> Quasi-Newton Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="optimization-basics.html"><a href="optimization-basics.html#first-order-methods"><i class="fa fa-check"></i><b>5.7</b> First-order Methods</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="optimization-basics.html"><a href="optimization-basics.html#gradient-descent"><i class="fa fa-check"></i><b>5.7.1</b> Gradient Descent</a></li>
+<li class="chapter" data-level="5.7.2" data-path="optimization-basics.html"><a href="optimization-basics.html#gradient-descent-example-linear-regression"><i class="fa fa-check"></i><b>5.7.2</b> Gradient Descent Example: Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="optimization-basics.html"><a href="optimization-basics.html#coordinate"><i class="fa fa-check"></i><b>5.8</b> Coordinate Descent</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="optimization-basics.html"><a href="optimization-basics.html#coordinate-descent-example-linear-regression"><i class="fa fa-check"></i><b>5.8.1</b> Coordinate Descent Example: Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="optimization-basics.html"><a href="optimization-basics.html#stocastic-gradient-descent"><i class="fa fa-check"></i><b>5.9</b> Stocastic Gradient Descent</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="optimization-basics.html"><a href="optimization-basics.html#mini-batch-stocastic-gradient-descent"><i class="fa fa-check"></i><b>5.9.1</b> Mini-batch Stocastic Gradient Descent</a></li>
+</ul></li>
+<li class="chapter" data-level="5.10" data-path="optimization-basics.html"><a href="optimization-basics.html#lagrangian-multiplier-for-constrained-problems"><i class="fa fa-check"></i><b>5.10</b> Lagrangian Multiplier for Constrained Problems</a></li>
+</ul></li>
+<li class="part"><span><b>II Linear and Penalized Linear Models</b></span></li>
+<li class="chapter" data-level="6" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html"><i class="fa fa-check"></i><b>6</b> Linear Regression and Model Selection</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#example-real-estate-data"><i class="fa fa-check"></i><b>6.1</b> Example: real estate data</a></li>
+<li class="chapter" data-level="6.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#notation-and-basic-properties"><i class="fa fa-check"></i><b>6.2</b> Notation and Basic Properties</a></li>
+<li class="chapter" data-level="6.3" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-the-lm-function"><i class="fa fa-check"></i><b>6.3</b> Using the <code>lm()</code> Function</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#adding-covariates"><i class="fa fa-check"></i><b>6.3.1</b> Adding Covariates</a></li>
+<li class="chapter" data-level="6.3.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#categorical-variables"><i class="fa fa-check"></i><b>6.3.2</b> Categorical Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-criteria"><i class="fa fa-check"></i><b>6.4</b> Model Selection Criteria</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-marrows-c_p"><i class="fa fa-check"></i><b>6.4.1</b> Using Marrows’ <span class="math inline">\(C_p\)</span></a></li>
+<li class="chapter" data-level="6.4.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#using-aic-and-bic"><i class="fa fa-check"></i><b>6.4.2</b> Using AIC and BIC</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#model-selection-algorithms"><i class="fa fa-check"></i><b>6.5</b> Model Selection Algorithms</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#best-subset-selection-with-leaps"><i class="fa fa-check"></i><b>6.5.1</b> Best Subset Selection with <code>leaps</code></a></li>
+<li class="chapter" data-level="6.5.2" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#step-wise-regression-using-step"><i class="fa fa-check"></i><b>6.5.2</b> Step-wise regression using <code>step()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="linear-regression-and-model-selection.html"><a href="linear-regression-and-model-selection.html#marrows-cp"><i class="fa fa-check"></i><b>6.6</b> Derivation of Marrows’ <span class="math inline">\(C_p\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ridge-regression.html"><a href="ridge-regression.html"><i class="fa fa-check"></i><b>7</b> Ridge Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="ridge-regression.html"><a href="ridge-regression.html#motivation-correlated-variables-and-convexity"><i class="fa fa-check"></i><b>7.1</b> Motivation: Correlated Variables and Convexity</a></li>
+<li class="chapter" data-level="7.2" data-path="ridge-regression.html"><a href="ridge-regression.html#ridge-penalty-and-the-reduced-variation"><i class="fa fa-check"></i><b>7.2</b> Ridge Penalty and the Reduced Variation</a></li>
+<li class="chapter" data-level="7.3" data-path="ridge-regression.html"><a href="ridge-regression.html#bias-and-variance-of-ridge-regression"><i class="fa fa-check"></i><b>7.3</b> Bias and Variance of Ridge Regression</a></li>
+<li class="chapter" data-level="7.4" data-path="ridge-regression.html"><a href="ridge-regression.html#degrees-of-freedom"><i class="fa fa-check"></i><b>7.4</b> Degrees of Freedom</a></li>
+<li class="chapter" data-level="7.5" data-path="ridge-regression.html"><a href="ridge-regression.html#using-the-lm.ridge-function"><i class="fa fa-check"></i><b>7.5</b> Using the <code>lm.ridge()</code> function</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue"><i class="fa fa-check"></i><b>7.5.1</b> Scaling Issue</a></li>
+<li class="chapter" data-level="7.5.2" data-path="ridge-regression.html"><a href="ridge-regression.html#multiple-lambda-values"><i class="fa fa-check"></i><b>7.5.2</b> Multiple <span class="math inline">\(\lambda\)</span> values</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="ridge-regression.html"><a href="ridge-regression.html#cross-validation"><i class="fa fa-check"></i><b>7.6</b> Cross-validation</a></li>
+<li class="chapter" data-level="7.7" data-path="ridge-regression.html"><a href="ridge-regression.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>7.7</b> Leave-one-out cross-validation</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="ridge-regression.html"><a href="ridge-regression.html#generalized-cross-validation"><i class="fa fa-check"></i><b>7.7.1</b> Generalized cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="ridge-regression.html"><a href="ridge-regression.html#the-glmnet-package"><i class="fa fa-check"></i><b>7.8</b> The <code>glmnet</code> package</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="ridge-regression.html"><a href="ridge-regression.html#scaling-issue-1"><i class="fa fa-check"></i><b>7.8.1</b> Scaling Issue</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="lasso.html"><a href="lasso.html"><i class="fa fa-check"></i><b>8</b> Lasso</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="lasso.html"><a href="lasso.html#one-variable-lasso-and-shrinkage"><i class="fa fa-check"></i><b>8.1</b> One-Variable Lasso and Shrinkage</a></li>
+<li class="chapter" data-level="8.2" data-path="lasso.html"><a href="lasso.html#constrained-optimization-view"><i class="fa fa-check"></i><b>8.2</b> Constrained Optimization View</a></li>
+<li class="chapter" data-level="8.3" data-path="lasso.html"><a href="lasso.html#the-solution-path"><i class="fa fa-check"></i><b>8.3</b> The Solution Path</a></li>
+<li class="chapter" data-level="8.4" data-path="lasso.html"><a href="lasso.html#path-wise-coordinate-descent"><i class="fa fa-check"></i><b>8.4</b> Path-wise Coordinate Descent</a></li>
+<li class="chapter" data-level="8.5" data-path="lasso.html"><a href="lasso.html#using-the-glmnet-package"><i class="fa fa-check"></i><b>8.5</b> Using the <code>glmnet</code> package</a></li>
+<li class="chapter" data-level="8.6" data-path="lasso.html"><a href="lasso.html#elastic-net"><i class="fa fa-check"></i><b>8.6</b> Elastic-Net</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="spline.html"><a href="spline.html"><i class="fa fa-check"></i><b>9</b> Spline</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="spline.html"><a href="spline.html#using-linear-models-for-nonlinear-trends"><i class="fa fa-check"></i><b>9.1</b> Using Linear models for Nonlinear Trends</a></li>
+<li class="chapter" data-level="9.2" data-path="spline.html"><a href="spline.html#a-motivating-example-and-polynomials"><i class="fa fa-check"></i><b>9.2</b> A Motivating Example and Polynomials</a></li>
+<li class="chapter" data-level="9.3" data-path="spline.html"><a href="spline.html#piecewise-polynomials"><i class="fa fa-check"></i><b>9.3</b> Piecewise Polynomials</a></li>
+<li class="chapter" data-level="9.4" data-path="spline.html"><a href="spline.html#splines"><i class="fa fa-check"></i><b>9.4</b> Splines</a></li>
+<li class="chapter" data-level="9.5" data-path="spline.html"><a href="spline.html#spline-basis"><i class="fa fa-check"></i><b>9.5</b> Spline Basis</a></li>
+<li class="chapter" data-level="9.6" data-path="spline.html"><a href="spline.html#natural-cubic-spline"><i class="fa fa-check"></i><b>9.6</b> Natural Cubic Spline</a></li>
+<li class="chapter" data-level="9.7" data-path="spline.html"><a href="spline.html#smoothing-spline"><i class="fa fa-check"></i><b>9.7</b> Smoothing Spline</a></li>
+<li class="chapter" data-level="9.8" data-path="spline.html"><a href="spline.html#fitting-smoothing-splines"><i class="fa fa-check"></i><b>9.8</b> Fitting Smoothing Splines</a></li>
+<li class="chapter" data-level="9.9" data-path="spline.html"><a href="spline.html#extending-splines-to-multiple-varibles"><i class="fa fa-check"></i><b>9.9</b> Extending Splines to Multiple Varibles</a></li>
+</ul></li>
+<li class="part"><span><b>III Linear Classification Models</b></span></li>
+<li class="chapter" data-level="10" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>10</b> Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="logistic-regression.html"><a href="logistic-regression.html#modeling-binary-outcomes"><i class="fa fa-check"></i><b>10.1</b> Modeling Binary Outcomes</a></li>
+<li class="chapter" data-level="10.2" data-path="logistic-regression.html"><a href="logistic-regression.html#example-cleveland-clinic-heart-disease-data"><i class="fa fa-check"></i><b>10.2</b> Example: Cleveland Clinic Heart Disease Data</a></li>
+<li class="chapter" data-level="10.3" data-path="logistic-regression.html"><a href="logistic-regression.html#interpretation-of-the-parameters"><i class="fa fa-check"></i><b>10.3</b> Interpretation of the Parameters</a></li>
+<li class="chapter" data-level="10.4" data-path="logistic-regression.html"><a href="logistic-regression.html#solving-a-logistic-regression"><i class="fa fa-check"></i><b>10.4</b> Solving a Logistic Regression</a></li>
+<li class="chapter" data-level="10.5" data-path="logistic-regression.html"><a href="logistic-regression.html#example-south-africa-heart-data"><i class="fa fa-check"></i><b>10.5</b> Example: South Africa Heart Data</a></li>
+<li class="chapter" data-level="10.6" data-path="logistic-regression.html"><a href="logistic-regression.html#penalized-logistic-regression"><i class="fa fa-check"></i><b>10.6</b> Penalized Logistic Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html"><i class="fa fa-check"></i><b>11</b> Discriminant Analysis</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#bayes-rule"><i class="fa fa-check"></i><b>11.1</b> Bayes Rule</a></li>
+<li class="chapter" data-level="11.2" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>11.2</b> Example: Linear Discriminant Analysis (LDA)</a></li>
+<li class="chapter" data-level="11.3" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#linear-discriminant-analysis"><i class="fa fa-check"></i><b>11.3</b> Linear Discriminant Analysis</a></li>
+<li class="chapter" data-level="11.4" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-quadratic-discriminant-analysis-qda"><i class="fa fa-check"></i><b>11.4</b> Example: Quadratic Discriminant Analysis (QDA)</a></li>
+<li class="chapter" data-level="11.5" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#quadratic-discriminant-analysis"><i class="fa fa-check"></i><b>11.5</b> Quadratic Discriminant Analysis</a></li>
+<li class="chapter" data-level="11.6" data-path="discriminant-analysis.html"><a href="discriminant-analysis.html#example-the-hand-written-digit-data"><i class="fa fa-check"></i><b>11.6</b> Example: the Hand Written Digit Data</a></li>
+</ul></li>
+<li class="part"><span><b>IV Nonparametric Models</b></span></li>
+<li class="chapter" data-level="12" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html"><i class="fa fa-check"></i><b>12</b> K-Neariest Neighber</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#definition-1"><i class="fa fa-check"></i><b>12.1</b> Definition</a></li>
+<li class="chapter" data-level="12.2" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-k"><i class="fa fa-check"></i><b>12.2</b> Tuning <span class="math inline">\(k\)</span></a></li>
+<li class="chapter" data-level="12.3" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#the-bias-variance-trade-off"><i class="fa fa-check"></i><b>12.3</b> The Bias-variance Trade-off</a></li>
+<li class="chapter" data-level="12.4" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#knn-for-classification"><i class="fa fa-check"></i><b>12.4</b> KNN for Classification</a></li>
+<li class="chapter" data-level="12.5" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-1-an-artificial-data"><i class="fa fa-check"></i><b>12.5</b> Example 1: An artificial data</a></li>
+<li class="chapter" data-level="12.6" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#degrees-of-freedom-1"><i class="fa fa-check"></i><b>12.6</b> Degrees of Freedom</a></li>
+<li class="chapter" data-level="12.7" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#tuning-with-the-caret-package"><i class="fa fa-check"></i><b>12.7</b> Tuning with the <code>caret</code> Package</a></li>
+<li class="chapter" data-level="12.8" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#distance-measures"><i class="fa fa-check"></i><b>12.8</b> Distance Measures</a></li>
+<li class="chapter" data-level="12.9" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#nn-error-bound"><i class="fa fa-check"></i><b>12.9</b> 1NN Error Bound</a></li>
+<li class="chapter" data-level="12.10" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#example-2-handwritten-digit-data"><i class="fa fa-check"></i><b>12.10</b> Example 2: Handwritten Digit Data</a></li>
+<li class="chapter" data-level="12.11" data-path="k-neariest-neighber.html"><a href="k-neariest-neighber.html#curse-of-dimensionality"><i class="fa fa-check"></i><b>12.11</b> Curse of Dimensionality</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html"><i class="fa fa-check"></i><b>13</b> Kernel Smoothing</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#knn-vs.-kernel"><i class="fa fa-check"></i><b>13.1</b> KNN vs. Kernel</a></li>
+<li class="chapter" data-level="13.2" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#kernel-density-estimations"><i class="fa fa-check"></i><b>13.2</b> Kernel Density Estimations</a></li>
+<li class="chapter" data-level="13.3" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#expectation-of-the-parzen-estimator"><i class="fa fa-check"></i><b>13.3</b> Expectation of the Parzen estimator</a></li>
+<li class="chapter" data-level="13.4" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#gaussian-kernel-regression"><i class="fa fa-check"></i><b>13.4</b> Gaussian Kernel Regression</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#bias-variance-trade-off"><i class="fa fa-check"></i><b>13.4.1</b> Bias-variance Trade-off</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#choice-of-kernel-functions"><i class="fa fa-check"></i><b>13.5</b> Choice of Kernel Functions</a></li>
+<li class="chapter" data-level="13.6" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-linear-regression"><i class="fa fa-check"></i><b>13.6</b> Local Linear Regression</a></li>
+<li class="chapter" data-level="13.7" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#local-polynomial-regression"><i class="fa fa-check"></i><b>13.7</b> Local Polynomial Regression</a></li>
+<li class="chapter" data-level="13.8" data-path="kernel-smoothing.html"><a href="kernel-smoothing.html#r-implementations"><i class="fa fa-check"></i><b>13.8</b> R Implementations</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="nonpara.html"><a href="nonpara.html"><i class="fa fa-check"></i><b>14</b> Nonparemetric Estimation Rates</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="nonpara.html"><a href="nonpara.html#kernel-density-estimation"><i class="fa fa-check"></i><b>14.1</b> Kernel Density Estimation</a></li>
+<li class="chapter" data-level="14.2" data-path="nonpara.html"><a href="nonpara.html#the-effect-of-smoothness"><i class="fa fa-check"></i><b>14.2</b> The Effect of Smoothness</a></li>
+<li class="chapter" data-level="14.3" data-path="nonpara.html"><a href="nonpara.html#the-effect-of-dimensionality"><i class="fa fa-check"></i><b>14.3</b> The Effect of Dimensionality</a></li>
+<li class="chapter" data-level="14.4" data-path="nonpara.html"><a href="nonpara.html#nadaraya-watson-regression-estimator"><i class="fa fa-check"></i><b>14.4</b> Nadaraya-Watson Regression Estimator</a></li>
+</ul></li>
+<li class="part"><span><b>V Kernel Machines</b></span></li>
+<li class="chapter" data-level="15" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html"><i class="fa fa-check"></i><b>15</b> Reproducing Kernel Hilbert Space</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-motivation"><i class="fa fa-check"></i><b>15.1</b> The Motivation</a></li>
+<li class="chapter" data-level="15.2" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#hilbert-space-preliminaries"><i class="fa fa-check"></i><b>15.2</b> Hilbert Space Preliminaries</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-space-of-square-integrable-functions"><i class="fa fa-check"></i><b>15.2.1</b> The Space of Square-Integrable Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#a-kernel-function"><i class="fa fa-check"></i><b>15.3</b> A Kernel Function</a></li>
+<li class="chapter" data-level="15.4" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#a-space-of-functions"><i class="fa fa-check"></i><b>15.4</b> A Space of Functions</a></li>
+<li class="chapter" data-level="15.5" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-inner-product"><i class="fa fa-check"></i><b>15.5</b> The Inner Product</a></li>
+<li class="chapter" data-level="15.6" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-rkhs"><i class="fa fa-check"></i><b>15.6</b> The RKHS</a></li>
+<li class="chapter" data-level="15.7" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-reproducing-property"><i class="fa fa-check"></i><b>15.7</b> The Reproducing Property</a></li>
+<li class="chapter" data-level="15.8" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#smoothness"><i class="fa fa-check"></i><b>15.8</b> Smoothness</a></li>
+<li class="chapter" data-level="15.9" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#the-moorearonszajn-theorem"><i class="fa fa-check"></i><b>15.9</b> The Moore–Aronszajn Theorem</a></li>
+<li class="chapter" data-level="15.10" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#examples"><i class="fa fa-check"></i><b>15.10</b> Examples</a>
+<ul>
+<li class="chapter" data-level="15.10.1" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#brownian-motion-kernel"><i class="fa fa-check"></i><b>15.10.1</b> Brownian Motion Kernel</a></li>
+<li class="chapter" data-level="15.10.2" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#non-positive-definite-kernel"><i class="fa fa-check"></i><b>15.10.2</b> Non-positive Definite Kernel</a></li>
+<li class="chapter" data-level="15.10.3" data-path="reproducing-kernel-hilbert-space.html"><a href="reproducing-kernel-hilbert-space.html#defining-new-kernels"><i class="fa fa-check"></i><b>15.10.3</b> Defining New Kernels</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html"><i class="fa fa-check"></i><b>16</b> Kernel Ridge Regression</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#linear-regression-as-a-constraint-optimization"><i class="fa fa-check"></i><b>16.1</b> Linear Regression as a Constraint Optimization</a></li>
+<li class="chapter" data-level="16.2" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#the-kernel-ridge-regression"><i class="fa fa-check"></i><b>16.2</b> The Kernel Ridge Regression</a></li>
+<li class="chapter" data-level="16.3" data-path="kernel-ridge-regression.html"><a href="kernel-ridge-regression.html#ridge-regression-as-a-linear-kernel-model"><i class="fa fa-check"></i><b>16.3</b> Ridge Regression as a Linear Kernel Model</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>17</b> Support Vector Machines</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#maximum-margin-classifier"><i class="fa fa-check"></i><b>17.1</b> Maximum-margin Classifier</a></li>
+<li class="chapter" data-level="17.2" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-separable-svm"><i class="fa fa-check"></i><b>17.2</b> Linearly Separable SVM</a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#from-primal-to-dual"><i class="fa fa-check"></i><b>17.2.1</b> From Primal to Dual</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linearly-non-separable-svm-with-slack-variables"><i class="fa fa-check"></i><b>17.3</b> Linearly Non-separable SVM with Slack Variables</a></li>
+<li class="chapter" data-level="17.4" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-saheart-data"><i class="fa fa-check"></i><b>17.4</b> Example: <code>SAheart</code> Data</a></li>
+<li class="chapter" data-level="17.5" data-path="support-vector-machines.html"><a href="support-vector-machines.html#nonlinear-svm-via-kernel-trick"><i class="fa fa-check"></i><b>17.5</b> Nonlinear SVM via Kernel Trick</a></li>
+<li class="chapter" data-level="17.6" data-path="support-vector-machines.html"><a href="support-vector-machines.html#example-mixture.example-data"><i class="fa fa-check"></i><b>17.6</b> Example: <code>mixture.example</code> Data</a></li>
+<li class="chapter" data-level="17.7" data-path="support-vector-machines.html"><a href="support-vector-machines.html#svm-as-a-penalized-model"><i class="fa fa-check"></i><b>17.7</b> SVM as a Penalized Model</a></li>
+<li class="chapter" data-level="17.8" data-path="support-vector-machines.html"><a href="support-vector-machines.html#kernel-and-feature-maps-another-example"><i class="fa fa-check"></i><b>17.8</b> Kernel and Feature Maps: Another Example</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="the-representer-theorem.html"><a href="the-representer-theorem.html"><i class="fa fa-check"></i><b>18</b> The Representer Theorem</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="the-representer-theorem.html"><a href="the-representer-theorem.html#the-representer-theorem-1"><i class="fa fa-check"></i><b>18.1</b> The Representer Theorem</a></li>
+<li class="chapter" data-level="18.2" data-path="the-representer-theorem.html"><a href="the-representer-theorem.html#notes-on-application"><i class="fa fa-check"></i><b>18.2</b> Notes on Application</a></li>
+</ul></li>
+<li class="part"><span><b>VI Trees and Ensembles</b></span></li>
+<li class="chapter" data-level="19" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html"><i class="fa fa-check"></i><b>19</b> Classification and Regression Trees</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#example-classification-tree"><i class="fa fa-check"></i><b>19.1</b> Example: Classification Tree</a></li>
+<li class="chapter" data-level="19.2" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#splitting-a-node"><i class="fa fa-check"></i><b>19.2</b> Splitting a Node</a></li>
+<li class="chapter" data-level="19.3" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#regression-trees"><i class="fa fa-check"></i><b>19.3</b> Regression Trees</a></li>
+<li class="chapter" data-level="19.4" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#predicting-a-target-point"><i class="fa fa-check"></i><b>19.4</b> Predicting a Target Point</a></li>
+<li class="chapter" data-level="19.5" data-path="classification-and-regression-trees.html"><a href="classification-and-regression-trees.html#tuning-a-tree-model"><i class="fa fa-check"></i><b>19.5</b> Tuning a Tree Model</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="random-forests.html"><a href="random-forests.html"><i class="fa fa-check"></i><b>20</b> Random Forests</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="random-forests.html"><a href="random-forests.html#bagging-predictors"><i class="fa fa-check"></i><b>20.1</b> Bagging Predictors</a></li>
+<li class="chapter" data-level="20.2" data-path="random-forests.html"><a href="random-forests.html#random-forests-1"><i class="fa fa-check"></i><b>20.2</b> Random Forests</a></li>
+<li class="chapter" data-level="20.3" data-path="random-forests.html"><a href="random-forests.html#kernel-view-of-random-forests"><i class="fa fa-check"></i><b>20.3</b> Kernel view of Random Forests</a></li>
+<li class="chapter" data-level="20.4" data-path="random-forests.html"><a href="random-forests.html#variable-importance"><i class="fa fa-check"></i><b>20.4</b> Variable Importance</a></li>
+<li class="chapter" data-level="20.5" data-path="random-forests.html"><a href="random-forests.html#adaptiveness-of-random-forest-kernel"><i class="fa fa-check"></i><b>20.5</b> Adaptiveness of Random Forest Kernel</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>21</b> Boosting</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="boosting.html"><a href="boosting.html#adaboost"><i class="fa fa-check"></i><b>21.1</b> AdaBoost</a></li>
+<li class="chapter" data-level="21.2" data-path="boosting.html"><a href="boosting.html#training-error-of-adaboost"><i class="fa fa-check"></i><b>21.2</b> Training Error of AdaBoost</a></li>
+<li class="chapter" data-level="21.3" data-path="boosting.html"><a href="boosting.html#tuning-the-number-of-trees"><i class="fa fa-check"></i><b>21.3</b> Tuning the Number of Trees</a></li>
+<li class="chapter" data-level="21.4" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>21.4</b> Gradient Boosting</a></li>
+<li class="chapter" data-level="21.5" data-path="boosting.html"><a href="boosting.html#gradient-boosting-with-logistic-link"><i class="fa fa-check"></i><b>21.5</b> Gradient Boosting with Logistic Link</a></li>
+</ul></li>
+<li class="part"><span><b>VII Unsupervised Learning</b></span></li>
+<li class="chapter" data-level="22" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>22</b> K-Means</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="k-means.html"><a href="k-means.html#basic-concepts"><i class="fa fa-check"></i><b>22.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="22.2" data-path="k-means.html"><a href="k-means.html#example-1-iris-data"><i class="fa fa-check"></i><b>22.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="22.3" data-path="k-means.html"><a href="k-means.html#example-2-clustering-of-image-pixels"><i class="fa fa-check"></i><b>22.3</b> Example 2: clustering of image pixels</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html"><i class="fa fa-check"></i><b>23</b> Hierarchical Clustering</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#basic-concepts-1"><i class="fa fa-check"></i><b>23.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="23.2" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-1-iris-data-1"><i class="fa fa-check"></i><b>23.2</b> Example 1: <code>iris</code> data</a></li>
+<li class="chapter" data-level="23.3" data-path="hierarchical-clustering.html"><a href="hierarchical-clustering.html#example-2-rna-expression-data"><i class="fa fa-check"></i><b>23.3</b> Example 2: RNA Expression Data</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>24</b> Principal Component Analysis</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#basic-concepts-2"><i class="fa fa-check"></i><b>24.1</b> Basic Concepts</a>
+<ul>
+<li class="chapter" data-level="24.1.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#note-scaling"><i class="fa fa-check"></i><b>24.1.1</b> Note: Scaling</a></li>
+</ul></li>
+<li class="chapter" data-level="24.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#example-1-iris-data-2"><i class="fa fa-check"></i><b>24.2</b> Example 1: <code>iris</code> Data</a></li>
+<li class="chapter" data-level="24.3" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#example-2-handwritten-digits"><i class="fa fa-check"></i><b>24.3</b> Example 2: Handwritten Digits</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="self-organizing-map.html"><a href="self-organizing-map.html"><i class="fa fa-check"></i><b>25</b> Self-Organizing Map</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="self-organizing-map.html"><a href="self-organizing-map.html#basic-concepts-3"><i class="fa fa-check"></i><b>25.1</b> Basic Concepts</a></li>
+</ul></li>
+<li class="chapter" data-level="26" data-path="spectral-clustering.html"><a href="spectral-clustering.html"><i class="fa fa-check"></i><b>26</b> Spectral Clustering</a>
+<ul>
+<li class="chapter" data-level="26.1" data-path="spectral-clustering.html"><a href="spectral-clustering.html#an-example"><i class="fa fa-check"></i><b>26.1</b> An Example</a></li>
+<li class="chapter" data-level="26.2" data-path="spectral-clustering.html"><a href="spectral-clustering.html#adjacency-matrix"><i class="fa fa-check"></i><b>26.2</b> Adjacency Matrix</a></li>
+<li class="chapter" data-level="26.3" data-path="spectral-clustering.html"><a href="spectral-clustering.html#laplacian-matrix"><i class="fa fa-check"></i><b>26.3</b> Laplacian Matrix</a></li>
+<li class="chapter" data-level="26.4" data-path="spectral-clustering.html"><a href="spectral-clustering.html#derivation-of-the-feature-embedding"><i class="fa fa-check"></i><b>26.4</b> Derivation of the Feature Embedding</a></li>
+<li class="chapter" data-level="26.5" data-path="spectral-clustering.html"><a href="spectral-clustering.html#feature-embedding"><i class="fa fa-check"></i><b>26.5</b> Feature Embedding</a></li>
+<li class="chapter" data-level="26.6" data-path="spectral-clustering.html"><a href="spectral-clustering.html#clustering-with-embedded-features"><i class="fa fa-check"></i><b>26.6</b> Clustering with Embedded Features</a></li>
+<li class="chapter" data-level="26.7" data-path="spectral-clustering.html"><a href="spectral-clustering.html#normalized-graph-laplacian"><i class="fa fa-check"></i><b>26.7</b> Normalized Graph Laplacian</a></li>
+<li class="chapter" data-level="26.8" data-path="spectral-clustering.html"><a href="spectral-clustering.html#using-a-different-adjacency-matrix"><i class="fa fa-check"></i><b>26.8</b> Using a Different Adjacency Matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="27" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html"><i class="fa fa-check"></i><b>27</b> Uniform Manifold Approximation and Projection</a>
+<ul>
+<li class="chapter" data-level="27.1" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#an-example-1"><i class="fa fa-check"></i><b>27.1</b> An Example</a></li>
+<li class="chapter" data-level="27.2" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#tuning"><i class="fa fa-check"></i><b>27.2</b> Tuning</a></li>
+<li class="chapter" data-level="27.3" data-path="uniform-manifold-approximation-and-projection.html"><a href="uniform-manifold-approximation-and-projection.html#another-example"><i class="fa fa-check"></i><b>27.3</b> Another Example</a></li>
+</ul></li>
+<li class="part"><span><b>VIII Reference</b></span></li>
+<li class="chapter" data-level="28" data-path="reference.html"><a href="reference.html"><i class="fa fa-check"></i><b>28</b> Reference</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/teazrq/SMLR" target="blank">&copy; 2023 Ruoqing Zhu</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Machine Learning with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="nonpara" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">Chapter 14</span> Nonparemetric Estimation Rates<a href="nonpara.html#nonpara" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this chapter, we will analyze the convergence rates of some nonparametric estimators. We will start with the Parzen kernel density estimator on one dimension, with second-order smoothness, and then extend the analysis to higher dimensions and other smoothness assumptions. Lastly, we use the Parzen estimator as a building block to analyze the Nadaraya-Watson regression estimator.</p>
+<div id="kernel-density-estimation" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> Kernel Density Estimation<a href="nonpara.html#kernel-density-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We had a brief analysis of the convergence of Parzen kernel density estimator <span class="citation">(<a href="#ref-parzen1962estimation">Parzen 1962</a>)</span> in the previous lecture. We can extend the understanding to further break down the bias and variance. Recall that the kernel density estimator is defined as</p>
+<p><span class="math display">\[
+\widehat f(x) = \frac{1}{nh} \sum_{i=1}^n K\big( \frac{x - x_i}{h} \big)
+\]</span></p>
+<p>We make the following conditions:</p>
+<ul>
+<li><span class="math inline">\(K\)</span> is a valid density function, i.e., <span class="math inline">\(\int K(t) dt = 1\)</span>.</li>
+<li><span class="math inline">\(K\)</span> is symmetric around 0, i.e., <span class="math inline">\(\int K(t) t dt = 0\)</span>.</li>
+<li><span class="math inline">\(K\)</span> has a finite second moment, i.e., <span class="math inline">\(\sigma_K^2 = \int K(t) t^2 dt &lt; \infty\)</span>.</li>
+<li><span class="math inline">\(\int K^2(t) dt &lt; \infty\)</span>.</li>
+<li><span class="math inline">\(f\)</span> has a bounded second derivative.</li>
+</ul>
+<p>First look at the bias term, which was analyzed from our previous analysis:</p>
+<p><span class="math display">\[
+\begin{align}
+    \text{E}\big[ \widehat f(x) \big] &amp;= \text{E}\left[ \frac{1}{h} K\left( \frac{x - x_1}{h} \right) \right] \\
+    &amp;= \int_{-\infty}^\infty \frac{1}{h} K\left(\frac{x-x_1}{h}\right) f(x_1) d x_1 \\
+    &amp;= \int_{\infty}^{-\infty} \frac{1}{h} K(t) f(x - th) d (x-th) \\
+    &amp;= \int_{-\infty}^\infty K(t) f(x - th) dt \\
+    (\text{Taylor expansion}) \quad &amp;= f(x) - h f&#39;(x) \int K(t) t dt + \frac{h^2}{2} f&#39;&#39;(x) \int_{-\infty}^\infty K(t) t^2 dt + o(h^2) \\
+\end{align}
+\]</span></p>
+<p>We know that as <span class="math inline">\(h \to 0\)</span>, the bias goes to 0. More specifically, since we have the kernel function is symmetric, <span class="math inline">\(\int K(t) t dt = 0\)</span>, the <span class="math inline">\(h f&#39;(x) \int K(t) t dt\)</span> term vanishes, and the leading term of the bias is in the order of <span class="math inline">\(h^2\)</span>. Since the density is over the entire domain, we can define the integrated Bias<span class="math inline">\(^2\)</span>:</p>
+<p><span class="math display">\[
+\begin{align}
+\text{Bias}^2 &amp;= \int \left( \text{E}[\widehat f(x)] - f(x)\right)^2 dx \\
+    &amp;\approx \frac{h^4 \sigma_K^4}{4} \int \big[ f&#39;&#39;(x)\big]^2 dx
+\end{align}
+\]</span></p>
+<p>where <span class="math inline">\(\sigma_K^2 = \int_{-\infty}^\infty K(t) t^2 dt\)</span>. On the other hand, the variance term is</p>
+<p><span class="math display">\[
+\begin{align}
+  \text{Var}\big[ \widehat f(x) \big] &amp;= \frac{1}{n} \text{Var}\Big[\frac{1}{h}K\big( \frac{x - x_1}{h} \big) \Big] \\
+  &amp;= \frac{1}{n} \text{E}\bigg[ \frac{1}{h^2} K^2\big( \frac{x - x_1}{h}\big) \bigg] - \frac{1}{n}\Big(\text{E}\Big[ \frac{1}{h} K\big( \frac{x - x_1}{h} \big)\Big]\Big)^2 \\
+  &amp;= \frac{1}{n} \Big[ \int \frac{1}{h^2} K^2\!\Big( \frac{x - x_1}{h} \Big) f(x_1) dx_1 + O(1) \Big] \\
+  &amp;= \frac{1}{n} \Big[ \frac{1}{h} \int K^2( t ) f(x - th) dt + O(1) \Big] \\
+  &amp;\approx \frac{f(x)}{nh} \int K^2( u ) du
+\end{align}
+\]</span></p>
+<p>with the integrated variance being</p>
+<p><span class="math display">\[
+\frac{1}{nh} \int K^2( u ) du .
+\]</span></p>
+<p>Hence, the <strong>asymptotic mean integrated squared error</strong> (AMISE)</p>
+<p><span class="math display">\[
+\begin{align}
+\text{AIMSE} &amp;= \int \text{E}\big[ \widehat f(x) - f(x) \big]^2 dx \\
+&amp;= \text{Bias}^2 + \text{Variance} \\
+&amp;\approx \frac{h^4 \sigma_K^4}{4} \int \big[ f&#39;&#39;(x)\big]^2 dx + \frac{1}{nh} \int K^2( u ) du
+\end{align}
+\]</span></p>
+<p>To minimize the AMISE, we take the derivative with respect to <span class="math inline">\(h\)</span> and set it to 0:</p>
+<p><span class="math display">\[
+\frac{d \text{AMISE}}{dh} = h^3 \sigma_K^4 \int \big[ f&#39;&#39;(x)\big]^2 dx - \frac{1}{nh^2} \int K^2( u ) du \overset{\text{set}}{=} 0
+\]</span></p>
+<p>Solving for <span class="math inline">\(h\)</span>, we have the optimal bandwidth</p>
+<p><span class="math display">\[
+h^\text{opt} = \bigg[ \frac{\int K^2(u)du}{ \sigma_K^4 \int (f&#39;&#39;(x))^2 dx} \bigg]^{1/5} n^{-1/5},
+\]</span></p>
+<p>and the optimal AMISE is in the order of <span class="math inline">\(\mathcal{O}(n^{-4/5})\)</span>.</p>
+</div>
+<div id="the-effect-of-smoothness" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> The Effect of Smoothness<a href="nonpara.html#the-effect-of-smoothness" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The above analysis assumes that the density function has a bounded second derivative. If we only assume Lipschitz continuity, i.e., there exists a constant <span class="math inline">\(L\)</span> such that for any <span class="math inline">\(x\)</span> and <span class="math inline">\(z\)</span>,
+<span class="math display">\[
+|f(x) - f(z)| \le L |x - z|,
+\]</span>
+then we need to modify the bias term. Define the first absolute moment of the kernel <span class="math inline">\(M_1(K) := \int |t|\,|K(t)|\,dt &lt; \infty\)</span>. Then the bias term can be bounded as</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{E}\big[ \widehat f_h(x) \big]
+&amp;= \int_{-\infty}^\infty K(t)\, f(x - th)\, dt,\\
+\big|\text{E}\big[ \widehat f_h(x) \big] - f(x)\big|
+&amp;= \Big| \int K(t)\,\big(f(x - th) - f(x)\big)\, dt \Big| \\
+&amp;\le \int |K(t)|\,\big|f(x - th) - f(x)\big|\, dt \\
+&amp;\le L h \int |t|\,|K(t)|\, dt \\
+&amp;= L h\, M_1(K).
+\end{aligned}
+\]</span></p>
+<p>Hence the pointwise bias is of order <span class="math inline">\(h\)</span>. Under a mild integrability condition (e.g., <span class="math inline">\(f\)</span> absolutely continuous with <span class="math inline">\(f&#39; \in L_2\)</span>), the integrated squared bias satisfies</p>
+<p><span class="math display">\[
+\int \big(\text{Bias}(\widehat f_h(x))\big)^2\,dx \;\le\; h^2\, M_1(K)^2\, \|f&#39;\|_2^2 \;=\; O(h^2).
+\]</span></p>
+<p>The variance term remains the same, since the effective local sample size is still of order <span class="math inline">\(nh\)</span>:</p>
+<p><span class="math display">\[
+\int \text{Var}\big[\widehat f_h(x)\big]\,dx \approx \frac{1}{nh}\int K^2(u)\,du = O\Big(\frac{1}{nh}\Big).
+\]</span></p>
+<p>Therefore, the AMISE becomes</p>
+<p><span class="math display">\[
+\text{AMISE}(h) \;\approx\; O(h^2) + O\Big(\frac{1}{n h}\Big),
+\]</span></p>
+<p>with optimal bandwidth</p>
+<p><span class="math display">\[
+h^{\text{opt}} \;=\; n^{-1/3},
+\]</span></p>
+<p>and the optimal AMISE of order <span class="math inline">\(O(n^{-2/3})\)</span>. Overall, if we assume Holder continuity of order <span class="math inline">\(s\)</span> then the optimal bandwidth is of order <span class="math inline">\(n^{-1/(2s+1)}\)</span> and the optimal AMISE is of order <span class="math inline">\(n^{-2s/(2s+1)}\)</span>.</p>
+</div>
+<div id="the-effect-of-dimensionality" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">14.3</span> The Effect of Dimensionality<a href="nonpara.html#the-effect-of-dimensionality" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can extend the above analysis to higher dimensions. The kernel density estimator in <span class="math inline">\(d\)</span> dimensions is defined as</p>
+<p><span class="math display">\[
+\widehat f(x) = \frac{1}{n h^d} \sum_{i=1}^n K\big( \tfrac{x - x_i}{h} \big),
+\]</span></p>
+<p>where <span class="math inline">\(K: \mathbb{R}^d \to \mathbb{R}\)</span> is a valid multivariate kernel function. With similar assumptions on the kernel and the density function, we can derive the bias as</p>
+<p><span class="math display">\[
+\begin{align}
+    \text{E}\big[ \widehat f(x) \big] &amp;= \text{E}\left[ \frac{1}{h^d} K\left( \frac{x - x_1}{h} \right) \right] \\
+    &amp;= \int_{\mathbb{R}^d} \frac{1}{h^d} K\!\left(\frac{x-x_1}{h}\right) f(x_1)\, d x_1 \\
+    &amp;= \int_{\mathbb{R}^d} K(t)\, f(x - h t)\, dt \\
+    &amp;= f(x) + \int_{\mathbb{R}^d} K(t)\,\big(f(x - h t)-f(x)\big)\, dt .
+\end{align}
+\]</span></p>
+<p>If we only assume Lipschitz continuity in <span class="math inline">\(\mathbb{R}^d\)</span>, i.e., there exists <span class="math inline">\(L&gt;0\)</span> such that <span class="math inline">\(|f(x)-f(z)|\le L \|x-z\|_2\)</span>, then</p>
+<p><span class="math display">\[
+\begin{aligned}
+\big| \text{E}[ \widehat f(x) ] - f(x) \big|
+&amp;= \Big| \int K(t)\,\big(f(x - h t)-f(x)\big)\, dt \Big| \\
+&amp;\le \int |K(t)|\,\big|f(x - h t)-f(x)\big|\, dt \\
+&amp;\le L h \int_{\mathbb{R}^d} \|t\|_2\, |K(t)|\, dt ,
+\end{aligned}
+\]</span></p>
+<p>so the pointwise bias is of order <span class="math inline">\(h\)</span> in any dimension <span class="math inline">\(d\)</span>. With suitable integrability conditions, the integrated squared bias is of order <span class="math inline">\(h^2\)</span>. On the other hand, the variance term scales with the effective local sample size <span class="math inline">\(n h^d\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{Var}\big[ \widehat f(x) \big]
+&amp;= \frac{1}{n} \text{Var}\!\Big( \frac{1}{h^d} K\!\big( \tfrac{x - X_1}{h} \big) \Big) \\
+&amp;= \frac{1}{n} \Big[ \frac{1}{h^d} \int_{\mathbb{R}^d} K(t)^2\, f(x - h t)\, dt \Big] - \frac{1}{n}\big(\text{E}[\widehat f(x)]\big)^2 \\
+&amp;\approx \frac{f(x)}{n h^{d}} \int_{\mathbb{R}^d} K(t)^2\, dt .
+\end{aligned}
+\]</span></p>
+<p>Combining the two pieces, and if we only care about the rate, the IMSE in <span class="math inline">\(d\)</span> dimensions takes the generic form
+<span class="math display">\[
+\text{IMSE}(h) \;\approx\; C_b\, h^{2s} \;+\; \frac{C_v}{n h^{d}},
+\]</span>
+where <span class="math inline">\(s=1\)</span> under Lipschitz continuity and <span class="math inline">\(s=2\)</span> when <span class="math inline">\(f\in C^2\)</span> with a second-order kernel, and more generally, as long as we can pair up the order of the kernel such that the <span class="math inline">\(s\)</span>-th order term is the leading term in the Taylor expansion of the bias. The constants <span class="math inline">\(C_b\)</span> and <span class="math inline">\(C_v\)</span> depend on the kernel and the density function but not on <span class="math inline">\(n\)</span> or <span class="math inline">\(h\)</span>. Optimizing over <span class="math inline">\(h\)</span> gives
+<span class="math display">\[
+h^{\text{opt}} \;\asymp\; n^{-1/(2s + d)},
+\qquad
+\text{IMSE}\big(h^{\text{opt}}\big) \;\asymp\; n^{-2s/(2s + d)}.
+\]</span></p>
+<p>In particular, for the two cases we analyzed, we have</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\text{Lipschitz }( s=1): &amp;&amp; h^{\text{opt}} \asymp n^{-1/(2+d)}, \quad &amp;&amp; \text{IMSE} \asymp n^{-2/(2+d)}, \\
+&amp;f\in C^2 \text{ with second-order kernel }(s=2): &amp;&amp; h^{\text{opt}} \asymp n^{-1/(4+d)}, \quad &amp;&amp; \text{IMSE} \asymp n^{-4/(4+d)}.
+\end{aligned}
+\]</span></p>
+</div>
+<div id="nadaraya-watson-regression-estimator" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">14.4</span> Nadaraya-Watson Regression Estimator<a href="nonpara.html#nadaraya-watson-regression-estimator" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We now consider nonparametric regression with the Nadaraya–Watson (NW) estimator <span class="citation">(<a href="#ref-nadaraya1964estimating">Nadaraya 1964</a>)</span> in one dimension. Let <span class="math inline">\((X_i,Y_i)_{i=1}^n\)</span> be i.i.d. with
+<span class="math display">\[
+Y_i \;=\; m(X_i) + \varepsilon_i,\qquad \varepsilon_i \perp X_i,\qquad \text{E}[\varepsilon_i]=0,\qquad \text{Var}(\varepsilon_i)=\sigma^2,
+\]</span>
+and let <span class="math inline">\(f\)</span> denote the density of <span class="math inline">\(X\)</span>. The NW estimator is
+<span class="math display">\[
+\widehat m_h(x) \;=\; \frac{\sum_{i=1}^n K\!\big( \tfrac{x - X_i}{h} \big)\, Y_i}{\sum_{i=1}^n K\!\big( \tfrac{x - X_i}{h} \big)}
+\;=\; \frac{\widehat g_h(x)}{\widehat f_h(x)},
+\quad
+\widehat g_h(x)=\frac{1}{n h}\sum_{i=1}^n K\!\big( \tfrac{x - X_i}{h} \big) Y_i,\quad
+\widehat f_h(x)=\frac{1}{n h}\sum_{i=1}^n K\!\big( \tfrac{x - X_i}{h} \big).
+\]</span></p>
+<p>We make the following conditions:</p>
+<ul>
+<li><span class="math inline">\(K\)</span> is a valid kernel on <span class="math inline">\(\mathbb{R}\)</span>: <span class="math inline">\(\int K(t)\,dt=1\)</span>, <span class="math inline">\(\int t\,K(t)\,dt=0\)</span>, and <span class="math inline">\(R(K):=\int K(t)^2\,dt&lt;\infty\)</span>.</li>
+<li>The design density <span class="math inline">\(f\)</span> is bounded and bounded away from <span class="math inline">\(0\)</span> near <span class="math inline">\(x\)</span>.</li>
+<li>The regression function <span class="math inline">\(m\)</span> and the density <span class="math inline">\(f\)</span> are twice continuously differentiable near <span class="math inline">\(x\)</span> (interior point).</li>
+</ul>
+<p>First look at the bias term. Write <span class="math inline">\(g(x)=m(x)f(x)\)</span>. As in the KDE section, both <span class="math inline">\(\widehat f_h\)</span> and <span class="math inline">\(\widehat g_h\)</span> are kernel smoothers, and for a symmetric kernel with finite second moment we have (interior point)
+<span class="math display">\[
+\begin{aligned}
+\text{E}\big[\widehat f_h(x)\big] &amp;= f(x) + O(h^2),\\
+\text{E}\big[\widehat g_h(x)\big] &amp;= g(x) + O(h^2).
+\end{aligned}
+\]</span>
+Using the ratio form and a first-order expansion at <span class="math inline">\((g,f)\)</span>,
+<span class="math display">\[
+\widehat m_h(x) - m(x)
+\;\approx\; \frac{\widehat g_h(x)-g(x)}{f(x)} \;-\; \frac{g(x)}{f(x)^2}\,\big(\widehat f_h(x)-f(x)\big),
+\]</span>
+so taking expectations and substituting the two Taylor expansions above,
+<span class="math display">\[
+\text{E}\big[\widehat m_h(x)\big] - m(x) \;=\; O(h^2).
+\]</span></p>
+<p>On the other hand, for the variance we again use the delta method <span class="citation">(<a href="#ref-newey1994kernel">Newey 1994</a>)</span>. Let
+<span class="math display">\[
+\nabla\phi(g,f)=\Big(\tfrac{1}{f(x)},\; -\tfrac{g(x)}{f(x)^2}\Big),\qquad \phi(u,v)=u/v.
+\]</span>
+A direct calculation (as in the KDE variance derivation) yields
+<span class="math display">\[
+\begin{aligned}
+\text{Var}\!\big(\widehat f_h(x)\big) &amp;\approx \frac{R(K)}{n h}\, f(x), \\
+\text{Var}\!\big(\widehat g_h(x)\big) &amp;\approx \frac{R(K)}{n h}\, f(x)\big(m(x)^2+\sigma^2\big),\\
+\text{Cov}\!\big(\widehat g_h(x),\widehat f_h(x)\big) &amp;\approx \frac{R(K)}{n h}\, f(x)\, m(x).
+\end{aligned}
+\]</span>
+Therefore,
+<span class="math display">\[
+\text{Var}\!\big(\widehat m_h(x)\big)
+\;\approx\; \nabla\phi^\top
+\begin{pmatrix}
+\text{Var}(\widehat g_h) &amp; \text{Cov}(\widehat g_h,\widehat f_h)\\
+\text{Cov}(\widehat g_h,\widehat f_h) &amp; \text{Var}(\widehat f_h)
+\end{pmatrix}
+\nabla\phi
+\;=\; \frac{R(K)}{n h}\,\frac{\sigma^2}{f(x)}.
+\]</span></p>
+<p>Finally, consider the integrated mean squared error with respect to the design measure <span class="math inline">\(f(x)\,dx\)</span>:
+<span class="math display">\[
+\text{IMSE}_{\text{reg}}(h) \;:=\; \int \text{E}\!\left[ \big(\widehat m_h(x)-m(x)\big)^2 \right] f(x)\, dx
+\;\approx\; C_b\, h^{4} \;+\; \frac{R(K)\,\sigma^2}{n h},
+\]</span>
+where <span class="math inline">\(C_b\)</span> is a constant depending on the second derivatives of <span class="math inline">\(m\)</span> and <span class="math inline">\(f\)</span> (its exact form is not needed here). Minimizing in <span class="math inline">\(h\)</span> gives
+<span class="math display">\[
+h^{\text{opt}} \;=\; \Big(\frac{R(K)\,\sigma^2}{4\,C_b}\Big)^{\!1/5} n^{-1/5},
+\qquad
+\text{IMSE}_{\text{reg}}\big(h^{\text{opt}}\big) \;\asymp\; n^{-4/5}.
+\]</span></p>
+<p>Thus, the optimal rate is the same as the kernel density estimator with second-order smoothness. In generate, the optimal rate of the NW estimator with <span class="math inline">\(s\)</span>-th order smoothness is still <span class="math inline">\(n^{-2s/(2s+d)}\)</span> with suitable conditions.</p>
+
+<div style="display:none;">
+<!-- Conflict \def\bf{\mathbf{f}} -->
+</div>
+</div>
+</div>
+
+
+
+<h3> Reference<a href="reference.html#reference" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-nadaraya1964estimating" class="csl-entry">
+Nadaraya, Elizbar A. 1964. <span>“On Estimating Regression.”</span> <em>Theory of Probability &amp; Its Applications</em> 9 (1): 141–42.
+</div>
+<div id="ref-newey1994kernel" class="csl-entry">
+Newey, Whitney K. 1994. <span>“Kernel Estimation of Partial Means and a General Variance Estimator.”</span> <em>Econometric Theory</em> 10 (2): 1–21.
+</div>
+<div id="ref-parzen1962estimation" class="csl-entry">
+Parzen, Emanuel. 1962. <span>“On Estimation of a Probability Density Function and Mode.”</span> <em>The Annals of Mathematical Statistics</em> 33 (3): 1065–76.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="kernel-smoothing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="reproducing-kernel-hilbert-space.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "sepia",
+    "family": "serif",
+    "size": 1
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

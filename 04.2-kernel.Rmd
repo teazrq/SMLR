@@ -158,54 +158,22 @@ The `ggplot2` packages provides some convenient features to plot the density and
     geom_density(alpha=.2, fill="#ff8c00")
 ```
 
-## Bias-variance trade-off
+## Expectation of the Parzen estimator
 
 Let's consider estimating a density, using the Parzen estimator 
 
 $$\widehat f(x) = \frac{1}{n} \sum_{i=1}^n K_{h} (x, x_i)$$
-here, $K_h(\bu, \bv) = K(|\bu - \bv|/h)/h$ is a kernel function that satisfies 
-
-  * $\int K(u)du = 1$ (a proper density)
-  * $K(-u) = K(u)$ (symmetric)
-  * $\int K(u) u^2 du \leq \infty$ (finite second moment)
-
-Note that $h$ simply scales the covariate and adjust the density accordingly. Our goal is to estimate a target point $x$ using a set of iid data. First, we can analyze the bias:
+The samples $x_i$'s are collected i.i.d. from a distribution with density $f(x)$. Here, $K_h(\bu, \bv) = K(|\bu - \bv|/h)/h$ is a kernel function, in which $h$ scales the distance between $x$ and $x_i$ and adjust the smoothness of the density estimation accordingly. Our goal is to understand whether this estimator would converge to $f(x)$ with reasonable conditions, provided that $K(\cdot)$ is a proper density $\int K(t) dt = 1$. First, we can analyze the bias:
 
 \begin{align}
     \E\big[ \widehat f(x) \big] &= \E\left[ K\left( \frac{x - x_1}{h} \right) \Big/ h \right] \\
     &= \int_{-\infty}^\infty \frac{1}{h} K\left(\frac{x-x_1}{h}\right) f(x_1) d x_1 \\
     &= \int_{\infty}^{-\infty} \frac{1}{h} K(t) f(x - th) d (x-th) \\
-    (\text{Taylor expansion}) \quad &= f(x) + \frac{h^2}{2} f''(x) \int_{-\infty}^\infty K(t) t^2 dt + o(h^2) \\
-    (\text{as } ha \rightarrow 0) \quad &\rightarrow f(x)
+    &= \int_{-\infty}^\infty K(t) f(x - th) dt \\
+    (\text{as } h \rightarrow 0) \quad &\rightarrow f(x)
 \end{align}
 
-Since the density is over the entire domain, we can define the integrated Bias$^2$:
-
-\begin{align}
-\text{Bias}^2 &= \int \left( E[\widehat f(x)] - f(x)\right)^2 dx \\
-    &\approx \frac{h^4 \sigma_K^4}{4} \int \big[ f''(x)\big]^2 dx
-\end{align}
-where $\sigma_K^2 = \int_{-\infty}^\infty K(t) t^2 dt$.
-
-On the other hand, the variance term is 
-
-\begin{align}
-  \Var\big[ \widehat f(x) \big] &= \frac{1}{n} \Var \Big[\frac{1}{h}K\big( \frac{x - x_1}{h} \big) \Big] \\
-  &= \frac{1}{n} \E \bigg[ \frac{1}{h^2} K^2\big( \frac{x - x_1}{h}\big) - \E\Big[ \frac{1}{h} K\big( \frac{x - x_1}{h} \big)\Big]^2 \bigg]\\
-  &= \frac{1}{n} \Big[ \int \frac{1}{h} K^2( \frac{x - x_1}{h} ) f(x_1) dx_1 + O(1) \Big] \\
-  &= \frac{1}{n} \Big[ \frac{1}{h} \int K^2( u ) f(x) du + O(1) \Big] \\
-  &= \frac{f(x)}{nh} \int K^2( u ) du 
-\end{align}
-
-with the integrated variance being 
-
-$$\frac{1}{nh} \int K^2( u ) dt $$
-
-By minimizing the asymptotic mean integrated squared error (AMISE), defined as the sum of integrated Bias$^2$ and variance, we have the optimal $h$ being 
-
-$$h^\text{opt} = \bigg[\frac{1}{n} \frac{\int K^2(u)du}{ \sigma^2_K \int f''(u)du} \bigg]^{1/5},$$ 
-
-and the optimal $h$ is in the order of $\cal O(n^{-4/5})$.
+In Chapter \@ref(nonpara), we will provide a rigorous analysis the bias and variance, and show how an optimal bandwidth can be selected.
 
 ## Gaussian Kernel Regression
 
