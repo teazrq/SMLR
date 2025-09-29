@@ -17,34 +17,37 @@
   par(mfrow=c(1,1))
 ```
 
-# Boosting
+# AdaBoost
 
 Boosting is another ensemble model, created in the form of 
 
-$$F_T(x) = \sum_{t = 1}^T \alpha_t f_t(x)$$
+\[
+F_T(x) = \sum_{t = 1}^T \alpha_t f_t(x)
+\]
 
-However, it is different from random forest, in which each $f_t(x)$ is learned parallelly. These $f_t(x)$'s are called weak learners and are constructed __sequentially__, with coefficients $\alpha_t$'s to represent their weights. The most classical model, AdaBoost was proposed by @freund1997decision for classification problems, and a more statically view of this type of model called gradient boosting machines [@friedman2001greedy] can handle any loss function we commonly use. We will first introduce AdaBoost and then discuss gradient boosting. 
+However, it is different from random forest, in which each $f_t(x)$ is learned in parallel. These $f_t(x)$'s are called weak learners and are constructed __sequentially__, with coefficients $\alpha_t$'s to represent their weights. The most classical model, AdaBoost was proposed by @freund1997decision for classification problems, and a more statistical view of this type of model is gradient boosting machines [GBM, @friedman2001greedy] which can handle any loss function we commonly use. In this section, we will first introduce AdaBoost.
 
-## AdaBoost
+## The Algorithm
 
 Following our common notation, we observe a set of data $\{\bx_i, y_i\}_{i=1}^n$. Similar to SVM, we code $y_i$s as $-1$ or $1$. The AdaBoost works by creating $F_T(x)$ sequentially and use $\text{sign}(F_T(x))$ as the classification rule. The algorithm is given in the following:
 
   * Initiate weights $w_i^{(1)} = 1/n$, for $i = 1, \ldots, n$
   * For $t = 1, \ldots, T$, do
-     + Fit a classifier $f_t(x)$ to the training data with subject weights $w_i^{(t)}$'s. 
-     + Compute the weighed error rate 
-     $$\epsilon_t = \sum_{i=1}^n w_i^{(t)} \mathbf{1}\{y_i \neq f_t(x_i) \}$$
+     + Fit a classifier $f_t(x) \in \{ -1, +1 \}$ to the training data with sample weights $w_i^{(t)}$'s. 
+     + Compute the weighted error rate 
+     \[\epsilon_t = \sum_{i=1}^n w_i^{(t)} \mathbf{1}\{y_i \neq f_t(x_i) \}\]
+     + If $\epsilon_t > 1/2$, then flip the labels of $f_t$ and set $\epsilon_t = 1 - \epsilon_t$
      + Compute 
-     $$\alpha_t = \frac{1}{2} \log \frac{1 - \epsilon_t}{\epsilon_t}$$
-     + Update subject weights
-     $$w_i^{(t + 1)} = \frac{1}{Z_t} w_i^{(t)} \exp\big\{ - \alpha_t y_i f_t(x_i) \big\}$$
+     \[\alpha_t = \frac{1}{2} \log \frac{1 - \epsilon_t}{\epsilon_t}\]
+     + Update sample weights
+     \[w_i^{(t + 1)} = \frac{1}{Z_t} w_i^{(t)} \exp\big\{ - \alpha_t y_i f_t(x_i) \big\}\]
      where $Z_t$ is a normalizing constant make $w_i^{(t + 1)}$'s sum up to 1:
-     $$Z_t = \sum_{i=1}^n w_i^{(t)} \exp\big\{ - \alpha_t y_i f_t(x_i) \big\}$$
+     \[Z_t = \sum_{i=1}^n w_i^{(t)} \exp\big\{ - \alpha_t y_i f_t(x_i) \big\}\]
   * Output the final model
-  $$F_T(x) = \sum_{t = 1}^T \alpha_t f_t(x)$$
+  \[F_T(x) = \sum_{t = 1}^T \alpha_t f_t(x)\]
   and the decision rule is $\text{sign}(F_T(x))$.
 
-An important mechanism in AdaBoost is the weight update step. We can notice that the weight is increased if $\exp\big\{ - \alpha_t y_i f_t(x_i) \big\}$ is larger than 1. This is simply when $y_i f_t(x_i)$ is negative, i.e., subject $i$ got mis-classified by $f_t$ at this iteration. Hence, during the next iteration $t+1$, the model $f_{(t+1)}$ will more likely to address this subject. Here, $f_t$ can be any classification model, for example, we could use a tree model. The following figures demonstrate this idea of updating weights and aggregate the learners. 
+An important mechanism in AdaBoost is the weight update step. We can notice that the weight is increased if $\exp\big\{ - \alpha_t y_i f_t(x_i) \big\}$ is larger than 1. This is simply when $y_i f_t(x_i)$ is negative, i.e., observation $i$ got mis-classified by $f_t$ at this iteration. Hence, during the next iteration $t+1$, the model $f_{(t+1)}$ will more likely to address this subject. Here, $f_t$ can be any classification model, for example, we could use a tree model. The following figures demonstrate this idea of updating weights and aggregate the learners. 
 
 ```{r include = FALSE}
   par(mar=c(2,2,2,2))
@@ -177,15 +180,17 @@ F_3(x) =& \sum_{t=1}^3 \alpha_t f_t(x) \nonumber \\
   abline(v = 0.85) # f3
 ```
 
-## Training Error of AdaBoost
+## Training Error Bound
 
 There is an interesting property about the boosting algorithm that if we can always find a classifier that performs better than random guessing at each iteration $t$, then the training error will eventually converge to zero. This works by analyzing the weight after the last iteration $T$:
 
+\[
 \begin{align}
 w_i^{(T+1)} =& \frac{1}{Z_T} w_i^{(T)} \exp\big\{ - \alpha_t y_i f_t(x_i) \big\} \nonumber \\
 =& \frac{1}{Z_1\cdots Z_T} w_i^{(1)} \prod_{t = 1}^T \exp\big\{ - \alpha_t y_i f_t(x_i) \big\} \nonumber \\
 =& \frac{1}{Z_1\cdots Z_T} \frac{1}{n} \exp\Big\{ - y_i \sum_{t = 1}^T \alpha_t f_t(x_i) \Big\}
 \end{align}
+\]
 
 Since $\sum_{t = 1}^T \alpha_t f_t(x_i)$ is just the model at the $T$-th iteration, we can write it as $F_T(x_i)$. Noticing that they sum up to 1, we have 
 
@@ -199,17 +204,20 @@ On the right-hand-side, this is the exponential loss after we fit the model. In 
 
 This means that 
 
-$$Z_1\cdots Z_T > \frac{1}{n} \sum_{i = 1}^n \mathbf{1} \big\{ y_i \neq \text{sign}(F_T(x_i)) \big\}$$
+$$Z_1\cdots Z_T \geq \frac{1}{n} \sum_{i = 1}^n \mathbf{1} \big\{ y_i \neq \text{sign}(F_T(x_i)) \big\}$$
 Hence, if we want the final model to have low training error, we should bound above the $Z_t$'s. Recall that $Z_t$ is used to normalize the weights, we have 
 
 $$Z_t = \sum_i^{n} w_i^{(t)} \exp[ - \alpha_t y_i f_t(x_i) ].$$
 We have two cases at this iteration, $y_i f(x_i) = 1$ for correct subjects, and $y_i f(x_i) = -1$ for the incorrect ones, hence, 
 By our definition, $\epsilon_t = \sum_i w_i^{(t)} \mathbf{1} \big\{ y_i \neq f_t(x_i) \big\}$ is the proportion of weights for mis-classified samples.
+
+\[
 \begin{align}
-Z_t =& \,\,\sum_{i=1}^n w_i^{(t)} \exp[ - \alpha_t y_i f_t(x_i)] \nonumber\\
-=&\,\,\sum_{y_i = f_t(x_i)} w_i^{(t)} \exp[ - \alpha_t ] +  \sum_{y_i \neq f_t(x_i)} w_i^{(t)} \exp[ \alpha_t ] \nonumber\\
+Z_t =& \,\,\sum_{i=1}^n w_i^{(t)} \exp[ - \alpha_t y_i f_t(x_i)] 
+=&\,\,\sum_{y_i = f_t(x_i)} w_i^{(t)} \exp[ - \alpha_t ] +  \sum_{y_i \neq f_t(x_i)} w_i^{(t)} \exp[ \alpha_t ] 
 =& \,\, \exp[ - \alpha_t ] \sum_{y_i = f_t(x_i)} w_i^{(t)} + \exp[ \alpha_t ] \sum_{y_i \neq f_t(x_i)} w_i^{(t)}
 \end{align}
+\]
 
 So we have 
 
@@ -236,16 +244,59 @@ The last equation is because by Taylor expansion, $\exp\big[ - 4 \gamma_t^2 \big
 
 \begin{align}
 \text{Training Error} =& \sum_{i = 1}^n \mathbf{1} \big\{ y_i \neq \text{sign}(F_T(x_i)) \big\} \nonumber \\
-=& \sum_{i = 1}^n \exp \big[ - y_i \neq F_T(x_i) \big] \nonumber \\
+=& \sum_{i = 1}^n \exp \big[ - y_i F_T(x_i) \big] \nonumber \\
 =& Z_1 \cdots Z_T \nonumber \\
 \leq& \exp \big[ - 2 \sum_{t=1}^T \gamma_t^2 \big],
 \end{align}
 
-which converges to 0 as long as $\sum_{t=1}^T \gamma_t^2$ accumulates up to infinite. But of course, in practice, it would increasing difficult find $f_t(x)$ that reduces the training error greatly. 
+which converges to 0 as long as $\sum_{t=1}^T \gamma_t^2$ accumulates up to infinite. But of course, in practice, it would be increasingly difficult to find new $f_t(x)$ that reduces the training error greatly. 
+
+## The Stagewise Additive Model and Probability Calibration
+
+Following the understanding of the exponential upper bound of the training error, we can see that AdaBoost is trying to minimize the exponential loss function
+
+\[
+\sum_{i=1}^n \exp\big\{ - y_i F(x_i) \big\}
+\]
+
+At each stage, given the current model $F_{t-1}(x)$, we want to add a new weak learner $f_t(x)$ with weight $\alpha_t$ to minimize the loss function
+
+\[
+\sum_{i=1}^n \exp\big\{ - y_i (F_{t-1}(x_i) \big\} \exp\big\{ - y_i \alpha_t f_t(x_i) \big\}
+\]
+
+for some given direction $f_t(x)$. This is called a stagewise additive model. The first term $\exp\big\{ - y_i (F_{t-1}(x_i) \big\}$ is fixed, and we can only optimize the second term. This is equivalent to minimizing
+
+\[
+\sum_{i=1}^n w_i^{(t)} \exp\big\{ - y_i \alpha_t f_t(x_i) \big\}
+\]
+
+which leads to our weight update formula that $\alpha_t = \frac{1}{2} \log \frac{1 - \epsilon_t}{\epsilon_t}$. Hence, by viewing AdaBoost as this way, the population minimizer of the __conditional exponential risk__ satisfies
+
+\[
+\mathbb{E}\!\left[\exp\{-YF(x)\}\mid X=x\right]
+= p(x)\,e^{-F(x)} + \big(1-p(x)\big)\,e^{F(x)}.
+\]
+
+Differentiating and setting to zero,
+
+\[
+-\,p(x)\,e^{-F(x)} + \big(1-p(x)\big)\,e^{F(x)}=0
+\;\;\Longrightarrow\;\;
+F^\ast(x)=\tfrac12\log\frac{p(x)}{1-p(x)}.
+\]
+
+Thus \(F^\ast(x)\) is **half the log-odds**, and inverting gives
+
+\[
+p(x)=\frac{1}{1+\exp\{-2F^\ast(x)\}},
+\]
+
+which provides a probability calibration transformation. 
 
 ## Tuning the Number of Trees
 
-Although we can get really low training classification error, this is subject to overfitting. The following code demonstrates what an overfitted looks like. 
+Although we can get really low training classification error, this is subject to overfitting. The following code demonstrates what overfitting looks like. 
 
 ```{r include = FALSE}
   par(mfrow=c(1,1))
@@ -287,7 +338,7 @@ Although we can get really low training classification error, this is subject to
   }
 ```
 
-Hence, selecting trees is necessary. For this purpose, we can use either the out-of-bag error to estimate the exponential upper bound, or simply do cross-validation. 
+We can see that with a small number of iterations, the model is underfitting, while with a large number of iterations, the model is overfitting. Hence, selecting trees is necessary. For this purpose, we can use either the out-of-bag error to estimate the exponential upper bound, or simply do cross-validation. 
 
 ```{r include = FALSE}
   par(mfrow=c(1,1))
@@ -295,144 +346,7 @@ Hence, selecting trees is necessary. For this purpose, we can use either the out
 
 ```{r}
   # get the best number of trees from cross-validation (or oob if no cv is used)
-  gbm.perf(gbm.fit)
+  gbm.perf(gbm.fit, method = "cv")
 ```
-
-## Gradient Boosting
-
-Let's take an alternative view of this problem, we use an additive structure to fit models
-
-$$F_T(x) = \sum_{t = 1}^T \alpha_t f(x; \btheta_t)$$
-
-by minimizing a loss function 
-
-$$\underset{\{\alpha_t, \btheta_t\}_{t=1}^T}{\min} \sum_{i=1}^n L\big(y_i, F_T(x_i)\big)$$
-In this framework, we may choose a loss function $L$ that is suitable for the problem, and also choose the base learner $f(x; \btheta)$ with parameter $\btheta$. Examples of this include linear function, spline, tree, etc.. While it maybe difficult to minimize over all parameters  $\{\alpha_t, \btheta_t\}_{t=1}^T$, we may consider doing this in a stage-wise fashion. The algorithm could work in the following way:
-
-  * Set $F_0(x) = 0$
-  * For $t = 1, \ldots, T$
-      + Choose $(\alpha_t, \btheta_t)$ to minimize the loss
-        $$\underset{\alpha, \btheta}{\min} \,\, \sum_{i=1}^n L\big(y_i, F_{t-1}(x_i) + \alpha f(x_i; \btheta)\big)$$
-      + Update $F_t(x) = F_{t-1}(x) + \alpha_t f(x; \btheta_t)$
-  * Output $F_T(x)$ as the final model
-
-The previous AdaBoost example is using exponential loss function. Also, it doesn't pick an optimal $f(x; \btheta)$ at each step. We just need a model that is better than random. The step size $\alpha_t$ is optimized at each $t$ given the fitted $f(x; \btheta_t)$. 
-
-Another example is the forward stage-wise linear regression. In this case, we fit a single variable linear model at each step $t$:
-
-$$f(x, j) = \text{sign}\big(\text{Cor}(X_j, \br)\big) X_j$$
-  * $\br$ is the residual, as $r_i = y_i - F_{t-1}(x_i)$
-  * $j$ is the index that has the largest absolute correlation with $\br$
-
-Then we give a very small step size $\alpha_t$, say, $\alpha_t = 10^{-5}$, and with sign equal to the correlation between $X_j$. In this case, $F_t(x)$ is almost equivalent to the Lasso solution path, as $t$ increases. 
-
-We may notice that $r_i$ is in fact the negative gradient of the squared-error loss, as a function of the fitted function:
-
-$$r_{it} = - \left[ \frac{\partial \, \big(y_i - F(x_i)\big)^2 }{\partial \, F(x_i)} \right]_{F(x_i) = F_{t-1}(x_i)}$$
-and we are essentially fitting a weak leaner $f_t(x)$ to the residuals and update the fitted model $F_t(x)$. The following example shows the result of using a tree leaner as $f_t(x)$:
-
-```{r include = FALSE}
-  par(mar=c(2,2,2,2))
-  par(mfrow=c(1,1))
-```
-
-```{r out.width="45%"}
-  library(gbm)
-
-  # a simple regression problem
-  p = 1
-  x = seq(0, 1, 0.001)
-  fx <- function(x) 2*sin(3*pi*x)
-  y = fx(x) + rnorm(length(x))
-
-  plot(x, y, pch = 19, ylab = "y", col = "gray", cex = 0.5)
-  # plot the true regression line
-  lines(x, fx(x), lwd = 2, col = "deepskyblue")
-```
-
-We can see that the fitted model progressively approaximates the true function. 
-
-```{r out.width="90%", fig.dim = c(12, 8)}
-  # fit regression boosting
-  # I use a very large shrinkage value for demonstrating the functions
-  # in practice you should use 0.1 or even smaller values for stability
-  gbm.fit = gbm(y~x, data = data.frame(x, y), distribution = "gaussian",
-                n.trees=300, shrinkage=0.5, bag.fraction=0.8)
-
-  # somehow, cross-validation for 1 dimensional problem creates error
-  # gbm(y ~ ., data = data.frame(x, y), cv.folds = 3) # this produces an error  
-  
-  # plot the fitted regression function at several iterations
-  par(mfrow=c(2,3))
-  size=c(1,5,10,50,100,300)
-  
-  for(i in 1:6)
-  {
-    par(mar=c(2,2,3,1))
-    plot(x, y, pch = 19, ylab = "y", col = "gray", cex = 0.5)
-    lines(x, fx(x), lwd = 2, col = "deepskyblue")
-    
-    # this returns the fitted function, but not class
-    Fx = predict(gbm.fit, n.trees=size[i])
-    lines(x, Fx, lwd = 3, col = "darkorange")
-    title(paste("# of Iterations = ", size[i]))
-  }
-```
-
-This idea can be generalized to any loss function $L$. This is the __gradient boosting__ model:
-
-  * At each iteration $t$, calculate ``pseudo-residuals'', i.e., the negative gradient for each observation
-  $$g_{it} = - \left[ \frac{\partial L(y_i, F(x_i))}{\partial F(x_i)} \right]_{F(x_i) = F_{t-1}(x_i)}$$
-  * Fit $f_t(x, \btheta_t)$ to pseudo-residual $g_{it}$'s
-  * Search for the best \alert{step length} 
-  $$\alpha_t = \underset{\alpha}{\arg\min} \sum_{i=1}^n L\big(y_i, F_{t-1}(x_i) + \alpha f(x_i; \btheta_t)\big)$$
-  * Update $F_t(x) = F_{t-1}(x) + \alpha_t f(x; \btheta_t)$
-
-Hence, the only change when modeling different outcomes is to choose the loss function $L$, and derive the pseudo-residuals
-
-  * For regression, the loss is $\frac{1}{2} (y  - f(x))^2$, and the pseudo-residual is $y_i - f(x_i)$
-  * For quantile regression to model median, the loss is $|y  - f(x)|$, and the pseudo-residual is sign$(y_i - f(x_i))$
-  * For classification, we can use the negative log likelihood of a single observation $- [ y\log(p) + (1-y)\log(1-p) ]$, and express $p$ as the log-odds of a scale predictor, i.e., $f = \log(p/(1-p))$. Then the pseudo-residual is $y_i - p(x_i)$
-
-## Gradient Boosting with Logistic Link
-
-To see how the pseudo-residual of a classification model is derived, let's use the logistic link function the predicted probability \( p \) defined as:
-
-\[
-p =  \frac{e^{F(x)}}{1 + e^{F(x)}} = \frac{1}{1 + e^{-F(x)}}
-\]
-
-The negative log-likelihood for the Bernoulli distribution for a single instance is given by:
-
-\[
-L(y, p) = - [y \log(p) + (1 - y) \log(1 - p)]
-\]
-
-Let's first find the partial derivative of this loss function with respect to \( p \):
-
-\[
-\frac{\partial L(y, p)}{\partial p} = -\left[ y \frac{1}{p} - (1-y) \frac{1}{1-p} \right]
-\]
-
-The derivative of \( p \) with respect to \( F(x) \) is:
-
-\[
-\frac{\partial p}{\partial F(x)} = \frac{e^{-F(x)}}{(1 + e^{-F(x)})^2} = p(1-p)
-\]
-
-Hence, the partial derivative of the loss function with respect to \( F \) is:
-
-\begin{align*}
-\frac{\partial L(y, p)}{\partial F(x)} &= \frac{\partial L(y, p)}{\partial p} \cdot \frac{\partial p}{\partial F(x)}\\
-&= -\left[ y \frac{1}{p} - (1-y) \frac{1}{1-p} \right] \cdot p(1-p)\\
-&= -(y - y p + p - y p)\\
-&= -(y - p)
-\end{align*}
-
-Note that we should move \( F(x) \) to the negative gradient, then \( y_i - p_i \) is the pseudo-residual that we use in the boosting algorithm to fit the next tree / linear booster. The sign mainly influences the direction of the adjustment but is accounted for in the optimization process.
-
-
-
-
 
     

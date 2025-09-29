@@ -167,6 +167,10 @@ kernel-and-feature-maps-another-example
 the-representer-theorem
 the-representer-theorem-1
 notes-on-application
+support-vector-regression
+the-epsilon-insensitive-loss
+primal-and-dual-formulation-of-svr
+penalized-svr-with-rkhs
 classification-and-regression-trees
 example-classification-tree
 splitting-a-node
@@ -179,10 +183,12 @@ random-forests-1
 kernel-view-of-random-forests
 variable-importance
 adaptiveness-of-random-forest-kernel
-boosting
 adaboost
-training-error-of-adaboost
+the-algorithm
+training-error-bound
+the-stagewise-additive-model-and-probability-calibration
 tuning-the-number-of-trees
+gradient-boosting-machines
 gradient-boosting
 gradient-boosting-with-logistic-link
 k-means

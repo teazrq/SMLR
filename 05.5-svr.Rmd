@@ -1,0 +1,178 @@
+```{r, echo=FALSE, results='asis'}
+  # import macros
+  cat("<div style='display:none;'>")
+  cat(paste(scan("mathjax_header.html", what = character(), sep = "\n", quiet = TRUE), collapse = "\n"))
+  cat("</div>")
+```
+
+```{r include = FALSE}
+  options(width = 100)
+  knitr::opts_knit$set(global.par = TRUE)
+  knitr::opts_chunk$set(collapse = TRUE, fig.dim = c(6, 6),
+                        out.width = "45%", fig.align = 'center')
+```
+```{r include = FALSE}
+  par(bg="transparent")
+  par(mar=c(2,2,2,2))
+  par(mfrow=c(1,1))
+```
+
+# Support Vector Regression
+
+Support Vector Regression (SVR) is an extension of Support Vector Machines (SVM) to regression problems. Unlike SVM for classification, which tries to maximize the margin between classes, SVR attempts to fit a regression function that allows the deviation from an observed $y$ value to the fitted line within a margin of tolerance, called the **$\epsilon$-insensitive tube**. Similar to our SVM lecture, we will start from the primal formulation and then derive the dual. Eventually, utilizing the RKHS framework, we can extend SVR to nonlinear regression problems.
+
+## The $\epsilon$-insensitive Loss
+
+For an observed dataset $\{x_i, y_i\}_{i = 1}^n$, a linear SVR model aims to find a prediction rule:
+
+\[
+f(x) = \beta_0 + \bbeta^\T x,
+\]
+
+such that deviations smaller than $\epsilon$ are ignored. Formally, the $\epsilon$-insensitive loss is
+
+\begin{align}
+L_\epsilon(y, f(x)) &= \begin{cases}
+0, & \text{if } |y - f(x)| \leq \epsilon, \\
+|y - f(x)| - \epsilon, & \text{otherwise}.
+\end{cases} \\
+&= \max(0, |y - f(x)| - \epsilon).
+\end{align}
+
+
+This loss function can be visualized as 
+
+```{r, fig.width=6, fig.hight=5, out.width = "40%", fig.align = 'center'}
+  epsilon_loss <- function(y, f, epsilon) {
+    pmax(0, abs(y - f) - epsilon)
+  }
+
+  y_vals <- seq(-2.5, 2.5, length.out = 100)
+  f_vals <- 0
+  
+  plot(y_vals, epsilon_loss(y_vals, f_vals, 1), 
+       type = 'l', col = 'blue', lwd = 2,
+       ylim = c(0, 2.5),
+       xlab = 'y - f(x)', ylab = 'Loss', main = 'ε-insensitive Loss Function')
+```
+
+## Primal and Dual Formulation of SVR
+
+The primal optimization problem for SVR can be formulated as allowing at most $\epsilon$ deviation from the true $y_i$ values, while penalizing deviations larger than $\epsilon$. To do this, we again introduce the slack variables $\xi_i$ and $\xi_i'$ to account for deviations above and below the $\epsilon$-tube, respectively. Hence the primal problem is then:
+
+\begin{align}
+\min_{\beta_0, \bbeta, \xi_i, \xi_i'} \quad & \frac{1}{2} \|\bbeta\|^2 + C \sum_{i=1}^n (\xi_i + \xi_i') \\
+\text{subj. to} \quad & y_i - (\beta_0 + \bbeta^\T x_i) \leq \epsilon + \xi_i, \\
+& (\beta_0 + \bbeta^\T x_i) - y_i \leq \epsilon + \xi_i', \\
+& \xi_i, \xi_i' \geq 0, \quad i = 1, \ldots, n.
+\end{align}
+
+where $C$ is a regularization parameter that controls the trade-off between the norm of the regression function and the amount up to which deviations larger than $\epsilon$ are tolerated. The objective function consists of two parts: the first term $\frac{1}{2} \|\bbeta\|^2$ aims to keep the model as flat as possible, while the second term $C \sum_{i=1}^n (\xi_i + \xi_i')$ penalizes deviations outside the $\epsilon$-tube.
+
+To derive the dual formulation, we introduce Lagrange multipliers $\alpha_i, \alpha_i', \eta_i, \eta_i'$ for the constraint corresponding to each observation. The Lagrangian is given by:
+
+\[
+\begin{aligned}
+\cL(\beta_0, \bbeta, \bxi_i, \bxi_i', \alpha_i, \alpha_i', \eta_i, \eta_i') = & \frac{1}{2} \|\bbeta\|^2 + C \sum_{i=1}^n (\xi_i + \xi_i') \\
+& - \sum_{i=1}^n \alpha_i [\epsilon + \xi_i - y_i + (\beta_0 + \bbeta^\T x_i)] \\
+& - \sum_{i=1}^n \alpha_i' [\epsilon + \xi_i' + y_i - (\beta_0 + \bbeta^\T x_i)] \\
+& - \sum_{i=1}^n \eta_i \xi_i - \sum_{i=1}^n \eta_i' \xi_i'.
+\end{aligned}
+\]
+
+We take the partial derivatives with respect to the primal variables and set them to zero:
+
+\[
+\begin{aligned}
+\frac{\partial \cL}{\partial \bbeta} &= \bbeta - \sum_{i=1}^n (\alpha_i - \alpha_i') x_i = 0, \\
+\frac{\partial \cL}{\partial \beta_0} &= -\sum_{i=1}^n (\alpha_i - \alpha_i') = 0, \\
+\frac{\partial \cL}{\partial \xi_i} &= C - \alpha_i - \eta_i = 0, \\
+\frac{\partial \cL}{\partial \xi_i'} &= C - \alpha_i' - \eta_i' = 0.
+\end{aligned}
+\]
+
+Substituting these conditions back into the Lagrangian, the dual problem would 
+
+\[
+\begin{aligned}
+\cL(\alpha_i, \alpha_i') =& \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n (\alpha_i - \alpha_i')(\alpha_j - \alpha_j') \langle x_i, x_j \rangle \\
+& - \sum_{i=1}^n \alpha_i ( \epsilon - y_i + \sum_{j=1}^n (\alpha_j - \alpha_j') \langle x_j, x_i \rangle ) \\
+& - \sum_{i=1}^n \alpha_i' ( \epsilon + y_i - \sum_{j=1}^n (\alpha_j - \alpha_j') \langle x_j, x_i \rangle ) \\
+=& -\frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n (\alpha_i - \alpha_i')(\alpha_j - \alpha_j') \langle x_i, x_j \rangle - \epsilon \sum_{i=1}^n (\alpha_i + \alpha_i') + \sum_{i=1}^n y_i (\alpha_i - \alpha_i'). \\
+\end{aligned}
+\]
+
+The dual optimization problem is then:
+
+\[
+\begin{aligned}
+\max_{\alpha_i, \alpha_i'} \quad & -\frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n (\alpha_i - \alpha_i')(\alpha_j - \alpha_j') \langle x_i, x_j \rangle - \epsilon \sum_{i=1}^n (\alpha_i + \alpha_i') + \sum_{i=1}^n y_i (\alpha_i - \alpha_i') \\
+\text{subj. to} \quad & \sum_{i=1}^n (\alpha_i - \alpha_i') = 0, \\
+& 0 \leq \alpha_i, \alpha_i' \leq C, \quad i = 1, \ldots, n.\\
+\end{aligned}
+\]
+
+The solution to the dual problem gives us the coefficients $\alpha_i$ and $\alpha_i'$, which can be used to express the regression function as:
+
+\[
+\begin{aligned}
+f(x) &= \beta_0 + \sum_{i=1}^n (\alpha_i - \alpha_i') \langle x_i, x \rangle\\
+&= \beta_0 + \sum_{\alpha_i > 0} \langle x_i, x \rangle - \sum_{\alpha_i' > 0} \langle x_i, x \rangle\\
+&= \beta_0 + \sum_{\alpha_i + \alpha_i' > 0} (\alpha_i - \alpha_i') \langle x_i, x \rangle
+\end{aligned}
+\]
+
+And the support vectors are those data points for which $\alpha_i$ or $\alpha_i'$ are non-zero. The `e1071` package in `R` provides a convenient implementation of SVR.
+
+
+```{r fig.width=6, fig.hight=5, out.width = "60%", fig.align = 'center'}
+set.seed(123)
+n <- 50
+x <- seq(-3, 3, length.out = n)
+y <- 0.2*x + sin(x) + rnorm(n, sd = 0.2)
+
+# fit SVR
+library(e1071)
+svr.fit <- svm(y ~ x, cost = 10, epsilon = 0.5, kernel = "linear")
+
+# predictions
+yhat <- predict(svr.fit, data.frame(x))
+
+plot(x, y, col = ifelse(abs(y - yhat) <= 0.5, "gray50", "red"),
+     pch = ifelse(abs(y - yhat) <= 0.5, 19, 1),
+     xlab = "X", ylab = "Y", main = "SVR with ε-insensitive Tube", 
+     cex = ifelse(abs(y - yhat) <= 0.5, 1, 1 + 3*(abs(y - yhat) - 0.5)))
+
+# true function
+lines(x, 0.2*x + sin(x), col = "red", lwd = 2, lty = 2)
+
+# plot fitted function
+lines(x, yhat, col = "blue", lwd = 2)
+
+# add epsilon tube
+lines(x, yhat + 0.5, col = "blue", lty = 3, lwd = 2)
+lines(x, yhat - 0.5, col = "blue", lty = 3, lwd = 2)
+
+legend("topleft", legend = c("Observation In Tube", "Observation Out Tube", 
+                             "True Function", "Fitted Function", "ε-Tube"),
+       col = c("gray50", "red", "red", "blue", "blue"), pch = c(19, 1, NA, NA, NA), 
+       lty = c(NA, NA, 2, 1, 3), lwd = c(NA, NA, 2, 2, 2))
+
+```
+
+
+## Penalized SVR with RKHS
+
+The SVR formulation can be naturally extended to nonlinear regression problems using the RKHS framework. By replacing the inner product $\langle x_i, x_j \rangle$ with a kernel function $K(x_i, x_j)$, we can express the regression function in an RKHS as:
+
+\[
+\min_{\balpha \in \RR^n, b \in \RR} \quad \frac{1}{n} \sum_{i=1}^n L_\epsilon\big( y_i - (\bK\balpha)_i - b \big) + \lambda \balpha^\T \bK \balpha,
+\]
+
+where $\bK$ is the kernel matrix with entries $K_{ij} = K(x_i, x_j)$, and $(\bK\balpha)_i$ denotes the $i$-th element of the vector $\bK \balpha$. Here we include an unpenalized intercept term $b$ to account for the bias in the regression function, since for some kernels (e.g., polynomial kernel), the function space may not include constant functions. The loss function we use is the $\epsilon$-insensitive loss defined earlier. The penalty term $\lambda \balpha^\T \bK \balpha$ corresponds to the squared norm in the RKHS, which helps to control the complexity of the regression function. Two parameters need to be tuned in this formulation: the regularization parameter $\lambda$ and the width of the $\epsilon$-insensitive tube $\epsilon$. You may consider using cross-validation to select these parameters based on the prediction performance on a validation set.
+
+You may notice that the loss function has none differentiable points at $y_i - f(x_i) = \pm \epsilon$. Similar to the hinge loss, this makes the optimization problem more challenging than the standard kernel ridge regression. One common approach to use sub-gradient methods, similar to solving the Lasso solution.  
+
+
+
+
