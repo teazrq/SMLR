@@ -189,8 +189,11 @@ training-error-bound
 the-stagewise-additive-model-and-probability-calibration
 tuning-the-number-of-trees
 gradient-boosting-machines
+motivation-lasso-as-boosting
 gradient-boosting
-gradient-boosting-with-logistic-link
+gradient-boosting-with-general-loss
+logistic-link
+xgboost
 k-means
 basic-concepts
 example-1-iris-data
@@ -220,9 +223,3 @@ an-example-1
 tuning
 another-example
 reference
-motivation-stage-wise-path-of-lasso
-motivation-lasso-as-boosting
-gradient-boosting-with-general-loss
-gradient-boosting-with-trees
-logistic-link
-xgboost

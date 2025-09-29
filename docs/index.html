@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2025-09-28" />
+<meta name="date" content="2025-09-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -72,8 +72,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -83,7 +84,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -461,8 +462,11 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="23" data-path="gradient-boosting-machines.html"><a href="gradient-boosting-machines.html"><i class="fa fa-check"></i><b>23</b> Gradient Boosting Machines</a>
 <ul>
-<li class="chapter" data-level="23.1" data-path="gradient-boosting-machines.html"><a href="gradient-boosting-machines.html#gradient-boosting"><i class="fa fa-check"></i><b>23.1</b> Gradient Boosting</a></li>
-<li class="chapter" data-level="23.2" data-path="gradient-boosting-machines.html"><a href="gradient-boosting-machines.html#gradient-boosting-with-logistic-link"><i class="fa fa-check"></i><b>23.2</b> Gradient Boosting with Logistic Link</a></li>
+<li class="chapter" data-level="23.1" data-path="gradient-boosting-machines.html"><a href="gradient-boosting-machines.html#motivation-lasso-as-boosting"><i class="fa fa-check"></i><b>23.1</b> Motivation: Lasso as Boosting</a></li>
+<li class="chapter" data-level="23.2" data-path="gradient-boosting-machines.html"><a href="gradient-boosting-machines.html#gradient-boosting"><i class="fa fa-check"></i><b>23.2</b> Gradient Boosting</a></li>
+<li class="chapter" data-level="23.3" data-path="gradient-boosting-machines.html"><a href="gradient-boosting-machines.html#gradient-boosting-with-general-loss"><i class="fa fa-check"></i><b>23.3</b> Gradient Boosting with General Loss</a></li>
+<li class="chapter" data-level="23.4" data-path="gradient-boosting-machines.html"><a href="gradient-boosting-machines.html#logistic-link"><i class="fa fa-check"></i><b>23.4</b> Logistic Link</a></li>
+<li class="chapter" data-level="23.5" data-path="gradient-boosting-machines.html"><a href="gradient-boosting-machines.html#xgboost"><i class="fa fa-check"></i><b>23.5</b> xgboost</a></li>
 </ul></li>
 <li class="part"><span><b>VII Unsupervised Learning</b></span></li>
 <li class="chapter" data-level="24" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>24</b> K-Means</a>
@@ -532,14 +536,14 @@ div.csl-indent {
 <div id="header">
 <h1 class="title">Statistical Machine Learning with R</h1>
 <p class="author"><em><a href="https://sites.google.com/site/teazrq/">Ruoqing Zhu, PhD</a></em></p>
-<p class="date"><em>2025-09-28</em></p>
+<p class="date"><em>2025-09-29</em></p>
 </div>
 <div id="preface" class="section level1 unnumbered hasAnchor">
 <h1>Preface<a href="index.html#preface" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Welcome to <em>Statistical Machine Learning with R</em>! I started this project during the summer of 2018 when I was preparing for the <a href="https://teazrq.github.io/stat432/">Stat 432 course</a> (Basics of Statistical Learning). At that time, our faculty member <a href="https://daviddalpiaz.org/">Dr. David Dalpiaz</a>, had decided to move to The Ohio State University (although he moved back to UIUC later on). David introduced to me this awesome way of publishing website on GitHub, which is a very efficient approach for developing course materials. Since I have also taught <a href="https://teazrq.github.io/stat542/index.html">Stat 542</a> (Statistical Learning) for several years, I figured it could be beneficial to integrate what I have to this <a href="https://daviddalpiaz.github.io/r4sl/">existing book</a> by David and use it as the <code>R</code> material for both courses. For Stat 542, the main focus is to learn the numerical optimization behind these learning algorithms, and also be familiar with the theoretical background. As you can tell, I am not being very creative on the name, so <code>SMLR</code> it is. You can find the source file of this book on my <a href="https://teazrq.github.io/SMLR/">GitHub</a>. Recently, I started a new course <a href="https://teazrq.github.io/stat546/index.html">Stat 546</a> (Machine Learning in Data Science), which focuses more on RKHS, random forests and reinforcement learning, and I am also add more materials to this book.</p>
 <div id="target-audience" class="section level2 unnumbered hasAnchor">
 <h2>Target Audience<a href="index.html#target-audience" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This book can be suitable for students ranging from advanced undergraduate to first/second year Ph.D students who have prior knowledge in statistics. Although a student at the masters level will likely benefit most from the material. Previous experience with both basic mathematics (mainly linear algebra), statistical modeling (such as linear regressions) and R are assumed.</p>
+<p>This book can be suitable for students ranging from advanced undergraduate to first/second year PhD students who have prior knowledge in statistics. Although a student at the masters level will likely benefit most from the material. Previous experience with both basic mathematics (mainly linear algebra), statistical modeling (such as linear regressions) and <code>R</code> are assumed.</p>
 </div>
 <div id="whats-covered" class="section level2 unnumbered hasAnchor">
 <h2>What’s Covered?<a href="index.html#whats-covered" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -553,6 +557,7 @@ div.csl-indent {
 </ul></li>
 <li>Model Selection and Regularization in Linear Models
 <ul>
+<li>Model Selection</li>
 <li>Ridge regression</li>
 <li>Lasso</li>
 <li>Spline</li>
@@ -571,14 +576,15 @@ div.csl-indent {
 <li>Kernel Methods and RKHS
 <ul>
 <li>Support vector machine</li>
-<li>RKHS</li>
 <li>Kernel ridge regression</li>
+<li>Support vector regression</li>
 </ul></li>
 <li>Tree and Ensemble Models
 <ul>
 <li>Tree models</li>
 <li>Random forests</li>
-<li>Boosting</li>
+<li>AdaBoost</li>
+<li>Gradient boosting machine</li>
 </ul></li>
 <li>Unsupervised Learning
 <ul>
@@ -597,25 +603,24 @@ div.csl-indent {
 <li>Lagrangian</li>
 <li>Primal vs. dual</li>
 </ul></li>
-<li>EM and MM algorithm</li>
+<li>EM and MM algorithm (to be added)</li>
 <li>Bias-variance trade-off in
 <ul>
 <li>Linear regression</li>
 <li>KNN</li>
 <li>Kernel density estimation</li>
 </ul></li>
-<li>Kernel Trick and RKHS</li>
-<li>Representer Theorem
+<li>RKHS
 <ul>
-<li>SVM</li>
-<li>Spline</li>
+<li>Kernel Trick</li>
+<li>Representer Theorem</li>
 </ul></li>
 </ul>
 <p><strong>This book is under active development</strong>. Hence, you may encounter errors ranging from typos to broken code, to poorly explained topics. If you do, please let me know! Simply send an email to <a href="rqzhu@illinois.edu">rqzhu@illinois.edu</a> and I will make the changes as soon as possible. Or, if you know <code>R Markdown</code> and are familiar with GitHub, <a href="https://github.com/teazrq/SMLR">make a pull request and fix an issue yourself</a>! These contributions will be acknowledged.</p>
 </div>
 <div id="acknowledgements" class="section level2 unnumbered hasAnchor">
 <h2>Acknowledgements<a href="index.html#acknowledgements" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The initial contents are derived from Dr. David Dalpiaz’s book. My STAT 542 course materials are also inspired by <a href="https://stat.illinois.edu/directory/profile/liangf">Dr. Feng Liang</a> and <a href="https://stat.illinois.edu/directory/profile/jimarden">Dr. John Marden</a> who developed earlier versions of this course. And I also incorporated many online resources, which I cannot put into a comprehensive list. If you think I missed some references, please let me know.</p>
+<p>The initial contents and Bookdown code are derived from Dr. David Dalpiaz’s online book. My STAT 542 course materials are also inspired by teaching materilas from <a href="https://stat.illinois.edu/directory/profile/liangf">Dr. Feng Liang</a> and <a href="https://stat.illinois.edu/directory/profile/jimarden">Dr. John Marden</a> who developed earlier versions of this course. And I also incorporated many online resources, which I cannot put into a comprehensive list. If you think I missed some references, please let me know.</p>
 </div>
 <div id="license" class="section level2 unnumbered hasAnchor">
 <h2>License<a href="index.html#license" class="anchor-section" aria-label="Anchor link to header"></a></h2>

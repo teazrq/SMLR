@@ -34,7 +34,7 @@ Welcome to *Statistical Machine Learning with R*! I started this project during 
 
 ## Target Audience {-}
 
-This book can be suitable for students ranging from advanced undergraduate to first/second year Ph.D students who have prior knowledge in statistics. Although a student at the masters level will likely benefit most from the material. Previous experience with both basic mathematics (mainly linear algebra), statistical modeling (such as linear regressions) and R are assumed.
+This book can be suitable for students ranging from advanced undergraduate to first/second year PhD students who have prior knowledge in statistics. Although a student at the masters level will likely benefit most from the material. Previous experience with both basic mathematics (mainly linear algebra), statistical modeling (such as linear regressions) and `R` are assumed.
 
 ## What's Covered? {-}
 
@@ -45,6 +45,7 @@ This book currently covers the following topics:
       * Linear regression and linear algebra
       * Numerical optimization basics
   2. Model Selection and Regularization in Linear Models
+      * Model Selection
       * Ridge regression
       * Lasso
       * Spline
@@ -56,12 +57,13 @@ This book currently covers the following topics:
       * Kernel smoothing
   5. Kernel Methods and RKHS
       * Support vector machine
-      * RKHS
       * Kernel ridge regression
+      * Support vector regression
   6. Tree and Ensemble Models
       * Tree models
       * Random forests
-      * Boosting
+      * AdaBoost
+      * Gradient boosting machine
   7. Unsupervised Learning
       * K-means
       * Hierarchical clustering
@@ -75,21 +77,20 @@ The goal of this book is to introduce not only how to run some of the popular st
   * Optimization
     + Lagrangian
     + Primal vs. dual
-  * EM and MM algorithm
+  * EM and MM algorithm (to be added)
   * Bias-variance trade-off in
     + Linear regression
     + KNN
     + Kernel density estimation
-  * Kernel Trick and RKHS
-  * Representer Theorem
-    + SVM
-    + Spline
+  * RKHS
+    + Kernel Trick
+    + Representer Theorem
 
 **This book is under active development**. Hence, you may encounter errors ranging from typos to broken code, to poorly explained topics. If you do, please let me know! Simply send an email to [rqzhu@illinois.edu](rqzhu@illinois.edu) and I will make the changes as soon as possible. Or, if you know `R Markdown` and are familiar with GitHub, [make a pull request and fix an issue yourself](https://github.com/teazrq/SMLR)! These contributions will be acknowledged. 
 
 ## Acknowledgements {-}
 
-The initial contents are derived from Dr. David Dalpiaz's book. My STAT 542 course materials are also inspired by [Dr. Feng Liang](https://stat.illinois.edu/directory/profile/liangf) and [Dr. John Marden](https://stat.illinois.edu/directory/profile/jimarden) who developed earlier versions of this course. And I also incorporated many online resources, which I cannot put into a comprehensive list. If you think I missed some references, please let me know. 
+The initial contents and Bookdown code are derived from Dr. David Dalpiaz's online book. My STAT 542 course materials are also inspired by teaching materilas from [Dr. Feng Liang](https://stat.illinois.edu/directory/profile/liangf) and [Dr. John Marden](https://stat.illinois.edu/directory/profile/jimarden) who developed earlier versions of this course. And I also incorporated many online resources, which I cannot put into a comprehensive list. If you think I missed some references, please let me know. 
 
 ## License {-}
 
