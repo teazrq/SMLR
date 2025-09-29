@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2025-09-28" />
+<meta name="date" content="2025-09-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,28 +52,12 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.33/datatables.js"></script>
-<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
-<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
-<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
-<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
-<script src="libs/selectize-0.12.0/selectize.min.js"></script>
-<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.11.0/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -83,7 +67,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -461,8 +445,11 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="23" data-path="gradient-boosting-machines.html"><a href="gradient-boosting-machines.html"><i class="fa fa-check"></i><b>23</b> Gradient Boosting Machines</a>
 <ul>
-<li class="chapter" data-level="23.1" data-path="gradient-boosting-machines.html"><a href="gradient-boosting-machines.html#gradient-boosting"><i class="fa fa-check"></i><b>23.1</b> Gradient Boosting</a></li>
-<li class="chapter" data-level="23.2" data-path="gradient-boosting-machines.html"><a href="gradient-boosting-machines.html#gradient-boosting-with-logistic-link"><i class="fa fa-check"></i><b>23.2</b> Gradient Boosting with Logistic Link</a></li>
+<li class="chapter" data-level="23.1" data-path="gradient-boosting-machines.html"><a href="gradient-boosting-machines.html#motivation-lasso-as-boosting"><i class="fa fa-check"></i><b>23.1</b> Motivation: Lasso as Boosting</a></li>
+<li class="chapter" data-level="23.2" data-path="gradient-boosting-machines.html"><a href="gradient-boosting-machines.html#gradient-boosting"><i class="fa fa-check"></i><b>23.2</b> Gradient Boosting</a></li>
+<li class="chapter" data-level="23.3" data-path="gradient-boosting-machines.html"><a href="gradient-boosting-machines.html#gradient-boosting-with-general-loss"><i class="fa fa-check"></i><b>23.3</b> Gradient Boosting with General Loss</a></li>
+<li class="chapter" data-level="23.4" data-path="gradient-boosting-machines.html"><a href="gradient-boosting-machines.html#logistic-link"><i class="fa fa-check"></i><b>23.4</b> Logistic Link</a></li>
+<li class="chapter" data-level="23.5" data-path="gradient-boosting-machines.html"><a href="gradient-boosting-machines.html#xgboost"><i class="fa fa-check"></i><b>23.5</b> xgboost</a></li>
 </ul></li>
 <li class="part"><span><b>VII Unsupervised Learning</b></span></li>
 <li class="chapter" data-level="24" data-path="k-means.html"><a href="k-means.html"><i class="fa fa-check"></i><b>24</b> K-Means</a>
@@ -531,96 +518,168 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="gradient-boosting-machines" class="section level1 hasAnchor" number="23">
 <h1><span class="header-section-number">Chapter 23</span> Gradient Boosting Machines<a href="gradient-boosting-machines.html#gradient-boosting-machines" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>The gradient boosting machine <span class="citation">(GBM, <a href="#ref-friedman2001greedy">J. H. Friedman 2001</a>)</span> is a powerful machine learning algorithm that can be used for any (generalized) regression task. It builds an ensemble of weak learners, typically decision trees, in a stage-wise manner to create a strong predictive model. The logic is similar to AdaBoost, but the way it defines the weak learners is different. The key idea behind GBM is to iteratively add models that correct the errors of the previous models by optimizing a specified loss function.</p>
-<div id="gradient-boosting" class="section level2 hasAnchor" number="23.1">
-<h2><span class="header-section-number">23.1</span> Gradient Boosting<a href="gradient-boosting-machines.html#gradient-boosting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Let’s take an alternative view of this problem: we use an additive structure to fit models
+<p>The gradient boosting machine <span class="citation">(GBM, <a href="#ref-friedman2001greedy">Friedman 2001</a>)</span> is a powerful machine learning algorithm that can be used for any (generalized) regression task. It builds an ensemble of weak learners, typically decision trees, in a stage-wise manner to create a strong predictive model. The logic is similar to AdaBoost, but the way it defines the weak learners is different. The key idea behind GBM is to iteratively add models that correct the errors of the previous models by optimizing a specified loss function.</p>
+<div id="motivation-lasso-as-boosting" class="section level2 hasAnchor" number="23.1">
+<h2><span class="header-section-number">23.1</span> Motivation: Lasso as Boosting<a href="gradient-boosting-machines.html#motivation-lasso-as-boosting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We use a linear model to motivate gradient boosting via functional gradient descent. Consider the Lasso estimator <span class="citation">(<a href="#ref-zhao2007stagewise">Zhao and Yu 2007</a>)</span>:</p>
+<p><span class="math display">\[
+\widehat{\boldsymbol\beta}^{\text{lasso}}
+= \arg\min_{\boldsymbol\beta \in \mathbb{R}^p}
+\sum_{i=1}^n \big(y_i - \mathbf{x}_i^\top \boldsymbol\beta\big)^2 + \lambda \|\boldsymbol\beta\|_1.
+\]</span></p>
+<p>Let <span class="math inline">\(F(x) = \mathbf{x}^\top \boldsymbol\beta\)</span> denote the fitted function. At iteration <span class="math inline">\(t\)</span>, with</p>
+<p><span class="math display">\[
+F_{t-1}(x_i) = \mathbf{x}_i^\top \boldsymbol\beta^{(t-1)},
+\]</span></p>
+<p>and the residuals are</p>
+<p><span class="math display">\[
+r_i^{(t)} = y_i - F_{t-1}(x_i).
+\]</span></p>
+<p>If we recall the <strong>forward stage-wise regression</strong> algorithm, which is the same as the Lasso path-wise coordinate descent algorithm, then with an infinitesimal step size, we can see that the update only involves the coordinate most aligned with the gradient:</p>
+<p><span class="math display">\[
+j_t = \arg\max_{j \in [p]} \left| \langle X_{\cdot j}, \mathbf r^{(t)} \rangle \right|,
+\]</span></p>
+<p>and the update is essentially adding a small step in that direction, as long as the penalty <span class="math inline">\(\lambda\)</span> is chosen such that it allows the corresponding <span class="math inline">\(\beta_j\)</span> to grow:</p>
+<p><span class="math display">\[
+\beta_{j_t}^{(t)} = \beta_{j_t}^{(t-1)} + \varepsilon \cdot \operatorname{sign}\!\big(\langle X_{\cdot j_t}, \mathbf r^{(t)} \rangle\big).
+\]</span></p>
+<p>On the other hand, we can view this from a functional gradient descent perspective, with basis functions being single coordinate functions, and the loss function is the squared-error loss, without the penalty term. In this case, the residual <span class="math inline">\(r_i^{(t)}\)</span> can be interpreted as the negative gradient of the loss function with respect to the fitted value <span class="math inline">\(F(x_i)\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp; -\frac{\partial (y_i - F(x_i))^2}{\partial F(x_i)}\Big|_{F = F_{t-1}} \\
+=&amp; -\frac{\partial (y_i - \theta)^2}{\partial \theta}\Big|_{\theta = F_{t-1}} \\
+=&amp; \, 2 \, (y_i - F(x_i)) \\
+=&amp; \, 2 \, r_i^{(t)}
+\end{aligned}
+\]</span></p>
+<p>This means that at each iteration, we are fitting a weak learner (in this case, a single coordinate function) to the negative gradient of the loss function and updating our model accordingly. This perspective allows us to generalize the idea to other types of loss functions and weak learners, leading us to the concept of gradient boosting.</p>
+</div>
+<div id="gradient-boosting" class="section level2 hasAnchor" number="23.2">
+<h2><span class="header-section-number">23.2</span> Gradient Boosting<a href="gradient-boosting-machines.html#gradient-boosting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The stage-wise view from forward regression suggests a broader principle: model fitting can be framed as <strong>functional gradient descent</strong>. Rather than updating a single pre-specified coefficient, we iteratively update the fitted function in the direction of the negative gradient of the loss.</p>
+<p>Formally, we consider additive models of the form
 <span class="math display">\[
-F_T(x) = \sum_{t = 1}^T \alpha_t f(x; \boldsymbol{\theta}_t)
-\]</span>
-by minimizing a loss function
-<span class="math display">\[
-\underset{\{\alpha_t, \boldsymbol{\theta}_t\}_{t=1}^T}{\min} \sum_{i=1}^n L\big(y_i, F_T(x_i)\big).
-\]</span>
-In this framework, we may choose a loss function <span class="math inline">\(L\)</span> that is suitable for the problem, and also choose the base learner <span class="math inline">\(f(x; \boldsymbol{\theta})\)</span> with parameter <span class="math inline">\(\boldsymbol{\theta}\)</span>. Examples include linear functions, splines, trees, etc. While it may be difficult to minimize over all parameters <span class="math inline">\(\{\alpha_t, \boldsymbol{\theta}_t\}_{t=1}^T\)</span>, we may consider doing this in a stage-wise fashion. The algorithm could work in the following way:</p>
+F_T(x) = \sum_{t=1}^T \alpha_t f(x;\boldsymbol\theta_t),
+\]</span></p>
+<p>where each base learner <span class="math inline">\(f(x;\boldsymbol\theta)\)</span> may be a linear function, spline, or tree. The goal is to minimize</p>
+<p><span class="math display">\[
+\min_{\{\alpha_t,\boldsymbol\theta_t\}_{t=1}^T} \; \sum_{i=1}^n L\!\big(y_i, F_T(x_i)\big).
+\]</span></p>
+<p>Direct optimization is difficult, but we can proceed in a <strong>stage-wise</strong> manner:</p>
 <ul>
-<li>Set <span class="math inline">\(F_0(x) = 0\)</span>.</li>
-<li>For <span class="math inline">\(t = 1, \ldots, T\)</span>
-<ul>
-<li>Choose <span class="math inline">\((\alpha_t, \boldsymbol{\theta}_t)\)</span> to minimize the loss
+<li><strong>Initialize</strong>: <span class="math inline">\(F_0(x)\)</span>, often a constant function.</li>
+<li><strong>For</strong> <span class="math inline">\(t = 1, \ldots, T\)</span>:
+<ol style="list-style-type: decimal">
+<li>Compute pseudo-residuals (negative functional gradients):
 <span class="math display">\[
-\underset{\alpha, \boldsymbol{\theta}}{\min}\ \sum_{i=1}^n L\big(y_i, F_{t-1}(x_i) + \alpha\, f(x_i; \boldsymbol{\theta})\big).
+r_{it} = - \left.\frac{\partial L(y_i, F(x_i))}{\partial F(x_i)}\right|_{F = F_{t-1}}.
 \]</span></li>
-<li>Update <span class="math inline">\(F_t(x) = F_{t-1}(x) + \alpha_t\, f(x; \boldsymbol{\theta}_t)\)</span>.</li>
-</ul></li>
-<li>Output <span class="math inline">\(F_T(x)\)</span> as the final model.</li>
+<li>Fit a weak learner <span class="math inline">\(f_t(x)\)</span> to the pairs <span class="math inline">\(\{(x_i, r_{it})\}_{i=1}^n\)</span>.</li>
+<li>Choose a step size <span class="math inline">\(\alpha_t\)</span>, typically by one-dimensional line search:
+<span class="math display">\[
+\alpha_t \in \arg\min_{\alpha}\sum_{i=1}^n L\!\big(y_i, F_{t-1}(x_i) + \alpha f_t(x_i)\big).
+\]</span></li>
+<li>Update the fitted model:
+<span class="math display">\[
+F_t(x) = F_{t-1}(x) + \alpha_t f_t(x).
+\]</span></li>
+</ol></li>
+<li><strong>Output</strong>: the final model <span class="math inline">\(F_T(x)\)</span>.</li>
 </ul>
-<p>The previous AdaBoost example is using the exponential loss function. Also, it doesn’t pick an optimal <span class="math inline">\(f(x; \boldsymbol{\theta})\)</span> at each step; we just need a model that is better than random. The step size <span class="math inline">\(\alpha_t\)</span> is optimized at each <span class="math inline">\(t\)</span> given the fitted <span class="math inline">\(f(x; \boldsymbol{\theta}_t)\)</span>.</p>
-<p>Another example is the forward stage-wise linear regression. In this case, we fit a single-variable linear model at each step <span class="math inline">\(t\)</span>:
-<span class="math display">\[
-f(x; j) = \operatorname{sign}\!\big(\operatorname{Cor}(X_j, \mathbf{r})\big)\, X_j,
-\]</span>
-- <span class="math inline">\(\mathbf{r}\)</span> is the residual, <span class="math inline">\(r_i = y_i - F_{t-1}(x_i)\)</span>.
-- <span class="math inline">\(j\)</span> is the index that has the largest absolute correlation with <span class="math inline">\(\mathbf{r}\)</span>.</p>
-<p>Then we give a very small step size <span class="math inline">\(\alpha_t\)</span> (say, <span class="math inline">\(\alpha_t = 10^{-5}\)</span>) with sign equal to the correlation between <span class="math inline">\(X_j\)</span> and <span class="math inline">\(\mathbf{r}\)</span>. In this case, <span class="math inline">\(F_t(x)\)</span> is almost equivalent to the Lasso solution path as <span class="math inline">\(t\)</span> increases.</p>
-<p>We may notice that <span class="math inline">\(r_i\)</span> is in fact the negative gradient of the squared-error loss as a function of the fitted function:
-<span class="math display">\[
-r_{it} = - \left[ \frac{\partial \, \big(y_i - F(x_i)\big)^2 }{\partial \, F(x_i)} \right]_{F(x_i) = F_{t-1}(x_i)},
-\]</span>
-and we are essentially fitting a weak learner <span class="math inline">\(f_t(x)\)</span> to the residuals and updating the fitted model <span class="math inline">\(F_t(x)\)</span>. The following example shows the result of using a tree learner as <span class="math inline">\(f_t(x)\)</span>:</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="gradient-boosting-machines.html#cb179-1" tabindex="-1"></a><span class="fu">library</span>(gbm)</span>
-<span id="cb179-2"><a href="gradient-boosting-machines.html#cb179-2" tabindex="-1"></a></span>
-<span id="cb179-3"><a href="gradient-boosting-machines.html#cb179-3" tabindex="-1"></a><span class="co"># a simple regression problem</span></span>
-<span id="cb179-4"><a href="gradient-boosting-machines.html#cb179-4" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.001</span>)</span>
-<span id="cb179-5"><a href="gradient-boosting-machines.html#cb179-5" tabindex="-1"></a>fx <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">2</span><span class="sc">*</span><span class="fu">sin</span>(<span class="dv">3</span><span class="sc">*</span>pi<span class="sc">*</span>x)</span>
-<span id="cb179-6"><a href="gradient-boosting-machines.html#cb179-6" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">fx</span>(x) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x))</span>
-<span id="cb179-7"><a href="gradient-boosting-machines.html#cb179-7" tabindex="-1"></a></span>
-<span id="cb179-8"><a href="gradient-boosting-machines.html#cb179-8" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
-<span id="cb179-9"><a href="gradient-boosting-machines.html#cb179-9" tabindex="-1"></a><span class="co"># plot the true regression line</span></span>
-<span id="cb179-10"><a href="gradient-boosting-machines.html#cb179-10" tabindex="-1"></a><span class="fu">lines</span>(x, <span class="fu">fx</span>(x), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>)</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-282-1.png" width="45%" style="display: block; margin: auto;" /></p>
+<p>The following example shows the result of using a tree learner as <span class="math inline">\(f_t(x)\)</span>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="gradient-boosting-machines.html#cb1-1" tabindex="-1"></a>  <span class="fu">library</span>(gbm)</span>
+<span id="cb1-2"><a href="gradient-boosting-machines.html#cb1-2" tabindex="-1"></a>  </span>
+<span id="cb1-3"><a href="gradient-boosting-machines.html#cb1-3" tabindex="-1"></a>  <span class="co"># a simple regression problem</span></span>
+<span id="cb1-4"><a href="gradient-boosting-machines.html#cb1-4" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.001</span>)</span>
+<span id="cb1-5"><a href="gradient-boosting-machines.html#cb1-5" tabindex="-1"></a>  fx <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">2</span><span class="sc">*</span><span class="fu">sin</span>(<span class="dv">3</span><span class="sc">*</span>pi<span class="sc">*</span>x)</span>
+<span id="cb1-6"><a href="gradient-boosting-machines.html#cb1-6" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">fx</span>(x) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x))</span>
+<span id="cb1-7"><a href="gradient-boosting-machines.html#cb1-7" tabindex="-1"></a>  </span>
+<span id="cb1-8"><a href="gradient-boosting-machines.html#cb1-8" tabindex="-1"></a>  <span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb1-9"><a href="gradient-boosting-machines.html#cb1-9" tabindex="-1"></a>  <span class="co"># plot the true regression line</span></span>
+<span id="cb1-10"><a href="gradient-boosting-machines.html#cb1-10" tabindex="-1"></a>  <span class="fu">lines</span>(x, <span class="fu">fx</span>(x), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>)</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-5-1.png" width="45%" style="display: block; margin: auto;" /></p>
 <p>We can see that the fitted model progressively approximates the true function.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="gradient-boosting-machines.html#cb180-1" tabindex="-1"></a><span class="co"># fit regression boosting</span></span>
-<span id="cb180-2"><a href="gradient-boosting-machines.html#cb180-2" tabindex="-1"></a><span class="co"># (Using a large shrinkage here to visualize stagewise fits; in practice use 0.1 or smaller.)</span></span>
-<span id="cb180-3"><a href="gradient-boosting-machines.html#cb180-3" tabindex="-1"></a>gbm.fit <span class="ot">&lt;-</span> <span class="fu">gbm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> <span class="fu">data.frame</span>(x, y), <span class="at">distribution =</span> <span class="st">&quot;gaussian&quot;</span>,</span>
-<span id="cb180-4"><a href="gradient-boosting-machines.html#cb180-4" tabindex="-1"></a>               <span class="at">n.trees =</span> <span class="dv">300</span>, <span class="at">shrinkage =</span> <span class="fl">0.5</span>, <span class="at">bag.fraction =</span> <span class="fl">0.8</span>)</span>
-<span id="cb180-5"><a href="gradient-boosting-machines.html#cb180-5" tabindex="-1"></a></span>
-<span id="cb180-6"><a href="gradient-boosting-machines.html#cb180-6" tabindex="-1"></a><span class="co"># plot the fitted regression function at several iterations</span></span>
-<span id="cb180-7"><a href="gradient-boosting-machines.html#cb180-7" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
-<span id="cb180-8"><a href="gradient-boosting-machines.html#cb180-8" tabindex="-1"></a>size <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">300</span>)</span>
-<span id="cb180-9"><a href="gradient-boosting-machines.html#cb180-9" tabindex="-1"></a></span>
-<span id="cb180-10"><a href="gradient-boosting-machines.html#cb180-10" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>) {</span>
-<span id="cb180-11"><a href="gradient-boosting-machines.html#cb180-11" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
-<span id="cb180-12"><a href="gradient-boosting-machines.html#cb180-12" tabindex="-1"></a>  <span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
-<span id="cb180-13"><a href="gradient-boosting-machines.html#cb180-13" tabindex="-1"></a>  <span class="fu">lines</span>(x, <span class="fu">fx</span>(x), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>)</span>
-<span id="cb180-14"><a href="gradient-boosting-machines.html#cb180-14" tabindex="-1"></a>  <span class="co"># additive score F(x)</span></span>
-<span id="cb180-15"><a href="gradient-boosting-machines.html#cb180-15" tabindex="-1"></a>  Fx <span class="ot">&lt;-</span> <span class="fu">predict</span>(gbm.fit, <span class="at">n.trees =</span> size[i])</span>
-<span id="cb180-16"><a href="gradient-boosting-machines.html#cb180-16" tabindex="-1"></a>  <span class="fu">lines</span>(x, Fx, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span>
-<span id="cb180-17"><a href="gradient-boosting-machines.html#cb180-17" tabindex="-1"></a>  <span class="fu">title</span>(<span class="fu">paste</span>(<span class="st">&quot;# of Iterations = &quot;</span>, size[i]))</span>
-<span id="cb180-18"><a href="gradient-boosting-machines.html#cb180-18" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="SMLR_files/figure-html/unnamed-chunk-283-1.png" width="90%" style="display: block; margin: auto;" /></p>
-<p>This idea can be generalized to any loss function <span class="math inline">\(L\)</span>. This is the <strong>gradient boosting</strong> model:</p>
-<ul>
-<li>At each iteration <span class="math inline">\(t\)</span>, calculate “pseudo-residuals”, i.e., the negative gradient for each observation
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="gradient-boosting-machines.html#cb2-1" tabindex="-1"></a>  <span class="co"># fit regression boosting</span></span>
+<span id="cb2-2"><a href="gradient-boosting-machines.html#cb2-2" tabindex="-1"></a>  <span class="co"># (Using a large shrinkage here to visualize stagewise fits; in practice use 0.1 or smaller.)</span></span>
+<span id="cb2-3"><a href="gradient-boosting-machines.html#cb2-3" tabindex="-1"></a>  gbm.fit <span class="ot">&lt;-</span> <span class="fu">gbm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> <span class="fu">data.frame</span>(x, y), <span class="at">distribution =</span> <span class="st">&quot;gaussian&quot;</span>,</span>
+<span id="cb2-4"><a href="gradient-boosting-machines.html#cb2-4" tabindex="-1"></a>                 <span class="at">n.trees =</span> <span class="dv">300</span>, <span class="at">shrinkage =</span> <span class="fl">0.5</span>, <span class="at">bag.fraction =</span> <span class="fl">0.8</span>)</span>
+<span id="cb2-5"><a href="gradient-boosting-machines.html#cb2-5" tabindex="-1"></a>  </span>
+<span id="cb2-6"><a href="gradient-boosting-machines.html#cb2-6" tabindex="-1"></a>  <span class="co"># plot the fitted regression function at several iterations</span></span>
+<span id="cb2-7"><a href="gradient-boosting-machines.html#cb2-7" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb2-8"><a href="gradient-boosting-machines.html#cb2-8" tabindex="-1"></a>  size <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">300</span>)</span>
+<span id="cb2-9"><a href="gradient-boosting-machines.html#cb2-9" tabindex="-1"></a>  </span>
+<span id="cb2-10"><a href="gradient-boosting-machines.html#cb2-10" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>) {</span>
+<span id="cb2-11"><a href="gradient-boosting-machines.html#cb2-11" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
+<span id="cb2-12"><a href="gradient-boosting-machines.html#cb2-12" tabindex="-1"></a>    <span class="fu">plot</span>(x, y, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb2-13"><a href="gradient-boosting-machines.html#cb2-13" tabindex="-1"></a>    <span class="fu">lines</span>(x, <span class="fu">fx</span>(x), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;deepskyblue&quot;</span>)</span>
+<span id="cb2-14"><a href="gradient-boosting-machines.html#cb2-14" tabindex="-1"></a>    <span class="co"># additive score F(x)</span></span>
+<span id="cb2-15"><a href="gradient-boosting-machines.html#cb2-15" tabindex="-1"></a>    Fx <span class="ot">&lt;-</span> <span class="fu">predict</span>(gbm.fit, <span class="at">n.trees =</span> size[i])</span>
+<span id="cb2-16"><a href="gradient-boosting-machines.html#cb2-16" tabindex="-1"></a>    <span class="fu">lines</span>(x, Fx, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">&quot;darkorange&quot;</span>)</span>
+<span id="cb2-17"><a href="gradient-boosting-machines.html#cb2-17" tabindex="-1"></a>    <span class="fu">title</span>(<span class="fu">paste</span>(<span class="st">&quot;# of Iterations = &quot;</span>, size[i]))</span>
+<span id="cb2-18"><a href="gradient-boosting-machines.html#cb2-18" tabindex="-1"></a>  }</span></code></pre></div>
+<p><img src="SMLR_files/figure-html/unnamed-chunk-6-1.png" width="90%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gradient-boosting-with-general-loss" class="section level2 hasAnchor" number="23.3">
+<h2><span class="header-section-number">23.3</span> Gradient Boosting with General Loss<a href="gradient-boosting-machines.html#gradient-boosting-with-general-loss" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The residual-as-gradient perspective extends beyond squared error. In general, let the empirical risk be</p>
+<p><span class="math display">\[
+R(F) = \sum_{i=1}^n L\!\big(y_i, F(x_i)\big).
+\]</span></p>
+<p>At iteration <span class="math inline">\(t\)</span>, we compute the <strong>pseudo-residuals</strong></p>
+<p><span class="math display">\[
+g_{it} = - \left.\frac{\partial L(y_i, F(x_i))}{\partial F(x_i)}\right|_{F(x_i) = F_{t-1}(x_i)}.
+\]</span></p>
+<p>The stage-wise procedure is:</p>
+<ol style="list-style-type: decimal">
+<li>Fit a weak learner <span class="math inline">\(f_t(x; \boldsymbol\theta_t)\)</span> to <span class="math inline">\(\{(x_i, g_{it})\}_{i=1}^n\)</span>.</li>
+<li>Line search for step length:
 <span class="math display">\[
-g_{it} = - \left[ \frac{\partial L(y_i, F(x_i))}{\partial F(x_i)} \right]_{F(x_i) = F_{t-1}(x_i)}.
+\alpha_t = \arg\min_\alpha \sum_{i=1}^n L\!\big(y_i, F_{t-1}(x_i) + \alpha f_t(x_i)\big).
 \]</span></li>
-<li>Fit <span class="math inline">\(f_t(x; \boldsymbol{\theta}_t)\)</span> to pseudo-residuals <span class="math inline">\(g_{it}\)</span>.</li>
-<li>Search for the best step length
+<li>Update:
 <span class="math display">\[
-\alpha_t = \underset{\alpha}{\arg\min}\ \sum_{i=1}^n L\big(y_i, F_{t-1}(x_i) + \alpha\, f(x_i; \boldsymbol{\theta}_t)\big).
+F_t(x) = F_{t-1}(x) + \alpha_t f_t(x).
 \]</span></li>
-<li>Update <span class="math inline">\(F_t(x) = F_{t-1}(x) + \alpha_t\, f(x; \boldsymbol{\theta}_t)\)</span>.</li>
-</ul>
-<p>Hence, the only change when modeling different outcomes is to choose the loss function <span class="math inline">\(L\)</span> and derive the pseudo-residuals:</p>
+</ol>
+<p>This framework is the gradient boosting, since each iteration moves the fitted function in the direction of the negative gradient of the loss functional. Here are some examples of loss functions <span class="math inline">\(L\)</span> and their corresponding pseudo-residuals:</p>
 <ul>
-<li>For regression, the loss is <span class="math inline">\(\tfrac{1}{2}\big(y - F(x)\big)^2\)</span>, and the pseudo-residual is <span class="math inline">\(y_i - F(x_i)\)</span>.</li>
-<li>For quantile regression to model the median, the loss is <span class="math inline">\(|y - F(x)|\)</span>, and the pseudo-residual is <span class="math inline">\(\operatorname{sign}\!\big(y_i - F(x_i)\big)\)</span>.</li>
-<li>For classification, we can use the negative log-likelihood of a single observation <span class="math inline">\(-[ y\log(p) + (1-y)\log(1-p) ]\)</span>, and express <span class="math inline">\(p\)</span> via the log-odds of a score <span class="math inline">\(F\)</span>, i.e., <span class="math inline">\(F = \log\!\big(p/(1-p)\big)\)</span>. Then the pseudo-residual is <span class="math inline">\(y_i - p(x_i)\)</span>.</li>
+<li><p><strong>Squared error (regression)</strong><br />
+<span class="math display">\[
+L(y,F) = \tfrac{1}{2}(y - F)^2
+\quad\Rightarrow\quad g_{it} = y_i - F_{t-1}(x_i).
+\]</span></p></li>
+<li><p><strong>Absolute error (quantile regression, median case)</strong><br />
+<span class="math display">\[
+L(y,F) = |y - F|
+\quad\Rightarrow\quad g_{it} = \operatorname{sign}\!\big(y_i - F_{t-1}(x_i)\big).
+\]</span></p></li>
+<li><p><strong>Logistic loss (binary classification)</strong>
+With <span class="math inline">\(F(x) = \log\!\big(p(x)/(1-p(x))\big)\)</span>,
+<span class="math display">\[
+L(y,F) = - \big[ y\log(p(x)) + (1-y)\log(1-p(x)) \big],
+\]</span>
+<span class="math display">\[
+g_{it} = y_i - p_{t-1}(x_i),
+\quad p_{t-1}(x) = \frac{1}{1 + e^{-F_{t-1}(x)}}.
+\]</span></p></li>
+<li><p><strong>Exponential loss (AdaBoost)</strong>
+<span class="math display">\[
+L(y,F) = e^{-yF}
+\quad\Rightarrow\quad g_{it} = y_i e^{-y_i F_{t-1}(x_i)}.
+\]</span></p></li>
+<li><p><strong>Quantile loss (quantile regression)</strong><br />
+For quantile level <span class="math inline">\(\tau \in (0,1)\)</span>,
+<span class="math display">\[
+L(y,F) = \begin{cases}
+\tau (y - F), &amp; y &gt; F, \\
+(1-\tau)(F - y), &amp; y \leq F,
+\end{cases}
+\quad\Rightarrow\quad g_{it} = \tau - \mathbf{1}(y_i \leq F_{t-1}(x_i))
+\]</span></p></li>
 </ul>
 </div>
-<div id="gradient-boosting-with-logistic-link" class="section level2 hasAnchor" number="23.2">
-<h2><span class="header-section-number">23.2</span> Gradient Boosting with Logistic Link<a href="gradient-boosting-machines.html#gradient-boosting-with-logistic-link" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="logistic-link" class="section level2 hasAnchor" number="23.4">
+<h2><span class="header-section-number">23.4</span> Logistic Link<a href="gradient-boosting-machines.html#logistic-link" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To see how the pseudo-residual of a classification model is derived, let’s use the logistic link with the predicted probability <span class="math inline">\(p\)</span> defined as:
 <span class="math display">\[
 p = \frac{e^{F(x)}}{1 + e^{F(x)}} = \frac{1}{1 + e^{-F(x)}}.
@@ -649,10 +708,67 @@ L(y, p) = - \big[y \log(p) + (1 - y) \log(1 - p)\big].
 g_{it} = -\left.\frac{\partial L}{\partial F(x_i)}\right|_{F=F_{t-1}} = y_i - p_{t-1}(x_i),
 \]</span>
 which we use to fit the next tree / linear booster. The sign determines the direction of the update and is handled by using the negative gradient.</p>
-
-<div style="display:none;">
-<!-- Conflict \def\bf{\mathbf{f}} -->
 </div>
+<div id="xgboost" class="section level2 hasAnchor" number="23.5">
+<h2><span class="header-section-number">23.5</span> xgboost<a href="gradient-boosting-machines.html#xgboost" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>xgboost <span class="citation">(<a href="#ref-chen2016xgboost">Chen and Guestrin 2016</a>)</span> is a popular and efficient implementation of gradient boosting that supports various loss functions and regularization techniques. It is widely used in machine learning competitions and real-world applications due to its speed and performance.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="gradient-boosting-machines.html#cb3-1" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">2025</span>)</span>
+<span id="cb3-2"><a href="gradient-boosting-machines.html#cb3-2" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb3-3"><a href="gradient-boosting-machines.html#cb3-3" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb3-4"><a href="gradient-boosting-machines.html#cb3-4" tabindex="-1"></a>  X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n<span class="sc">*</span>p), n, p)</span>
+<span id="cb3-5"><a href="gradient-boosting-machines.html#cb3-5" tabindex="-1"></a>  f_true <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">2</span><span class="sc">*</span><span class="fu">sin</span>(x[,<span class="dv">1</span>]) <span class="sc">+</span> <span class="fl">0.5</span><span class="sc">*</span>x[,<span class="dv">2</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="fl">1.5</span><span class="sc">*</span>(x[,<span class="dv">3</span>]<span class="sc">&gt;</span><span class="dv">0</span>)</span>
+<span id="cb3-6"><a href="gradient-boosting-machines.html#cb3-6" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">f_true</span>(X) <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb3-7"><a href="gradient-boosting-machines.html#cb3-7" tabindex="-1"></a>  </span>
+<span id="cb3-8"><a href="gradient-boosting-machines.html#cb3-8" tabindex="-1"></a>  idx <span class="ot">&lt;-</span> <span class="fu">sample.int</span>(n, <span class="fu">floor</span>(<span class="fl">0.7</span><span class="sc">*</span>n))</span>
+<span id="cb3-9"><a href="gradient-boosting-machines.html#cb3-9" tabindex="-1"></a>  dtrain <span class="ot">&lt;-</span> xgboost<span class="sc">::</span><span class="fu">xgb.DMatrix</span>(X[idx,], <span class="at">label =</span> y[idx])</span>
+<span id="cb3-10"><a href="gradient-boosting-machines.html#cb3-10" tabindex="-1"></a>  dvalid <span class="ot">&lt;-</span> xgboost<span class="sc">::</span><span class="fu">xgb.DMatrix</span>(X[<span class="sc">-</span>idx,], <span class="at">label =</span> y[<span class="sc">-</span>idx])</span>
+<span id="cb3-11"><a href="gradient-boosting-machines.html#cb3-11" tabindex="-1"></a>  </span>
+<span id="cb3-12"><a href="gradient-boosting-machines.html#cb3-12" tabindex="-1"></a>  params <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb3-13"><a href="gradient-boosting-machines.html#cb3-13" tabindex="-1"></a>    <span class="at">objective =</span> <span class="st">&quot;reg:squarederror&quot;</span>,</span>
+<span id="cb3-14"><a href="gradient-boosting-machines.html#cb3-14" tabindex="-1"></a>    <span class="at">eval_metric =</span> <span class="st">&quot;rmse&quot;</span>,</span>
+<span id="cb3-15"><a href="gradient-boosting-machines.html#cb3-15" tabindex="-1"></a>    <span class="at">eta =</span> <span class="fl">0.05</span>,             <span class="co"># shrinkage</span></span>
+<span id="cb3-16"><a href="gradient-boosting-machines.html#cb3-16" tabindex="-1"></a>    <span class="at">max_depth =</span> <span class="dv">4</span>,          <span class="co"># tree depth</span></span>
+<span id="cb3-17"><a href="gradient-boosting-machines.html#cb3-17" tabindex="-1"></a>    <span class="at">subsample =</span> <span class="fl">0.8</span>,        <span class="co"># row subsampling</span></span>
+<span id="cb3-18"><a href="gradient-boosting-machines.html#cb3-18" tabindex="-1"></a>    <span class="at">colsample_bytree =</span> <span class="fl">0.8</span>, <span class="co"># column subsampling</span></span>
+<span id="cb3-19"><a href="gradient-boosting-machines.html#cb3-19" tabindex="-1"></a>    <span class="at">min_child_weight =</span> <span class="dv">5</span>,   <span class="co"># node min hessian-weighted size</span></span>
+<span id="cb3-20"><a href="gradient-boosting-machines.html#cb3-20" tabindex="-1"></a>    <span class="at">lambda =</span> <span class="fl">1.0</span>,           <span class="co"># L2 on leaf weights</span></span>
+<span id="cb3-21"><a href="gradient-boosting-machines.html#cb3-21" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="dv">0</span>               <span class="co"># L1 on leaf weights (optional)</span></span>
+<span id="cb3-22"><a href="gradient-boosting-machines.html#cb3-22" tabindex="-1"></a>  )</span>
+<span id="cb3-23"><a href="gradient-boosting-machines.html#cb3-23" tabindex="-1"></a>  </span>
+<span id="cb3-24"><a href="gradient-boosting-machines.html#cb3-24" tabindex="-1"></a>  watch <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">train =</span> dtrain, <span class="at">valid =</span> dvalid)</span>
+<span id="cb3-25"><a href="gradient-boosting-machines.html#cb3-25" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> xgboost<span class="sc">::</span><span class="fu">xgb.train</span>(</span>
+<span id="cb3-26"><a href="gradient-boosting-machines.html#cb3-26" tabindex="-1"></a>    <span class="at">params =</span> params,</span>
+<span id="cb3-27"><a href="gradient-boosting-machines.html#cb3-27" tabindex="-1"></a>    <span class="at">data =</span> dtrain,</span>
+<span id="cb3-28"><a href="gradient-boosting-machines.html#cb3-28" tabindex="-1"></a>    <span class="at">nrounds =</span> <span class="dv">3000</span>,</span>
+<span id="cb3-29"><a href="gradient-boosting-machines.html#cb3-29" tabindex="-1"></a>    <span class="at">watchlist =</span> watch,</span>
+<span id="cb3-30"><a href="gradient-boosting-machines.html#cb3-30" tabindex="-1"></a>    <span class="at">early_stopping_rounds =</span> <span class="dv">50</span>,</span>
+<span id="cb3-31"><a href="gradient-boosting-machines.html#cb3-31" tabindex="-1"></a>    <span class="at">verbose =</span> <span class="dv">0</span></span>
+<span id="cb3-32"><a href="gradient-boosting-machines.html#cb3-32" tabindex="-1"></a>  )</span>
+<span id="cb3-33"><a href="gradient-boosting-machines.html#cb3-33" tabindex="-1"></a>  </span>
+<span id="cb3-34"><a href="gradient-boosting-machines.html#cb3-34" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Best iteration:&quot;</span>, fit<span class="sc">$</span>best_iteration, </span>
+<span id="cb3-35"><a href="gradient-boosting-machines.html#cb3-35" tabindex="-1"></a>      <span class="st">&quot;  Valid RMSE:&quot;</span>, fit<span class="sc">$</span>best_score, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb3-36"><a href="gradient-boosting-machines.html#cb3-36" tabindex="-1"></a><span class="do">## Best iteration: 125   Valid RMSE: 1.089662</span></span>
+<span id="cb3-37"><a href="gradient-boosting-machines.html#cb3-37" tabindex="-1"></a>  </span>
+<span id="cb3-38"><a href="gradient-boosting-machines.html#cb3-38" tabindex="-1"></a>  <span class="co"># Feature importance (gain-based)</span></span>
+<span id="cb3-39"><a href="gradient-boosting-machines.html#cb3-39" tabindex="-1"></a>  imp <span class="ot">&lt;-</span> xgboost<span class="sc">::</span><span class="fu">xgb.importance</span>(<span class="at">model =</span> fit, <span class="at">feature_names =</span> <span class="fu">paste0</span>(<span class="st">&quot;x&quot;</span>,<span class="dv">1</span><span class="sc">:</span>p))</span>
+<span id="cb3-40"><a href="gradient-boosting-machines.html#cb3-40" tabindex="-1"></a>  <span class="fu">head</span>(imp, <span class="dv">8</span>)</span>
+<span id="cb3-41"><a href="gradient-boosting-machines.html#cb3-41" tabindex="-1"></a><span class="do">##    Feature       Gain      Cover  Frequency</span></span>
+<span id="cb3-42"><a href="gradient-boosting-machines.html#cb3-42" tabindex="-1"></a><span class="do">##     &lt;char&gt;      &lt;num&gt;      &lt;num&gt;      &lt;num&gt;</span></span>
+<span id="cb3-43"><a href="gradient-boosting-machines.html#cb3-43" tabindex="-1"></a><span class="do">## 1:      x1 0.52559558 0.20038568 0.13497823</span></span>
+<span id="cb3-44"><a href="gradient-boosting-machines.html#cb3-44" tabindex="-1"></a><span class="do">## 2:      x2 0.18380336 0.22652956 0.19883890</span></span>
+<span id="cb3-45"><a href="gradient-boosting-machines.html#cb3-45" tabindex="-1"></a><span class="do">## 3:      x3 0.16842717 0.11526674 0.08659894</span></span>
+<span id="cb3-46"><a href="gradient-boosting-machines.html#cb3-46" tabindex="-1"></a><span class="do">## 4:     x11 0.01344053 0.04193693 0.05418481</span></span>
+<span id="cb3-47"><a href="gradient-boosting-machines.html#cb3-47" tabindex="-1"></a><span class="do">## 5:     x10 0.01260888 0.04150826 0.05466860</span></span>
+<span id="cb3-48"><a href="gradient-boosting-machines.html#cb3-48" tabindex="-1"></a><span class="do">## 6:      x6 0.01253113 0.04700038 0.05805515</span></span>
+<span id="cb3-49"><a href="gradient-boosting-machines.html#cb3-49" tabindex="-1"></a><span class="do">## 7:     x12 0.01149845 0.03014653 0.05224964</span></span>
+<span id="cb3-50"><a href="gradient-boosting-machines.html#cb3-50" tabindex="-1"></a><span class="do">## 8:      x9 0.01088731 0.05297876 0.05805515</span></span>
+<span id="cb3-51"><a href="gradient-boosting-machines.html#cb3-51" tabindex="-1"></a>  </span>
+<span id="cb3-52"><a href="gradient-boosting-machines.html#cb3-52" tabindex="-1"></a>  <span class="co"># Predictions and validation RMSE</span></span>
+<span id="cb3-53"><a href="gradient-boosting-machines.html#cb3-53" tabindex="-1"></a>  pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, dvalid)</span>
+<span id="cb3-54"><a href="gradient-boosting-machines.html#cb3-54" tabindex="-1"></a>  rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((pred <span class="sc">-</span> y[<span class="sc">-</span>idx])<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb3-55"><a href="gradient-boosting-machines.html#cb3-55" tabindex="-1"></a>  rmse</span>
+<span id="cb3-56"><a href="gradient-boosting-machines.html#cb3-56" tabindex="-1"></a><span class="do">## [1] 1.089662</span></span></code></pre></div>
+
 </div>
 </div>
 
@@ -660,8 +776,14 @@ which we use to fit the next tree / linear booster. The sign determines the dire
 
 <h3> Reference<a href="reference.html#reference" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-chen2016xgboost" class="csl-entry">
+Chen, Tianqi, and Carlos Guestrin. 2016. <span>“Xgboost: A Scalable Tree Boosting System.”</span> In <em>Proceedings of the 22nd Acm Sigkdd International Conference on Knowledge Discovery and Data Mining</em>, 785–94.
+</div>
 <div id="ref-friedman2001greedy" class="csl-entry">
 Friedman, Jerome H. 2001. <span>“Greedy Function Approximation: A Gradient Boosting Machine.”</span> <em>Annals of Statistics</em>, 1189–1232.
+</div>
+<div id="ref-zhao2007stagewise" class="csl-entry">
+Zhao, Peng, and Bin Yu. 2007. <span>“Stagewise Lasso.”</span> <em>The Journal of Machine Learning Research</em> 8: 2701–26.
 </div>
 </div>
             </section>

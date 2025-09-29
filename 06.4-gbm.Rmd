@@ -21,106 +21,198 @@
 
 The gradient boosting machine [GBM, @friedman2001greedy] is a powerful machine learning algorithm that can be used for any (generalized) regression task. It builds an ensemble of weak learners, typically decision trees, in a stage-wise manner to create a strong predictive model. The logic is similar to AdaBoost, but the way it defines the weak learners is different. The key idea behind GBM is to iteratively add models that correct the errors of the previous models by optimizing a specified loss function.
 
+## Motivation: Lasso as Boosting
+
+We use a linear model to motivate gradient boosting via functional gradient descent. Consider the Lasso estimator [@zhao2007stagewise]:
+
+\[
+\widehat{\boldsymbol\beta}^{\text{lasso}}
+= \arg\min_{\boldsymbol\beta \in \mathbb{R}^p}
+\sum_{i=1}^n \big(y_i - \mathbf{x}_i^\top \boldsymbol\beta\big)^2 + \lambda \|\boldsymbol\beta\|_1.
+\]
+
+Let \(F(x) = \mathbf{x}^\top \boldsymbol\beta\) denote the fitted function. At iteration \(t\), with
+
+\[
+F_{t-1}(x_i) = \mathbf{x}_i^\top \boldsymbol\beta^{(t-1)},
+\]
+
+and the residuals are 
+
+\[
+r_i^{(t)} = y_i - F_{t-1}(x_i).
+\]
+
+If we recall the __forward stage-wise regression__ algorithm, which is the same as the Lasso path-wise coordinate descent algorithm, then with an infinitesimal step size, we can see that the update only involves the coordinate most aligned with the gradient:
+
+\[
+j_t = \arg\max_{j \in [p]} \left| \langle X_{\cdot j}, \mathbf r^{(t)} \rangle \right|,
+\]
+
+and the update is essentially adding a small step in that direction, as long as the penalty $\lambda$ is chosen such that it allows the corresponding $\beta_j$ to grow:
+
+\[
+\beta_{j_t}^{(t)} = \beta_{j_t}^{(t-1)} + \varepsilon \cdot \operatorname{sign}\!\big(\langle X_{\cdot j_t}, \mathbf r^{(t)} \rangle\big).
+\]
+
+On the other hand, we can view this from a functional gradient descent perspective, with basis functions being single coordinate functions, and the loss function is the squared-error loss, without the penalty term. In this case, the residual \(r_i^{(t)}\) can be interpreted as the negative gradient of the loss function with respect to the fitted value \(F(x_i)\):
+
+\[
+\begin{aligned}
+& -\frac{\partial (y_i - F(x_i))^2}{\partial F(x_i)}\Big|_{F = F_{t-1}} \\
+=& -\frac{\partial (y_i - \theta)^2}{\partial \theta}\Big|_{\theta = F_{t-1}} \\
+=& \, 2 \, (y_i - F(x_i)) \\
+=& \, 2 \, r_i^{(t)}
+\end{aligned}
+\]
+
+This means that at each iteration, we are fitting a weak learner (in this case, a single coordinate function) to the negative gradient of the loss function and updating our model accordingly. This perspective allows us to generalize the idea to other types of loss functions and weak learners, leading us to the concept of gradient boosting.
+
 ## Gradient Boosting
 
-Let's take an alternative view of this problem: we use an additive structure to fit models
+The stage-wise view from forward regression suggests a broader principle: model fitting can be framed as __functional gradient descent__. Rather than updating a single pre-specified coefficient, we iteratively update the fitted function in the direction of the negative gradient of the loss.
+
+Formally, we consider additive models of the form
 \[
-F_T(x) = \sum_{t = 1}^T \alpha_t f(x; \btheta_t)
+F_T(x) = \sum_{t=1}^T \alpha_t f(x;\boldsymbol\theta_t),
 \]
-by minimizing a loss function
+
+where each base learner \(f(x;\boldsymbol\theta)\) may be a linear function, spline, or tree. The goal is to minimize
+
 \[
-\underset{\{\alpha_t, \btheta_t\}_{t=1}^T}{\min} \sum_{i=1}^n L\big(y_i, F_T(x_i)\big).
+\min_{\{\alpha_t,\boldsymbol\theta_t\}_{t=1}^T} \; \sum_{i=1}^n L\!\big(y_i, F_T(x_i)\big).
 \]
-In this framework, we may choose a loss function \(L\) that is suitable for the problem, and also choose the base learner \(f(x; \btheta)\) with parameter \(\btheta\). Examples include linear functions, splines, trees, etc. While it may be difficult to minimize over all parameters \(\{\alpha_t, \btheta_t\}_{t=1}^T\), we may consider doing this in a stage-wise fashion. The algorithm could work in the following way:
 
-- Set \(F_0(x) = 0\).
-- For \(t = 1, \ldots, T\)
-  + Choose \((\alpha_t, \btheta_t)\) to minimize the loss
-    \[
-    \underset{\alpha, \btheta}{\min}\ \sum_{i=1}^n L\big(y_i, F_{t-1}(x_i) + \alpha\, f(x_i; \btheta)\big).
-    \]
-  + Update \(F_t(x) = F_{t-1}(x) + \alpha_t\, f(x; \btheta_t)\).
-- Output \(F_T(x)\) as the final model.
+Direct optimization is difficult, but we can proceed in a __stage-wise__ manner:
 
-The previous AdaBoost example is using the exponential loss function. Also, it doesn't pick an optimal \(f(x; \btheta)\) at each step; we just need a model that is better than random. The step size \(\alpha_t\) is optimized at each \(t\) given the fitted \(f(x; \btheta_t)\).
+- __Initialize__: \(F_0(x)\), often a constant function.
+- __For__ \(t = 1, \ldots, T\):
+  1. Compute pseudo-residuals (negative functional gradients):
+     \[
+     r_{it} = - \left.\frac{\partial L(y_i, F(x_i))}{\partial F(x_i)}\right|_{F = F_{t-1}}.
+     \]
+  2. Fit a weak learner \(f_t(x)\) to the pairs \(\{(x_i, r_{it})\}_{i=1}^n\).
+  3. Choose a step size \(\alpha_t\), typically by one-dimensional line search:
+     \[
+     \alpha_t \in \arg\min_{\alpha}\sum_{i=1}^n L\!\big(y_i, F_{t-1}(x_i) + \alpha f_t(x_i)\big).
+     \]
+  4. Update the fitted model:
+     \[
+     F_t(x) = F_{t-1}(x) + \alpha_t f_t(x).
+     \]
 
-Another example is the forward stage-wise linear regression. In this case, we fit a single-variable linear model at each step \(t\):
-\[
-f(x; j) = \operatorname{sign}\!\big(\operatorname{Cor}(X_j, \br)\big)\, X_j,
-\]
-- \(\br\) is the residual, \(r_i = y_i - F_{t-1}(x_i)\).
-- \(j\) is the index that has the largest absolute correlation with \(\br\).
+- __Output__: the final model \(F_T(x)\).
 
-Then we give a very small step size \(\alpha_t\) (say, \(\alpha_t = 10^{-5}\)) with sign equal to the correlation between \(X_j\) and \(\br\). In this case, \(F_t(x)\) is almost equivalent to the Lasso solution path as \(t\) increases.
-
-We may notice that \(r_i\) is in fact the negative gradient of the squared-error loss as a function of the fitted function:
-\[
-r_{it} = - \left[ \frac{\partial \, \big(y_i - F(x_i)\big)^2 }{\partial \, F(x_i)} \right]_{F(x_i) = F_{t-1}(x_i)},
-\]
-and we are essentially fitting a weak learner \(f_t(x)\) to the residuals and updating the fitted model \(F_t(x)\). The following example shows the result of using a tree learner as \(f_t(x)\):
+The following example shows the result of using a tree learner as \(f_t(x)\):
 
 ```{r include=FALSE}
-par(mar=c(2,2,2,2))
-par(mfrow=c(1,1))
-set.seed(1)
+  par(mar=c(2,2,2,2))
+  par(mfrow=c(1,1))
+  set.seed(1)
 ```
 
-```{r out.width="45%"}
-library(gbm)
-
-# a simple regression problem
-x <- seq(0, 1, 0.001)
-fx <- function(x) 2*sin(3*pi*x)
-y <- fx(x) + rnorm(length(x))
-
-plot(x, y, pch = 19, ylab = "y", col = "gray", cex = 0.5)
-# plot the true regression line
-lines(x, fx(x), lwd = 2, col = "deepskyblue")
+```{r out.width="45%", message=FALSE}
+  library(gbm)
+  
+  # a simple regression problem
+  x <- seq(0, 1, 0.001)
+  fx <- function(x) 2*sin(3*pi*x)
+  y <- fx(x) + rnorm(length(x))
+  
+  plot(x, y, pch = 19, ylab = "y", col = "gray", cex = 0.5)
+  # plot the true regression line
+  lines(x, fx(x), lwd = 2, col = "deepskyblue")
 ```
 
 We can see that the fitted model progressively approximates the true function.
 
 ```{r out.width="90%", fig.dim=c(12,8)}
-# fit regression boosting
-# (Using a large shrinkage here to visualize stagewise fits; in practice use 0.1 or smaller.)
-gbm.fit <- gbm(y ~ x, data = data.frame(x, y), distribution = "gaussian",
-               n.trees = 300, shrinkage = 0.5, bag.fraction = 0.8)
-
-# plot the fitted regression function at several iterations
-par(mfrow=c(2,3))
-size <- c(1, 5, 10, 50, 100, 300)
-
-for (i in 1:6) {
-  par(mar=c(2,2,3,1))
-  plot(x, y, pch = 19, ylab = "y", col = "gray", cex = 0.5)
-  lines(x, fx(x), lwd = 2, col = "deepskyblue")
-  # additive score F(x)
-  Fx <- predict(gbm.fit, n.trees = size[i])
-  lines(x, Fx, lwd = 3, col = "darkorange")
-  title(paste("# of Iterations = ", size[i]))
-}
+  # fit regression boosting
+  # (Using a large shrinkage here to visualize stagewise fits; in practice use 0.1 or smaller.)
+  gbm.fit <- gbm(y ~ x, data = data.frame(x, y), distribution = "gaussian",
+                 n.trees = 300, shrinkage = 0.5, bag.fraction = 0.8)
+  
+  # plot the fitted regression function at several iterations
+  par(mfrow=c(2,3))
+  size <- c(1, 5, 10, 50, 100, 300)
+  
+  for (i in 1:6) {
+    par(mar=c(2,2,3,1))
+    plot(x, y, pch = 19, ylab = "y", col = "gray", cex = 0.5)
+    lines(x, fx(x), lwd = 2, col = "deepskyblue")
+    # additive score F(x)
+    Fx <- predict(gbm.fit, n.trees = size[i])
+    lines(x, Fx, lwd = 3, col = "darkorange")
+    title(paste("# of Iterations = ", size[i]))
+  }
 ```
 
-This idea can be generalized to any loss function \(L\). This is the **gradient boosting** model:
+## Gradient Boosting with General Loss
 
-- At each iteration \(t\), calculate “pseudo-residuals”, i.e., the negative gradient for each observation
+The residual-as-gradient perspective extends beyond squared error. In general, let the empirical risk be
+
+\[
+R(F) = \sum_{i=1}^n L\!\big(y_i, F(x_i)\big).
+\]
+
+At iteration \(t\), we compute the __pseudo-residuals__
+
+\[
+g_{it} = - \left.\frac{\partial L(y_i, F(x_i))}{\partial F(x_i)}\right|_{F(x_i) = F_{t-1}(x_i)}.
+\]
+
+The stage-wise procedure is:
+
+1. Fit a weak learner \(f_t(x; \boldsymbol\theta_t)\) to \(\{(x_i, g_{it})\}_{i=1}^n\).
+2. Line search for step length:
+   \[
+   \alpha_t = \arg\min_\alpha \sum_{i=1}^n L\!\big(y_i, F_{t-1}(x_i) + \alpha f_t(x_i)\big).
+   \]
+3. Update:
+   \[
+   F_t(x) = F_{t-1}(x) + \alpha_t f_t(x).
+   \]
+
+This framework is the gradient boosting, since each iteration moves the fitted function in the direction of the negative gradient of the loss functional. Here are some examples of loss functions \(L\) and their corresponding pseudo-residuals:
+
+- __Squared error (regression)__  
   \[
-  g_{it} = - \left[ \frac{\partial L(y_i, F(x_i))}{\partial F(x_i)} \right]_{F(x_i) = F_{t-1}(x_i)}.
+  L(y,F) = \tfrac{1}{2}(y - F)^2 
+  \quad\Rightarrow\quad g_{it} = y_i - F_{t-1}(x_i).
   \]
-- Fit \(f_t(x; \btheta_t)\) to pseudo-residuals \(g_{it}\).
-- Search for the best step length
+
+- __Absolute error (quantile regression, median case)__  
   \[
-  \alpha_t = \underset{\alpha}{\arg\min}\ \sum_{i=1}^n L\big(y_i, F_{t-1}(x_i) + \alpha\, f(x_i; \btheta_t)\big).
+  L(y,F) = |y - F| 
+  \quad\Rightarrow\quad g_{it} = \operatorname{sign}\!\big(y_i - F_{t-1}(x_i)\big).
   \]
-- Update \(F_t(x) = F_{t-1}(x) + \alpha_t\, f(x; \btheta_t)\).
 
-Hence, the only change when modeling different outcomes is to choose the loss function \(L\) and derive the pseudo-residuals:
+- __Logistic loss (binary classification)__
+  With \(F(x) = \log\!\big(p(x)/(1-p(x))\big)\),
+  \[
+  L(y,F) = - \big[ y\log(p(x)) + (1-y)\log(1-p(x)) \big],
+  \]
+  \[
+  g_{it} = y_i - p_{t-1}(x_i), 
+  \quad p_{t-1}(x) = \frac{1}{1 + e^{-F_{t-1}(x)}}.
+  \]
+- __Exponential loss (AdaBoost)__
+  \[
+  L(y,F) = e^{-yF} 
+  \quad\Rightarrow\quad g_{it} = y_i e^{-y_i F_{t-1}(x_i)}.
+  \]
+- __Quantile loss (quantile regression)__  
+  For quantile level \(\tau \in (0,1)\),
+  \[
+  L(y,F) = \begin{cases}
+  \tau (y - F), & y > F, \\
+  (1-\tau)(F - y), & y \leq F,
+  \end{cases}
+  \quad\Rightarrow\quad g_{it} = \tau - \mathbf{1}(y_i \leq F_{t-1}(x_i))
+  \]
 
-- For regression, the loss is \(\tfrac{1}{2}\big(y - F(x)\big)^2\), and the pseudo-residual is \(y_i - F(x_i)\).
-- For quantile regression to model the median, the loss is \(|y - F(x)|\), and the pseudo-residual is \(\operatorname{sign}\!\big(y_i - F(x_i)\big)\).
-- For classification, we can use the negative log-likelihood of a single observation \(-[ y\log(p) + (1-y)\log(1-p) ]\), and express \(p\) via the log-odds of a score \(F\), i.e., \(F = \log\!\big(p/(1-p)\big)\). Then the pseudo-residual is \(y_i - p(x_i)\).
 
-## Gradient Boosting with Logistic Link
+## Logistic Link
 
 To see how the pseudo-residual of a classification model is derived, let's use the logistic link with the predicted probability \(p\) defined as:
 \[
@@ -155,3 +247,56 @@ Gradient boosting uses the **negative** gradient as the working response, so the
 g_{it} = -\left.\frac{\partial L}{\partial F(x_i)}\right|_{F=F_{t-1}} = y_i - p_{t-1}(x_i),
 \]
 which we use to fit the next tree / linear booster. The sign determines the direction of the update and is handled by using the negative gradient.
+
+## xgboost
+
+xgboost [@chen2016xgboost] is a popular and efficient implementation of gradient boosting that supports various loss functions and regularization techniques. It is widely used in machine learning competitions and real-world applications due to its speed and performance.
+
+```{r, message=FALSE, warning=FALSE, out.width="40%", fig.dim=c(6,6)}
+  set.seed(2025)
+  n <- 2000
+  p <- 15
+  X <- matrix(rnorm(n*p), n, p)
+  f_true <- function(x) 2*sin(x[,1]) + 0.5*x[,2]^2 - 1.5*(x[,3]>0)
+  y <- f_true(X) + rnorm(n, sd = 1)
+  
+  idx <- sample.int(n, floor(0.7*n))
+  dtrain <- xgboost::xgb.DMatrix(X[idx,], label = y[idx])
+  dvalid <- xgboost::xgb.DMatrix(X[-idx,], label = y[-idx])
+  
+  params <- list(
+    objective = "reg:squarederror",
+    eval_metric = "rmse",
+    eta = 0.05,             # shrinkage
+    max_depth = 4,          # tree depth
+    subsample = 0.8,        # row subsampling
+    colsample_bytree = 0.8, # column subsampling
+    min_child_weight = 5,   # node min hessian-weighted size
+    lambda = 1.0,           # L2 on leaf weights
+    alpha = 0               # L1 on leaf weights (optional)
+  )
+  
+  watch <- list(train = dtrain, valid = dvalid)
+  fit <- xgboost::xgb.train(
+    params = params,
+    data = dtrain,
+    nrounds = 3000,
+    watchlist = watch,
+    early_stopping_rounds = 50,
+    verbose = 0
+  )
+  
+  cat("Best iteration:", fit$best_iteration, 
+      "  Valid RMSE:", fit$best_score, "\n")
+  
+  # Feature importance (gain-based)
+  imp <- xgboost::xgb.importance(model = fit, feature_names = paste0("x",1:p))
+  head(imp, 8)
+  
+  # Predictions and validation RMSE
+  pred <- predict(fit, dvalid)
+  rmse <- sqrt(mean((pred - y[-idx])^2))
+  rmse
+```
+
+
