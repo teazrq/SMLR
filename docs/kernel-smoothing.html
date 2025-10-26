@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2025-10-23" />
+<meta name="date" content="2025-10-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -575,12 +575,12 @@ Here is a close-up demonstration of how those uniform density functions are stac
 <div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="kernel-smoothing.html#cb136-1" tabindex="-1"></a>  <span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x=</span>hwy)) <span class="sc">+</span> </span>
 <span id="cb136-2"><a href="kernel-smoothing.html#cb136-2" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..), <span class="at">colour=</span><span class="st">&quot;black&quot;</span>, <span class="at">fill=</span><span class="st">&quot;white&quot;</span>)<span class="sc">+</span></span>
 <span id="cb136-3"><a href="kernel-smoothing.html#cb136-3" tabindex="-1"></a>    <span class="fu">geom_density</span>(<span class="at">alpha=</span>.<span class="dv">2</span>, <span class="at">fill=</span><span class="st">&quot;#ff8c00&quot;</span>)</span>
-<span id="cb136-4"><a href="kernel-smoothing.html#cb136-4" tabindex="-1"></a><span class="do">## Warning: The dot-dot notation (`..density..`) was</span></span>
-<span id="cb136-5"><a href="kernel-smoothing.html#cb136-5" tabindex="-1"></a><span class="do">## deprecated in ggplot2 3.4.0.</span></span>
+<span id="cb136-4"><a href="kernel-smoothing.html#cb136-4" tabindex="-1"></a><span class="do">## Warning: The dot-dot notation (`..density..`) was deprecated in</span></span>
+<span id="cb136-5"><a href="kernel-smoothing.html#cb136-5" tabindex="-1"></a><span class="do">## ggplot2 3.4.0.</span></span>
 <span id="cb136-6"><a href="kernel-smoothing.html#cb136-6" tabindex="-1"></a><span class="do">## ℹ Please use `after_stat(density)` instead.</span></span>
 <span id="cb136-7"><a href="kernel-smoothing.html#cb136-7" tabindex="-1"></a><span class="do">## This warning is displayed once every 8 hours.</span></span>
-<span id="cb136-8"><a href="kernel-smoothing.html#cb136-8" tabindex="-1"></a><span class="do">## Call `lifecycle::last_lifecycle_warnings()` to</span></span>
-<span id="cb136-9"><a href="kernel-smoothing.html#cb136-9" tabindex="-1"></a><span class="do">## see where this warning was generated.</span></span></code></pre></div>
+<span id="cb136-8"><a href="kernel-smoothing.html#cb136-8" tabindex="-1"></a><span class="do">## Call `lifecycle::last_lifecycle_warnings()` to see where</span></span>
+<span id="cb136-9"><a href="kernel-smoothing.html#cb136-9" tabindex="-1"></a><span class="do">## this warning was generated.</span></span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-192-1.png" width="45%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="expectation-of-the-parzen-estimator" class="section level2 hasAnchor" number="13.3">

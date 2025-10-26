@@ -23,7 +23,7 @@
 <meta name="author" content="Ruoqing Zhu, PhD" />
 
 
-<meta name="date" content="2025-10-23" />
+<meta name="date" content="2025-10-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -614,12 +614,12 @@ where <span class="math inline">\(C(\cdot): \{1, \ldots, n\} \rightarrow \{1, \l
 </div>
 <div id="example-2-clustering-of-image-pixels" class="section level2 hasAnchor" number="24.3">
 <h2><span class="header-section-number">24.3</span> Example 2: clustering of image pixels<a href="k-means.html#example-2-clustering-of-image-pixels" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Let’s first load and plot an image of Leo.</p>
+<p>Let’s first load and plot an image of my kids Leo and Lia (all copy rights reserved).</p>
 <div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="k-means.html#cb186-1" tabindex="-1"></a>    <span class="fu">library</span>(jpeg)</span>
-<span id="cb186-2"><a href="k-means.html#cb186-2" tabindex="-1"></a>    img<span class="ot">&lt;-</span><span class="fu">readJPEG</span>(<span class="st">&quot;data/leo.jpg&quot;</span>)</span>
+<span id="cb186-2"><a href="k-means.html#cb186-2" tabindex="-1"></a>    img<span class="ot">&lt;-</span><span class="fu">readJPEG</span>(<span class="st">&quot;data/leolia.jpg&quot;</span>)</span>
 <span id="cb186-3"><a href="k-means.html#cb186-3" tabindex="-1"></a>    </span>
 <span id="cb186-4"><a href="k-means.html#cb186-4" tabindex="-1"></a>    <span class="co"># generate a blank image</span></span>
-<span id="cb186-5"><a href="k-means.html#cb186-5" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="fl">0.2</span>, <span class="dv">4</span>))</span>
+<span id="cb186-5"><a href="k-means.html#cb186-5" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</span>
 <span id="cb186-6"><a href="k-means.html#cb186-6" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">400</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">500</span>), <span class="at">xaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="at">yaxt =</span> <span class="st">&#39;n&#39;</span>, </span>
 <span id="cb186-7"><a href="k-means.html#cb186-7" tabindex="-1"></a>         <span class="at">bty =</span> <span class="st">&#39;n&#39;</span>, <span class="at">pch =</span> <span class="st">&#39;&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;&#39;</span>)</span>
 <span id="cb186-8"><a href="k-means.html#cb186-8" tabindex="-1"></a></span>
@@ -661,13 +661,13 @@ where <span class="math inline">\(C(\cdot): \{1, \ldots, n\} \rightarrow \{1, \l
 <span id="cb189-12"><a href="k-means.html#cb189-12" tabindex="-1"></a>  new_img[, , <span class="dv">3</span>] <span class="ot">=</span> <span class="fu">matrix</span>(new_img_expand[,<span class="dv">3</span>], <span class="dv">500</span>, <span class="dv">400</span>)</span>
 <span id="cb189-13"><a href="k-means.html#cb189-13" tabindex="-1"></a></span>
 <span id="cb189-14"><a href="k-means.html#cb189-14" tabindex="-1"></a>  <span class="co"># plot the new image</span></span>
-<span id="cb189-15"><a href="k-means.html#cb189-15" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">400</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">500</span>), <span class="at">xaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="at">yaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="at">bty =</span> <span class="st">&#39;n&#39;</span>, </span>
-<span id="cb189-16"><a href="k-means.html#cb189-16" tabindex="-1"></a>       <span class="at">pch =</span> <span class="st">&#39;&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;&#39;</span>)</span>
-<span id="cb189-17"><a href="k-means.html#cb189-17" tabindex="-1"></a></span>
-<span id="cb189-18"><a href="k-means.html#cb189-18" tabindex="-1"></a>  <span class="fu">rasterImage</span>(new_img, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">500</span>)</span></code></pre></div>
+<span id="cb189-15"><a href="k-means.html#cb189-15" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))</span>
+<span id="cb189-16"><a href="k-means.html#cb189-16" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">400</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">500</span>), <span class="at">xaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="at">yaxt =</span> <span class="st">&#39;n&#39;</span>, <span class="at">bty =</span> <span class="st">&#39;n&#39;</span>, </span>
+<span id="cb189-17"><a href="k-means.html#cb189-17" tabindex="-1"></a>       <span class="at">pch =</span> <span class="st">&#39;&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;&#39;</span>)</span>
+<span id="cb189-18"><a href="k-means.html#cb189-18" tabindex="-1"></a></span>
+<span id="cb189-19"><a href="k-means.html#cb189-19" tabindex="-1"></a>  <span class="fu">rasterImage</span>(new_img, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">500</span>)</span></code></pre></div>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-300-1.png" width="35%" style="display: block; margin: auto;" /></p>
 <p>With this technique, we can easily reproduce results with different <span class="math inline">\(k\)</span> values. Apparently, as <span class="math inline">\(k\)</span> increases, we get better resolution. <span class="math inline">\(k = 30\)</span> seems to recover the original image fairly well.</p>
-<pre><code>## Warning: did not converge in 10 iterations</code></pre>
 <p><img src="SMLR_files/figure-html/unnamed-chunk-302-1.png" width="100%" style="display: block; margin: auto;" /></p>
 
 <div style="display:none;">

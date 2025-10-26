@@ -152,14 +152,14 @@ Let's perform the $k$-means clustering
 
 ## Example 2: clustering of image pixels
 
-Let's first load and plot an image of Leo. 
+Let's first load and plot an image of my kids Leo and Lia (all copy rights reserved). 
 
-```{r fig.dim=c(6, 9), out.width = "35%"}
+```{r fig.dim=c(4, 5), out.width = "35%"}
     library(jpeg)
-    img<-readJPEG("data/leo.jpg")
+    img<-readJPEG("data/leolia.jpg")
     
     # generate a blank image
-    par(mar=rep(0.2, 4))
+    par(mar=rep(0, 4))
     plot(c(0, 400), c(0, 500), xaxt = 'n', yaxt = 'n', 
          bty = 'n', pch = '', ylab = '', xlab = '')
 
@@ -194,7 +194,7 @@ Before performing the $k$-mean clustering, let's have a quick peek at the data i
 
 The next step is to perform the $k$-mean and obtain the cluster label. For example, let's try 5 clusters. 
 
-```{r fig.dim= c(6, 9), out.width = "35%"}
+```{r fig.dim= c(4, 5), out.width = "35%"}
   kmeanfit <- kmeans(img_expand, 5)
 
   # to produce the new graph, we simply replicate the cluster mean 
@@ -209,6 +209,7 @@ The next step is to perform the $k$-mean and obtain the cluster label. For examp
   new_img[, , 3] = matrix(new_img_expand[,3], 500, 400)
 
   # plot the new image
+  par(mar=rep(0, 4))
   plot(c(0, 400), c(0, 500), xaxt = 'n', yaxt = 'n', bty = 'n', 
        pch = '', ylab = '', xlab = '')
 
@@ -232,9 +233,9 @@ With this technique, we can easily reproduce results with different $k$ values. 
   }
 ```
 
-```{r, fig.dim= c(15, 5), out.width = "100%", echo = FALSE}
-  par(mfrow=c(1,5))
-  par(mar=rep(0.2, 4))
+```{r, fig.dim= c(18, 5), out.width = "100%", echo = FALSE, warning=FALSE}
+  par(mfrow=c(1, 5))
+  par(mar=rep(0.1, 4))
   plot(c(0, 400), c(0, 540), xaxt = 'n', yaxt = 'n', bty = 'n', 
        pch = '', ylab = '', xlab = '')
   rasterImage(img, 0, 0, 400, 500)
@@ -242,7 +243,7 @@ With this technique, we can easily reproduce results with different $k$ values. 
   
   for (k in c(2, 5, 10, 30))
   {
-      par(mar=rep(0.2, 4))
+      par(mar=rep(0.1, 4))
       plot(c(0, 400), c(0, 540), xaxt = 'n', yaxt = 'n', bty = 'n', 
            pch = '', ylab = '', xlab = '')
       rasterImage(pixals.clustered(img, k), 0, 0, 400, 500)
